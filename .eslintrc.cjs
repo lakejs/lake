@@ -23,5 +23,7 @@ module.exports = {
   rules: {
     'no-console': 'error',
     'no-debugger': 'error',
+    'semi': 'error',
+    '@typescript-eslint/no-explicit-any': 'off',
   },
 };

@@ -15,3 +15,10 @@ EE.on('my-event', () => {
 });
 
 EE.emit('my-event');
+
+const Lake = {
+  event: EE,
+  verson: '',
+};
+
+Lake.verson = '0.0.1';

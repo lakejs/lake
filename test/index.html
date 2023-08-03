@@ -1,1 +1,25 @@
-test page
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Lake Tests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../assets/mocha.css" />
+  </head>
+  <body>
+    <div id="mocha"></div>
+
+    <script src="../assets/chai.js"></script>
+    <script src="../assets/mocha.js"></script>
+
+    <script class="mocha-init">
+      mocha.setup('bdd');
+      mocha.checkLeaks();
+    </script>
+    <script src="../dist/test/bundle.js"></script>
+    <script class="mocha-exec">
+      window.expect = chai.expect;
+      mocha.run();
+    </script>
+  </body>
+</html>
