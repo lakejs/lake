@@ -8,6 +8,8 @@ function showHello(divName: string, name: string) {
   }
 }
 
+console.log('foo');
+
 const EE = new EventEmitter();
 
 EE.on('my-event', () => {
