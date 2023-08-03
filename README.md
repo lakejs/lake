@@ -1,3 +1,3 @@
 # Lake.js
 
-A rich text editor for the browser
+Lake.js is a WYSIWYG editor based on the browser. It focuses on editing web-friendly content and is designed to provide better performance, stability and extensibility.
