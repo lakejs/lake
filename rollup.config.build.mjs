@@ -1,5 +1,5 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import typescript from 'rollup-plugin-typescript2';
+import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import terser from '@rollup/plugin-terser';
@@ -9,9 +9,11 @@ export default [{
   output: [{
 		file: './dist/lake.js',
 		format: 'iife',
+    sourcemap: false,
 	}, {
     file: './dist/lake.min.js',
     format: 'iife',
+    sourcemap: false,
     plugins: [
       terser(),
     ],
@@ -27,6 +29,7 @@ export default [{
   output: {
     file: './lib/lake.js',
     format: 'es',
+    sourcemap: true,
   },
 	plugins: [
 		typescript(),

@@ -1,17 +1,18 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import typescript from 'rollup-plugin-typescript2';
+import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 
 export default [{
 	input: './src/main.ts',
   output: {
-		file: './dist/bundle.js',
-		format: 'cjs'
+		file: './dist/src/bundle.js',
+		format: 'cjs',
+    sourcemap: true,
 	},
   watch: {
     include: 'src/**',
-    exclude: 'node_modules/**'
+    exclude: 'node_modules/**',
   },
 	plugins: [
     nodeResolve(),
@@ -20,20 +21,27 @@ export default [{
     json(),
 	]
 }, {
-	input: './test/index.ts',
+	input: './test/main.ts',
   output: {
 		file: './dist/test/bundle.js',
-		format: 'umd'
+		format: 'umd',
+    sourcemap: true,
+    globals: {
+      chai: 'chai',
+    },
 	},
+  external: [
+    'chai',
+  ],
   watch: {
     include: [
       'src/**',
-      'test/**'
+      'test/**',
     ],
-    exclude: 'node_modules/**'
+    exclude: 'node_modules/**',
   },
 	plugins: [
-    // nodeResolve(),
+    nodeResolve(),
 		typescript(),
     commonjs(),
     json(),

@@ -21,4 +21,4 @@ const Lake = {
   verson: '',
 };
 
-Lake.verson = '0.0.1';
+Lake.verson = '0.0.2';
