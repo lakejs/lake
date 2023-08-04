@@ -9,11 +9,11 @@ export default [{
   output: [{
     file: './dist/lake.js',
     format: 'iife',
-    sourcemap: false,
+    sourcemap: true,
   }, {
     file: './dist/lake.min.js',
     format: 'iife',
-    sourcemap: false,
+    sourcemap: true,
     plugins: [terser()],
   }],
   plugins: [

@@ -47,3 +47,12 @@ __image_snapshots__/
 .devcontainer*
 .husky/prepare-commit-msg
 .eslintcache
+
+# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

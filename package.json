@@ -53,6 +53,7 @@
     "coverage": "jest ---config jest.config.cjs --coverage"
   },
   "simple-git-hooks": {
-    "pre-commit": "npm run lint"
-  }
+    "pre-commit": "yarn lint"
+  },
+  "packageManager": "yarn@3.6.1"
 }

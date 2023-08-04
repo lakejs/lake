@@ -12,7 +12,6 @@ export default [{
   },
   watch: {
     include: 'src/**',
-    exclude: 'node_modules/**',
   },
   plugins: [
     nodeResolve(),
@@ -38,7 +37,6 @@ export default [{
       'src/**',
       'test/**'
     ],
-    exclude: 'node_modules/**',
   },
   plugins: [
     nodeResolve(),
