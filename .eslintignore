@@ -1,6 +1,7 @@
-node_modules
-dist
-lib
-coverage
 assets
+coverage
+dist
+docs
+lib
+node_modules
 LICENSE

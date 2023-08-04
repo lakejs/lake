@@ -5,35 +5,33 @@ import json from '@rollup/plugin-json';
 import terser from '@rollup/plugin-terser';
 
 export default [{
-	input: './src/main.ts',
+  input: './src/main.ts',
   output: [{
-		file: './dist/lake.js',
-		format: 'iife',
+    file: './dist/lake.js',
+    format: 'iife',
     sourcemap: false,
-	}, {
+  }, {
     file: './dist/lake.min.js',
     format: 'iife',
     sourcemap: false,
-    plugins: [
-      terser(),
-    ],
+    plugins: [terser()],
   }],
-	plugins: [
+  plugins: [
     nodeResolve(),
-		typescript(),
+    typescript(),
     commonjs(),
-    json(),
-	],
+    json()
+  ],
 }, {
-	input: './src/main.ts',
+  input: './src/main.ts',
   output: {
     file: './lib/lake.js',
     format: 'es',
     sourcemap: true,
   },
-	plugins: [
-		typescript(),
+  plugins: [
+    typescript(),
     commonjs(),
-    json(),
-	],
+    json()
+  ],
 }];

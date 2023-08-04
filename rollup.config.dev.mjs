@@ -4,46 +4,46 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 
 export default [{
-	input: './src/main.ts',
+  input: './src/main.ts',
   output: {
-		file: './dist/src/bundle.js',
-		format: 'cjs',
+    file: './dist/src/bundle.js',
+    format: 'cjs',
     sourcemap: true,
-	},
+  },
   watch: {
     include: 'src/**',
     exclude: 'node_modules/**',
   },
-	plugins: [
+  plugins: [
     nodeResolve(),
-		typescript(),
+    typescript(),
     commonjs(),
-    json(),
-	]
+    json()
+  ],
 }, {
-	input: './test/main.ts',
+  input: './test/main.ts',
   output: {
-		file: './dist/test/bundle.js',
-		format: 'umd',
+    file: './dist/test/bundle.js',
+    format: 'umd',
     sourcemap: true,
     globals: {
       chai: 'chai',
     },
-	},
+  },
   external: [
-    'chai',
+    'chai'
   ],
   watch: {
     include: [
       'src/**',
-      'test/**',
+      'test/**'
     ],
     exclude: 'node_modules/**',
   },
-	plugins: [
+  plugins: [
     nodeResolve(),
-		typescript(),
+    typescript(),
     commonjs(),
-    json(),
-	]
+    json()
+  ],
 }];

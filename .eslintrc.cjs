@@ -3,27 +3,29 @@ module.exports = {
   extends: [
     'prettier',
     'eslint:recommended',
-    'plugin:jest/recommended',
-    'plugin:markdown/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/stylistic',
+    'plugin:@typescript-eslint/recommended'
   ],
   parser: '@typescript-eslint/parser',
   plugins: [
-    '@typescript-eslint',
-    'jest',
-    'markdown',
+    '@typescript-eslint'
   ],
   env: {
-    browser: true,
     node: true,
-    jest: true,
-    es6: true,
   },
   rules: {
     'no-console': 'error',
     'no-debugger': 'error',
-    'semi': 'error',
+    'comma-dangle': ['error', {
+      'arrays': 'never',
+      'objects': 'always',
+      'imports': 'never',
+      'exports': 'never',
+      'functions': 'never',
+    }],
+    'object-shorthand': ['error', 'always'],
+    'indent': ['error', 2],
+    'semi': ['error', 'always'],
+    'quotes': ['error', 'single'],
     '@typescript-eslint/no-explicit-any': 'off',
   },
 };
