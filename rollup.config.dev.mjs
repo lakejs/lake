@@ -4,10 +4,10 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 
 export default [{
-  input: './src/main.ts',
+  input: './src/index.ts',
   output: {
     file: './dist/src/bundle.js',
-    format: 'cjs',
+    format: 'iife',
     sourcemap: true,
   },
   watch: {
@@ -20,10 +20,10 @@ export default [{
     json()
   ],
 }, {
-  input: './test/main.ts',
+  input: './test/index.ts',
   output: {
     file: './dist/test/bundle.js',
-    format: 'umd',
+    format: 'iife',
     sourcemap: true,
     globals: {
       chai: 'chai',

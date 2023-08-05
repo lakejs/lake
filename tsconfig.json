@@ -2,10 +2,11 @@
   "compilerOptions": {
     "outDir": "temp",
     "moduleResolution": "node",
-    "target": "es2015",
+    "target": "es6",
     "allowJs": false,
-    "sourceMap": false,
+    "sourceMap": true,
     "strict": true,
+    "resolveJsonModule": true,
     "noUnusedLocals": true,
     "removeComments": false,
     "esModuleInterop": true
