@@ -20,9 +20,9 @@ export default [{
     json()
   ],
 }, {
-  input: './test/index.ts',
+  input: './tests/index.ts',
   output: {
-    file: './dist/test/bundle.js',
+    file: './dist/tests/bundle.js',
     format: 'iife',
     sourcemap: true,
     globals: {
@@ -35,7 +35,7 @@ export default [{
   watch: {
     include: [
       'src/**',
-      'test/**'
+      'tests/**'
     ],
   },
   plugins: [
