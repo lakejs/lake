@@ -3,12 +3,11 @@
     "outDir": "temp",
     "moduleResolution": "node",
     "target": "es2015",
-    "declaration": true,
-    "sourceMap": true,
+    "allowJs": false,
+    "sourceMap": false,
     "strict": true,
-    "noUnusedParameters": true,
     "noUnusedLocals": true,
-    "noImplicitAny": true,
+    "removeComments": false,
     "esModuleInterop": true
   }
 }
