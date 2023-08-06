@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { getWindow } from '../../src/utils';
 
-describe('utils.getWindow()', function () {
+describe('getWindow in utils', () => {
   it('node is null', () => {
     expect(getWindow(null)).to.equal(window);
   });
@@ -19,7 +19,7 @@ describe('utils.getWindow()', function () {
   });
 
   it('node is text node', () => {
-    const textNode = document.createTextNode('foo');
+    const textNode = document.createTextNode('one');
     document.body.appendChild(textNode);
     expect(getWindow(textNode)).to.equal(window);
     document.body.removeChild(textNode);

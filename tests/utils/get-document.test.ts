@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { getDocument } from '../../src/utils';
 
-describe('utils.getDocument()', function () {
+describe('getDocument in utils', () => {
   it('node is null', () => {
     expect(getDocument(null)).to.equal(document);
   });
@@ -19,7 +19,7 @@ describe('utils.getDocument()', function () {
   });
 
   it('node is text node', () => {
-    const textNode = document.createTextNode('foo');
+    const textNode = document.createTextNode('one');
     document.body.appendChild(textNode);
     expect(getDocument(textNode)).to.equal(document);
     document.body.removeChild(textNode);
