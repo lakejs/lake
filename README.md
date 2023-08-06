@@ -7,8 +7,8 @@ Lake.js is a WYSIWYG editor based on the browser that focuses on editing web-fri
 To develop or just to have a look at the demo, first download the latest source code. Then, start a combined server that includes HTTP serving and real-time compilation.
 
 ``` bash
-git clone https://github.com/lakejs/lake.git
-cd lake
+git clone https://github.com/lakejs/lakejs.git
+cd lakejs
 # install all the dependencies
 yarn install
 # start the local server
@@ -41,4 +41,4 @@ yarn build
 
 ## License
 
-[MIT](https://github.com/lakejs/lake/blob/master/LICENSE)
+[MIT](https://github.com/lakejs/lakejs/blob/master/LICENSE)

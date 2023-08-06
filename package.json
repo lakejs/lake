@@ -7,7 +7,7 @@
   "homepage": "http://lakejs.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lakejs/lake.git"
+    "url": "https://github.com/lakejs/lakejs.git"
   },
   "keywords": [
     "rich text",
@@ -15,7 +15,7 @@
     "editor"
   ],
   "bugs": {
-    "url": "https://github.com/lakejs/lake/issues"
+    "url": "https://github.com/lakejs/lakejs/issues"
   },
   "dependencies": {
     "eventemitter3": "^4.0.7"
