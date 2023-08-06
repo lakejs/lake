@@ -49,7 +49,6 @@ export class Nodes {
         type,
         callback,
       });
-      return true;
     });
     return this;
   }
