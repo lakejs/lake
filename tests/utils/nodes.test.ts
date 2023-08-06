@@ -64,5 +64,52 @@ describe('Nodes in utils', () => {
     expect(thirdNode).to.equal(undefined);
   });
 
+  it('nodes.on() and nodes.off() - single event', () => {
+    const nodes = new Nodes([element, document.body]);
+    const listener = () => {
+      element.innerHTML = 'click event';
+    };
+    expect(nodes.events.length).to.equal(2);
+    // bind an event
+    nodes.on('click', listener);
+    expect(nodes.events[0].length).to.equal(1);
+    expect(nodes.events[0][0].type).to.equal('click');
+    expect(nodes.events[0][0].callback).to.equal(listener);
+    expect(nodes.events[1].length).to.equal(1);
+    expect(nodes.events[1][0].type).to.equal('click');
+    expect(nodes.events[1][0].callback).to.equal(listener);
+    // remove an event
+    nodes.off('click', listener);
+    expect(nodes.events[0].length).to.equal(0);
+    expect(nodes.events[1].length).to.equal(0);
+  });
 
+  it('nodes.on() and nodes.off() - multiple events', () => {
+    const nodes = new Nodes([element, document.body]);
+    const clickListener = () => {
+      element.innerHTML = 'click event';
+    };
+    const mousedownListener = () => {
+      element.innerHTML = 'mousedown event';
+    };
+    const mouseupListener = () => {
+      element.innerHTML = 'mouseup event';
+    };
+    // bind events
+    nodes.on('click', clickListener);
+    nodes.on('mousedown', mousedownListener);
+    nodes.on('mouseup', mouseupListener);
+    expect(nodes.events[0].length).to.equal(3);
+    expect(nodes.events[0][0].type).to.equal('click');
+    expect(nodes.events[0][1].type).to.equal('mousedown');
+    expect(nodes.events[0][2].type).to.equal('mouseup');
+    // remove an event
+    nodes.off('mousedown');
+    expect(nodes.events[0].length).to.equal(2);
+    expect(nodes.events[0][0].type).to.equal('click');
+    expect(nodes.events[0][1].type).to.equal('mouseup');
+    // remove all events
+    nodes.off();
+    expect(nodes.events[0].length).to.equal(0);
+  });
 });

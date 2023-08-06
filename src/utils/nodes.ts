@@ -57,10 +57,16 @@ export class Nodes {
     this.each((node, index) => {
       const eventItems = this.events[index];
       eventItems.forEach((item, index) => {
-        if (type! || type === item.type && (!callback || callback === item.callback)) {
-          node.removeEventListener(type, item.callback, false);
-          eventItems.splice(index, 1);
+        if (!type || type === item.type && (!callback || callback === item.callback)) {
+          node.removeEventListener(item.type, item.callback, false);
+          eventItems[index] = {
+            type: '',
+            callback: () => {},
+          };
         }
+      });
+      this.events[index] = eventItems.filter(item => {
+        return item.type !== '';
       });
     });
     return this;
