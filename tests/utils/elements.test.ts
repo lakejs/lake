@@ -33,13 +33,23 @@ describe('Elements in utils', () => {
     expect(new Elements(element).win).to.equal(window);
   });
 
-  it('elements.name()', () => {
-    expect(new Elements(element).name()).to.equal('div');
-  });
-
   it('elements.get()', () => {
     const elements = new Elements([element, elementTwo, document.body]);
     expect(elements.get(2).name()).to.equal('body');
+  });
+
+  it('elements.id()', () => {
+    const elements = new Elements([element, elementTwo, document.body]);
+    expect(elements.id()).to.be.a('number');
+    expect(elements.id(0)).to.be.a('number');
+    expect(elements.id(1)).to.be.a('number');
+  });
+
+  it('elements.name()', () => {
+    const elements = new Elements([element, elementTwo, document.body]);
+    expect(elements.name()).to.equal('div');
+    expect(elements.name(0)).to.equal('div');
+    expect(elements.name(1)).to.equal('p');
   });
 
   it('elements.each()', () => {
@@ -71,21 +81,20 @@ describe('Elements in utils', () => {
     const listener = () => {
       element.innerHTML = 'click event';
     };
-    expect(elements.events.length).to.equal(2);
     // bind an event
     const onResult = elements.on('click', listener);
     expect(onResult).to.equal(elements);
-    expect(elements.events[0].length).to.equal(1);
-    expect(elements.events[0][0].type).to.equal('click');
-    expect(elements.events[0][0].callback).to.equal(listener);
-    expect(elements.events[1].length).to.equal(1);
-    expect(elements.events[1][0].type).to.equal('click');
-    expect(elements.events[1][0].callback).to.equal(listener);
+    expect(elements.getEventListeners().length).to.equal(1);
+    expect(elements.getEventListeners()[0].type).to.equal('click');
+    expect(elements.getEventListeners()[0].callback).to.equal(listener);
+    expect(elements.getEventListeners(1).length).to.equal(1);
+    expect(elements.getEventListeners(1)[0].type).to.equal('click');
+    expect(elements.getEventListeners(1)[0].callback).to.equal(listener);
     // remove an event
     const offResult = elements.off('click', listener);
     expect(offResult).to.equal(elements);
-    expect(elements.events[0].length).to.equal(0);
-    expect(elements.events[1].length).to.equal(0);
+    expect(elements.getEventListeners().length).to.equal(0);
+    expect(elements.getEventListeners(1).length).to.equal(0);
   });
 
   it('elements.on() and elements.off() : multiple events', () => {
@@ -103,18 +112,52 @@ describe('Elements in utils', () => {
     elements.on('click', clickListener);
     elements.on('mousedown', mousedownListener);
     elements.on('mouseup', mouseupListener);
-    expect(elements.events[0].length).to.equal(3);
-    expect(elements.events[0][0].type).to.equal('click');
-    expect(elements.events[0][1].type).to.equal('mousedown');
-    expect(elements.events[0][2].type).to.equal('mouseup');
+    expect(elements.getEventListeners().length).to.equal(3);
+    expect(elements.getEventListeners()[0].type).to.equal('click');
+    expect(elements.getEventListeners()[1].type).to.equal('mousedown');
+    expect(elements.getEventListeners()[2].type).to.equal('mouseup');
     // remove an event
     elements.off('mousedown');
-    expect(elements.events[0].length).to.equal(2);
-    expect(elements.events[0][0].type).to.equal('click');
-    expect(elements.events[0][1].type).to.equal('mouseup');
+    expect(elements.getEventListeners().length).to.equal(2);
+    expect(elements.getEventListeners()[0].type).to.equal('click');
+    expect(elements.getEventListeners()[1].type).to.equal('mouseup');
+    elements.fire('mousedown');
+    expect(element.innerHTML).to.equal('one');
     // remove all events
     elements.off();
-    expect(elements.events[0].length).to.equal(0);
+    expect(elements.getEventListeners().length).to.equal(0);
+    elements.fire('click');
+    elements.fire('mouseup');
+    expect(element.innerHTML).to.equal('one');
+  });
+
+  it('elements.fire() : multiple events', () => {
+    const elements = new Elements(element);
+    let clickCount = 0;
+    const clickListenerOne = () => {
+      element.innerHTML = 'click event one';
+      clickCount++;
+    };
+    const clickListenerTwo = () => {
+      element.innerHTML = 'click event two';
+      clickCount++;
+    };
+    const mousedownListener = () => {
+      element.innerHTML = 'mousedown event';
+    };
+    // bind events
+    elements.on('click', clickListenerOne);
+    elements.on('click', clickListenerTwo);
+    elements.on('mousedown', mousedownListener);
+    expect(element.innerHTML).to.equal('one');
+    elements.fire('click');
+    expect(element.innerHTML).to.equal('click event two');
+    elements.fire('click');
+    expect(clickCount).to.equal(4);
+    elements.fire('mousedown');
+    expect(element.innerHTML).to.equal('mousedown event');
+    // remove all events
+    elements.off();
   });
 
   it('elements.attr(): single key', () => {

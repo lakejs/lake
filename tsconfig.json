@@ -4,12 +4,12 @@
     "moduleResolution": "node",
     "target": "es6",
     "allowJs": false,
+    "noImplicitAny": false,
+    "removeComments": false,
     "sourceMap": true,
     "strict": true,
-    "noImplicitAny": true,
     "resolveJsonModule": true,
     "noUnusedLocals": true,
-    "removeComments": false,
     "esModuleInterop": true
   }
 }
