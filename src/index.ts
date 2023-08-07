@@ -1,4 +1,5 @@
 import { EventEmitter } from 'eventemitter3';
+import './utils';
 import pkg from '../package.json';
 
 const event = new EventEmitter();

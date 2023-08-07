@@ -2,7 +2,7 @@
 
 * string utilities
 * event utilities
-* node utilities
+* element utilities
 * range utilities
 * dom utilities
 * path utilities

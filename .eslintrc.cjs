@@ -15,6 +15,7 @@ module.exports = {
   rules: {
     'no-console': 'error',
     'no-debugger': 'error',
+    'no-prototype-builtins': 'off',
     'comma-dangle': ['error', {
       'arrays': 'never',
       'objects': 'always',
