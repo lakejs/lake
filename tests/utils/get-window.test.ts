@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { getWindow } from '../../src/utils';
 
-describe('getWindow in utils', () => {
+describe('getWindow of utils', () => {
   it('node is null', () => {
     expect(getWindow(null)).to.equal(window);
   });

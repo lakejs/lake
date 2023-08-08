@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { Elements } from '../../src/utils';
 
-describe('Elements in utils', () => {
+describe('Elements of utils', () => {
 
   let element: Element;
   let elementTwo: Element;
@@ -20,39 +20,39 @@ describe('Elements in utils', () => {
     document.body.removeChild(elementTwo);
   });
 
-  it('elements.length', () => {
+  it('property: length', () => {
     expect(new Elements(element).length).to.equal(1);
     expect(new Elements([element, document.body]).length).to.equal(2);
   });
 
-  it('elements.doc', () => {
+  it('property: doc', () => {
     expect(new Elements(element).doc).to.equal(document);
   });
 
-  it('elements.win', () => {
+  it('property: win', () => {
     expect(new Elements(element).win).to.equal(window);
   });
 
-  it('elements.get()', () => {
+  it('method: get', () => {
     const elements = new Elements([element, elementTwo, document.body]);
     expect(elements.get(2).name()).to.equal('body');
   });
 
-  it('elements.id()', () => {
+  it('method: id', () => {
     const elements = new Elements([element, elementTwo, document.body]);
     expect(elements.id()).to.be.a('number');
     expect(elements.id(0)).to.be.a('number');
     expect(elements.id(1)).to.be.a('number');
   });
 
-  it('elements.name()', () => {
+  it('method: name', () => {
     const elements = new Elements([element, elementTwo, document.body]);
     expect(elements.name()).to.equal('div');
     expect(elements.name(0)).to.equal('div');
     expect(elements.name(1)).to.equal('p');
   });
 
-  it('elements.each()', () => {
+  it('method: each', () => {
     const elements = new Elements([element, elementTwo, document.body]);
     let firstElement: any;
     let secondElement: any;
@@ -76,7 +76,7 @@ describe('Elements in utils', () => {
     expect(thirdElement).to.equal(undefined);
   });
 
-  it('elements.on() and elements.off() : single event', () => {
+  it('event methods: to add an event to a few elements', () => {
     const elements = new Elements([element, document.body]);
     const listener = () => {
       element.innerHTML = 'click event';
@@ -97,7 +97,7 @@ describe('Elements in utils', () => {
     expect(elements.getEventListeners(1).length).to.equal(0);
   });
 
-  it('elements.on() and elements.off() : multiple events', () => {
+  it('event methods: to add multi-event to a few elements', () => {
     const elements = new Elements([element, document.body]);
     const clickListener = () => {
       element.innerHTML = 'click event';
@@ -131,7 +131,7 @@ describe('Elements in utils', () => {
     expect(element.innerHTML).to.equal('one');
   });
 
-  it('elements.fire() : multiple events', () => {
+  it('event methods: to add multi-event that is the same type to an element', () => {
     const elements = new Elements(element);
     let clickCount = 0;
     const clickListenerOne = () => {
@@ -160,17 +160,44 @@ describe('Elements in utils', () => {
     elements.off();
   });
 
-  it('elements.attr(): single key', () => {
+  it('event methods: an element with multi-element-instance', () => {
+    const elementsOne = new Elements(element);
+    let clickCount = 0;
+    const clickListenerOne = () => {
+      element.innerHTML = 'click event one';
+      clickCount++;
+    };
+    const clickListenerTwo = () => {
+      element.innerHTML = 'click event two';
+      clickCount++;
+    };
+    const elementsTwo = new Elements(element);
+    // bind events
+    elementsOne.on('click', clickListenerOne);
+    elementsOne.on('click', clickListenerTwo);
+    elementsTwo.fire('click');
+    expect(element.innerHTML).to.equal('click event two');
+    elementsTwo.fire('click');
+    expect(clickCount).to.equal(4);
+    // remove all events
+    elementsTwo.off();
+    expect(elementsOne.getEventListeners().length).to.equal(0);
+
+  });
+
+  it('attribute methods: single key', () => {
     const elements = new Elements([element, document.body]);
     elements.attr('class', 'my-class');
     expect(elements.attr('class')).to.equal('my-class');
     expect(elements.get(1).attr('class')).to.equal('my-class');
+    expect(elements.hasAttr('class')).to.equal(true);
     elements.removeAttr('class');
     expect(elements.attr('class')).to.equal('');
     expect(elements.get(1).attr('class')).to.equal('');
+    expect(elements.hasAttr('class')).to.equal(false);
   });
 
-  it('elements.attr() : multiple keys', () => {
+  it('attribute methods: multi-key', () => {
     const elements = new Elements([element, document.body]);
     elements.attr({
       id: 'my-id',
@@ -188,11 +215,13 @@ describe('Elements in utils', () => {
     expect(elements.attr('id')).to.equal('my-id');
     expect(elements.attr('class')).to.equal('my-class');
     expect(elements.attr('data-one')).to.equal('my-data-one');
+    expect(elements.hasAttr('data-one')).to.equal(true);
     elements.removeAttr('id');
     elements.removeAttr('class');
     elements.removeAttr('data-one');
     expect(elements.attr('id')).to.equal('');
     expect(elements.attr('class')).to.equal('');
     expect(elements.attr('data-one')).to.equal('');
+    expect(elements.hasAttr('data-one')).to.equal(false);
   });
 });

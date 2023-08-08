@@ -9,6 +9,7 @@ type EventItemType = {
   callback: EventListener,
 };
 
+// eventData is a nested array for storing all events which include types and listeners.
 const eventData: Array<Array<EventItemType>> = [];
 
 let lastElementId = 0;
@@ -113,24 +114,28 @@ export class Elements {
     return eventData[elementId];
   }
 
-  attr(key: string | object, value?: string): string | this {
-    if (typeof key === 'object') {
-      forEach(key, (k, v) => {
+  hasAttr(name: string): boolean {
+    return this.elements[0].hasAttribute(name);
+  }
+
+  attr(name: string | object, value?: string): string | this {
+    if (typeof name === 'object') {
+      forEach(name, (k, v) => {
         this.attr(k, v);
       });
       return this;
     }
     if (value === undefined) {
-      return this.elements[0].getAttribute(key) || '';
+      return this.elements[0].getAttribute(name) || '';
     }
     return this.each(element => {
-      element.setAttribute(key, value);
+      element.setAttribute(name, value);
     });
   }
 
-  removeAttr(key: string): this {
+  removeAttr(name: string): this {
     return this.each(element => {
-      element.removeAttribute(key);
+      element.removeAttribute(name);
     });
   }
 }
