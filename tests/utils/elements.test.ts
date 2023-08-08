@@ -35,7 +35,12 @@ describe('Elements of utils', () => {
 
   it('method: get', () => {
     const elements = new Elements([element, elementTwo, document.body]);
-    expect(elements.get(2).name()).to.equal('body');
+    expect(elements.get(1).innerHTML).to.equal('two');
+  });
+
+  it('method: eq', () => {
+    const elements = new Elements([element, elementTwo, document.body]);
+    expect(elements.eq(2).name()).to.equal('body');
   });
 
   it('method: id', () => {
@@ -189,11 +194,11 @@ describe('Elements of utils', () => {
     const elements = new Elements([element, document.body]);
     elements.attr('class', 'my-class');
     expect(elements.attr('class')).to.equal('my-class');
-    expect(elements.get(1).attr('class')).to.equal('my-class');
+    expect(elements.eq(1).attr('class')).to.equal('my-class');
     expect(elements.hasAttr('class')).to.equal(true);
     elements.removeAttr('class');
     expect(elements.attr('class')).to.equal('');
-    expect(elements.get(1).attr('class')).to.equal('');
+    expect(elements.eq(1).attr('class')).to.equal('');
     expect(elements.hasAttr('class')).to.equal(false);
   });
 

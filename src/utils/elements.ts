@@ -2,7 +2,7 @@ import { forEach } from './for-each';
 import { getDocument } from './get-document';
 import { getWindow } from './get-window';
 
-type EachCallback = (element: Element, index: number) => boolean | void;
+type EachCallback = (domElement: Element, index: number) => boolean | void;
 
 type EventItemType = {
   type: string,
@@ -15,49 +15,50 @@ const eventData: Array<Array<EventItemType>> = [];
 let lastElementId = 0;
 
 export class Elements {
-  elements: Array<Element>;
+  domElements: Array<Element>;
   length: number;
   doc: Document;
   win: Window;
 
-  constructor(element: Element | Array<Element>) {
-    this.elements = Array.isArray(element) ? element : [element];
-    for (let i = 0; i < this.elements.length; i++) {
+  constructor(domElement: Element | Array<Element>) {
+    this.domElements = Array.isArray(domElement) ? domElement : [domElement];
+    for (let i = 0; i < this.domElements.length; i++) {
       // lake-id is an expando for preserving element ID.
       // https://developer.mozilla.org/en-US/docs/Glossary/Expando
-      if (!this.elements[i]['lake-id']) {
-        this.elements[i]['lake-id'] = ++lastElementId;
+      if (!this.domElements[i]['lake-id']) {
+        this.domElements[i]['lake-id'] = ++lastElementId;
       }
     }
-    this.length = this.elements.length;
-    this.doc = getDocument(this.elements[0]);
-    this.win = getWindow(this.elements[0]);
+    this.length = this.domElements.length;
+    this.doc = getDocument(this.domElements[0]);
+    this.win = getWindow(this.domElements[0]);
   }
 
-  get(index?: number): Elements {
+  get(index?: number): Element {
     if (index === undefined) {
       index = 0;
     }
-    return new Elements(this.elements[index]);
+    return this.domElements[index];
+  }
+
+  eq(index?: number): Elements {
+    const domElement = this.get(index);
+    return new Elements(domElement);
   }
 
   id(index?: number): string {
-    if (index === undefined) {
-      index = 0;
-    }
-    return this.elements[index]['lake-id'];
+    const domElement = this.get(index);
+    return domElement['lake-id'];
   }
 
   name(index?: number): string {
-    if (index === undefined) {
-      index = 0;
-    }
-    return this.elements[index].nodeName.toLowerCase();
+    const domElement = this.get(index);
+    return domElement.nodeName.toLowerCase();
   }
 
   each(callback: EachCallback): this {
-    for (let i = 0; i < this.elements.length; i++) {
-      if (callback(this.elements[i], i) === false) {
+    for (let i = 0; i < this.domElements.length; i++) {
+      if (callback(this.domElements[i], i) === false) {
         return this;
       }
     }
@@ -65,8 +66,8 @@ export class Elements {
   }
 
   on(type: string, callback: EventListener): this {
-    return this.each((element, index) => {
-      element.addEventListener(type, callback, false);
+    return this.each((domElement, index) => {
+      domElement.addEventListener(type, callback, false);
       const elementId = this.id(index);
       if (!eventData[elementId]) {
         eventData[elementId] = [];
@@ -79,12 +80,12 @@ export class Elements {
   }
 
   off(type?: string, callback?: EventListener): this {
-    return this.each((element, index) => {
+    return this.each((domElement, index) => {
       const elementId = this.id(index);
       const eventItems = eventData[elementId];
       eventItems.forEach((item: EventItemType, index: number) => {
         if (!type || type === item.type && (!callback || callback === item.callback)) {
-          element.removeEventListener(item.type, item.callback, false);
+          domElement.removeEventListener(item.type, item.callback, false);
           eventItems[index] = {
             type: '',
             callback: () => {},
@@ -98,12 +99,12 @@ export class Elements {
   }
 
   fire(type: string): this {
-    return this.each((element, index) => {
+    return this.each((domElement, index) => {
       const elementId = this.id(index);
       const eventItems = eventData[elementId];
       eventItems.forEach((item: EventItemType) => {
         if (type === item.type) {
-          item.callback.call(element, new Event(type));
+          item.callback.call(domElement, new Event(type));
         }
       });
     });
@@ -115,7 +116,8 @@ export class Elements {
   }
 
   hasAttr(name: string): boolean {
-    return this.elements[0].hasAttribute(name);
+    const domElement = this.get(0);
+    return domElement.hasAttribute(name);
   }
 
   attr(name: string | object, value?: string): string | this {
@@ -126,16 +128,17 @@ export class Elements {
       return this;
     }
     if (value === undefined) {
-      return this.elements[0].getAttribute(name) || '';
+      const domElement = this.get(0);
+      return domElement.getAttribute(name) || '';
     }
-    return this.each(element => {
-      element.setAttribute(name, value);
+    return this.each(domElement => {
+      domElement.setAttribute(name, value);
     });
   }
 
   removeAttr(name: string): this {
-    return this.each(element => {
-      element.removeAttribute(name);
+    return this.each(domElement => {
+      domElement.removeAttribute(name);
     });
   }
 }
