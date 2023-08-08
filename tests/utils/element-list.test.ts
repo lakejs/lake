@@ -89,10 +89,10 @@ describe('ElementList of utils', () => {
     expect(onResult).to.equal(elementList);
     expect(elementList.getEventListeners(0).length).to.equal(1);
     expect(elementList.getEventListeners(0)[0].type).to.equal('click');
-    expect(elementList.getEventListeners(0)[0].callback).to.equal(listener);
+    expect(elementList.getEventListeners(0)[0].listener).to.equal(listener);
     expect(elementList.getEventListeners(1).length).to.equal(1);
     expect(elementList.getEventListeners(1)[0].type).to.equal('click');
-    expect(elementList.getEventListeners(1)[0].callback).to.equal(listener);
+    expect(elementList.getEventListeners(1)[0].listener).to.equal(listener);
     // remove an event
     const offResult = elementList.off('click', listener);
     expect(offResult).to.equal(elementList);
@@ -228,8 +228,8 @@ describe('ElementList of utils', () => {
     expect(elementList.hasAttr('data-one')).to.equal(false);
   });
 
-  it('class methods', () => {
-    const elementList = new ElementList([element, elementTwo, document.body]);
+  it('class methods: class name is a string', () => {
+    const elementList = new ElementList([element, elementTwo]);
     elementList.addClass('class-one');
     expect(elementList.hasClass('class-one')).to.equal(true);
     expect(elementList.eq(1).hasClass('class-one')).to.equal(true);
@@ -243,5 +243,44 @@ describe('ElementList of utils', () => {
     expect(elementList.hasClass('class-one')).to.equal(false);
     expect(elementList.hasClass('class-two')).to.equal(false);
     expect(elementList.hasAttr('class')).to.equal(false);
+  });
+
+  it('class methods: class name is an array', () => {
+    const elementList = new ElementList([element, elementTwo]);
+    elementList.addClass(['class-one', 'class-two']);
+    expect(elementList.hasClass('class-one')).to.equal(true);
+    expect(elementList.hasClass('class-two')).to.equal(true);
+    expect(elementList.eq(1).hasClass('class-one')).to.equal(true);
+    expect(elementList.eq(1).hasClass('class-two')).to.equal(true);
+    elementList.removeClass(['class-one', 'class-two']);
+    expect(elementList.hasClass('class-one')).to.equal(false);
+    expect(elementList.hasClass('class-two')).to.equal(false);
+    expect(elementList.eq(1).hasClass('class-one')).to.equal(false);
+    expect(elementList.eq(1).hasClass('class-two')).to.equal(false);
+  });
+
+  it('css methods: property name is string', () => {
+    const elementList = new ElementList([element, elementTwo]);
+    elementList.css('background-color', '#ff0000');
+    elementList.css('border', '1px solid #0000ff');
+    expect(elementList.css('background-color')).to.equal('#ff0000');
+    expect(elementList.eq(1).css('background-color')).to.equal('#ff0000');
+    expect(elementList.css('border-color')).to.equal('#0000ff');
+    elementList.css('background-color', '');
+    elementList.css('border', '');
+    expect(elementList.css('background-color')).to.equal('#000000');
+    expect(elementList.eq(1).css('background-color')).to.equal('#000000');
+    expect(elementList.css('border-color')).to.equal('#000000');
+  });
+
+  it('css methods: property name is array', () => {
+    const elementList = new ElementList([element, elementTwo]);
+    elementList.css({
+      'background-color': '#ff0000',
+      'border': '1px solid #0000ff',
+    });
+    expect(elementList.css('background-color')).to.equal('#ff0000');
+    expect(elementList.eq(1).css('background-color')).to.equal('#ff0000');
+    expect(elementList.css('border-color')).to.equal('#0000ff');
   });
 });

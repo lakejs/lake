@@ -1,5 +1,6 @@
 import { forEach } from './for-each';
 import { searchString } from './search-string';
+import { camelCase } from './camel-case';
 import { getDocument } from './get-document';
 import { getWindow } from './get-window';
 
@@ -7,8 +8,25 @@ type EachCallback = (domElement: Element, index: number) => boolean | void;
 
 type EventItemType = {
   type: string,
-  callback: EventListener,
+  listener: EventListener,
 };
+
+function rgbToHex(value: string): string {
+  const hex = (value: string): string => {
+    const hexString = window.parseInt(value, 10).toString(16).toLowerCase();
+    return hexString.length > 1 ? hexString : '0' + hexString;
+  };
+  return value.replace(/rgba?\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*\d+\s*)?\)/ig, ($0, $1, $2, $3) => {
+    return '#' + hex($1) + hex($2) + hex($3);
+  });
+}
+
+function getComputedCss(domElement: Element, propertyName: string): string {
+  const win = getWindow(domElement);
+  const camelPropertyName = camelCase(propertyName);
+  const computedStyle = win.getComputedStyle(domElement, null);
+  return computedStyle[camelPropertyName] || computedStyle.getPropertyValue(propertyName) || domElement['style'][camelPropertyName];
+}
 
 // eventData is a nested array for storing all events which include types and listeners.
 const eventData: Array<Array<EventItemType>> = [];
@@ -66,34 +84,34 @@ export class ElementList {
     return this;
   }
 
-  on(type: string, callback: EventListener): this {
+  on(type: string, listener: EventListener): this {
     return this.each((domElement, index) => {
-      domElement.addEventListener(type, callback, false);
+      domElement.addEventListener(type, listener, false);
       const elementId = this.id(index);
       if (!eventData[elementId]) {
         eventData[elementId] = [];
       }
       eventData[elementId].push({
         type,
-        callback,
+        listener,
       });
     });
   }
 
-  off(type?: string, callback?: EventListener): this {
+  off(type?: string, listener?: EventListener): this {
     return this.each((domElement, index) => {
       const elementId = this.id(index);
       const eventItems = eventData[elementId];
       eventItems.forEach((item: EventItemType, index: number) => {
-        if (!type || type === item.type && (!callback || callback === item.callback)) {
-          domElement.removeEventListener(item.type, item.callback, false);
+        if (!type || type === item.type && (!listener || listener === item.listener)) {
+          domElement.removeEventListener(item.type, item.listener, false);
           eventItems[index] = {
             type: '',
-            callback: () => {},
+            listener: () => {},
           };
         }
       });
-      eventData[elementId] = eventItems.filter(item => {
+      eventData[elementId] = eventItems.filter((item: EventItemType) => {
         return item.type !== '';
       });
     });
@@ -105,7 +123,7 @@ export class ElementList {
       const eventItems = eventData[elementId];
       eventItems.forEach((item: EventItemType) => {
         if (type === item.type) {
-          item.callback.call(domElement, new Event(type));
+          item.listener.call(domElement, new Event(type));
         }
       });
     });
@@ -116,30 +134,30 @@ export class ElementList {
     return eventData[elementId];
   }
 
-  hasAttr(name: string): boolean {
+  hasAttr(attributeName: string): boolean {
     const domElement = this.get(0);
-    return domElement.hasAttribute(name);
+    return domElement.hasAttribute(attributeName);
   }
 
-  attr(name: string | object, value?: string): string | this {
-    if (typeof name === 'object') {
-      forEach(name, (k, v) => {
-        this.attr(k, v);
+  attr(attributeName: string | object, value?: string): string | this {
+    if (typeof attributeName === 'object') {
+      forEach(attributeName, (name, val) => {
+        this.attr(name, val);
       });
       return this;
     }
     if (value === undefined) {
       const domElement = this.get(0);
-      return domElement.getAttribute(name) || '';
+      return domElement.getAttribute(attributeName) || '';
     }
     return this.each(domElement => {
-      domElement.setAttribute(name, value);
+      domElement.setAttribute(attributeName, value);
     });
   }
 
-  removeAttr(name: string): this {
+  removeAttr(attributeName: string): this {
     return this.each(domElement => {
-      domElement.removeAttribute(name);
+      domElement.removeAttribute(attributeName);
     });
   }
 
@@ -148,14 +166,25 @@ export class ElementList {
     return searchString(domElement.className, className, ' ');
   }
 
-  addClass(className: string): this {
+  addClass(className: string | string[]): this {
+    if (Array.isArray(className)) {
+      className.forEach(name => {
+        this.addClass(name);
+      });
+      return this;
+    }
     return this.each(domElement => {
       domElement.classList.add(className);
     });
-    return this;
   }
 
-  removeClass(className: string): this {
+  removeClass(className: string | string[]): this {
+    if (Array.isArray(className)) {
+      className.forEach(name => {
+        this.removeClass(name);
+      });
+      return this;
+    }
     return this.each(domElement => {
       domElement.classList.remove(className);
       if (domElement.className === '') {
@@ -163,5 +192,22 @@ export class ElementList {
       }
     });
     return this;
+  }
+
+  css(propertyName: string | object, value?: string): string | this {
+    if (typeof propertyName === 'object') {
+      forEach(propertyName, (name, val) => {
+        this.css(name, val);
+      });
+      return this;
+    }
+    if (value === undefined) {
+      const domElement = this.get(0);
+      const propertyValue = domElement['style'][camelCase(propertyName)] || getComputedCss(domElement, propertyName) || '';
+      return rgbToHex(propertyValue);
+    }
+    return this.each(domElement => {
+      domElement['style'][camelCase(propertyName)] = value;
+    });
   }
 }

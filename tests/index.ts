@@ -1,3 +1,4 @@
+import './utils/camel-case.test';
 import './utils/for-each.test';
 import './utils/get-document.test';
 import './utils/get-window.test';
