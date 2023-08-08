@@ -40,19 +40,17 @@ describe('ElementList of utils', () => {
 
   it('method: eq', () => {
     const elementList = new ElementList([element, elementTwo, document.body]);
-    expect(elementList.eq(2).name()).to.equal('body');
+    expect(elementList.eq(2).name(0)).to.equal('body');
   });
 
   it('method: id', () => {
     const elementList = new ElementList([element, elementTwo, document.body]);
-    expect(elementList.id()).to.be.a('number');
     expect(elementList.id(0)).to.be.a('number');
     expect(elementList.id(1)).to.be.a('number');
   });
 
   it('method: name', () => {
     const elementList = new ElementList([element, elementTwo, document.body]);
-    expect(elementList.name()).to.equal('div');
     expect(elementList.name(0)).to.equal('div');
     expect(elementList.name(1)).to.equal('p');
   });
@@ -89,16 +87,16 @@ describe('ElementList of utils', () => {
     // bind an event
     const onResult = elementList.on('click', listener);
     expect(onResult).to.equal(elementList);
-    expect(elementList.getEventListeners().length).to.equal(1);
-    expect(elementList.getEventListeners()[0].type).to.equal('click');
-    expect(elementList.getEventListeners()[0].callback).to.equal(listener);
+    expect(elementList.getEventListeners(0).length).to.equal(1);
+    expect(elementList.getEventListeners(0)[0].type).to.equal('click');
+    expect(elementList.getEventListeners(0)[0].callback).to.equal(listener);
     expect(elementList.getEventListeners(1).length).to.equal(1);
     expect(elementList.getEventListeners(1)[0].type).to.equal('click');
     expect(elementList.getEventListeners(1)[0].callback).to.equal(listener);
     // remove an event
     const offResult = elementList.off('click', listener);
     expect(offResult).to.equal(elementList);
-    expect(elementList.getEventListeners().length).to.equal(0);
+    expect(elementList.getEventListeners(0).length).to.equal(0);
     expect(elementList.getEventListeners(1).length).to.equal(0);
   });
 
@@ -117,20 +115,20 @@ describe('ElementList of utils', () => {
     elementList.on('click', clickListener);
     elementList.on('mousedown', mousedownListener);
     elementList.on('mouseup', mouseupListener);
-    expect(elementList.getEventListeners().length).to.equal(3);
-    expect(elementList.getEventListeners()[0].type).to.equal('click');
-    expect(elementList.getEventListeners()[1].type).to.equal('mousedown');
-    expect(elementList.getEventListeners()[2].type).to.equal('mouseup');
+    expect(elementList.getEventListeners(0).length).to.equal(3);
+    expect(elementList.getEventListeners(0)[0].type).to.equal('click');
+    expect(elementList.getEventListeners(0)[1].type).to.equal('mousedown');
+    expect(elementList.getEventListeners(0)[2].type).to.equal('mouseup');
     // remove an event
     elementList.off('mousedown');
-    expect(elementList.getEventListeners().length).to.equal(2);
-    expect(elementList.getEventListeners()[0].type).to.equal('click');
-    expect(elementList.getEventListeners()[1].type).to.equal('mouseup');
+    expect(elementList.getEventListeners(0).length).to.equal(2);
+    expect(elementList.getEventListeners(0)[0].type).to.equal('click');
+    expect(elementList.getEventListeners(0)[1].type).to.equal('mouseup');
     elementList.fire('mousedown');
     expect(element.innerHTML).to.equal('one');
     // remove all events
     elementList.off();
-    expect(elementList.getEventListeners().length).to.equal(0);
+    expect(elementList.getEventListeners(0).length).to.equal(0);
     elementList.fire('click');
     elementList.fire('mouseup');
     expect(element.innerHTML).to.equal('one');
@@ -186,7 +184,7 @@ describe('ElementList of utils', () => {
     expect(clickCount).to.equal(4);
     // remove all events
     elementListTwo.off();
-    expect(elementListOne.getEventListeners().length).to.equal(0);
+    expect(elementListOne.getEventListeners(0).length).to.equal(0);
 
   });
 
@@ -228,5 +226,22 @@ describe('ElementList of utils', () => {
     expect(elementList.attr('class')).to.equal('');
     expect(elementList.attr('data-one')).to.equal('');
     expect(elementList.hasAttr('data-one')).to.equal(false);
+  });
+
+  it('class methods', () => {
+    const elementList = new ElementList([element, elementTwo, document.body]);
+    elementList.addClass('class-one');
+    expect(elementList.hasClass('class-one')).to.equal(true);
+    expect(elementList.eq(1).hasClass('class-one')).to.equal(true);
+    elementList.addClass('class-two');
+    expect(elementList.hasClass('class-two')).to.equal(true);
+    expect(elementList.eq(1).hasClass('class-two')).to.equal(true);
+    elementList.removeClass('class-one');
+    expect(elementList.hasClass('class-one')).to.equal(false);
+    expect(elementList.hasClass('class-two')).to.equal(true);
+    elementList.removeClass('class-two');
+    expect(elementList.hasClass('class-one')).to.equal(false);
+    expect(elementList.hasClass('class-two')).to.equal(false);
+    expect(elementList.hasAttr('class')).to.equal(false);
   });
 });

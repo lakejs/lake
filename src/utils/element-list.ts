@@ -1,4 +1,5 @@
 import { forEach } from './for-each';
+import { searchString } from './search-string';
 import { getDocument } from './get-document';
 import { getWindow } from './get-window';
 
@@ -34,24 +35,24 @@ export class ElementList {
     this.win = getWindow(this.domElementArray[0]);
   }
 
-  get(index?: number): Element {
+  get(index: number): Element {
     if (index === undefined) {
       index = 0;
     }
     return this.domElementArray[index];
   }
 
-  eq(index?: number): ElementList {
+  eq(index: number): ElementList {
     const domElement = this.get(index);
     return new ElementList(domElement);
   }
 
-  id(index?: number): string {
+  id(index: number): string {
     const domElement = this.get(index);
     return domElement['lake-id'];
   }
 
-  name(index?: number): string {
+  name(index: number): string {
     const domElement = this.get(index);
     return domElement.nodeName.toLowerCase();
   }
@@ -110,7 +111,7 @@ export class ElementList {
     });
   }
 
-  getEventListeners(index?: number) {
+  getEventListeners(index: number) {
     const elementId = this.id(index);
     return eventData[elementId];
   }
@@ -140,5 +141,27 @@ export class ElementList {
     return this.each(domElement => {
       domElement.removeAttribute(name);
     });
+  }
+
+  hasClass(className: string): boolean {
+    const domElement = this.get(0);
+    return searchString(domElement.className, className, ' ');
+  }
+
+  addClass(className: string): this {
+    return this.each(domElement => {
+      domElement.classList.add(className);
+    });
+    return this;
+  }
+
+  removeClass(className: string): this {
+    return this.each(domElement => {
+      domElement.classList.remove(className);
+      if (domElement.className === '') {
+        domElement.removeAttribute('class');
+      }
+    });
+    return this;
   }
 }
