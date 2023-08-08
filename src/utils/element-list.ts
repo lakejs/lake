@@ -14,36 +14,36 @@ const eventData: Array<Array<EventItemType>> = [];
 
 let lastElementId = 0;
 
-export class Elements {
-  domElements: Array<Element>;
+export class ElementList {
+  domElementArray: Array<Element>;
   length: number;
   doc: Document;
   win: Window;
 
   constructor(domElement: Element | Array<Element>) {
-    this.domElements = Array.isArray(domElement) ? domElement : [domElement];
-    for (let i = 0; i < this.domElements.length; i++) {
+    this.domElementArray = Array.isArray(domElement) ? domElement : [domElement];
+    for (let i = 0; i < this.domElementArray.length; i++) {
       // lake-id is an expando for preserving element ID.
       // https://developer.mozilla.org/en-US/docs/Glossary/Expando
-      if (!this.domElements[i]['lake-id']) {
-        this.domElements[i]['lake-id'] = ++lastElementId;
+      if (!this.domElementArray[i]['lake-id']) {
+        this.domElementArray[i]['lake-id'] = ++lastElementId;
       }
     }
-    this.length = this.domElements.length;
-    this.doc = getDocument(this.domElements[0]);
-    this.win = getWindow(this.domElements[0]);
+    this.length = this.domElementArray.length;
+    this.doc = getDocument(this.domElementArray[0]);
+    this.win = getWindow(this.domElementArray[0]);
   }
 
   get(index?: number): Element {
     if (index === undefined) {
       index = 0;
     }
-    return this.domElements[index];
+    return this.domElementArray[index];
   }
 
-  eq(index?: number): Elements {
+  eq(index?: number): ElementList {
     const domElement = this.get(index);
-    return new Elements(domElement);
+    return new ElementList(domElement);
   }
 
   id(index?: number): string {
@@ -57,8 +57,8 @@ export class Elements {
   }
 
   each(callback: EachCallback): this {
-    for (let i = 0; i < this.domElements.length; i++) {
-      if (callback(this.domElements[i], i) === false) {
+    for (let i = 0; i < this.domElementArray.length; i++) {
+      if (callback(this.domElementArray[i], i) === false) {
         return this;
       }
     }
