@@ -33,7 +33,6 @@ elasticsearch-*
 config/base.yaml
 /.vscode/
 /coverage
-yarn.lock
 package-lock.json
 pnpm-lock.yaml
 .pnpm-debug.log
@@ -45,12 +44,3 @@ __image_snapshots__/
 /imageDiffSnapshots
 .devcontainer*
 .eslintcache
-
-# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions

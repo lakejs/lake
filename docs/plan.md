@@ -5,7 +5,7 @@
 * [X] To register domains (lakejs.com, lakejs.org)
 * [X] To create Github organization and repository (github.com/lakejs/lakejs)
 * [ ] To publish npm package
-* [X] To initialize project (TypeScript, ESLint, Rollup, Yarn, etc.)
+* [X] To initialize project (TypeScript, ESLint, Rollup, pnpm, etc.)
 * [X] To add utils library
 * [ ] To add ElementList class
 * [ ] To add TextNode class
@@ -74,7 +74,7 @@
 * outdent
 * orderedList
 * unorderedList
-* checkboxList
+* taskList
 * justifyLeft
 * justifyCenter
 * justifyRight

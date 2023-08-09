@@ -10,9 +10,9 @@ To develop or just to have a look at the demo, first download the latest source 
 git clone https://github.com/lakejs/lakejs.git
 cd lakejs
 # install all the dependencies
-yarn install
+pnpm install
 # start the local server
-yarn start
+pnpm start
 ```
 
 ### Open examples
@@ -30,13 +30,13 @@ http://localhost:8080/tests/
 ### Analyze code
 
 ```bash
-yarn lint
+pnpm lint
 ```
 
 ### Build code
 
 ```bash
-yarn build
+pnpm build
 ```
 
 ## License

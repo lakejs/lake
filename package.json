@@ -50,7 +50,7 @@
     "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,mjs\""
   },
   "simple-git-hooks": {
-    "pre-commit": "yarn lint"
+    "pre-commit": "pnpm lint"
   },
-  "packageManager": "yarn@3.6.1"
+  "packageManager": "pnpm@8.6.12"
 }
