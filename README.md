@@ -4,10 +4,12 @@ Lake.js is a WYSIWYG editor based on the browser that focuses on editing web-fri
 
 ## Getting Started
 
-To develop or just to have a look at the demo, first download the latest source code. Then, start a combined server that includes HTTP serving and real-time compilation.
+First, you need to clone the repository and install all the dependencies. Then, start a combined server that includes HTTP serving and real-time compilation. You can do this by running the following commands in your terminal:
 
 ``` bash
+# clone the repository
 git clone https://github.com/lakejs/lakejs.git
+# change directory
 cd lakejs
 # install all the dependencies
 pnpm install
