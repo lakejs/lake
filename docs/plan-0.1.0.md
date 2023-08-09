@@ -8,7 +8,7 @@
 * [X] To initialize project (TypeScript, ESLint, Rollup, pnpm, etc.)
 * [X] To add utils
 * [ ] To add classes
-* [ ] To add operations
+* [ ] To add commands
 * [ ] To add modules
 * [ ] To add extensions
 * [ ] To add examples (Styles, Toolbar, Icons, etc.)
@@ -38,8 +38,11 @@
     * node-range.ts
     * card.ts
     * history.ts
+    * html-parser.ts
+    * markdown-parser.ts
+    * text-parser.ts
     * index.ts
-  * operations
+  * commands
     * insert-content.ts
     * remove-content.ts
     * insert-block.ts

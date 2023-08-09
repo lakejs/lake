@@ -1,17 +1,11 @@
+import { NativeElement } from './native-types';
 import { forEach } from './for-each';
 import { searchString } from './search-string';
 import { camelCase } from './camel-case';
 import { getDocument } from './get-document';
 import { getWindow } from './get-window';
 
-declare global {
-  interface Element {
-    style: { [key: string]: string };
-    lakeId: number;
-  }
-}
-
-type EachCallback = (domElement: Element, index: number) => boolean | void;
+type EachCallback = (element: NativeElement, index: number) => boolean | void;
 
 type EventItemType = {
   type: string,
@@ -28,11 +22,11 @@ function rgbToHex(value: string): string {
   });
 }
 
-function getComputedCss(domElement: Element, propertyName: string): string {
-  const win = getWindow(domElement);
+function getComputedCss(element: NativeElement, propertyName: string): string {
+  const win = getWindow(element);
   const camelPropertyName = camelCase(propertyName);
-  const computedStyle = win.getComputedStyle(domElement, null);
-  return computedStyle[camelPropertyName as any] || computedStyle.getPropertyValue(propertyName) || domElement.style[camelPropertyName];
+  const computedStyle = win.getComputedStyle(element, null);
+  return computedStyle[camelPropertyName as any] || computedStyle.getPropertyValue(propertyName) || element.style[camelPropertyName];
 }
 
 // eventData is a nested array for storing all events which include types and listeners.
@@ -41,50 +35,50 @@ const eventData: { [key: number]: EventItemType[] } = {};
 let lastElementId = 0;
 
 export class ElementList {
-  domElementArray: Array<Element>;
+  elementArray: Array<NativeElement>;
   length: number;
   doc: Document;
   win: Window;
 
-  constructor(domElement: Element | Array<Element>) {
-    this.domElementArray = Array.isArray(domElement) ? domElement : [domElement];
-    for (let i = 0; i < this.domElementArray.length; i++) {
+  constructor(element: NativeElement | Array<NativeElement>) {
+    this.elementArray = Array.isArray(element) ? element : [element];
+    for (let i = 0; i < this.elementArray.length; i++) {
       // lakeId is an expando for preserving element ID.
       // https://developer.mozilla.org/en-US/docs/Glossary/Expando
-      if (!this.domElementArray[i].lakeId) {
-        this.domElementArray[i].lakeId = ++lastElementId;
+      if (!this.elementArray[i].lakeId) {
+        this.elementArray[i].lakeId = ++lastElementId;
       }
     }
-    this.length = this.domElementArray.length;
-    this.doc = getDocument(this.domElementArray[0]);
-    this.win = getWindow(this.domElementArray[0]);
+    this.length = this.elementArray.length;
+    this.doc = getDocument(this.elementArray[0]);
+    this.win = getWindow(this.elementArray[0]);
   }
 
-  get(index: number): Element {
+  get(index: number): NativeElement {
     if (index === undefined) {
       index = 0;
     }
-    return this.domElementArray[index];
+    return this.elementArray[index];
   }
 
   eq(index: number): ElementList {
-    const domElement = this.get(index);
-    return new ElementList(domElement);
+    const element = this.get(index);
+    return new ElementList(element);
   }
 
   id(index: number): number {
-    const domElement = this.get(index);
-    return domElement.lakeId;
+    const element = this.get(index);
+    return element.lakeId;
   }
 
   name(index: number): string {
-    const domElement = this.get(index);
-    return domElement.nodeName.toLowerCase();
+    const element = this.get(index);
+    return element.nodeName.toLowerCase();
   }
 
   each(callback: EachCallback): this {
-    for (let i = 0; i < this.domElementArray.length; i++) {
-      if (callback(this.domElementArray[i], i) === false) {
+    for (let i = 0; i < this.elementArray.length; i++) {
+      if (callback(this.elementArray[i], i) === false) {
         return this;
       }
     }
@@ -92,8 +86,8 @@ export class ElementList {
   }
 
   on(type: string, listener: EventListener): this {
-    return this.each((domElement, index) => {
-      domElement.addEventListener(type, listener, false);
+    return this.each((element, index) => {
+      element.addEventListener(type, listener, false);
       const elementId = this.id(index);
       if (!eventData[elementId]) {
         eventData[elementId] = [];
@@ -106,12 +100,12 @@ export class ElementList {
   }
 
   off(type?: string, listener?: EventListener): this {
-    return this.each((domElement, index) => {
+    return this.each((element, index) => {
       const elementId = this.id(index);
       const eventItems = eventData[elementId];
       eventItems.forEach((item: EventItemType, index: number) => {
         if (!type || type === item.type && (!listener || listener === item.listener)) {
-          domElement.removeEventListener(item.type, item.listener, false);
+          element.removeEventListener(item.type, item.listener, false);
           eventItems[index] = {
             type: '',
             listener: () => {},
@@ -125,12 +119,12 @@ export class ElementList {
   }
 
   fire(type: string): this {
-    return this.each((domElement, index) => {
+    return this.each((element, index) => {
       const elementId = this.id(index);
       const eventItems = eventData[elementId];
       eventItems.forEach((item: EventItemType) => {
         if (type === item.type) {
-          item.listener.call(domElement, new Event(type));
+          item.listener.call(element, new Event(type));
         }
       });
     });
@@ -142,8 +136,8 @@ export class ElementList {
   }
 
   hasAttr(attributeName: string): boolean {
-    const domElement = this.get(0);
-    return domElement.hasAttribute(attributeName);
+    const element = this.get(0);
+    return element.hasAttribute(attributeName);
   }
 
   attr(attributeName: string | object, value?: string): string | this {
@@ -154,23 +148,23 @@ export class ElementList {
       return this;
     }
     if (value === undefined) {
-      const domElement = this.get(0);
-      return domElement.getAttribute(attributeName) || '';
+      const element = this.get(0);
+      return element.getAttribute(attributeName) || '';
     }
-    return this.each(domElement => {
-      domElement.setAttribute(attributeName, value);
+    return this.each(element => {
+      element.setAttribute(attributeName, value);
     });
   }
 
   removeAttr(attributeName: string): this {
-    return this.each(domElement => {
-      domElement.removeAttribute(attributeName);
+    return this.each(element => {
+      element.removeAttribute(attributeName);
     });
   }
 
   hasClass(className: string): boolean {
-    const domElement = this.get(0);
-    return searchString(domElement.className, className, ' ');
+    const element = this.get(0);
+    return searchString(element.className, className, ' ');
   }
 
   addClass(className: string | string[]): this {
@@ -180,8 +174,8 @@ export class ElementList {
       });
       return this;
     }
-    return this.each(domElement => {
-      domElement.classList.add(className);
+    return this.each(element => {
+      element.classList.add(className);
     });
   }
 
@@ -192,10 +186,10 @@ export class ElementList {
       });
       return this;
     }
-    return this.each(domElement => {
-      domElement.classList.remove(className);
-      if (domElement.className === '') {
-        domElement.removeAttribute('class');
+    return this.each(element => {
+      element.classList.remove(className);
+      if (element.className === '') {
+        element.removeAttribute('class');
       }
     });
     return this;
@@ -209,12 +203,12 @@ export class ElementList {
       return this;
     }
     if (value === undefined) {
-      const domElement = this.get(0);
-      const propertyValue = domElement.style[camelCase(propertyName)] || getComputedCss(domElement, propertyName) || '';
+      const element = this.get(0);
+      const propertyValue = element.style[camelCase(propertyName)] || getComputedCss(element, propertyName) || '';
       return rgbToHex(propertyValue);
     }
-    return this.each(domElement => {
-      domElement.style[camelCase(propertyName)] = value;
+    return this.each(element => {
+      element.style[camelCase(propertyName)] = value;
     });
   }
 }
