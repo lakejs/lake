@@ -3,8 +3,8 @@
 ## To-do List
 
 * [X] To register domains (lakejs.com, lakejs.org)
-* [X] To create Github organization and repository (github.com/lakejs/lakejs)
-* [ ] To publish npm package
+* [X] To create Github organization and repository (github.com/lakejs/lake-core)
+* [X] To publish npm package (lake-core)
 * [X] To initialize project (TypeScript, ESLint, Rollup, pnpm, etc.)
 * [X] To add utils library
 * [ ] To add ElementList class
