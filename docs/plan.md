@@ -2,18 +2,18 @@
 
 ## To-do List
 
-* [Y] To register domains (lakejs.com, lakejs.org)
-* [Y] To create Github organization and repository (github.com/lakejs/lakejs)
-* [X] To publish npm package
-* [Y] To initialize project (TypeScript, ESLint, Rollup, Yarn, etc.)
-* [Y] To add utils library
-* [X] To add ElementList class
-* [X] To add TextNode class
-* [X] To add Range class
-* [X] To add core commmands
-* [X] To add Editor class
-* [X] To add examples (Styles, Toolbar, Icons, etc.)
-* [X] To write documentation
+* [X] To register domains (lakejs.com, lakejs.org)
+* [X] To create Github organization and repository (github.com/lakejs/lakejs)
+* [ ] To publish npm package
+* [X] To initialize project (TypeScript, ESLint, Rollup, Yarn, etc.)
+* [X] To add utils library
+* [ ] To add ElementList class
+* [ ] To add TextNode class
+* [ ] To add Range class
+* [ ] To add core commmands
+* [ ] To add Editor class
+* [ ] To add examples (Styles, Toolbar, Icons, etc.)
+* [ ] To write documentation
 
 ## File Tree
 
