@@ -7,11 +7,11 @@ import terser from '@rollup/plugin-terser';
 export default [{
   input: './src/index.ts',
   output: [{
-    file: './dist/lake.js',
+    file: './dist/lake-core.js',
     format: 'iife',
     sourcemap: true,
   }, {
-    file: './dist/lake.min.js',
+    file: './dist/lake-core.min.js',
     format: 'iife',
     sourcemap: true,
     plugins: [terser()],
@@ -25,7 +25,7 @@ export default [{
 }, {
   input: './src/index.ts',
   output: {
-    file: './lib/lake.js',
+    file: './lib/lake-core.js',
     format: 'es',
     sourcemap: true,
   },
