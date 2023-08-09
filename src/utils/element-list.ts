@@ -4,6 +4,13 @@ import { camelCase } from './camel-case';
 import { getDocument } from './get-document';
 import { getWindow } from './get-window';
 
+declare global {
+  interface Element {
+    style: { [key: string]: string };
+    lakeId: number;
+  }
+}
+
 type EachCallback = (domElement: Element, index: number) => boolean | void;
 
 type EventItemType = {
@@ -25,11 +32,11 @@ function getComputedCss(domElement: Element, propertyName: string): string {
   const win = getWindow(domElement);
   const camelPropertyName = camelCase(propertyName);
   const computedStyle = win.getComputedStyle(domElement, null);
-  return computedStyle[camelPropertyName] || computedStyle.getPropertyValue(propertyName) || domElement['style'][camelPropertyName];
+  return computedStyle[camelPropertyName as any] || computedStyle.getPropertyValue(propertyName) || domElement.style[camelPropertyName];
 }
 
 // eventData is a nested array for storing all events which include types and listeners.
-const eventData: Array<Array<EventItemType>> = [];
+const eventData: { [key: number]: EventItemType[] } = {};
 
 let lastElementId = 0;
 
@@ -42,10 +49,10 @@ export class ElementList {
   constructor(domElement: Element | Array<Element>) {
     this.domElementArray = Array.isArray(domElement) ? domElement : [domElement];
     for (let i = 0; i < this.domElementArray.length; i++) {
-      // lake-id is an expando for preserving element ID.
+      // lakeId is an expando for preserving element ID.
       // https://developer.mozilla.org/en-US/docs/Glossary/Expando
-      if (!this.domElementArray[i]['lake-id']) {
-        this.domElementArray[i]['lake-id'] = ++lastElementId;
+      if (!this.domElementArray[i].lakeId) {
+        this.domElementArray[i].lakeId = ++lastElementId;
       }
     }
     this.length = this.domElementArray.length;
@@ -65,9 +72,9 @@ export class ElementList {
     return new ElementList(domElement);
   }
 
-  id(index: number): string {
+  id(index: number): number {
     const domElement = this.get(index);
-    return domElement['lake-id'];
+    return domElement.lakeId;
   }
 
   name(index: number): string {
@@ -203,11 +210,11 @@ export class ElementList {
     }
     if (value === undefined) {
       const domElement = this.get(0);
-      const propertyValue = domElement['style'][camelCase(propertyName)] || getComputedCss(domElement, propertyName) || '';
+      const propertyValue = domElement.style[camelCase(propertyName)] || getComputedCss(domElement, propertyName) || '';
       return rgbToHex(propertyValue);
     }
     return this.each(domElement => {
-      domElement['style'][camelCase(propertyName)] = value;
+      domElement.style[camelCase(propertyName)] = value;
     });
   }
 }
