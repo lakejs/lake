@@ -1,6 +1,6 @@
 # Lake
 
-Lake is a WYSIWYG editor based on the browser that focuses on editing web-friendly content and is designed to provide better performance, stability and extensibility.
+Lake is a WYSIWYG editor based on the browser that focuses on editing web-friendly contents and is designed to provide better performance, stability and extensibility.
 
 ## Getting Started
 

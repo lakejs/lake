@@ -9,10 +9,12 @@ export default [{
   output: [{
     file: './dist/lake-core.js',
     format: 'iife',
+    name: 'LakeCore',
     sourcemap: true,
   }, {
     file: './dist/lake-core.min.js',
     format: 'iife',
+    name: 'LakeCore',
     sourcemap: true,
     plugins: [terser()],
   }],

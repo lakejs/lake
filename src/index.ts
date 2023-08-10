@@ -1,18 +1,19 @@
-import { EventEmitter } from 'eventemitter3';
-import './utils';
 import pkg from '../package.json';
+import { EditArea } from './modules/edit-area';
 
-const event = new EventEmitter();
+class LakeCore {
+  version: string;
+  editArea: EditArea;
 
-const Lake = {
-  verson: pkg.version,
-  event,
-};
+  constructor() {
+    this.version = pkg.version;
+    this.editArea = new EditArea();
+  }
 
-declare global {
-  interface Window {
-    Lake: any;
+  create() {
+    this.editArea.create();
+    this.editArea.remove();
   }
 }
 
-window.Lake = Lake;
+export default LakeCore;

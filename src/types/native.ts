@@ -1,9 +1,15 @@
 declare global {
+  interface Window {
+    DEBUG: boolean;
+  }
+
   interface Element {
     style: { [key: string]: string };
     lakeId: number;
   }
 }
+
+export type NativeEvent = Event;
 
 export type NativeElement = Element;
 

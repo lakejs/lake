@@ -4,9 +4,9 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 
 export default [{
-  input: './src/index.ts',
+  input: './examples/index.ts',
   output: {
-    file: './dist/src/bundle.js',
+    file: './dist/examples/bundle.js',
     format: 'iife',
     sourcemap: true,
   },

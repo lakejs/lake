@@ -23,28 +23,27 @@
 * examples/
 * lib/ : build output for npm
 * src/
+  * types/
+    * native.ts
   * utils/
     * camel-case.ts
     * for-each.ts
-    * search-string.ts
-    * rgb-to-hex.ts
     * get-document.ts
-    * get-window.ts
-    * get-computed-css.ts
+    * get-css.ts
     * index.ts
   * classes/
     * element-list.ts
-    * text-node.ts
-    * node-range.ts
-    * card.ts
+    * text.ts
+    * range.ts
+    * component.ts
     * history.ts
     * html-parser.ts
     * markdown-parser.ts
     * text-parser.ts
     * index.ts
   * commands
-    * insert-content.ts
-    * remove-content.ts
+    * insert-contents.ts
+    * delete-contents.ts
     * insert-block.ts
     * update-block.ts
     * delete-block.ts
@@ -53,9 +52,11 @@
     * clear-mark.ts
     * toggle-mark.ts
     * split-mark.ts
-    * insert-card.ts
-    * update-card.ts
-    * delete-card.ts
+    * add-link.ts
+    * clear-link.ts
+    * insert-component.ts
+    * update-component.ts
+    * delete-component.ts
     * index.ts
   * modules
     * edit-area.ts
@@ -89,9 +90,9 @@
 * tests/
   * utils/
     * camel-case.test.ts
-    * get-document.ts
+    * get-document.test.ts
   * classes/
-    * element-list.ts
+    * element-list.test.ts
   * index.ts
   * index.html
 * package.json
