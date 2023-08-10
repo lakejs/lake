@@ -4,16 +4,16 @@ Lake is a WYSIWYG editor based on the browser that focuses on editing web-friend
 
 ## Getting Started
 
-First, you need to clone the repository and install all the dependencies. Then, start a combined server that includes HTTP serving and real-time compilation. You can do this by running the following commands in your terminal:
+First, you need to clone the repository and install all dependencies. Then, start a combined server that includes HTTP serving and real-time compilation. You can do this by running the following commands in your terminal:
 
 ``` bash
 # clone the repository
 git clone https://github.com/lakejs/lake-core.git
-# change directory
+# change your directory
 cd lake-core
-# install all the dependencies
+# install all dependencies
 pnpm install
-# start the local server
+# start a local server
 pnpm start
 ```
 

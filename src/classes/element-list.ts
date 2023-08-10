@@ -1,9 +1,9 @@
-import { NativeElement } from './native-types';
-import { forEach } from './for-each';
-import { searchString } from './search-string';
-import { camelCase } from './camel-case';
-import { getDocument } from './get-document';
-import { getWindow } from './get-window';
+import { NativeElement } from '../types/native';
+import { forEach } from '../utils/for-each';
+import { searchString } from '../utils/search-string';
+import { camelCase } from '../utils/camel-case';
+import { getDocument } from '../utils/get-document';
+import { getWindow } from '../utils/get-window';
 
 type EachCallback = (element: NativeElement, index: number) => boolean | void;
 

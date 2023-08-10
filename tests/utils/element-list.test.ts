@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { ElementList } from '../../src/utils';
+import { ElementList } from '../../src/classes';
 
 describe('ElementList of utils', () => {
 

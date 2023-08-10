@@ -6,6 +6,9 @@ declare global {
 }
 
 export type NativeElement = Element;
+
 export type NativeRange = Range;
+
 export type NativeNode = Node;
+
 export type NativeText = Text;
