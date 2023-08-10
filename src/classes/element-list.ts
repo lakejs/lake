@@ -4,6 +4,7 @@ import { searchString } from '../utils/search-string';
 import { camelCase } from '../utils/camel-case';
 import { getDocument } from '../utils/get-document';
 import { getWindow } from '../utils/get-window';
+import { getCss } from '../utils/get-css';
 
 type EachCallback = (element: NativeElement, index: number) => boolean | void;
 
@@ -11,23 +12,6 @@ type EventItemType = {
   type: string,
   listener: EventListener,
 };
-
-function rgbToHex(value: string): string {
-  const hex = (value: string): string => {
-    const hexString = window.parseInt(value, 10).toString(16).toLowerCase();
-    return hexString.length > 1 ? hexString : '0' + hexString;
-  };
-  return value.replace(/rgba?\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*\d+\s*)?\)/ig, ($0, $1, $2, $3) => {
-    return '#' + hex($1) + hex($2) + hex($3);
-  });
-}
-
-function getComputedCss(element: NativeElement, propertyName: string): string {
-  const win = getWindow(element);
-  const camelPropertyName = camelCase(propertyName);
-  const computedStyle = win.getComputedStyle(element, null);
-  return computedStyle[camelPropertyName as any] || computedStyle.getPropertyValue(propertyName) || element.style[camelPropertyName];
-}
 
 // eventData is a nested array for storing all events which include types and listeners.
 const eventData: { [key: number]: EventItemType[] } = {};
@@ -204,8 +188,7 @@ export class ElementList {
     }
     if (value === undefined) {
       const element = this.get(0);
-      const propertyValue = element.style[camelCase(propertyName)] || getComputedCss(element, propertyName) || '';
-      return rgbToHex(propertyValue);
+      return getCss(element, propertyName);
     }
     return this.each(element => {
       element.style[camelCase(propertyName)] = value;

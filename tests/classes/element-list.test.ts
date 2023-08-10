@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { ElementList } from '../../src/classes';
 
-describe('ElementList of utils', () => {
+describe('ElementList of classes', () => {
 
   let element: Element;
   let elementTwo: Element;
