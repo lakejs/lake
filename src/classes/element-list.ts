@@ -1,10 +1,11 @@
-import { NativeElement } from '../types/native';
+import { NativeElement, NativeNode } from '../types/native';
 import { forEach } from '../utils/for-each';
 import { searchString } from '../utils/search-string';
 import { camelCase } from '../utils/camel-case';
 import { getDocument } from '../utils/get-document';
 import { getWindow } from '../utils/get-window';
 import { getCss } from '../utils/get-css';
+import { getFragment } from '../utils/get-fragment';
 
 type EachCallback = (element: NativeElement, index: number) => boolean | void;
 
@@ -124,7 +125,7 @@ export class ElementList {
     return element.hasAttribute(attributeName);
   }
 
-  attr(attributeName: string | object, value?: string): string | this {
+  attr(attributeName: string | { [key: string]: string }, value?: string): string | this {
     if (typeof attributeName === 'object') {
       forEach(attributeName, (name, val) => {
         this.attr(name, val);
@@ -179,7 +180,7 @@ export class ElementList {
     return this;
   }
 
-  css(propertyName: string | object, value?: string): string | this {
+  css(propertyName: string | { [key: string]: string }, value?: string): string | this {
     if (typeof propertyName === 'object') {
       forEach(propertyName, (name, val) => {
         this.css(name, val);
@@ -192,6 +193,25 @@ export class ElementList {
     }
     return this.each(element => {
       element.style[camelCase(propertyName)] = value;
+    });
+  }
+
+  html(value?: string): string | this {
+    if (value === undefined) {
+      const element = this.get(0);
+      return element.innerHTML;
+    }
+    return this.each(element => {
+      element.innerHTML = value;
+    });
+  }
+
+  append(value: string | NativeNode): this {
+    return this.each(element => {
+      if (element.appendChild) {
+        const fragment = getFragment(value);
+        element.appendChild(fragment);
+      }
     });
   }
 }

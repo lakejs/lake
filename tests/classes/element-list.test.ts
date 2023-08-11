@@ -6,7 +6,7 @@ describe('ElementList of classes', () => {
   let element: Element;
   let elementTwo: Element;
 
-  before(() => {
+  beforeEach(() => {
     element = document.createElement('div');
     element.innerHTML = 'one';
     document.body.appendChild(element);
@@ -15,7 +15,7 @@ describe('ElementList of classes', () => {
     document.body.appendChild(elementTwo);
   });
 
-  after(() => {
+  afterEach(() => {
     document.body.removeChild(element);
     document.body.removeChild(elementTwo);
   });
@@ -282,5 +282,19 @@ describe('ElementList of classes', () => {
     expect(elementList.css('background-color')).to.equal('#ff0000');
     expect(elementList.eq(1).css('background-color')).to.equal('#ff0000');
     expect(elementList.css('border-color')).to.equal('#0000ff');
+  });
+
+  it('method: html', () => {
+    const elementList = new ElementList([element, elementTwo]);
+    elementList.html('<p>foo</p>');
+    expect(elementList.html()).to.equal('<p>foo</p>');
+    expect(elementList.eq(1).html()).to.equal('<p>foo</p>');
+  });
+
+  it('method: append', () => {
+    const elementList = new ElementList([element, elementTwo]);
+    elementList.append('<p>foo</p>');
+    expect(elementList.html()).to.equal('one<p>foo</p>');
+    expect(elementList.eq(1).html()).to.equal('two<p>foo</p>');
   });
 });
