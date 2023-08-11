@@ -7,7 +7,7 @@
 * [X] To publish npm package (lake-core)
 * [X] To initialize project (TypeScript, ESLint, Rollup, pnpm, etc.)
 * [X] To add utils
-* [ ] To add classes
+* [ ] To add models
 * [ ] To add commands
 * [ ] To add modules
 * [ ] To add extensions
@@ -31,7 +31,7 @@
     * get-document.ts
     * get-css.ts
     * index.ts
-  * classes/
+  * models/
     * element-list.ts
     * text.ts
     * range.ts
@@ -91,7 +91,7 @@
   * utils/
     * camel-case.test.ts
     * get-document.test.ts
-  * classes/
+  * models/
     * element-list.test.ts
   * index.ts
   * index.html

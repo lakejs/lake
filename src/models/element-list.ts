@@ -86,7 +86,7 @@ export class ElementList {
   off(type?: string, listener?: EventListener): this {
     return this.each((element, index) => {
       const elementId = this.id(index);
-      const eventItems = eventData[elementId];
+      const eventItems = eventData[elementId] || [];
       eventItems.forEach((item: EventItemType, index: number) => {
         if (!type || type === item.type && (!listener || listener === item.listener)) {
           element.removeEventListener(item.type, item.listener, false);
@@ -256,5 +256,23 @@ export class ElementList {
       }
       newElementList.append(element);
     });
+  }
+
+  remove(keepChildren: boolean = false): this {
+    this.each(element => {
+      if (!element.parentNode) {
+        return;
+      }
+      if (keepChildren) {
+        let child = element.firstChild;
+        while (child) {
+          const next = child.nextSibling;
+          element.parentNode.insertBefore(child, element);
+          child = next;
+        }
+      }
+      element.parentNode.removeChild(element);
+    });
+    return this;
   }
 }

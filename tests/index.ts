@@ -13,4 +13,5 @@ import './utils/get-window.test';
 import './utils/get-node-list.test';
 
 // ElementList Class
-import './classes/element-list.test';
+import './models/element-list.test';
+import './models/query.test';

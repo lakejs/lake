@@ -14,6 +14,7 @@ export type NativeEvent = Event;
 export type NativeElement = Element;
 
 export type NativeNode = Node;
+export const NativeNode = Node;
 
 export type NativeNodeList = NodeList;
 

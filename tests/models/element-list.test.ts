@@ -1,7 +1,8 @@
 import { expect } from 'chai';
-import { ElementList } from '../../src/classes';
+import { NativeElement } from '../../src/types/native';
+import { ElementList } from '../../src/models';
 
-describe('ElementList of classes', () => {
+describe('ElementList of models', () => {
 
   let element: Element;
   let elementTwo: Element;
@@ -183,7 +184,12 @@ describe('ElementList of classes', () => {
     // remove all events
     elementListTwo.off();
     expect(elementListOne.getEventListeners(0).length).to.equal(0);
+  });
 
+  it('event methods: no event binding', () => {
+    const elementListOne = new ElementList(element);
+    elementListOne.off();
+    expect(elementListOne.getEventListeners(0).length).to.equal(0);
   });
 
   it('attribute methods: single key', () => {
@@ -368,5 +374,24 @@ describe('ElementList of classes', () => {
     const targetElementList = new ElementList(element);
     new ElementList(newElement2).appendTo(targetElementList);
     expect(targetElementList.html()).to.equal('one<p><strong>foo</strong>bar</p>');
+  });
+
+  it('method: remove', () => {
+    const elementList = new ElementList([element, elementTwo]);
+    // remove all
+    elementList.html('<p><strong>foo1</strong>bar1</p><p><strong>foo2</strong>bar2</p>');
+    new ElementList(elementList.get(0).firstChild as NativeElement).remove();
+    expect(elementList.eq(0).html()).to.equal('<p><strong>foo2</strong>bar2</p>');
+    // keep children
+    elementList.html('<p><strong>foo1</strong>bar1</p><p><strong>foo2</strong>bar2</p>');
+    new ElementList(elementList.get(0).firstChild as NativeElement).remove(true);
+    expect(elementList.eq(0).html()).to.equal('<strong>foo1</strong>bar1<p><strong>foo2</strong>bar2</p>');
+    // no parent
+    const elem = document.createElement('div');
+    const elemList = new ElementList(elem);
+    const elemId = elemList.id(0);
+    elemList.remove();
+    expect(elemList.id(0)).to.equal(elemId);
+    expect(elemList.get(0)).to.equal(elem);
   });
 });
