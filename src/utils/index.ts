@@ -10,7 +10,7 @@ export * from './for-each';
 export * from './get-document';
 export * from './get-window';
 export * from './get-css';
-export * from './get-fragment';
+export * from './get-node-list';
 
 // Other
 export * from './debug';

@@ -3,7 +3,7 @@ import { forEach } from '../utils/for-each';
 import { searchString } from '../utils/search-string';
 import { camelCase } from '../utils/camel-case';
 import { getCss } from '../utils/get-css';
-import { getFragment } from '../utils/get-fragment';
+import { getNodeList } from '../utils/get-node-list';
 
 type EachCallback = (element: NativeElement, index: number) => boolean | void;
 
@@ -18,7 +18,7 @@ const eventData: { [key: number]: EventItemType[] } = {};
 let lastElementId = 0;
 
 export class ElementList {
-  elementArray: Array<NativeElement>;
+  elementArray: NativeElement[];
   length: number;
 
   constructor(element: NativeElement | Array<NativeElement>) {
@@ -40,12 +40,8 @@ export class ElementList {
     return this.elementArray[index];
   }
 
-  getAll(): DocumentFragment {
-    const fragment = document.createDocumentFragment();
-    this.each(element => {
-      fragment.appendChild(element);
-    });
-    return fragment;
+  getAll(): NativeElement[] {
+    return this.elementArray;
   }
 
   eq(index: number): ElementList {
@@ -215,29 +211,49 @@ export class ElementList {
 
   prepend(value: string | NativeNode | ElementList): this {
     return this.each(element => {
-      let fragment: DocumentFragment;
+      let list: NativeNode[] = [];
       if (value instanceof ElementList) {
-        fragment = value.getAll();
+        list = value.getAll();
       } else {
-        fragment = getFragment(value);
+        list = getNodeList(value);
       }
       if (element.firstChild) {
-        element.insertBefore(fragment, element.firstChild);
-      } else {
-        element.appendChild(fragment);
+        list = list.reverse();
       }
+      list.forEach((node: NativeNode) => {
+        if (element.firstChild) {
+          element.insertBefore(node, element.firstChild);
+        } else {
+          element.appendChild(node);
+        }
+      });
     });
   }
 
   append(value: string | NativeNode | ElementList): this {
     return this.each(element => {
-      let fragment: DocumentFragment;
+      let list: NativeNode[] = [];
       if (value instanceof ElementList) {
-        fragment = value.getAll();
+        list = value.getAll();
       } else {
-        fragment = getFragment(value);
+        list = getNodeList(value);
       }
-      element.appendChild(fragment);
+      list.forEach((node: NativeNode) => {
+        element.appendChild(node);
+      });
+    });
+  }
+
+  appendTo(value: string | NativeElement | ElementList): this {
+    return this.each(element => {
+      let newElementList: ElementList;
+      if (value instanceof ElementList) {
+        newElementList = value;
+      } else {
+        const list = getNodeList(value);
+        newElementList = new ElementList(list as NativeElement[]);
+      }
+      newElementList.append(element);
     });
   }
 }

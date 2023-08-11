@@ -10,7 +10,7 @@ import './utils/for-each.test';
 import './utils/get-css.test';
 import './utils/get-document.test';
 import './utils/get-window.test';
-import './utils/get-fragment.test';
+import './utils/get-node-list.test';
 
 // ElementList Class
 import './classes/element-list.test';

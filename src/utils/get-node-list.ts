@@ -1,32 +1,32 @@
 
 import { NativeNode } from '../types/native';
 
-export function getFragment(value: string | NativeNode, valueType?: 'text' | 'html'): DocumentFragment {
-  const fragment = document.createDocumentFragment();
+export function getNodeList(value: string | NativeNode, valueType?: 'text' | 'html'): NativeNode[] {
+  const nodeList: NativeNode[] = [];
   // a node
   if (typeof value !== 'string') {
-    fragment.appendChild(value);
-    return fragment;
+    nodeList.push(value);
+    return nodeList;
   }
   // text string
   if (valueType === 'text') {
     const textNode = document.createTextNode(value);
-    fragment.appendChild(textNode);
-    return fragment;
+    nodeList.push(textNode);
+    return nodeList;
   }
   // HTML string
   if (valueType === 'html' || /<.+>/.test(value)) {
     const container = document.createElement('div');
     container.innerHTML = value;
     for (const child of container.childNodes) {
-      fragment.appendChild(child);
+      nodeList.push(child);
     }
-    return fragment;
+    return nodeList;
   }
   // selector string
   const elements = document.querySelectorAll(value);
   for (const child of elements) {
-    fragment.appendChild(child);
+    nodeList.push(child);
   }
-  return fragment;
+  return nodeList;
 }

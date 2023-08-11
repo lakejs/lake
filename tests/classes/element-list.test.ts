@@ -336,4 +336,31 @@ describe('ElementList of classes', () => {
     expect(elementList.html()).to.equal('');
     expect(elementList.eq(1).html()).to.equal('<p><strong>foo</strong>bar</p>');
   });
+
+  it('method: appendTo', () => {
+    const elem1 = document.createElement('p');
+    elem1.innerHTML = '<strong>foo</strong>bar';
+    const elem2 = document.createElement('p');
+    elem2.innerHTML = '<strong>foo2</strong>bar2';
+    const elementList1 = new ElementList([elem1, elem2]);
+    // appends to selector string
+    const targetContainer = document.createElement('div');
+    targetContainer.innerHTML = '<div class="class-div">one</div><div class="class-div">two</div>';
+    document.body.appendChild(targetContainer);
+    elementList1.appendTo('.class-div');
+    expect(targetContainer.innerHTML).to.equal('<div class="class-div">one</div><div class="class-div">two<p><strong>foo</strong>bar</p><p><strong>foo2</strong>bar2</p></div>');
+    document.body.removeChild(targetContainer);
+    // appends to native node
+    const newElement1 = document.createElement('p');
+    newElement1.innerHTML = '<strong>foo</strong>bar';
+    new ElementList(newElement1).appendTo(element);
+    expect(element.innerHTML).to.equal('one<p><strong>foo</strong>bar</p>');
+    // appends to ElementList
+    element.innerHTML = 'one';
+    const newElement2 = document.createElement('p');
+    newElement2.innerHTML = '<strong>foo</strong>bar';
+    const targetElementList = new ElementList(element);
+    new ElementList(newElement2).appendTo(targetElementList);
+    expect(targetElementList.html()).to.equal('one<p><strong>foo</strong>bar</p>');
+  });
 });
