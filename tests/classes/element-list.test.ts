@@ -30,6 +30,12 @@ describe('ElementList of classes', () => {
     expect(elementList.get(1).innerHTML).to.equal('two');
   });
 
+  it('method: getAll', () => {
+    const elementList = new ElementList([element, elementTwo, document.body]);
+    expect(elementList.getAll().length).to.equal(3);
+    expect(elementList.getAll()[1].innerHTML).to.equal('two');
+  });
+
   it('method: eq', () => {
     const elementList = new ElementList([element, elementTwo, document.body]);
     expect(elementList.eq(2).name(0)).to.equal('body');

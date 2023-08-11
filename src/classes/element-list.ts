@@ -60,8 +60,9 @@ export class ElementList {
   }
 
   each(callback: EachCallback): this {
-    for (let i = 0; i < this.elementArray.length; i++) {
-      if (callback(this.elementArray[i], i) === false) {
+    const elements = this.getAll();
+    for (let i = 0; i < elements.length; i++) {
+      if (callback(elements[i], i) === false) {
         return this;
       }
     }
