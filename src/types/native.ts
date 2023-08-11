@@ -21,3 +21,4 @@ export type NativeNodeList = NodeList;
 export type NativeText = Text;
 
 export type NativeRange = Range;
+export const NativeRange = Range;
