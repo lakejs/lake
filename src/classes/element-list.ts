@@ -2,8 +2,6 @@ import { NativeElement, NativeNode } from '../types/native';
 import { forEach } from '../utils/for-each';
 import { searchString } from '../utils/search-string';
 import { camelCase } from '../utils/camel-case';
-import { getDocument } from '../utils/get-document';
-import { getWindow } from '../utils/get-window';
 import { getCss } from '../utils/get-css';
 import { getFragment } from '../utils/get-fragment';
 
@@ -22,8 +20,6 @@ let lastElementId = 0;
 export class ElementList {
   elementArray: Array<NativeElement>;
   length: number;
-  doc: Document;
-  win: Window;
 
   constructor(element: NativeElement | Array<NativeElement>) {
     this.elementArray = Array.isArray(element) ? element : [element];
@@ -35,8 +31,6 @@ export class ElementList {
       }
     }
     this.length = this.elementArray.length;
-    this.doc = getDocument(this.elementArray[0]);
-    this.win = getWindow(this.elementArray[0]);
   }
 
   get(index: number): NativeElement {

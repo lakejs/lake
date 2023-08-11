@@ -25,14 +25,6 @@ describe('ElementList of classes', () => {
     expect(new ElementList([element, document.body]).length).to.equal(2);
   });
 
-  it('property: doc', () => {
-    expect(new ElementList(element).doc).to.equal(document);
-  });
-
-  it('property: win', () => {
-    expect(new ElementList(element).win).to.equal(window);
-  });
-
   it('method: get', () => {
     const elementList = new ElementList([element, elementTwo, document.body]);
     expect(elementList.get(1).innerHTML).to.equal('two');
