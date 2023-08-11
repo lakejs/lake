@@ -291,6 +291,29 @@ describe('ElementList of classes', () => {
     expect(elementList.eq(1).html()).to.equal('');
   });
 
+  it('method: prepend', () => {
+    const elementList = new ElementList([element, elementTwo]);
+    // prepends string
+    elementList.prepend('<p>foo</p>');
+    expect(elementList.html()).to.equal('<p>foo</p>one');
+    expect(elementList.eq(1).html()).to.equal('<p>foo</p>two');
+    // prepends native node
+    elementList.empty();
+    const newElement1 = document.createElement('p');
+    newElement1.innerHTML = '<strong>foo</strong>bar';
+    elementList.prepend(newElement1);
+    expect(elementList.html()).to.equal('');
+    expect(elementList.eq(1).html()).to.equal('<p><strong>foo</strong>bar</p>');
+    // prepends ElementList
+    elementList.empty();
+    const newElement2 = document.createElement('p');
+    newElement2.innerHTML = '<strong>foo</strong>bar';
+    const newElementList = new ElementList(newElement2);
+    elementList.prepend(newElementList);
+    expect(elementList.html()).to.equal('');
+    expect(elementList.eq(1).html()).to.equal('<p><strong>foo</strong>bar</p>');
+  });
+
   it('method: append', () => {
     const elementList = new ElementList([element, elementTwo]);
     // appends string

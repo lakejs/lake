@@ -213,6 +213,22 @@ export class ElementList {
     return this;
   }
 
+  prepend(value: string | NativeNode | ElementList): this {
+    return this.each(element => {
+      let fragment: DocumentFragment;
+      if (value instanceof ElementList) {
+        fragment = value.getAll();
+      } else {
+        fragment = getFragment(value);
+      }
+      if (element.firstChild) {
+        element.insertBefore(fragment, element.firstChild);
+      } else {
+        element.appendChild(fragment);
+      }
+    });
+  }
+
   append(value: string | NativeNode | ElementList): this {
     return this.each(element => {
       let fragment: DocumentFragment;
