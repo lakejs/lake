@@ -40,6 +40,14 @@ export class ElementList {
     return this.elementArray[index];
   }
 
+  getAll(): DocumentFragment {
+    const fragment = document.createDocumentFragment();
+    this.each(element => {
+      fragment.appendChild(element);
+    });
+    return fragment;
+  }
+
   eq(index: number): ElementList {
     const element = this.get(index);
     return new ElementList(element);
@@ -200,12 +208,20 @@ export class ElementList {
     });
   }
 
-  append(value: string | NativeNode): this {
+  empty(): this {
+    this.html('');
+    return this;
+  }
+
+  append(value: string | NativeNode | ElementList): this {
     return this.each(element => {
-      if (element.appendChild) {
-        const fragment = getFragment(value);
-        element.appendChild(fragment);
+      let fragment: DocumentFragment;
+      if (value instanceof ElementList) {
+        fragment = value.getAll();
+      } else {
+        fragment = getFragment(value);
       }
+      element.appendChild(fragment);
     });
   }
 }

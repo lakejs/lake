@@ -283,10 +283,34 @@ describe('ElementList of classes', () => {
     expect(elementList.eq(1).html()).to.equal('<p>foo</p>');
   });
 
+  it('method: empty', () => {
+    const elementList = new ElementList([element, elementTwo]);
+    elementList.html('<p>foo</p>');
+    elementList.empty();
+    expect(elementList.html()).to.equal('');
+    expect(elementList.eq(1).html()).to.equal('');
+  });
+
   it('method: append', () => {
     const elementList = new ElementList([element, elementTwo]);
+    // appends string
     elementList.append('<p>foo</p>');
     expect(elementList.html()).to.equal('one<p>foo</p>');
     expect(elementList.eq(1).html()).to.equal('two<p>foo</p>');
+    // appends native node
+    elementList.empty();
+    const newElement1 = document.createElement('p');
+    newElement1.innerHTML = '<strong>foo</strong>bar';
+    elementList.append(newElement1);
+    expect(elementList.html()).to.equal('');
+    expect(elementList.eq(1).html()).to.equal('<p><strong>foo</strong>bar</p>');
+    // appends ElementList
+    elementList.empty();
+    const newElement2 = document.createElement('p');
+    newElement2.innerHTML = '<strong>foo</strong>bar';
+    const newElementList = new ElementList(newElement2);
+    elementList.append(newElementList);
+    expect(elementList.html()).to.equal('');
+    expect(elementList.eq(1).html()).to.equal('<p><strong>foo</strong>bar</p>');
   });
 });
