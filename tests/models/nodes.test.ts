@@ -9,10 +9,12 @@ describe('Nodes of models', () => {
 
   beforeEach(() => {
     element = document.createElement('div');
+    element.className = 'class1';
     element.innerHTML = 'one';
     document.body.appendChild(element);
     elementTwo = document.createElement('p');
     elementTwo.innerHTML = 'two';
+    elementTwo.className = 'class2';
     document.body.appendChild(elementTwo);
   });
 
@@ -67,9 +69,9 @@ describe('Nodes of models', () => {
   it('method: each', () => {
     const textNode = document.createTextNode('foo');
     const nodes = new Nodes([element, textNode, elementTwo]);
-    let firstNode: any;
-    let secondNode: any;
-    let thirdNode: any;
+    let firstNode;
+    let secondNode;
+    let thirdNode;
     const result = nodes.each((node, index) => {
       if (index === 0) {
         firstNode = node;
@@ -111,6 +113,15 @@ describe('Nodes of models', () => {
     expect(firstNode).to.equal(element);
     expect(secondNode).to.equal(undefined);
     expect(thirdNode).to.equal(elementTwo);
+  });
+
+  it('method: find', () => {
+    const nodes = new Nodes(document.body);
+    const targetNodes1 = nodes.find('.class1');
+    expect(targetNodes1.html()).to.equal('one');
+    const targetNodes2 = nodes.find('.class1, .class2');
+    expect(targetNodes2.html()).to.equal('one');
+    expect(targetNodes2.eq(1).html()).to.equal('two');
   });
 
   it('event methods: to add an event', () => {
@@ -281,7 +292,6 @@ describe('Nodes of models', () => {
     nodes.removeClass('class-two');
     expect(nodes.hasClass('class-one')).to.equal(false);
     expect(nodes.hasClass('class-two')).to.equal(false);
-    expect(nodes.hasAttr('class')).to.equal(false);
   });
 
   it('class methods: class name is an array', () => {

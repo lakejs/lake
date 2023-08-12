@@ -3,24 +3,51 @@ import { Nodes } from './nodes';
 
 export class Range {
   range: NativeRange;
-  start: Nodes;
-  end: Nodes;
-  startOffset: number;
-  endOffset: number;
-  commonAncestor: Nodes;
-  collapsed: boolean;
 
-  constructor(range: NativeRange) {
-    this.range = range;
-    this.start = new Nodes(range.startContainer);
-    this.end = new Nodes(range.endContainer);
-    this.startOffset = range.startOffset;
-    this.endOffset = range.endOffset;
-    this.commonAncestor = new Nodes(range.commonAncestorContainer);
-    this.collapsed = range.collapsed;
+  constructor() {
+    this.range = document.createRange();
   }
 
-  insert(nodes: Nodes): this {
+  startNode(): Nodes {
+    return new Nodes(this.range.startContainer);
+  }
+
+  startOffset(): number {
+    return this.range.startOffset;
+  }
+
+  endNode(): Nodes {
+    return new Nodes(this.range.endContainer);
+  }
+
+  endOffset(): number {
+    return this.range.endOffset;
+  }
+
+  commonAncestor(): Nodes {
+    return new Nodes(this.range.commonAncestorContainer);
+  }
+
+  collapsed(): boolean {
+    return this.range.collapsed;
+  }
+
+  collapse(toStart?: boolean): this {
+    this.range.collapse(toStart);
+    return this;
+  }
+
+  selectNode(nodes: Nodes): this {
+    this.range.selectNode(nodes.get(0));
+    return this;
+  }
+
+  selectNodeContents(nodes: Nodes): this {
+    this.range.selectNodeContents(nodes.get(0));
+    return this;
+  }
+
+  insertNode(nodes: Nodes): this {
     nodes.each(node => {
       this.range.insertNode(node);
     });

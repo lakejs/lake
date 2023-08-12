@@ -8,7 +8,7 @@ describe('forEach of utils', () => {
       two: 2,
       three: 3,
     };
-    const newObject: any = {};
+    const newObject: { [key: string]: number } = {};
     forEach(oldObject, (key, value) => {
       newObject[key] = value;
     });

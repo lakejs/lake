@@ -93,6 +93,12 @@ export class Nodes {
     return this;
   }
 
+  find(selector: string): Nodes {
+    const element = this.get(0) as NativeElement;
+    const nodeList = element.querySelectorAll(selector);
+    return new Nodes(Array.from(nodeList));
+  }
+
   on(type: string, listener: EventListener): this {
     return this.eachElement((element, index) => {
       element.addEventListener(type, listener, false);
