@@ -5,6 +5,9 @@ declare global {
 
   interface Element {
     style: { [key: string]: string };
+  }
+
+  interface Node {
     lakeId: number;
   }
 }

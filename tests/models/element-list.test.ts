@@ -28,13 +28,23 @@ describe('ElementList of models', () => {
 
   it('method: get', () => {
     const elementList = new ElementList([element, elementTwo, document.body]);
-    expect(elementList.get(1).innerHTML).to.equal('two');
+    expect(elementList.eq(1).html()).to.equal('two');
   });
 
   it('method: getAll', () => {
     const elementList = new ElementList([element, elementTwo, document.body]);
     expect(elementList.getAll().length).to.equal(3);
-    expect(elementList.getAll()[1].innerHTML).to.equal('two');
+    expect((elementList.getAll()[1] as NativeElement).innerHTML).to.equal('two');
+  });
+
+  it('method: isElement', () => {
+    const elementList = new ElementList([element, elementTwo, document.body]);
+    expect(elementList.isElement(0)).to.equal(true);
+  });
+
+  it('method: isText', () => {
+    const elementList = new ElementList([element, document.createTextNode('foo'), document.body]);
+    expect(elementList.isText(1)).to.equal(true);
   });
 
   it('method: eq', () => {
@@ -55,27 +65,52 @@ describe('ElementList of models', () => {
   });
 
   it('method: each', () => {
-    const elementList = new ElementList([element, elementTwo, document.body]);
-    let firstElement: any;
-    let secondElement: any;
-    let thirdElement: any;
-    const result = elementList.each((element, index) => {
+    const textNode = document.createTextNode('foo');
+    const elementList = new ElementList([element, textNode, elementTwo]);
+    let firstNode: any;
+    let secondNode: any;
+    let thirdNode: any;
+    const result = elementList.each((node, index) => {
       if (index === 0) {
-        firstElement = element;
+        firstNode = node;
         return;
       }
       if (index === 1) {
-        secondElement = element;
+        secondNode = node;
         return false;
       }
       if (index === 2) {
-        thirdElement = element;
+        thirdNode = node;
       }
     });
     expect(result).to.equal(elementList);
-    expect(firstElement).to.equal(element);
-    expect(secondElement).to.equal(elementTwo);
-    expect(thirdElement).to.equal(undefined);
+    expect(firstNode).to.equal(element);
+    expect(secondNode).to.equal(textNode);
+    expect(thirdNode).to.equal(undefined);
+  });
+
+  it('method: eachElement', () => {
+    const textNode = document.createTextNode('foo');
+    const elementList = new ElementList([element, textNode, elementTwo]);
+    let firstNode: any;
+    let secondNode: any;
+    let thirdNode: any;
+    const result = elementList.eachElement((node, index) => {
+      if (index === 0) {
+        firstNode = node;
+        return;
+      }
+      if (index === 1) {
+        secondNode = node;
+      }
+      if (index === 2) {
+        thirdNode = node;
+      }
+    });
+    expect(result).to.equal(elementList);
+    expect(firstNode).to.equal(element);
+    expect(secondNode).to.equal(undefined);
+    expect(thirdNode).to.equal(elementTwo);
   });
 
   it('event methods: to add an event', () => {
