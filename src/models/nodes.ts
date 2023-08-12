@@ -19,7 +19,7 @@ const eventData: { [key: number]: EventItem[] } = {};
 
 let lastElementId = 0;
 
-export class ElementList {
+export class Nodes {
   elementArray: NativeNode[];
   length: number;
 
@@ -56,9 +56,9 @@ export class ElementList {
     return element.nodeType === NativeNode.TEXT_NODE;
   }
 
-  eq(index: number): ElementList {
+  eq(index: number): Nodes {
     const element = this.get(index);
-    return new ElementList(element);
+    return new Nodes(element);
   }
 
   id(index: number): number {
@@ -234,10 +234,10 @@ export class ElementList {
     return this;
   }
 
-  prepend(value: string | NativeNode | ElementList): this {
+  prepend(value: string | NativeNode | Nodes): this {
     return this.eachElement(element => {
       let list: NativeNode[] = [];
-      if (value instanceof ElementList) {
+      if (value instanceof Nodes) {
         list = value.getAll();
       } else {
         list = getNodeList(value);
@@ -255,10 +255,10 @@ export class ElementList {
     });
   }
 
-  append(value: string | NativeNode | ElementList): this {
+  append(value: string | NativeNode | Nodes): this {
     return this.eachElement(element => {
       let list: NativeNode[] = [];
-      if (value instanceof ElementList) {
+      if (value instanceof Nodes) {
         list = value.getAll();
       } else {
         list = getNodeList(value);
@@ -269,16 +269,16 @@ export class ElementList {
     });
   }
 
-  appendTo(value: string | NativeElement | ElementList): this {
+  appendTo(value: string | NativeElement | Nodes): this {
     return this.each(node => {
-      let newElementList: ElementList;
-      if (value instanceof ElementList) {
-        newElementList = value;
+      let newNodes: Nodes;
+      if (value instanceof Nodes) {
+        newNodes = value;
       } else {
         const list = getNodeList(value);
-        newElementList = new ElementList(list);
+        newNodes = new Nodes(list);
       }
-      newElementList.append(node);
+      newNodes.append(node);
     });
   }
 

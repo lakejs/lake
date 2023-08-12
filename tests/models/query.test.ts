@@ -2,12 +2,17 @@ import { expect } from 'chai';
 import { query } from '../../src/models';
 
 describe('query of models', () => {
-  it('native node', () => {
+  it('native element', () => {
     const element = document.createElement('div');
     expect(query(element).get(0)).to.equal(element);
   });
 
-  it('instance of ElementList', () => {
+  it('native text node', () => {
+    const textNode = document.createTextNode('foo');
+    expect(query(textNode).get(0)).to.equal(textNode);
+  });
+
+  it('instance of Nodes', () => {
     const element = query('<div>foo</div>');
     expect(query(element)).to.equal(element);
   });
@@ -17,10 +22,10 @@ describe('query of models', () => {
   });
 
   it('selector string', () => {
-    const elementList = query('<div><p class="class-p">foo</p><p class="class-p">bar</p></div>');
-    elementList.appendTo(document.body);
+    const nodes = query('<div><p class="class-p">foo</p><p class="class-p">bar</p></div>');
+    nodes.appendTo(document.body);
     expect(query('body .class-p').html()).to.equal('foo');
     expect(query('body .class-p').eq(1).html()).to.equal('bar');
-    elementList.remove();
+    nodes.remove();
   });
 });

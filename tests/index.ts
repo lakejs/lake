@@ -12,6 +12,6 @@ import './utils/get-document.test';
 import './utils/get-window.test';
 import './utils/get-node-list.test';
 
-// ElementList Class
-import './models/element-list.test';
+// Nodes Class
+import './models/nodes.test';
 import './models/query.test';

@@ -1,20 +1,20 @@
 import { NativeRange } from '../types/native';
-import { ElementList } from './element-list';
+import { Nodes } from './nodes';
 
 export class Range {
-  start: ElementList;
-  end: ElementList;
+  start: Nodes;
+  end: Nodes;
   startOffset: number;
   endOffset: number;
-  commonAncestor: ElementList;
+  commonAncestor: Nodes;
   collapsed: boolean;
 
   constructor(range: NativeRange) {
-    this.start = new ElementList(range.startContainer);
-    this.end = new ElementList(range.endContainer);
+    this.start = new Nodes(range.startContainer);
+    this.end = new Nodes(range.endContainer);
     this.startOffset = range.startOffset;
     this.endOffset = range.endOffset;
-    this.commonAncestor = new ElementList(range.commonAncestorContainer);
+    this.commonAncestor = new Nodes(range.commonAncestorContainer);
     this.collapsed = range.collapsed;
   }
 }

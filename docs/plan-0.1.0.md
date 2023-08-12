@@ -32,7 +32,7 @@
     * get-css.ts
     * index.ts
   * models/
-    * element-list.ts
+    * nodes.ts
     * text.ts
     * range.ts
     * component.ts

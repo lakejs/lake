@@ -1,14 +1,11 @@
-import { NativeElement, NativeNode } from '../types/native';
+import { NativeNode } from '../types/native';
 import { getNodeList } from '../utils';
-import { ElementList } from './element-list';
+import { Nodes } from './nodes';
 
-export function query(value: string | NativeNode | ElementList) {
-  if (value instanceof ElementList) {
+export function query(value: string | NativeNode | Nodes) {
+  if (value instanceof Nodes) {
     return value;
   }
   const nodes = getNodeList(value);
-  const elements = nodes.filter((node: NativeNode) => {
-    return node.nodeType === NativeNode.ELEMENT_NODE;
-  });
-  return new ElementList(elements as NativeElement[]);
+  return new Nodes(nodes);
 }
