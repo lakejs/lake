@@ -1,7 +1,7 @@
 export function camelCase(value: string): string {
-  const valueArray = value.split('-');
+  const valueList = value.split('-');
   let camelString = '';
-  valueArray.forEach((val, index) => {
+  valueList.forEach((val, index) => {
     camelString += (index > 0) ? val.charAt(0).toUpperCase() + val.substring(1) : val;
   });
   return camelString;

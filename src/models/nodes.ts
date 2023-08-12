@@ -17,64 +17,64 @@ type EventItem = {
 // value is an array which include types and listeners.
 const eventData: { [key: number]: EventItem[] } = {};
 
-let lastElementId = 0;
+let lastNodeId = 0;
 
 export class Nodes {
-  elementArray: NativeNode[];
+  nodeList: NativeNode[];
   length: number;
 
-  constructor(element: NativeNode | Array<NativeNode>) {
-    this.elementArray = Array.isArray(element) ? element : [element];
-    for (let i = 0; i < this.elementArray.length; i++) {
-      // lakeId is an expando for preserving element ID.
+  constructor(node: NativeNode | NativeNode[]) {
+    this.nodeList = Array.isArray(node) ? node : [node];
+    for (let i = 0; i < this.nodeList.length; i++) {
+      // lakeId is an expando for preserving node ID.
       // https://developer.mozilla.org/en-US/docs/Glossary/Expando
-      if (!this.elementArray[i].lakeId) {
-        this.elementArray[i].lakeId = ++lastElementId;
+      if (!this.nodeList[i].lakeId) {
+        this.nodeList[i].lakeId = ++lastNodeId;
       }
     }
-    this.length = this.elementArray.length;
+    this.length = this.nodeList.length;
   }
 
   get(index: number): NativeNode {
     if (index === undefined) {
       index = 0;
     }
-    return this.elementArray[index];
+    return this.nodeList[index];
   }
 
   getAll(): NativeNode[] {
-    return this.elementArray;
+    return this.nodeList;
   }
 
   isElement(index: number): boolean {
-    const element = this.get(index);
-    return element.nodeType === NativeNode.ELEMENT_NODE;
+    const node = this.get(index);
+    return node.nodeType === NativeNode.ELEMENT_NODE;
   }
 
   isText(index: number): boolean {
-    const element = this.get(index);
-    return element.nodeType === NativeNode.TEXT_NODE;
+    const node = this.get(index);
+    return node.nodeType === NativeNode.TEXT_NODE;
   }
 
   eq(index: number): Nodes {
-    const element = this.get(index);
-    return new Nodes(element);
+    const node = this.get(index);
+    return new Nodes(node);
   }
 
   id(index: number): number {
-    const element = this.get(index);
-    return element.lakeId;
+    const node = this.get(index);
+    return node.lakeId;
   }
 
   name(index: number): string {
-    const element = this.get(index);
-    return element.nodeName.toLowerCase();
+    const node = this.get(index);
+    return node.nodeName.toLowerCase();
   }
 
   each(callback: EachCallback): this {
-    const elements = this.getAll();
-    for (let i = 0; i < elements.length; i++) {
-      if (callback(elements[i], i) === false) {
+    const nodes = this.getAll();
+    for (let i = 0; i < nodes.length; i++) {
+      if (callback(nodes[i], i) === false) {
         return this;
       }
     }
@@ -82,10 +82,10 @@ export class Nodes {
   }
 
   eachElement(callback: EachElementCallback): this {
-    const elements = this.getAll();
-    for (let i = 0; i < elements.length; i++) {
-      if (elements[i].nodeType === NativeNode.ELEMENT_NODE) {
-        if (callback(elements[i] as NativeElement, i) === false) {
+    const nodes = this.getAll();
+    for (let i = 0; i < nodes.length; i++) {
+      if (nodes[i].nodeType === NativeNode.ELEMENT_NODE) {
+        if (callback(nodes[i] as NativeElement, i) === false) {
           return this;
         }
       }
