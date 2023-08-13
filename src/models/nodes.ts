@@ -225,6 +225,16 @@ export class Nodes {
     });
   }
 
+  show(displayType: string = 'block'): this {
+    this.css('display', displayType);
+    return this;
+  }
+
+  hide(): this {
+    this.css('display', 'none');
+    return this;
+  }
+
   html(value?: string): string | this {
     if (value === undefined) {
       const element = this.get(0) as NativeElement;
@@ -285,6 +295,27 @@ export class Nodes {
         newNodes = new Nodes(list);
       }
       newNodes.append(node);
+    });
+  }
+
+  after(value: string | NativeNode | Nodes): this {
+    return this.eachElement(element => {
+      let list: NativeNode[] = [];
+      if (value instanceof Nodes) {
+        list = value.getAll();
+      } else {
+        list = getNodeList(value);
+      }
+      list.forEach((node: NativeNode) => {
+        if (!element.parentNode) {
+          return;
+        }
+        if (element.nextSibling) {
+          element.parentNode.insertBefore(node, element.nextSibling);
+        } else {
+          element.parentNode.appendChild(node);
+        }
+      });
     });
   }
 

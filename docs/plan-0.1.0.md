@@ -60,28 +60,30 @@
     * index.ts
   * modules
     * edit-area.ts
+    * paste.ts
     * undo.ts
     * redo.ts
-    * paste.ts
+    * select-all.ts
     * heading.ts
+    * blockquote.ts
+    * list.ts (numbered list, bulleted list, checklist)
+    * align.ts (left, center, right, justify)
+    * indent.ts (increase, decrease)
     * bold.ts
     * italic.ts
     * underline.ts
-    * strike-through.ts
-    * font-size.ts
-    * fore-color.ts
-    * hilite-color.ts
-    * brush.ts
-    * remove-format.ts
+    * strikethrough.ts
     * subscript.ts
     * superscript.ts
-    * list.ts (ordered, unordered, task)
-    * align.ts (left, center, right, full)
-    * indent.ts (indent, outdent)
-    * quote.ts
-    * select-all.ts
+    * code.ts
+    * font-family.ts
+    * font-size.ts
+    * text-color.ts
+    * highlight.ts
+    * format-painter.ts
+    * remove-format.ts
   * extensions/
-    * hr/
+    * horizontal-line/
     * image/
     * link/
     * table/

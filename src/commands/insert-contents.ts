@@ -1,6 +1,6 @@
+import { Nodes } from '../models/nodes';
 import { query } from '../models/query';
 import { Range } from '../models/range';
-import { Nodes } from '../models/nodes';
 
 export function insertContents(range: Range, value: string): Nodes {
   const nodes = query(value);

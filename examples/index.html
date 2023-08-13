@@ -3,9 +3,98 @@
   <head>
     <meta charset="utf-8" />
     <title>Lake Examples</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', -apple-system, Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .lake-editor {
+        border: 1px solid #cccccc;
+        width: 1024px;
+        height: 512px;
+        padding: 10px;
+      }
+      .lake-toolbar {
+        width: 1024px;
+        font-size: 0;
+        margin: 10px 0;
+      }
+      .lake-toolbar-group {
+        margin-top: 10px;
+      }
+      .lake-toolbar-icon {
+        display: inline-block;
+        border: 1px solid #dddddd;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-right: 5px;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
-    <p id="editor">Lake</p>
-    <script src="../dist/lake-core.js"></script>
+    <h1>Lake Demo</h1>
+    <div class="lake-toolbar">
+      <div class="lake-toolbar-group">
+        <span class="lake-toolbar-icon" data-type="undo">Undo</span>
+        <span class="lake-toolbar-icon" data-type="redo">Redo</span>
+        <span class="lake-toolbar-icon" data-type="h1">H1</span>
+        <span class="lake-toolbar-icon" data-type="h2">H2</span>
+        <span class="lake-toolbar-icon" data-type="h3">H3</span>
+        <span class="lake-toolbar-icon" data-type="h4">H4</span>
+        <span class="lake-toolbar-icon" data-type="h5">H5</span>
+        <span class="lake-toolbar-icon" data-type="h6">H6</span>
+        <span class="lake-toolbar-icon" data-type="paragraph">Paragraph</span>
+        <span class="lake-toolbar-icon" data-type="blockquote">Blockquote</span>
+        <span class="lake-toolbar-icon" data-type="numberedList">Numbered list</span>
+        <span class="lake-toolbar-icon" data-type="bulletedList">Bulleted list</span>
+        <span class="lake-toolbar-icon" data-type="checklist">Checklist</span>
+        <span class="lake-toolbar-icon" data-type="selectAll">Select All</span>
+      </div>
+      <div class="lake-toolbar-group">
+        <span class="lake-toolbar-icon" data-type="image">Image</span>
+        <span class="lake-toolbar-icon" data-type="link">Link</span>
+        <span class="lake-toolbar-icon" data-type="horizontalLine">HR</span>
+        <span class="lake-toolbar-icon" data-type="table">Table</span>
+        <span class="lake-toolbar-icon" data-type="codeBlock">Code Block</span>
+        <span class="lake-toolbar-icon" data-type="alignLeft">Align left</span>
+        <span class="lake-toolbar-icon" data-type="alignCenter">Align center</span>
+        <span class="lake-toolbar-icon" data-type="alignRight">Align right</span>
+        <span class="lake-toolbar-icon" data-type="alignJustify">Align justify</span>
+        <span class="lake-toolbar-icon" data-type="increaseIndent">Increase indent</span>
+        <span class="lake-toolbar-icon" data-type="decreaseIndent">Decrease indent</span>
+      </div>
+      <div class="lake-toolbar-group">
+        <span class="lake-toolbar-icon" data-type="bold">B</span>
+        <span class="lake-toolbar-icon" data-type="itelic">I</span>
+        <span class="lake-toolbar-icon" data-type="underline">U</span>
+        <span class="lake-toolbar-icon" data-type="strikethrough">S</span>
+        <span class="lake-toolbar-icon" data-type="code">Code</span>
+        <span class="lake-toolbar-icon" data-type="superscript">Superscript</span>
+        <span class="lake-toolbar-icon" data-type="subscript">Subscript</span>
+        <span class="lake-toolbar-icon" data-type="fontFamily">Font family</span>
+        <span class="lake-toolbar-icon" data-type="fontSize">Font size</span>
+        <span class="lake-toolbar-icon" data-type="textColor">Text color</span>
+        <span class="lake-toolbar-icon" data-type="highlight">Highlight</span>
+        <span class="lake-toolbar-icon" data-type="formatPainter">Format painter</span>
+        <span class="lake-toolbar-icon" data-type="removeFormat">RemoveFormat</span>
+      </div>
+    </div>
+    <div class="lake-editor">
+      <h1>Think Different</h1>
+      <p>
+        Here's to the crazy ones. The misfits. The rebels. The troublemakers. The round pegs in the square holes.
+        The ones who see things differently. They're not fond of rules. And they have no respect for the status quo.
+        You can quote them, disagree with them, glorify or vilify them. About the only thing you can't do is ignore them.
+        Because they change things. They push the human race forward.
+        And while some may see them as the crazy ones, we see genius.
+        Because the people who are crazy enough to think they can change the world, are the ones who do.
+      </p>
+      <p style="text-align: right;">
+        - Apple Inc.
+      </p>
+    </div>
+    <script src="../dist/examples/bundle.js"></script>
   </body>
 </html>

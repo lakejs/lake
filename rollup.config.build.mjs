@@ -5,7 +5,7 @@ import json from '@rollup/plugin-json';
 import terser from '@rollup/plugin-terser';
 
 export default [{
-  input: './src/index.ts',
+  input: './src/main.ts',
   output: [{
     file: './dist/lake-core.js',
     format: 'iife',
@@ -25,7 +25,7 @@ export default [{
     json()
   ],
 }, {
-  input: './src/index.ts',
+  input: './src/main.ts',
   output: {
     file: './lib/lake-core.js',
     format: 'es',
