@@ -10,7 +10,7 @@ export class EditArea {
     this.event = new EventEmitter();
     const nodes = query(target);
     nodes.hide();
-    const defaultValue = nodes.html() as string;
+    const defaultValue = nodes.html();
     const className = options.className as string || 'lake-editor-area';
     const editAreaElement = query('<div></div>');
     editAreaElement.attr({

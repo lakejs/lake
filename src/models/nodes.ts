@@ -164,7 +164,7 @@ export class Nodes {
     });
   }
 
-  getEventListeners(index: number) {
+  getEventListeners(index: number): EventItem[] {
     const elementId = this.id(index);
     return eventData[elementId];
   }
@@ -174,7 +174,10 @@ export class Nodes {
     return element.hasAttribute(attributeName);
   }
 
-  attr(attributeName: string | { [key: string]: string }, value?: string): string | this {
+  attr(attributeName: string): string;
+  attr(attributeName: string, value: string): this;
+  attr(attributeName: { [key: string]: string }): this;
+  attr(attributeName: any, value?: any): any {
     if (typeof attributeName === 'object') {
       forEach(attributeName, (name, val) => {
         this.attr(name, val);
@@ -229,7 +232,10 @@ export class Nodes {
     return this;
   }
 
-  css(propertyName: string | { [key: string]: string }, value?: string): string | this {
+  css(propertyName: string): string;
+  css(propertyName: { [key: string]: string }): this;
+  css(propertyName: string, value: string): this;
+  css(propertyName: any, value?: any): any {
     if (typeof propertyName === 'object') {
       forEach(propertyName, (name, val) => {
         this.css(name, val);
@@ -255,7 +261,9 @@ export class Nodes {
     return this;
   }
 
-  html(value?: string): string | this {
+  html(): string;
+  html(value: string): this;
+  html(value?: any): any {
     if (value === undefined) {
       const element = this.get(0) as NativeElement;
       return element.innerHTML;
