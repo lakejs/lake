@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { NativeElement } from '../../src/types/native';
-import { Nodes } from '../../src/models';
+import { Nodes, query } from '../../src/models';
 
 describe('Nodes of models', () => {
 
@@ -124,7 +124,19 @@ describe('Nodes of models', () => {
     expect(targetNodes2.eq(1).html()).to.equal('two');
   });
 
-  it('event methods: to add an event', () => {
+  it('method: prev', () => {
+    const nodes = new Nodes(element);
+    nodes.html('<p>foo</p><p>bar</p>');
+    expect(nodes.find('p').eq(1).prev().html()).to.equal('foo');
+  });
+
+  it('method: next', () => {
+    const nodes = new Nodes(element);
+    nodes.html('<p>foo</p><p>bar</p>');
+    expect(nodes.find('p').eq(0).next().html()).to.equal('bar');
+  });
+
+  it('event methods: an event', () => {
     const nodes = new Nodes([element, document.body]);
     const listener = () => {
       element.innerHTML = 'click event';
@@ -145,7 +157,7 @@ describe('Nodes of models', () => {
     expect(nodes.getEventListeners(1).length).to.equal(0);
   });
 
-  it('event methods: to add multi-event', () => {
+  it('event methods: multi-event', () => {
     const nodes = new Nodes([element, document.body]);
     const clickListener = () => {
       element.innerHTML = 'click event';
@@ -179,7 +191,7 @@ describe('Nodes of models', () => {
     expect(element.innerHTML).to.equal('one');
   });
 
-  it('event methods: to add multi-event that includes the same type', () => {
+  it('event methods: multi-event with the same type', () => {
     const nodes = new Nodes(element);
     let clickCount = 0;
     const clickListenerOne = () => {
@@ -278,7 +290,7 @@ describe('Nodes of models', () => {
     expect(nodes.hasAttr('data-one')).to.equal(false);
   });
 
-  it('class methods: class name is a string', () => {
+  it('class methods: a string', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.addClass('class-one');
     expect(nodes.hasClass('class-one')).to.equal(true);
@@ -294,7 +306,7 @@ describe('Nodes of models', () => {
     expect(nodes.hasClass('class-two')).to.equal(false);
   });
 
-  it('class methods: class name is an array', () => {
+  it('class methods: an array', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.addClass(['class-one', 'class-two']);
     expect(nodes.hasClass('class-one')).to.equal(true);
@@ -308,7 +320,7 @@ describe('Nodes of models', () => {
     expect(nodes.eq(1).hasClass('class-two')).to.equal(false);
   });
 
-  it('css methods: property name is string', () => {
+  it('css methods: a string', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.css('background-color', '#ff0000');
     nodes.css('border', '1px solid #0000ff');
@@ -322,7 +334,7 @@ describe('Nodes of models', () => {
     expect(nodes.css('border-color')).to.equal('#000000');
   });
 
-  it('css methods: property name is array', () => {
+  it('css methods: an array', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.css({
       'background-color': '#ff0000',
@@ -331,6 +343,23 @@ describe('Nodes of models', () => {
     expect(nodes.css('background-color')).to.equal('#ff0000');
     expect(nodes.eq(1).css('background-color')).to.equal('#ff0000');
     expect(nodes.css('border-color')).to.equal('#0000ff');
+  });
+
+  it('method: show', () => {
+    const nodes = new Nodes([element, elementTwo]);
+    nodes.show();
+    expect(nodes.css('display')).to.equal('block');
+    expect(nodes.eq(1).css('display')).to.equal('block');
+    nodes.show('inline-block');
+    expect(nodes.css('display')).to.equal('inline-block');
+    expect(nodes.eq(1).css('display')).to.equal('inline-block');
+  });
+
+  it('method: hide', () => {
+    const nodes = new Nodes([element, elementTwo]);
+    nodes.hide();
+    expect(nodes.css('display')).to.equal('none');
+    expect(nodes.eq(1).css('display')).to.equal('none');
   });
 
   it('method: html', () => {
@@ -350,19 +379,25 @@ describe('Nodes of models', () => {
 
   it('method: prepend', () => {
     const nodes = new Nodes([element, elementTwo]);
-    // prepends string
+    // insert a HTML string
     nodes.prepend('<p>foo</p>');
     expect(nodes.html()).to.equal('<p>foo</p>one');
     expect(nodes.eq(1).html()).to.equal('<p>foo</p>two');
-    // prepends native node
     nodes.empty();
+    // insert a HTML string with multi-element
+    nodes.html('foo');
+    nodes.prepend('<p>multi-element-one</p>bar<p>multi-element-two</p>');
+    expect(nodes.html()).to.equal('<p>multi-element-one</p>bar<p>multi-element-two</p>foo');
+    expect(nodes.eq(1).html()).to.equal('<p>multi-element-one</p>bar<p>multi-element-two</p>foo');
+    nodes.empty();
+    // insert a native node
     const newElement1 = document.createElement('p');
     newElement1.innerHTML = '<strong>foo</strong>bar';
     nodes.prepend(newElement1);
     expect(nodes.html()).to.equal('');
     expect(nodes.eq(1).html()).to.equal('<p><strong>foo</strong>bar</p>');
-    // prepends Nodes
     nodes.empty();
+    // insert nodes
     const newElement2 = document.createElement('p');
     newElement2.innerHTML = '<strong>foo</strong>bar';
     const newNodes = new Nodes(newElement2);
@@ -373,19 +408,25 @@ describe('Nodes of models', () => {
 
   it('method: append', () => {
     const nodes = new Nodes([element, elementTwo]);
-    // appends string
+    // insert a HTML string
     nodes.append('<p>foo</p>');
     expect(nodes.html()).to.equal('one<p>foo</p>');
     expect(nodes.eq(1).html()).to.equal('two<p>foo</p>');
-    // appends native node
     nodes.empty();
+    // insert a HTML string with multi-element
+    nodes.html('foo');
+    nodes.append('<p>multi-element-one</p>bar<p>multi-element-two</p>');
+    expect(nodes.html()).to.equal('foo<p>multi-element-one</p>bar<p>multi-element-two</p>');
+    expect(nodes.eq(1).html()).to.equal('foo<p>multi-element-one</p>bar<p>multi-element-two</p>');
+    nodes.empty();
+    // insert a native node
     const newElement1 = document.createElement('p');
     newElement1.innerHTML = '<strong>foo</strong>bar';
     nodes.append(newElement1);
     expect(nodes.html()).to.equal('');
     expect(nodes.eq(1).html()).to.equal('<p><strong>foo</strong>bar</p>');
-    // appends Nodes
     nodes.empty();
+    // insert nodes
     const newElement2 = document.createElement('p');
     newElement2.innerHTML = '<strong>foo</strong>bar';
     const newNodes = new Nodes(newElement2);
@@ -395,30 +436,45 @@ describe('Nodes of models', () => {
   });
 
   it('method: appendTo', () => {
-    const elem1 = document.createElement('p');
-    elem1.innerHTML = '<strong>foo</strong>bar';
-    const elem2 = document.createElement('p');
-    elem2.innerHTML = '<strong>foo2</strong>bar2';
+    const elem1 = query('<p><strong>foo</strong>bar</p>').get(0);
+    const elem2 = query('<p><strong>foo2</strong>bar2</p>').get(0);
     const nodes1 = new Nodes([elem1, elem2]);
-    // appends to selector string
-    const targetContainer = document.createElement('div');
-    targetContainer.innerHTML = '<div class="class-div">one</div><div class="class-div">two</div>';
-    document.body.appendChild(targetContainer);
+    // append to a selector string
+    const targetContainer = query('<div><div class="class-div">one</div><div class="class-div">two</div></div>').appendTo(document.body);
     nodes1.appendTo('.class-div');
-    expect(targetContainer.innerHTML).to.equal('<div class="class-div">one</div><div class="class-div">two<p><strong>foo</strong>bar</p><p><strong>foo2</strong>bar2</p></div>');
-    document.body.removeChild(targetContainer);
-    // appends to native node
-    const newElement1 = document.createElement('p');
-    newElement1.innerHTML = '<strong>foo</strong>bar';
-    new Nodes(newElement1).appendTo(element);
+    expect(targetContainer.html()).to.equal('<div class="class-div">one</div><div class="class-div">two<p><strong>foo</strong>bar</p><p><strong>foo2</strong>bar2</p></div>');
+    targetContainer.remove();
+    // append to a native node
+    query('<p><strong>foo</strong>bar</p>').appendTo(element);
     expect(element.innerHTML).to.equal('one<p><strong>foo</strong>bar</p>');
-    // appends to Nodes
+    // append to nodes
     element.innerHTML = 'one';
-    const newElement2 = document.createElement('p');
-    newElement2.innerHTML = '<strong>foo</strong>bar';
-    const targetNodes = new Nodes(element);
-    new Nodes(newElement2).appendTo(targetNodes);
-    expect(targetNodes.html()).to.equal('one<p><strong>foo</strong>bar</p>');
+    query('<p><strong>foo</strong>bar</p>').appendTo(element);
+    expect(element.innerHTML).to.equal('one<p><strong>foo</strong>bar</p>');
+  });
+
+  it('method: after', () => {
+    const nodes = new Nodes([element, elementTwo]);
+    // insert a HTML string
+    nodes.after('<div class="after-test">a HTML string</div>');
+    expect(nodes.next().html()).to.equal('a HTML string');
+    expect(nodes.eq(1).next().html()).to.equal('a HTML string');
+    query('.after-test').remove();
+    // insert a HTML string with multi-element
+    nodes.after('<div class="after-test">multi-element-one</div><div class="after-test">multi-element-two</div>');
+    expect(nodes.next().html()).to.equal('multi-element-one');
+    expect(nodes.next().next().html()).to.equal('multi-element-two');
+    query('.after-test').remove();
+    // insert a native node
+    const nativeElement = query('<div class="after-test">native node</div>').get(0);
+    nodes.after(nativeElement);
+    expect(nodes.eq(1).next().html()).to.equal('native node');
+    query('.after-test').remove();
+    // insert nodes
+    const newNodes = query('<div class="after-test">nodes</div>');
+    nodes.after(newNodes);
+    expect(nodes.eq(1).next().html()).to.equal('nodes');
+    query('.after-test').remove();
   });
 
   it('method: remove', () => {

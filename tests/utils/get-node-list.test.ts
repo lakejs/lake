@@ -16,12 +16,20 @@ describe('getNodeList of utils', () => {
     expect((getNodeList('<p>foo</p>')[0] as NativeElement).outerHTML).to.equal('<p>foo</p>');
   });
 
-  it('a selector string', () => {
+  it('a selector string: class', () => {
     const element = document.createElement('div');
     element.innerHTML = '<p class="class-p">foo</p><p class="class-p">bar</p>';
     document.body.appendChild(element);
     expect((getNodeList('.class-p')[0] as NativeElement).outerHTML).to.equal('<p class="class-p">foo</p>');
     expect((getNodeList('.class-p')[1] as NativeElement).outerHTML).to.equal('<p class="class-p">bar</p>');
+    document.body.removeChild(element);
+  });
+
+  it('a selector string: id', () => {
+    const element = document.createElement('div');
+    element.innerHTML = '<p id="id-p">foo</p><p class="class-p">bar</p>';
+    document.body.appendChild(element);
+    expect((getNodeList('#id-p')[0] as NativeElement).outerHTML).to.equal('<p id="id-p">foo</p>');
     document.body.removeChild(element);
   });
 });

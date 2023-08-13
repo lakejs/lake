@@ -99,6 +99,26 @@ export class Nodes {
     return new Nodes(Array.from(nodeList));
   }
 
+  // The method returns the immediately preceding sibling of each element.
+  prev(): Nodes {
+    const element = this.get(0) as NativeElement;
+    const list = [];
+    if (element.previousSibling) {
+      list.push(element.previousSibling);
+    }
+    return new Nodes(list);
+  }
+
+  // The method returns the immediately following sibling of each element.
+  next(): Nodes {
+    const element = this.get(0) as NativeElement;
+    const list = [];
+    if (element.nextSibling) {
+      list.push(element.nextSibling);
+    }
+    return new Nodes(list);
+  }
+
   on(type: string, listener: EventListener): this {
     return this.eachElement((element, index) => {
       element.addEventListener(type, listener, false);
@@ -245,22 +265,22 @@ export class Nodes {
     });
   }
 
+  // The method removes all child nodes of each element.
   empty(): this {
     this.html('');
     return this;
   }
 
-  prepend(value: string | NativeNode | Nodes): this {
+  // The method inserts the specified content as the first child of each element.
+  prepend(content: string | NativeNode | Nodes): this {
     return this.eachElement(element => {
       let list: NativeNode[] = [];
-      if (value instanceof Nodes) {
-        list = value.getAll();
+      if (content instanceof Nodes) {
+        list = content.getAll();
       } else {
-        list = getNodeList(value);
+        list = getNodeList(content);
       }
-      if (element.firstChild) {
-        list = list.reverse();
-      }
+      list = list.reverse();
       list.forEach((node: NativeNode) => {
         if (element.firstChild) {
           element.insertBefore(node, element.firstChild);
@@ -271,13 +291,14 @@ export class Nodes {
     });
   }
 
-  append(value: string | NativeNode | Nodes): this {
+  // The method inserts the specified content as the last child of each element.
+  append(content: string | NativeNode | Nodes): this {
     return this.eachElement(element => {
       let list: NativeNode[] = [];
-      if (value instanceof Nodes) {
-        list = value.getAll();
+      if (content instanceof Nodes) {
+        list = content.getAll();
       } else {
-        list = getNodeList(value);
+        list = getNodeList(content);
       }
       list.forEach((node: NativeNode) => {
         element.appendChild(node);
@@ -285,27 +306,30 @@ export class Nodes {
     });
   }
 
-  appendTo(value: string | NativeElement | Nodes): this {
+  // The method inserts each element as the last child of the target.
+  appendTo(target: string | NativeElement | Nodes): this {
     return this.each(node => {
-      let newNodes: Nodes;
-      if (value instanceof Nodes) {
-        newNodes = value;
+      let targetNodes: Nodes;
+      if (target instanceof Nodes) {
+        targetNodes = target;
       } else {
-        const list = getNodeList(value);
-        newNodes = new Nodes(list);
+        const list = getNodeList(target);
+        targetNodes = new Nodes(list);
       }
-      newNodes.append(node);
+      targetNodes.append(node);
     });
   }
 
-  after(value: string | NativeNode | Nodes): this {
+  // The method inserts the specified content after each element.
+  after(content: string | NativeNode | Nodes): this {
     return this.eachElement(element => {
       let list: NativeNode[] = [];
-      if (value instanceof Nodes) {
-        list = value.getAll();
+      if (content instanceof Nodes) {
+        list = content.getAll();
       } else {
-        list = getNodeList(value);
+        list = getNodeList(content);
       }
+      list = list.reverse();
       list.forEach((node: NativeNode) => {
         if (!element.parentNode) {
           return;
@@ -319,6 +343,9 @@ export class Nodes {
     });
   }
 
+  // The method removes each element from the DOM.
+  // keepChildren parameter:
+  // A boolean value; true only removes each element and keeps all child nodes; false removes all nodes; if omitted, it defaults to false.
   remove(keepChildren: boolean = false): this {
     this.each(node => {
       if (!node.parentNode) {
