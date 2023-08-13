@@ -8,27 +8,27 @@ export class Range {
     this.range = document.createRange();
   }
 
-  startNode(): Nodes {
+  get startNode(): Nodes {
     return new Nodes(this.range.startContainer);
   }
 
-  startOffset(): number {
+  get startOffset(): number {
     return this.range.startOffset;
   }
 
-  endNode(): Nodes {
+  get endNode(): Nodes {
     return new Nodes(this.range.endContainer);
   }
 
-  endOffset(): number {
+  get endOffset(): number {
     return this.range.endOffset;
   }
 
-  commonAncestor(): Nodes {
+  get commonAncestor(): Nodes {
     return new Nodes(this.range.commonAncestorContainer);
   }
 
-  collapsed(): boolean {
+  get collapsed(): boolean {
     return this.range.collapsed;
   }
 
