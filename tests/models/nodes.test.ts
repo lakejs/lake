@@ -29,6 +29,38 @@ describe('models.Nodes class', () => {
     expect(new Nodes([element, document.body]).length).to.equal(2);
   });
 
+  it('property: id', () => {
+    const nodes = new Nodes([element, elementTwo, document.body]);
+    expect(nodes.id).to.be.a('number');
+    expect(nodes.eq(1).id).to.be.a('number');
+  });
+
+  it('property: name', () => {
+    const nodes = new Nodes([element, elementTwo, document.body]);
+    expect(nodes.name).to.equal('div');
+    expect(nodes.eq(1).name).to.equal('p');
+  });
+
+  it('property: isElement', () => {
+    const node = new Nodes(element);
+    expect(node.isElement).to.equal(true);
+  });
+
+  it('property: isText', () => {
+    const node = new Nodes(document.createTextNode('foo'));
+    expect(node.isText).to.equal(true);
+  });
+
+  it('property: isBlock', () => {
+    const node = new Nodes(element);
+    expect(node.isBlock).to.equal(true);
+  });
+
+  it('property: isMark', () => {
+    const node = new Nodes(document.createElement('strong'));
+    expect(node.isMark).to.equal(true);
+  });
+
   it('method: get', () => {
     const nodes = new Nodes([element, elementTwo, document.body]);
     expect(nodes.eq(1).html()).to.equal('two');
@@ -40,31 +72,9 @@ describe('models.Nodes class', () => {
     expect((nodes.getAll()[1] as NativeElement).innerHTML).to.equal('two');
   });
 
-  it('method: isElement', () => {
-    const nodes = new Nodes([element, elementTwo, document.body]);
-    expect(nodes.isElement(0)).to.equal(true);
-  });
-
-  it('method: isText', () => {
-    const nodes = new Nodes([element, document.createTextNode('foo'), document.body]);
-    expect(nodes.isText(1)).to.equal(true);
-  });
-
   it('method: eq', () => {
     const nodes = new Nodes([element, elementTwo, document.body]);
-    expect(nodes.eq(2).name(0)).to.equal('body');
-  });
-
-  it('method: id', () => {
-    const nodes = new Nodes([element, elementTwo, document.body]);
-    expect(nodes.id(0)).to.be.a('number');
-    expect(nodes.id(1)).to.be.a('number');
-  });
-
-  it('method: name', () => {
-    const nodes = new Nodes([element, elementTwo, document.body]);
-    expect(nodes.name(0)).to.equal('div');
-    expect(nodes.name(1)).to.equal('p');
+    expect(nodes.eq(2).name).to.equal('body');
   });
 
   it('method: each', () => {
@@ -516,9 +526,9 @@ describe('models.Nodes class', () => {
     // no parent
     const elem = document.createElement('div');
     const elemList = new Nodes(elem);
-    const elemId = elemList.id(0);
+    const elemId = elemList.id;
     elemList.remove();
-    expect(elemList.id(0)).to.equal(elemId);
+    expect(elemList.id).to.equal(elemId);
     expect(elemList.get(0)).to.equal(elem);
   });
 });

@@ -39,6 +39,36 @@ export class Nodes {
     this.length = this.nodeList.length;
   }
 
+  // Gets node ID at the first index.
+  get id(): number {
+    const node = this.get(0);
+    return node.lakeId;
+  }
+
+  // Gets node name at the first index.
+  get name(): string {
+    const node = this.get(0);
+    return node.nodeName.toLowerCase();
+  }
+
+  get isElement(): boolean {
+    const node = this.get(0);
+    return node.nodeType === NativeNode.ELEMENT_NODE;
+  }
+
+  get isText(): boolean {
+    const node = this.get(0);
+    return node.nodeType === NativeNode.TEXT_NODE;
+  }
+
+  get isBlock(): boolean {
+    return searchString(blockTagNames, this.name);
+  }
+
+  get isMark(): boolean {
+    return searchString(markTagNames, this.name);
+  }
+
   // Gets a native node at the specified index.
   get(index: number): NativeNode {
     if (index === undefined) {
@@ -52,40 +82,10 @@ export class Nodes {
     return this.nodeList;
   }
 
-  isElement(index: number): boolean {
-    const node = this.get(index);
-    return node.nodeType === NativeNode.ELEMENT_NODE;
-  }
-
-  isText(index: number): boolean {
-    const node = this.get(index);
-    return node.nodeType === NativeNode.TEXT_NODE;
-  }
-
-  isBlock(): boolean {
-    return searchString(blockTagNames, this.name(0));
-  }
-
-  isMark(): boolean {
-    return searchString(markTagNames, this.name(0));
-  }
-
   // Reduces the nodes of a Nodes object to the one at the specified index.
   eq(index: number): Nodes {
     const node = this.get(index);
     return new Nodes(node);
-  }
-
-  // Gets node ID at the specified index.
-  id(index: number): number {
-    const node = this.get(index);
-    return node.lakeId;
-  }
-
-  // Gets node name at the specified index.
-  name(index: number): string {
-    const node = this.get(index);
-    return node.nodeName.toLowerCase();
   }
 
   // Iterates over a Nodes object, executing a function for each node.
@@ -160,7 +160,7 @@ export class Nodes {
   on(type: string, listener: EventListener): this {
     return this.eachElement((element, index) => {
       element.addEventListener(type, listener, false);
-      const elementId = this.id(index);
+      const elementId = this.get(index).lakeId;
       if (!eventData[elementId]) {
         eventData[elementId] = [];
       }
@@ -174,7 +174,7 @@ export class Nodes {
   // Removes event handlers that were attached with .on() method.
   off(type?: string, listener?: EventListener): this {
     return this.eachElement((element, index) => {
-      const elementId = this.id(index);
+      const elementId = this.get(index).lakeId;
       const eventItems = eventData[elementId] || [];
       eventItems.forEach((item: EventItem, index: number) => {
         if (!type || type === item.type && (!listener || listener === item.listener)) {
@@ -194,7 +194,7 @@ export class Nodes {
   // Executes all event listeners attached to the Nodes object for the given event type.
   fire(type: string): this {
     return this.eachElement((element, index) => {
-      const elementId = this.id(index);
+      const elementId = this.get(index).lakeId;
       const eventItems = eventData[elementId];
       eventItems.forEach((item: EventItem) => {
         if (type === item.type) {
@@ -206,7 +206,7 @@ export class Nodes {
 
   // Gets all event listeners attached to the Nodes object.
   getEventListeners(index: number): EventItem[] {
-    const elementId = this.id(index);
+    const elementId = this.get(index).lakeId;
     return eventData[elementId];
   }
 

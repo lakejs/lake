@@ -11,6 +11,6 @@ export function setBlocks(range: Range, value: string): Nodes {
   forEach(cssProperties, (key, val) => {
     debug(key, val, startBlock, endBlock);
   });
-  // const tagName = nodes.name(0);
+  // const tagName = nodes.name;
   return nodes;
 }

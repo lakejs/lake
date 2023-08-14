@@ -51,8 +51,8 @@ describe('models.Range class', () => {
   it('method: selectNode', () => {
     const range = new Range();
     range.selectNode(container.find('strong'));
-    expect(range.startNode.name(0)).to.equal('div');
-    expect(range.endNode.name(0)).to.equal('div');
+    expect(range.startNode.name).to.equal('div');
+    expect(range.endNode.name).to.equal('div');
     expect(range.startOffset).to.equal(0);
     expect(range.endOffset).to.equal(1);
     expect(range.collapsed).to.equal(false);
@@ -61,8 +61,8 @@ describe('models.Range class', () => {
   it('method: selectNodeContents', () => {
     const range = new Range();
     range.selectNodeContents(container.find('strong'));
-    expect(range.startNode.name(0)).to.equal('strong');
-    expect(range.endNode.name(0)).to.equal('strong');
+    expect(range.startNode.name).to.equal('strong');
+    expect(range.endNode.name).to.equal('strong');
     expect(range.startOffset).to.equal(0);
     expect(range.endOffset).to.equal(1);
     expect(range.collapsed).to.equal(false);
