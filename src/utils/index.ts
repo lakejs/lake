@@ -2,6 +2,7 @@
 import { camelCase } from './camel-case';
 import { searchString } from './search-string';
 import { toHex } from './to-hex';
+import { getAllCss } from './get-all-css';
 // Object
 import { forEach } from './for-each';
 // Native DOM
@@ -14,21 +15,25 @@ import { query } from './query';
 // Other
 import { debug } from './debug';
 
-export { camelCase };
-export { searchString };
-export { toHex };
-export { forEach };
-export { getDocument };
-export { getWindow };
-export { getCss };
-export { getNodeList };
-export { query };
-export { debug };
+export {
+  camelCase,
+  searchString,
+  toHex,
+  getAllCss,
+  forEach,
+  getDocument,
+  getWindow,
+  getCss,
+  getNodeList,
+  query,
+  debug
+};
 
 export default {
   camelCase,
   searchString,
   toHex,
+  getAllCss,
   forEach,
   getDocument,
   getWindow,

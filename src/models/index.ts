@@ -1,2 +1,12 @@
-export * from './nodes';
-export * from './range';
+import { Nodes } from './nodes';
+import { Range } from './range';
+
+export {
+  Nodes,
+  Range
+};
+
+export default {
+  Nodes,
+  Range,
+};

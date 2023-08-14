@@ -4,39 +4,39 @@ import { Range, Nodes } from '../../src/models';
 import { insertContents } from '../../src/commands';
 
 describe('commands.insertContents()', () => {
-  let element: Nodes;
+  let container: Nodes;
 
   beforeEach(() => {
-    element = query('<div><strong>foo1</strong>bar1</div>').appendTo(document.body);
+    container = query('<div><strong>foo</strong>bar</div>').appendTo(document.body);
   });
 
   afterEach(() => {
-    element.remove();
+    container.remove();
   });
 
-  it('to insert an element after text node', () => {
+  it('to insert an container after text node', () => {
     const range = new Range();
-    range.selectNodeContents(element.find('strong'));
+    range.selectNodeContents(container.find('strong'));
     range.collapse(false);
     insertContents(range, '<em>foo</em>');
-    expect(element.html()).to.equal('<strong>foo1<em>foo</em></strong>bar1');
+    expect(container.html()).to.equal('<strong>foo<em>foo</em></strong>bar');
   });
 
-  it('to insert multi-element after text node', () => {
+  it('to insert multi-container after text node', () => {
     const range = new Range();
-    range.selectNodeContents(element.find('strong'));
+    range.selectNodeContents(container.find('strong'));
     range.collapse(false);
     insertContents(range, '<em>foo</em><span>bar</span>');
-    expect(element.html()).to.equal('<strong>foo1<em>foo</em><span>bar</span></strong>bar1');
+    expect(container.html()).to.equal('<strong>foo<em>foo</em><span>bar</span></strong>bar');
   });
 
   it('to call insertContents() several times consecutively', () => {
     const range = new Range();
-    range.selectNodeContents(element.find('strong'));
+    range.selectNodeContents(container.find('strong'));
     range.collapse(false);
     insertContents(range, '<em>foo</em>');
     insertContents(range, '<span>bar</span>');
     insertContents(range, '<strong>last</strong>');
-    expect(element.html()).to.equal('<strong>foo1<em>foo</em><span>bar</span><strong>last</strong></strong>bar1');
+    expect(container.html()).to.equal('<strong>foo<em>foo</em><span>bar</span><strong>last</strong></strong>bar');
   });
 });

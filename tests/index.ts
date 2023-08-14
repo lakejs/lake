@@ -21,3 +21,4 @@ import './models/range.test';
 
 // Commands
 import './commands/insert-contents.test';
+import './commands/set-blocks.test';

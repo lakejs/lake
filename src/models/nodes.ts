@@ -5,6 +5,9 @@ import { camelCase } from '../utils/camel-case';
 import { getCss } from '../utils/get-css';
 import { getNodeList } from '../utils/get-node-list';
 
+const blockTagNames = 'div,p,blockquote,ul,ol';
+const markTagNames = 'strong,em,span,sub,sup,code,a';
+
 type EachCallback = (element: NativeNode, index: number) => boolean | void;
 type EachElementCallback = (element: NativeElement, index: number) => boolean | void;
 
@@ -23,7 +26,8 @@ export class Nodes {
   nodeList: NativeNode[];
   length: number;
 
-  constructor(node: NativeNode | NativeNode[]) {
+  constructor(node?: NativeNode | NativeNode[] | null) {
+    node = node || [];
     this.nodeList = Array.isArray(node) ? node : [node];
     for (let i = 0; i < this.nodeList.length; i++) {
       // lakeId is an expando for preserving node ID.
@@ -56,6 +60,14 @@ export class Nodes {
   isText(index: number): boolean {
     const node = this.get(index);
     return node.nodeType === NativeNode.TEXT_NODE;
+  }
+
+  isBlock(): boolean {
+    return searchString(blockTagNames, this.name(0));
+  }
+
+  isMark(): boolean {
+    return searchString(markTagNames, this.name(0));
   }
 
   // Reduces the nodes of a Nodes object to the one at the specified index.
@@ -113,44 +125,35 @@ export class Nodes {
     return new Nodes(Array.from(nodeList));
   }
 
+  // Traverses the element and its parents (heading toward the document root)
+  // until it finds a element that matches the specified CSS selector.
+  closest(selector: string): Nodes {
+    const element = this.get(0) as NativeElement;
+    return new Nodes(element.closest(selector));
+  }
+
   // Returns the immediately preceding sibling of each element.
   prev(): Nodes {
     const element = this.get(0) as NativeElement;
-    const list = [];
-    if (element.previousSibling) {
-      list.push(element.previousSibling);
-    }
-    return new Nodes(list);
+    return new Nodes(element.previousSibling);
   }
 
   // Returns the immediately following sibling of each element.
   next(): Nodes {
     const element = this.get(0) as NativeElement;
-    const list = [];
-    if (element.nextSibling) {
-      list.push(element.nextSibling);
-    }
-    return new Nodes(list);
+    return new Nodes(element.nextSibling);
   }
 
   // Returns the first child of each element.
   first(): Nodes {
     const element = this.get(0) as NativeElement;
-    const list = [];
-    if (element.firstChild) {
-      list.push(element.firstChild);
-    }
-    return new Nodes(list);
+    return new Nodes(element.firstChild);
   }
 
   // Returns the last child of each element.
   last(): Nodes {
     const element = this.get(0) as NativeElement;
-    const list = [];
-    if (element.lastChild) {
-      list.push(element.lastChild);
-    }
-    return new Nodes(list);
+    return new Nodes(element.lastChild);
   }
 
   // Attaches an event listener for the elements.

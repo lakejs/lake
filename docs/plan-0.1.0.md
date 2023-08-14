@@ -44,9 +44,7 @@
   * commands
     * insert-contents.ts
     * delete-contents.ts
-    * insert-block.ts
-    * update-block.ts
-    * delete-block.ts
+    * set-blocks.ts
     * split-block.ts
     * add-mark.ts
     * clear-mark.ts

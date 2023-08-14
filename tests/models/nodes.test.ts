@@ -132,6 +132,12 @@ describe('models.Nodes class', () => {
     expect(targetNodes2.eq(1).html()).to.equal('two');
   });
 
+  it('method: closest', () => {
+    const nodes = new Nodes(element);
+    nodes.html('<p>foo</p><p>bar</p>');
+    expect(nodes.find('p').closest('div').html()).to.equal('<p>foo</p><p>bar</p>');
+  });
+
   it('method: prev', () => {
     const nodes = new Nodes(element);
     nodes.html('<p>foo</p><p>bar</p>');
