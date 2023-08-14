@@ -24,4 +24,22 @@ describe('commands.insertContents()', () => {
     insertContents(range, '<em>foo</em>');
     expect(element1.html()).to.equal('<strong>foo1<em>foo</em></strong>bar1');
   });
+
+  it('to insert multi-element after text node', () => {
+    const range = new Range();
+    range.selectNodeContents(element1.find('strong'));
+    range.collapse(false);
+    insertContents(range, '<em>foo</em><span>bar</span>');
+    expect(element1.html()).to.equal('<strong>foo1<em>foo</em><span>bar</span></strong>bar1');
+  });
+
+  it('to call insertContents() several times consecutively', () => {
+    const range = new Range();
+    range.selectNodeContents(element1.find('strong'));
+    range.collapse(false);
+    insertContents(range, '<em>foo</em>');
+    insertContents(range, '<span>bar</span>');
+    insertContents(range, '<strong>last</strong>');
+    expect(element1.html()).to.equal('<strong>foo1<em>foo</em><span>bar</span><strong>last</strong></strong>bar1');
+  });
 });

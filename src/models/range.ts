@@ -73,10 +73,10 @@ export class Range {
 
   // Insert a Nodes at the start of a Range.
   insertNode(nodes: Nodes): this {
-    nodes.reverse().each(node => {
+    nodes.each(node => {
       this.range.insertNode(node);
       this.range.selectNode(node);
-      this.range.collapse(true);
+      this.range.collapse(false);
     });
     return this;
   }

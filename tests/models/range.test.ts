@@ -81,8 +81,8 @@ describe('models.Range class', () => {
     range.insertNode(em);
     expect(range.startNode.get(0)).to.equal(strong.get(0));
     expect(range.endNode.get(0)).to.equal(strong.get(0));
-    expect(range.startOffset).to.equal(1);
-    expect(range.endOffset).to.equal(1);
+    expect(range.startOffset).to.equal(2);
+    expect(range.endOffset).to.equal(2);
     expect(range.collapsed).to.equal(true);
     expect(strong.html()).to.equal('f<em>insert node</em>oo1');
   });
@@ -97,8 +97,8 @@ describe('models.Range class', () => {
     range.insertNode(nodes);
     expect(range.startNode.get(0)).to.equal(strong.get(0));
     expect(range.endNode.get(0)).to.equal(strong.get(0));
-    expect(range.startOffset).to.equal(1);
-    expect(range.endOffset).to.equal(1);
+    expect(range.startOffset).to.equal(3);
+    expect(range.endOffset).to.equal(3);
     expect(range.collapsed).to.equal(true);
     expect(strong.html()).to.equal('f<em>insert node</em><span>insert node</span>oo1');
   });
