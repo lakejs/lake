@@ -116,6 +116,13 @@ describe('models.Nodes class', () => {
     expect(thirdNode).to.equal(elementTwo);
   });
 
+  it('method: reverse', () => {
+    const nodes = new Nodes([element, elementTwo, document.body]).reverse();
+    expect(nodes.get(0)).to.equal(document.body);
+    expect(nodes.eq(1).html()).to.equal('two');
+    expect(nodes.eq(2).html()).to.equal('one');
+  });
+
   it('method: find', () => {
     const nodes = new Nodes(document.body);
     const targetNodes1 = nodes.find('.class1');
@@ -135,6 +142,18 @@ describe('models.Nodes class', () => {
     const nodes = new Nodes(element);
     nodes.html('<p>foo</p><p>bar</p>');
     expect(nodes.find('p').eq(0).next().html()).to.equal('bar');
+  });
+
+  it('method: first', () => {
+    const node = new Nodes(element);
+    node.html('<p>foo</p><p>bar</p>');
+    expect(node.first().html()).to.equal('foo');
+  });
+
+  it('method: last', () => {
+    const node = new Nodes(element);
+    node.html('<p>foo</p><p>bar</p>');
+    expect(node.last().html()).to.equal('bar');
   });
 
   it('event methods: an event', () => {

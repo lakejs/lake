@@ -17,7 +17,7 @@ describe('commands.insertContents()', () => {
     element2.remove();
   });
 
-  it('native element', () => {
+  it('to insert an element after text node', () => {
     const range = new Range();
     range.selectNodeContents(element1.find('strong'));
     range.collapse(false);

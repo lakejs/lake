@@ -35,6 +35,7 @@ export class Nodes {
     this.length = this.nodeList.length;
   }
 
+  // Gets a native node at the specified index.
   get(index: number): NativeNode {
     if (index === undefined) {
       index = 0;
@@ -42,6 +43,7 @@ export class Nodes {
     return this.nodeList[index];
   }
 
+  // Gets all native nodes
   getAll(): NativeNode[] {
     return this.nodeList;
   }
@@ -56,21 +58,25 @@ export class Nodes {
     return node.nodeType === NativeNode.TEXT_NODE;
   }
 
+  // Reduces the nodes of a Nodes object to the one at the specified index.
   eq(index: number): Nodes {
     const node = this.get(index);
     return new Nodes(node);
   }
 
+  // Gets node ID at the specified index.
   id(index: number): number {
     const node = this.get(index);
     return node.lakeId;
   }
 
+  // Gets node name at the specified index.
   name(index: number): string {
     const node = this.get(index);
     return node.nodeName.toLowerCase();
   }
 
+  // Iterates over a Nodes object, executing a function for each node.
   each(callback: EachCallback): this {
     const nodes = this.getAll();
     for (let i = 0; i < nodes.length; i++) {
@@ -81,6 +87,7 @@ export class Nodes {
     return this;
   }
 
+  // Iterates over a Nodes object, executing a function for each element.
   eachElement(callback: EachElementCallback): this {
     const nodes = this.getAll();
     for (let i = 0; i < nodes.length; i++) {
@@ -93,13 +100,20 @@ export class Nodes {
     return this;
   }
 
+  // Reverses the nodes of a Nodes object.
+  reverse(): Nodes {
+    const nodes = this.getAll().reverse();
+    return new Nodes(nodes);
+  }
+
+  // Gets the descendants of each element filtered by a selector.
   find(selector: string): Nodes {
     const element = this.get(0) as NativeElement;
     const nodeList = element.querySelectorAll(selector);
     return new Nodes(Array.from(nodeList));
   }
 
-  // The method returns the immediately preceding sibling of each element.
+  // Returns the immediately preceding sibling of each element.
   prev(): Nodes {
     const element = this.get(0) as NativeElement;
     const list = [];
@@ -109,7 +123,7 @@ export class Nodes {
     return new Nodes(list);
   }
 
-  // The method returns the immediately following sibling of each element.
+  // Returns the immediately following sibling of each element.
   next(): Nodes {
     const element = this.get(0) as NativeElement;
     const list = [];
@@ -119,6 +133,27 @@ export class Nodes {
     return new Nodes(list);
   }
 
+  // Returns the first child of each element.
+  first(): Nodes {
+    const element = this.get(0) as NativeElement;
+    const list = [];
+    if (element.firstChild) {
+      list.push(element.firstChild);
+    }
+    return new Nodes(list);
+  }
+
+  // Returns the last child of each element.
+  last(): Nodes {
+    const element = this.get(0) as NativeElement;
+    const list = [];
+    if (element.lastChild) {
+      list.push(element.lastChild);
+    }
+    return new Nodes(list);
+  }
+
+  // Attaches an event listener for the elements.
   on(type: string, listener: EventListener): this {
     return this.eachElement((element, index) => {
       element.addEventListener(type, listener, false);
@@ -133,6 +168,7 @@ export class Nodes {
     });
   }
 
+  // Removes event handlers that were attached with .on() method.
   off(type?: string, listener?: EventListener): this {
     return this.eachElement((element, index) => {
       const elementId = this.id(index);
@@ -152,6 +188,7 @@ export class Nodes {
     });
   }
 
+  // Executes all event listeners attached to the Nodes object for the given event type.
   fire(type: string): this {
     return this.eachElement((element, index) => {
       const elementId = this.id(index);
@@ -164,6 +201,7 @@ export class Nodes {
     });
   }
 
+  // Gets all event listeners attached to the Nodes object.
   getEventListeners(index: number): EventItem[] {
     const elementId = this.id(index);
     return eventData[elementId];
@@ -273,13 +311,13 @@ export class Nodes {
     });
   }
 
-  // The method removes all child nodes of each element.
+  // Removes all child nodes of each element.
   empty(): this {
     this.html('');
     return this;
   }
 
-  // The method inserts the specified content as the first child of each element.
+  // Inserts the specified content as the first child of each element.
   prepend(content: string | NativeNode | Nodes): this {
     return this.eachElement(element => {
       let list: NativeNode[] = [];
@@ -299,7 +337,7 @@ export class Nodes {
     });
   }
 
-  // The method inserts the specified content as the last child of each element.
+  // Inserts the specified content as the last child of each element.
   append(content: string | NativeNode | Nodes): this {
     return this.eachElement(element => {
       let list: NativeNode[] = [];
@@ -314,7 +352,7 @@ export class Nodes {
     });
   }
 
-  // The method inserts each element as the last child of the target.
+  // Inserts each element as the last child of the target.
   appendTo(target: string | NativeElement | Nodes): this {
     return this.each(node => {
       let targetNodes: Nodes;
@@ -328,7 +366,7 @@ export class Nodes {
     });
   }
 
-  // The method inserts the specified content after each element.
+  // Inserts the specified content after each element.
   after(content: string | NativeNode | Nodes): this {
     return this.eachElement(element => {
       let list: NativeNode[] = [];
@@ -351,7 +389,7 @@ export class Nodes {
     });
   }
 
-  // The method removes each element from the DOM.
+  // Removes each element from the DOM.
   // keepChildren parameter:
   // A boolean value; true only removes each element and keeps all child nodes; false removes all nodes; if omitted, it defaults to false.
   remove(keepChildren: boolean = false): this {
