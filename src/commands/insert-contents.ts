@@ -1,5 +1,5 @@
+import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
-import { query } from '../models/query';
 import { Range } from '../models/range';
 
 export function insertContents(range: Range, value: string): Nodes {

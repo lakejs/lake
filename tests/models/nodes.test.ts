@@ -1,8 +1,9 @@
 import { expect } from 'chai';
 import { NativeElement } from '../../src/types/native';
-import { Nodes, query } from '../../src/models';
+import { query } from '../../src/utils';
+import { Nodes } from '../../src/models';
 
-describe('Nodes of models', () => {
+describe('models.Nodes class', () => {
 
   let element: Element;
   let elementTwo: Element;

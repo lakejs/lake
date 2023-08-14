@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { query } from '../../src/models';
+import { query } from '../../src/utils';
 
-describe('query of models', () => {
+describe('utils.query()', () => {
   it('native element', () => {
     const element = document.createElement('div');
     expect(query(element).get(0)).to.equal(element);

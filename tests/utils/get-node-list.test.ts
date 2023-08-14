@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { getNodeList } from '../../src/utils';
 import { NativeElement } from '../../src/types/native';
 
-describe('getNodeList of utils', () => {
+describe('utils.getNodeList()', () => {
   it('a node', () => {
     const element = document.createElement('div');
     expect(getNodeList(element)[0]).to.equal(element);

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { camelCase } from '../../src/utils';
 
-describe('camelCase of utils', () => {
+describe('utils.camelCase()', () => {
   it('to convert a string to camel case', () => {
     expect(camelCase('background-color')).to.equal('backgroundColor');
     expect(camelCase('backgroundColor')).to.equal('backgroundColor');

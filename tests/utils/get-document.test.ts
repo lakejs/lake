@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { getDocument } from '../../src/utils';
 
-describe('getDocument of utils', () => {
+describe('utils.getDocument()', () => {
   it('node is null', () => {
     expect(getDocument(null)).to.equal(document);
   });

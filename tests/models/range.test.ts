@@ -1,7 +1,8 @@
 import { expect } from 'chai';
-import { query, Nodes, Range } from '../../src/models';
+import { query } from '../../src/utils';
+import { Nodes, Range } from '../../src/models';
 
-describe('Range of models', () => {
+describe('models.Range class', () => {
 
   let element1: Nodes;
   let element2: Nodes;

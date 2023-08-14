@@ -1,16 +1,39 @@
 // String
-export * from './camel-case';
-export * from './search-string';
-export * from './to-hex';
-
+import { camelCase } from './camel-case';
+import { searchString } from './search-string';
+import { toHex } from './to-hex';
 // Object
-export * from './for-each';
-
-// DOM
-export * from './get-document';
-export * from './get-window';
-export * from './get-css';
-export * from './get-node-list';
-
+import { forEach } from './for-each';
+// Native DOM
+import { getDocument } from './get-document';
+import { getWindow } from './get-window';
+import { getCss } from './get-css';
+import { getNodeList } from './get-node-list';
+// Nodes
+import { query } from './query';
 // Other
-export * from './debug';
+import { debug } from './debug';
+
+export { camelCase };
+export { searchString };
+export { toHex };
+export { forEach };
+export { getDocument };
+export { getWindow };
+export { getCss };
+export { getNodeList };
+export { query };
+export { debug };
+
+export default {
+  camelCase,
+  searchString,
+  toHex,
+  forEach,
+  getDocument,
+  getWindow,
+  getCss,
+  getNodeList,
+  query,
+  debug,
+};

@@ -1,7 +1,6 @@
 import EventEmitter from 'eventemitter3';
 import { NativeElement } from '../types/native';
-import { debug } from '../utils';
-import { query } from '../models';
+import { query, debug } from '../utils';
 
 export class EditArea {
   event: EventEmitter;
