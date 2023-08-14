@@ -172,6 +172,17 @@ describe('models.Nodes class', () => {
     expect(node.last().html()).to.equal('bar');
   });
 
+  it('method: allChildNodes', () => {
+    const node = new Nodes(element);
+    node.html('<p>foo<strong>bold</strong></p><p><em>itelic</em>bar</p>');
+    const childNodes = node.allChildNodes();
+    expect(childNodes.length).to.equal(8);
+    expect(childNodes[0].name).to.equal('p');
+    expect(childNodes[2].name).to.equal('strong');
+    expect(childNodes[4].name).to.equal('p');
+    expect(childNodes[5].name).to.equal('em');
+  });
+
   it('event methods: an event', () => {
     const nodes = new Nodes([element, document.body]);
     const listener = () => {

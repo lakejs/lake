@@ -1,3 +1,5 @@
+window.DEBUG = true;
+
 // String Utils
 import './utils/camel-case.test';
 import './utils/search-string.test';

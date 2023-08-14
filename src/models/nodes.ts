@@ -4,8 +4,9 @@ import { searchString } from '../utils/search-string';
 import { camelCase } from '../utils/camel-case';
 import { getCss } from '../utils/get-css';
 import { getNodeList } from '../utils/get-node-list';
+import { debug } from '../utils/debug';
 
-const blockTagNames = 'div,p,blockquote,ul,ol';
+const blockTagNames = 'h1,h2,h3,h4,h5,h6,div,p,blockquote,ul,ol';
 const markTagNames = 'strong,em,span,sub,sup,code,a';
 
 type EachCallback = (element: NativeNode, index: number) => boolean | void;
@@ -156,11 +157,27 @@ export class Nodes {
     return new Nodes(element.lastChild);
   }
 
+  // Returns all child nodes of the first element.
+  allChildNodes(): Nodes[] {
+    const nodeList: Nodes[] = [];
+    const iterate = (node: Nodes) => {
+      let child = node.first();
+      while (child.length > 0) {
+        const nextNode = child.next();
+        nodeList.push(child);
+        iterate(child);
+        child = nextNode;
+      }
+    };
+    iterate(this.eq(0));
+    return nodeList;
+  }
+
   // Attaches an event listener for the elements.
   on(type: string, listener: EventListener): this {
-    return this.eachElement((element, index) => {
+    return this.eachElement(element => {
       element.addEventListener(type, listener, false);
-      const elementId = this.get(index).lakeId;
+      const elementId = element.lakeId;
       if (!eventData[elementId]) {
         eventData[elementId] = [];
       }
@@ -173,8 +190,8 @@ export class Nodes {
 
   // Removes event handlers that were attached with .on() method.
   off(type?: string, listener?: EventListener): this {
-    return this.eachElement((element, index) => {
-      const elementId = this.get(index).lakeId;
+    return this.eachElement(element => {
+      const elementId = element.lakeId;
       const eventItems = eventData[elementId] || [];
       eventItems.forEach((item: EventItem, index: number) => {
         if (!type || type === item.type && (!listener || listener === item.listener)) {
@@ -193,8 +210,8 @@ export class Nodes {
 
   // Executes all event listeners attached to the Nodes object for the given event type.
   fire(type: string): this {
-    return this.eachElement((element, index) => {
-      const elementId = this.get(index).lakeId;
+    return this.eachElement(element => {
+      const elementId = element.lakeId;
       const eventItems = eventData[elementId];
       eventItems.forEach((item: EventItem) => {
         if (type === item.type) {
@@ -411,5 +428,11 @@ export class Nodes {
       node.parentNode.removeChild(node);
     });
     return this;
+  }
+
+  debug(): void {
+    this.each(node => {
+      debug(`node (${node.lakeId}): `, node);
+    });
   }
 }

@@ -1,16 +1,29 @@
-import { query, getAllCss, forEach, debug } from '../utils';
+import { query, getAllCss, forEach } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
 export function setBlocks(range: Range, value: string): Nodes {
+  range.debug();
   const nodes = query(value);
+  const tagName = nodes.name;
   const styleString = nodes.attr('style');
   const cssProperties = getAllCss(styleString);
-  const startBlock = range.startNode.closest('div,p,blockquote');
-  const endBlock = range.startNode.closest('div,p,blockquote');
-  forEach(cssProperties, (key, val) => {
-    debug(key, val, startBlock, endBlock);
+  range.allNodes().forEach(node => {
+    if (!node.isBlock) {
+      return;
+    }
+    const block = query(`<${tagName}></${tagName}>`);
+    let child = node.first();
+    while(child.length > 0) {
+      const next = child.next();
+      block.append(child);
+      child = next;
+    }
+    node.after(block);
+    node.remove();
+    forEach(cssProperties, (key, val) => {
+      block.css(key, val);
+    });
   });
-  // const tagName = nodes.name;
   return nodes;
 }

@@ -1,4 +1,5 @@
 import { NativeRange } from '../types/native';
+import { debug } from '../utils/debug';
 import { Nodes } from './nodes';
 
 // The Range class represents a fragment of a document that can contain nodes and parts of text nodes.
@@ -71,6 +72,38 @@ export class Range {
     return this;
   }
 
+  // Returns all child nodes of a Range.
+  allNodes(): Nodes[] {
+    const nodeList: Nodes[] = [];
+    this.commonAncestor.allChildNodes().forEach(node => {
+      //node.debug();
+      const startRange = document.createRange();
+      startRange.selectNodeContents(node.get(0));
+      startRange.collapse(true);
+      const endRange = document.createRange();
+      endRange.selectNodeContents(node.get(0));
+      endRange.collapse(false);
+      if (
+        this.range.isPointInRange(startRange.startContainer, startRange.startOffset) ||
+        this.range.isPointInRange(endRange.startContainer, endRange.startOffset)
+      ) {
+        nodeList.push(node);
+      }
+    });
+    return nodeList;
+  }
+
+  closestBlocks(): Nodes[] {
+    const blocks = [];
+    if (this.startNode.isBlock) {
+      blocks.push(this.startNode);
+    }
+    if (this.endNode.isBlock) {
+      blocks.push(this.endNode);
+    }
+    return blocks;
+  }
+
   // Insert a Nodes at the start of a Range.
   insertNode(nodes: Nodes): this {
     nodes.each(node => {
@@ -79,5 +112,11 @@ export class Range {
       this.range.collapse(false);
     });
     return this;
+  }
+
+  debug(): void {
+    debug('--- range information ---');
+    debug(`start node (${this.startNode.id}):`, this.startNode.get(0), ', offset:', this.startOffset);
+    debug(`end node (${this.endNode.id}):`, this.endNode.get(0), ', offset:', this.endOffset);
   }
 }
