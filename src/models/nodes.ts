@@ -409,6 +409,19 @@ export class Nodes {
     });
   }
 
+  // Replaces each element with the provided new content.
+  replaceWith(newContent: string | NativeNode | Nodes): this {
+    return this.eachElement(element => {
+      let node: NativeNode;
+      if (newContent instanceof Nodes) {
+        node = newContent.get(0);
+      } else {
+        node = getNodeList(newContent)[0];
+      }
+      element.replaceWith(node);
+    });
+  }
+
   // Removes each element from the DOM.
   // keepChildren parameter:
   // A boolean value; true only removes each element and keeps all child nodes; false removes all nodes; if omitted, it defaults to false.

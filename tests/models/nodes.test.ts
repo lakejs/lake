@@ -524,22 +524,27 @@ describe('models.Nodes class', () => {
     query('.after-test').remove();
   });
 
+  it('method: replaceWith', () => {
+    const node = new Nodes(element);
+    node.html('<p><strong>foo1</strong>bar1</p><p><strong>foo2</strong>bar2</p>');
+    node.find('strong').eq(0).replaceWith('<em>itelic</em>');
+    expect(node.html()).to.equal('<p><em>itelic</em>bar1</p><p><strong>foo2</strong>bar2</p>');
+  });
+
   it('method: remove', () => {
-    const nodes = new Nodes([element, elementTwo]);
+    const node = new Nodes([element, elementTwo]);
     // remove all
-    nodes.html('<p><strong>foo1</strong>bar1</p><p><strong>foo2</strong>bar2</p>');
-    new Nodes(nodes.get(0).firstChild as NativeElement).remove();
-    expect(nodes.eq(0).html()).to.equal('<p><strong>foo2</strong>bar2</p>');
+    node.html('<p><strong>foo1</strong>bar1</p><p><strong>foo2</strong>bar2</p>');
+    node.first().remove();
+    expect(node.html()).to.equal('<p><strong>foo2</strong>bar2</p>');
     // keep children
-    nodes.html('<p><strong>foo1</strong>bar1</p><p><strong>foo2</strong>bar2</p>');
-    new Nodes(nodes.get(0).firstChild as NativeElement).remove(true);
-    expect(nodes.eq(0).html()).to.equal('<strong>foo1</strong>bar1<p><strong>foo2</strong>bar2</p>');
+    node.html('<p><strong>foo1</strong>bar1</p><p><strong>foo2</strong>bar2</p>');
+    node.first().remove(true);
+    expect(node.html()).to.equal('<strong>foo1</strong>bar1<p><strong>foo2</strong>bar2</p>');
     // no parent
-    const elem = document.createElement('div');
-    const elemList = new Nodes(elem);
-    const elemId = elemList.id;
-    elemList.remove();
-    expect(elemList.id).to.equal(elemId);
-    expect(elemList.get(0)).to.equal(elem);
+    const elem = query('<div />');
+    const elemId = elem.id;
+    elem.remove();
+    expect(elem.id).to.equal(elemId);
   });
 });

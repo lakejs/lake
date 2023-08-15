@@ -12,15 +12,14 @@ export function setBlocks(range: Range, value: string): Nodes {
     if (!node.isBlock) {
       return;
     }
-    const block = query(`<${tagName}></${tagName}>`);
+    const block = query(`<${tagName} />`);
     let child = node.first();
     while(child.length > 0) {
       const next = child.next();
       block.append(child);
       child = next;
     }
-    node.after(block);
-    node.remove();
+    node.replaceWith(block);
     forEach(cssProperties, (key, val) => {
       block.css(key, val);
     });
