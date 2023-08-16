@@ -1,4 +1,4 @@
-import { NativeElement, NativeNode } from '../types/native';
+import { NativeHTMLElement, NativeElement, NativeNode } from '../types/native';
 import { forEach } from '../utils/for-each';
 import { searchString } from '../utils/search-string';
 import { camelCase } from '../utils/camel-case';
@@ -70,6 +70,11 @@ export class Nodes {
     return searchString(markTagNames, this.name);
   }
 
+  get isEditable(): boolean {
+    const node = this.get(0) as NativeHTMLElement;
+    return node.isContentEditable;
+  }
+
   // Gets a native node at the specified index.
   get(index: number): NativeNode {
     if (index === undefined) {
@@ -119,39 +124,45 @@ export class Nodes {
     return new Nodes(nodes);
   }
 
-  // Gets the descendants of each element filtered by a selector.
+  // Gets the descendants of the first element filtered by a selector.
   find(selector: string): Nodes {
     const element = this.get(0) as NativeElement;
     const nodeList = element.querySelectorAll(selector);
     return new Nodes(Array.from(nodeList));
   }
 
-  // Traverses the element and its parents (heading toward the document root)
+  // Traverses the first element and its parents (heading toward the document root)
   // until it finds a element that matches the specified CSS selector.
   closest(selector: string): Nodes {
     const element = this.get(0) as NativeElement;
     return new Nodes(element.closest(selector));
   }
 
-  // Returns the immediately preceding sibling of each element.
+  // Returns the parent of the first node.
+  parent(): Nodes {
+    const node = this.get(0);
+    return new Nodes(node.parentNode);
+  }
+
+  // Returns the immediately preceding sibling of the first node.
   prev(): Nodes {
-    const element = this.get(0) as NativeElement;
-    return new Nodes(element.previousSibling);
+    const node = this.get(0);
+    return new Nodes(node.previousSibling);
   }
 
-  // Returns the immediately following sibling of each element.
+  // Returns the immediately following sibling of the first node.
   next(): Nodes {
-    const element = this.get(0) as NativeElement;
-    return new Nodes(element.nextSibling);
+    const node = this.get(0);
+    return new Nodes(node.nextSibling);
   }
 
-  // Returns the first child of each element.
+  // Returns the first child of the first element.
   first(): Nodes {
-    const element = this.get(0) as NativeElement;
+    const element = this.get(0);
     return new Nodes(element.firstChild);
   }
 
-  // Returns the last child of each element.
+  // Returns the last child of the first element.
   last(): Nodes {
     const element = this.get(0) as NativeElement;
     return new Nodes(element.lastChild);

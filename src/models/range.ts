@@ -93,7 +93,7 @@ export class Range {
     return nodeList;
   }
 
-  closestBlocks(): Nodes[] {
+  allTopBlocks(): Nodes[] {
     const blocks = [];
     if (this.startNode.isBlock) {
       blocks.push(this.startNode);

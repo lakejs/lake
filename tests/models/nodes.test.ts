@@ -56,9 +56,11 @@ describe('models.Nodes class', () => {
     expect(node.isBlock).to.equal(true);
   });
 
-  it('property: isMark', () => {
-    const node = new Nodes(document.createElement('strong'));
-    expect(node.isMark).to.equal(true);
+  it('property: isEditable', () => {
+    const container = query('<div contenteditable="true"><p>foo</p></div>');
+    expect(container.isEditable).to.equal(true);
+    expect(container.find('p').isEditable).to.equal(true);
+    expect(container.parent().isEditable).to.equal(false);
   });
 
   it('method: get', () => {
@@ -127,37 +129,43 @@ describe('models.Nodes class', () => {
   });
 
   it('method: reverse', () => {
-    const nodes = new Nodes([element, elementTwo, document.body]).reverse();
-    expect(nodes.get(0)).to.equal(document.body);
-    expect(nodes.eq(1).html()).to.equal('two');
-    expect(nodes.eq(2).html()).to.equal('one');
+    const node = new Nodes([element, elementTwo, document.body]).reverse();
+    expect(node.get(0)).to.equal(document.body);
+    expect(node.eq(1).html()).to.equal('two');
+    expect(node.eq(2).html()).to.equal('one');
   });
 
   it('method: find', () => {
-    const nodes = new Nodes(document.body);
-    const targetNodes1 = nodes.find('.class1');
+    const node = new Nodes(document.body);
+    const targetNodes1 = node.find('.class1');
     expect(targetNodes1.html()).to.equal('one');
-    const targetNodes2 = nodes.find('.class1, .class2');
+    const targetNodes2 = node.find('.class1, .class2');
     expect(targetNodes2.html()).to.equal('one');
     expect(targetNodes2.eq(1).html()).to.equal('two');
   });
 
   it('method: closest', () => {
-    const nodes = new Nodes(element);
-    nodes.html('<p>foo</p><p>bar</p>');
-    expect(nodes.find('p').closest('div').html()).to.equal('<p>foo</p><p>bar</p>');
+    const node = new Nodes(element);
+    node.html('<p>foo</p><p>bar</p>');
+    expect(node.find('p').closest('div').html()).to.equal('<p>foo</p><p>bar</p>');
+  });
+
+  it('method: parent', () => {
+    const node = new Nodes(element);
+    node.html('<p>foo</p><p>bar</p>');
+    expect(node.find('p').parent().get(0)).to.equal(element);
   });
 
   it('method: prev', () => {
-    const nodes = new Nodes(element);
-    nodes.html('<p>foo</p><p>bar</p>');
-    expect(nodes.find('p').eq(1).prev().html()).to.equal('foo');
+    const node = new Nodes(element);
+    node.html('<p>foo</p><p>bar</p>');
+    expect(node.find('p').eq(1).prev().html()).to.equal('foo');
   });
 
   it('method: next', () => {
-    const nodes = new Nodes(element);
-    nodes.html('<p>foo</p><p>bar</p>');
-    expect(nodes.find('p').eq(0).next().html()).to.equal('bar');
+    const node = new Nodes(element);
+    node.html('<p>foo</p><p>bar</p>');
+    expect(node.find('p').eq(0).next().html()).to.equal('bar');
   });
 
   it('method: first', () => {
