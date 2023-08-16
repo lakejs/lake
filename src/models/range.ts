@@ -72,36 +72,26 @@ export class Range {
     return this;
   }
 
+  isNodeInRange(node: Nodes) {
+    const startRange = document.createRange();
+    startRange.selectNodeContents(node.get(0));
+    startRange.collapse(true);
+    const endRange = document.createRange();
+    endRange.selectNodeContents(node.get(0));
+    endRange.collapse(false);
+    return this.range.isPointInRange(startRange.startContainer, startRange.startOffset) ||
+      this.range.isPointInRange(endRange.startContainer, endRange.startOffset);
+  }
+
   // Returns all child nodes of a Range.
   allNodes(): Nodes[] {
     const nodeList: Nodes[] = [];
     this.commonAncestor.allChildNodes().forEach(node => {
-      //node.debug();
-      const startRange = document.createRange();
-      startRange.selectNodeContents(node.get(0));
-      startRange.collapse(true);
-      const endRange = document.createRange();
-      endRange.selectNodeContents(node.get(0));
-      endRange.collapse(false);
-      if (
-        this.range.isPointInRange(startRange.startContainer, startRange.startOffset) ||
-        this.range.isPointInRange(endRange.startContainer, endRange.startOffset)
-      ) {
+      if (this.isNodeInRange(node)) {
         nodeList.push(node);
       }
     });
     return nodeList;
-  }
-
-  allTopBlocks(): Nodes[] {
-    const blocks = [];
-    if (this.startNode.isBlock) {
-      blocks.push(this.startNode);
-    }
-    if (this.endNode.isBlock) {
-      blocks.push(this.endNode);
-    }
-    return blocks;
   }
 
   // Insert a Nodes at the start of a Range.

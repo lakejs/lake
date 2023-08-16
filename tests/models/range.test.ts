@@ -68,6 +68,15 @@ describe('models.Range class', () => {
     expect(range.collapsed).to.equal(false);
   });
 
+  it('method: isNodeInRange', () => {
+    container.html('<p>outer start</p><p>foo<strong>bold</strong></p><h1>heading</h1><p><em>itelic</em>bar</p><p>outer end</p>');
+    const range = new Range();
+    range.setStart(container.find('strong').prev(), 1);
+    range.setEnd(container.find('em').next(), 2);
+    expect(range.isNodeInRange(container.find('strong'))).to.equal(true);
+    expect(range.isNodeInRange(container.find('p').eq(0))).to.equal(false);
+  });
+
   it('method: allNodes', () => {
     container.html('<p>outer start</p><p>foo<strong>bold</strong></p><h1>heading</h1><p><em>itelic</em>bar</p><p>outer end</p>');
     const range = new Range();
