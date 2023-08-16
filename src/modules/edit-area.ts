@@ -1,12 +1,16 @@
 import EventEmitter from 'eventemitter3';
 import { NativeElement } from '../types/native';
 import { query, debug } from '../utils';
+import { Command } from '../models';
+
 
 export class EditArea {
   event: EventEmitter;
+  command: Command;
 
   constructor(target: string | NativeElement, options: {[key: string]: string | boolean} = {}) {
     this.event = new EventEmitter();
+    this.command = new Command();
     const nodes = query(target);
     nodes.hide();
     const defaultValue = nodes.html();

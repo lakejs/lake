@@ -226,7 +226,7 @@ export class Nodes {
       const eventItems = eventData[elementId];
       eventItems.forEach((item: EventItem) => {
         if (type === item.type) {
-          item.listener.call(element, new Event(type));
+          item.listener(new Event(type));
         }
       });
     });

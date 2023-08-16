@@ -11,7 +11,10 @@ export default [{
     sourcemap: true,
   },
   watch: {
-    include: 'src/**',
+    include: [
+      'src/**',
+      'examples/**'
+    ],
   },
   plugins: [
     nodeResolve(),
