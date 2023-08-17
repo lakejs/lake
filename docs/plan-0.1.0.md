@@ -32,6 +32,8 @@
     * get-css.ts
     * index.ts
   * models/
+    * module.ts
+    * command.ts
     * nodes.ts
     * text.ts
     * range.ts
@@ -57,7 +59,6 @@
     * delete-component.ts
     * index.ts
   * modules
-    * edit-area.ts
     * paste.ts
     * undo.ts
     * redo.ts
@@ -80,13 +81,12 @@
     * highlight.ts
     * format-painter.ts
     * remove-format.ts
-  * extensions/
     * horizontal-line/
     * image/
     * link/
     * table/
     * code-block/
-  * index.ts
+  * main.ts
 * tests/
   * utils/
     * camel-case.test.ts

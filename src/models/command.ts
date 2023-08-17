@@ -1,18 +1,25 @@
 import { debug } from '../utils/debug';
-import { Range } from '../models/range';
+
+type CommandHandler = (...data: any[]) => boolean | void;
+type CommandData = { [key: string]: CommandHandler };
 
 export class Command {
-  range: Range;
+  private data: CommandData;
 
   constructor() {
-    this.range = new Range();
+    this.data = {};
   }
 
-  add() {
+  add(name: string, handler: CommandHandler) {
+    this.data[name] = handler;
     debug('add command');
   }
 
-  run(...data: any[]) {
-    debug('run command', data);
+  run(name: string, ...data: any[]) {
+    const handler = this.data[name];
+    if (!handler) {
+      throw new Error(`Handler '${name}' does not exist.`);
+    }
+    handler.apply(this, data);
   }
 }

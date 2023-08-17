@@ -1,25 +1,45 @@
+import EventEmitter from 'eventemitter3';
 import pkg from '../package.json';
 import { NativeElement } from './types/native';
 import utils from './utils';
 import { Command } from './models';
-import { EditArea } from './modules/edit-area';
+import heading from './modules/heading';
 
-class LakeCore {
-  static version: string = pkg.version;
-  static utils = utils;
-  // static models = models;
+const { query, debug, } = utils;
 
-  editArea: EditArea;
+type TargetType = string | NativeElement;
+type OptionsType = {[key: string]: string | boolean};
+
+export default class LakeCore {
+  version: string = pkg.version;
+  utils = utils;
+  target: TargetType;
+  options: OptionsType;
+  event: EventEmitter;
   command: Command;
 
-  constructor(target: string | NativeElement, options: {[key: string]: string | boolean} = {}) {
-    this.editArea = new EditArea(target, options);
-    this.command = this.editArea.command;
+  constructor(target: string | NativeElement, options: OptionsType = {}) {
+    this.target = target;
+    this.options = options;
+    this.event = new EventEmitter();
+    this.command = new Command();
+    this.event.on('create', value => {
+      debug(value, 1);
+    });
   }
 
   create() {
-    this.editArea.create();
+    const targetNode = query(this.target);
+    targetNode.hide();
+    const defaultValue = targetNode.html();
+    const className = this.options.className as string || 'lake-editor-area';
+    const containerNode = query('<div></div>');
+    containerNode.attr({
+      class: className,
+      contenteditable: 'true',
+    });
+    containerNode.html(defaultValue);
+    targetNode.after(containerNode);
+    heading().initialize(this);
   }
 }
-
-export default LakeCore;

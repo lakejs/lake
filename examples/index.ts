@@ -1,8 +1,5 @@
 import LakeCore from '../src/main';
 
-const { utils, } = LakeCore;
-const { query, } = utils;
-
 window.DEBUG = true;
 
 const heading = 'h1,h2,h3,h4,h5,h6,paragraph'.split(',');
@@ -13,7 +10,9 @@ const editor = new LakeCore('.lake-editor', {
 
 editor.create();
 
-query('.lake-toolbar-icon').on('click', e => {
+const { query, } = editor.utils;
+
+query('.lake-toolbar-icon').on('click', (e: Event) => {
   e.preventDefault();
   const type = query(e.target as Element).attr('data-type');
   if (heading.indexOf(type) >= 0) {
