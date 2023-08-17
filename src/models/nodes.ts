@@ -25,6 +25,7 @@ let lastNodeId = 0;
 
 export class Nodes {
   nodeList: NativeNode[];
+
   length: number;
 
   constructor(node?: NativeNode | NativeNode[] | null) {
@@ -76,10 +77,7 @@ export class Nodes {
   }
 
   // Gets a native node at the specified index.
-  get(index: number): NativeNode {
-    if (index === undefined) {
-      index = 0;
-    }
+  get(index: number = 0): NativeNode {
     return this.nodeList[index];
   }
 
@@ -213,9 +211,7 @@ export class Nodes {
           };
         }
       });
-      eventData[elementId] = eventItems.filter((item: EventItem) => {
-        return item.type !== '';
-      });
+      eventData[elementId] = eventItems.filter((item: EventItem) => item.type !== '');
     });
   }
 
@@ -244,8 +240,11 @@ export class Nodes {
   }
 
   attr(attributeName: string): string;
+
   attr(attributeName: string, value: string): this;
+
   attr(attributeName: { [key: string]: string }): this;
+
   attr(attributeName: any, value?: any): any {
     if (typeof attributeName === 'object') {
       forEach(attributeName, (name, val) => {
@@ -302,8 +301,11 @@ export class Nodes {
   }
 
   css(propertyName: string): string;
+
   css(propertyName: { [key: string]: string }): this;
+
   css(propertyName: string, value: string): this;
+
   css(propertyName: any, value?: any): any {
     if (typeof propertyName === 'object') {
       forEach(propertyName, (name, val) => {
@@ -331,7 +333,9 @@ export class Nodes {
   }
 
   html(): string;
+
   html(value: string): this;
+
   html(value?: any): any {
     if (value === undefined) {
       const element = this.get(0) as NativeElement;

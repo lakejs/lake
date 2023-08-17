@@ -3,7 +3,7 @@ import { setBlocks } from './set-blocks';
 
 export {
   insertContents,
-  setBlocks
+  setBlocks,
 };
 
 export default {

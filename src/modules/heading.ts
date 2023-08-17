@@ -5,7 +5,7 @@ export default function heading() {
     name: 'heading',
 
     initialize: (editor: LakeCore) => {
-      const { utils, } = editor;
+      const { utils } = editor;
       editor.command.add('heading', (type: string) => {
         utils.debug('run heading: ', type);
       });

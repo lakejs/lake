@@ -22,7 +22,7 @@ export default [{
     nodeResolve(),
     typescript(),
     commonjs(),
-    json()
+    json(),
   ],
 }, {
   input: './src/main.ts',
@@ -34,6 +34,6 @@ export default [{
   plugins: [
     typescript(),
     commonjs(),
-    json()
+    json(),
   ],
 }];

@@ -13,14 +13,14 @@ export default [{
   watch: {
     include: [
       'src/**',
-      'examples/**'
+      'examples/**',
     ],
   },
   plugins: [
     nodeResolve(),
     typescript(),
     commonjs(),
-    json()
+    json(),
   ],
 }, {
   input: './tests/index.ts',
@@ -33,18 +33,18 @@ export default [{
     },
   },
   external: [
-    'chai'
+    'chai',
   ],
   watch: {
     include: [
       'src/**',
-      'tests/**'
+      'tests/**',
     ],
   },
   plugins: [
     nodeResolve(),
     typescript(),
     commonjs(),
-    json()
+    json(),
   ],
 }];

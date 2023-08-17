@@ -10,13 +10,12 @@ const editor = new LakeCore('.lake-editor', {
 
 editor.create();
 
-const { query, } = editor.utils;
+const { query } = editor.utils;
 
 query('.lake-toolbar-icon').on('click', (e: Event) => {
   e.preventDefault();
   const type = query(e.target as Element).attr('data-type');
   if (heading.indexOf(type) >= 0) {
     editor.command.run('heading', type);
-    return;
   }
 });

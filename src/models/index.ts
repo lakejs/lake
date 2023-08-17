@@ -5,7 +5,7 @@ import { Command } from './command';
 export {
   Nodes,
   Range,
-  Command
+  Command,
 };
 
 export default {

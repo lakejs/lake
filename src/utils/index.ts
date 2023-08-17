@@ -26,7 +26,7 @@ export {
   getCss,
   getNodeList,
   query,
-  debug
+  debug,
 };
 
 export default {

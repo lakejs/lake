@@ -3,7 +3,7 @@ import { debug } from '../utils/debug';
 export class Module {
 
   constructor() {
-
+    debug('command constructor');
   }
 
   add() {

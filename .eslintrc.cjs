@@ -1,29 +1,34 @@
 module.exports = {
   root: true,
   extends: [
+    'airbnb',
     'prettier',
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended'
+    'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
   plugins: [
-    '@typescript-eslint'
+    '@typescript-eslint',
   ],
   env: {
     node: true,
   },
   rules: {
+    'import/no-unresolved': 'off',
+    'import/extensions': 'off',
+    'import/prefer-default-export': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'class-methods-use-this': 'off',
     'no-console': 'error',
     'no-debugger': 'error',
+    'no-plusplus': 'off',
+    'no-param-reassign': 'off',
     'no-prototype-builtins': 'off',
-    'comma-dangle': ['error', {
-      'arrays': 'never',
-      'objects': 'always',
-      'imports': 'never',
-      'exports': 'never',
-      'functions': 'never',
-    }],
-    'object-shorthand': ['error', 'always'],
+    'no-cond-assign': 'off',
+    'no-restricted-syntax': 'off',
+    'consistent-return': 'off',
+    'prefer-destructuring': 'off',
+    'comma-dangle': ['error', 'always-multiline'],
     'indent': ['error', 2],
     'semi': ['error', 'always'],
     'quotes': ['error', 'single'],

@@ -5,17 +5,22 @@ import utils from './utils';
 import { Command } from './models';
 import heading from './modules/heading';
 
-const { query, debug, } = utils;
+const { query, debug } = utils;
 
 type TargetType = string | NativeElement;
 type OptionsType = {[key: string]: string | boolean};
 
 export default class LakeCore {
   version: string = pkg.version;
+
   utils = utils;
+
   target: TargetType;
+
   options: OptionsType;
+
   event: EventEmitter;
+
   command: Command;
 
   constructor(target: string | NativeElement, options: OptionsType = {}) {
