@@ -1,19 +1,26 @@
 import EventEmitter from 'eventemitter3';
 import pkg from '../package.json';
 import { NativeElement } from './types/native';
-import utils from './utils';
-import { Command } from './models';
+import * as utils from './utils';
+import * as models from './models';
+
 import heading from './modules/heading';
 
 const { query, debug } = utils;
 
 type TargetType = string | NativeElement;
+
 type OptionsType = {[key: string]: string | boolean};
+
+const module = new models.Module();
+module.add(heading());
 
 export default class LakeCore {
   version: string = pkg.version;
 
   utils = utils;
+
+  models = models;
 
   target: TargetType;
 
@@ -21,13 +28,13 @@ export default class LakeCore {
 
   event: EventEmitter;
 
-  command: Command;
+  command: models.Command;
 
   constructor(target: string | NativeElement, options: OptionsType = {}) {
     this.target = target;
     this.options = options;
     this.event = new EventEmitter();
-    this.command = new Command();
+    this.command = new models.Command();
     this.event.on('create', value => {
       debug(value, 1);
     });
@@ -45,6 +52,7 @@ export default class LakeCore {
     });
     containerNode.html(defaultValue);
     targetNode.after(containerNode);
-    heading().initialize(this);
+
+    module.run(this);
   }
 }

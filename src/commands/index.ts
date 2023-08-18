@@ -1,12 +1,2 @@
-import { insertContents } from './insert-contents';
-import { setBlocks } from './set-blocks';
-
-export {
-  insertContents,
-  setBlocks,
-};
-
-export default {
-  insertContents,
-  setBlocks,
-};
+export * from './insert-contents';
+export * from './set-blocks';

@@ -1,6 +1,6 @@
 import { debug } from '../utils/debug';
 
-type CommandHandler = (...data: any[]) => boolean | void;
+type CommandHandler = (...data: any[]) => void;
 type CommandData = { [key: string]: CommandHandler };
 
 export class Command {

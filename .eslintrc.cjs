@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   extends: [
-    'airbnb',
+    'airbnb-base',
     'prettier',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -18,12 +18,12 @@ module.exports = {
     'import/extensions': 'off',
     'import/prefer-default-export': 'off',
     'import/no-extraneous-dependencies': 'off',
+    'import/no-import-module-exports': 'off',
     'class-methods-use-this': 'off',
     'no-console': 'error',
     'no-debugger': 'error',
     'no-plusplus': 'off',
     'no-param-reassign': 'off',
-    'no-prototype-builtins': 'off',
     'no-cond-assign': 'off',
     'no-restricted-syntax': 'off',
     'consistent-return': 'off',
