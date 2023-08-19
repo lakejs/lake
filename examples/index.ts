@@ -1,12 +1,15 @@
 import LakeCore from '../src/main';
 
+const { query, debug } = LakeCore.utils;
+
 window.DEBUG = true;
 
 const heading = 'h1,h2,h3,h4,h5,h6,paragraph'.split(',');
 
-const editor = new LakeCore('.lake-editor');
-
-const { query, debug } = editor.utils;
+const editor = new LakeCore('.lake-editor', {
+  className: 'lake-editor-container',
+  // defaultValue: query('.lake-editor').html(),
+});
 
 editor.event.on('create', () => {
   debug('Editor demo is created.');

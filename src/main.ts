@@ -6,24 +6,23 @@ import * as models from './models';
 
 import heading from './modules/heading';
 
-const { query } = utils;
+const { query, forEach } = utils;
 
 type TargetType = string | NativeElement;
 
-type OptionsType = {
-  className: string,
-};
+type OptionsType = {[key: string]: any};
 
 const defaultOptions: OptionsType = {
   className: 'lake-editor-container',
+  defaultValue: '<p><anchor />foo<focus />bar</p>',
 };
 
 export default class LakeCore {
-  public version: string = pkg.version;
+  static version: string = pkg.version;
 
-  public utils = utils;
+  static utils = utils;
 
-  public models = models;
+  static models = models;
 
   private target: TargetType;
 
@@ -38,6 +37,7 @@ export default class LakeCore {
   constructor(target: string | NativeElement, options?: OptionsType) {
     this.target = target;
     this.options = options || defaultOptions;
+
     this.setDefaultOptions();
 
     this.event = new EventEmitter();
@@ -48,7 +48,11 @@ export default class LakeCore {
   }
 
   private setDefaultOptions() {
-    this.options.className = this.options.className || defaultOptions.className;
+    forEach(defaultOptions, (key, value) => {
+      if (this.options[key] === undefined) {
+        this.options[key] = value;
+      }
+    });
   }
 
   private addBuiltInModules() {
@@ -56,17 +60,24 @@ export default class LakeCore {
     module.add(heading());
   }
 
+  private normalizeSpecialTags(value: string) {
+    return value.
+      replace(/<anchor\s*\/>/ig, '<cursor type="anchor"></cursor>').
+      replace(/<focus\s*\/>/ig, '<cursor type="focus"></cursor>').
+      replace(/<cursor\s*\/>/ig, '<cursor type="cursor"></cursor>');
+  }
+
   public create() {
     const targetNode = query(this.target);
     targetNode.hide();
-    const defaultValue = targetNode.html();
     const className = this.options.className;
+    const defaultValue = this.options.defaultValue;
     const containerNode = query('<div />');
     containerNode.attr({
       class: className,
       contenteditable: 'true',
     });
-    containerNode.html(defaultValue);
+    containerNode.html(this.normalizeSpecialTags(defaultValue));
     targetNode.after(containerNode);
     this.module.runAll(this);
     this.event.emit('create');

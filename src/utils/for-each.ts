@@ -1,8 +1,8 @@
 type EachCallback = (key: string, value: any) => boolean | void;
 
-export function forEach(value: { [key: string]: any }, callback: EachCallback): void {
-  for (const key in value) {
-    if (callback(key, value[key]) === false) {
+export function forEach(object: { [key: string]: any }, callback: EachCallback): void {
+  for (const key in object) {
+    if (callback(key, object[key]) === false) {
       break;
     }
   }

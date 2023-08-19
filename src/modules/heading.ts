@@ -1,11 +1,12 @@
-import LakeCore from '../main';
+import { debug } from '../utils';
+import type LakeCore from '../main';
 
 export default () => ({
   name: 'heading',
 
   initialize: (editor: LakeCore) => {
     editor.command.add('heading', (type: string) => {
-      editor.utils.debug('click heading: ', type);
+      debug('click heading: ', type);
     });
   },
 });

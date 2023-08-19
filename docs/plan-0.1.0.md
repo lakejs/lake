@@ -8,9 +8,8 @@
 * [X] To initialize project (TypeScript, ESLint, Rollup, pnpm, etc.)
 * [X] To add utils
 * [ ] To add models
-* [ ] To add commands
+* [ ] To add range
 * [ ] To add modules
-* [ ] To add extensions
 * [ ] To add examples (Styles, Toolbar, Icons, etc.)
 * [ ] To write documentation
 * [ ] To create website
@@ -43,7 +42,7 @@
     * markdown-parser.ts
     * text-parser.ts
     * index.ts
-  * commands
+  * range
     * insert-contents.ts
     * delete-contents.ts
     * set-blocks.ts
@@ -142,6 +141,8 @@
 <blockquote>
   block quote
 </blockquote>
+<anchor /><focus />
+<cursor />
 ```
 
 ## Editor Commands
