@@ -1,6 +1,6 @@
 // String
 export * from './camel-case';
-export * from './search-string';
+export * from './in-string';
 export * from './to-hex';
 export * from './get-all-css';
 // Object

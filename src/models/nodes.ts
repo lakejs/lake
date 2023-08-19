@@ -1,6 +1,6 @@
 import { NativeHTMLElement, NativeElement, NativeNode } from '../types/native';
 import { forEach } from '../utils/for-each';
-import { searchString } from '../utils/search-string';
+import { inString } from '../utils/in-string';
 import { camelCase } from '../utils/camel-case';
 import { getCss } from '../utils/get-css';
 import { getNodeList } from '../utils/get-node-list';
@@ -64,11 +64,11 @@ export class Nodes {
   }
 
   get isBlock(): boolean {
-    return searchString(blockTagNames, this.name);
+    return inString(blockTagNames, this.name);
   }
 
   get isMark(): boolean {
-    return searchString(markTagNames, this.name);
+    return inString(markTagNames, this.name);
   }
 
   get isEditable(): boolean {
@@ -269,7 +269,7 @@ export class Nodes {
 
   hasClass(className: string): boolean {
     const element = this.get(0) as NativeElement;
-    return searchString(element.className, className, ' ');
+    return inString(element.className, className, ' ');
   }
 
   addClass(className: string | string[]): this {

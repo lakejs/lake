@@ -1,6 +1,6 @@
 // String Utils
 import './utils/camel-case.test';
-import './utils/search-string.test';
+import './utils/in-string.test';
 import './utils/to-hex.test';
 
 // Object Utils
