@@ -30,6 +30,7 @@ module.exports = {
     'consistent-return': 'off',
     'prefer-destructuring': 'off',
     'comma-dangle': ['error', 'always-multiline'],
+    'func-names': ['error', 'never'],
     'func-call-spacing': ['error', 'never'],
     'space-before-function-paren': ['error', 'never'],
     'indent': ['error', 2],

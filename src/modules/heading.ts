@@ -5,7 +5,7 @@ export default () => ({
 
   initialize: (editor: LakeCore) => {
     editor.command.add('heading', (type: string) => {
-      editor.utils.debug('run heading: ', type);
+      editor.utils.debug('click heading: ', type);
     });
   },
 });

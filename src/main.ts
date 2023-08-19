@@ -6,53 +6,69 @@ import * as models from './models';
 
 import heading from './modules/heading';
 
-const { query, debug } = utils;
+const { query } = utils;
 
 type TargetType = string | NativeElement;
 
-type OptionsType = {[key: string]: string | boolean};
+type OptionsType = {
+  className: string,
+};
 
-const module = new models.Module();
-module.add(heading());
+const defaultOptions: OptionsType = {
+  className: 'lake-editor-container',
+};
 
 export default class LakeCore {
-  version: string = pkg.version;
+  public version: string = pkg.version;
 
-  utils = utils;
+  public utils = utils;
 
-  models = models;
+  public models = models;
 
-  target: TargetType;
+  private target: TargetType;
 
-  options: OptionsType;
+  private options: OptionsType;
 
-  event: EventEmitter;
+  public event: EventEmitter;
 
-  command: models.Command;
+  public command: models.Command;
 
-  constructor(target: string | NativeElement, options: OptionsType = {}) {
+  public module: models.Module;
+
+  constructor(target: string | NativeElement, options?: OptionsType) {
     this.target = target;
-    this.options = options;
+    this.options = options || defaultOptions;
+    this.setDefaultOptions();
+
     this.event = new EventEmitter();
     this.command = new models.Command();
-    this.event.on('create', value => {
-      debug(value, 1);
-    });
+    this.module = new models.Module();
+
+    this.addBuiltInModules();
   }
 
-  create() {
+  private setDefaultOptions() {
+    this.options.className = this.options.className || defaultOptions.className;
+  }
+
+  private addBuiltInModules() {
+    const module = this.module;
+    module.add(heading());
+  }
+
+  public create() {
     const targetNode = query(this.target);
     targetNode.hide();
     const defaultValue = targetNode.html();
-    const className = this.options.className as string || 'lake-editor-area';
-    const containerNode = query('<div></div>');
+    const className = this.options.className;
+    const containerNode = query('<div />');
     containerNode.attr({
       class: className,
       contenteditable: 'true',
     });
     containerNode.html(defaultValue);
     targetNode.after(containerNode);
-
-    module.run(this);
+    this.module.runAll(this);
+    this.event.emit('create');
   }
 }

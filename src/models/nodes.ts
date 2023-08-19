@@ -24,9 +24,9 @@ const eventData: { [key: number]: EventItem[] } = {};
 let lastNodeId = 0;
 
 export class Nodes {
-  nodeList: NativeNode[];
+  private nodeList: NativeNode[];
 
-  length: number;
+  public length: number;
 
   constructor(node?: NativeNode | NativeNode[] | null) {
     node = node || [];
@@ -42,58 +42,58 @@ export class Nodes {
   }
 
   // Gets node ID at the first index.
-  get id(): number {
+  public get id(): number {
     const node = this.get(0);
     return node.lakeId;
   }
 
   // Gets node name at the first index.
-  get name(): string {
+  public get name(): string {
     const node = this.get(0);
     return node.nodeName.toLowerCase();
   }
 
-  get isElement(): boolean {
+  public get isElement(): boolean {
     const node = this.get(0);
     return node.nodeType === NativeNode.ELEMENT_NODE;
   }
 
-  get isText(): boolean {
+  public get isText(): boolean {
     const node = this.get(0);
     return node.nodeType === NativeNode.TEXT_NODE;
   }
 
-  get isBlock(): boolean {
+  public get isBlock(): boolean {
     return inString(blockTagNames, this.name);
   }
 
-  get isMark(): boolean {
+  public get isMark(): boolean {
     return inString(markTagNames, this.name);
   }
 
-  get isEditable(): boolean {
+  public get isEditable(): boolean {
     const node = this.get(0) as NativeHTMLElement;
     return node.isContentEditable;
   }
 
   // Gets a native node at the specified index.
-  get(index: number = 0): NativeNode {
+  public get(index: number = 0): NativeNode {
     return this.nodeList[index];
   }
 
   // Gets all native nodes
-  getAll(): NativeNode[] {
+  public getAll(): NativeNode[] {
     return this.nodeList;
   }
 
   // Reduces the nodes of a Nodes object to the one at the specified index.
-  eq(index: number): Nodes {
+  public eq(index: number): Nodes {
     const node = this.get(index);
     return new Nodes(node);
   }
 
   // Iterates over a Nodes object, executing a function for each node.
-  each(callback: EachCallback): this {
+  public each(callback: EachCallback): this {
     const nodes = this.getAll();
     for (let i = 0; i < nodes.length; i++) {
       if (callback(nodes[i], i) === false) {
@@ -104,7 +104,7 @@ export class Nodes {
   }
 
   // Iterates over a Nodes object, executing a function for each element.
-  eachElement(callback: EachElementCallback): this {
+  public eachElement(callback: EachElementCallback): this {
     const nodes = this.getAll();
     for (let i = 0; i < nodes.length; i++) {
       if (nodes[i].nodeType === NativeNode.ELEMENT_NODE) {
@@ -117,13 +117,13 @@ export class Nodes {
   }
 
   // Reverses the nodes of a Nodes object.
-  reverse(): Nodes {
+  public reverse(): Nodes {
     const nodes = this.getAll().reverse();
     return new Nodes(nodes);
   }
 
   // Gets the descendants of the first element filtered by a selector.
-  find(selector: string): Nodes {
+  public find(selector: string): Nodes {
     const element = this.get(0) as NativeElement;
     const nodeList = element.querySelectorAll(selector);
     return new Nodes(Array.from(nodeList));
@@ -131,43 +131,43 @@ export class Nodes {
 
   // Traverses the first element and its parents (heading toward the document root)
   // until it finds a element that matches the specified CSS selector.
-  closest(selector: string): Nodes {
+  public closest(selector: string): Nodes {
     const element = this.get(0) as NativeElement;
     return new Nodes(element.closest(selector));
   }
 
   // Returns the parent of the first node.
-  parent(): Nodes {
+  public parent(): Nodes {
     const node = this.get(0);
     return new Nodes(node.parentNode);
   }
 
   // Returns the immediately preceding sibling of the first node.
-  prev(): Nodes {
+  public prev(): Nodes {
     const node = this.get(0);
     return new Nodes(node.previousSibling);
   }
 
   // Returns the immediately following sibling of the first node.
-  next(): Nodes {
+  public next(): Nodes {
     const node = this.get(0);
     return new Nodes(node.nextSibling);
   }
 
   // Returns the first child of the first element.
-  first(): Nodes {
+  public first(): Nodes {
     const element = this.get(0);
     return new Nodes(element.firstChild);
   }
 
   // Returns the last child of the first element.
-  last(): Nodes {
+  public last(): Nodes {
     const element = this.get(0) as NativeElement;
     return new Nodes(element.lastChild);
   }
 
   // Returns all child nodes of the first element.
-  allChildNodes(): Nodes[] {
+  public allChildNodes(): Nodes[] {
     const nodeList: Nodes[] = [];
     const iterate = (node: Nodes) => {
       let child = node.first();
@@ -183,7 +183,7 @@ export class Nodes {
   }
 
   // Attaches an event listener for the elements.
-  on(type: string, listener: EventListener): this {
+  public on(type: string, listener: EventListener): this {
     return this.eachElement(element => {
       element.addEventListener(type, listener, false);
       const elementId = element.lakeId;
@@ -198,7 +198,7 @@ export class Nodes {
   }
 
   // Removes event handlers that were attached with .on() method.
-  off(type?: string, listener?: EventListener): this {
+  public off(type?: string, listener?: EventListener): this {
     return this.eachElement(element => {
       const elementId = element.lakeId;
       const eventItems = eventData[elementId] || [];
@@ -216,7 +216,7 @@ export class Nodes {
   }
 
   // Executes all event listeners attached to the Nodes object for the given event type.
-  fire(type: string): this {
+  public fire(type: string): this {
     return this.eachElement(element => {
       const elementId = element.lakeId;
       const eventItems = eventData[elementId];
@@ -229,23 +229,23 @@ export class Nodes {
   }
 
   // Gets all event listeners attached to the Nodes object.
-  getEventListeners(index: number): EventItem[] {
+  public getEventListeners(index: number): EventItem[] {
     const elementId = this.get(index).lakeId;
     return eventData[elementId];
   }
 
-  hasAttr(attributeName: string): boolean {
+  public hasAttr(attributeName: string): boolean {
     const element = this.get(0) as NativeElement;
     return element.hasAttribute(attributeName);
   }
 
-  attr(attributeName: string): string;
+  public attr(attributeName: string): string;
 
-  attr(attributeName: string, value: string): this;
+  public attr(attributeName: string, value: string): this;
 
-  attr(attributeName: { [key: string]: string }): this;
+  public attr(attributeName: { [key: string]: string }): this;
 
-  attr(attributeName: any, value?: any): any {
+  public attr(attributeName: any, value?: any): any {
     if (typeof attributeName === 'object') {
       forEach(attributeName, (name, val) => {
         this.attr(name, val);
@@ -261,18 +261,18 @@ export class Nodes {
     });
   }
 
-  removeAttr(attributeName: string): this {
+  public removeAttr(attributeName: string): this {
     return this.eachElement(element => {
       element.removeAttribute(attributeName);
     });
   }
 
-  hasClass(className: string): boolean {
+  public hasClass(className: string): boolean {
     const element = this.get(0) as NativeElement;
     return inString(element.className, className, ' ');
   }
 
-  addClass(className: string | string[]): this {
+  public addClass(className: string | string[]): this {
     if (Array.isArray(className)) {
       className.forEach(name => {
         this.addClass(name);
@@ -284,7 +284,7 @@ export class Nodes {
     });
   }
 
-  removeClass(className: string | string[]): this {
+  public removeClass(className: string | string[]): this {
     if (Array.isArray(className)) {
       className.forEach(name => {
         this.removeClass(name);
@@ -300,13 +300,13 @@ export class Nodes {
     return this;
   }
 
-  css(propertyName: string): string;
+  public css(propertyName: string): string;
 
-  css(propertyName: { [key: string]: string }): this;
+  public css(propertyName: { [key: string]: string }): this;
 
-  css(propertyName: string, value: string): this;
+  public css(propertyName: string, value: string): this;
 
-  css(propertyName: any, value?: any): any {
+  public css(propertyName: any, value?: any): any {
     if (typeof propertyName === 'object') {
       forEach(propertyName, (name, val) => {
         this.css(name, val);
@@ -322,21 +322,21 @@ export class Nodes {
     });
   }
 
-  show(displayType: string = 'block'): this {
+  public show(displayType: string = 'block'): this {
     this.css('display', displayType);
     return this;
   }
 
-  hide(): this {
+  public hide(): this {
     this.css('display', 'none');
     return this;
   }
 
-  html(): string;
+  public html(): string;
 
-  html(value: string): this;
+  public html(value: string): this;
 
-  html(value?: any): any {
+  public html(value?: any): any {
     if (value === undefined) {
       const element = this.get(0) as NativeElement;
       return element.innerHTML;
@@ -347,13 +347,13 @@ export class Nodes {
   }
 
   // Removes all child nodes of each element.
-  empty(): this {
+  public empty(): this {
     this.html('');
     return this;
   }
 
   // Inserts the specified content as the first child of each element.
-  prepend(content: string | NativeNode | Nodes): this {
+  public prepend(content: string | NativeNode | Nodes): this {
     return this.eachElement(element => {
       let list: NativeNode[] = [];
       if (content instanceof Nodes) {
@@ -373,7 +373,7 @@ export class Nodes {
   }
 
   // Inserts the specified content as the last child of each element.
-  append(content: string | NativeNode | Nodes): this {
+  public append(content: string | NativeNode | Nodes): this {
     return this.eachElement(element => {
       let list: NativeNode[] = [];
       if (content instanceof Nodes) {
@@ -388,7 +388,7 @@ export class Nodes {
   }
 
   // Inserts each element as the last child of the target.
-  appendTo(target: string | NativeElement | Nodes): this {
+  public appendTo(target: string | NativeElement | Nodes): this {
     return this.each(node => {
       let targetNodes: Nodes;
       if (target instanceof Nodes) {
@@ -402,7 +402,7 @@ export class Nodes {
   }
 
   // Inserts the specified content after each element.
-  after(content: string | NativeNode | Nodes): this {
+  public after(content: string | NativeNode | Nodes): this {
     return this.eachElement(element => {
       let list: NativeNode[] = [];
       if (content instanceof Nodes) {
@@ -425,7 +425,7 @@ export class Nodes {
   }
 
   // Replaces each element with the provided new content.
-  replaceWith(newContent: string | NativeNode | Nodes): this {
+  public replaceWith(newContent: string | NativeNode | Nodes): this {
     return this.eachElement(element => {
       let node: NativeNode;
       if (newContent instanceof Nodes) {
@@ -440,7 +440,7 @@ export class Nodes {
   // Removes each element from the DOM.
   // keepChildren parameter:
   // A boolean value; true only removes each element and keeps all child nodes; false removes all nodes; if omitted, it defaults to false.
-  remove(keepChildren: boolean = false): this {
+  public remove(keepChildren: boolean = false): this {
     this.each(node => {
       if (!node.parentNode) {
         return;
@@ -458,7 +458,7 @@ export class Nodes {
     return this;
   }
 
-  debug(): void {
+  public debug(): void {
     this.each(node => {
       debug(`node (${node.lakeId}): `, node);
     });

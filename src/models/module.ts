@@ -1,27 +1,27 @@
 import LakeCore from '../main';
 import { debug } from '../utils/debug';
 
-type ModuleData = {
+type ModuleType = {
   name: string,
-  initialize: (editor: LakeCore) => void;
+  initialize: (editor: LakeCore) => void,
 };
 
 export class Module {
-  private dataList: ModuleData[] = [];
+  private dataList: ModuleType[];
 
   constructor() {
-    debug('command constructor');
+    this.dataList = [];
   }
 
-  add(data: ModuleData) {
-    this.dataList.push(data);
-    debug('add command');
+  public add(module: ModuleType) {
+    this.dataList.push(module);
+    debug(`Module '${module.name}' is added.`);
   }
 
-  run(editor: LakeCore) {
+  public runAll(editor: LakeCore) {
     this.dataList.forEach(data => {
       data.initialize(editor);
     });
-    debug('run command');
+    debug('All modules are initialized.');
   }
 }

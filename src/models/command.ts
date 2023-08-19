@@ -10,12 +10,12 @@ export class Command {
     this.data = {};
   }
 
-  add(name: string, handler: CommandHandler) {
+  public add(name: string, handler: CommandHandler) {
     this.data[name] = handler;
-    debug('add command');
+    debug(`Command '${name}' is added.`);
   }
 
-  run(name: string, ...data: any[]) {
+  public run(name: string, ...data: any[]) {
     const handler = this.data[name];
     if (!handler) {
       throw new Error(`Handler '${name}' does not exist.`);

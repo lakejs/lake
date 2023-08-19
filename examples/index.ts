@@ -4,13 +4,15 @@ window.DEBUG = true;
 
 const heading = 'h1,h2,h3,h4,h5,h6,paragraph'.split(',');
 
-const editor = new LakeCore('.lake-editor', {
-  className: 'lake-editor',
+const editor = new LakeCore('.lake-editor');
+
+const { query, debug } = editor.utils;
+
+editor.event.on('create', () => {
+  debug('Editor demo is created.');
 });
 
 editor.create();
-
-const { query } = editor.utils;
 
 query('.lake-toolbar-icon').on('click', (e: Event) => {
   e.preventDefault();
