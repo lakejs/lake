@@ -216,7 +216,7 @@ export class Nodes {
   }
 
   // Executes all event listeners attached to the Nodes object for the given event type.
-  public fire(type: string): this {
+  public emit(type: string): this {
     return this.eachElement(element => {
       const elementId = element.lakeId;
       const eventItems = eventData[elementId];

@@ -236,13 +236,13 @@ describe('models.Nodes class', () => {
     expect(nodes.getEventListeners(0).length).to.equal(2);
     expect(nodes.getEventListeners(0)[0].type).to.equal('click');
     expect(nodes.getEventListeners(0)[1].type).to.equal('mouseup');
-    nodes.fire('mousedown');
+    nodes.emit('mousedown');
     expect(element.innerHTML).to.equal('one');
     // remove all events
     nodes.off();
     expect(nodes.getEventListeners(0).length).to.equal(0);
-    nodes.fire('click');
-    nodes.fire('mouseup');
+    nodes.emit('click');
+    nodes.emit('mouseup');
     expect(element.innerHTML).to.equal('one');
   });
 
@@ -265,11 +265,11 @@ describe('models.Nodes class', () => {
     nodes.on('click', clickListenerTwo);
     nodes.on('mousedown', mousedownListener);
     expect(element.innerHTML).to.equal('one');
-    nodes.fire('click');
+    nodes.emit('click');
     expect(element.innerHTML).to.equal('click event two');
-    nodes.fire('click');
+    nodes.emit('click');
     expect(clickCount).to.equal(4);
-    nodes.fire('mousedown');
+    nodes.emit('mousedown');
     expect(element.innerHTML).to.equal('mousedown event');
     // remove all events
     nodes.off();
@@ -290,9 +290,9 @@ describe('models.Nodes class', () => {
     // bind events
     nodesOne.on('click', clickListenerOne);
     nodesOne.on('click', clickListenerTwo);
-    nodesTwo.fire('click');
+    nodesTwo.emit('click');
     expect(element.innerHTML).to.equal('click event two');
-    nodesTwo.fire('click');
+    nodesTwo.emit('click');
     expect(clickCount).to.equal(4);
     // remove all events
     nodesTwo.off();
