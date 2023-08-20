@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { query } from '../../src/utils';
 import { Range, Nodes } from '../../src/models';
-import { setBlocks } from '../../src/commands';
+import { setBlocks } from '../../src/operations';
 
-describe('commands.setBlocks()', () => {
+describe('operations.setBlocks()', () => {
   let container: Nodes;
 
   beforeEach(() => {

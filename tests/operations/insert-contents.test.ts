@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { query } from '../../src/utils';
 import { Range, Nodes } from '../../src/models';
-import { insertContents } from '../../src/commands';
+import { insertContents } from '../../src/operations';
 
-describe('commands.insertContents()', () => {
+describe('operations.insertContents()', () => {
   let container: Nodes;
 
   beforeEach(() => {

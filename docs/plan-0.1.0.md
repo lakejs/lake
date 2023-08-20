@@ -42,7 +42,7 @@
     * markdown-parser.ts
     * text-parser.ts
     * index.ts
-  * range
+  * operations
     * insert-contents.ts
     * delete-contents.ts
     * set-blocks.ts
