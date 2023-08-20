@@ -28,11 +28,43 @@ describe('models.Range class', () => {
     expect(range.startOffset).to.equal(1);
   });
 
+  it('method: setStartBefore', () => {
+    const range = new Range();
+    const node = container.find('strong');
+    range.setStartBefore(node);
+    expect(range.startNode.get(0)).to.equal(node.parent().get(0));
+    expect(range.startOffset).to.equal(0);
+  });
+
+  it('method: setStartAfter', () => {
+    const range = new Range();
+    const node = container.find('strong');
+    range.setStartAfter(node);
+    expect(range.startNode.get(0)).to.equal(node.parent().get(0));
+    expect(range.startOffset).to.equal(1);
+  });
+
   it('method: setEnd', () => {
     const range = new Range();
     const nodes = container.find('strong').first();
     range.setEnd(nodes, 1);
     expect(range.endNode.get(0)).to.equal(nodes.get(0));
+    expect(range.endOffset).to.equal(1);
+  });
+
+  it('method: setEndBefore', () => {
+    const range = new Range();
+    const node = container.find('strong');
+    range.setEndBefore(node);
+    expect(range.endNode.get(0)).to.equal(node.parent().get(0));
+    expect(range.endOffset).to.equal(0);
+  });
+
+  it('method: setEndAfter', () => {
+    const range = new Range();
+    const node = container.find('strong');
+    range.setEndAfter(node);
+    expect(range.endNode.get(0)).to.equal(node.parent().get(0));
     expect(range.endOffset).to.equal(1);
   });
 

@@ -3,12 +3,12 @@ import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
 export function setBlocks(range: Range, value: string): Nodes {
-  range.debug();
   const nodes = query(value);
   const tagName = nodes.name;
   const styleString = nodes.attr('style');
   const cssProperties = getAllCss(styleString);
   range.allNodes().forEach(node => {
+    node.debug();
     if (!node.isBlock) {
       return;
     }

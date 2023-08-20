@@ -33,9 +33,9 @@ export default class LakeCore {
 
   private options: OptionsType;
 
-  private range: models.Range;
+  public range: models.Range;
 
-  private selection: models.Selection;
+  public selection: models.Selection;
 
   public event: EventEmitter;
 
@@ -58,6 +58,10 @@ export default class LakeCore {
     this.module = new models.Module();
 
     this.addBuiltInModules();
+
+    this.container.on('blur', () => {
+      this.range = this.selection.getRange();
+    });
   }
 
   private setDefaultOptions(): void {
@@ -93,11 +97,17 @@ export default class LakeCore {
     const container = this.container;
     const anchorNode = container.find('cursor[type="anchor"]');
     const focusNode = container.find('cursor[type="focus"]');
-    this.range.setStartAfter(anchorNode);
-    anchorNode.remove();
-    this.range.setEndAfter(focusNode);
-    focusNode.remove();
-    this.selection.addRange(this.range);
+    if (anchorNode.length > 0) {
+      this.range.setStartAfter(anchorNode);
+      anchorNode.remove();
+    }
+    if (focusNode.length > 0) {
+      this.range.setEndAfter(focusNode);
+      focusNode.remove();
+    }
+    if (this.selection.getRange().get() !== this.range.get()) {
+      this.selection.addRange(this.range);
+    }
     container.focus();
   }
 
