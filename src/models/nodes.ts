@@ -234,6 +234,13 @@ export class Nodes {
     return eventData[elementId];
   }
 
+  // Sets focus on the specified element, if it can be focused.
+  public focus(): this {
+    const element = this.get(0) as NativeHTMLElement;
+    element.focus();
+    return this;
+  }
+
   public hasAttr(attributeName: string): boolean {
     const element = this.get(0) as NativeElement;
     return element.hasAttribute(attributeName);

@@ -8,11 +8,20 @@ export class Range {
   private range: NativeRange;
 
   // Returns a customized Range object with native Range object.
-  constructor() {
-    this.range = document.createRange();
+  constructor(range?: NativeRange) {
+    if (range) {
+      this.range = range;
+    } else {
+      this.range = document.createRange();
+    }
   }
 
-  // Returns the Nodes within which the Range starts.
+  // Gets a native range.
+  public get(): NativeRange {
+    return this.range;
+  }
+
+  // Returns the Node within which the Range starts.
   public get startNode(): Nodes {
     return new Nodes(this.range.startContainer);
   }
@@ -32,7 +41,7 @@ export class Range {
     return this.range.endOffset;
   }
 
-  // Returns the closest Nodes that contains both the startNode and endNode.
+  // Returns the closest Node that contains both the startNode and endNode.
   public get commonAncestor(): Nodes {
     return new Nodes(this.range.commonAncestorContainer);
   }
@@ -43,14 +52,38 @@ export class Range {
   }
 
   // Sets the start position of a Range.
-  public setStart(nodes: Nodes, offset: number): this {
-    this.range.setStart(nodes.get(0), offset);
+  public setStart(node: Nodes, offset: number): this {
+    this.range.setStart(node.get(0), offset);
+    return this;
+  }
+
+  // Sets the start position of a Range before a Node.
+  public setStartBefore(node: Nodes): this {
+    this.range.setStartBefore(node.get(0));
+    return this;
+  }
+
+  // Sets the start position of a Range after a Node.
+  public setStartAfter(node: Nodes): this {
+    this.range.setStartAfter(node.get(0));
     return this;
   }
 
   // Sets the end position of a Range.
-  public setEnd(nodes: Nodes, offset: number): this {
-    this.range.setEnd(nodes.get(0), offset);
+  public setEnd(node: Nodes, offset: number): this {
+    this.range.setEnd(node.get(0), offset);
+    return this;
+  }
+
+  // Sets the end position of a Range before a Node.
+  public setEndBefore(node: Nodes): this {
+    this.range.setEndBefore(node.get(0));
+    return this;
+  }
+
+  // Sets the end position of a Range after a Node.
+  public setEndAfter(node: Nodes): this {
+    this.range.setEndAfter(node.get(0));
     return this;
   }
 
@@ -60,15 +93,15 @@ export class Range {
     return this;
   }
 
-  // Sets the Range to contain the Nodes and its contents.
-  public selectNode(nodes: Nodes): this {
-    this.range.selectNode(nodes.get(0));
+  // Sets the Range to contain the Node and its contents.
+  public selectNode(node: Nodes): this {
+    this.range.selectNode(node.get(0));
     return this;
   }
 
-  // Sets the Range to contain the contents of a Nodes.
-  public selectNodeContents(nodes: Nodes): this {
-    this.range.selectNodeContents(nodes.get(0));
+  // Sets the Range to contain the contents of a Node.
+  public selectNodeContents(node: Nodes): this {
+    this.range.selectNodeContents(node.get(0));
     return this;
   }
 
@@ -94,7 +127,7 @@ export class Range {
     return nodeList;
   }
 
-  // Insert a Nodes at the start of a Range.
+  // Insert a Node at the start of a Range.
   public insertNode(nodes: Nodes): this {
     nodes.each(node => {
       this.range.insertNode(node);
