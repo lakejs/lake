@@ -1,17 +1,14 @@
 import { query, getAllCss, forEach } from '../utils';
-import { Nodes } from '../models/nodes';
-import { Range } from '../models/range';
+import { Range } from '../models';
+import { getBlocks } from './get-blocks';
 
-export function setBlocks(range: Range, value: string): Nodes {
+export function setBlocks(range: Range, value: string): void {
   const nodes = query(value);
   const tagName = nodes.name;
   const styleString = nodes.attr('style');
   const cssProperties = getAllCss(styleString);
-  range.allNodes().forEach(node => {
-    node.debug();
-    if (!node.isBlock) {
-      return;
-    }
+  const blockList = getBlocks(range);
+  blockList.forEach(node => {
     const block = query(`<${tagName} />`);
     let child = node.first();
     while(child.length > 0) {
@@ -24,5 +21,4 @@ export function setBlocks(range: Range, value: string): Nodes {
       block.css(key, val);
     });
   });
-  return nodes;
 }

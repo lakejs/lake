@@ -8,7 +8,7 @@
 * [X] To initialize project (TypeScript, ESLint, Rollup, pnpm, etc.)
 * [X] To add utils
 * [ ] To add models
-* [ ] To add range
+* [ ] To add operations
 * [ ] To add modules
 * [ ] To add examples (Styles, Toolbar, Icons, etc.)
 * [ ] To write documentation

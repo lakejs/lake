@@ -73,7 +73,7 @@ export class Nodes {
 
   public get isEditable(): boolean {
     const node = this.get(0) as NativeHTMLElement;
-    return node.isContentEditable;
+    return node.isContentEditable && this.attr('contenteditable') !== 'true';
   }
 
   // Gets a native node at the specified index.

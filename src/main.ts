@@ -86,14 +86,14 @@ export default class LakeCore {
     module.add(heading());
   }
 
-  private normalizeSpecialTags(value: string): string {
+  private normalizeCursorTags(value: string): string {
     return value.
       replace(/<anchor\s*\/>/ig, '<cursor type="anchor"></cursor>').
       replace(/<focus\s*\/>/ig, '<cursor type="focus"></cursor>').
       replace(/<cursor\s*\/>/ig, '<cursor type="cursor"></cursor>');
   }
 
-  public focus(): void {
+  private setRangeByCursorTags(): void {
     const container = this.container;
     const anchorNode = container.find('cursor[type="anchor"]');
     const focusNode = container.find('cursor[type="focus"]');
@@ -105,10 +105,13 @@ export default class LakeCore {
       this.range.setEndAfter(focusNode);
       focusNode.remove();
     }
+  }
+
+  public focus(): void {
     if (this.selection.getRange().get() !== this.range.get()) {
       this.selection.addRange(this.range);
     }
-    container.focus();
+    this.container.focus();
   }
 
   public create(): void {
@@ -116,8 +119,9 @@ export default class LakeCore {
     const targetNode = query(this.target);
     targetNode.hide();
     const defaultValue = this.options.defaultValue;
-    container.html(this.normalizeSpecialTags(defaultValue));
+    container.html(this.normalizeCursorTags(defaultValue));
     targetNode.after(container);
+    this.setRangeByCursorTags();
     this.focus();
     this.module.runAll(this);
     this.event.emit('create');
