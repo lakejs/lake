@@ -9,7 +9,7 @@
 * [X] To add utils
 * [ ] To add models
 * [ ] To add operations
-* [ ] To add modules
+* [ ] To add plugins
 * [ ] To add examples (Styles, Toolbar, Icons, etc.)
 * [ ] To write documentation
 * [ ] To create website
@@ -31,7 +31,7 @@
     * get-css.ts
     * index.ts
   * models/
-    * module.ts
+    * plugin.ts
     * command.ts
     * nodes.ts
     * text.ts
@@ -57,7 +57,7 @@
     * update-component.ts
     * delete-component.ts
     * index.ts
-  * modules
+  * plugins
     * paste.ts
     * undo.ts
     * redo.ts

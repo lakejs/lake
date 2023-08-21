@@ -4,7 +4,7 @@ import { NativeElement } from './types/native';
 import * as utils from './utils';
 import * as models from './models';
 
-import heading from './modules/heading';
+import heading from './plugins/heading';
 
 const { query, forEach } = utils;
 const { Selection } = models;
@@ -41,7 +41,7 @@ export default class LakeCore {
 
   public command: models.Command;
 
-  public module: models.Module;
+  public plugin: models.Plugin;
 
   constructor(target: string | NativeElement, options?: OptionsType) {
     this.target = target;
@@ -55,7 +55,7 @@ export default class LakeCore {
     this.selection = new Selection();
     this.range = this.selection.getRange();
     this.command = new models.Command();
-    this.module = new models.Module();
+    this.plugin = new models.Plugin();
 
     this.addBuiltInModules();
 
@@ -82,21 +82,20 @@ export default class LakeCore {
   }
 
   private addBuiltInModules(): void {
-    const module = this.module;
-    module.add(heading());
+    const plugin = this.plugin;
+    plugin.add(heading);
   }
 
   private normalizeCursorTags(value: string): string {
     return value.
-      replace(/<anchor\s*\/>/ig, '<cursor type="anchor"></cursor>').
-      replace(/<focus\s*\/>/ig, '<cursor type="focus"></cursor>').
-      replace(/<cursor\s*\/>/ig, '<cursor type="cursor"></cursor>');
+      replace(/<anchor\s*\/>/ig, '<bookmark type="anchor"></bookmark>').
+      replace(/<focus\s*\/>/ig, '<bookmark type="focus"></bookmark>');
   }
 
   private setRangeByCursorTags(): void {
     const container = this.container;
-    const anchorNode = container.find('cursor[type="anchor"]');
-    const focusNode = container.find('cursor[type="focus"]');
+    const anchorNode = container.find('bookmark[type="anchor"]');
+    const focusNode = container.find('bookmark[type="focus"]');
     if (anchorNode.length > 0) {
       this.range.setStartAfter(anchorNode);
       anchorNode.remove();
@@ -123,7 +122,7 @@ export default class LakeCore {
     targetNode.after(container);
     this.setRangeByCursorTags();
     this.focus();
-    this.module.runAll(this);
+    this.plugin.runAll(this);
     this.event.emit('create');
   }
 }

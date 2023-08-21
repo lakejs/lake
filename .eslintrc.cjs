@@ -18,7 +18,6 @@ module.exports = {
     'import/extensions': 'off',
     'import/prefer-default-export': 'off',
     'import/no-extraneous-dependencies': 'off',
-    'import/no-import-module-exports': 'off',
     'class-methods-use-this': 'off',
     'no-console': 'error',
     'no-debugger': 'error',
