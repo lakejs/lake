@@ -39,9 +39,9 @@ export default class LakeCore {
 
   public event: EventEmitter;
 
-  public command: models.Command;
+  public commands: models.Commands;
 
-  public plugin: models.Plugin;
+  public plugins: models.Plugins;
 
   constructor(target: string | NativeElement, options?: OptionsType) {
     this.target = target;
@@ -54,10 +54,10 @@ export default class LakeCore {
     this.event = new EventEmitter();
     this.selection = new Selection();
     this.range = this.selection.getRange();
-    this.command = new models.Command();
-    this.plugin = new models.Plugin();
+    this.commands = new models.Commands();
+    this.plugins = new models.Plugins();
 
-    this.addBuiltInModules();
+    this.addBuiltInPlugins();
 
     this.container.on('blur', () => {
       this.range = this.selection.getRange();
@@ -81,9 +81,9 @@ export default class LakeCore {
     container.addClass(this.options.className);
   }
 
-  private addBuiltInModules(): void {
-    const plugin = this.plugin;
-    plugin.add(heading);
+  private addBuiltInPlugins(): void {
+    const plugins = this.plugins;
+    plugins.add(heading);
   }
 
   private normalizeCursorTags(value: string): string {
@@ -122,7 +122,7 @@ export default class LakeCore {
     targetNode.after(container);
     this.setRangeByCursorTags();
     this.focus();
-    this.plugin.runAll(this);
+    this.plugins.runAll(this);
     this.event.emit('create');
   }
 }

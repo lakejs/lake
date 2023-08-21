@@ -32,7 +32,7 @@
     * index.ts
   * models/
     * plugin.ts
-    * command.ts
+    * commands.ts
     * nodes.ts
     * text.ts
     * range.ts

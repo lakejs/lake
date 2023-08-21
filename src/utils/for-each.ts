@@ -1,8 +1,8 @@
-type EachCallback = (key: string, value: any) => boolean | void;
+type CallbackFunction = (key: string, value: any) => boolean | void;
 
-export function forEach(object: { [key: string]: any }, callback: EachCallback): void {
-  for (const key in object) {
-    if (callback(key, object[key]) === false) {
+export function forEach(map: { [key: string]: any }, callback: CallbackFunction): void {
+  for (const key in map) {
+    if (callback(key, map[key]) === false) {
       break;
     }
   }

@@ -1,22 +1,21 @@
 import { debug } from '../utils/debug';
 
 type CommandHandler = (...data: any[]) => void;
-type CommandData = { [key: string]: CommandHandler };
 
-export class Command {
-  private data: CommandData;
+export class Commands {
+  private commandMap: { [key: string]: CommandHandler };
 
   constructor() {
-    this.data = {};
+    this.commandMap = {};
   }
 
   public add(name: string, handler: CommandHandler) {
-    this.data[name] = handler;
+    this.commandMap[name] = handler;
     debug(`Command '${name}' is added.`);
   }
 
   public run(name: string, ...data: any[]) {
-    const handler = this.data[name];
+    const handler = this.commandMap[name];
     if (!handler) {
       throw new Error(`Handler '${name}' does not exist.`);
     }

@@ -2,19 +2,19 @@ import LakeCore from '../main';
 
 type PluginFunction = (editor: LakeCore) => void;
 
-export class Plugin {
-  private data: PluginFunction[];
+export class Plugins {
+  private pluginList: PluginFunction[];
 
   constructor() {
-    this.data = [];
+    this.pluginList = [];
   }
 
   public add(plugin: PluginFunction) {
-    this.data.push(plugin);
+    this.pluginList.push(plugin);
   }
 
   public runAll(editor: LakeCore) {
-    this.data.forEach(plugin => {
+    this.pluginList.forEach(plugin => {
       plugin(editor);
     });
   }
