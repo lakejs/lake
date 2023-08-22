@@ -4,10 +4,9 @@ import { Nodes } from './nodes';
 
 // The Range class represents a fragment of a document that can contain nodes and parts of text nodes.
 export class Range {
-  // native Range object
+  // native range
   private range: NativeRange;
 
-  // Returns a customized Range object with native Range object.
   constructor(range?: NativeRange) {
     if (range) {
       this.range = range;
@@ -21,27 +20,27 @@ export class Range {
     return this.range;
   }
 
-  // Returns the Node within which the Range starts.
+  // Returns a node within which the range starts.
   public get startNode(): Nodes {
     return new Nodes(this.range.startContainer);
   }
 
-  // Returns a number representing where in the startNode the Range starts.
+  // Returns a number representing where in the startNode the range starts.
   public get startOffset(): number {
     return this.range.startOffset;
   }
 
-  // Returns the Nodes within which the Range ends.
+  // Returns a node within which the range ends.
   public get endNode(): Nodes {
     return new Nodes(this.range.endContainer);
   }
 
-  // Returns a number representing where in the endNode the Range ends.
+  // Returns a number representing where in the endNode the range ends.
   public get endOffset(): number {
     return this.range.endOffset;
   }
 
-  // Returns the closest Node that contains both the startNode and endNode.
+  // Returns the closest node that contains both the startNode and endNode.
   public get commonAncestor(): Nodes {
     return new Nodes(this.range.commonAncestorContainer);
   }
@@ -51,61 +50,62 @@ export class Range {
     return this.range.collapsed;
   }
 
-  // Sets the start position of a Range.
+  // Sets the start position of a range.
   public setStart(node: Nodes, offset: number): this {
     this.range.setStart(node.get(0), offset);
     return this;
   }
 
-  // Sets the start position of a Range before a Node.
+  // Sets the start position of a range before a node.
   public setStartBefore(node: Nodes): this {
     this.range.setStartBefore(node.get(0));
     return this;
   }
 
-  // Sets the start position of a Range after a Node.
+  // Sets the start position of a range after a node.
   public setStartAfter(node: Nodes): this {
     this.range.setStartAfter(node.get(0));
     return this;
   }
 
-  // Sets the end position of a Range.
+  // Sets the end position of a range.
   public setEnd(node: Nodes, offset: number): this {
     this.range.setEnd(node.get(0), offset);
     return this;
   }
 
-  // Sets the end position of a Range before a Node.
+  // Sets the end position of a range before a node.
   public setEndBefore(node: Nodes): this {
     this.range.setEndBefore(node.get(0));
     return this;
   }
 
-  // Sets the end position of a Range after a Node.
+  // Sets the end position of a range after a node.
   public setEndAfter(node: Nodes): this {
     this.range.setEndAfter(node.get(0));
     return this;
   }
 
-  // Collapses the Range to one of its boundary points.
+  // Collapses the range to one of its boundary points.
   public collapse(toStart?: boolean): this {
     this.range.collapse(toStart);
     return this;
   }
 
-  // Sets the Range to contain the Node and its contents.
+  // Sets the range to contain the specified node and its contents.
   public selectNode(node: Nodes): this {
     this.range.selectNode(node.get(0));
     return this;
   }
 
-  // Sets the Range to contain the contents of a Node.
+  // Sets the range to contain the contents of the specified node.
   public selectNodeContents(node: Nodes): this {
     this.range.selectNodeContents(node.get(0));
     return this;
   }
 
-  public isNodeInRange(node: Nodes) {
+  // Indicates whether a specified node is part of a range.
+  public containsNode(node: Nodes): boolean {
     const startRange = document.createRange();
     startRange.selectNodeContents(node.get(0));
     startRange.collapse(true);
@@ -116,18 +116,18 @@ export class Range {
       this.range.isPointInRange(endRange.startContainer, endRange.startOffset);
   }
 
-  // Returns all child nodes of a Range.
+  // Returns all child nodes which is part of a range.
   public allNodes(): Nodes[] {
     const nodeList: Nodes[] = [];
     this.commonAncestor.allChildNodes().forEach(node => {
-      if (this.isNodeInRange(node)) {
+      if (this.containsNode(node)) {
         nodeList.push(node);
       }
     });
     return nodeList;
   }
 
-  // Insert a Node at the start of a Range.
+  // Inserts the specified nodes to the start of a range.
   public insertNode(nodes: Nodes): this {
     nodes.each(node => {
       this.range.insertNode(node);
@@ -137,6 +137,7 @@ export class Range {
     return this;
   }
 
+  // Prints information of the range for debug.
   public debug(): void {
     debug('--- range information ---');
     debug(`start node (${this.startNode.id}):`, this.startNode.get(0), ', offset:', this.startOffset);
