@@ -2,7 +2,7 @@
 export * from './camel-case';
 export * from './in-string';
 export * from './to-hex';
-export * from './get-all-css';
+export * from './parse-style';
 // Object
 export * from './for-each';
 // Native DOM

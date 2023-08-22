@@ -1,4 +1,4 @@
-import { query, getAllCss, forEach } from '../utils';
+import { query, parseStyle, forEach } from '../utils';
 import { Range } from '../models';
 import { getBlocks } from './get-blocks';
 
@@ -6,7 +6,7 @@ export function setBlocks(range: Range, value: string): void {
   const nodes = query(value);
   const tagName = nodes.name;
   const styleString = nodes.attr('style');
-  const cssProperties = getAllCss(styleString);
+  const cssProperties = parseStyle(styleString);
   const blockList = getBlocks(range);
   blockList.forEach(node => {
     const block = query(`<${tagName} />`);

@@ -2,6 +2,7 @@
 import './utils/camel-case.test';
 import './utils/in-string.test';
 import './utils/to-hex.test';
+import './utils/parse-style.test';
 
 // Object Utils
 import './utils/for-each.test';

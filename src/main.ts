@@ -86,13 +86,13 @@ export default class LakeCore {
     plugins.add(heading);
   }
 
-  private normalizeCursorTags(value: string): string {
+  private normalizeBookmark(value: string): string {
     return value.
       replace(/<anchor\s*\/>/ig, '<bookmark type="anchor"></bookmark>').
       replace(/<focus\s*\/>/ig, '<bookmark type="focus"></bookmark>');
   }
 
-  private setRangeByCursorTags(): void {
+  private setRangeByBookmark(): void {
     const container = this.container;
     const anchorNode = container.find('bookmark[type="anchor"]');
     const focusNode = container.find('bookmark[type="focus"]');
@@ -107,9 +107,6 @@ export default class LakeCore {
   }
 
   public focus(): void {
-    if (this.selection.getRange().get() !== this.range.get()) {
-      this.selection.addRange(this.range);
-    }
     this.container.focus();
   }
 
@@ -118,10 +115,11 @@ export default class LakeCore {
     const targetNode = query(this.target);
     targetNode.hide();
     const defaultValue = this.options.defaultValue;
-    container.html(this.normalizeCursorTags(defaultValue));
+    container.html(this.normalizeBookmark(defaultValue));
     targetNode.after(container);
-    this.setRangeByCursorTags();
     this.focus();
+    this.setRangeByBookmark();
+    this.selection.addRange(this.range);
     this.plugins.runAll(this);
     this.event.emit('create');
   }

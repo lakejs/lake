@@ -1,8 +1,10 @@
 import { toHex } from './to-hex';
 
-export function getAllCss(styleValue: string): object {
+type PropertiesType = { [key: string]: string };
+
+export function parseStyle(styleValue: string): PropertiesType {
   styleValue = styleValue.replace(/&quot;/ig, '"');
-  const properties: { [key: string]: string } = {};
+  const properties: PropertiesType = {};
   const expression = /\s*([\w-]+)\s*:([^;]*)(;|$)/g;
   let match;
   while ((match = expression.exec(styleValue))) {

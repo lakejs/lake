@@ -45,6 +45,10 @@ export class Range {
     return new Nodes(this.range.commonAncestorContainer);
   }
 
+  public get container(): Nodes {
+    return this.commonAncestor.closest('div[contenteditable="true"]');
+  }
+
   // Returns a boolean value indicating whether the range's start and end points are at the same position.
   public get collapsed(): boolean {
     return this.range.collapsed;
