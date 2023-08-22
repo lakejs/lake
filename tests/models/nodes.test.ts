@@ -148,6 +148,8 @@ describe('models.Nodes class', () => {
     const node = new Nodes(element);
     node.html('<p>foo</p><p>bar</p>');
     expect(node.find('p').closest('div').html()).to.equal('<p>foo</p><p>bar</p>');
+    expect(node.find('p').first().closest('div').html()).to.equal('<p>foo</p><p>bar</p>');
+    expect(new Nodes(document).closest('div').length).to.equal(0);
   });
 
   it('method: parent', () => {

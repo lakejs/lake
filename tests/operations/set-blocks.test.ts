@@ -18,7 +18,7 @@ describe('operations.setBlocks()', () => {
     container.html('<p>outer start</p>foo<strong>bold</strong><p>outer end</p>');
     const range = new Range();
     range.setStart(container.find('strong').prev(), 1);
-    range.collapse(true);
+    range.collapseToStart();
     setBlocks(range, '<h2 />');
     expect(container.html()).to.equal('<p>outer start</p><h2>foo<strong>bold</strong></h2><p>outer end</p>');
   });

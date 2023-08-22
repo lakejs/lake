@@ -3,6 +3,7 @@ import pkg from '../package.json';
 import { NativeElement } from './types/native';
 import * as utils from './utils';
 import * as models from './models';
+import * as operations from './operations';
 
 import heading from './plugins/heading';
 
@@ -27,17 +28,17 @@ export default class LakeCore {
 
   static models = models;
 
-  private target: TargetType;
+  static operations = operations;
 
-  private container: models.Nodes;
+  private target: TargetType;
 
   private options: OptionsType;
 
-  public range: models.Range;
-
-  public selection: models.Selection;
+  private container: models.Nodes;
 
   public event: EventEmitter;
+
+  public selection: models.Selection;
 
   public commands: models.Commands;
 
@@ -52,15 +53,14 @@ export default class LakeCore {
     this.addContainerAttributes();
 
     this.event = new EventEmitter();
-    this.selection = new Selection();
-    this.range = this.selection.getRange();
+    this.selection = new Selection(this.container);
     this.commands = new models.Commands();
     this.plugins = new models.Plugins();
 
     this.addBuiltInPlugins();
 
     this.container.on('blur', () => {
-      this.range = this.selection.getRange();
+      this.selection.updateBySelectedRange();
     });
   }
 
@@ -92,18 +92,8 @@ export default class LakeCore {
       replace(/<focus\s*\/>/ig, '<bookmark type="focus"></bookmark>');
   }
 
-  private setRangeByBookmark(): void {
-    const container = this.container;
-    const anchorNode = container.find('bookmark[type="anchor"]');
-    const focusNode = container.find('bookmark[type="focus"]');
-    if (anchorNode.length > 0) {
-      this.range.setStartAfter(anchorNode);
-      anchorNode.remove();
-    }
-    if (focusNode.length > 0) {
-      this.range.setEndAfter(focusNode);
-      focusNode.remove();
-    }
+  public select(): void {
+    this.selection.select();
   }
 
   public focus(): void {
@@ -118,8 +108,8 @@ export default class LakeCore {
     container.html(this.normalizeBookmark(defaultValue));
     targetNode.after(container);
     this.focus();
-    this.setRangeByBookmark();
-    this.selection.addRange(this.range);
+    this.selection.updateByBookmark();
+    this.select();
     this.plugins.runAll(this);
     this.event.emit('create');
   }

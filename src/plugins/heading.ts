@@ -4,8 +4,10 @@ import { setBlocks } from '../operations';
 
 export default (editor: LakeCore) => {
   editor.commands.add('heading', (type: string) => {
+    const range = editor.selection.range;
     editor.focus();
-    setBlocks(editor.range, `<${type} />`);
+    setBlocks(range, `<${type} />`);
+    editor.select();
     debug('click heading: ', type);
   });
 };

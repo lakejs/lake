@@ -50,49 +50,60 @@ export class Range {
   }
 
   // Returns a boolean value indicating whether the range's start and end points are at the same position.
-  public get collapsed(): boolean {
+  public get isCollapsed(): boolean {
     return this.range.collapsed;
   }
 
-  // Sets the start position of a range.
+  // Returns a range object with boundary points identical to the cloned range.
+  public clone(): Range {
+    return new Range(this.range.cloneRange());
+  }
+
+  // Sets the start position of the range.
   public setStart(node: Nodes, offset: number): this {
     this.range.setStart(node.get(0), offset);
     return this;
   }
 
-  // Sets the start position of a range before a node.
+  // Sets the start position of the range before a node.
   public setStartBefore(node: Nodes): this {
     this.range.setStartBefore(node.get(0));
     return this;
   }
 
-  // Sets the start position of a range after a node.
+  // Sets the start position of the range after a node.
   public setStartAfter(node: Nodes): this {
     this.range.setStartAfter(node.get(0));
     return this;
   }
 
-  // Sets the end position of a range.
+  // Sets the end position of the range.
   public setEnd(node: Nodes, offset: number): this {
     this.range.setEnd(node.get(0), offset);
     return this;
   }
 
-  // Sets the end position of a range before a node.
+  // Sets the end position of the range before a node.
   public setEndBefore(node: Nodes): this {
     this.range.setEndBefore(node.get(0));
     return this;
   }
 
-  // Sets the end position of a range after a node.
+  // Sets the end position of the range after a node.
   public setEndAfter(node: Nodes): this {
     this.range.setEndAfter(node.get(0));
     return this;
   }
 
-  // Collapses the range to one of its boundary points.
-  public collapse(toStart?: boolean): this {
-    this.range.collapse(toStart);
+  // Collapses the range to the start of it.
+  public collapseToStart(): this {
+    this.range.collapse(true);
+    return this;
+  }
+
+  // Collapses the range to the end of it.
+  public collapseToEnd(): this {
+    this.range.collapse(false);
     return this;
   }
 
@@ -108,7 +119,7 @@ export class Range {
     return this;
   }
 
-  // Indicates whether a specified node is part of a range.
+  // Indicates whether a specified node is part of the range.
   public containsNode(node: Nodes): boolean {
     const startRange = document.createRange();
     startRange.selectNodeContents(node.get(0));
@@ -120,7 +131,7 @@ export class Range {
       this.range.isPointInRange(endRange.startContainer, endRange.startOffset);
   }
 
-  // Returns all child nodes which is part of a range.
+  // Returns all child nodes which is part of the range.
   public allNodes(): Nodes[] {
     const nodeList: Nodes[] = [];
     this.commonAncestor.allChildNodes().forEach(node => {
@@ -131,7 +142,7 @@ export class Range {
     return nodeList;
   }
 
-  // Inserts the specified nodes to the start of a range.
+  // Inserts the specified nodes to the start of the range.
   public insertNode(nodes: Nodes): this {
     nodes.each(node => {
       this.range.insertNode(node);

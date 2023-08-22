@@ -132,6 +132,16 @@ export class Nodes {
   // Traverses the first element and its parents (heading toward the document root)
   // until it finds a element that matches the specified CSS selector.
   public closest(selector: string): Nodes {
+    if (this.isText) {
+      const element = this.get(0).parentNode;
+      if (!element) {
+        return new Nodes();
+      }
+      return new Nodes((element as NativeElement).closest(selector));
+    }
+    if (!this.isElement) {
+      return new Nodes();
+    }
     const element = this.get(0) as NativeElement;
     return new Nodes(element.closest(selector));
   }

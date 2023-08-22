@@ -1,6 +1,8 @@
 import { query, parseStyle, forEach } from '../utils';
-import { Range } from '../models';
+import { Range } from '../models/range';
 import { getBlocks } from './get-blocks';
+import { insertBookmark } from './insert-bookmark';
+import { toBookmark } from './to-bookmark';
 
 export function setBlocks(range: Range, value: string): void {
   const nodes = query(value);
@@ -8,6 +10,7 @@ export function setBlocks(range: Range, value: string): void {
   const styleString = nodes.attr('style');
   const cssProperties = parseStyle(styleString);
   const blockList = getBlocks(range);
+  const bookmark = insertBookmark(range);
   blockList.forEach(node => {
     const block = query(`<${tagName} />`);
     let child = node.first();
@@ -21,4 +24,5 @@ export function setBlocks(range: Range, value: string): void {
       block.css(key, val);
     });
   });
+  toBookmark(range, bookmark);
 }

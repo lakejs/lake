@@ -68,16 +68,28 @@ describe('models.Range class', () => {
     expect(range.endOffset).to.equal(1);
   });
 
-  it('method: collapse', () => {
+  it('method: collapseToStart', () => {
     const range = new Range();
     const nodes = container.find('strong').first();
     range.setStart(nodes, 1);
     range.setEnd(nodes, 2);
-    expect(range.collapsed).to.equal(false);
-    range.collapse(true);
-    expect(range.collapsed).to.equal(true);
+    expect(range.isCollapsed).to.equal(false);
+    range.collapseToStart();
+    expect(range.isCollapsed).to.equal(true);
     expect(range.endNode.get(0)).to.equal(nodes.get(0));
     expect(range.endOffset).to.equal(1);
+  });
+
+  it('method: collapseToEnd', () => {
+    const range = new Range();
+    const nodes = container.find('strong').first();
+    range.setStart(nodes, 1);
+    range.setEnd(nodes, 2);
+    expect(range.isCollapsed).to.equal(false);
+    range.collapseToEnd();
+    expect(range.isCollapsed).to.equal(true);
+    expect(range.endNode.get(0)).to.equal(nodes.get(0));
+    expect(range.endOffset).to.equal(2);
   });
 
   it('method: selectNode', () => {
@@ -87,7 +99,7 @@ describe('models.Range class', () => {
     expect(range.endNode.name).to.equal('div');
     expect(range.startOffset).to.equal(0);
     expect(range.endOffset).to.equal(1);
-    expect(range.collapsed).to.equal(false);
+    expect(range.isCollapsed).to.equal(false);
   });
 
   it('method: selectNodeContents', () => {
@@ -97,7 +109,7 @@ describe('models.Range class', () => {
     expect(range.endNode.name).to.equal('strong');
     expect(range.startOffset).to.equal(0);
     expect(range.endOffset).to.equal(1);
-    expect(range.collapsed).to.equal(false);
+    expect(range.isCollapsed).to.equal(false);
   });
 
   it('method: containsNode', () => {
@@ -134,7 +146,7 @@ describe('models.Range class', () => {
     expect(range.endNode.get(0)).to.equal(strong.get(0));
     expect(range.startOffset).to.equal(2);
     expect(range.endOffset).to.equal(2);
-    expect(range.collapsed).to.equal(true);
+    expect(range.isCollapsed).to.equal(true);
     expect(strong.html()).to.equal('f<em>insert node</em>oo');
   });
 
@@ -150,7 +162,7 @@ describe('models.Range class', () => {
     expect(range.endNode.get(0)).to.equal(strong.get(0));
     expect(range.startOffset).to.equal(3);
     expect(range.endOffset).to.equal(3);
-    expect(range.collapsed).to.equal(true);
+    expect(range.isCollapsed).to.equal(true);
     expect(strong.html()).to.equal('f<em>insert node</em><span>insert node</span>oo');
   });
 });

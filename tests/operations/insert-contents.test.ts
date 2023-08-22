@@ -17,7 +17,7 @@ describe('operations.insertContents()', () => {
   it('to insert an container after text node', () => {
     const range = new Range();
     range.selectNodeContents(container.find('strong'));
-    range.collapse(false);
+    range.collapseToEnd();
     insertContents(range, '<em>foo</em>');
     expect(container.html()).to.equal('<strong>foo<em>foo</em></strong>bar');
   });
@@ -25,7 +25,7 @@ describe('operations.insertContents()', () => {
   it('to insert multi-container after text node', () => {
     const range = new Range();
     range.selectNodeContents(container.find('strong'));
-    range.collapse(false);
+    range.collapseToEnd();
     insertContents(range, '<em>foo</em><span>bar</span>');
     expect(container.html()).to.equal('<strong>foo<em>foo</em><span>bar</span></strong>bar');
   });
@@ -33,7 +33,7 @@ describe('operations.insertContents()', () => {
   it('to call insertContents() several times consecutively', () => {
     const range = new Range();
     range.selectNodeContents(container.find('strong'));
-    range.collapse(false);
+    range.collapseToEnd();
     insertContents(range, '<em>foo</em>');
     insertContents(range, '<span>bar</span>');
     insertContents(range, '<strong>last</strong>');
