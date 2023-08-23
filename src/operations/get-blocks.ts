@@ -11,7 +11,7 @@ export function getBlocks(range: Range): Nodes[] {
   if (blockList.length === 0) {
     let parent = range.commonAncestor;
     while (parent.length > 0) {
-      if (parent.isElement && !parent.isEditable) {
+      if (!parent.isEditable) {
         break;
       }
       if (parent.isBlock) {

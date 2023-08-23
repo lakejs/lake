@@ -24,8 +24,10 @@ const eventData: { [key: number]: EventItem[] } = {};
 let lastNodeId = 0;
 
 export class Nodes {
+  // Returns native nodes that includes element, text node.
   private nodeList: NativeNode[];
 
+  // Represents the number of nodes in nodeList.
   public length: number;
 
   constructor(node?: NativeNode | NativeNode[] | null) {
@@ -53,27 +55,42 @@ export class Nodes {
     return node.nodeName.toLowerCase();
   }
 
+  // Returns a boolean value indicating whether the node is an element.
   public get isElement(): boolean {
     const node = this.get(0);
     return node.nodeType === NativeNode.ELEMENT_NODE;
   }
 
+  // Returns a boolean value indicating whether the node is a text node.
   public get isText(): boolean {
     const node = this.get(0);
     return node.nodeType === NativeNode.TEXT_NODE;
   }
 
+  // Returns a boolean value indicating whether the node is a block element.
   public get isBlock(): boolean {
     return inString(blockTagNames, this.name);
   }
 
+  // Returns a boolean value indicating whether the node is a mark element.
   public get isMark(): boolean {
     return inString(markTagNames, this.name);
   }
 
+  // Returns a boolean value indicating whether the element is editable.
   public get isEditable(): boolean {
-    const node = this.get(0) as NativeHTMLElement;
-    return node.isContentEditable && this.attr('contenteditable') !== 'true';
+    if (this.isText) {
+      const element = this.get(0).parentNode as NativeHTMLElement;
+      if (!element) {
+        return false;
+      }
+      return element.isContentEditable;
+    }
+    if (!this.isElement) {
+      return false;
+    }
+    const element = this.get(0) as NativeHTMLElement;
+    return element.isContentEditable && element.getAttribute('contenteditable') !== 'true';
   }
 
   // Gets a native node at the specified index.

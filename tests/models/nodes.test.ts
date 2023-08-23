@@ -57,9 +57,11 @@ describe('models.Nodes class', () => {
   });
 
   it('property: isEditable', () => {
-    const container = query('<div contenteditable="true"><p>foo</p></div>');
+    const container = query('<div contenteditable="true"><p>foo</p>bar</div>');
     expect(container.isEditable).to.equal(false);
     expect(container.find('p').isEditable).to.equal(true);
+    expect(container.find('p').first().isEditable).to.equal(true);
+    expect(container.find('p').next().isEditable).to.equal(true);
     expect(container.parent().isEditable).to.equal(false);
   });
 
