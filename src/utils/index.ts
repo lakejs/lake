@@ -3,7 +3,8 @@ export * from './camel-case';
 export * from './in-string';
 export * from './to-hex';
 export * from './parse-style';
-export * from './normalize-bookmark';
+export * from './normalize-value';
+export * from './denormalize-value';
 // Object
 export * from './for-each';
 // Native DOM

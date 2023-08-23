@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { query, normalizeBookmark } from '../../src/utils';
+import { query, normalizeValue } from '../../src/utils';
 import { Range, Nodes } from '../../src/models';
 import { toBookmark } from '../../src/operations';
 
@@ -15,7 +15,7 @@ describe('operations.toBookmark()', () => {
   });
 
   it('only focus', () => {
-    const content = normalizeBookmark('<p>outer start</p>foo<strong>bold<focus /></strong><p>outer end</p>');
+    const content = normalizeValue('<p>outer start</p>foo<strong>bold<focus /></strong><p>outer end</p>');
     container.html(content);
     const range = new Range();
     const anchor = new Nodes();
@@ -31,7 +31,7 @@ describe('operations.toBookmark()', () => {
   });
 
   it('only anchor', () => {
-    const content = normalizeBookmark('<p>outer start</p>foo<strong>bold<anchor /></strong><p>outer end</p>');
+    const content = normalizeValue('<p>outer start</p>foo<strong>bold<anchor /></strong><p>outer end</p>');
     container.html(content);
     const range = new Range();
     const anchor = container.find('bookmark[type="anchor"]');
@@ -47,7 +47,7 @@ describe('operations.toBookmark()', () => {
   });
 
   it('both anchor and focus', () => {
-    const content = normalizeBookmark('<p>outer start</p>foo<strong><anchor />bold<focus /></strong><p>outer end</p>');
+    const content = normalizeValue('<p>outer start</p>foo<strong><anchor />bold<focus /></strong><p>outer end</p>');
     container.html(content);
     const range = new Range();
     const anchor = container.find('bookmark[type="anchor"]');

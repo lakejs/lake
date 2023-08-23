@@ -9,7 +9,7 @@ describe('operations.insertContents()', () => {
     <strong>foo<focus /></strong>bar
     `;
     const output = `
-    <strong>foo<em>italic</em></strong>bar
+    <strong>foo<em>italic</em><focus /></strong>bar
     `;
     const operation = (range: Range) => {
       insertContents(range, '<em>italic</em>');
@@ -26,7 +26,7 @@ describe('operations.insertContents()', () => {
     <strong>foo<focus /></strong>bar
     `;
     const output = `
-    <strong>foo<em>foo</em><span>bar</span></strong>bar
+    <strong>foo<em>foo</em><span>bar</span><focus /></strong>bar
     `;
     const operation = (range: Range) => {
       insertContents(range, '<em>foo</em><span>bar</span>');
@@ -43,7 +43,7 @@ describe('operations.insertContents()', () => {
     <strong>foo<focus /></strong>bar
     `;
     const output = `
-    <strong>foo<em>foo</em><span>bar</span><strong>last</strong></strong>bar
+    <strong>foo<em>foo</em><span>bar</span><strong>last</strong><focus /></strong>bar
     `;
     const operation = (range: Range) => {
       insertContents(range, '<em>foo</em>');

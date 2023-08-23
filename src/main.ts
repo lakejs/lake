@@ -103,7 +103,7 @@ export default class LakeCore {
 
   // Sets the specified HTML string to the editor area.
   public setValue(value: string) {
-    this.container.html(utils.normalizeBookmark(value));
+    this.container.html(utils.normalizeValue(value));
   }
 
   // Creates an editor area and set default value to it.
