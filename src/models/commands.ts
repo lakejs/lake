@@ -17,7 +17,7 @@ export class Commands {
   public run(name: string, ...data: any[]) {
     const handler = this.commandMap[name];
     if (!handler) {
-      throw new Error(`Handler '${name}' does not exist.`);
+      throw new Error(`Handler '${name}' doesn't exist.`);
     }
     handler.apply(this, data);
   }

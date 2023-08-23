@@ -15,11 +15,6 @@ export class Range {
     }
   }
 
-  // Gets a native range.
-  public get(): NativeRange {
-    return this.range;
-  }
-
   // Returns a node within which the range starts.
   public get startNode(): Nodes {
     return new Nodes(this.range.startContainer);
@@ -45,13 +40,40 @@ export class Range {
     return new Nodes(this.range.commonAncestorContainer);
   }
 
-  public get container(): Nodes {
-    return this.commonAncestor.closest('div[contenteditable="true"]');
-  }
-
   // Returns a boolean value indicating whether the range's start and end points are at the same position.
   public get isCollapsed(): boolean {
     return this.range.collapsed;
+  }
+
+  // Gets a native range.
+  public get(): NativeRange {
+    return this.range;
+  }
+
+  // Returns -1, 0, or 1 depending on whether the end of the specified node is before, the same as, or after the end of the range.
+  public compareAfterPoint(node: Nodes): number {
+    const afterPoint = this.range.cloneRange();
+    afterPoint.collapse(false);
+    const targetAfterPoint = document.createRange();
+    targetAfterPoint.setEndAfter(node.get());
+    targetAfterPoint.collapse(false);
+    return afterPoint.comparePoint(targetAfterPoint.startContainer, targetAfterPoint.startOffset);
+  }
+
+  // Indicates whether a specified node is part of the range or intersects the range.
+  public intersectsNode(node: Nodes): boolean {
+    return this.range.intersectsNode(node.get());
+  }
+
+  // Returns all child nodes which is part of the range or intersects the range.
+  public allNodes(): Nodes[] {
+    const nodeList: Nodes[] = [];
+    this.commonAncestor.allChildNodes().forEach(node => {
+      if (this.intersectsNode(node)) {
+        nodeList.push(node);
+      }
+    });
+    return nodeList;
   }
 
   // Returns a range object with boundary points identical to the cloned range.
@@ -117,29 +139,6 @@ export class Range {
   public selectNodeContents(node: Nodes): this {
     this.range.selectNodeContents(node.get(0));
     return this;
-  }
-
-  // Indicates whether a specified node is part of the range.
-  public containsNode(node: Nodes): boolean {
-    const startRange = document.createRange();
-    startRange.selectNodeContents(node.get(0));
-    startRange.collapse(true);
-    const endRange = document.createRange();
-    endRange.selectNodeContents(node.get(0));
-    endRange.collapse(false);
-    return this.range.isPointInRange(startRange.startContainer, startRange.startOffset) ||
-      this.range.isPointInRange(endRange.startContainer, endRange.startOffset);
-  }
-
-  // Returns all child nodes which is part of the range.
-  public allNodes(): Nodes[] {
-    const nodeList: Nodes[] = [];
-    this.commonAncestor.allChildNodes().forEach(node => {
-      if (this.containsNode(node)) {
-        nodeList.push(node);
-      }
-    });
-    return nodeList;
   }
 
   // Inserts the specified nodes to the start of the range.

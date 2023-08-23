@@ -14,17 +14,105 @@ describe('models.Range class', () => {
     container.remove();
   });
 
+  it('property: startNode', () => {
+    const range = new Range();
+    const node = container.find('strong').first();
+    range.setStart(node, 1);
+    expect(range.startNode.get(0)).to.equal(node.get(0));
+  });
+
+  it('property: startOffset', () => {
+    const range = new Range();
+    const node = container.find('strong').first();
+    range.setStart(node, 1);
+    expect(range.startOffset).to.equal(1);
+  });
+
+  it('property: endNode', () => {
+    const range = new Range();
+    const node = container.find('strong').first();
+    range.setEnd(node, 1);
+    expect(range.endNode.get(0)).to.equal(node.get(0));
+  });
+
+  it('property: endOffset', () => {
+    const range = new Range();
+    const node = container.find('strong').first();
+    range.setEnd(node, 1);
+    expect(range.endOffset).to.equal(1);
+  });
+
   it('property: commonAncestor', () => {
     const range = new Range();
     range.selectNode(container.find('strong'));
     expect(range.commonAncestor.html()).to.equal('<strong>foo</strong>bar');
   });
 
+  it('property: isCollapsed', () => {
+    const range = new Range();
+    range.selectNode(container.find('strong'));
+    expect(range.isCollapsed).to.equal(false);
+    range.collapseToEnd();
+    expect(range.isCollapsed).to.equal(true);
+  });
+
+  it('method: get', () => {
+    const range = new Range();
+    expect(range.get().startContainer).to.equal(document);
+  });
+
+  it('method: compareAfterPoint', () => {
+    const range = new Range();
+    range.selectNode(container.find('strong'));
+    expect(range.compareAfterPoint(container.find('strong'))).to.equal(0);
+    expect(range.compareAfterPoint(container.find('strong').next())).to.equal(1);
+    range.selectNode(container.find('strong').next());
+    expect(range.compareAfterPoint(container.find('strong'))).to.equal(-1);
+  });
+
+  it('method: intersectsNode', () => {
+    container.html('<p>outer start</p><p>foo<strong>bold</strong></p><h1>heading</h1><p><em>itelic</em>bar</p><p>outer end</p>');
+    const range = new Range();
+    range.setStart(container.find('strong').prev(), 1);
+    range.setEnd(container.find('em').next(), 2);
+    expect(range.intersectsNode(container.find('strong'))).to.equal(true);
+    expect(range.intersectsNode(container.find('strong').first())).to.equal(true);
+    expect(range.intersectsNode(container.find('strong').prev())).to.equal(true);
+    expect(range.intersectsNode(container.find('em').next())).to.equal(true);
+    expect(range.intersectsNode(container.find('p').eq(0))).to.equal(false);
+    expect(range.intersectsNode(container.find('p').eq(0).first())).to.equal(false);
+  });
+
+  it('method: allNodes', () => {
+    container.html('<p>outer start</p><p>foo<strong>bold</strong></p><h1>heading</h1><p><em>itelic</em>bar</p><p>outer end</p>');
+    const range = new Range();
+    range.setStart(container.find('strong').prev(), 1);
+    range.setEnd(container.find('em').next(), 2);
+    const nodes = range.allNodes();
+    expect(nodes.length).to.equal(10);
+    expect(nodes[0].name).to.equal('p');
+    expect(nodes[2].name).to.equal('strong');
+    expect(nodes[4].name).to.equal('h1');
+    expect(nodes[7].name).to.equal('em');
+  });
+
+  it('method: clone', () => {
+    const range = new Range();
+    range.selectNode(container.find('strong'));
+    const newRange = range.clone();
+    expect(range.startNode.name).to.equal(newRange.startNode.name);
+    expect(range.startOffset).to.equal(newRange.startOffset);
+    expect(range.endNode.name).to.equal(newRange.endNode.name);
+    expect(range.endOffset).to.equal(newRange.endOffset);
+    expect(range.commonAncestor.name).to.equal(newRange.commonAncestor.name);
+    expect(range.isCollapsed).to.equal(newRange.isCollapsed);
+  });
+
   it('method: setStart', () => {
     const range = new Range();
-    const nodes = container.find('strong').first();
-    range.setStart(nodes, 1);
-    expect(range.startNode.get(0)).to.equal(nodes.get(0));
+    const node = container.find('strong').first();
+    range.setStart(node, 1);
+    expect(range.startNode.get(0)).to.equal(node.get(0));
     expect(range.startOffset).to.equal(1);
   });
 
@@ -110,28 +198,6 @@ describe('models.Range class', () => {
     expect(range.startOffset).to.equal(0);
     expect(range.endOffset).to.equal(1);
     expect(range.isCollapsed).to.equal(false);
-  });
-
-  it('method: containsNode', () => {
-    container.html('<p>outer start</p><p>foo<strong>bold</strong></p><h1>heading</h1><p><em>itelic</em>bar</p><p>outer end</p>');
-    const range = new Range();
-    range.setStart(container.find('strong').prev(), 1);
-    range.setEnd(container.find('em').next(), 2);
-    expect(range.containsNode(container.find('strong'))).to.equal(true);
-    expect(range.containsNode(container.find('p').eq(0))).to.equal(false);
-  });
-
-  it('method: allNodes', () => {
-    container.html('<p>outer start</p><p>foo<strong>bold</strong></p><h1>heading</h1><p><em>itelic</em>bar</p><p>outer end</p>');
-    const range = new Range();
-    range.setStart(container.find('strong').prev(), 1);
-    range.setEnd(container.find('em').next(), 2);
-    const nodes = range.allNodes();
-    expect(nodes.length).to.equal(10);
-    expect(nodes[0].name).to.equal('p');
-    expect(nodes[2].name).to.equal('strong');
-    expect(nodes[4].name).to.equal('h1');
-    expect(nodes[7].name).to.equal('em');
   });
 
   it('insertNode method: insert an container', () => {

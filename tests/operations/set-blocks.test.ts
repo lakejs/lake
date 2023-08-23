@@ -3,7 +3,7 @@ import { setBlocks } from '../../src/operations';
 
 describe('operations.setBlocks()', () => {
 
-  it('set a block with cursor', () => {
+  it('to set a block with cursor', () => {
     const content = `
     <p>outer start</p>
     <p>foo<strong>bold</strong><focus /></p>
@@ -23,7 +23,7 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('set a block with selected text', () => {
+  it('to set a block with selected text', () => {
     const content = `
     <p>outer start</p>
     <p><anchor />foo<strong>bold</strong><focus /></p>
@@ -43,7 +43,7 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('set multi-block with style', () => {
+  it('to set multi-block with style', () => {
     const content = `
     <p>outer start</p>
     <p>f<anchor />oo<strong>bold</strong></p>
@@ -67,7 +67,7 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('set multi-block with a new block', () => {
+  it('to set multi-block with a new block', () => {
     const content = `
     <p>outer start</p>
     f<focus />oo<strong>bold</strong>
