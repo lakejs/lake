@@ -13,7 +13,7 @@ export function toBookmark(range: Range, bookmark: { anchor: Nodes, focus: Nodes
   if (focus.length > 0 && anchor.length === 0) {
     range.setStartAfter(focus);
     range.collapseToStart();
-    anchor.remove();
+    focus.remove();
     return;
   }
   if (anchor.length > 0 && focus.length > 0) {

@@ -3,6 +3,7 @@ import './utils/camel-case.test';
 import './utils/in-string.test';
 import './utils/to-hex.test';
 import './utils/parse-style.test';
+import './utils/normalize-bookmark.test';
 
 // Object Utils
 import './utils/for-each.test';
@@ -20,6 +21,8 @@ import './utils/query.test';
 import './models/nodes.test';
 import './models/range.test';
 
-// Commands
+// Operations
+import './operations/insert-bookmark.test';
+import './operations/to-bookmark.test';
 import './operations/insert-contents.test';
 import './operations/set-blocks.test';

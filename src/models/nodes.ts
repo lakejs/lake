@@ -251,6 +251,13 @@ export class Nodes {
     return this;
   }
 
+  // Removes focus from the specified element.
+  public blur(): this {
+    const element = this.get(0) as NativeHTMLElement;
+    element.blur();
+    return this;
+  }
+
   public hasAttr(attributeName: string): boolean {
     const element = this.get(0) as NativeElement;
     return element.hasAttribute(attributeName);

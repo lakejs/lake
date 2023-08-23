@@ -18,7 +18,7 @@ const containerClassName = 'lake-editor-container';
 
 const defaultOptions: OptionsType = {
   className: '',
-  defaultValue: '<p><anchor />foo<focus />bar</p>',
+  defaultValue: '<p><br /><focus /></p>',
 };
 
 export default class LakeCore {
@@ -86,26 +86,32 @@ export default class LakeCore {
     plugins.add(heading);
   }
 
-  private normalizeBookmark(value: string): string {
-    return value.
-      replace(/<anchor\s*\/>/ig, '<bookmark type="anchor"></bookmark>').
-      replace(/<focus\s*\/>/ig, '<bookmark type="focus"></bookmark>');
-  }
-
+  // Selects the saved range in the selection.
   public select(): void {
     this.selection.select();
   }
 
+  // Sets focus on the editor area.
   public focus(): void {
     this.container.focus();
   }
 
+  // Removes focus from the editor area.
+  public blur(): void {
+    this.container.blur();
+  }
+
+  // Sets the specified HTML string to the editor area.
+  public setValue(value: string) {
+    this.container.html(utils.normalizeBookmark(value));
+  }
+
+  // Creates an editor area and set default value to it.
   public create(): void {
     const container = this.container;
     const targetNode = query(this.target);
     targetNode.hide();
-    const defaultValue = this.options.defaultValue;
-    container.html(this.normalizeBookmark(defaultValue));
+    this.setValue(this.options.defaultValue);
     targetNode.after(container);
     this.focus();
     this.selection.updateByBookmark();

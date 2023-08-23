@@ -8,7 +8,7 @@ const heading = 'h1,h2,h3,h4,h5,h6,p'.split(',');
 
 const editor = new LakeCore('.lake-editor', {
   className: 'my-editor-container',
-  // defaultValue: query('.lake-editor').html(),
+  defaultValue: query('.lake-editor').html(),
 });
 
 editor.event.on('create', () => {
