@@ -1,5 +1,4 @@
 import { testOperation } from '../utils';
-import { Range } from '../../src/models';
 import { setBlocks } from '../../src/operations';
 
 describe('operations.setBlocks()', () => {
@@ -15,13 +14,12 @@ describe('operations.setBlocks()', () => {
     <h1><anchor />foo<strong>bold</strong><focus /></h1>
     <p>outer end</p>
     `;
-    const operation = (range: Range) => {
-      setBlocks(range, '<h1 />');
-    };
     testOperation(
       content,
       output,
-      operation,
+      range => {
+        setBlocks(range, '<h1 />');
+      },
     );
   });
 
@@ -40,13 +38,12 @@ describe('operations.setBlocks()', () => {
     <h2 style="text-align: center;"><em>itelic</em>ba<focus />r</h2>
     <p>outer end</p>
     `;
-    const operation = (range: Range) => {
-      setBlocks(range, '<h2 style="text-align: center;"></h2>');
-    };
     testOperation(
       content,
       output,
-      operation,
+      range => {
+        setBlocks(range, '<h2 style="text-align: center;"></h2>');
+      },
     );
   });
 
@@ -61,13 +58,12 @@ describe('operations.setBlocks()', () => {
     <h2>f<focus />oo<strong>bold</strong></h2>
     <p>outer end</p>
     `;
-    const operation = (range: Range) => {
-      setBlocks(range, '<h2 />');
-    };
     testOperation(
       content,
       output,
-      operation,
+      range => {
+        setBlocks(range, '<h2 />');
+      },
     );
   });
 });
