@@ -51,34 +51,52 @@ export class Nodes {
 
   // Gets node name at the first index.
   public get name(): string {
+    if (this.length === 0) {
+      return '';
+    }
     const node = this.get(0);
     return node.nodeName.toLowerCase();
   }
 
   // Returns a boolean value indicating whether the node is an element.
   public get isElement(): boolean {
+    if (this.length === 0) {
+      return false;
+    }
     const node = this.get(0);
     return node.nodeType === NativeNode.ELEMENT_NODE;
   }
 
   // Returns a boolean value indicating whether the node is a text node.
   public get isText(): boolean {
+    if (this.length === 0) {
+      return false;
+    }
     const node = this.get(0);
     return node.nodeType === NativeNode.TEXT_NODE;
   }
 
   // Returns a boolean value indicating whether the node is a block element.
   public get isBlock(): boolean {
+    if (this.length === 0) {
+      return false;
+    }
     return inString(blockTagNames, this.name);
   }
 
   // Returns a boolean value indicating whether the node is a mark element.
   public get isMark(): boolean {
+    if (this.length === 0) {
+      return false;
+    }
     return inString(markTagNames, this.name);
   }
 
   // Returns a boolean value indicating whether the node is editable.
   public get isEditable(): boolean {
+    if (this.length === 0) {
+      return false;
+    }
     if (this.isText) {
       const element = this.get(0).parentNode as NativeHTMLElement;
       if (!element) {
@@ -95,6 +113,9 @@ export class Nodes {
 
   // Returns a boolean value indicating whether the node is an editable top node.
   public get isTopEditable(): boolean {
+    if (this.length === 0) {
+      return false;
+    }
     const parent = this.get(0).parentNode as NativeHTMLElement;
     if (!parent) {
       return false;
