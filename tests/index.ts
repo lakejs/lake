@@ -13,7 +13,7 @@ import './utils/for-each.test';
 import './utils/get-css.test';
 import './utils/get-document.test';
 import './utils/get-window.test';
-import './utils/get-node-list.test';
+import './utils/to-node-list.test';
 
 // Nodes Utils
 import './utils/query.test';

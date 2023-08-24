@@ -11,7 +11,7 @@ export * from './for-each';
 export * from './get-document';
 export * from './get-window';
 export * from './get-css';
-export * from './get-node-list';
+export * from './to-node-list';
 // Nodes
 export * from './query';
 // Other

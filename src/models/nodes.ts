@@ -3,7 +3,7 @@ import { forEach } from '../utils/for-each';
 import { inString } from '../utils/in-string';
 import { camelCase } from '../utils/camel-case';
 import { getCss } from '../utils/get-css';
-import { getNodeList } from '../utils/get-node-list';
+import { toNodeList } from '../utils/to-node-list';
 import { debug } from '../utils/debug';
 
 const blockTagNames = 'h1,h2,h3,h4,h5,h6,div,p,blockquote,ul,ol';
@@ -456,7 +456,7 @@ export class Nodes {
       if (content instanceof Nodes) {
         list = content.getAll();
       } else {
-        list = getNodeList(content);
+        list = toNodeList(content);
       }
       list = list.reverse();
       list.forEach((node: NativeNode) => {
@@ -476,7 +476,7 @@ export class Nodes {
       if (content instanceof Nodes) {
         list = content.getAll();
       } else {
-        list = getNodeList(content);
+        list = toNodeList(content);
       }
       list.forEach((node: NativeNode) => {
         element.appendChild(node);
@@ -491,7 +491,7 @@ export class Nodes {
       if (target instanceof Nodes) {
         targetNodes = target;
       } else {
-        const list = getNodeList(target);
+        const list = toNodeList(target);
         targetNodes = new Nodes(list);
       }
       targetNodes.append(node);
@@ -505,7 +505,7 @@ export class Nodes {
       if (content instanceof Nodes) {
         list = content.getAll();
       } else {
-        list = getNodeList(content);
+        list = toNodeList(content);
       }
       list = list.reverse();
       list.forEach((node: NativeNode) => {
@@ -528,7 +528,7 @@ export class Nodes {
       if (newContent instanceof Nodes) {
         node = newContent.get(0);
       } else {
-        node = getNodeList(newContent)[0];
+        node = toNodeList(newContent)[0];
       }
       element.replaceWith(node);
     });
