@@ -74,6 +74,12 @@ describe('models.Nodes class', () => {
     expect(container.parent().isTopEditable).to.equal(false);
   });
 
+  it('method: isSibling', () => {
+    const container = query('<div contenteditable="true"><h1><p>foo</p>bar</h1>end</div>');
+    expect(container.find('h1').isSibling(container.find('p'))).to.equal(false);
+    expect(container.find('h1').isSibling(container.find('h1').next())).to.equal(true);
+  });
+
   it('method: get', () => {
     const nodes = new Nodes([element, elementTwo, document.body]);
     expect(nodes.eq(1).html()).to.equal('two');
@@ -161,6 +167,12 @@ describe('models.Nodes class', () => {
     expect(node.find('p').closest('div').html()).to.equal('<p>foo</p><p>bar</p>');
     expect(node.find('p').first().closest('div').html()).to.equal('<p>foo</p><p>bar</p>');
     expect(new Nodes(document).closest('div').length).to.equal(0);
+  });
+
+  it('method: closestBlock', () => {
+    const container = query('<div contenteditable="true"><p>foo</p>bar</div>');
+    expect(container.find('p').first().closestBlock().html()).to.equal('foo');
+    expect(container.find('p').next().closestBlock().length).to.equal(0);
   });
 
   it('method: parent', () => {

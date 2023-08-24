@@ -7,7 +7,8 @@ describe('models.Range class', () => {
   let container: Nodes;
 
   beforeEach(() => {
-    container = query('<div><strong>foo</strong>bar</div>').appendTo(document.body);
+    container = query('<div contenteditable="true"></div>').appendTo(document.body);
+    container.html('<strong>foo</strong>bar');
   });
 
   afterEach(() => {
@@ -83,28 +84,27 @@ describe('models.Range class', () => {
     expect(range.intersectsNode(container.find('p').eq(0).first())).to.equal(false);
   });
 
-  it('method: allNodes', () => {
+  it('method: allTopBlocks', () => {
     container.html('<p>outer start</p><p>foo<strong>bold</strong></p><h1>heading</h1><p><em>itelic</em>bar</p><p>outer end</p>');
     const range = new Range();
     range.setStart(container.find('strong').prev(), 1);
     range.setEnd(container.find('em').next(), 2);
-    const nodes = range.allNodes();
-    expect(nodes.length).to.equal(10);
-    expect(nodes[0].name).to.equal('p');
-    expect(nodes[2].name).to.equal('strong');
-    expect(nodes[4].name).to.equal('h1');
-    expect(nodes[7].name).to.equal('em');
-  });
-
-  it('method: allBlocks', () => {
-    container.html('<p>outer start</p><p>foo<strong>bold</strong></p><h1>heading</h1><p><em>itelic</em>bar</p><p>outer end</p>');
-    const range = new Range();
-    range.setStart(container.find('strong').prev(), 1);
-    range.setEnd(container.find('em').next(), 2);
-    const nodes = range.allBlocks();
+    const nodes = range.allTopBlocks();
     expect(nodes.length).to.equal(3);
     expect(nodes[0].name).to.equal('p');
     expect(nodes[1].name).to.equal('h1');
+    expect(nodes[2].name).to.equal('p');
+  });
+
+  it('method: allSiblingBlocks', () => {
+    container.html('<h1><p>outer start</p><p>foo<strong>bold</strong></p><div>heading</div><p><em>itelic</em>bar</p><p>outer end</p></h1>');
+    const range = new Range();
+    range.setStartBefore(container.find('strong'));
+    range.setEndAfter(container.find('em'));
+    const nodes = range.allSiblingBlocks();
+    expect(nodes.length).to.equal(3);
+    expect(nodes[0].name).to.equal('p');
+    expect(nodes[1].name).to.equal('div');
     expect(nodes[2].name).to.equal('p');
   });
 

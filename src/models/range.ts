@@ -52,12 +52,12 @@ export class Range {
 
   // Returns -1, 0, or 1 depending on whether the end of the specified node is before, the same as, or after the end of the range.
   public compareAfterPoint(node: Nodes): number {
-    const afterPoint = this.range.cloneRange();
-    afterPoint.collapse(false);
-    const targetAfterPoint = document.createRange();
-    targetAfterPoint.setEndAfter(node.get());
-    targetAfterPoint.collapse(false);
-    return afterPoint.comparePoint(targetAfterPoint.startContainer, targetAfterPoint.startOffset);
+    const range = this.range.cloneRange();
+    range.collapse(false);
+    const targetRange = document.createRange();
+    targetRange.setEndAfter(node.get());
+    targetRange.collapse(false);
+    return range.comparePoint(targetRange.startContainer, targetRange.startOffset);
   }
 
   // Indicates whether a specified node is part of the range or intersects the range.
@@ -65,14 +65,22 @@ export class Range {
     return this.range.intersectsNode(node.get());
   }
 
-  // Returns all nodes which is part of the range or intersects the range.
-  public allNodes(): Nodes[] {
-    return this.commonAncestor.allChildNodes(child => this.intersectsNode(child));
+  // Returns all top blocks which is part of the range or intersects the range.
+  public allTopBlocks(): Nodes[] {
+    return this.commonAncestor.allChildNodes(child =>
+      child.isBlock &&
+      child.isTopEditable &&
+      this.intersectsNode(child));
   }
 
-  // Returns all block nodes which is part of the range or intersects the range.
-  public allBlocks(): Nodes[] {
-    return this.commonAncestor.allChildNodes(child => child.isBlock && this.intersectsNode(child));
+  // Returns all sibling blocks which is part of the range or intersects the range.
+  public allSiblingBlocks(): Nodes[] {
+    const startBlock = this.startNode.closestBlock();
+    const endBlock = this.endNode.closestBlock();
+    return this.commonAncestor.allChildNodes(child =>
+      child.isBlock &&
+      (startBlock.isSibling(child) || endBlock.isSibling(child)) &&
+      this.intersectsNode(child));
   }
 
   // Returns a range object with boundary points identical to the cloned range.

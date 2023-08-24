@@ -123,6 +123,15 @@ export class Nodes {
     return this.isEditable && parent.getAttribute('contenteditable') === 'true';
   }
 
+  // Returns a boolean value indicating whether the node and the target node are siblings.
+  public isSibling(target: Nodes): boolean {
+    if (this.length === 0) {
+      return false;
+    }
+    const parent = this.get(0).parentNode as NativeHTMLElement;
+    return parent && parent === target.parent().get(0);
+  }
+
   // Gets a native node at the specified index.
   public get(index: number = 0): NativeNode {
     return this.nodeList[index];
@@ -176,7 +185,7 @@ export class Nodes {
     return new Nodes(Array.from(nodeList));
   }
 
-  // Traverses the first element and its parents (heading toward the document root)
+  // Traverses the first node and its parents (heading toward the document root)
   // until it finds a element that matches the specified CSS selector.
   public closest(selector: string): Nodes {
     if (this.isText) {
@@ -191,6 +200,21 @@ export class Nodes {
     }
     const element = this.get(0) as NativeElement;
     return new Nodes(element.closest(selector));
+  }
+
+  // Traverses the first node and its parents until it finds a block element.
+  public closestBlock() {
+    let node = this.eq(0);
+    while (node.length > 0) {
+      if (node.isTopEditable || node.isBlock) {
+        break;
+      }
+      node = node.parent();
+    }
+    if (!node.isBlock) {
+      return new Nodes();
+    }
+    return node;
   }
 
   // Returns the parent of the first node.
