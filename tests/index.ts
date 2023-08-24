@@ -23,6 +23,7 @@ import './models/nodes.test';
 import './models/range.test';
 
 // Operations
+import './operations/get-blocks.test';
 import './operations/insert-bookmark.test';
 import './operations/to-bookmark.test';
 import './operations/insert-contents.test';

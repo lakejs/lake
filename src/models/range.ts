@@ -65,15 +65,14 @@ export class Range {
     return this.range.intersectsNode(node.get());
   }
 
-  // Returns all child nodes which is part of the range or intersects the range.
+  // Returns all nodes which is part of the range or intersects the range.
   public allNodes(): Nodes[] {
-    const nodeList: Nodes[] = [];
-    this.commonAncestor.allChildNodes().forEach(node => {
-      if (this.intersectsNode(node)) {
-        nodeList.push(node);
-      }
-    });
-    return nodeList;
+    return this.commonAncestor.allChildNodes(child => this.intersectsNode(child));
+  }
+
+  // Returns all block nodes which is part of the range or intersects the range.
+  public allBlocks(): Nodes[] {
+    return this.commonAncestor.allChildNodes(child => child.isBlock && this.intersectsNode(child));
   }
 
   // Returns a range object with boundary points identical to the cloned range.

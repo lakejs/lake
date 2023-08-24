@@ -3,7 +3,7 @@ import { setBlocks } from '../../src/operations';
 
 describe('operations.setBlocks()', () => {
 
-  it('to set a block with cursor', () => {
+  it('when the selection is cursor state', () => {
     const content = `
     <p>outer start</p>
     <p>foo<strong>bold</strong><focus /></p>
@@ -23,7 +23,7 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('to set a block with selected text', () => {
+  it('after select the contents of a block', () => {
     const content = `
     <p>outer start</p>
     <p><anchor />foo<strong>bold</strong><focus /></p>
@@ -43,7 +43,29 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('to set multi-block with style', () => {
+  it('to add styles to the selected blocks', () => {
+    const content = `
+    <p>outer start</p>
+    <p>f<anchor />oo<strong>bold</strong></p>
+    <p><em>itelic</em>ba<focus />r</p>
+    <p>outer end</p>
+    `;
+    const output = `
+    <p>outer start</p>
+    <p style="text-align: center;">f<anchor />oo<strong>bold</strong></p>
+    <p style="text-align: center;"><em>itelic</em>ba<focus />r</p>
+    <p>outer end</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, '<p style="text-align: center;"></p>');
+      },
+    );
+  });
+
+  it('to set multiple blocks', () => {
     const content = `
     <p>outer start</p>
     <p>f<anchor />oo<strong>bold</strong></p>
@@ -53,29 +75,87 @@ describe('operations.setBlocks()', () => {
     `;
     const output = `
     <p>outer start</p>
-    <h2 style="text-align: center;">f<anchor />oo<strong>bold</strong></h2>
-    <h2 style="text-align: center;">heading</h2>
-    <h2 style="text-align: center;"><em>itelic</em>ba<focus />r</h2>
+    <h2>f<anchor />oo<strong>bold</strong></h2>
+    <h2>heading</h2>
+    <h2><em>itelic</em>ba<focus />r</h2>
     <p>outer end</p>
     `;
     testOperation(
       content,
       output,
       range => {
-        setBlocks(range, '<h2 style="text-align: center;"></h2>');
+        setBlocks(range, '<h2></h2>');
       },
     );
   });
 
-  it('to set multi-block with a new block', () => {
+  it('to create a new block when the selected contents are not in a block', () => {
+    const content = `
+    foo<strong>bar<focus /></strong>
+    `;
+    const output = `
+    <h2>foo<strong>bar<focus /></strong></h2>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, '<h2 />');
+      },
+    );
+  });
+
+  it('to create a new block among other blocks', () => {
     const content = `
     <p>outer start</p>
-    f<focus />oo<strong>bold</strong>
+    foo<strong>bar<focus /></strong>end
     <p>outer end</p>
     `;
     const output = `
     <p>outer start</p>
-    <h2>f<focus />oo<strong>bold</strong></h2>
+    <h2>foo<strong>bar<focus /></strong>end</h2>
+    <p>outer end</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, '<h2 />');
+      },
+    );
+  });
+
+  it('to set a nested block when the selection is cursor state', () => {
+    const content = `
+    <p>outer start</p>
+    <h1><p>foo<strong>bold</strong><focus /></p></h1>
+    <p>outer end</p>
+    `;
+    const output = `
+    <p>outer start</p>
+    <h1><h2>foo<strong>bold</strong><focus /></h2></h1>
+    <p>outer end</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, '<h2 />');
+      },
+    );
+  });
+
+  it('to set nested blocks after select multiple blocks', () => {
+    const content = `
+    <p>outer start</p>
+    <h1><p><anchor />foo1<strong>bold1</strong></p></h1>
+    <h1><p>foo2<strong>bold2</strong><focus /></p></h1>
+    <p>outer end</p>
+    `;
+    const output = `
+    <p>outer start</p>
+    <h2><p><anchor />foo1<strong>bold1</strong></p></h2>
+    <h2><p>foo2<strong>bold2</strong><focus /></p></h2>
     <p>outer end</p>
     `;
     testOperation(

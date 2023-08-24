@@ -96,6 +96,18 @@ describe('models.Range class', () => {
     expect(nodes[7].name).to.equal('em');
   });
 
+  it('method: allBlocks', () => {
+    container.html('<p>outer start</p><p>foo<strong>bold</strong></p><h1>heading</h1><p><em>itelic</em>bar</p><p>outer end</p>');
+    const range = new Range();
+    range.setStart(container.find('strong').prev(), 1);
+    range.setEnd(container.find('em').next(), 2);
+    const nodes = range.allBlocks();
+    expect(nodes.length).to.equal(3);
+    expect(nodes[0].name).to.equal('p');
+    expect(nodes[1].name).to.equal('h1');
+    expect(nodes[2].name).to.equal('p');
+  });
+
   it('method: clone', () => {
     const range = new Range();
     range.selectNode(container.find('strong'));

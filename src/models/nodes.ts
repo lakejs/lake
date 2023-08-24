@@ -77,7 +77,7 @@ export class Nodes {
     return inString(markTagNames, this.name);
   }
 
-  // Returns a boolean value indicating whether the element is editable.
+  // Returns a boolean value indicating whether the node is editable.
   public get isEditable(): boolean {
     if (this.isText) {
       const element = this.get(0).parentNode as NativeHTMLElement;
@@ -91,6 +91,15 @@ export class Nodes {
     }
     const element = this.get(0) as NativeHTMLElement;
     return element.isContentEditable && element.getAttribute('contenteditable') !== 'true';
+  }
+
+  // Returns a boolean value indicating whether the node is an editable top node.
+  public get isTopEditable(): boolean {
+    const parent = this.get(0).parentNode as NativeHTMLElement;
+    if (!parent) {
+      return false;
+    }
+    return this.isEditable && parent.getAttribute('contenteditable') === 'true';
   }
 
   // Gets a native node at the specified index.
@@ -194,13 +203,15 @@ export class Nodes {
   }
 
   // Returns all child nodes of the first element.
-  public allChildNodes(): Nodes[] {
+  public allChildNodes(compareFunction?: (child: Nodes) => boolean): Nodes[] {
     const nodeList: Nodes[] = [];
     const iterate = (node: Nodes) => {
       let child = node.first();
       while (child.length > 0) {
         const nextNode = child.next();
-        nodeList.push(child);
+        if (!compareFunction || compareFunction(child)) {
+          nodeList.push(child);
+        }
         iterate(child);
         child = nextNode;
       }

@@ -65,6 +65,15 @@ describe('models.Nodes class', () => {
     expect(container.parent().isEditable).to.equal(false);
   });
 
+  it('property: isTopEditable', () => {
+    const container = query('<div contenteditable="true"><h1><p>foo</p>bar</h1>end</div>');
+    expect(container.isTopEditable).to.equal(false);
+    expect(container.find('h1').isTopEditable).to.equal(true);
+    expect(container.find('p').isTopEditable).to.equal(false);
+    expect(container.find('h1').next().isTopEditable).to.equal(true);
+    expect(container.parent().isTopEditable).to.equal(false);
+  });
+
   it('method: get', () => {
     const nodes = new Nodes([element, elementTwo, document.body]);
     expect(nodes.eq(1).html()).to.equal('two');
@@ -193,6 +202,15 @@ describe('models.Nodes class', () => {
     expect(childNodes[2].name).to.equal('strong');
     expect(childNodes[4].name).to.equal('p');
     expect(childNodes[5].name).to.equal('em');
+  });
+
+  it('method: allChildNodes with compare function', () => {
+    const node = new Nodes(element);
+    node.html('<p>foo<strong>bold</strong></p><p><em>itelic</em>bar</p>');
+    const childNodes = node.allChildNodes(child => child.isBlock);
+    expect(childNodes.length).to.equal(2);
+    expect(childNodes[0].name).to.equal('p');
+    expect(childNodes[1].name).to.equal('p');
   });
 
   it('event methods: an event', () => {
