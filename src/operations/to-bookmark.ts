@@ -1,7 +1,7 @@
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
-function removeAndNormalize(node: Nodes) {
+function removeAndNormalizeNode(node: Nodes) {
   const previousNode = node.prev();
   const nextNode = node.next();
   if (previousNode.isText && nextNode.isText) {
@@ -18,29 +18,30 @@ export function toBookmark(range: Range, bookmark: { anchor: Nodes, focus: Nodes
   const focus = bookmark.focus;
   // Only the anchor is removed because the focus doesn't exist, which is not correct case.
   if (anchor.length > 0 && focus.length === 0) {
-    removeAndNormalize(anchor);
+    removeAndNormalizeNode(anchor);
     return;
   }
   if (focus.length > 0 && anchor.length === 0) {
-    range.setStartAfter(focus);
+    range.setStartBefore(focus);
     range.collapseToStart();
-    removeAndNormalize(focus);
+    removeAndNormalizeNode(focus);
     return;
   }
   if (anchor.length > 0 && focus.length > 0) {
     const anchorRange = new Range();
     anchorRange.selectNode(anchor);
+    anchorRange.collapseToEnd();
     // The anchor node is after the focus node.
-    if (anchorRange.compareAfterPoint(focus) === -1) {
-      range.setStartAfter(focus);
-      removeAndNormalize(focus);
-      range.setEndAfter(anchor);
-      removeAndNormalize(anchor);
+    if (anchorRange.compareAfterNode(focus) === -1) {
+      range.setStartBefore(focus);
+      removeAndNormalizeNode(focus);
+      range.setEndBefore(anchor);
+      removeAndNormalizeNode(anchor);
     } else {
-      range.setStartAfter(anchor);
-      removeAndNormalize(anchor);
-      range.setEndAfter(focus);
-      removeAndNormalize(focus);
+      range.setStartBefore(anchor);
+      removeAndNormalizeNode(anchor);
+      range.setEndBefore(focus);
+      removeAndNormalizeNode(focus);
     }
   }
 }

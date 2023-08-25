@@ -6,10 +6,11 @@
 * [X] To create Github organization and repository (github.com/lakejs/lake-core)
 * [X] To publish npm package (lake-core)
 * [X] To initialize project (TypeScript, ESLint, Rollup, pnpm, etc.)
-* [X] To add utils
-* [ ] To add models
-* [ ] To add operations
-* [ ] To add plugins
+* [X] To implement utils
+* [X] To implement models
+* [X] To implement operations
+* [X] To implement plugins
+* [X] To implement heading
 * [ ] To add examples (Styles, Toolbar, Icons, etc.)
 * [ ] To write documentation
 * [ ] To create website
@@ -144,42 +145,3 @@
 <anchor /><focus />
 <cursor />
 ```
-
-## Editor Commands
-
-The following commands are from [document.execCommand() method](https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand).
-
-* heading
-* formatBlock
-* bold
-* italic
-* underline
-* strikeThrough
-* fontName
-* fontSize
-* foreColor
-* hiliteColor
-* subscript
-* superscript
-* removeFormat
-* createLink
-* unlink
-* indent
-* outdent
-* insertOrderedList
-* insertUnorderedList
-* insertParagraph
-* insertText
-* insertHTML
-* justifyLeft
-* justifyCenter
-* justifyRight
-* justifyFull
-* horizontalRule
-* insertImage
-* undo
-* redo
-* selectAll
-* paste
-* delete
-* forwardDelete

@@ -50,14 +50,17 @@ export class Range {
     return this.range;
   }
 
+  // Returns −1 if the point is before the range, 0 if the point is in the range, and 1 if the point is after the range.
+  public comparePoint(node: Nodes, offset: number): number {
+    return this.range.comparePoint(node.get(0), offset);
+  }
+
   // Returns -1, 0, or 1 depending on whether the end of the specified node is before, the same as, or after the end of the range.
-  public compareAfterPoint(node: Nodes): number {
-    const range = this.range.cloneRange();
-    range.collapse(false);
+  public compareAfterNode(node: Nodes): number {
     const targetRange = document.createRange();
     targetRange.setEndAfter(node.get());
     targetRange.collapse(false);
-    return range.comparePoint(targetRange.startContainer, targetRange.startOffset);
+    return this.range.comparePoint(targetRange.startContainer, targetRange.startOffset);
   }
 
   // Indicates whether a specified node is part of the range or intersects the range.
@@ -67,9 +70,13 @@ export class Range {
 
   // Returns all top blocks which is part of the range or intersects the range.
   public allTopBlocks(): Nodes[] {
+    const range = this.clone();
+    range.collapseToEnd();
     return this.commonAncestor.allChildNodes(child =>
       child.isBlock &&
       child.isTopEditable &&
+      // the range doesn't end at the start of a block
+      range.comparePoint(child, 0) !== 0 &&
       this.intersectsNode(child));
   }
 

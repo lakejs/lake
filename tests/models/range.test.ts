@@ -8,7 +8,6 @@ describe('models.Range class', () => {
 
   beforeEach(() => {
     container = query('<div contenteditable="true"></div>').appendTo(document.body);
-    container.html('<strong>foo</strong>bar');
   });
 
   afterEach(() => {
@@ -16,6 +15,7 @@ describe('models.Range class', () => {
   });
 
   it('property: startNode', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     const node = container.find('strong').first();
     range.setStart(node, 1);
@@ -23,6 +23,7 @@ describe('models.Range class', () => {
   });
 
   it('property: startOffset', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     const node = container.find('strong').first();
     range.setStart(node, 1);
@@ -30,6 +31,7 @@ describe('models.Range class', () => {
   });
 
   it('property: endNode', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     const node = container.find('strong').first();
     range.setEnd(node, 1);
@@ -37,6 +39,7 @@ describe('models.Range class', () => {
   });
 
   it('property: endOffset', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     const node = container.find('strong').first();
     range.setEnd(node, 1);
@@ -44,12 +47,14 @@ describe('models.Range class', () => {
   });
 
   it('property: commonAncestor', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     range.selectNode(container.find('strong'));
     expect(range.commonAncestor.html()).to.equal('<strong>foo</strong>bar');
   });
 
   it('property: isCollapsed', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     range.selectNode(container.find('strong'));
     expect(range.isCollapsed).to.equal(false);
@@ -58,17 +63,34 @@ describe('models.Range class', () => {
   });
 
   it('method: get', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     expect(range.get().startContainer).to.equal(document);
   });
 
-  it('method: compareAfterPoint', () => {
+  it('method: comparePoint', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     range.selectNode(container.find('strong'));
-    expect(range.compareAfterPoint(container.find('strong'))).to.equal(0);
-    expect(range.compareAfterPoint(container.find('strong').next())).to.equal(1);
+    expect(range.comparePoint(container.find('strong'), 0)).to.equal(0);
+    expect(range.comparePoint(container.find('strong').next(), 1)).to.equal(1);
     range.selectNode(container.find('strong').next());
-    expect(range.compareAfterPoint(container.find('strong'))).to.equal(-1);
+    expect(range.comparePoint(container.find('strong'), 1)).to.equal(-1);
+    expect(range.comparePoint(container, 0)).to.equal(-1);
+    expect(range.comparePoint(container, 1)).to.equal(0);
+    expect(range.comparePoint(container, 2)).to.equal(0);
+  });
+
+  it('method: compareAfterNode', () => {
+    container.html('<strong>foo</strong>bar');
+    const range = new Range();
+    range.selectNode(container.find('strong'));
+    range.collapseToEnd();
+    expect(range.compareAfterNode(container.find('strong'))).to.equal(0);
+    expect(range.compareAfterNode(container.find('strong').next())).to.equal(1);
+    range.selectNode(container.find('strong').next());
+    range.collapseToEnd();
+    expect(range.compareAfterNode(container.find('strong'))).to.equal(-1);
   });
 
   it('method: intersectsNode', () => {
@@ -88,7 +110,7 @@ describe('models.Range class', () => {
     container.html('<p>outer start</p><p>foo<strong>bold</strong></p><h1>heading</h1><p><em>itelic</em>bar</p><p>outer end</p>');
     const range = new Range();
     range.setStart(container.find('strong').prev(), 1);
-    range.setEnd(container.find('em').next(), 2);
+    range.setEnd(container.find('em').parent().next(), 0);
     const nodes = range.allTopBlocks();
     expect(nodes.length).to.equal(3);
     expect(nodes[0].name).to.equal('p');
@@ -109,6 +131,7 @@ describe('models.Range class', () => {
   });
 
   it('method: clone', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     range.selectNode(container.find('strong'));
     const newRange = range.clone();
@@ -121,6 +144,7 @@ describe('models.Range class', () => {
   });
 
   it('method: setStart', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     const node = container.find('strong').first();
     range.setStart(node, 1);
@@ -129,6 +153,7 @@ describe('models.Range class', () => {
   });
 
   it('method: setStartBefore', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     const node = container.find('strong');
     range.setStartBefore(node);
@@ -137,6 +162,7 @@ describe('models.Range class', () => {
   });
 
   it('method: setStartAfter', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     const node = container.find('strong');
     range.setStartAfter(node);
@@ -145,6 +171,7 @@ describe('models.Range class', () => {
   });
 
   it('method: setEnd', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     const nodes = container.find('strong').first();
     range.setEnd(nodes, 1);
@@ -153,6 +180,7 @@ describe('models.Range class', () => {
   });
 
   it('method: setEndBefore', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     const node = container.find('strong');
     range.setEndBefore(node);
@@ -161,6 +189,7 @@ describe('models.Range class', () => {
   });
 
   it('method: setEndAfter', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     const node = container.find('strong');
     range.setEndAfter(node);
@@ -169,6 +198,7 @@ describe('models.Range class', () => {
   });
 
   it('method: collapseToStart', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     const nodes = container.find('strong').first();
     range.setStart(nodes, 1);
@@ -181,6 +211,7 @@ describe('models.Range class', () => {
   });
 
   it('method: collapseToEnd', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     const nodes = container.find('strong').first();
     range.setStart(nodes, 1);
@@ -193,6 +224,7 @@ describe('models.Range class', () => {
   });
 
   it('method: selectNode', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     range.selectNode(container.find('strong'));
     expect(range.startNode.name).to.equal('div');
@@ -203,6 +235,7 @@ describe('models.Range class', () => {
   });
 
   it('method: selectNodeContents', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     range.selectNodeContents(container.find('strong'));
     expect(range.startNode.name).to.equal('strong');
@@ -213,6 +246,7 @@ describe('models.Range class', () => {
   });
 
   it('insertNode method: insert an container', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     const strong = container.find('strong');
     const textNode = strong.first();
@@ -229,6 +263,7 @@ describe('models.Range class', () => {
   });
 
   it('insertNode method: insert multi-container', () => {
+    container.html('<strong>foo</strong>bar');
     const range = new Range();
     const strong = container.find('strong');
     const textNode = strong.first();

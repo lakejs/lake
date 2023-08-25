@@ -113,4 +113,17 @@ describe('operations.getBlocks()', () => {
     expect(blocks[0].html()).to.equal('foo1<strong>bold1</strong>');
     expect(blocks[1].html()).to.equal('foo2<strong>bold2</strong>');
   });
+
+  it('the selection ends at the start of a block', () => {
+    const content = `
+    <p>outer start</p>
+    <h1><anchor />foo<strong>bold</strong></h1>
+    <p><focus />outer end</p>
+    `;
+    const { container, range } = createContainer(content);
+    const blocks = getBlocks(range);
+    container.remove();
+    expect(blocks.length).to.equal(1);
+    expect(blocks[0].html()).to.equal('foo<strong>bold</strong>');
+  });
 });
