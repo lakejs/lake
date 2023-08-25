@@ -68,28 +68,6 @@ export class Range {
     return this.range.intersectsNode(node.get());
   }
 
-  // Returns all top blocks which is part of the range or intersects the range.
-  public allTopBlocks(): Nodes[] {
-    const range = this.clone();
-    range.collapseToEnd();
-    return this.commonAncestor.allChildNodes(child =>
-      child.isBlock &&
-      child.isTopEditable &&
-      // the range doesn't end at the start of a block
-      range.comparePoint(child, 0) !== 0 &&
-      this.intersectsNode(child));
-  }
-
-  // Returns all sibling blocks which is part of the range or intersects the range.
-  public allSiblingBlocks(): Nodes[] {
-    const startBlock = this.startNode.closestBlock();
-    const endBlock = this.endNode.closestBlock();
-    return this.commonAncestor.allChildNodes(child =>
-      child.isBlock &&
-      (startBlock.isSibling(child) || endBlock.isSibling(child)) &&
-      this.intersectsNode(child));
-  }
-
   // Returns a range object with boundary points identical to the cloned range.
   public clone(): Range {
     return new Range(this.range.cloneRange());

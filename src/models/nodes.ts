@@ -247,22 +247,20 @@ export class Nodes {
     return new Nodes(element.lastChild);
   }
 
-  // Returns all child nodes of the first element.
-  public allChildNodes(compareFunction?: (child: Nodes) => boolean): Nodes[] {
-    const nodeList: Nodes[] = [];
-    const iterate = (node: Nodes) => {
+  // Returns a node generator that iterates over all child nodes of the first element.
+  public * getWalker(): Generator<Nodes> {
+    function * iterate(node: Nodes): Generator<Nodes> {
       let child = node.first();
       while (child.length > 0) {
         const nextNode = child.next();
-        if (!compareFunction || compareFunction(child)) {
-          nodeList.push(child);
-        }
-        iterate(child);
+        yield child;
+        yield * iterate(child);
         child = nextNode;
       }
-    };
-    iterate(this.eq(0));
-    return nodeList;
+    }
+    for (const node of iterate(this.eq(0))) {
+      yield node;
+    }
   }
 
   // Attaches an event listener for the elements.
