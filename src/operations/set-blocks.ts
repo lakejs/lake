@@ -66,7 +66,6 @@ export function setBlocks(range: Range, value: string): void {
     const block = query(`<${tagName} />`);
     addStyles(block, styleValue);
     nonBlockNodes[0].before(block);
-    // nonBlockNodes[0].parent().get(0).insertBefore(block.get(0), nonBlockNodes[0].get(0));
     nonBlockNodes.forEach((node, index) => {
       if (node.isText) {
         const nodeValue = node.get(0).nodeValue || '';
