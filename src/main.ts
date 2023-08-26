@@ -6,6 +6,7 @@ import * as models from './models';
 import * as operations from './operations';
 
 import heading from './plugins/heading';
+import blockquote from './plugins/blockquote';
 
 const { query, forEach } = utils;
 const { Selection } = models;
@@ -84,6 +85,7 @@ export default class LakeCore {
   private addBuiltInPlugins(): void {
     const plugins = this.plugins;
     plugins.add(heading);
+    plugins.add(blockquote);
   }
 
   // Selects the saved range in the selection.

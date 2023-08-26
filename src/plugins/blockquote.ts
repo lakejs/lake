@@ -3,11 +3,11 @@ import type LakeCore from '../main';
 import { setBlocks } from '../operations';
 
 export default (editor: LakeCore) => {
-  editor.commands.add('heading', (type: string) => {
+  editor.commands.add('blockquote', () => {
     const range = editor.selection.range;
     editor.focus();
-    setBlocks(range, `<${type} />`);
+    setBlocks(range, '<blockquote />');
     editor.select();
-    debug(`Heading '${type}' was set.`);
+    debug('Blockquote was set.');
   });
 };

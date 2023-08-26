@@ -23,5 +23,9 @@ query('.lake-toolbar-icon').on('click', (e: Event) => {
   const type = query(e.target as Element).attr('data-type');
   if (heading.indexOf(type) >= 0) {
     editor.commands.run('heading', type);
+    return;
+  }
+  if (type === 'blockquote') {
+    editor.commands.run('blockquote');
   }
 });

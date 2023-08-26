@@ -2,18 +2,19 @@
 
 ## To-do List
 
-* [X] To register domains (lakejs.com, lakejs.org)
-* [X] To create Github organization and repository (github.com/lakejs/lake-core)
-* [X] To publish npm package (lake-core)
-* [X] To initialize project (TypeScript, ESLint, Rollup, pnpm, etc.)
-* [X] To implement utils
-* [X] To implement models
-* [X] To implement operations
-* [X] To implement plugins
-* [X] To implement heading
-* [ ] To add examples (Styles, Toolbar, Icons, etc.)
-* [ ] To write documentation
-* [ ] To create website
+* [X] registering domains (lakejs.com, lakejs.org)
+* [X] creating Github organization and repository (github.com/lakejs/lake-core)
+* [X] publishing npm package (lake-core)
+* [X] initializing project (TypeScript, ESLint, Rollup, pnpm, etc.)
+* [X] utils
+* [X] models
+* [X] operations
+* [X] plugins
+* [X] heading
+* [X] blockquote
+* [ ] examples (Styles, Toolbar, Icons, etc.)
+* [ ] documentation
+* [ ] website
 
 ## File Tree
 
