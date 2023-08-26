@@ -27,5 +27,9 @@ query('.lake-toolbar-icon').on('click', (e: Event) => {
   }
   if (type === 'blockquote') {
     editor.commands.run('blockquote');
+    return;
+  }
+  if (type === 'bold') {
+    editor.commands.run('bold');
   }
 });

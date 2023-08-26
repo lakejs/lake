@@ -126,4 +126,5 @@ describe('operations.getBlocks()', () => {
     expect(blocks.length).to.equal(1);
     expect(blocks[0].html()).to.equal('foo<strong>bold</strong>');
   });
+
 });

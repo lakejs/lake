@@ -52,4 +52,5 @@ describe('operations.insertContents()', () => {
       },
     );
   });
+
 });

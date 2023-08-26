@@ -8,6 +8,9 @@ import { toBookmark } from './to-bookmark';
 function getTopNonBlockNodes(range: Range): Nodes[] {
   const container = range.commonAncestor.closest('div[contenteditable="true"]');
   let nodeList: Nodes[] = [];
+  if (container.length === 0) {
+    return nodeList;
+  }
   let node = container.first();
   let isBeforeRange = true;
   while (node.length > 0) {
@@ -34,10 +37,11 @@ function addStyles(block: Nodes, styleValue: string) {
   });
 }
 
+// Adds new blocks or modifies target blocks relating to the specified range.
 export function setBlocks(range: Range, value: string): void {
-  const targetNode = query(value);
-  const tagName = targetNode.name;
-  const styleValue = targetNode.attr('style');
+  const valueNode = query(value);
+  const tagName = valueNode.name;
+  const styleValue = valueNode.attr('style');
   const blockList = getBlocks(range);
   // has blocks
   if (blockList.length > 0) {

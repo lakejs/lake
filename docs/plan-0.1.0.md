@@ -10,8 +10,28 @@
 * [X] models
 * [X] operations
 * [X] plugins
+* [ ] history (undo, redo)
+* [ ] HTML parser
+* [ ] markdown parser
+* [ ] text parser
+* [ ] paste
+* [ ] select all
 * [X] heading
 * [X] blockquote
+* [ ] list (numbered list, bulleted list, checklist)
+* [ ] align (left, center, right, justify)
+* [ ] indent (increase, decrease)
+* [ ] bold
+* [ ] italic
+* [ ] underline
+* [ ] strikethrough
+* [ ] subscript
+* [ ] superscript
+* [ ] code
+* [ ] font family
+* [ ] font size
+* [ ] text color
+* [ ] highlight
 * [ ] examples (Styles, Toolbar, Icons, etc.)
 * [ ] documentation
 * [ ] website
@@ -143,6 +163,5 @@
 <blockquote>
   block quote
 </blockquote>
-<anchor /><focus />
-<cursor />
+<anchor />selected contents<focus />
 ```

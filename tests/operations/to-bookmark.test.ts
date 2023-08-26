@@ -4,6 +4,7 @@ import { Range, Nodes } from '../../src/models';
 import { toBookmark } from '../../src/operations';
 
 describe('operations.toBookmark()', () => {
+
   let container: Nodes;
 
   beforeEach(() => {

@@ -4,9 +4,9 @@ import { NativeElement } from './types/native';
 import * as utils from './utils';
 import * as models from './models';
 import * as operations from './operations';
-
 import heading from './plugins/heading';
 import blockquote from './plugins/blockquote';
+import bold from './plugins/bold';
 
 const { query, forEach } = utils;
 const { Selection } = models;
@@ -86,6 +86,7 @@ export default class LakeCore {
     const plugins = this.plugins;
     plugins.add(heading);
     plugins.add(blockquote);
+    plugins.add(bold);
   }
 
   // Selects the saved range in the selection.
