@@ -143,7 +143,7 @@ export class Range {
     return this;
   }
 
-  // Prints information of the range for debug.
+  // Prints information of the range.
   public debug(): void {
     debug('--- range information ---');
     debug(`start node (${this.startNode.id}):`, this.startNode.get(0), ', offset:', this.startOffset);

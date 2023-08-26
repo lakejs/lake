@@ -489,6 +489,24 @@ describe('models.Nodes class', () => {
     expect(nodes.eq(1).html()).to.equal('<p><strong>foo</strong>bar</p>');
   });
 
+  it('method: prependTo', () => {
+    const elem1 = query('<p><strong>foo</strong>bar</p>').get(0);
+    const elem2 = query('<p><strong>foo2</strong>bar2</p>').get(0);
+    const nodes1 = new Nodes([elem1, elem2]);
+    // prepend to a selector string
+    const targetContainer = query('<div><div class="class-div">one</div><div class="class-div">two</div></div>').prependTo(document.body);
+    nodes1.prependTo('.class-div');
+    expect(targetContainer.html()).to.equal('<div class="class-div">one</div><div class="class-div"><p><strong>foo</strong>bar</p><p><strong>foo2</strong>bar2</p>two</div>');
+    targetContainer.remove();
+    // prepend to a native node
+    query('<p><strong>foo</strong>bar</p>').prependTo(element);
+    expect(element.innerHTML).to.equal('<p><strong>foo</strong>bar</p>one');
+    // prepend to nodes
+    element.innerHTML = 'one';
+    query('<p><strong>foo</strong>bar</p>').prependTo(element);
+    expect(element.innerHTML).to.equal('<p><strong>foo</strong>bar</p>one');
+  });
+
   it('method: append', () => {
     const nodes = new Nodes([element, elementTwo]);
     // insert a HTML string
@@ -536,28 +554,52 @@ describe('models.Nodes class', () => {
     expect(element.innerHTML).to.equal('one<p><strong>foo</strong>bar</p>');
   });
 
+  it('method: before', () => {
+    const nodes = new Nodes([element, elementTwo]);
+    // insert a HTML string
+    nodes.before('<div class="insert-test">a HTML string</div>');
+    expect(nodes.prev().html()).to.equal('a HTML string');
+    expect(nodes.eq(1).prev().html()).to.equal('a HTML string');
+    query('.insert-test').remove();
+    // insert a HTML string with multi-element
+    nodes.before('<div class="insert-test">multi-element-one</div><div class="insert-test">multi-element-two</div>');
+    expect(nodes.prev().html()).to.equal('multi-element-two');
+    expect(nodes.prev().prev().html()).to.equal('multi-element-one');
+    query('.insert-test').remove();
+    // insert a native node
+    const nativeElement = query('<div class="insert-test">native node</div>').get(0);
+    nodes.before(nativeElement);
+    expect(nodes.eq(1).prev().html()).to.equal('native node');
+    query('.insert-test').remove();
+    // insert nodes
+    const newNodes = query('<div class="insert-test">nodes</div>');
+    nodes.before(newNodes);
+    expect(nodes.eq(1).prev().html()).to.equal('nodes');
+    query('.insert-test').remove();
+  });
+
   it('method: after', () => {
     const nodes = new Nodes([element, elementTwo]);
     // insert a HTML string
-    nodes.after('<div class="after-test">a HTML string</div>');
+    nodes.after('<div class="insert-test">a HTML string</div>');
     expect(nodes.next().html()).to.equal('a HTML string');
     expect(nodes.eq(1).next().html()).to.equal('a HTML string');
-    query('.after-test').remove();
+    query('.insert-test').remove();
     // insert a HTML string with multi-element
-    nodes.after('<div class="after-test">multi-element-one</div><div class="after-test">multi-element-two</div>');
+    nodes.after('<div class="insert-test">multi-element-one</div><div class="insert-test">multi-element-two</div>');
     expect(nodes.next().html()).to.equal('multi-element-one');
     expect(nodes.next().next().html()).to.equal('multi-element-two');
-    query('.after-test').remove();
+    query('.insert-test').remove();
     // insert a native node
-    const nativeElement = query('<div class="after-test">native node</div>').get(0);
+    const nativeElement = query('<div class="insert-test">native node</div>').get(0);
     nodes.after(nativeElement);
     expect(nodes.eq(1).next().html()).to.equal('native node');
-    query('.after-test').remove();
+    query('.insert-test').remove();
     // insert nodes
-    const newNodes = query('<div class="after-test">nodes</div>');
+    const newNodes = query('<div class="insert-test">nodes</div>');
     nodes.after(newNodes);
     expect(nodes.eq(1).next().html()).to.equal('nodes');
-    query('.after-test').remove();
+    query('.insert-test').remove();
   });
 
   it('method: replaceWith', () => {

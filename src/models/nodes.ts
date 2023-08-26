@@ -247,7 +247,7 @@ export class Nodes {
     return new Nodes(element.lastChild);
   }
 
-  // Returns a node generator that iterates over all child nodes of the first element.
+  // Returns a node generator that iterates over the descendants of the first element.
   public * getWalker(): Generator<Nodes> {
     function * iterate(node: Nodes): Generator<Nodes> {
       let child = node.first();
@@ -467,6 +467,24 @@ export class Nodes {
     });
   }
 
+  // Inserts each node as the first child of the target.
+  public prependTo(target: string | NativeElement | Nodes): this {
+    const nodes = this.getAll();
+    for (let i = nodes.length - 1; i >= 0; i--) {
+    // for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i];
+      let targetNode: Nodes;
+      if (target instanceof Nodes) {
+        targetNode = target;
+      } else {
+        const list = toNodeList(target);
+        targetNode = new Nodes(list);
+      }
+      targetNode.prepend(node);
+    }
+    return this;
+  }
+
   // Inserts the specified content as the last child of each element.
   public append(content: string | NativeNode | Nodes): this {
     return this.eachElement(element => {
@@ -482,23 +500,41 @@ export class Nodes {
     });
   }
 
-  // Inserts each element as the last child of the target.
+  // Inserts each node as the last child of the target.
   public appendTo(target: string | NativeElement | Nodes): this {
     return this.each(node => {
-      let targetNodes: Nodes;
+      let targetNode: Nodes;
       if (target instanceof Nodes) {
-        targetNodes = target;
+        targetNode = target;
       } else {
         const list = toNodeList(target);
-        targetNodes = new Nodes(list);
+        targetNode = new Nodes(list);
       }
-      targetNodes.append(node);
+      targetNode.append(node);
     });
   }
 
-  // Inserts the specified content after each element.
+  // Inserts the specified content before each node.
+  public before(content: string | NativeNode | Nodes): this {
+    return this.each(node => {
+      let list: NativeNode[] = [];
+      if (content instanceof Nodes) {
+        list = content.getAll();
+      } else {
+        list = toNodeList(content);
+      }
+      list.forEach(target => {
+        if (!node.parentNode) {
+          return;
+        }
+        node.parentNode.insertBefore(target, node);
+      });
+    });
+  }
+
+  // Inserts the specified content after each node.
   public after(content: string | NativeNode | Nodes): this {
-    return this.eachElement(element => {
+    return this.each(node => {
       let list: NativeNode[] = [];
       if (content instanceof Nodes) {
         list = content.getAll();
@@ -506,35 +542,38 @@ export class Nodes {
         list = toNodeList(content);
       }
       list = list.reverse();
-      list.forEach((node: NativeNode) => {
-        if (!element.parentNode) {
+      list.forEach(target => {
+        if (!node.parentNode) {
           return;
         }
-        if (element.nextSibling) {
-          element.parentNode.insertBefore(node, element.nextSibling);
+        if (node.nextSibling) {
+          node.parentNode.insertBefore(target, node.nextSibling);
         } else {
-          element.parentNode.appendChild(node);
+          node.parentNode.appendChild(target);
         }
       });
     });
   }
 
-  // Replaces each element with the provided new content.
+  // Replaces each node with the provided new content.
   public replaceWith(newContent: string | NativeNode | Nodes): this {
-    return this.eachElement(element => {
-      let node: NativeNode;
+    return this.each(node => {
+      let target: NativeNode;
       if (newContent instanceof Nodes) {
-        node = newContent.get(0);
+        target = newContent.get(0);
       } else {
-        node = toNodeList(newContent)[0];
+        target = toNodeList(newContent)[0];
       }
-      element.replaceWith(node);
+      if (!node.parentNode) {
+        return;
+      }
+      node.parentNode.replaceChild(target, node);
     });
   }
 
-  // Removes each element from the DOM.
+  // Removes each node from the DOM.
   // keepChildren parameter:
-  // A boolean value; true only removes each element and keeps all child nodes; false removes all nodes; if omitted, it defaults to false.
+  // A boolean value; true only removes each node and keeps all descended nodes; false removes the descendants; if omitted, it defaults to false.
   public remove(keepChildren: boolean = false): this {
     this.each(node => {
       if (!node.parentNode) {
@@ -553,6 +592,7 @@ export class Nodes {
     return this;
   }
 
+  // Prints information of each node.
   public debug(): void {
     this.each(node => {
       debug(`node (${node.lakeId}): `, node);
