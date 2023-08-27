@@ -92,6 +92,15 @@ export class Nodes {
     return inString(markTagNames, this.name);
   }
 
+  // Returns a boolean value indicating whether the element is a root element of contenteditable area.
+  public get isContainer(): boolean {
+    if (this.length === 0) {
+      return false;
+    }
+    const node = this.get(0) as NativeHTMLElement;
+    return this.isElement && node.getAttribute('contenteditable') === 'true';
+  }
+
   // Returns a boolean value indicating whether the node is editable.
   public get isEditable(): boolean {
     if (this.length === 0) {
@@ -108,7 +117,7 @@ export class Nodes {
       return false;
     }
     const element = this.get(0) as NativeHTMLElement;
-    return element.isContentEditable && element.getAttribute('contenteditable') !== 'true';
+    return element.isContentEditable && !this.isContainer;
   }
 
   // Returns a boolean value indicating whether the node is an editable top node.
@@ -116,11 +125,11 @@ export class Nodes {
     if (this.length === 0) {
       return false;
     }
-    const parent = this.get(0).parentNode as NativeHTMLElement;
-    if (!parent) {
+    const parent = this.parent();
+    if (parent.length === 0) {
       return false;
     }
-    return this.isEditable && parent.getAttribute('contenteditable') === 'true';
+    return this.isEditable && parent.isContainer;
   }
 
   // Returns a boolean value indicating whether the node and the target node are siblings.
@@ -215,6 +224,11 @@ export class Nodes {
       return new Nodes();
     }
     return node;
+  }
+
+  // Traverses the first node and its parents until it finds a root element which has contenteditable="true" attribute..
+  public closestContainer(): Nodes {
+    return this.closest('div[contenteditable="true"]');
   }
 
   // Returns the parent of the first node.

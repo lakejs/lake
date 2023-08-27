@@ -56,6 +56,18 @@ describe('models.Nodes class', () => {
     expect(node.isBlock).to.equal(true);
   });
 
+  it('property: isMark', () => {
+    const container = query('<div contenteditable="true"><strong>foo</strong>bar</div>');
+    expect(container.find('strong').isMark).to.equal(true);
+  });
+
+  it('property: isContainer', () => {
+    const container = query('<div contenteditable="true"><strong>foo</strong>bar</div>');
+    expect(container.isContainer).to.equal(true);
+    expect(container.parent().isContainer).to.equal(false);
+    expect(container.find('strong').isContainer).to.equal(false);
+  });
+
   it('property: isEditable', () => {
     const container = query('<div contenteditable="true"><p>foo</p>bar</div>');
     expect(container.isEditable).to.equal(false);
@@ -173,6 +185,12 @@ describe('models.Nodes class', () => {
     const container = query('<div contenteditable="true"><p>foo</p>bar</div>');
     expect(container.find('p').first().closestBlock().html()).to.equal('foo');
     expect(container.find('p').next().closestBlock().length).to.equal(0);
+  });
+
+  it('method: closestContainer', () => {
+    const container = query('<div contenteditable="true"><p>foo</p>bar</div>');
+    expect(container.find('p').first().closestContainer().html()).to.equal('<p>foo</p>bar');
+    expect(container.parent().closestContainer().length).to.equal(0);
   });
 
   it('method: parent', () => {

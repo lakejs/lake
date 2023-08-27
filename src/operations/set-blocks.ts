@@ -6,7 +6,7 @@ import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 
 function getTopNonBlockNodes(range: Range): Nodes[] {
-  const container = range.commonAncestor.closest('div[contenteditable="true"]');
+  const container = range.commonAncestor.closestContainer();
   let nodeList: Nodes[] = [];
   if (container.length === 0) {
     return nodeList;
