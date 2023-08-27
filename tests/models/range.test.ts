@@ -254,4 +254,5 @@ describe('models.Range class', () => {
     expect(range.isCollapsed).to.equal(true);
     expect(strong.html()).to.equal('f<em>insert node</em><span>insert node</span>oo');
   });
+
 });

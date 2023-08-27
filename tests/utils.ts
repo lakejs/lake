@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { query, normalizeValue, denormalizeValue } from '../src/utils';
+import { query, normalizeValue, denormalizeValue, debug } from '../src/utils';
 import { Nodes, Range } from '../src/models';
 import { insertBookmark, toBookmark } from '../src/operations';
 
@@ -34,5 +34,6 @@ export function testOperation(
   insertBookmark(range);
   const html = denormalizeValue(container.html());
   container.remove();
+  debug(html);
   expect(html).to.equal(removeBlanks(output));
 }

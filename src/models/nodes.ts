@@ -343,6 +343,12 @@ export class Nodes {
     return this;
   }
 
+  // Returns a duplicate of the first node.
+  public clone(deep?: boolean): Nodes {
+    const node = this.get(0);
+    return new Nodes(node.cloneNode(deep));
+  }
+
   public hasAttr(attributeName: string): boolean {
     const element = this.get(0) as NativeElement;
     return element.hasAttribute(attributeName);
@@ -485,7 +491,6 @@ export class Nodes {
   public prependTo(target: string | NativeElement | Nodes): this {
     const nodes = this.getAll();
     for (let i = nodes.length - 1; i >= 0; i--) {
-    // for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
       let targetNode: Nodes;
       if (target instanceof Nodes) {
@@ -608,6 +613,7 @@ export class Nodes {
 
   // Prints information of each node.
   public debug(): void {
+    debug('--- nodes information ---');
     this.each(node => {
       debug(`node (${node.lakeId}): `, node);
     });

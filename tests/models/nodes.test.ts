@@ -351,6 +351,23 @@ describe('models.Nodes class', () => {
     expect(nodesOne.getEventListeners(0).length).to.equal(0);
   });
 
+  it('method: focus', () => {
+    const node = new Nodes(element);
+    expect(node.focus().get(0)).to.equal(node.get(0));
+  });
+
+  it('method: blur', () => {
+    const node = new Nodes(element);
+    expect(node.blur().get(0)).to.equal(node.get(0));
+  });
+
+  it('method: clone', () => {
+    const node = new Nodes(element);
+    expect(node.clone().name).to.equal('div');
+    expect(node.clone().first().length).to.equal(0);
+    expect(node.clone(true).html()).to.equal(node.html());
+  });
+
   it('attribute methods: single key', () => {
     const nodes = new Nodes([element, document.body]);
     nodes.attr('class', 'my-class');
@@ -643,4 +660,5 @@ describe('models.Nodes class', () => {
     elem.remove();
     expect(elem.id).to.equal(elemId);
   });
+
 });
