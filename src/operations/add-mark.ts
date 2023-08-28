@@ -12,6 +12,22 @@ function addStyles(block: Nodes, styleValue: string) {
   });
 }
 
+// TODO
+/*
+function cloneNestedMarksAfterBlock(mark: Nodes) {
+  let newMark = mark.clone();
+  let child = mark.last();
+  while (child.length > 0) {
+    if (child.isMark) {
+      newMark.append(child);
+      newMark = child;
+    }
+    child = child.last();
+  }
+  return newMark;
+}
+*/
+
 // Splits text node and mark node.
 // <p><strong>one<anchor />two<focus />three</strong></p>
 // to

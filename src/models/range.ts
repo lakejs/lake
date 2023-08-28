@@ -55,7 +55,15 @@ export class Range {
     return this.range.comparePoint(node.get(0), offset);
   }
 
-  // Returns -1, 0, or 1 depending on whether the end of the specified node is before, the same as, or after the end of the range.
+  // Returns -1, 0, or 1 depending on whether the beginning of the specified node is before, the same as, or after the range.
+  public compareBeforeNode(node: Nodes): number {
+    const targetRange = document.createRange();
+    targetRange.setStartBefore(node.get());
+    targetRange.collapse(true);
+    return this.range.comparePoint(targetRange.startContainer, targetRange.startOffset);
+  }
+
+  // Returns -1, 0, or 1 depending on whether the end of the specified node is before, the same as, or after the range.
   public compareAfterNode(node: Nodes): number {
     const targetRange = document.createRange();
     targetRange.setEndAfter(node.get());

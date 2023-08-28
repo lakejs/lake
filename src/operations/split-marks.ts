@@ -1,31 +1,44 @@
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
-import { insertBookmark } from './insert-bookmark';
-import { toBookmark } from './to-bookmark';
 
 // Splits elements upwards according to the position until a limiting element is encountered.
-function splitElement(node: Nodes, offset: number, limit: Nodes): Nodes {
+// Case 1:
+// <p><strong><em>foo<focus />bar</em></strong></p>
+// to
+// Step 1: <p><strong><em>foo</em><focus /><em>bar</em></strong></p>
+// Step 2: <p><strong><em>foo</em></strong><focus /><strong><em>bar</em></strong></p>
+//
+// Case 2:
+// <p><strong>beginning<em>one<focus />two</em>end</strong></p>
+// to
+// Step 1: <p><strong>beginning<em>one</em><focus /><em>two</em>end</strong></p>
+// Step 2: <p><strong>beginning<em>one</em></strong><focus /><strong><em>two</em>end</strong></p>
+function splitElements(node: Nodes, offset: number, limit: Nodes): Nodes {
   const range = new Range();
-  range.setStart(node, offset);
-  range.collapseToStart();
-  const bookmark = insertBookmark(range);
-  const focus = bookmark.focus;
-  const parent = focus.parent();
-  if (parent.get(0) === limit.get(0)) {
-    toBookmark(range, bookmark);
-    return node;
+  let parent;
+  if (node.isText) {
+    parent = node.parent();
+    node.splitText(offset);
+    range.setStartAfter(node);
+  } else {
+    range.setStart(node, offset);
+    parent = node;
   }
+  range.collapseToStart();
   const newParent = parent.clone();
   let child = parent.first();
   while (child.length > 0) {
-    if (child.get(0) === focus.get(0)) {
+    if (range.compareBeforeNode(child) >= 0) {
       break;
     }
+    const next = child.next();
     newParent.append(child);
-    child = child.next();
+    child = next;
   }
   parent.before(newParent);
-  toBookmark(range, bookmark);
+  if (parent.parent().length > 0 && parent.parent().get(0) !== limit.get(0)) {
+    return splitElements(parent.parent(), parent.index(), limit);
+  }
   return newParent;
 }
 
@@ -36,17 +49,15 @@ function splitElement(node: Nodes, offset: number, limit: Nodes): Nodes {
 export function splitMarks(range: Range): void {
   if (range.isCollapsed) {
     const block = range.startNode.closestBlock();
-    const beforeParent = splitElement(range.startNode, range.startOffset, block);
-    const emptyMark = beforeParent.clone();
-    emptyMark.html('');
-    beforeParent.after(emptyMark);
-    range.setStart(emptyMark, 0);
+    const newParent = splitElements(range.startNode, range.startOffset, block);
+    range.setStartAfter(newParent);
     range.collapseToStart();
     return;
   }
   const startBlock = range.startNode.closestBlock();
-  splitElement(range.startNode, range.startOffset, startBlock);
+  const startNewParent = splitElements(range.startNode, range.startOffset, startBlock);
+  range.setStartAfter(startNewParent);
   const endBlock = range.endNode.closestBlock();
-  const beforeParent = splitElement(range.endNode, range.endOffset, endBlock);
-  range.selectNodeContents(beforeParent);
+  const endNewParent = splitElements(range.endNode, range.endOffset, endBlock);
+  range.setEndAfter(endNewParent);
 }

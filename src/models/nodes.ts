@@ -1,4 +1,4 @@
-import { NativeHTMLElement, NativeElement, NativeNode } from '../types/native';
+import { NativeHTMLElement, NativeElement, NativeNode, NativeText } from '../types/native';
 import { forEach } from '../utils/for-each';
 import { inString } from '../utils/in-string';
 import { camelCase } from '../utils/camel-case';
@@ -259,6 +259,17 @@ export class Nodes {
   public last(): Nodes {
     const element = this.get(0) as NativeElement;
     return new Nodes(element.lastChild);
+  }
+
+  // Returns a number indicating the position of the first node relative to its sibling nodes.
+  public index(): number {
+    let i = -1;
+    let sibling: NativeNode | null = this.get(0);
+    while (sibling) {
+      i++;
+      sibling = sibling.previousSibling;
+    }
+    return i;
   }
 
   // Returns a node generator that iterates over the descendants of the first element.
@@ -609,6 +620,16 @@ export class Nodes {
       node.parentNode.removeChild(node);
     });
     return this;
+  }
+
+  // Breaks the first text node into two nodes at the specified offset, keeping both nodes in the tree as siblings.
+  public splitText(offset: number): Nodes {
+    if (!this.isText) {
+      return new Nodes();
+    }
+    const node = this.get(0) as NativeText;
+    const newNode = node.splitText(offset);
+    return new Nodes(newNode);
   }
 
   // Prints information of each node.

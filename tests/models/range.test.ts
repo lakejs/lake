@@ -81,12 +81,29 @@ describe('models.Range class', () => {
     expect(range.comparePoint(container, 2)).to.equal(0);
   });
 
+  it('method: compareBeforeNode', () => {
+    container.html('<strong>foo</strong>bar');
+    const range = new Range();
+    range.selectNode(container.find('strong'));
+    range.collapseToEnd();
+    expect(range.compareBeforeNode(container.find('strong'))).to.equal(-1);
+    expect(range.compareBeforeNode(container.find('strong').next())).to.equal(0);
+    range.selectNodeContents(container.find('strong'));
+    expect(range.compareBeforeNode(container.find('strong'))).to.equal(-1);
+    expect(range.compareBeforeNode(container.find('strong').first())).to.equal(0);
+    expect(range.compareBeforeNode(container.find('strong').next())).to.equal(1);
+  });
+
   it('method: compareAfterNode', () => {
     container.html('<strong>foo</strong>bar');
     const range = new Range();
     range.selectNode(container.find('strong'));
     range.collapseToEnd();
     expect(range.compareAfterNode(container.find('strong'))).to.equal(0);
+    expect(range.compareAfterNode(container.find('strong').next())).to.equal(1);
+    range.selectNodeContents(container.find('strong'));
+    expect(range.compareAfterNode(container.find('strong'))).to.equal(1);
+    expect(range.compareAfterNode(container.find('strong').first())).to.equal(0);
     expect(range.compareAfterNode(container.find('strong').next())).to.equal(1);
     range.selectNode(container.find('strong').next());
     range.collapseToEnd();

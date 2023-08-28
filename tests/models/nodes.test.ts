@@ -223,6 +223,16 @@ describe('models.Nodes class', () => {
     expect(node.last().html()).to.equal('bar');
   });
 
+  it('method: index', () => {
+    const node = new Nodes(element);
+    node.html('one<strong>two</strong>three<em>four</em>five');
+    expect(node.find('strong').prev().index()).to.equal(0);
+    expect(node.find('strong').index()).to.equal(1);
+    expect(node.find('strong').next().index()).to.equal(2);
+    expect(node.find('em').index()).to.equal(3);
+    expect(node.find('em').next().index()).to.equal(4);
+  });
+
   it('method: getWalker', () => {
     const node = new Nodes(element);
     node.html('<p>foo<strong>bold</strong></p><p><em>itelic</em>bar</p>');
@@ -659,6 +669,13 @@ describe('models.Nodes class', () => {
     const elemId = elem.id;
     elem.remove();
     expect(elem.id).to.equal(elemId);
+  });
+
+  it('method: splitText', () => {
+    const node = new Nodes(document.createTextNode('foobar'));
+    const newNode = node.splitText(3);
+    expect(node.get(0).nodeValue).to.equal('foo');
+    expect(newNode.get(0).nodeValue).to.equal('bar');
   });
 
 });
