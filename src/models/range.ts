@@ -141,6 +141,34 @@ export class Range {
     return this;
   }
 
+  // Reduces the boundary of the range.
+  // <div>[<p><strong>foo</strong></p>]</div>
+  // to
+  // <div><p><strong>[foo]</strong></p></div>
+  public reduce() {
+    const isCollapsed = this.isCollapsed;
+    let child;
+    while (
+      this.startNode.isElement &&
+      (child = this.startNode.children()[this.startOffset]) &&
+      child.isElement && !child.isVoid
+    ) {
+      this.setStart(child, 0);
+    }
+    if (isCollapsed) {
+      return this.collapseToStart();
+    }
+    while (
+      this.endNode.isElement &&
+      this.endOffset > 0 &&
+      (child = this.endNode.children()[this.endOffset - 1]) &&
+      child.isElement && !child.isVoid
+    ) {
+      this.setEnd(child, this.endNode.children().length);
+    }
+    return this;
+  }
+
   // Inserts the specified nodes to the start of the range.
   public insertNode(nodes: Nodes): this {
     nodes.each(node => {

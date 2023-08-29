@@ -61,6 +61,11 @@ describe('models.Nodes class', () => {
     expect(container.find('strong').isMark).to.equal(true);
   });
 
+  it('property: isVoid', () => {
+    const container = query('<div contenteditable="true"><strong>foo</strong>bar<br /></div>');
+    expect(container.find('br').isVoid).to.equal(true);
+  });
+
   it('property: isContainer', () => {
     const container = query('<div contenteditable="true"><strong>foo</strong>bar</div>');
     expect(container.isContainer).to.equal(true);
@@ -231,6 +236,15 @@ describe('models.Nodes class', () => {
     expect(node.find('strong').next().index()).to.equal(2);
     expect(node.find('em').index()).to.equal(3);
     expect(node.find('em').next().index()).to.equal(4);
+  });
+
+  it('method: children', () => {
+    const node = new Nodes(element);
+    node.html('<p>foo<strong>bold</strong></p>');
+    const childList = node.find('p').children();
+    expect(childList.length).to.equal(2);
+    expect(childList[0].isText).to.equal(true);
+    expect(childList[1].html()).to.equal('bold');
   });
 
   it('method: getWalker', () => {

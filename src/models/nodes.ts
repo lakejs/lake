@@ -8,6 +8,8 @@ import { debug } from '../utils/debug';
 
 const blockTagNames = 'h1,h2,h3,h4,h5,h6,div,p,blockquote,ul,ol';
 const markTagNames = 'strong,em,span,sub,sup,code,a';
+// https://developer.mozilla.org/en-US/docs/Glossary/Void_element
+const voidTagNames = 'area,base,br,col,embed,hr,img,input,link,meta,param,source,track,wbr';
 
 type EachCallback = (element: NativeNode, index: number) => boolean | void;
 type EachElementCallback = (element: NativeElement, index: number) => boolean | void;
@@ -90,6 +92,14 @@ export class Nodes {
       return false;
     }
     return inString(markTagNames, this.name);
+  }
+
+  // Returns a boolean value indicating whether the node is a void element.
+  public get isVoid(): boolean {
+    if (this.length === 0) {
+      return false;
+    }
+    return inString(voidTagNames, this.name);
   }
 
   // Returns a boolean value indicating whether the element is a root element of contenteditable area.
@@ -270,6 +280,17 @@ export class Nodes {
       sibling = sibling.previousSibling;
     }
     return i;
+  }
+
+  // Returns a list of child nodes of the first element.
+  public children(): Nodes[] {
+    const childList: Nodes[] = [];
+    let child = this.first();
+    while (child.length > 0) {
+      childList.push(child);
+      child = child.next();
+    }
+    return childList;
   }
 
   // Returns a node generator that iterates over the descendants of the first element.
