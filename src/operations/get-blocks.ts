@@ -15,7 +15,8 @@ export function getBlocks(range: Range): Nodes[] {
     if (child.isBlock && child.isTopEditable &&
       // the range doesn't end at the start of a block
       clonedRange.comparePoint(child, 0) !== 0 &&
-      range.intersectsNode(child)) {
+      range.intersectsNode(child)
+    ) {
       blocks.push(child);
     }
   }

@@ -273,6 +273,24 @@ describe('models.Range class', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
+  it('reduce method: empty tag', () => {
+    container.html('<div><p><em><strong></strong></em></p></div>');
+    const range = new Range();
+    range.selectNode(container.find('p'));
+    range.collapseToStart();
+    expect(range.startNode.name).to.equal('div');
+    expect(range.endNode.name).to.equal('div');
+    expect(range.startOffset).to.equal(0);
+    expect(range.endOffset).to.equal(0);
+    expect(range.isCollapsed).to.equal(true);
+    range.reduce();
+    expect(range.startNode.name).to.equal('strong');
+    expect(range.endNode.name).to.equal('strong');
+    expect(range.startOffset).to.equal(0);
+    expect(range.endOffset).to.equal(0);
+    expect(range.isCollapsed).to.equal(true);
+  });
+
   it('insertNode method: insert an container', () => {
     container.html('<strong>foo</strong>bar');
     const range = new Range();
