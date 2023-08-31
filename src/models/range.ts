@@ -57,18 +57,27 @@ export class Range {
 
   // Returns -1, 0, or 1 depending on whether the beginning of the specified node is before, the same as, or after the range.
   public compareBeforeNode(node: Nodes): number {
-    const targetRange = document.createRange();
-    targetRange.setStartBefore(node.get());
-    targetRange.collapse(true);
-    return this.range.comparePoint(targetRange.startContainer, targetRange.startOffset);
+    const targetRange = new Range();
+    if (node.isText) {
+      targetRange.setStart(node, 0);
+    } else {
+      targetRange.setStartBefore(node);
+    }
+    targetRange.collapseToStart();
+    return this.comparePoint(targetRange.startNode, targetRange.startOffset);
   }
 
   // Returns -1, 0, or 1 depending on whether the end of the specified node is before, the same as, or after the range.
   public compareAfterNode(node: Nodes): number {
-    const targetRange = document.createRange();
-    targetRange.setEndAfter(node.get());
-    targetRange.collapse(false);
-    return this.range.comparePoint(targetRange.startContainer, targetRange.startOffset);
+    const targetRange = new Range();
+    if (node.isText) {
+      const nodeValue = node.get().nodeValue || '';
+      targetRange.setStart(node, nodeValue.length);
+    } else {
+      targetRange.setStartAfter(node);
+    }
+    targetRange.collapseToStart();
+    return this.comparePoint(targetRange.startNode, targetRange.startOffset);
   }
 
   // Indicates whether a specified node is part of the range or intersects the range.
@@ -182,7 +191,7 @@ export class Range {
   // Prints information of the range.
   public debug(): void {
     debug('--- range information ---');
-    debug(`start node (${this.startNode.id}):`, this.startNode.get(0), ', offset:', this.startOffset);
-    debug(`end node (${this.endNode.id}):`, this.endNode.get(0), ', offset:', this.endOffset);
+    debug('start node:', this.startNode.toString(), ', offset:', this.startOffset);
+    debug('end node:', this.endNode.toString(), ', offset:', this.endOffset);
   }
 }

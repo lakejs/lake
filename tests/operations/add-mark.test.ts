@@ -3,7 +3,7 @@ import { addMark } from '../../src/operations';
 
 describe('operations.addMark()', () => {
 
-  it('to add mark to the position of the cursor', () => {
+  it('collapsed range: adding a mark', () => {
     const content = `
     <p>foo<focus />bar</p>
     `;
@@ -19,7 +19,24 @@ describe('operations.addMark()', () => {
     );
   });
 
-  it('the mark already exists', () => {
+  it('expanded range: adding a mark', () => {
+    const content = `
+    <p>foo<anchor />bold<focus />bar</p>
+    `;
+    const output = `
+    <p>foo<anchor /><strong>bold</strong><focus />bar</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        addMark(range, '<strong />');
+      },
+    );
+  });
+
+
+  it('collapsed range: the mark already exists', () => {
     const content = `
     <p><strong>foo<focus />bar</strong></p>
     `;
@@ -35,7 +52,23 @@ describe('operations.addMark()', () => {
     );
   });
 
-  it('to add mark in other mark', () => {
+  it('expanded range: the mark already exists', () => {
+    const content = `
+    <p><strong>foo<anchor />bold<focus />bar</strong></p>
+    `;
+    const output = `
+    <p><strong>foo<anchor />bold<focus />bar</strong></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        addMark(range, '<strong />');
+      },
+    );
+  });
+
+  it('collapsed range: adding a mark in other mark', () => {
     const content = `
     <p><em>foo<focus />bar</em></p>
     `;
@@ -51,28 +84,12 @@ describe('operations.addMark()', () => {
     );
   });
 
-  it('to select ', () => {
+  it('expanded range: adding a mark in other mark', () => {
     const content = `
-    <p><strong>one<anchor />two<focus />three</strong></p>
+    <p><em>foo<anchor />bold<focus />bar</em></p>
     `;
     const output = `
-    <p><strong>one<strong><strong><em><anchor />two<focus /></em></strong><strong>three</strong></p>
-    `;
-    testOperation(
-      content,
-      output,
-      range => {
-        addMark(range, '<strong />');
-      },
-    );
-  });
-
-  it('the selection is a part of a text node', () => {
-    const content = `
-    <p><strong>one<anchor />two<focus />three</strong></p>
-    `;
-    const output = `
-    <p><strong>one<strong><strong><em><anchor />two<focus /></em></strong><strong>three</strong></p>
+    <p><em>foo</em><anchor /><strong><em>bold</em></strong><focus /><em>bar</em></p>
     `;
     testOperation(
       content,

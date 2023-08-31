@@ -19,6 +19,28 @@ function copyNestedMarks(mark: Nodes): Nodes | null {
   return newMark;
 }
 
+function getTargetNodes(range: Range): Nodes[] {
+  const stratRange = range.clone();
+  stratRange.collapseToStart();
+  const endRange = range.clone();
+  endRange.collapseToEnd();
+  const nodeList: Nodes[] = [];
+  for (const node of range.commonAncestor.getWalker()) {
+    const targetRange = document.createRange();
+    targetRange.setStartAfter(node.get());
+    targetRange.collapse(true);
+    if (endRange.compareBeforeNode(node) >= 0) {
+      break;
+    }
+    if (stratRange.compareAfterNode(node) > 0) {
+      if (node.isMark || node.isText) {
+        nodeList.push(node);
+      }
+    }
+  }
+  return nodeList;
+}
+
 export function addMark(range: Range, value: string): void {
   const targetNode = query(value);
   const tagName = targetNode.name;
@@ -41,23 +63,15 @@ export function addMark(range: Range, value: string): void {
     return;
   }
   splitMarks(range);
-  const stratRange = range.clone();
-  stratRange.collapseToStart();
-  const endRange = range.clone();
-  endRange.collapseToEnd();
-  for (const child of range.commonAncestor.getWalker()) {
-    if (endRange.compareBeforeNode(child) < 0) {
-      break;
+  const nodeList = getTargetNodes(range);
+  for (const node of nodeList) {
+    if (node.isMark) {
+      node.before(targetNode);
+      targetNode.append(node);
     }
-    if (stratRange.compareAfterNode(child) > 0) {
-      if (child.isMark) {
-        child.before(targetNode);
-        targetNode.append(child);
-      }
-      if (child.isText) {
-        child.before(targetNode);
-        targetNode.append(child);
-      }
+    if (node.isText) {
+      node.before(targetNode);
+      targetNode.append(node);
     }
   }
 }

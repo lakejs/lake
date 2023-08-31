@@ -79,6 +79,14 @@ describe('models.Range class', () => {
     expect(range.comparePoint(container, 0)).to.equal(-1);
     expect(range.comparePoint(container, 1)).to.equal(0);
     expect(range.comparePoint(container, 2)).to.equal(0);
+    const fooTextNode = new Nodes(document.createTextNode('foo'));
+    const barTextNode = new Nodes(document.createTextNode('bar'));
+    container.empty();
+    container.append(fooTextNode);
+    container.append(barTextNode);
+    range.setStartAfter(fooTextNode);
+    range.collapseToStart();
+    expect(range.comparePoint(fooTextNode, 3)).to.equal(-1);
   });
 
   it('method: compareBeforeNode', () => {
@@ -87,7 +95,7 @@ describe('models.Range class', () => {
     range.selectNode(container.find('strong'));
     range.collapseToEnd();
     expect(range.compareBeforeNode(container.find('strong'))).to.equal(-1);
-    expect(range.compareBeforeNode(container.find('strong').next())).to.equal(0);
+    expect(range.compareBeforeNode(container.find('strong').next())).to.equal(1);
     range.selectNodeContents(container.find('strong'));
     expect(range.compareBeforeNode(container.find('strong'))).to.equal(-1);
     expect(range.compareBeforeNode(container.find('strong').first())).to.equal(0);
@@ -108,6 +116,14 @@ describe('models.Range class', () => {
     range.selectNode(container.find('strong').next());
     range.collapseToEnd();
     expect(range.compareAfterNode(container.find('strong'))).to.equal(-1);
+    const fooTextNode = new Nodes(document.createTextNode('foo'));
+    const barTextNode = new Nodes(document.createTextNode('bar'));
+    container.empty();
+    container.append(fooTextNode);
+    container.append(barTextNode);
+    range.setStartAfter(fooTextNode);
+    range.collapseToStart();
+    expect(range.compareAfterNode(fooTextNode)).to.equal(-1);
   });
 
   it('method: intersectsNode', () => {

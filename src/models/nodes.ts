@@ -653,11 +653,15 @@ export class Nodes {
     return new Nodes(newNode);
   }
 
-  // Prints information of each node.
+  // Returns information of the first node.
+  public toString(): string {
+    const node = this.get(0);
+    const nodeValue = this.isText ? node.nodeValue : (node as NativeElement).outerHTML;
+    return `node (${node.lakeId}): ${nodeValue}`;
+  }
+
+  // Prints information of the first node.
   public debug(): void {
-    debug('--- nodes information ---');
-    this.each(node => {
-      debug(`node (${node.lakeId}): `, node);
-    });
+    debug(this.toString());
   }
 }

@@ -72,7 +72,7 @@
     * add-mark.ts
     * clear-mark.ts
     * toggle-mark.ts
-    * split-mark.ts
+    * split-marks.ts
     * add-link.ts
     * clear-link.ts
     * insert-component.ts
