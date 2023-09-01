@@ -17,6 +17,7 @@ import './utils/to-node-list.test';
 
 // Nodes Utils
 import './utils/query.test';
+import './utils/split-nodes.test';
 
 // Models
 import './models/nodes.test';

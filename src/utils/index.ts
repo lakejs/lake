@@ -14,5 +14,6 @@ export * from './get-css';
 export * from './to-node-list';
 // Nodes
 export * from './query';
+export * from './split-nodes';
 // Other
 export * from './debug';

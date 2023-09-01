@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { query } from '../../src/utils';
 
 describe('utils.query()', () => {
+
   it('native element', () => {
     const element = document.createElement('div');
     expect(query(element).get(0)).to.equal(element);
@@ -28,4 +29,5 @@ describe('utils.query()', () => {
     expect(query('body .class-p').eq(1).html()).to.equal('bar');
     nodes.remove();
   });
+
 });

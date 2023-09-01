@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { getCss } from '../../src/utils';
 
 describe('utils.getCss()', () => {
+
   it('to get computed CSS value', () => {
     const element = document.createElement('div');
     element.style.color = '#ff0000';
@@ -12,4 +13,5 @@ describe('utils.getCss()', () => {
     expect(getCss(element, 'background-color')).to.equal('#000000');
     document.body.removeChild(element);
   });
+
 });

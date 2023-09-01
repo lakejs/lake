@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { getDocument } from '../../src/utils';
 
 describe('utils.getDocument()', () => {
+
   it('node is null', () => {
     expect(getDocument(null)).to.equal(document);
   });
@@ -28,4 +29,5 @@ describe('utils.getDocument()', () => {
   it('invalid node', () => {
     expect(getDocument('one')).to.equal(document);
   });
+
 });

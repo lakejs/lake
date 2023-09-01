@@ -3,6 +3,7 @@ import { toNodeList } from '../../src/utils';
 import { NativeElement } from '../../src/types/native';
 
 describe('utils.toNodeList()', () => {
+
   it('a node', () => {
     const element = document.createElement('div');
     expect(toNodeList(element)[0]).to.equal(element);
@@ -32,4 +33,5 @@ describe('utils.toNodeList()', () => {
     expect((toNodeList('#id-p')[0] as NativeElement).outerHTML).to.equal('<p id="id-p">foo</p>');
     document.body.removeChild(element);
   });
+
 });

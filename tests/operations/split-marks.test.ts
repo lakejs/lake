@@ -24,7 +24,7 @@ describe('operations.splitMarks()', () => {
     <p><strong><focus />foo</strong></p>
     `;
     const output = `
-    <p><strong></strong><focus /><strong>foo</strong></p>
+    <p><focus /><strong>foo</strong></p>
     `;
     testOperation(
       content,
@@ -40,7 +40,7 @@ describe('operations.splitMarks()', () => {
     <p><strong>foo<focus /></strong></p>
     `;
     const output = `
-    <p><strong>foo</strong><focus /><strong></strong></p>
+    <p><strong>foo</strong><focus /></p>
     `;
     testOperation(
       content,

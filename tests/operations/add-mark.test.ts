@@ -100,4 +100,20 @@ describe('operations.addMark()', () => {
     );
   });
 
+  it('expanded range: start position within other mark', () => {
+    const content = `
+    <p><em><anchor />one</em>two<focus />three</p>
+    `;
+    const output = `
+    <p><anchor /><strong><em>one</em></strong><strong>two</strong><focus />three</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        addMark(range, '<strong />');
+      },
+    );
+  });
+
 });

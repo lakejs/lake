@@ -1,73 +1,77 @@
+import { splitNodes } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
-// Splits elements upwards according to the position until a limiting element is encountered.
-// Case 1:
-// <p><strong><em>foo<focus />bar</em></strong></p>
-// to
-// Step 1: <p><strong><em>foo</em><focus /><em>bar</em></strong></p>
-// Step 2: <p><strong><em>foo</em></strong><focus /><strong><em>bar</em></strong></p>
-//
-// Case 2:
-// <p><strong>beginning<em>one<focus />two</em>end</strong></p>
-// to
-// Step 1: <p><strong>beginning<em>one</em><focus /><em>two</em>end</strong></p>
-// Step 2: <p><strong>beginning<em>one</em></strong><focus /><strong><em>two</em>end</strong></p>
-function splitElements(node: Nodes, offset: number, limit: Nodes): Nodes | null {
-  const range = new Range();
-  let parent;
-  if (node.isText) {
-    parent = node.parent();
-    node.splitText(offset);
-    range.setStartAfter(node);
-  } else {
-    range.setStart(node, offset);
-    parent = node;
+// Returns a boolean value indicating whether the node is an empty mark.
+function isEmptyMark(node: Nodes): boolean {
+  return node.isMark && node.first().length === 0;
+}
+
+// Removes empty marks that contain no content.
+function removeEmptyMarks(node: Nodes): void {
+  if (isEmptyMark(node)) {
+    node.remove();
+    return;
   }
-  range.collapseToStart();
-  if (parent.get(0) === limit.get(0)) {
-    return null;
-  }
-  const newParent = parent.clone();
-  let child = parent.first();
-  while (child.length > 0) {
-    if (range.compareBeforeNode(child) >= 0) {
-      break;
+  for (const child of node.getWalker()) {
+    if (isEmptyMark(node)) {
+      child.remove();
     }
-    const next = child.next();
-    newParent.append(child);
-    child = next;
   }
-  parent.before(newParent);
-  if (parent.parent().length > 0 && parent.parent().get(0) !== limit.get(0)) {
-    return splitElements(parent.parent(), parent.index(), limit);
+}
+
+// Splits text nodes or mark nodes at a specified position.
+function splitMarksAtPoint(node: Nodes, offset: number): { left: Nodes | null, right: Nodes | null } {
+  let left = null;
+  let right = null;
+  const block = node.closestBlock();
+  const parentNodes = splitNodes(node, offset, block);
+  if (parentNodes) {
+    removeEmptyMarks(parentNodes.left);
+    removeEmptyMarks(parentNodes.right);
+    if (!isEmptyMark(parentNodes.left)) {
+      left = parentNodes.left;
+    }
+    if (!isEmptyMark(parentNodes.right)) {
+      right = parentNodes.right;
+    }
   }
-  return newParent;
+  return {
+    left,
+    right,
+  };
 }
 
 // Splits text nodes or mark nodes.
 // <p><strong>one<anchor />two<focus />three</strong></p>
 // to
 // <p><strong>one</strong><strong><anchor />two<focus /></strong><strong>three</strong></p>
-export function splitMarks(range: Range): Nodes | null {
+export function splitMarks(range: Range): { left: Nodes | null, right: Nodes | null } {
   if (range.isCollapsed) {
-    const block = range.startNode.closestBlock();
-    const newParent = splitElements(range.startNode, range.startOffset, block);
-    if (newParent) {
-      range.setStartAfter(newParent);
+    const parentNodes = splitMarksAtPoint(range.startNode, range.startOffset);
+    if (parentNodes.left) {
+      range.setStartAfter(parentNodes.left);
+      range.collapseToStart();
+    } else if (parentNodes.right) {
+      range.setStartBefore(parentNodes.right);
       range.collapseToStart();
     }
-    return newParent;
+    return parentNodes;
   }
-  const startBlock = range.startNode.closestBlock();
-  const startNewParent = splitElements(range.startNode, range.startOffset, startBlock);
-  if (startNewParent) {
-    range.setStartAfter(startNewParent);
+  const startParentNodes = splitMarksAtPoint(range.startNode, range.startOffset);
+  if (startParentNodes.left) {
+    range.setStartAfter(startParentNodes.left);
+  } else if (startParentNodes.right) {
+    range.setStartBefore(startParentNodes.right);
   }
-  const endBlock = range.endNode.closestBlock();
-  const endNewParent = splitElements(range.endNode, range.endOffset, endBlock);
-  if (endNewParent) {
-    range.setEndAfter(endNewParent);
+  const endParentNodes = splitMarksAtPoint(range.endNode, range.endOffset);
+  if (endParentNodes.left) {
+    range.setEndAfter(endParentNodes.left);
+  } else if (endParentNodes.right) {
+    range.setEndBefore(endParentNodes.right);
   }
-  return startNewParent;
+  return {
+    left: startParentNodes.left,
+    right: endParentNodes.right,
+  };
 }

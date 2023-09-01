@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { getWindow } from '../../src/utils';
 
 describe('utils.getWindow()', () => {
+
   it('node is null', () => {
     expect(getWindow(null)).to.equal(window);
   });
@@ -28,4 +29,5 @@ describe('utils.getWindow()', () => {
   it('invalid node', () => {
     expect(getWindow('one')).to.equal(window);
   });
+
 });
