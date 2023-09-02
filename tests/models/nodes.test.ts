@@ -511,6 +511,12 @@ describe('models.Nodes class', () => {
     expect(nodes.eq(1).html()).to.equal('<p>foo</p>');
   });
 
+  it('method: text', () => {
+    const node = new Nodes([element, elementTwo]);
+    node.html('<p>foo<br />bar</p>');
+    expect(node.text()).to.equal('foo\nbar');
+  });
+
   it('method: empty', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.html('<p>foo</p>');

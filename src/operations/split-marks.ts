@@ -4,7 +4,7 @@ import { Range } from '../models/range';
 
 // Returns a boolean value indicating whether the node is an empty mark.
 function isEmptyMark(node: Nodes): boolean {
-  return node.isMark && node.first().length === 0;
+  return node.isMark && node.text() === '';
 }
 
 // Removes empty marks that contain no content.
@@ -14,7 +14,7 @@ function removeEmptyMarks(node: Nodes): void {
     return;
   }
   for (const child of node.getWalker()) {
-    if (isEmptyMark(node)) {
+    if (isEmptyMark(child)) {
       child.remove();
     }
   }

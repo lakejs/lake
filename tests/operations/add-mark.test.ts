@@ -116,4 +116,20 @@ describe('operations.addMark()', () => {
     );
   });
 
+  it('expanded range: end position within other mark', () => {
+    const content = `
+    <p>one<anchor /><em>two<focus />three</em></p>
+    `;
+    const output = `
+    <p>one<anchor /><strong><em>two</em></strong><focus /><em>three</em></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        addMark(range, '<strong />');
+      },
+    );
+  });
+
 });

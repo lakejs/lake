@@ -24,10 +24,11 @@ import './models/nodes.test';
 import './models/range.test';
 
 // Operations
-import './operations/get-blocks.test';
 import './operations/insert-bookmark.test';
 import './operations/to-bookmark.test';
 import './operations/insert-contents.test';
+import './operations/get-blocks.test';
 import './operations/set-blocks.test';
 import './operations/split-marks.test';
 import './operations/add-mark.test';
+import './operations/remove-mark.test';

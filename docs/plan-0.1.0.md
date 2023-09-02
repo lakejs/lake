@@ -32,6 +32,8 @@
 * [ ] font size
 * [ ] text color
 * [ ] highlight
+* [ ] format painter
+* [ ] remove format
 * [ ] examples (Styles, Toolbar, Icons, etc.)
 * [ ] documentation
 * [ ] website
@@ -70,11 +72,11 @@
     * set-blocks.ts
     * split-block.ts
     * add-mark.ts
-    * clear-mark.ts
+    * remove-mark.ts
     * toggle-mark.ts
     * split-marks.ts
     * add-link.ts
-    * clear-link.ts
+    * remove-link.ts
     * insert-component.ts
     * update-component.ts
     * delete-component.ts

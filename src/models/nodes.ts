@@ -493,6 +493,12 @@ export class Nodes {
     });
   }
 
+  public text(): string {
+    const element = this.get(0) as NativeHTMLElement;
+    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText
+    return element.innerText;
+  }
+
   // Removes all child nodes of each element.
   public empty(): this {
     this.html('');
