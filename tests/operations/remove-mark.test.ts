@@ -131,7 +131,7 @@ describe('operations.removeMark()', () => {
     );
   });
 
-  it('collapsed range: removing a mark inside the other mark', () => {
+  it('collapsed range: removing a mark in the other mark', () => {
     const content = `
     <p><em>foo</em><strong><em><focus /></em></strong><em>bar</em></p>
     `;
@@ -147,7 +147,7 @@ describe('operations.removeMark()', () => {
     );
   });
 
-  it('expanded range: removing a mark inside the other mark', () => {
+  it('expanded range: removing a mark in the other mark', () => {
     const content = `
     <p><em>foo</em><anchor /><strong><em>bold</em></strong><focus /><em>bar</em></p>
     `;

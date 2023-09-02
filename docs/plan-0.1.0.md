@@ -67,6 +67,7 @@
     * text-parser.ts
     * index.ts
   * operations
+    * get-state.ts
     * insert-contents.ts
     * delete-contents.ts
     * set-blocks.ts

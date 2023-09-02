@@ -68,7 +68,7 @@ describe('operations.addMark()', () => {
     );
   });
 
-  it('collapsed range: adding a mark inside the other mark', () => {
+  it('collapsed range: adding a mark in the other mark', () => {
     const content = `
     <p><em>foo<focus />bar</em></p>
     `;
@@ -84,7 +84,7 @@ describe('operations.addMark()', () => {
     );
   });
 
-  it('expanded range: adding a mark inside the other mark', () => {
+  it('expanded range: adding a mark in the other mark', () => {
     const content = `
     <p><em>foo<anchor />bold<focus />bar</em></p>
     `;
@@ -100,7 +100,7 @@ describe('operations.addMark()', () => {
     );
   });
 
-  it('expanded range: start position inside the other mark', () => {
+  it('expanded range: start position in the other mark', () => {
     const content = `
     <p><em><anchor />one</em>two<focus />three</p>
     `;
@@ -116,7 +116,7 @@ describe('operations.addMark()', () => {
     );
   });
 
-  it('expanded range: end position inside the other mark', () => {
+  it('expanded range: end position in the other mark', () => {
     const content = `
     <p>one<anchor /><em>two<focus />three</em></p>
     `;

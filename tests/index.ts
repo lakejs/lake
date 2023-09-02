@@ -26,6 +26,7 @@ import './models/range.test';
 // Operations
 import './operations/insert-bookmark.test';
 import './operations/to-bookmark.test';
+import './operations/get-tags.test';
 import './operations/insert-contents.test';
 import './operations/get-blocks.test';
 import './operations/set-blocks.test';

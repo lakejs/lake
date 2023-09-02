@@ -2,6 +2,7 @@
 export * from './insert-bookmark';
 export * from './to-bookmark';
 // all node
+export * from './get-tags';
 export * from './insert-contents';
 // block
 export * from './get-blocks';

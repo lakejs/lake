@@ -17,7 +17,7 @@ describe('operations.getMarks()', () => {
     expect(marks[2].text()).to.equal('bold');
   });
 
-  it('inside the other mark', () => {
+  it('in the other mark', () => {
     const content = `
     <p><em><anchor />foo<strong>bold</strong><focus /></em></p>
     `;
