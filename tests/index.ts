@@ -29,6 +29,7 @@ import './operations/to-bookmark.test';
 import './operations/insert-contents.test';
 import './operations/get-blocks.test';
 import './operations/set-blocks.test';
+import './operations/get-marks.test';
 import './operations/split-marks.test';
 import './operations/add-mark.test';
 import './operations/remove-mark.test';

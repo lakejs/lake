@@ -494,7 +494,11 @@ export class Nodes {
   }
 
   public text(): string {
-    const element = this.get(0) as NativeHTMLElement;
+    const node = this.get(0);
+    if (this.isText) {
+      return node.nodeValue || '';
+    }
+    const element = node as NativeHTMLElement;
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText
     return element.innerText;
   }

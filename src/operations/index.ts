@@ -7,6 +7,7 @@ export * from './insert-contents';
 export * from './get-blocks';
 export * from './set-blocks';
 // mark
+export * from './get-marks';
 export * from './split-marks';
 export * from './add-mark';
 export * from './remove-mark';

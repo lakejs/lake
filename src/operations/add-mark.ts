@@ -2,6 +2,7 @@ import { query } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { splitMarks } from './split-marks';
+import { getMarks } from './get-marks';
 
 function copyNestedMarks(mark: Nodes): Nodes | null {
   if (!mark.isMark) {
@@ -17,28 +18,6 @@ function copyNestedMarks(mark: Nodes): Nodes | null {
     child = child.first();
   }
   return newMark;
-}
-
-function getTargetNodes(range: Range): Nodes[] {
-  const stratRange = range.clone();
-  stratRange.collapseToStart();
-  const endRange = range.clone();
-  endRange.collapseToEnd();
-  const nodeList: Nodes[] = [];
-  for (const node of range.commonAncestor.getWalker()) {
-    const targetRange = document.createRange();
-    targetRange.setStartAfter(node.get());
-    targetRange.collapse(true);
-    if (endRange.compareBeforeNode(node) >= 0) {
-      break;
-    }
-    if (stratRange.compareAfterNode(node) > 0) {
-      if (node.isMark || node.isText) {
-        nodeList.push(node);
-      }
-    }
-  }
-  return nodeList;
 }
 
 export function addMark(range: Range, value: string): void {
@@ -63,7 +42,7 @@ export function addMark(range: Range, value: string): void {
     return;
   }
   splitMarks(range);
-  const nodeList = getTargetNodes(range);
+  const nodeList = getMarks(range);
   for (const node of nodeList) {
     const newTargetNode = targetNode.clone(true);
     if (node.isMark) {

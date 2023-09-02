@@ -515,6 +515,7 @@ describe('models.Nodes class', () => {
     const node = new Nodes([element, elementTwo]);
     node.html('<p>foo<br />bar</p>');
     expect(node.text()).to.equal('foo\nbar');
+    expect(node.find('p').first().text()).to.equal('foo');
   });
 
   it('method: empty', () => {

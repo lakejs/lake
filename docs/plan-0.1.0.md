@@ -71,6 +71,7 @@
     * delete-contents.ts
     * set-blocks.ts
     * split-block.ts
+    * get-marks.ts
     * add-mark.ts
     * remove-mark.ts
     * toggle-mark.ts
