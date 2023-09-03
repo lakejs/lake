@@ -19,7 +19,6 @@ editor.create();
 
 query('.lake-toolbar-icon').on('click', (e: Event) => {
   e.preventDefault();
-  e.stopPropagation();
   const type = query(e.target as Element).attr('data-type');
   if (heading.indexOf(type) >= 0) {
     editor.commands.run('heading', type);

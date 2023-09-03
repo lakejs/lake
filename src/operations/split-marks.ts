@@ -25,15 +25,15 @@ function splitMarksAtPoint(node: Nodes, offset: number): { left: Nodes | null, r
   let left = null;
   let right = null;
   const block = node.closestBlock();
-  const parentNodes = splitNodes(node, offset, block);
-  if (parentNodes) {
-    removeEmptyMarks(parentNodes.left);
-    removeEmptyMarks(parentNodes.right);
-    if (!isEmptyMark(parentNodes.left)) {
-      left = parentNodes.left;
+  const blockMap = splitNodes(node, offset, block);
+  if (blockMap) {
+    removeEmptyMarks(blockMap.left);
+    removeEmptyMarks(blockMap.right);
+    if (!isEmptyMark(blockMap.left)) {
+      left = blockMap.left;
     }
-    if (!isEmptyMark(parentNodes.right)) {
-      right = parentNodes.right;
+    if (!isEmptyMark(blockMap.right)) {
+      right = blockMap.right;
     }
   }
   return {
@@ -46,32 +46,37 @@ function splitMarksAtPoint(node: Nodes, offset: number): { left: Nodes | null, r
 // <p><strong>one<anchor />two<focus />three</strong></p>
 // to
 // <p><strong>one</strong><strong><anchor />two<focus /></strong><strong>three</strong></p>
-export function splitMarks(range: Range): { left: Nodes | null, right: Nodes | null } {
+export function splitMarks(range: Range):{ left: Nodes | null, center: Nodes | null, right: Nodes | null } {
   if (range.isCollapsed) {
-    const parentNodes = splitMarksAtPoint(range.startNode, range.startOffset);
-    if (parentNodes.left) {
-      range.setStartAfter(parentNodes.left);
+    const blockMap = splitMarksAtPoint(range.startNode, range.startOffset);
+    if (blockMap.left) {
+      range.setStartAfter(blockMap.left);
       range.collapseToStart();
-    } else if (parentNodes.right) {
-      range.setStartBefore(parentNodes.right);
+    } else if (blockMap.right) {
+      range.setStartBefore(blockMap.right);
       range.collapseToStart();
     }
-    return parentNodes;
+    return {
+      left: blockMap.left,
+      center: null,
+      right: blockMap.right,
+    };
   }
-  const startParentNodes = splitMarksAtPoint(range.startNode, range.startOffset);
-  if (startParentNodes.left) {
-    range.setStartAfter(startParentNodes.left);
-  } else if (startParentNodes.right) {
-    range.setStartBefore(startParentNodes.right);
+  const startBlockMap = splitMarksAtPoint(range.startNode, range.startOffset);
+  if (startBlockMap.left) {
+    range.setStartAfter(startBlockMap.left);
+  } else if (startBlockMap.right) {
+    range.setStartBefore(startBlockMap.right);
   }
-  const endParentNodes = splitMarksAtPoint(range.endNode, range.endOffset);
-  if (endParentNodes.left) {
-    range.setEndAfter(endParentNodes.left);
-  } else if (endParentNodes.right) {
-    range.setEndBefore(endParentNodes.right);
+  const endBlockMap = splitMarksAtPoint(range.endNode, range.endOffset);
+  if (endBlockMap.left) {
+    range.setEndAfter(endBlockMap.left);
+  } else if (endBlockMap.right) {
+    range.setEndBefore(endBlockMap.right);
   }
   return {
-    left: startParentNodes.left,
-    right: endParentNodes.right,
+    left: startBlockMap.left,
+    center: endBlockMap.left,
+    right: endBlockMap.right,
   };
 }

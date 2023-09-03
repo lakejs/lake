@@ -75,7 +75,6 @@
     * get-marks.ts
     * add-mark.ts
     * remove-mark.ts
-    * toggle-mark.ts
     * split-marks.ts
     * add-link.ts
     * remove-link.ts

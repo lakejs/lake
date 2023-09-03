@@ -11,10 +11,10 @@ describe('operations.getTags()', () => {
     const { container, range } = createContainer(content);
     const tags = getTags(range);
     container.remove();
-    expect(tags.em).to.deep.equal({});
-    expect(tags.strong).to.deep.equal({});
-    expect(tags.p).to.deep.equal({});
-    expect(tags.span).to.equal(undefined);
+    expect(tags.length).to.equal(3);
+    expect(tags[0].name).to.equal('em');
+    expect(tags[1].name).to.equal('strong');
+    expect(tags[2].name).to.equal('p');
   });
 
   it('expanded range', () => {
@@ -24,10 +24,10 @@ describe('operations.getTags()', () => {
     const { container, range } = createContainer(content);
     const tags = getTags(range);
     container.remove();
-    expect(tags.em).to.deep.equal({});
-    expect(tags.strong).to.deep.equal({});
-    expect(tags.p).to.deep.equal({});
-    expect(tags.span).to.equal(undefined);
+    expect(tags.length).to.equal(3);
+    expect(tags[0].name).to.equal('em');
+    expect(tags[1].name).to.equal('strong');
+    expect(tags[2].name).to.equal('p');
   });
 
   it('getting attributes', () => {
@@ -37,10 +37,11 @@ describe('operations.getTags()', () => {
     const { container, range } = createContainer(content);
     const tags = getTags(range);
     container.remove();
-    expect(tags.em).to.deep.equal({});
-    expect(tags.strong).to.deep.equal(undefined);
-    expect(tags.p).to.deep.equal({});
-    expect(tags.span).to.deep.equal({style: 'color: red;', class: 'foo'});
+    expect(tags.length).to.equal(3);
+    expect(tags[0].name).to.equal('em');
+    expect(tags[1].name).to.equal('span');
+    expect(tags[1].attributes).to.deep.equal({style: 'color: red;', class: 'foo'});
+    expect(tags[2].name).to.deep.equal('p');
   });
 
 });

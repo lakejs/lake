@@ -173,7 +173,7 @@ export class Range {
       (child = this.endNode.children()[this.endOffset - 1]) &&
       child.isElement && !child.isVoid
     ) {
-      this.setEnd(child, this.endNode.children().length);
+      this.setEnd(child, child.children().length);
     }
     return this;
   }

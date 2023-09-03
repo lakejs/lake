@@ -3,7 +3,11 @@ import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
 type AttributeMapType = {[key: string]: string};
-type AppliedTagMapType = {[key: string]: AttributeMapType};
+
+type AppliedTagMapType = {
+  name: string,
+  attributes: AttributeMapType,
+};
 
 // Returns the attributes of the element as an key-value object.
 function getAttributes(node: Nodes): AttributeMapType {
@@ -18,18 +22,21 @@ function getAttributes(node: Nodes): AttributeMapType {
 }
 
 // Returns the applied tags of the current selection.
-export function getTags(range: Range): AppliedTagMapType {
-  let node = range.startNode;
-  if (node.isText) {
-    node = node.parent();
+export function getTags(range: Range): AppliedTagMapType[] {
+  let parentNode = range.startNode;
+  if (parentNode.isText) {
+    parentNode = parentNode.parent();
   }
-  const appliedTags: AppliedTagMapType = {};
-  while (node.length > 0) {
-    if (!node.isEditable) {
+  const appliedTags: AppliedTagMapType[] = [];
+  while (parentNode.length > 0) {
+    if (!parentNode.isEditable) {
       break;
     }
-    appliedTags[node.name] = getAttributes(node);
-    node = node.parent();
+    appliedTags.push({
+      name: parentNode.name,
+      attributes: getAttributes(parentNode),
+    });
+    parentNode = parentNode.parent();
   }
   return appliedTags;
 }

@@ -12,10 +12,13 @@
       }
       .lake-editor,
       .lake-editor-container {
-        border: 1px solid #cccccc;
+        border: 1px solid #ccc;
         width: 1024px;
         height: 512px;
         padding: 10px;
+      }
+      .lake-editor-container:focus {
+        outline: none;
       }
       .lake-toolbar {
         width: 1024px;
@@ -27,10 +30,11 @@
       }
       .lake-toolbar-icon {
         display: inline-block;
-        border: 1px solid #dddddd;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background: #fff;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 14px;
-        border-radius: 5px;
         padding: 5px 10px;
         margin-right: 5px;
         cursor: pointer;
@@ -41,48 +45,48 @@
     <h1>Lake Demo</h1>
     <div class="lake-toolbar">
       <div class="lake-toolbar-group">
-        <span class="lake-toolbar-icon" data-type="undo">Undo</span>
-        <span class="lake-toolbar-icon" data-type="redo">Redo</span>
-        <span class="lake-toolbar-icon" data-type="h1">H1</span>
-        <span class="lake-toolbar-icon" data-type="h2">H2</span>
-        <span class="lake-toolbar-icon" data-type="h3">H3</span>
-        <span class="lake-toolbar-icon" data-type="h4">H4</span>
-        <span class="lake-toolbar-icon" data-type="h5">H5</span>
-        <span class="lake-toolbar-icon" data-type="h6">H6</span>
-        <span class="lake-toolbar-icon" data-type="p">Paragraph</span>
-        <span class="lake-toolbar-icon" data-type="blockquote">Blockquote</span>
-        <span class="lake-toolbar-icon" data-type="numberedList">Numbered list</span>
-        <span class="lake-toolbar-icon" data-type="bulletedList">Bulleted list</span>
-        <span class="lake-toolbar-icon" data-type="checklist">Checklist</span>
-        <span class="lake-toolbar-icon" data-type="selectAll">Select All</span>
+        <button class="lake-toolbar-icon" data-type="undo">Undo</button>
+        <button class="lake-toolbar-icon" data-type="redo">Redo</button>
+        <button class="lake-toolbar-icon" data-type="h1">H1</button>
+        <button class="lake-toolbar-icon" data-type="h2">H2</button>
+        <button class="lake-toolbar-icon" data-type="h3">H3</button>
+        <button class="lake-toolbar-icon" data-type="h4">H4</button>
+        <button class="lake-toolbar-icon" data-type="h5">H5</button>
+        <button class="lake-toolbar-icon" data-type="h6">H6</button>
+        <button class="lake-toolbar-icon" data-type="p">Paragraph</button>
+        <button class="lake-toolbar-icon" data-type="blockquote">Blockquote</button>
+        <button class="lake-toolbar-icon" data-type="numberedList">Numbered list</button>
+        <button class="lake-toolbar-icon" data-type="bulletedList">Bulleted list</button>
+        <button class="lake-toolbar-icon" data-type="checklist">Checklist</button>
+        <button class="lake-toolbar-icon" data-type="selectAll">Select All</button>
       </div>
       <div class="lake-toolbar-group">
-        <span class="lake-toolbar-icon" data-type="image">Image</span>
-        <span class="lake-toolbar-icon" data-type="link">Link</span>
-        <span class="lake-toolbar-icon" data-type="horizontalLine">HR</span>
-        <span class="lake-toolbar-icon" data-type="table">Table</span>
-        <span class="lake-toolbar-icon" data-type="codeBlock">Code Block</span>
-        <span class="lake-toolbar-icon" data-type="alignLeft">Align left</span>
-        <span class="lake-toolbar-icon" data-type="alignCenter">Align center</span>
-        <span class="lake-toolbar-icon" data-type="alignRight">Align right</span>
-        <span class="lake-toolbar-icon" data-type="alignJustify">Align justify</span>
-        <span class="lake-toolbar-icon" data-type="increaseIndent">Increase indent</span>
-        <span class="lake-toolbar-icon" data-type="decreaseIndent">Decrease indent</span>
+        <button class="lake-toolbar-icon" data-type="image">Image</button>
+        <button class="lake-toolbar-icon" data-type="link">Link</button>
+        <button class="lake-toolbar-icon" data-type="horizontalLine">HR</button>
+        <button class="lake-toolbar-icon" data-type="table">Table</button>
+        <button class="lake-toolbar-icon" data-type="codeBlock">Code Block</button>
+        <button class="lake-toolbar-icon" data-type="alignLeft">Align left</button>
+        <button class="lake-toolbar-icon" data-type="alignCenter">Align center</button>
+        <button class="lake-toolbar-icon" data-type="alignRight">Align right</button>
+        <button class="lake-toolbar-icon" data-type="alignJustify">Align justify</button>
+        <button class="lake-toolbar-icon" data-type="increaseIndent">Increase indent</button>
+        <button class="lake-toolbar-icon" data-type="decreaseIndent">Decrease indent</button>
       </div>
       <div class="lake-toolbar-group">
-        <span class="lake-toolbar-icon" data-type="bold">B</span>
-        <span class="lake-toolbar-icon" data-type="itelic">I</span>
-        <span class="lake-toolbar-icon" data-type="underline">U</span>
-        <span class="lake-toolbar-icon" data-type="strikethrough">S</span>
-        <span class="lake-toolbar-icon" data-type="code">Code</span>
-        <span class="lake-toolbar-icon" data-type="superscript">Superscript</span>
-        <span class="lake-toolbar-icon" data-type="subscript">Subscript</span>
-        <span class="lake-toolbar-icon" data-type="fontFamily">Font family</span>
-        <span class="lake-toolbar-icon" data-type="fontSize">Font size</span>
-        <span class="lake-toolbar-icon" data-type="textColor">Text color</span>
-        <span class="lake-toolbar-icon" data-type="highlight">Highlight</span>
-        <span class="lake-toolbar-icon" data-type="formatPainter">Format painter</span>
-        <span class="lake-toolbar-icon" data-type="removeFormat">RemoveFormat</span>
+        <button class="lake-toolbar-icon" data-type="bold">B</button>
+        <button class="lake-toolbar-icon" data-type="itelic">I</button>
+        <button class="lake-toolbar-icon" data-type="underline">U</button>
+        <button class="lake-toolbar-icon" data-type="strikethrough">S</button>
+        <button class="lake-toolbar-icon" data-type="code">Code</button>
+        <button class="lake-toolbar-icon" data-type="superscript">Superscript</button>
+        <button class="lake-toolbar-icon" data-type="subscript">Subscript</button>
+        <button class="lake-toolbar-icon" data-type="fontFamily">Font family</button>
+        <button class="lake-toolbar-icon" data-type="fontSize">Font size</button>
+        <button class="lake-toolbar-icon" data-type="textColor">Text color</button>
+        <button class="lake-toolbar-icon" data-type="highlight">Highlight</button>
+        <button class="lake-toolbar-icon" data-type="formatPainter">Format painter</button>
+        <button class="lake-toolbar-icon" data-type="removeFormat">RemoveFormat</button>
       </div>
     </div>
     <div class="lake-editor">

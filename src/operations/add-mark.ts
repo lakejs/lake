@@ -28,9 +28,9 @@ export function addMark(range: Range, value: string): void {
     return;
   }
   if (range.isCollapsed) {
-    const parentNodes = splitMarks(range);
-    if (parentNodes.left) {
-      const newMark = copyNestedMarks(parentNodes.left);
+    const blockMap = splitMarks(range);
+    if (blockMap.left) {
+      const newMark = copyNestedMarks(blockMap.left);
       if (newMark) {
         targetNode.append(newMark);
       }
@@ -49,7 +49,8 @@ export function addMark(range: Range, value: string): void {
       node.before(newTargetNode);
       newTargetNode.append(node);
     }
-    if (node.isText && !node.parent().isMark) {
+    const parentNode = node.parent();
+    if (node.isText && !parentNode.isMark) {
       node.before(newTargetNode);
       newTargetNode.append(node);
     }
