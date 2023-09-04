@@ -1,6 +1,6 @@
 import EventEmitter from 'eventemitter3';
 import pkg from '../package.json';
-import { NativeElement } from './types/native';
+import { NativeNode } from './types/native';
 import * as utils from './utils';
 import * as models from './models';
 import * as operations from './operations';
@@ -11,7 +11,7 @@ import bold from './plugins/bold';
 const { query, forEach } = utils;
 const { Selection } = models;
 
-type TargetType = string | NativeElement;
+type TargetType = string | NativeNode;
 
 type OptionsType = {[key: string]: any};
 
@@ -45,7 +45,7 @@ export default class LakeCore {
 
   public plugins: models.Plugins;
 
-  constructor(target: string | NativeElement, options?: OptionsType) {
+  constructor(target: string | NativeNode, options?: OptionsType) {
     this.target = target;
     this.options = options || defaultOptions;
     this.container = query('<div />');
@@ -106,7 +106,16 @@ export default class LakeCore {
 
   // Sets the specified HTML string to the editor area.
   public setValue(value: string) {
-    this.container.html(utils.normalizeValue(value));
+    value = utils.normalizeValue(value);
+    this.container.html(value);
+  }
+
+  // Gets the contents from the editor.
+  public getValue() {
+    this.selection.insertBookmark();
+    const value = utils.denormalizeValue(this.container.html());
+    this.selection.updateByBookmark();
+    return value;
   }
 
   // Creates an editor area and set default value to it.
@@ -121,5 +130,10 @@ export default class LakeCore {
     this.select();
     this.plugins.runAll(this);
     this.event.emit('create');
+  }
+
+  // Removes the editor.
+  public remove(): void {
+    this.container.remove();
   }
 }

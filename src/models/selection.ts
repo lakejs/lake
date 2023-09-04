@@ -1,7 +1,7 @@
 import { NativeSelection } from '../types/native';
 import { Nodes } from './nodes';
 import { Range } from './range';
-import { toBookmark } from '../operations';
+import { insertBookmark, toBookmark } from '../operations';
 
 export class Selection {
   // Represents the range of text selected by the user or the current position of the caret.
@@ -61,5 +61,9 @@ export class Selection {
       anchor,
       focus,
     });
+  }
+
+  public insertBookmark(): void {
+    insertBookmark(this.range);
   }
 }

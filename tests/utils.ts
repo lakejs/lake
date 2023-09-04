@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { query, normalizeValue, denormalizeValue, debug } from '../src/utils';
 import { Nodes, Range } from '../src/models';
 import { insertBookmark, toBookmark } from '../src/operations';
+import LakeCore from '../src/main';
 
 function removeBlanks(value: string) {
   value = value.replace(/>[\s\r\n]+</g, '><');
@@ -27,13 +28,31 @@ export function createContainer(content: string): { container: Nodes, range: Ran
 export function testOperation(
   content: string,
   output: string,
-  operation: (range: Range) => void,
+  callback: (range: Range) => void,
 ) {
   const { container, range } = createContainer(content);
-  operation(range);
+  callback(range);
   insertBookmark(range);
   const html = denormalizeValue(container.html());
   container.remove();
+  debug(html);
+  expect(html).to.equal(removeBlanks(output));
+}
+
+export function testPlugin(
+  content: string,
+  output: string,
+  callback: (editor: LakeCore) => void,
+) {
+  const { container } = createContainer(content);
+  const editor = new LakeCore(container.get(0), {
+    className: 'my-editor-container',
+    defaultValue: removeBlanks(content),
+  });
+  editor.create();
+  callback(editor);
+  const html = editor.getValue();
+  editor.remove();
   debug(html);
   expect(html).to.equal(removeBlanks(output));
 }

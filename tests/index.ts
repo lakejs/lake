@@ -34,3 +34,6 @@ import './operations/get-marks.test';
 import './operations/split-marks.test';
 import './operations/add-mark.test';
 import './operations/remove-mark.test';
+
+// Plugins
+import './plugins/heading.test';
