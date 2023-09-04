@@ -8,7 +8,7 @@ describe('operations.addMark()', () => {
     <p>foo<focus />bar</p>
     `;
     const output = `
-    <p>foo<strong><focus /></strong>bar</p>
+    <p>foo<strong>\u200B<focus /></strong>bar</p>
     `;
     testOperation(
       content,
@@ -73,7 +73,7 @@ describe('operations.addMark()', () => {
     <p><em>foo<focus />bar</em></p>
     `;
     const output = `
-    <p><em>foo</em><strong><em><focus /></em></strong><em>bar</em></p>
+    <p><em>foo</em><strong><em>\u200B<focus /></em></strong><em>bar</em></p>
     `;
     testOperation(
       content,

@@ -37,3 +37,5 @@ import './operations/remove-mark.test';
 
 // Plugins
 import './plugins/heading.test';
+import './plugins/blockquote.test';
+import './plugins/bold.test';

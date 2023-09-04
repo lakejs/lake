@@ -4,9 +4,9 @@ import { splitMarks } from './split-marks';
 import { getMarks } from './get-marks';
 
 export function removeMark(range: Range, value: string): void {
-  const targetNode = query(value);
-  const tagName = targetNode.name;
-  // const styleValue = targetNode.attr('style');
+  const valueNode = query(value);
+  const tagName = valueNode.name;
+  // const styleValue = valueNode.attr('style');
   if (range.isCollapsed) {
     if (range.commonAncestor.closest(tagName).length === 0) {
       return;

@@ -6,8 +6,8 @@ const tagName = 'strong';
 
 export default (editor: LakeCore) => {
   editor.commands.add('bold', () => {
+    editor.focus();
     const range = editor.selection.range;
-    range.debug();
     const appliedTags = getTags(range);
     if (appliedTags.find(item => item.name === tagName)) {
       removeMark(range, `<${tagName} />`);

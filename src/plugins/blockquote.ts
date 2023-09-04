@@ -4,8 +4,8 @@ import { setBlocks } from '../operations';
 
 export default (editor: LakeCore) => {
   editor.commands.add('blockquote', () => {
-    const range = editor.selection.range;
     editor.focus();
+    const range = editor.selection.range;
     setBlocks(range, '<blockquote />');
     editor.select();
     debug('Blockquote was set.');
