@@ -3,6 +3,8 @@ import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { splitMarks } from './split-marks';
 import { getMarks } from './get-marks';
+import { insertBookmark } from './insert-bookmark';
+import { toBookmark } from './to-bookmark';
 
 // Appends a node to the deepest element of the specified element.
 function appendToDeepestElement(element: Nodes, node: Nodes) {
@@ -19,11 +21,11 @@ function appendToDeepestElement(element: Nodes, node: Nodes) {
 // Removes zero-width space
 function removeZeroWidthSpace(node: Nodes) {
   const prevNode = node.prev();
-  if (prevNode.length > 0 && prevNode.isText && prevNode.text() === '\u200B') {
+  if (prevNode.length > 0 && prevNode.isText && prevNode.hasEmptyText) {
     prevNode.remove();
   }
   const nextNode = node.next();
-  if (nextNode.length > 0 && nextNode.isText && nextNode.text() === '\u200B') {
+  if (nextNode.length > 0 && nextNode.isText && nextNode.hasEmptyText) {
     nextNode.remove();
   }
 }
@@ -75,6 +77,7 @@ export function addMark(range: Range, value: string): void {
   }
   splitMarks(range);
   const nodeList = getMarks(range);
+  const bookmark = insertBookmark(range);
   for (const node of nodeList) {
     const newTargetNode = valueNode.clone();
     if (node.isMark) {
@@ -87,4 +90,5 @@ export function addMark(range: Range, value: string): void {
       newTargetNode.append(node);
     }
   }
+  toBookmark(range, bookmark);
 }

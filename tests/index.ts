@@ -39,3 +39,4 @@ import './operations/remove-mark.test';
 import './plugins/heading.test';
 import './plugins/blockquote.test';
 import './plugins/bold.test';
+import './plugins/italic.test';

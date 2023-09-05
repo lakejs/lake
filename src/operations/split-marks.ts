@@ -2,20 +2,14 @@ import { splitNodes } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
-// Returns a boolean value indicating whether the node is an empty mark.
-function isEmptyMark(node: Nodes): boolean {
-  const nodeText = node.text();
-  return node.isMark && (nodeText === '' || nodeText === '\u200B');
-}
-
 // Removes empty marks that contain no content.
 function removeEmptyMarks(node: Nodes): void {
-  if (isEmptyMark(node)) {
+  if (node.isMark && node.hasEmptyText) {
     node.remove();
     return;
   }
   for (const child of node.getWalker()) {
-    if (isEmptyMark(child)) {
+    if (child.isMark && child.hasEmptyText) {
       child.remove();
     }
   }
@@ -30,10 +24,10 @@ function splitMarksAtPoint(node: Nodes, offset: number): { left: Nodes | null, r
   if (blockMap) {
     removeEmptyMarks(blockMap.left);
     removeEmptyMarks(blockMap.right);
-    if (!isEmptyMark(blockMap.left)) {
+    if (!blockMap.left.hasEmptyText) {
       left = blockMap.left;
     }
-    if (!isEmptyMark(blockMap.right)) {
+    if (!blockMap.right.hasEmptyText) {
       right = blockMap.right;
     }
   }

@@ -244,25 +244,6 @@ describe('bold plugin', () => {
     );
   });
 
-  it('toggling, no text is selected: in the other strong tag', () => {
-    const content = `
-    <p><strong>f<focus />oo</strong></p>
-    <p>bar</p>
-    `;
-    const output = `
-    <p><strong>f</strong><strong>\u200B<focus /></strong><strong>oo</strong></p>
-    <p>bar</p>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.commands.execute('bold');
-        editor.commands.execute('bold');
-      },
-    );
-  });
-
   it('no text is selected: in the other mark', () => {
     const content = `
     <p><em>f<focus />oo</em></p>

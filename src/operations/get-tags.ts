@@ -39,11 +39,25 @@ export function getTags(range: Range): AppliedTagMapType[] {
     });
     parentNode = parentNode.parent();
   }
+  let nextNode;
   if (
     startNode.isText &&
     startNode.text().length === range.startOffset &&
-    startNode.next().length > 0) {
-    const nextNode = startNode.next();
+    (nextNode = startNode.next()) &&
+    nextNode.length > 0 &&
+    nextNode.isElement
+  ) {
+    appliedTags.push({
+      name: nextNode.name,
+      attributes: getAttributes(nextNode),
+    });
+  }
+  if (
+    startNode.isElement &&
+    startNode.children().length > 0 &&
+    (nextNode = startNode.children()[range.startOffset]) &&
+    nextNode.isElement
+  ) {
     appliedTags.push({
       name: nextNode.name,
       attributes: getAttributes(nextNode),

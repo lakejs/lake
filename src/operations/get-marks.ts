@@ -16,7 +16,7 @@ export function getMarks(range: Range): Nodes[] {
       break;
     }
     if (stratRange.compareAfterNode(node) > 0) {
-      if (node.isMark || node.isText) {
+      if ((node.isMark || node.isText) && !node.hasEmptyText) {
         marks.push(node);
       }
     }

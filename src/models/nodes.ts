@@ -142,6 +142,12 @@ export class Nodes {
     return this.isEditable && parent.isContainer;
   }
 
+  // Returns a boolean value indicating whether the node is an empty node.
+  public get hasEmptyText(): boolean {
+    const nodeText = this.text();
+    return nodeText === '' || nodeText === '\u200B';
+  }
+
   // Returns a boolean value indicating whether the node and the target node are siblings.
   public isSibling(target: Nodes): boolean {
     if (this.length === 0) {
@@ -666,7 +672,10 @@ export class Nodes {
   // Returns information of the first node.
   public toString(): string {
     const node = this.get(0);
-    const nodeValue = this.isText ? node.nodeValue : (node as NativeElement).outerHTML;
+    let nodeValue = this.isText ? node.nodeValue : (node as NativeElement).outerHTML;
+    if (nodeValue && nodeValue.length > 50) {
+      nodeValue = `${nodeValue.substring(0, 50)} ...`;
+    }
     return `node (${node.lakeId}): ${nodeValue}`;
   }
 

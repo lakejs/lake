@@ -132,4 +132,20 @@ describe('operations.addMark()', () => {
     );
   });
 
+  it('should add strong to em', () => {
+    const content = `
+    <p>one<anchor /><em>two</em><focus />three</p>
+    `;
+    const output = `
+    <p>one<anchor /><strong><em>two</em></strong><focus />three</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        addMark(range, '<strong />');
+      },
+    );
+  });
+
 });

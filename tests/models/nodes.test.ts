@@ -91,6 +91,13 @@ describe('models.Nodes class', () => {
     expect(container.parent().isTopEditable).to.equal(false);
   });
 
+  it('property: hasEmptyText', () => {
+    const container = query('<div contenteditable="true"><strong></strong><em>\u200B</em></div>');
+    expect(container.find('strong').hasEmptyText).to.equal(true);
+    expect(container.find('em').hasEmptyText).to.equal(true);
+    expect(container.find('em').first().hasEmptyText).to.equal(true);
+  });
+
   it('method: isSibling', () => {
     const container = query('<div contenteditable="true"><h1><p>foo</p>bar</h1>end</div>');
     expect(container.find('h1').isSibling(container.find('p'))).to.equal(false);
