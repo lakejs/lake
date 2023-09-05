@@ -263,4 +263,22 @@ describe('bold plugin', () => {
     );
   });
 
+  it('no text is selected: in the other mark', () => {
+    const content = `
+    <p><em>f<focus />oo</em></p>
+    <p>bar</p>
+    `;
+    const output = `
+    <p><em>f</em><strong><em>\u200B<focus /></em></strong><em>oo</em></p>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.commands.execute('bold');
+      },
+    );
+  });
+
 });
