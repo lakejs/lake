@@ -1,4 +1,3 @@
-import { debug } from '../utils';
 import type LakeCore from '../main';
 import { getTags, addMark, removeMark } from '../operations';
 
@@ -15,6 +14,5 @@ export default (editor: LakeCore) => {
       addMark(range, `<${tagName} />`);
     }
     editor.select();
-    debug('Bold was set.');
   });
 };

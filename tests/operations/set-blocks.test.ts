@@ -3,7 +3,7 @@ import { setBlocks } from '../../src/operations';
 
 describe('operations.setBlocks()', () => {
 
-  it('when the selection is cursor state', () => {
+  it('no text is selected', () => {
     const content = `
     <p>outer start</p>
     <p>foo<strong>bold</strong><focus /></p>
@@ -125,7 +125,7 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('to set a nested block when the selection is cursor state', () => {
+  it('to set a nested block when no text is selected', () => {
     const content = `
     <p>outer start</p>
     <h1><p>foo<strong>bold</strong><focus /></p></h1>

@@ -23,7 +23,8 @@ function getAttributes(node: Nodes): AttributeMapType {
 
 // Returns the applied tags of the current selection.
 export function getTags(range: Range): AppliedTagMapType[] {
-  let parentNode = range.startNode;
+  const startNode = range.startNode;
+  let parentNode = startNode;
   if (parentNode.isText) {
     parentNode = parentNode.parent();
   }
@@ -37,6 +38,16 @@ export function getTags(range: Range): AppliedTagMapType[] {
       attributes: getAttributes(parentNode),
     });
     parentNode = parentNode.parent();
+  }
+  if (
+    startNode.isText &&
+    startNode.text().length === range.startOffset &&
+    startNode.next().length > 0) {
+    const nextNode = startNode.next();
+    appliedTags.push({
+      name: nextNode.name,
+      attributes: getAttributes(nextNode),
+    });
   }
   return appliedTags;
 }

@@ -4,7 +4,7 @@ import { getBlocks } from '../../src/operations';
 
 describe('operations.getBlocks()', () => {
 
-  it('when the selection is cursor state', () => {
+  it('no text is selected', () => {
     const content = `
     <p>outer start</p>
     <p>foo<strong>bold</strong><focus /></p>
@@ -69,7 +69,7 @@ describe('operations.getBlocks()', () => {
     expect(blocks.length).to.equal(0);
   });
 
-  it('to return a sub-block in the nested blocks when the selection is cursor state', () => {
+  it('to return a sub-block in the nested blocks when no text is selected', () => {
     const content = `
     <p>outer start</p>
     <h1><p>foo<strong>bold</strong><focus /></p></h1>

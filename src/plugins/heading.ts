@@ -1,4 +1,3 @@
-import { debug } from '../utils';
 import type LakeCore from '../main';
 import { setBlocks } from '../operations';
 
@@ -8,6 +7,5 @@ export default (editor: LakeCore) => {
     const range = editor.selection.range;
     setBlocks(range, `<${type} />`);
     editor.select();
-    debug(`Heading '${type}' was set.`);
   });
 };

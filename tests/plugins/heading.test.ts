@@ -2,7 +2,7 @@ import { testPlugin } from '../utils';
 
 describe('heading plugin', () => {
 
-  it('cursor state: to set a heading', () => {
+  it('no text is selected: to set a heading', () => {
     const content = `
     <p>heading<focus /></p>
     <p>foo</p>
@@ -15,12 +15,12 @@ describe('heading plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.run('heading', 'h1');
+        editor.commands.execute('heading', 'h1');
       },
     );
   });
 
-  it('selecting state: to set a heading', () => {
+  it('text is selected: to set a heading', () => {
     const content = `
     <p><anchor />heading<focus /></p>
     <p>foo</p>
@@ -33,12 +33,12 @@ describe('heading plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.run('heading', 'h2');
+        editor.commands.execute('heading', 'h2');
       },
     );
   });
 
-  it('selecting state: to set a paragraph', () => {
+  it('text is selected: to set a paragraph', () => {
     const content = `
     <h2><anchor />heading<focus /></h2>
     <p>foo</p>
@@ -51,12 +51,12 @@ describe('heading plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.run('heading', 'p');
+        editor.commands.execute('heading', 'p');
       },
     );
   });
 
-  it('selecting state: to set multi-heading', () => {
+  it('text is selected: to set multi-heading', () => {
     const content = `
     <p><anchor />foo</p>
     <p>bar<focus /></p>
@@ -71,7 +71,7 @@ describe('heading plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.run('heading', 'h3');
+        editor.commands.execute('heading', 'h3');
       },
     );
   });

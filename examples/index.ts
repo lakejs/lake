@@ -1,6 +1,6 @@
 import LakeCore from '../src/main';
 
-const { query, debug } = LakeCore.utils;
+const { query } = LakeCore.utils;
 
 window.DEBUG = true;
 
@@ -11,24 +11,20 @@ const editor = new LakeCore('.lake-editor', {
   defaultValue: query('.lake-editor').html(),
 });
 
-editor.event.on('create', () => {
-  debug('Editor demo is created.');
-});
-
 editor.create();
 
-query('.lake-toolbar-icon').on('click', (e: Event) => {
-  e.preventDefault();
-  const type = query(e.target as Element).attr('data-type');
+query('.lake-toolbar-icon').on('click', event => {
+  event.preventDefault();
+  const type = query(event.target as Element).attr('data-type');
   if (heading.indexOf(type) >= 0) {
-    editor.commands.run('heading', type);
+    editor.commands.execute('heading', type);
     return;
   }
   if (type === 'blockquote') {
-    editor.commands.run('blockquote');
+    editor.commands.execute('blockquote');
     return;
   }
   if (type === 'bold') {
-    editor.commands.run('bold');
+    editor.commands.execute('bold');
   }
 });

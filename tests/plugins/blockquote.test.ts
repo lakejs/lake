@@ -2,7 +2,7 @@ import { testPlugin } from '../utils';
 
 describe('blockquote plugin', () => {
 
-  it('cursor state: to set a block', () => {
+  it('no text is selected: to set a block', () => {
     const content = `
     <p>foo<focus /></p>
     <p>bar</p>
@@ -15,12 +15,12 @@ describe('blockquote plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.run('blockquote');
+        editor.commands.execute('blockquote');
       },
     );
   });
 
-  it('selecting state: to set a block', () => {
+  it('text is selected: to set a block', () => {
     const content = `
     <p><anchor />foo<focus /></p>
     <p>bar</p>
@@ -33,12 +33,12 @@ describe('blockquote plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.run('blockquote');
+        editor.commands.execute('blockquote');
       },
     );
   });
 
-  it('selecting state: to set multi-blockquote', () => {
+  it('text is selected: to set multi-blockquote', () => {
     const content = `
     <p><anchor />foo</p>
     <p>bar<focus /></p>
@@ -53,7 +53,7 @@ describe('blockquote plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.run('blockquote');
+        editor.commands.execute('blockquote');
       },
     );
   });

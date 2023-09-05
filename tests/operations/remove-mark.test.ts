@@ -104,7 +104,7 @@ describe('operations.removeMark()', () => {
     <p><strong>foo<focus />bar</strong></p>
     `;
     const output = `
-    <p><strong>foo</strong><focus /><strong>bar</strong></p>
+    <p><strong>foo</strong>\u200B<focus /><strong>bar</strong></p>
     `;
     testOperation(
       content,

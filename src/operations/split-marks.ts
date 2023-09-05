@@ -4,7 +4,8 @@ import { Range } from '../models/range';
 
 // Returns a boolean value indicating whether the node is an empty mark.
 function isEmptyMark(node: Nodes): boolean {
-  return node.isMark && node.text() === '';
+  const nodeText = node.text();
+  return node.isMark && (nodeText === '' || nodeText === '\u200B');
 }
 
 // Removes empty marks that contain no content.

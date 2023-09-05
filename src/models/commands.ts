@@ -14,11 +14,12 @@ export class Commands {
     debug(`Command '${name}' is added.`);
   }
 
-  public run(name: string, ...data: any[]) {
+  public execute(name: string, ...data: any[]) {
     const handler = this.commandMap[name];
     if (!handler) {
       throw new Error(`Handler '${name}' doesn't exist.`);
     }
     handler.apply(this, data);
+    debug(`Command '${name}' is executed.`);
   }
 }
