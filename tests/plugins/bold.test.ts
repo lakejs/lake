@@ -39,24 +39,6 @@ describe('bold plugin', () => {
     );
   });
 
-  it('no text is selected: in the other strong tag', () => {
-    const content = `
-    <p><strong>f<focus />oo</strong></p>
-    <p>bar</p>
-    `;
-    const output = `
-    <p><strong>f</strong>\u200B<focus /><strong>oo</strong></p>
-    <p>bar</p>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.commands.execute('bold');
-      },
-    );
-  });
-
   it('execute three times, no text is selected: between the characters of the text', () => {
     const content = `
     <p>f<focus />oo</p>
@@ -239,6 +221,43 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
+        editor.commands.execute('bold');
+      },
+    );
+  });
+
+  it('no text is selected: in the other strong tag', () => {
+    const content = `
+    <p><strong>f<focus />oo</strong></p>
+    <p>bar</p>
+    `;
+    const output = `
+    <p><strong>f</strong>\u200B<focus /><strong>oo</strong></p>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.commands.execute('bold');
+      },
+    );
+  });
+
+  it('toggling, no text is selected: in the other strong tag', () => {
+    const content = `
+    <p><strong>f<focus />oo</strong></p>
+    <p>bar</p>
+    `;
+    const output = `
+    <p><strong>f</strong><strong>\u200B<focus /></strong><strong>oo</strong></p>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.commands.execute('bold');
         editor.commands.execute('bold');
       },
     );

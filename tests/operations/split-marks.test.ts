@@ -115,6 +115,22 @@ describe('operations.splitMarks()', () => {
     );
   });
 
+  it('collapsed range: splitting a mark without parent mark', () => {
+    const content = `
+    <p><em>one</em>two<em>th<focus />ree</em>four<em>five</em></p>
+    `;
+    const output = `
+    <p><em>one</em>two<em>th</em><focus /><em>ree</em>four<em>five</em></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        splitMarks(range);
+      },
+    );
+  });
+
   it('collapsed range: splitting nested masks and a text', () => {
     const content = `
     <p><strong>beginning<em>one<focus />two</em>end</strong></p>

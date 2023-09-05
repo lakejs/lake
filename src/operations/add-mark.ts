@@ -16,6 +16,18 @@ function appendToDeepestElement(element: Nodes, node: Nodes) {
   }
 }
 
+// Removes zero-width space
+function removeZeroWidthSpace(node: Nodes) {
+  const prevNode = node.prev();
+  if (prevNode.length > 0 && prevNode.isText && prevNode.text() === '\u200B') {
+    prevNode.remove();
+  }
+  const nextNode = node.next();
+  if (nextNode.length > 0 && nextNode.isText && nextNode.text() === '\u200B') {
+    nextNode.remove();
+  }
+}
+
 function copyNestedMarks(mark: Nodes): Nodes | null {
   if (!mark.isMark) {
     return null;
@@ -54,6 +66,8 @@ export function addMark(range: Range, value: string): void {
       valueNode.append(zeroWidthSpace);
     }
     range.insertNode(valueNode);
+    removeZeroWidthSpace(valueNode);
+    // Resets the position of the selection
     range.selectNodeContents(valueNode);
     range.reduce();
     range.collapseToEnd();
