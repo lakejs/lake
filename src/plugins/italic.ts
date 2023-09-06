@@ -1,7 +1,7 @@
 import type LakeCore from '../main';
 import { getTags, addMark, removeMark } from '../operations';
 
-const tagName = 'em';
+const tagName = 'i';
 
 export default (editor: LakeCore) => {
   editor.commands.add('italic', () => {

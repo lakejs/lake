@@ -21,8 +21,8 @@
 * [ ] list (numbered list, bulleted list, checklist)
 * [ ] align (left, center, right, justify)
 * [ ] indent (increase, decrease)
-* [ ] bold
-* [ ] italic
+* [X] bold
+* [X] italic
 * [ ] underline
 * [ ] strikethrough
 * [ ] subscript
@@ -135,7 +135,7 @@
 <h6>heading 6</h6>
 <p>
   <strong>bold</strong>
-  <em>italic</em>
+  <i>italic</i>
   <span style="text-decoration: underline;">underline</span>
   <span style="text-decoration: line-through;">strikeThrough</span>
   <span style="font-family: Arial;">fontName</>

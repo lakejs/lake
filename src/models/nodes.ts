@@ -7,7 +7,7 @@ import { toNodeList } from '../utils/to-node-list';
 import { debug } from '../utils/debug';
 
 const blockTagNames = 'h1,h2,h3,h4,h5,h6,div,p,blockquote,ul,ol';
-const markTagNames = 'strong,em,span,sub,sup,code,a';
+const markTagNames = 'strong,em,i,span,sub,sup,code,a';
 // https://developer.mozilla.org/en-US/docs/Glossary/Void_element
 const voidTagNames = 'area,base,br,col,embed,hr,img,input,link,meta,param,source,track,wbr';
 

@@ -21,14 +21,11 @@ function getAttributes(node: Nodes): AttributeMapType {
   return attributes;
 }
 
-// Returns the applied tags of the current selection.
-export function getTags(range: Range): AppliedTagMapType[] {
-  const startNode = range.startNode;
-  let parentNode = startNode;
+function pushAncestralTags(appliedTags: AppliedTagMapType[], range: Range) {
+  let parentNode = range.startNode;
   if (parentNode.isText) {
     parentNode = parentNode.parent();
   }
-  const appliedTags: AppliedTagMapType[] = [];
   while (parentNode.length > 0) {
     if (!parentNode.isEditable) {
       break;
@@ -39,29 +36,44 @@ export function getTags(range: Range): AppliedTagMapType[] {
     });
     parentNode = parentNode.parent();
   }
+}
+
+function pushNextNestedTags(appliedTags: AppliedTagMapType[], range: Range) {
+  const startNode = range.startNode;
   let nextNode;
-  if (
-    startNode.isText &&
-    startNode.text().length === range.startOffset &&
-    (nextNode = startNode.next()) &&
-    nextNode.length > 0 &&
-    nextNode.isElement
-  ) {
-    appliedTags.push({
-      name: nextNode.name,
-      attributes: getAttributes(nextNode),
-    });
+  if (startNode.isText && startNode.text().length === range.startOffset) {
+    const node = startNode.next();
+    if (node.length > 0 && node.isElement) {
+      nextNode = node;
+    }
   }
-  if (
-    startNode.isElement &&
-    startNode.children().length > 0 &&
-    (nextNode = startNode.children()[range.startOffset]) &&
-    nextNode.isElement
-  ) {
-    appliedTags.push({
-      name: nextNode.name,
-      attributes: getAttributes(nextNode),
-    });
+  if (startNode.isElement) {
+    const children = startNode.children();
+    if (children.length > 0) {
+      const node = children[range.startOffset];
+      if (node && node.isElement) {
+        nextNode = node;
+      }
+    }
   }
+  if (nextNode) {
+    let child = nextNode;
+    while (child.length > 0) {
+      if (child.isElement) {
+        appliedTags.push({
+          name: child.name,
+          attributes: getAttributes(child),
+        });
+      }
+      child = child.first();
+    }
+  }
+}
+
+// Returns the applied tags of the current selection.
+export function getTags(range: Range): AppliedTagMapType[] {
+  const appliedTags: AppliedTagMapType[] = [];
+  pushAncestralTags(appliedTags, range);
+  pushNextNestedTags(appliedTags, range);
   return appliedTags;
 }

@@ -7,7 +7,7 @@ describe('italic plugin', () => {
     <p>one<anchor />two<focus />three</p>
     `;
     const output = `
-    <p>one<anchor /><strong><em>two</em></strong><focus />three</p>
+    <p>one<anchor /><strong><i>two</i></strong><focus />three</p>
     `;
     testPlugin(
       content,
