@@ -21,7 +21,7 @@ function getAttributes(node: Nodes): AttributeMapType {
   return attributes;
 }
 
-function pushAncestralTags(appliedTags: AppliedTagMapType[], range: Range) {
+function pushAncestralTags(appliedTags: AppliedTagMapType[], range: Range): void {
   let parentNode = range.startNode;
   if (parentNode.isText) {
     parentNode = parentNode.parent();
@@ -38,7 +38,7 @@ function pushAncestralTags(appliedTags: AppliedTagMapType[], range: Range) {
   }
 }
 
-function pushNextNestedTags(appliedTags: AppliedTagMapType[], range: Range) {
+function pushNextNestedTags(appliedTags: AppliedTagMapType[], range: Range): void {
   const startNode = range.startNode;
   let nextNode;
   if (startNode.isText && startNode.text().length === range.startOffset) {

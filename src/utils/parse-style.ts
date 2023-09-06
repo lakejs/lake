@@ -1,6 +1,6 @@
 import { toHex } from './to-hex';
 
-type PropertiesType = { [key: string]: string };
+type PropertiesType = {[key: string]: string};
 
 export function parseStyle(styleValue: string): PropertiesType {
   styleValue = styleValue.replace(/&quot;/ig, '"');

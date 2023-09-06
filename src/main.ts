@@ -8,6 +8,7 @@ import heading from './plugins/heading';
 import blockquote from './plugins/blockquote';
 import bold from './plugins/bold';
 import italic from './plugins/italic';
+import underline from './plugins/underline';
 
 const { query, forEach } = utils;
 const { Selection } = models;
@@ -89,6 +90,7 @@ export default class LakeCore {
     plugins.add(blockquote);
     plugins.add(bold);
     plugins.add(italic);
+    plugins.add(underline);
   }
 
   // Selects the saved range in the selection.

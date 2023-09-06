@@ -1,4 +1,4 @@
-import { query } from '../utils';
+import { forEach, parseStyle, query } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { splitMarks } from './split-marks';
@@ -7,7 +7,7 @@ import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 
 // Appends a node to the deepest element of the specified element.
-function appendToDeepestElement(element: Nodes, node: Nodes) {
+function appendToDeepestElement(element: Nodes, node: Nodes): void {
   let child = element;
   while (child.length > 0) {
     const firstChild = child.first();
@@ -18,8 +18,8 @@ function appendToDeepestElement(element: Nodes, node: Nodes) {
   }
 }
 
-// Removes zero-width space
-function removeZeroWidthSpace(node: Nodes) {
+// Removes zero-width space.
+function removeZeroWidthSpace(node: Nodes): void {
   const prevNode = node.prev();
   if (prevNode.length > 0 && prevNode.isText && prevNode.hasEmptyText) {
     prevNode.remove();
@@ -30,12 +30,13 @@ function removeZeroWidthSpace(node: Nodes) {
   }
 }
 
-function copyNestedMarks(mark: Nodes): Nodes | null {
-  if (!mark.isMark) {
+// Returns an element copied from each first child of the descendants of the specified node.
+function copyNestedMarks(node: Nodes): Nodes | null {
+  if (!node.isMark) {
     return null;
   }
-  let newMark = mark.clone();
-  let child = mark.last();
+  let newMark = node.clone();
+  let child = node.last();
   while (child.length > 0) {
     if (child.isMark) {
       newMark.append(child.clone());
@@ -46,10 +47,35 @@ function copyNestedMarks(mark: Nodes): Nodes | null {
   return newMark;
 }
 
+// Returns the topmost mark element or the closest element with the same tag name as the specified node.
+function getUpperMark(node: Nodes, tagName: string): Nodes {
+  const nodeText = node.text();
+  let parent = node;
+  while(parent.length > 0) {
+    const nextParent = parent.parent();
+    if (
+      !nextParent.isMark ||
+      nodeText !== nextParent.text() ||
+      !parent.isText && parent.name === tagName && parent.attr('style') !== ''
+    ) {
+      break;
+    }
+    parent = nextParent;
+  }
+  return parent;
+}
+
+function mergeStyleProperties(node: Nodes, properties: {[key: string]: string}): void {
+  forEach(properties, (name, value) => {
+    node.css(name, value);
+  });
+}
+
 export function addMark(range: Range, value: string): void {
   const valueNode = query(value);
   const tagName = valueNode.name;
-  // const styleValue = valueNode.attr('style');
+  const styleValue = valueNode.attr('style');
+  const styleProperties = parseStyle(styleValue);
   if (range.commonAncestor.closest(tagName).length > 0) {
     return;
   }
@@ -79,15 +105,16 @@ export function addMark(range: Range, value: string): void {
   const nodeList = getMarks(range);
   const bookmark = insertBookmark(range);
   for (const node of nodeList) {
-    const newTargetNode = valueNode.clone();
-    if (node.isMark) {
-      node.before(newTargetNode);
-      newTargetNode.append(node);
-    }
-    const parentNode = node.parent();
-    if (node.isText && !parentNode.isMark) {
-      node.before(newTargetNode);
-      newTargetNode.append(node);
+    if (node.isText) {
+      const upperMark = getUpperMark(node, tagName);
+      upperMark.debug();
+      if (upperMark.isMark && upperMark.name === tagName) {
+        mergeStyleProperties(upperMark, styleProperties);
+      } else {
+        const newValueNode = valueNode.clone();
+        upperMark.before(newValueNode);
+        newValueNode.append(upperMark);
+      }
     }
   }
   toBookmark(range, bookmark);
