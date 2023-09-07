@@ -1,10 +1,10 @@
 import type LakeCore from '../main';
 import { getTags, addMark, removeMark } from '../operations';
 
-const tagName = 'u';
+const tagName = 's';
 
 export default (editor: LakeCore) => {
-  editor.commands.add('underline', () => {
+  editor.commands.add('strikethrough', () => {
     editor.focus();
     const range = editor.selection.range;
     const appliedTags = getTags(range);

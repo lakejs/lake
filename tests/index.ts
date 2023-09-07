@@ -41,3 +41,4 @@ import './plugins/blockquote.test';
 import './plugins/bold.test';
 import './plugins/italic.test';
 import './plugins/underline.test';
+import './plugins/strikethrough.test';

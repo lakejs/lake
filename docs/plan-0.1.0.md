@@ -24,7 +24,7 @@
 * [X] bold
 * [X] italic
 * [X] underline
-* [ ] strikethrough
+* [X] strikethrough
 * [ ] subscript
 * [ ] superscript
 * [ ] code

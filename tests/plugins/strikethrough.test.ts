@@ -1,20 +1,20 @@
 import { testPlugin } from '../utils';
 
-describe('underline plugin', () => {
+describe('strikethrough plugin', () => {
 
-  it('should get correct result after executing bold and underline', () => {
+  it('should get correct result after executing bold and strikethrough', () => {
     const content = `
     <p>one<anchor />two<focus />three</p>
     `;
     const output = `
-    <p>one<anchor /><u><strong>two</strong></u><focus />three</p>
+    <p>one<anchor /><s><strong>two</strong></s><focus />three</p>
     `;
     testPlugin(
       content,
       output,
       editor => {
         editor.commands.execute('bold');
-        editor.commands.execute('underline');
+        editor.commands.execute('strikethrough');
       },
     );
   });
