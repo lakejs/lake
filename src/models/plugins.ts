@@ -13,7 +13,7 @@ export class Plugins {
     this.pluginList.push(plugin);
   }
 
-  public executeAll(editor: LakeCore) {
+  public loadAll(editor: LakeCore) {
     this.pluginList.forEach(plugin => {
       plugin(editor);
     });

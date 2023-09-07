@@ -23,7 +23,7 @@
 * [ ] indent (increase, decrease)
 * [X] bold
 * [X] italic
-* [ ] underline
+* [X] underline
 * [ ] strikethrough
 * [ ] subscript
 * [ ] superscript

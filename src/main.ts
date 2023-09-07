@@ -132,7 +132,7 @@ export default class LakeCore {
     this.focus();
     this.selection.updateByBookmark();
     this.select();
-    this.plugins.executeAll(this);
+    this.plugins.loadAll(this);
     this.event.emit('create');
   }
 
