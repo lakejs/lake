@@ -42,3 +42,6 @@ import './plugins/bold.test';
 import './plugins/italic.test';
 import './plugins/underline.test';
 import './plugins/strikethrough.test';
+import './plugins/subscript.test';
+import './plugins/superscript.test';
+import './plugins/code.test';

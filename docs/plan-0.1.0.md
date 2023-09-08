@@ -25,9 +25,9 @@
 * [X] italic
 * [X] underline
 * [X] strikethrough
-* [ ] subscript
-* [ ] superscript
-* [ ] code
+* [X] subscript
+* [X] superscript
+* [X] code
 * [ ] font family
 * [ ] font size
 * [ ] text color

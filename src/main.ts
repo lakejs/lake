@@ -9,6 +9,9 @@ import bold from './plugins/bold';
 import italic from './plugins/italic';
 import underline from './plugins/underline';
 import strikethrough from './plugins/strikethrough';
+import subscript from './plugins/subscript';
+import superscript from './plugins/superscript';
+import code from './plugins/code';
 
 const { query, forEach } = utils;
 const { Selection } = models;
@@ -90,6 +93,9 @@ export default class LakeCore {
     plugins.add(italic);
     plugins.add(underline);
     plugins.add(strikethrough);
+    plugins.add(subscript);
+    plugins.add(superscript);
+    plugins.add(code);
   }
 
   // Selects the saved range in the selection.
