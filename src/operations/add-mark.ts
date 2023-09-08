@@ -71,6 +71,7 @@ function mergeStyleProperties(node: Nodes, properties: {[key: string]: string}):
   });
 }
 
+// Adds the specified mark to the texts of the range.
 export function addMark(range: Range, value: string): void {
   const valueNode = query(value);
   const tagName = valueNode.name;

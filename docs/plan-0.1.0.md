@@ -136,8 +136,8 @@
 <p>
   <strong>bold</strong>
   <i>italic</i>
-  <span style="text-decoration: underline;">underline</span>
-  <span style="text-decoration: line-through;">strikeThrough</span>
+  <u>underline</u>
+  <s>strikeThrough</s>
   <span style="font-family: Arial;">fontName</>
   <span style="font-size: 14px;">fontSize</span>
   <span style="color: red;">foreColor</span>

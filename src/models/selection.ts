@@ -1,7 +1,7 @@
 import { NativeSelection } from '../types/native';
 import { Nodes } from './nodes';
 import { Range } from './range';
-import { insertBookmark, toBookmark } from '../operations';
+import { addMark, getTags, insertBookmark, removeMark, setBlocks, toBookmark } from '../operations';
 
 export class Selection {
   // Represents the range of text selected by the user or the current position of the caret.
@@ -10,8 +10,8 @@ export class Selection {
   // Is the root element which has contenteditable="true" attribute.
   private container: Nodes;
 
-  // Is a saved range which is used to add it to the selection late.
-  public range: Range;
+  // Is a saved range which is used to add it to the selection later.
+  private range: Range;
 
   constructor(container: Nodes) {
     const selection = window.getSelection();
@@ -22,11 +22,11 @@ export class Selection {
     }
     this.selection = selection;
     this.container = container;
-    this.range = this.getSelectedRange();
+    this.range = this.getRange();
   }
 
   // Returns the current selected range.
-  private getSelectedRange(): Range {
+  private getRange(): Range {
     const selection = this.selection;
     if (selection.rangeCount > 0) {
       const range = selection.getRangeAt(0);
@@ -38,7 +38,7 @@ export class Selection {
   // Selects the saved range.
   public select(): void {
     const range = this.range;
-    if (range.get() === this.getSelectedRange().get()) {
+    if (range.get() === this.getRange().get()) {
       return;
     }
     const selection = this.selection;
@@ -46,13 +46,13 @@ export class Selection {
     selection.addRange(range.get());
   }
 
-  // Updates the saved range to the selected range.
-  public updateBySelectedRange(): void {
-    this.range = this.getSelectedRange();
+  // Synchronizes the saved range with the range of the selection.
+  public syncByRange(): void {
+    this.range = this.getRange();
   }
 
-  // Updates the saved range to the position of the bookmark.
-  public updateByBookmark(): void {
+  // Synchronizes the saved range with the bookmarks.
+  public synByBookmark(): void {
     const range = this.range;
     const container = this.container;
     const anchor = container.find('bookmark[type="anchor"]');
@@ -63,7 +63,36 @@ export class Selection {
     });
   }
 
-  public insertBookmark(): void {
-    insertBookmark(this.range);
+  // Returns the applied tags of the selection.
+  public getTags(): ReturnType<typeof getTags> {
+    return getTags(this.range);
   }
+
+  // Either the method inserts a bookmark into the current position of the caret
+  // or the method inserts a pair of bookmarks into the beginning and the end of the selection.
+  public insertBookmark(): ReturnType<typeof insertBookmark> {
+    return insertBookmark(this.range);
+  }
+
+  // Adds new blocks or modifies target blocks relating to the selection.
+  public setBlocks(value: string): ReturnType<typeof setBlocks> {
+    return setBlocks(this.range, value);
+  }
+
+  // Adds the specified mark to the texts of the selection.
+  public addMark(value: string): ReturnType<typeof addMark> {
+    if (!this.range.commonAncestor.isEditable && !this.range.commonAncestor.isContainer) {
+      return;
+    }
+    return addMark(this.range, value);
+  }
+
+  // Removes the specified marks from the selection.
+  public removeMark(value: string): ReturnType<typeof removeMark> {
+    if (!this.range.commonAncestor.isEditable && !this.range.commonAncestor.isContainer) {
+      return;
+    }
+    return removeMark(this.range, value);
+  }
+
 }

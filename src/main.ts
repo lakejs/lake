@@ -3,7 +3,6 @@ import pkg from '../package.json';
 import { NativeNode } from './types/native';
 import * as utils from './utils';
 import * as models from './models';
-import * as operations from './operations';
 import heading from './plugins/heading';
 import blockquote from './plugins/blockquote';
 import bold from './plugins/bold';
@@ -31,8 +30,6 @@ export default class LakeCore {
   static utils = utils;
 
   static models = models;
-
-  static operations = operations;
 
   private target: TargetType;
 
@@ -64,7 +61,7 @@ export default class LakeCore {
     this.addBuiltInPlugins();
 
     this.container.on('blur', () => {
-      this.selection.updateBySelectedRange();
+      this.selection.syncByRange();
     });
   }
 
@@ -120,7 +117,7 @@ export default class LakeCore {
   public getValue() {
     this.selection.insertBookmark();
     const value = utils.denormalizeValue(this.container.html());
-    this.selection.updateByBookmark();
+    this.selection.synByBookmark();
     return value;
   }
 
@@ -132,7 +129,7 @@ export default class LakeCore {
     this.setValue(this.options.defaultValue);
     targetNode.after(container);
     this.focus();
-    this.selection.updateByBookmark();
+    this.selection.synByBookmark();
     this.select();
     this.plugins.loadAll(this);
     this.event.emit('create');

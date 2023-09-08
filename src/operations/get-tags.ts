@@ -70,7 +70,7 @@ function pushNextNestedTags(appliedTags: AppliedTagMapType[], range: Range): voi
   }
 }
 
-// Returns the applied tags of the current selection.
+// Returns the applied tags of the selection.
 export function getTags(range: Range): AppliedTagMapType[] {
   const appliedTags: AppliedTagMapType[] = [];
   pushAncestralTags(appliedTags, range);

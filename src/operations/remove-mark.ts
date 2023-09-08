@@ -6,6 +6,7 @@ import { getMarks } from './get-marks';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 
+// Removes the specified marks from the range.
 export function removeMark(range: Range, value: string): void {
   const valueNode = query(value);
   const tagName = valueNode.name;
