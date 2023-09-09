@@ -2,7 +2,7 @@ import { testPlugin } from '../utils';
 
 describe('superscript plugin', () => {
 
-  it('should add sup to the selected text', () => {
+  it('should add a sup to the selected text', () => {
     const content = `
     <p>one<anchor />two<focus />three</p>
     `;

@@ -1,18 +1,20 @@
 import { NativeElement } from '../types/native';
+import { parseStyle } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
-type AttributeMapType = {[key: string]: string};
+type KeyValueType = {[key: string]: string};
 
 type AppliedTagMapType = {
   name: string,
-  attributes: AttributeMapType,
+  attributes: KeyValueType,
+  styles: KeyValueType,
 };
 
 // Returns the attributes of the element as an key-value object.
-function getAttributes(node: Nodes): AttributeMapType {
+function getAttributes(node: Nodes): KeyValueType {
   const nativeNode = node.get(0) as NativeElement;
-  const attributes: AttributeMapType = {};
+  const attributes: KeyValueType = {};
   if (nativeNode.hasAttributes()) {
     for (const attr of nativeNode.attributes) {
       attributes[attr.name] = attr.value;
@@ -33,6 +35,7 @@ function pushAncestralTags(appliedTags: AppliedTagMapType[], range: Range): void
     appliedTags.push({
       name: parentNode.name,
       attributes: getAttributes(parentNode),
+      styles: parseStyle(parentNode.attr('style')),
     });
     parentNode = parentNode.parent();
   }
@@ -63,6 +66,7 @@ function pushNextNestedTags(appliedTags: AppliedTagMapType[], range: Range): voi
         appliedTags.push({
           name: child.name,
           attributes: getAttributes(child),
+          styles: parseStyle(child.attr('style')),
         });
       }
       child = child.first();

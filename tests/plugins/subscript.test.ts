@@ -2,7 +2,7 @@ import { testPlugin } from '../utils';
 
 describe('subscript plugin', () => {
 
-  it('should add sub to the selected text', () => {
+  it('should add a sub to the selected text', () => {
     const content = `
     <p>one<anchor />two<focus />three</p>
     `;

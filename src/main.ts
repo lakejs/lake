@@ -12,9 +12,7 @@ import strikethrough from './plugins/strikethrough';
 import subscript from './plugins/subscript';
 import superscript from './plugins/superscript';
 import code from './plugins/code';
-
-const { query, forEach } = utils;
-const { Selection } = models;
+import fontfamily from './plugins/fontfamily';
 
 type TargetType = string | NativeNode;
 
@@ -51,13 +49,13 @@ export default class LakeCore {
   constructor(target: string | NativeNode, options?: OptionsType) {
     this.target = target;
     this.options = options || defaultOptions;
-    this.container = query('<div />');
+    this.container = utils.query('<div />');
 
     this.setDefaultOptions();
     this.addContainerAttributes();
 
     this.event = new EventEmitter();
-    this.selection = new Selection(this.container);
+    this.selection = new models.Selection(this.container);
     this.commands = new models.Commands();
     this.plugins = new models.Plugins();
 
@@ -69,7 +67,7 @@ export default class LakeCore {
   }
 
   private setDefaultOptions(): void {
-    forEach(defaultOptions, (key, value) => {
+    utils.forEach(defaultOptions, (key, value) => {
       if (this.options[key] === undefined) {
         this.options[key] = value;
       }
@@ -96,6 +94,7 @@ export default class LakeCore {
     plugins.add(subscript);
     plugins.add(superscript);
     plugins.add(code);
+    plugins.add(fontfamily);
   }
 
   // Selects the saved range in the selection.
@@ -130,7 +129,7 @@ export default class LakeCore {
   // Creates an editor area and set default value to it.
   public create(): void {
     const container = this.container;
-    const targetNode = query(this.target);
+    const targetNode = utils.query(this.target);
     targetNode.hide();
     this.setValue(this.options.defaultValue);
     targetNode.after(container);

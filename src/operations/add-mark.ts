@@ -69,6 +69,9 @@ function mergeStyleProperties(node: Nodes, properties: {[key: string]: string}):
   forEach(properties, (name, value) => {
     node.css(name, value);
   });
+  if (node.attr('style') === '') {
+    node.removeAttr('style');
+  }
 }
 
 // Adds the specified mark to the texts of the range.
@@ -108,7 +111,6 @@ export function addMark(range: Range, value: string): void {
   for (const node of nodeList) {
     if (node.isText) {
       const upperMark = getUpperMark(node, tagName);
-      upperMark.debug();
       if (upperMark.isMark && upperMark.name === tagName) {
         mergeStyleProperties(upperMark, styleProperties);
       } else {

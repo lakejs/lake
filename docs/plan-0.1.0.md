@@ -28,12 +28,15 @@
 * [X] subscript
 * [X] superscript
 * [X] code
-* [ ] font family
-* [ ] font size
-* [ ] text color
+* [ ] fontfamily
+* [ ] fontsize
+* [ ] textcolor
 * [ ] highlight
-* [ ] format painter
-* [ ] remove format
+* [ ] formatpainter
+* [ ] removeformat
+* [ ] hr
+* [ ] image
+* [ ] link
 * [ ] examples (Styles, Toolbar, Icons, etc.)
 * [ ] documentation
 * [ ] website
@@ -99,13 +102,13 @@
     * subscript.ts
     * superscript.ts
     * code.ts
-    * font-family.ts
-    * font-size.ts
-    * text-color.ts
+    * fontfamily.ts
+    * fontsize.ts
+    * textcolor.ts
     * highlight.ts
-    * format-painter.ts
-    * remove-format.ts
-    * horizontal-line/
+    * formatpainter.ts
+    * removeformat.ts
+    * hr/
     * image/
     * link/
     * table/

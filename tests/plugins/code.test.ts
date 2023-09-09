@@ -2,7 +2,7 @@ import { testPlugin } from '../utils';
 
 describe('code plugin', () => {
 
-  it('should add code to the selected text', () => {
+  it('should add a code to the selected text', () => {
     const content = `
     <p>one<anchor />two<focus />three</p>
     `;

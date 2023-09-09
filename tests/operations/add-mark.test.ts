@@ -180,7 +180,7 @@ describe('operations.addMark()', () => {
     );
   });
 
-  it('should add properties to a span', () => {
+  it('should add a CSS property to a span', () => {
     const content = `
     <p>one<anchor /><span style="color: red;">two</span><focus />three</p>
     `;
@@ -196,7 +196,7 @@ describe('operations.addMark()', () => {
     );
   });
 
-  it('should add properties to a span with a text', () => {
+  it('should add a CSS property to a span with a text', () => {
     const content = `
     <p>one<anchor /><span style="color: red;">two</span>foo<focus />three</p>
     `;
@@ -212,7 +212,7 @@ describe('operations.addMark()', () => {
     );
   });
 
-  it('should add properties to a span that is above a strong', () => {
+  it('should add a CSS property to a span that is above a strong', () => {
     const content = `
     <p>one<anchor /><span style="color: red;"><strong>two</strong></span><focus />three</p>
     `;
@@ -224,6 +224,38 @@ describe('operations.addMark()', () => {
       output,
       range => {
         addMark(range, '<span style="text-decoration: underline;" />');
+      },
+    );
+  });
+
+  it('should remove a CSS property from a span', () => {
+    const content = `
+    <p>one<anchor /><span style="color: red; text-decoration: underline;">two</span><focus />three</p>
+    `;
+    const output = `
+    <p>one<anchor /><span style="color: red;">two</span><focus />three</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        addMark(range, '<span style="text-decoration: ;" />');
+      },
+    );
+  });
+
+  it('should remove the style attribute when its value is empty', () => {
+    const content = `
+    <p>one<anchor /><span class="test" style="text-decoration: underline;">two</span><focus />three</p>
+    `;
+    const output = `
+    <p>one<anchor /><span class="test">two</span><focus />three</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        addMark(range, '<span style="text-decoration: ;" />');
       },
     );
   });

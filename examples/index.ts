@@ -22,6 +22,10 @@ query('.lake-toolbar-icon').on('click', event => {
     editor.commands.execute('heading', type);
     return;
   }
+  if (type === 'fontfamily') {
+    editor.commands.execute('fontfamily', 'Segoe UI');
+    return;
+  }
   if (noParameterCommandNames.indexOf(type) >= 0) {
     editor.commands.execute(type);
   }
