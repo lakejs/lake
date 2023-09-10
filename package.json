@@ -18,7 +18,8 @@
     "url": "https://github.com/lakejs/lake-core/issues"
   },
   "dependencies": {
-    "eventemitter3": "^4.0.7"
+    "eventemitter3": "^4.0.7",
+    "tinykeys": "^2.1.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.3",

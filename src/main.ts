@@ -44,6 +44,8 @@ export default class LakeCore {
 
   public commands: models.Commands;
 
+  public keystroke: models.Keystroke;
+
   public plugins: models.Plugins;
 
   constructor(target: string | NativeNode, options?: OptionsType) {
@@ -57,6 +59,7 @@ export default class LakeCore {
     this.event = new EventEmitter();
     this.selection = new models.Selection(this.container);
     this.commands = new models.Commands();
+    this.keystroke = new models.Keystroke(this.container);
     this.plugins = new models.Plugins();
 
     this.addBuiltInPlugins();
@@ -137,11 +140,12 @@ export default class LakeCore {
     this.selection.synByBookmark();
     this.select();
     this.plugins.loadAll(this);
-    this.event.emit('create');
+    this.event.emit('ready');
   }
 
   // Removes the editor.
   public remove(): void {
     this.container.remove();
+    this.event.emit('remove');
   }
 }

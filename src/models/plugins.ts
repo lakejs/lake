@@ -1,4 +1,4 @@
-import LakeCore from '../main';
+import type LakeCore from '../main';
 
 type PluginFunction = (editor: LakeCore) => void;
 

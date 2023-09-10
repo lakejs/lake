@@ -10,7 +10,6 @@ import { toBookmark } from './to-bookmark';
 export function removeMark(range: Range, value: string): void {
   const valueNode = query(value);
   const tagName = valueNode.name;
-  // const styleValue = valueNode.attr('style');
   if (range.isCollapsed) {
     if (range.commonAncestor.closest(tagName).length === 0) {
       return;

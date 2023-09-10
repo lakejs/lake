@@ -28,7 +28,7 @@
 * [X] subscript
 * [X] superscript
 * [X] code
-* [ ] fontfamily
+* [X] fontfamily
 * [ ] fontsize
 * [ ] textcolor
 * [ ] highlight
