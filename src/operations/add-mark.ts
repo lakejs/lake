@@ -1,4 +1,4 @@
-import { forEach, parseStyle, query } from '../utils';
+import { forEach, parseStyle, query, appendDeepest } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { splitMarks } from './split-marks';
@@ -6,18 +6,6 @@ import { getMarks } from './get-marks';
 import { insertContents } from './insert-contents';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
-
-// Appends a node to the deepest element of the specified element.
-function appendToDeepestElement(element: Nodes, node: Nodes): void {
-  let child = element;
-  while (child.length > 0) {
-    const firstChild = child.first();
-    if (child.isElement && !child.isVoid && firstChild.length === 0) {
-      child.append(node);
-    }
-    child = firstChild;
-  }
-}
 
 // Removes zero-width space.
 function removeZeroWidthSpace(node: Nodes): void {
@@ -91,7 +79,7 @@ export function addMark(range: Range, value: string): void {
     if (blockMap.left) {
       const newMark = copyNestedMarks(blockMap.left);
       if (newMark) {
-        appendToDeepestElement(newMark, zeroWidthSpace);
+        appendDeepest(newMark, zeroWidthSpace);
         valueNode.append(newMark);
       }
     }

@@ -15,5 +15,6 @@ export * from './to-node-list';
 // Nodes
 export * from './query';
 export * from './split-nodes';
+export * from './append-deepest';
 // Other
 export * from './debug';

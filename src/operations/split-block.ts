@@ -1,23 +1,7 @@
-import { query, splitNodes } from '../utils';
+import { query, splitNodes, appendDeepest } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { deleteContents } from './delete-contents';
-
-// Appends a node to the deepest element of the specified element.
-function appendToDeepestElement(element: Nodes, node: Nodes): void {
-  let child = element;
-  while (child.length > 0) {
-    let firstChild = child.first();
-    if (firstChild.length > 0 && firstChild.isText && firstChild.hasEmptyText) {
-      firstChild.remove();
-      firstChild = child.first();
-    }
-    if (child.isElement && !child.isVoid && firstChild.length === 0) {
-      child.append(node);
-    }
-    child = firstChild;
-  }
-}
 
 // First, removes the contents of the specified range. Then, Split the block node.
 // <p>one<anchor />two<focus />three</p>
@@ -53,13 +37,13 @@ export function splitBlock(range: Range): { left: Nodes | null, right: Nodes | n
   if (left) {
     if (left.hasEmptyText) {
       const br = query('<br />');
-      appendToDeepestElement(left, br);
+      appendDeepest(left, br);
     }
   }
   if (right) {
     if (right.hasEmptyText) {
       const br = query('<br />');
-      appendToDeepestElement(right, br);
+      appendDeepest(right, br);
     }
     range.selectNodeContents(right);
     range.reduce();
