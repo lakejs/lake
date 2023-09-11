@@ -9,8 +9,7 @@ export default (editor: LakeCore) => {
   });
   editor.keystroke.setKeydown('Shift+Enter', event => {
     event.preventDefault();
-    event.stopImmediatePropagation();
-    debug('The Shift+Enter keys were pressed at the same time. ', event);
+    editor.selection.insertContents('<br />&NoBreak;');
   });
   editor.keystroke.setKeydown('Enter', event => {
     event.preventDefault();

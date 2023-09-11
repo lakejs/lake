@@ -38,6 +38,8 @@ export default class LakeCore {
 
   private container: models.Nodes;
 
+  private selectionchangeListener: EventListener;
+
   public event: EventEmitter;
 
   public selection: models.Selection;
@@ -64,9 +66,10 @@ export default class LakeCore {
 
     this.addBuiltInPlugins();
 
-    this.container.on('blur', () => {
+    this.selectionchangeListener = () => {
       this.selection.syncByRange();
-    });
+    };
+    document.addEventListener('selectionchange', this.selectionchangeListener);
   }
 
   private setDefaultOptions(): void {
@@ -146,6 +149,7 @@ export default class LakeCore {
   // Removes the editor.
   public remove(): void {
     this.container.remove();
+    document.removeEventListener('selectionchange', this.selectionchangeListener);
     this.event.emit('remove');
   }
 }

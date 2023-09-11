@@ -2,6 +2,12 @@ import LakeCore from '../src/main';
 
 const { query } = LakeCore.utils;
 
+declare global {
+  interface Window {
+    editor: LakeCore;
+  }
+}
+
 window.DEBUG = true;
 
 const headingTypes = 'h1,h2,h3,h4,h5,h6,p'.split(',');
@@ -30,3 +36,5 @@ query('.lake-toolbar-icon').on('click', event => {
     editor.commands.execute(type);
   }
 });
+
+window.editor = editor;

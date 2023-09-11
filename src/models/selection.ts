@@ -1,7 +1,15 @@
-import { NativeSelection } from '../types/native';
+import { NativeNode, NativeSelection } from '../types/native';
 import { Nodes } from './nodes';
 import { Range } from './range';
-import { addMark, getTags, insertBookmark, removeMark, setBlocks, toBookmark } from '../operations';
+import {
+  addMark,
+  getTags,
+  insertBookmark,
+  insertContents,
+  removeMark,
+  setBlocks,
+  toBookmark,
+} from '../operations';
 
 export class Selection {
   // Represents the range of text selected by the user or the current position of the caret.
@@ -72,6 +80,11 @@ export class Selection {
   // or the method inserts a pair of bookmarks into the beginning and the end of the selection.
   public insertBookmark(): ReturnType<typeof insertBookmark> {
     return insertBookmark(this.range);
+  }
+
+  // Inserts a HTML string into the specified range.
+  public insertContents(value: string | NativeNode | Nodes): ReturnType<typeof insertContents> {
+    return insertContents(this.range, value);
   }
 
   // Adds new blocks or modifies target blocks relating to the selection.
