@@ -307,38 +307,4 @@ describe('models.Range class', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('insertNode method: insert an container', () => {
-    container.html('<strong>foo</strong>bar');
-    const range = new Range();
-    const strong = container.find('strong');
-    const textNode = strong.first();
-    range.setStart(textNode, 1);
-    range.setEnd(textNode, 2);
-    const em = query('<em>insert node</em>');
-    range.insertNode(em);
-    expect(range.startNode.get(0)).to.equal(strong.get(0));
-    expect(range.endNode.get(0)).to.equal(strong.get(0));
-    expect(range.startOffset).to.equal(2);
-    expect(range.endOffset).to.equal(2);
-    expect(range.isCollapsed).to.equal(true);
-    expect(strong.html()).to.equal('f<em>insert node</em>oo');
-  });
-
-  it('insertNode method: insert multi-container', () => {
-    container.html('<strong>foo</strong>bar');
-    const range = new Range();
-    const strong = container.find('strong');
-    const textNode = strong.first();
-    range.setStart(textNode, 1);
-    range.setEnd(textNode, 2);
-    const nodes = query('<em>insert node</em><span>insert node</span>');
-    range.insertNode(nodes);
-    expect(range.startNode.get(0)).to.equal(strong.get(0));
-    expect(range.endNode.get(0)).to.equal(strong.get(0));
-    expect(range.startOffset).to.equal(3);
-    expect(range.endOffset).to.equal(3);
-    expect(range.isCollapsed).to.equal(true);
-    expect(strong.html()).to.equal('f<em>insert node</em><span>insert node</span>oo');
-  });
-
 });

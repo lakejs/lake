@@ -1,4 +1,3 @@
-import { debug } from '../utils/debug';
 import type LakeCore from '../main';
 
 export default (editor: LakeCore) => {
@@ -13,6 +12,11 @@ export default (editor: LakeCore) => {
   });
   editor.keystroke.setKeydown('Enter', event => {
     event.preventDefault();
-    debug('The Enter key was pressed. ', event);
+    const blockList = editor.selection.getBlocks();
+    if (blockList.length > 0) {
+      editor.selection.splitBlock();
+    } else {
+      editor.selection.setBlocks('<p />');
+    }
   });
 };

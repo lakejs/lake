@@ -3,11 +3,13 @@ import { Nodes } from './nodes';
 import { Range } from './range';
 import {
   addMark,
+  getBlocks,
   getTags,
   insertBookmark,
   insertContents,
   removeMark,
   setBlocks,
+  splitBlock,
   toBookmark,
 } from '../operations';
 
@@ -82,14 +84,24 @@ export class Selection {
     return insertBookmark(this.range);
   }
 
-  // Inserts a HTML string into the specified range.
+  // Inserts a HTML string into the selection.
   public insertContents(value: string | NativeNode | Nodes): ReturnType<typeof insertContents> {
     return insertContents(this.range, value);
+  }
+
+  // Returns target blocks relating to the selection that can be modified by other operations.
+  public getBlocks(): ReturnType<typeof getBlocks> {
+    return getBlocks(this.range);
   }
 
   // Adds new blocks or modifies target blocks relating to the selection.
   public setBlocks(value: string): ReturnType<typeof setBlocks> {
     return setBlocks(this.range, value);
+  }
+
+  // First, removes the contents of the selection. Then, Split the block node.
+  public splitBlock(): ReturnType<typeof splitBlock> {
+    return splitBlock(this.range);
   }
 
   // Adds the specified mark to the texts of the selection.

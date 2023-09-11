@@ -41,7 +41,7 @@ function splitMarksAtPoint(node: Nodes, offset: number): { left: Nodes | null, r
 // <p><strong>one<anchor />two<focus />three</strong></p>
 // to
 // <p><strong>one</strong><strong><anchor />two<focus /></strong><strong>three</strong></p>
-export function splitMarks(range: Range):{ left: Nodes | null, center: Nodes | null, right: Nodes | null } {
+export function splitMarks(range: Range): { left: Nodes | null, center: Nodes | null, right: Nodes | null } {
   if (range.isCollapsed) {
     const blockMap = splitMarksAtPoint(range.startNode, range.startOffset);
     if (blockMap.left) {

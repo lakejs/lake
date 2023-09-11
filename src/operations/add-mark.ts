@@ -3,6 +3,7 @@ import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { splitMarks } from './split-marks';
 import { getMarks } from './get-marks';
+import { insertContents } from './insert-contents';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 
@@ -97,7 +98,7 @@ export function addMark(range: Range, value: string): void {
     if (valueNode.text() === '') {
       valueNode.append(zeroWidthSpace);
     }
-    range.insertNode(valueNode);
+    insertContents(range, valueNode);
     removeZeroWidthSpace(valueNode);
     // Resets the position of the selection
     range.selectNodeContents(valueNode);

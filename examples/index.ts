@@ -17,6 +17,7 @@ const noParameterCommandNames = 'blockquote,bold,italic,underline,strikethrough,
 const editor = new LakeCore('.lake-editor', {
   className: 'my-editor-container',
   defaultValue: query('.lake-editor').html(),
+  // defaultValue: 'foo',
 });
 
 editor.create();

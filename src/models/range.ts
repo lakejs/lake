@@ -178,16 +178,6 @@ export class Range {
     return this;
   }
 
-  // Inserts the specified nodes to the start of the range.
-  public insertNode(nodes: Nodes): this {
-    nodes.each(node => {
-      this.range.insertNode(node);
-      this.range.selectNode(node);
-      this.range.collapse(false);
-    });
-    return this;
-  }
-
   // Prints information of the range.
   public debug(): void {
     debug('--- range information ---');

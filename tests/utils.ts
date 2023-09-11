@@ -4,14 +4,15 @@ import { Nodes, Range } from '../src/models';
 import { insertBookmark, toBookmark } from '../src/operations';
 import LakeCore from '../src/main';
 
-function removeBlanks(value: string) {
+function format(value: string) {
   value = value.replace(/>[\s\r\n]+</g, '><');
+  value = value.replace(/<br>/ig, '<br />');
   return value.trim();
 }
 
 export function createContainer(content: string): { container: Nodes, range: Range} {
   const container = query('<div contenteditable="true"></div>').appendTo(document.body);
-  container.html(normalizeValue(removeBlanks(content)));
+  container.html(normalizeValue(format(content)));
   const range = new Range();
   const anchor = container.find('bookmark[type="anchor"]');
   const focus = container.find('bookmark[type="focus"]');
@@ -33,10 +34,10 @@ export function testOperation(
   const { container, range } = createContainer(content);
   callback(range);
   insertBookmark(range);
-  const html = denormalizeValue(container.html());
+  const html = denormalizeValue(format(container.html()));
   container.remove();
   debug(html);
-  expect(html).to.equal(removeBlanks(output));
+  expect(html).to.equal(format(output));
 }
 
 export function testPlugin(
@@ -47,12 +48,12 @@ export function testPlugin(
   const { container } = createContainer(content);
   const editor = new LakeCore(container.get(0), {
     className: 'my-editor-container',
-    defaultValue: removeBlanks(content),
+    defaultValue: format(content),
   });
   editor.create();
   callback(editor);
-  const html = editor.getValue();
+  const html = format(editor.getValue());
   editor.remove();
   debug(html);
-  expect(html).to.equal(removeBlanks(output));
+  expect(html).to.equal(format(output));
 }
