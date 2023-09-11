@@ -92,10 +92,11 @@ describe('models.Nodes class', () => {
   });
 
   it('property: hasEmptyText', () => {
-    const container = query('<div contenteditable="true"><strong></strong><em>\u200B</em></div>');
+    const container = query('<div contenteditable="true"><strong></strong><em>\u200B</em><u>\u2060</u></div>');
     expect(container.find('strong').hasEmptyText).to.equal(true);
     expect(container.find('em').hasEmptyText).to.equal(true);
     expect(container.find('em').first().hasEmptyText).to.equal(true);
+    expect(container.find('u').hasEmptyText).to.equal(true);
   });
 
   it('method: isSibling', () => {

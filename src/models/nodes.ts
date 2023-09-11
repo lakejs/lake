@@ -145,7 +145,7 @@ export class Nodes {
   // Returns a boolean value indicating whether the node is an empty node.
   public get hasEmptyText(): boolean {
     const nodeText = this.text();
-    return nodeText === '' || nodeText === '\u200B';
+    return nodeText === '' || nodeText === '\u200B' || nodeText === '\u2060';
   }
 
   // Returns a boolean value indicating whether the node and the target node are siblings.
