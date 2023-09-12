@@ -2,7 +2,7 @@ import { testPlugin } from '../utils';
 
 describe('bold plugin', () => {
 
-  it('no text is selected: between the characters of the text', () => {
+  it('the focus is between the characters of the text', () => {
     const content = `
     <p>f<focus />oo</p>
     <p>bar</p>
@@ -20,7 +20,7 @@ describe('bold plugin', () => {
     );
   });
 
-  it('toggling, no text is selected: between the characters of the text', () => {
+  it('toggling: the focus is between the characters of the text', () => {
     const content = `
     <p>f<focus />oo</p>
     <p>bar</p>
@@ -39,7 +39,7 @@ describe('bold plugin', () => {
     );
   });
 
-  it('execute three times, no text is selected: between the characters of the text', () => {
+  it('executes three times: the focus is between the characters of the text', () => {
     const content = `
     <p>f<focus />oo</p>
     <p>bar</p>
@@ -59,7 +59,7 @@ describe('bold plugin', () => {
     );
   });
 
-  it('no text is selected: at the end of the text', () => {
+  it('the focus is at the end of the text', () => {
     const content = `
     <p>foo<focus /></p>
     <p>bar</p>
@@ -77,7 +77,7 @@ describe('bold plugin', () => {
     );
   });
 
-  it('toggling, no text is selected: at the end of the text', () => {
+  it('toggling: the focus is at the end of the text', () => {
     const content = `
     <p>foo<focus /></p>
     <p>bar</p>
@@ -96,7 +96,7 @@ describe('bold plugin', () => {
     );
   });
 
-  it('no text is selected: at the beginning of the text', () => {
+  it('the focus is at the beginning of the text', () => {
     const content = `
     <p><focus />foo</p>
     <p>bar</p>
@@ -114,7 +114,7 @@ describe('bold plugin', () => {
     );
   });
 
-  it('toggling, no text is selected: at the beginning of the text', () => {
+  it('toggling: the focus is at the beginning of the text', () => {
     const content = `
     <p><focus />foo</p>
     <p>bar</p>
@@ -133,7 +133,7 @@ describe('bold plugin', () => {
     );
   });
 
-  it('text is selected: anchor and focus are between the characters of the text', () => {
+  it('the anchor and the focus are between the characters of the text', () => {
     const content = `
     <p>one<anchor />two<focus />three</p>
     <p>foo</p>
@@ -151,7 +151,7 @@ describe('bold plugin', () => {
     );
   });
 
-  it('toggling, text is selected: anchor and focus are between the characters of the text', () => {
+  it('toggling: the anchor and the focus are between the characters of the text', () => {
     const content = `
     <p>one<anchor />two<focus />three</p>
     <p>foo</p>
@@ -170,7 +170,7 @@ describe('bold plugin', () => {
     );
   });
 
-  it('execute three times, text is selected: anchor and focus are between the characters of the text', () => {
+  it('executes three times: the anchor and the focus are between the characters of the text', () => {
     const content = `
     <p>one<anchor />two<focus />three</p>
     <p>foo</p>
@@ -190,7 +190,7 @@ describe('bold plugin', () => {
     );
   });
 
-  it('text is selected: anchor is at the beginning of the text', () => {
+  it('expanded range: the anchor is at the beginning of the text', () => {
     const content = `
     <p><anchor />two<focus />three</p>
     <p>foo</p>
@@ -208,7 +208,7 @@ describe('bold plugin', () => {
     );
   });
 
-  it('text is selected: focus is at the end of the text', () => {
+  it('expanded range: the focus is at the end of the text', () => {
     const content = `
     <p>one<anchor />two<focus /></p>
     <p>foo</p>
@@ -226,7 +226,7 @@ describe('bold plugin', () => {
     );
   });
 
-  it('no text is selected: in the other strong tag', () => {
+  it('the focus is in another strong element', () => {
     const content = `
     <p><strong>f<focus />oo</strong></p>
     <p>bar</p>
@@ -244,7 +244,7 @@ describe('bold plugin', () => {
     );
   });
 
-  it('no text is selected: in the other mark', () => {
+  it('the focus is in another mark', () => {
     const content = `
     <p><em>f<focus />oo</em></p>
     <p>bar</p>

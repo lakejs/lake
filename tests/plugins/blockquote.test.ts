@@ -2,7 +2,7 @@ import { testPlugin } from '../utils';
 
 describe('blockquote plugin', () => {
 
-  it('no text is selected: to set a block', () => {
+  it('no text is selected: sets a block', () => {
     const content = `
     <p>foo<focus /></p>
     <p>bar</p>
@@ -20,7 +20,7 @@ describe('blockquote plugin', () => {
     );
   });
 
-  it('text is selected: to set a block', () => {
+  it('text is selected: sets a block', () => {
     const content = `
     <p><anchor />foo<focus /></p>
     <p>bar</p>
@@ -38,7 +38,7 @@ describe('blockquote plugin', () => {
     );
   });
 
-  it('text is selected: to set multi-blockquote', () => {
+  it('text is selected: sets multi-blockquote', () => {
     const content = `
     <p><anchor />foo</p>
     <p>bar<focus /></p>

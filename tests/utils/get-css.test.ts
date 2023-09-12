@@ -3,7 +3,7 @@ import { getCss } from '../../src/utils';
 
 describe('utils.getCss()', () => {
 
-  it('to get computed CSS value', () => {
+  it('gets computed CSS value', () => {
     const element = document.createElement('div');
     element.style.color = '#ff0000';
     element.style.border = '1px solid #0000ff';

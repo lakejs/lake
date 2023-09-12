@@ -3,7 +3,7 @@ import { removeMark } from '../../src/operations';
 
 describe('operations.removeMark()', () => {
 
-  it('collapsed range: removing a mark', () => {
+  it('collapsed range: removes a mark', () => {
     const content = `
     <p>foo<strong><focus /></strong>bar</p>
     `;
@@ -35,7 +35,7 @@ describe('operations.removeMark()', () => {
     );
   });
 
-  it('expanded range: removing a mark with selecting mark', () => {
+  it('expanded range: removes a mark with selecting mark', () => {
     const content = `
     <p>foo<anchor /><strong>bold</strong><focus />bar</p>
     `;
@@ -67,7 +67,7 @@ describe('operations.removeMark()', () => {
     );
   });
 
-  it('expanded range: removing a mark with selecting text', () => {
+  it('expanded range: removes a mark with selecting text', () => {
     const content = `
     <p>foo<strong><anchor />bold<focus /></strong>bar</p>
     `;
@@ -83,7 +83,7 @@ describe('operations.removeMark()', () => {
     );
   });
 
-  it('expanded range: removing a mark with selecting part of a text', () => {
+  it('expanded range: removes a mark with selecting part of a text', () => {
     const content = `
     <p><strong>foo<anchor />bold<focus />bar</strong></p>
     `;
@@ -131,7 +131,7 @@ describe('operations.removeMark()', () => {
     );
   });
 
-  it('collapsed range: removing a mark in the other mark', () => {
+  it('collapsed range: removes a mark in another mark', () => {
     const content = `
     <p><em>foo</em><strong><em><focus /></em></strong><em>bar</em></p>
     `;
@@ -147,7 +147,7 @@ describe('operations.removeMark()', () => {
     );
   });
 
-  it('expanded range: removing a mark in the other mark', () => {
+  it('expanded range: removes a mark in another mark', () => {
     const content = `
     <p><em>foo</em><anchor /><strong><em>bold</em></strong><focus /><em>bar</em></p>
     `;

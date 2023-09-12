@@ -3,7 +3,7 @@ import { insertContents } from '../../src/operations';
 
 describe('operations.insertContents()', () => {
 
-  it('to insert an element into after text node', () => {
+  it('inserts an element into after text node', () => {
     const content = `
     <strong>foo<focus /></strong>bar
     `;
@@ -19,7 +19,7 @@ describe('operations.insertContents()', () => {
     );
   });
 
-  it('to insert multi-element into after text node', () => {
+  it('inserts multi-element into after text node', () => {
     const content = `
     <strong>foo<focus /></strong>bar
     `;
@@ -35,7 +35,7 @@ describe('operations.insertContents()', () => {
     );
   });
 
-  it('to call insertContents() several times consecutively', () => {
+  it('calls insertContents() several times consecutively', () => {
     const content = `
     <strong>foo<focus /></strong>bar
     `;

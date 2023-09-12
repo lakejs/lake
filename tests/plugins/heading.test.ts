@@ -2,7 +2,7 @@ import { testPlugin } from '../utils';
 
 describe('heading plugin', () => {
 
-  it('no text is selected: to set a heading', () => {
+  it('no text is selected: sets a heading', () => {
     const content = `
     <p>heading<focus /></p>
     <p>foo</p>
@@ -20,7 +20,7 @@ describe('heading plugin', () => {
     );
   });
 
-  it('text is selected: to set a heading', () => {
+  it('text is selected: sets a heading', () => {
     const content = `
     <p><anchor />heading<focus /></p>
     <p>foo</p>
@@ -38,7 +38,7 @@ describe('heading plugin', () => {
     );
   });
 
-  it('text is selected: to set a paragraph', () => {
+  it('text is selected: sets a paragraph', () => {
     const content = `
     <h2><anchor />heading<focus /></h2>
     <p>foo</p>
@@ -56,7 +56,7 @@ describe('heading plugin', () => {
     );
   });
 
-  it('text is selected: to set multi-heading', () => {
+  it('text is selected: sets multi-heading', () => {
     const content = `
     <p><anchor />foo</p>
     <p>bar<focus /></p>

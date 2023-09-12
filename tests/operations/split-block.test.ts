@@ -3,7 +3,7 @@ import { splitBlock } from '../../src/operations';
 
 describe('operations.splitBlock()', () => {
 
-  it('collapsed range: splitting a block with a text', () => {
+  it('collapsed range: splits a block with a text', () => {
     const content = `
     <p>one<focus />two</p>
     `;
@@ -20,7 +20,7 @@ describe('operations.splitBlock()', () => {
     );
   });
 
-  it('collapsed range: splitting a block with a mark', () => {
+  it('collapsed range: splits a block with a mark', () => {
     const content = `
     <p><strong>one<focus />two</strong></p>
     `;
@@ -37,7 +37,7 @@ describe('operations.splitBlock()', () => {
     );
   });
 
-  it('expanded range: splitting a block with a text', () => {
+  it('expanded range: splits a block with a text', () => {
     const content = `
     <p>one<anchor />foo<focus />two</p>
     `;
@@ -54,7 +54,7 @@ describe('operations.splitBlock()', () => {
     );
   });
 
-  it('expanded range: splitting a block with a mark', () => {
+  it('expanded range: splits a block with a mark', () => {
     const content = `
     <p><strong>one<anchor />foo<focus />two</strong></p>
     `;
@@ -71,7 +71,7 @@ describe('operations.splitBlock()', () => {
     );
   });
 
-  it('expanded range: splitting multi-block', () => {
+  it('expanded range: splits multi-block', () => {
     const content = `
     <p>foo1<anchor />bar1</p>
     <p>foo2<focus />bar2</p>
@@ -89,7 +89,7 @@ describe('operations.splitBlock()', () => {
     );
   });
 
-  it('collapsed range: splitting a block at the beginning of the text', () => {
+  it('collapsed range: splits a block at the beginning of the text', () => {
     const content = `
     <p><focus />foo</p>
     `;
@@ -106,7 +106,7 @@ describe('operations.splitBlock()', () => {
     );
   });
 
-  it('collapsed range: splitting a block at the end of the text', () => {
+  it('collapsed range: splits a block at the end of the text', () => {
     const content = `
     <p>foo<focus /></p>
     `;

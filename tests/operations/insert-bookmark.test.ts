@@ -16,7 +16,7 @@ describe('operations.insertBookmark()', () => {
     container.remove();
   });
 
-  it('collapsed range', () => {
+  it('is a collapsed range', () => {
     const range = new Range();
     range.selectNodeContents(container.find('strong'));
     range.collapseToEnd();
@@ -26,7 +26,7 @@ describe('operations.insertBookmark()', () => {
     expect(container.html()).to.equal('<p>outer start</p>foo<strong>bold<bookmark type="focus"></bookmark></strong><p>outer end</p>');
   });
 
-  it('expanded range', () => {
+  it('is an expanded range', () => {
     const range = new Range();
     range.selectNodeContents(container.find('strong'));
     const bookmark = insertBookmark(range);

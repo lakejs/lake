@@ -3,7 +3,7 @@ import { deleteContents } from '../../src/operations';
 
 describe('operations.deleteContents()', () => {
 
-  it('to delete the selected text', () => {
+  it('deletes the selected text', () => {
     const content = `
     <p>one<anchor />two<focus />three</p>
     `;
@@ -19,7 +19,7 @@ describe('operations.deleteContents()', () => {
     );
   });
 
-  it('to delete part of two blocks', () => {
+  it('deletes part of two blocks', () => {
     const content = `
     <p>foo1<anchor />bar1</p>
     <p>foo2<focus />bar2</p>

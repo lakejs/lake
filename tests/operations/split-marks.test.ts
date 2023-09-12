@@ -3,7 +3,7 @@ import { splitMarks } from '../../src/operations';
 
 describe('operations.splitMarks()', () => {
 
-  it('collapsed range: splitting a text and a mark', () => {
+  it('collapsed range: splits a text and a mark', () => {
     const content = `
     <p><strong>one<focus />two</strong></p>
     `;
@@ -19,7 +19,7 @@ describe('operations.splitMarks()', () => {
     );
   });
 
-  it('expanded range: splitting a text and a mark', () => {
+  it('expanded range: splits a text and a mark', () => {
     const content = `
     <p><strong>one<anchor />two<focus />three</strong></p>
     `;
@@ -35,7 +35,7 @@ describe('operations.splitMarks()', () => {
     );
   });
 
-  it('collapsed range: splitting a mark at the beginning of the text', () => {
+  it('collapsed range: splits a mark at the beginning of the text', () => {
     const content = `
     <p><strong><focus />foo</strong></p>
     `;
@@ -51,7 +51,7 @@ describe('operations.splitMarks()', () => {
     );
   });
 
-  it('expanded range: splitting a mark at the beginning of the text', () => {
+  it('expanded range: splits a mark at the beginning of the text', () => {
     const content = `
     <p><strong><anchor />foo<focus />bar</strong></p>
     `;
@@ -67,7 +67,7 @@ describe('operations.splitMarks()', () => {
     );
   });
 
-  it('collapsed range: splitting a mark at the end of the text', () => {
+  it('collapsed range: splits a mark at the end of the text', () => {
     const content = `
     <p><strong>foo<focus /></strong></p>
     `;
@@ -83,7 +83,7 @@ describe('operations.splitMarks()', () => {
     );
   });
 
-  it('expanded range: splitting a mark at the end of the text', () => {
+  it('expanded range: splits a mark at the end of the text', () => {
     const content = `
     <p><strong>foo<anchor />bar<focus /></strong></p>
     `;
@@ -99,7 +99,7 @@ describe('operations.splitMarks()', () => {
     );
   });
 
-  it('collapsed range: splitting a mark among the marks', () => {
+  it('collapsed range: splits a mark among the marks', () => {
     const content = `
     <p><strong>beginning<em>one</em><focus /><em>two</em>end</strong></p>
     `;
@@ -115,7 +115,7 @@ describe('operations.splitMarks()', () => {
     );
   });
 
-  it('collapsed range: splitting a mark without parent mark', () => {
+  it('collapsed range: splits a mark without parent mark', () => {
     const content = `
     <p><em>one</em>two<em>th<focus />ree</em>four<em>five</em></p>
     `;
@@ -131,7 +131,7 @@ describe('operations.splitMarks()', () => {
     );
   });
 
-  it('collapsed range: splitting nested masks and a text', () => {
+  it('collapsed range: splits nested masks and a text', () => {
     const content = `
     <p><strong>beginning<em>one<focus />two</em>end</strong></p>
     `;
@@ -147,7 +147,7 @@ describe('operations.splitMarks()', () => {
     );
   });
 
-  it('collapsed range: splitting nested masks without splitting text', () => {
+  it('collapsed range: splits nested masks without splitting text', () => {
     const content = `
     <p><strong>beginning<em><focus />foo</em>end</strong></p>
     `;
@@ -163,7 +163,7 @@ describe('operations.splitMarks()', () => {
     );
   });
 
-  it('collapsed range: splitting three levels of nested masks', () => {
+  it('collapsed range: splits three levels of nested masks', () => {
     const content = `
     <p><strong>beginning<em>one<span><focus />two</span></em>end</strong></p>
     `;
@@ -179,7 +179,7 @@ describe('operations.splitMarks()', () => {
     );
   });
 
-  it('expanded range: splitting three levels of nested masks', () => {
+  it('expanded range: splits three levels of nested masks', () => {
     const content = `
     <p><strong>beginning<em>one<span><anchor />two<focus /></span></em>end</strong></p>
     `;

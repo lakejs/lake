@@ -4,7 +4,7 @@ import { getMarks } from '../../src/operations';
 
 describe('operations.getMarks()', () => {
 
-  it('selecting a mark', () => {
+  it('should get text and mark nodes', () => {
     const content = `
     <p><anchor />foo<strong>bold</strong><focus /></p>
     `;
@@ -17,7 +17,7 @@ describe('operations.getMarks()', () => {
     expect(marks[2].text()).to.equal('bold');
   });
 
-  it('in the other mark', () => {
+  it('the range is in the other mark', () => {
     const content = `
     <p><em><anchor />foo<strong>bold</strong><focus /></em></p>
     `;
@@ -30,7 +30,7 @@ describe('operations.getMarks()', () => {
     expect(marks[2].text()).to.equal('bold');
   });
 
-  it('selecting part of a mark', () => {
+  it('the range is part of a mark', () => {
     const content = `
     <p><em><anchor />foo</em><strong>bold</strong><focus /></p>
     `;

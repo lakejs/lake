@@ -69,7 +69,7 @@ describe('operations.getBlocks()', () => {
     expect(blocks.length).to.equal(0);
   });
 
-  it('to return a sub-block in the nested blocks when no text is selected', () => {
+  it('returns a sub-block in the nested blocks when no text is selected', () => {
     const content = `
     <p>outer start</p>
     <h1><p>foo<strong>bold</strong><focus /></p></h1>
@@ -82,7 +82,7 @@ describe('operations.getBlocks()', () => {
     expect(blocks[0].html()).to.equal('foo<strong>bold</strong>');
   });
 
-  it('to return top blocks in the nested blocks after select multiple blocks', () => {
+  it('returns top blocks in the nested blocks after select multiple blocks', () => {
     const content = `
     <p>outer start</p>
     <h1><p><anchor />foo1<strong>bold1</strong></p></h1>
@@ -97,7 +97,7 @@ describe('operations.getBlocks()', () => {
     expect(blocks[1].html()).to.equal('<p>foo2<strong>bold2</strong></p>');
   });
 
-  it('to return sub-block in the nested blocks after select multiple blocks', () => {
+  it('returns sub-block in the nested blocks after select multiple blocks', () => {
     const content = `
     <p>outer start</p>
     <h1>

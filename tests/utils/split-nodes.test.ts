@@ -3,7 +3,7 @@ import { query, splitNodes } from '../../src/utils';
 
 describe('utils.splitNodes()', () => {
 
-  it('to split a text', () => {
+  it('splits a text', () => {
     const container = query('<div><p><strong>onetwo</strong></p></div>');
     const parent = splitNodes(container.find('strong').first(), 3, container.find('p'));
     expect(container.html()).to.equal('<p><strong>one</strong><strong>two</strong></p>');
@@ -35,7 +35,7 @@ describe('utils.splitNodes()', () => {
     expect(parent?.right.html()).to.equal('');
   });
 
-  it('to split nested blocks', () => {
+  it('splits nested blocks', () => {
     const container = query('<div><h1><p>one<strong>two</strong>three</p></h1></div>');
     const parent = splitNodes(container.find('strong'), 0, container);
     expect(container.html()).to.equal('<h1><p>one<strong></strong></p></h1><h1><p><strong>two</strong>three</p></h1>');

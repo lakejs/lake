@@ -4,7 +4,7 @@ import { getTags } from '../../src/operations';
 
 describe('operations.getTags()', () => {
 
-  it('getting tags', () => {
+  it('is a collapsed range', () => {
     const content = `
     <p><strong>one<em>tw<focus />o</em>three</strong></p>
     `;
@@ -17,7 +17,7 @@ describe('operations.getTags()', () => {
     expect(tags[2].name).to.equal('p');
   });
 
-  it('expanded range', () => {
+  it('is an expanded range', () => {
     const content = `
     <p><strong>one<em>tw<anchor />o</em>three</strong><focus /></p>
     `;
@@ -30,7 +30,7 @@ describe('operations.getTags()', () => {
     expect(tags[2].name).to.equal('p');
   });
 
-  it('getting attributes', () => {
+  it('gets attributes', () => {
     const content = `
     <p><span style="color: red;" class="foo">one<em>tw<focus />o</em>three</strong></p>
     `;

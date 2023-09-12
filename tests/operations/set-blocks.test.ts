@@ -43,7 +43,7 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('to add styles to the selected blocks', () => {
+  it('adds styles to the selected blocks', () => {
     const content = `
     <p>outer start</p>
     <p>f<anchor />oo<strong>bold</strong></p>
@@ -65,7 +65,7 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('to set multiple blocks', () => {
+  it('sets multiple blocks', () => {
     const content = `
     <p>outer start</p>
     <p>f<anchor />oo<strong>bold</strong></p>
@@ -89,7 +89,7 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('to create a new block when the selected contents are not in a block', () => {
+  it('creates a new block when the selected contents are not in a block', () => {
     const content = `
     foo<strong>bar<focus /></strong>
     `;
@@ -105,7 +105,7 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('to create a new block among other blocks', () => {
+  it('creates a new block among other blocks', () => {
     const content = `
     <p>outer start</p>
     foo<strong>bar<focus /></strong>end
@@ -125,7 +125,7 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('to set a nested block when no text is selected', () => {
+  it('sets a nested block when no text is selected', () => {
     const content = `
     <p>outer start</p>
     <h1><p>foo<strong>bold</strong><focus /></p></h1>
@@ -145,7 +145,7 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('to set nested blocks after select multiple blocks', () => {
+  it('sets nested blocks after select multiple blocks', () => {
     const content = `
     <p>outer start</p>
     <h1><p><anchor />foo1<strong>bold1</strong></p></h1>

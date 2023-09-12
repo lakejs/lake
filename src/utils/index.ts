@@ -8,8 +8,6 @@ export * from './denormalize-value';
 // Object
 export * from './for-each';
 // Native DOM
-export * from './get-document';
-export * from './get-window';
 export * from './get-css';
 export * from './to-node-list';
 // Nodes

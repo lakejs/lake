@@ -15,7 +15,7 @@ describe('operations.toBookmark()', () => {
     container.remove();
   });
 
-  it('normalize text', () => {
+  it('normalizes text', () => {
     const content = normalizeValue('<p>f<focus />oo<strong>bar</strong></p>');
     container.html(content);
     const range = new Range();
@@ -30,7 +30,7 @@ describe('operations.toBookmark()', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('only focus', () => {
+  it('no anchor', () => {
     const content = normalizeValue('<p>outer start</p>foo<strong>bold<focus /></strong><p>outer end</p>');
     container.html(content);
     const range = new Range();
@@ -46,7 +46,7 @@ describe('operations.toBookmark()', () => {
     expect(container.html()).to.equal('<p>outer start</p>foo<strong>bold</strong><p>outer end</p>');
   });
 
-  it('only anchor', () => {
+  it('no focus', () => {
     const content = normalizeValue('<p>outer start</p>foo<strong>bold<anchor /></strong><p>outer end</p>');
     container.html(content);
     const range = new Range();

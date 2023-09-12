@@ -3,7 +3,7 @@ import { forEach } from '../../src/utils';
 
 describe('utils.forEach()', () => {
 
-  it('plain object', () => {
+  it('is plain object', () => {
     const oldObject = {
       one: 1,
       two: 2,
