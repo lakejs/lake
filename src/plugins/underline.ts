@@ -13,4 +13,8 @@ export default (editor: LakeCore) => {
     }
     editor.select();
   });
+  editor.keystroke.setKeydown('$mod+KeyU', event => {
+    event.preventDefault();
+    editor.commands.execute('underline');
+  });
 };

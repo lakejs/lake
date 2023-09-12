@@ -13,4 +13,8 @@ export default (editor: LakeCore) => {
     }
     editor.select();
   });
+  editor.keystroke.setKeydown('$mod+KeyB', event => {
+    event.preventDefault();
+    editor.commands.execute('bold');
+  });
 };
