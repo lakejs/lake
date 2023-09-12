@@ -54,7 +54,7 @@ export default class LakeCore {
 
   constructor(target: string | NativeNode, options?: OptionsType) {
     this.target = target;
-    this.options = options || defaultOptions;
+    this.options = options ?? defaultOptions;
     this.container = utils.query('<div />');
 
     this.setDefaultOptions();

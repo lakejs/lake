@@ -6,6 +6,7 @@ export default (editor: LakeCore) => {
     const blockList = editor.selection.getBlocks();
     if (blockList.length > 0) {
       editor.selection.splitBlock();
+      editor.selection.setBlocks('<p />');
     } else {
       editor.selection.setBlocks('<p />');
     }

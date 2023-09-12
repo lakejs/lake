@@ -33,7 +33,7 @@ export class Nodes {
   public length: number;
 
   constructor(node?: NativeNode | NativeNode[] | null) {
-    node = node || [];
+    node = node ?? [];
     this.nodeList = Array.isArray(node) ? node : [node];
     for (let i = 0; i < this.nodeList.length; i++) {
       // lakeId is an expando for preserving node ID.
@@ -344,7 +344,7 @@ export class Nodes {
   public off(type?: string, listener?: EventListener): this {
     return this.eachElement(element => {
       const elementId = element.lakeId;
-      const eventItems = eventData[elementId] || [];
+      const eventItems = eventData[elementId] ?? [];
       eventItems.forEach((item, index) => {
         if (!type || type === item.type && (!listener || listener === item.listener)) {
           element.removeEventListener(item.type, item.listener, false);
@@ -417,7 +417,7 @@ export class Nodes {
     }
     if (value === undefined) {
       const element = this.get(0) as NativeElement;
-      return element.getAttribute(attributeName) || '';
+      return element.getAttribute(attributeName) ?? '';
     }
     return this.eachElement(element => {
       element.setAttribute(attributeName, value);
@@ -512,7 +512,7 @@ export class Nodes {
   public text(): string {
     const node = this.get(0);
     if (this.isText) {
-      return node.nodeValue || '';
+      return node.nodeValue ?? '';
     }
     const element = node as NativeHTMLElement;
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText

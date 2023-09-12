@@ -8,11 +8,7 @@ export class Range {
   private range: NativeRange;
 
   constructor(range?: NativeRange) {
-    if (range) {
-      this.range = range;
-    } else {
-      this.range = document.createRange();
-    }
+    this.range = range ?? document.createRange();
   }
 
   // Returns a node within which the range starts.
@@ -71,7 +67,7 @@ export class Range {
   public compareAfterNode(node: Nodes): number {
     const targetRange = new Range();
     if (node.isText) {
-      const nodeValue = node.get().nodeValue || '';
+      const nodeValue = node.get().nodeValue ?? '';
       targetRange.setStart(node, nodeValue.length);
     } else {
       targetRange.setStartAfter(node);
