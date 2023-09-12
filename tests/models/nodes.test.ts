@@ -66,6 +66,11 @@ describe('models.Nodes class', () => {
     expect(container.find('br').isVoid).to.equal(true);
   });
 
+  it('property: isBookmark', () => {
+    const container = query('<div contenteditable="true"><strong>foo</strong>bar<bookmark /></div>');
+    expect(container.find('bookmark').isBookmark).to.equal(true);
+  });
+
   it('property: isContainer', () => {
     const container = query('<div contenteditable="true"><strong>foo</strong>bar</div>');
     expect(container.isContainer).to.equal(true);

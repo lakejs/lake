@@ -14,7 +14,7 @@ function getTopNonBlockNodes(range: Range): Nodes[] {
   let node = container.first();
   let isBeforeRange = true;
   while (node.length > 0) {
-    if (node.isMark || node.isText) {
+    if (node.isMark || node.isText || node.isBookmark) {
       nodeList.push(node);
     } else {
       if (!isBeforeRange) {
@@ -67,23 +67,28 @@ export function setBlocks(range: Range, value: string): void {
     return;
   }
   // no block
+  const bookmark = insertBookmark(range);
   const nonBlockNodes = getTopNonBlockNodes(range);
   if (nonBlockNodes.length > 0) {
-    const bookmark = insertBookmark(range);
     const block = query(`<${tagName} />`);
     addStyles(block, styleValue);
     nonBlockNodes[0].before(block);
     nonBlockNodes.forEach((node, index) => {
       if (node.isText) {
-        const nodeValue = node.get(0).nodeValue || '';
         if (index === 0) {
-          node.get(0).nodeValue = nodeValue.replace(/^[\s\r\n]+/, '');
+          const nodeValue = node.text().replace(/^[\s\r\n]+/, '');
+          if (node.text() !== nodeValue) {
+            node.get(0).nodeValue = nodeValue;
+          }
         } else if (index === nonBlockNodes.length - 1) {
-          node.get(0).nodeValue = nodeValue.replace(/[\s\r\n]+$/, '');
+          const nodeValue = node.text().replace(/[\s\r\n]+$/, '');
+          if (node.text() !== nodeValue) {
+            node.get(0).nodeValue = nodeValue;
+          }
         }
       }
       block.append(node);
     });
-    toBookmark(range, bookmark);
   }
+  toBookmark(range, bookmark);
 }

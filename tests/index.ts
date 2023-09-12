@@ -47,3 +47,5 @@ import './plugins/subscript.test';
 import './plugins/superscript.test';
 import './plugins/code.test';
 import './plugins/fontfamily.test';
+import './plugins/enter.test';
+import './plugins/shiftenter.test';

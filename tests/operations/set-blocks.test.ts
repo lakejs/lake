@@ -91,16 +91,32 @@ describe('operations.setBlocks()', () => {
 
   it('creates a new block when the selected contents are not in a block', () => {
     const content = `
-    foo<strong>bar<focus /></strong>
+    foo<strong>bar<focus /></strong>cat
     `;
     const output = `
-    <h2>foo<strong>bar<focus /></strong></h2>
+    <h2>foo<strong>bar<focus /></strong>cat</h2>
     `;
     testOperation(
       content,
       output,
       range => {
         setBlocks(range, '<h2 />');
+      },
+    );
+  });
+
+  it('creates a new block when there is only a text', () => {
+    const content = `
+    foo<focus />bar
+    `;
+    const output = `
+    <p>foo<focus />bar</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, '<p />');
       },
     );
   });

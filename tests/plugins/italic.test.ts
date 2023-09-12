@@ -19,4 +19,22 @@ describe('italic plugin', () => {
     );
   });
 
+  it('keyboard shortcut', () => {
+    const content = `
+    <p>f<focus />oo</p>
+    <p>bar</p>
+    `;
+    const output = `
+    <p>f<i>\u200B<focus /></i>oo</p>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('$mod+KeyI');
+      },
+    );
+  });
+
 });

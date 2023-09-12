@@ -102,6 +102,11 @@ export class Nodes {
     return inString(voidTagNames, this.name);
   }
 
+  // Returns a boolean value indicating whether the node is a bookmark element.
+  public get isBookmark(): boolean {
+    return this.name === 'bookmark';
+  }
+
   // Returns a boolean value indicating whether the element is a root element of contenteditable area.
   public get isContainer(): boolean {
     if (this.length === 0) {
@@ -340,7 +345,7 @@ export class Nodes {
     return this.eachElement(element => {
       const elementId = element.lakeId;
       const eventItems = eventData[elementId] || [];
-      eventItems.forEach((item: EventItem, index: number) => {
+      eventItems.forEach((item, index) => {
         if (!type || type === item.type && (!listener || listener === item.listener)) {
           element.removeEventListener(item.type, item.listener, false);
           eventItems[index] = {
@@ -358,8 +363,8 @@ export class Nodes {
     return this.eachElement(element => {
       const elementId = element.lakeId;
       const eventItems = eventData[elementId];
-      eventItems.forEach((item: EventItem) => {
-        if (type === item.type) {
+      eventItems.forEach(item => {
+        if (item.type === type) {
           item.listener(new Event(type));
         }
       });

@@ -262,4 +262,22 @@ describe('bold plugin', () => {
     );
   });
 
+  it('keyboard shortcut', () => {
+    const content = `
+    <p>f<focus />oo</p>
+    <p>bar</p>
+    `;
+    const output = `
+    <p>f<strong>\u200B<focus /></strong>oo</p>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('$mod+KeyB');
+      },
+    );
+  });
+
 });
