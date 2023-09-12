@@ -12,9 +12,9 @@ import strikethrough from './plugins/strikethrough';
 import subscript from './plugins/subscript';
 import superscript from './plugins/superscript';
 import code from './plugins/code';
-import fontfamily from './plugins/fontfamily';
+import fontFamily from './plugins/font-family';
 import enter from './plugins/enter';
-import shiftenter from './plugins/shiftenter';
+import shiftEnter from './plugins/shift-enter';
 
 type TargetType = string | NativeNode;
 
@@ -102,9 +102,9 @@ export default class LakeCore {
     plugins.add(subscript);
     plugins.add(superscript);
     plugins.add(code);
-    plugins.add(fontfamily);
+    plugins.add(fontFamily);
     plugins.add(enter);
-    plugins.add(shiftenter);
+    plugins.add(shiftEnter);
   }
 
   // Selects the saved range in the selection.

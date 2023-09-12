@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('fontfamily plugin', () => {
+describe('fontFamily plugin', () => {
 
   it('should add a font to the selected text', () => {
     const content = `
@@ -13,12 +13,12 @@ describe('fontfamily plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('fontfamily', 'Tahoma');
+        editor.commands.execute('fontFamily', 'Tahoma');
       },
     );
   });
 
-  it('should update font after executing another fontfamily', () => {
+  it('should update font after executing another fontFamily command', () => {
     const content = `
     <p>one<anchor />two<focus />three</p>
     `;
@@ -29,8 +29,8 @@ describe('fontfamily plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('fontfamily', 'Tahoma');
-        editor.commands.execute('fontfamily', 'Verdana');
+        editor.commands.execute('fontFamily', 'Tahoma');
+        editor.commands.execute('fontFamily', 'Verdana');
       },
     );
   });
@@ -46,7 +46,7 @@ describe('fontfamily plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('fontfamily', '');
+        editor.commands.execute('fontFamily', '');
       },
     );
   });

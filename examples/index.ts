@@ -12,7 +12,7 @@ window.DEBUG = true;
 
 const headingTypes = 'h1,h2,h3,h4,h5,h6,p'.split(',');
 
-const noParameterCommandNames = 'blockquote,bold,italic,underline,strikethrough,subscript,superscript,code,'.split(',');
+const noParameterCommandNames = 'blockquote,bold,italic,underline,strikethrough,subscript,superscript,code'.split(',');
 
 const editor = new LakeCore('.lake-editor', {
   className: 'my-editor-container',
@@ -29,8 +29,8 @@ query('.lake-toolbar-icon').on('click', event => {
     editor.commands.execute('heading', type);
     return;
   }
-  if (type === 'fontfamily') {
-    editor.commands.execute('fontfamily', 'Segoe UI');
+  if (type === 'fontFamily') {
+    editor.commands.execute('fontFamily', 'Segoe UI');
     return;
   }
   if (noParameterCommandNames.indexOf(type) >= 0) {

@@ -102,12 +102,12 @@
     * subscript.ts
     * superscript.ts
     * code.ts
-    * fontfamily.ts
-    * fontsize.ts
-    * textcolor.ts
+    * font-family.ts
+    * font-size.ts
+    * font-color.ts
     * highlight.ts
-    * formatpainter.ts
-    * removeformat.ts
+    * format-painter.ts
+    * remove-format.ts
     * hr/
     * image/
     * link/
@@ -143,8 +143,8 @@
   <s>strikeThrough</s>
   <span style="font-family: Arial;">fontName</>
   <span style="font-size: 14px;">fontSize</span>
-  <span style="color: red;">foreColor</span>
-  <span style="background-color: #eeeeee;">hiliteColor</span>
+  <span style="color: red;">fontColor</span>
+  <span style="background-color: #eeeeee;">highlight</span>
   <sub>subscript</sub>
   <sup>superscript</sup>
   <code>code</code>
@@ -157,17 +157,17 @@
   align
 </p>
 <ol>
-  <li>ordered list</li>
+  <li>numbered list</li>
 </ol>
 <ul>
-  <li>unordered list</li>
+  <li>bulleted list</li>
 </ul>
-<ul type="task-list">
-  <li value="true">task list</li>
-  <li value="false">task list</li>
+<ul type="checklist">
+  <li value="true">checklist</li>
+  <li value="false">checklist</li>
 </ul>
 <blockquote>
-  block quote
+  blockquote
 </blockquote>
 <anchor />selected contents<focus />
 ```
