@@ -111,8 +111,8 @@ export class Nodes {
     return this.isElement && node.getAttribute('contenteditable') === 'true';
   }
 
-  // Returns a boolean value indicating whether the node is editable.
-  public get isEditable(): boolean {
+  // Returns a boolean value indicating whether the node is editable or the node is a root element of contenteditable area.
+  public get isContentEditable(): boolean {
     if (this.length === 0) {
       return false;
     }
@@ -127,7 +127,12 @@ export class Nodes {
       return false;
     }
     const element = this.get(0) as NativeHTMLElement;
-    return element.isContentEditable && !this.isContainer;
+    return element.isContentEditable;
+  }
+
+  // Returns a boolean value indicating whether the node is editable.
+  public get isEditable(): boolean {
+    return this.isContentEditable && !this.isContainer;
   }
 
   // Returns a boolean value indicating whether the node is an editable top node.

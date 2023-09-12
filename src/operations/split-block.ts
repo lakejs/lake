@@ -3,12 +3,18 @@ import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { deleteContents } from './delete-contents';
 
-// First, removes the contents of the specified range. Then, Split the block node.
+// Removes the contents of the specified range and then splits the block node at the point of the collapsed range.
 // <p>one<anchor />two<focus />three</p>
 // to
 // <p>one</p>
 // <p><focus />three</p>
 export function splitBlock(range: Range): { left: Nodes | null, right: Nodes | null } {
+  if (!range.commonAncestor.isContentEditable) {
+    return {
+      left: null,
+      right: null,
+    };
+  }
   if (!range.isCollapsed) {
     deleteContents(range);
   }

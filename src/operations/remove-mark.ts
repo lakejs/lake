@@ -8,6 +8,9 @@ import { toBookmark } from './to-bookmark';
 
 // Removes the specified marks from the range.
 export function removeMark(range: Range, value: string): void {
+  if (!range.commonAncestor.isContentEditable) {
+    return;
+  }
   const valueNode = query(value);
   const tagName = valueNode.name;
   if (range.isCollapsed) {

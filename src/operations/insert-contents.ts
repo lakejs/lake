@@ -6,6 +6,9 @@ import { Range } from '../models/range';
 // Inserts a HTML string into the specified range.
 export function insertContents(range: Range, value: string | NativeNode | Nodes): Nodes {
   const nodes = query(value);
+  if (!range.commonAncestor.isContentEditable) {
+    return nodes;
+  }
   nodes.each(node => {
     const nativeRange = range.get();
     nativeRange.insertNode(node);

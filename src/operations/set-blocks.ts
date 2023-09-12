@@ -39,6 +39,9 @@ function addStyles(block: Nodes, styleValue: string) {
 
 // Adds new blocks or modifies target blocks relating to the specified range.
 export function setBlocks(range: Range, value: string): void {
+  if (!range.commonAncestor.isContentEditable) {
+    return;
+  }
   const valueNode = query(value);
   const tagName = valueNode.name;
   const styleValue = valueNode.attr('style');

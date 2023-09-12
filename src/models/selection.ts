@@ -1,4 +1,4 @@
-import { NativeNode, NativeSelection } from '../types/native';
+import { NativeSelection } from '../types/native';
 import { Nodes } from './nodes';
 import { Range } from './range';
 import {
@@ -84,8 +84,12 @@ export class Selection {
     return insertBookmark(this.range);
   }
 
+  public toBookmark(bookmark: Parameters<typeof toBookmark>[1]): ReturnType<typeof toBookmark> {
+    return toBookmark(this.range, bookmark);
+  }
+
   // Inserts a HTML string into the selection.
-  public insertContents(value: string | NativeNode | Nodes): ReturnType<typeof insertContents> {
+  public insertContents(value: Parameters<typeof insertContents>[1]): ReturnType<typeof insertContents> {
     return insertContents(this.range, value);
   }
 
@@ -95,28 +99,22 @@ export class Selection {
   }
 
   // Adds new blocks or modifies target blocks relating to the selection.
-  public setBlocks(value: string): ReturnType<typeof setBlocks> {
+  public setBlocks(value: Parameters<typeof setBlocks>[1]): ReturnType<typeof setBlocks> {
     return setBlocks(this.range, value);
   }
 
-  // First, removes the contents of the selection. Then, Split the block node.
+  // Removes the contents of the selection and then splits the block node at the point of the collapsed range of the selection.
   public splitBlock(): ReturnType<typeof splitBlock> {
     return splitBlock(this.range);
   }
 
   // Adds the specified mark to the texts of the selection.
-  public addMark(value: string): ReturnType<typeof addMark> {
-    if (!this.range.commonAncestor.isEditable && !this.range.commonAncestor.isContainer) {
-      return;
-    }
+  public addMark(value: Parameters<typeof addMark>[1]): ReturnType<typeof addMark> {
     return addMark(this.range, value);
   }
 
   // Removes the specified marks from the selection.
-  public removeMark(value: string): ReturnType<typeof removeMark> {
-    if (!this.range.commonAncestor.isEditable && !this.range.commonAncestor.isContainer) {
-      return;
-    }
+  public removeMark(value: Parameters<typeof removeMark>[1]): ReturnType<typeof removeMark> {
     return removeMark(this.range, value);
   }
 
