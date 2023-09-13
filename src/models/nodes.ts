@@ -10,6 +10,7 @@ const blockTagNames = 'h1,h2,h3,h4,h5,h6,div,p,blockquote,ul,ol';
 const markTagNames = 'strong,em,i,u,s,span,sub,sup,code,a';
 // https://developer.mozilla.org/en-US/docs/Glossary/Void_element
 const voidTagNames = 'area,base,br,col,embed,hr,img,input,link,meta,param,source,track,wbr';
+const headingTagNames = 'h1,h2,h3,h4,h5,h6';
 
 type EachCallback = (element: NativeNode, index: number) => boolean | void;
 type EachElementCallback = (element: NativeElement, index: number) => boolean | void;
@@ -100,6 +101,14 @@ export class Nodes {
       return false;
     }
     return inString(voidTagNames, this.name);
+  }
+
+  // Returns a boolean value indicating whether the node is a heading element.
+  public get isHeading(): boolean {
+    if (this.length === 0) {
+      return false;
+    }
+    return inString(headingTagNames, this.name);
   }
 
   // Returns a boolean value indicating whether the node is a bookmark element.

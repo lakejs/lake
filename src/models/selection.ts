@@ -79,6 +79,11 @@ export class Selection {
     return getTags(this.range);
   }
 
+  // Returns target blocks relating to the selection that can be modified by other operations.
+  public getBlocks(): ReturnType<typeof getBlocks> {
+    return getBlocks(this.range);
+  }
+
   // Returns the text of the right part of the closest block divided into two parts by the end of the selection.
   public getRightText(): ReturnType<typeof getRightText> {
     return getRightText(this.range.endNode, this.range.endOffset);
@@ -97,11 +102,6 @@ export class Selection {
   // Inserts a HTML string into the selection.
   public insertContents(value: Parameters<typeof insertContents>[1]): ReturnType<typeof insertContents> {
     return insertContents(this.range, value);
-  }
-
-  // Returns target blocks relating to the selection that can be modified by other operations.
-  public getBlocks(): ReturnType<typeof getBlocks> {
-    return getBlocks(this.range);
   }
 
   // Adds new blocks or modifies target blocks relating to the selection.

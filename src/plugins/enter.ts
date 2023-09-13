@@ -4,10 +4,11 @@ export default (editor: LakeCore) => {
   editor.keystroke.setKeydown('Enter', event => {
     event.preventDefault();
     const selection = editor.selection;
-    const blockList = selection.getBlocks();
-    if (blockList.length > 0) {
+    let blocks = selection.getBlocks();
+    if (blocks.length > 0) {
       selection.splitBlock();
-      if (selection.getRightText() === '') {
+      blocks = selection.getBlocks();
+      if (blocks[0] && blocks[0].isHeading && selection.getRightText() === '') {
         selection.setBlocks('<p />');
       }
     } else {

@@ -42,33 +42,45 @@ describe('models.Nodes class', () => {
   });
 
   it('property: isElement', () => {
-    const node = new Nodes(element);
-    expect(node.isElement).to.equal(true);
+    const container = query('<div contenteditable="true"><strong>foo</strong>bar</div>');
+    expect(container.find('strong').isElement).to.equal(true);
+    expect(container.find('strong').first().isElement).to.equal(false);
   });
 
   it('property: isText', () => {
-    const node = new Nodes(document.createTextNode('foo'));
-    expect(node.isText).to.equal(true);
+    const container = query('<div contenteditable="true"><strong>foo</strong>bar</div>');
+    expect(container.find('strong').first().isText).to.equal(true);
+    expect(container.find('strong').isText).to.equal(false);
   });
 
   it('property: isBlock', () => {
-    const node = new Nodes(element);
-    expect(node.isBlock).to.equal(true);
+    const container = query('<div contenteditable="true"><strong>foo</strong><p>bar</p></div>');
+    expect(container.find('p').isBlock).to.equal(true);
+    expect(container.find('strong').isBlock).to.equal(false);
   });
 
   it('property: isMark', () => {
     const container = query('<div contenteditable="true"><strong>foo</strong>bar</div>');
     expect(container.find('strong').isMark).to.equal(true);
+    expect(container.find('strong').first().isMark).to.equal(false);
   });
 
   it('property: isVoid', () => {
     const container = query('<div contenteditable="true"><strong>foo</strong>bar<br /></div>');
     expect(container.find('br').isVoid).to.equal(true);
+    expect(container.find('strong').isVoid).to.equal(false);
+  });
+
+  it('property: isHeading', () => {
+    const container = query('<div contenteditable="true"><h1>foo</h1><p>bar</p></div>');
+    expect(container.find('h1').isHeading).to.equal(true);
+    expect(container.find('p').isHeading).to.equal(false);
   });
 
   it('property: isBookmark', () => {
     const container = query('<div contenteditable="true"><strong>foo</strong>bar<bookmark /></div>');
     expect(container.find('bookmark').isBookmark).to.equal(true);
+    expect(container.find('strong').isBookmark).to.equal(false);
   });
 
   it('property: isContainer', () => {

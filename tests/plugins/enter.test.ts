@@ -50,12 +50,44 @@ describe('enter plugin', () => {
     );
   });
 
-  it('no block', () => {
+  it('should create a new block when there is no closest block', () => {
     const content = `
     foo<focus />bar
     `;
     const output = `
     <p>foo<focus />bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('Enter');
+      },
+    );
+  });
+
+  it('should become paragraph when the focus is at the end of the heading', () => {
+    const content = `
+    <h1>foo<focus /></h1>
+    `;
+    const output = `
+    <h1>foo</h1><p><focus /><br /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('Enter');
+      },
+    );
+  });
+
+  it('should not become paragraph when the focus is at the beginning of the heading', () => {
+    const content = `
+    <h1><focus />foo</h1>
+    `;
+    const output = `
+    <h1><br /></h1><h1><focus />foo</h1>
     `;
     testPlugin(
       content,
