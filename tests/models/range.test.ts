@@ -139,19 +139,6 @@ describe('models.Range class', () => {
     expect(range.intersectsNode(container.find('p').eq(0).first())).to.equal(false);
   });
 
-  it('method: clone', () => {
-    container.html('<strong>foo</strong>bar');
-    const range = new Range();
-    range.selectNode(container.find('strong'));
-    const newRange = range.clone();
-    expect(range.startNode.name).to.equal(newRange.startNode.name);
-    expect(range.startOffset).to.equal(newRange.startOffset);
-    expect(range.endNode.name).to.equal(newRange.endNode.name);
-    expect(range.endOffset).to.equal(newRange.endOffset);
-    expect(range.commonAncestor.name).to.equal(newRange.commonAncestor.name);
-    expect(range.isCollapsed).to.equal(newRange.isCollapsed);
-  });
-
   it('method: setStart', () => {
     container.html('<strong>foo</strong>bar');
     const range = new Range();
@@ -305,6 +292,27 @@ describe('models.Range class', () => {
     expect(range.startOffset).to.equal(0);
     expect(range.endOffset).to.equal(0);
     expect(range.isCollapsed).to.equal(true);
+  });
+
+  it('method: clone', () => {
+    container.html('<strong>foo</strong>bar');
+    const range = new Range();
+    range.selectNode(container.find('strong'));
+    const newRange = range.clone();
+    expect(range.startNode.name).to.equal(newRange.startNode.name);
+    expect(range.startOffset).to.equal(newRange.startOffset);
+    expect(range.endNode.name).to.equal(newRange.endNode.name);
+    expect(range.endOffset).to.equal(newRange.endOffset);
+    expect(range.commonAncestor.name).to.equal(newRange.commonAncestor.name);
+    expect(range.isCollapsed).to.equal(newRange.isCollapsed);
+  });
+
+  it('method: cloneContents', () => {
+    container.html('<strong>foo</strong>bar');
+    const range = new Range();
+    range.selectNode(container.find('strong'));
+    const fragment = range.cloneContents();
+    expect(new Nodes(fragment.firstChild).name).to.equal('strong');
   });
 
 });

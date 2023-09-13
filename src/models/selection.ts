@@ -12,6 +12,7 @@ import {
   splitBlock,
   toBookmark,
 } from '../operations';
+import { getRightText } from '../utils';
 
 export class Selection {
   // Represents the range of text selected by the user or the current position of the caret.
@@ -76,6 +77,11 @@ export class Selection {
   // Returns the applied tags of the selection.
   public getTags(): ReturnType<typeof getTags> {
     return getTags(this.range);
+  }
+
+  // Returns the text of the right part of the closest block divided into two parts by the end of the selection.
+  public getRightText(): ReturnType<typeof getRightText> {
+    return getRightText(this.range.endNode, this.range.endOffset);
   }
 
   // Either the method inserts a bookmark into the current position of the caret

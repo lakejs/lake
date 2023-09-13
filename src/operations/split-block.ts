@@ -21,7 +21,7 @@ export function splitBlock(range: Range): { left: Nodes | null, right: Nodes | n
   const node = range.startNode;
   const closestBlock = node.closestBlock();
   let limitBlock = closestBlock.parent();
-  if (!limitBlock.isEditable) {
+  if (!limitBlock.isContentEditable) {
     limitBlock = node.closestContainer();
   }
   const blockMap = splitNodes(node, range.startOffset, limitBlock);

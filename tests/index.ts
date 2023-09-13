@@ -17,6 +17,7 @@ import './utils/to-node-list.test';
 import './utils/query.test';
 import './utils/split-nodes.test';
 import './utils/append-deepest.test';
+import './utils/get-right-text.test';
 
 // Models
 import './models/nodes.test';

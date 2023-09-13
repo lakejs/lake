@@ -81,11 +81,6 @@ export class Range {
     return this.range.intersectsNode(node.get());
   }
 
-  // Returns a range object with boundary points identical to the cloned range.
-  public clone(): Range {
-    return new Range(this.range.cloneRange());
-  }
-
   // Sets the start position of the range.
   public setStart(node: Nodes, offset: number): this {
     this.range.setStart(node.get(0), offset);
@@ -172,6 +167,16 @@ export class Range {
       this.setEnd(child, child.children().length);
     }
     return this;
+  }
+
+  // Returns a range object with boundary points identical to the cloned range.
+  public clone(): Range {
+    return new Range(this.range.cloneRange());
+  }
+
+  // Returns a document fragment copying the nodes included in the range.
+  public cloneContents(): DocumentFragment {
+    return this.range.cloneContents();
   }
 
   // Prints information of the range.
