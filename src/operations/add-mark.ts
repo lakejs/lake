@@ -78,9 +78,9 @@ export function addMark(range: Range, value: string): void {
   if (range.isCollapsed) {
     // https://en.wikipedia.org/wiki/Zero-width_space
     const zeroWidthSpace = new Nodes(document.createTextNode('\u200B'));
-    const blockMap = splitMarks(range);
-    if (blockMap.left) {
-      const newMark = copyNestedMarks(blockMap.left);
+    const parts = splitMarks(range);
+    if (parts.left) {
+      const newMark = copyNestedMarks(parts.left);
       if (newMark) {
         appendDeepest(newMark, zeroWidthSpace);
         valueNode.append(newMark);

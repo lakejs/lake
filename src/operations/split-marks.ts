@@ -20,15 +20,15 @@ function splitMarksAtPoint(node: Nodes, offset: number): { left: Nodes | null, r
   let left = null;
   let right = null;
   const block = node.closestBlock();
-  const blockMap = splitNodes(node, offset, block);
-  if (blockMap) {
-    removeEmptyMarks(blockMap.left);
-    removeEmptyMarks(blockMap.right);
-    if (!blockMap.left.hasEmptyText) {
-      left = blockMap.left;
+  const parts = splitNodes(node, offset, block);
+  if (parts) {
+    removeEmptyMarks(parts.left);
+    removeEmptyMarks(parts.right);
+    if (!parts.left.hasEmptyText) {
+      left = parts.left;
     }
-    if (!blockMap.right.hasEmptyText) {
-      right = blockMap.right;
+    if (!parts.right.hasEmptyText) {
+      right = parts.right;
     }
   }
   return {
@@ -50,35 +50,35 @@ export function splitMarks(range: Range): { left: Nodes | null, center: Nodes | 
     };
   }
   if (range.isCollapsed) {
-    const blockMap = splitMarksAtPoint(range.startNode, range.startOffset);
-    if (blockMap.left) {
-      range.setStartAfter(blockMap.left);
+    const parts = splitMarksAtPoint(range.startNode, range.startOffset);
+    if (parts.left) {
+      range.setStartAfter(parts.left);
       range.collapseToStart();
-    } else if (blockMap.right) {
-      range.setStartBefore(blockMap.right);
+    } else if (parts.right) {
+      range.setStartBefore(parts.right);
       range.collapseToStart();
     }
     return {
-      left: blockMap.left,
+      left: parts.left,
       center: null,
-      right: blockMap.right,
+      right: parts.right,
     };
   }
-  const startBlockMap = splitMarksAtPoint(range.startNode, range.startOffset);
-  if (startBlockMap.left) {
-    range.setStartAfter(startBlockMap.left);
-  } else if (startBlockMap.right) {
-    range.setStartBefore(startBlockMap.right);
+  const startParts = splitMarksAtPoint(range.startNode, range.startOffset);
+  if (startParts.left) {
+    range.setStartAfter(startParts.left);
+  } else if (startParts.right) {
+    range.setStartBefore(startParts.right);
   }
-  const endBlockMap = splitMarksAtPoint(range.endNode, range.endOffset);
-  if (endBlockMap.left) {
-    range.setEndAfter(endBlockMap.left);
-  } else if (endBlockMap.right) {
-    range.setEndBefore(endBlockMap.right);
+  const endParts = splitMarksAtPoint(range.endNode, range.endOffset);
+  if (endParts.left) {
+    range.setEndAfter(endParts.left);
+  } else if (endParts.right) {
+    range.setEndBefore(endParts.right);
   }
   return {
-    left: startBlockMap.left,
-    center: endBlockMap.left,
-    right: endBlockMap.right,
+    left: startParts.left,
+    center: endParts.left,
+    right: endParts.right,
   };
 }

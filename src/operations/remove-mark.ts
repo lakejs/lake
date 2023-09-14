@@ -17,10 +17,10 @@ export function removeMark(range: Range, value: string): void {
     if (range.commonAncestor.closest(tagName).length === 0) {
       return;
     }
-    const blockMap = splitMarks(range);
-    if (blockMap.left && blockMap.left.isMark && blockMap.right && blockMap.right.isMark) {
+    const parts = splitMarks(range);
+    if (parts.left && parts.left.isMark && parts.right && parts.right.isMark) {
       const zeroWidthSpace = new Nodes(document.createTextNode('\u200B'));
-      blockMap.left.after(zeroWidthSpace);
+      parts.left.after(zeroWidthSpace);
       range.setStartAfter(zeroWidthSpace);
       range.collapseToStart();
     }

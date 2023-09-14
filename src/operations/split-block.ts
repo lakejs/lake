@@ -24,14 +24,14 @@ export function splitBlock(range: Range): { left: Nodes | null, right: Nodes | n
   if (!limitBlock.isContentEditable) {
     limitBlock = node.closestContainer();
   }
-  const blockMap = splitNodes(node, range.startOffset, limitBlock);
+  const parts = splitNodes(node, range.startOffset, limitBlock);
   let left = null;
   let right = null;
-  if (blockMap) {
-    left = blockMap.left;
-    right = blockMap.right;
+  if (parts) {
+    left = parts.left;
+    right = parts.right;
   }
-  if (!blockMap && node.isBlock) {
+  if (!parts && node.isBlock) {
     if (range.startOffset > 0) {
       left = node.children()[range.startOffset - 1];
     }
