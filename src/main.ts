@@ -3,6 +3,7 @@ import pkg from '../package.json';
 import { NativeNode } from './types/native';
 import * as utils from './utils';
 import * as models from './models';
+import selectAll from './plugins/select-all';
 import heading from './plugins/heading';
 import blockquote from './plugins/blockquote';
 import bold from './plugins/bold';
@@ -38,9 +39,9 @@ export default class LakeCore {
 
   private options: OptionsType;
 
-  private container: models.Nodes;
-
   private selectionchangeListener: EventListener;
+
+  public container: models.Nodes;
 
   public event: EventEmitter;
 
@@ -93,6 +94,7 @@ export default class LakeCore {
 
   private addBuiltInPlugins(): void {
     const plugins = this.plugins;
+    plugins.add(selectAll);
     plugins.add(heading);
     plugins.add(blockquote);
     plugins.add(bold);
@@ -107,9 +109,9 @@ export default class LakeCore {
     plugins.add(shiftEnter);
   }
 
-  // Selects the saved range in the selection.
+  // Adds the saved range to the selection.
   public select(): void {
-    this.selection.select();
+    this.selection.setRange();
   }
 
   // Sets focus on the editor area.

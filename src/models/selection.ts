@@ -22,7 +22,7 @@ export class Selection {
   private container: Nodes;
 
   // Is a saved range which is used to add it to the selection later.
-  private range: Range;
+  public range: Range;
 
   constructor(container: Nodes) {
     const selection = window.getSelection();
@@ -36,7 +36,7 @@ export class Selection {
     this.range = this.getRange();
   }
 
-  // Returns the current selected range.
+  // Returns the current selected range from the selection.
   private getRange(): Range {
     const selection = this.selection;
     if (selection.rangeCount > 0) {
@@ -46,8 +46,8 @@ export class Selection {
     return new Range();
   }
 
-  // Selects the saved range.
-  public select(): void {
+  // Sets the saved range to the selection.
+  public setRange(): void {
     const range = this.range;
     if (range.get() === this.getRange().get()) {
       return;
