@@ -38,6 +38,7 @@ import './operations/add-mark.test';
 import './operations/remove-mark.test';
 
 // Plugins
+import './plugins/select-all.test';
 import './plugins/heading.test';
 import './plugins/blockquote.test';
 import './plugins/bold.test';

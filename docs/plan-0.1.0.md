@@ -15,7 +15,7 @@
 * [ ] markdown parser
 * [ ] text parser
 * [ ] paste
-* [ ] select all
+* [X] select all
 * [X] heading
 * [X] blockquote
 * [ ] list (numbered list, bulleted list, checklist)

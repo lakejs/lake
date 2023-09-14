@@ -6,4 +6,8 @@ export default (editor: LakeCore) => {
     editor.selection.range.selectNodeContents(editor.container);
     editor.select();
   });
+  editor.keystroke.setKeydown('$mod+KeyA', event => {
+    event.preventDefault();
+    editor.commands.execute('selectAll');
+  });
 };
