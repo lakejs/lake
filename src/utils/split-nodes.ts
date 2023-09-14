@@ -13,7 +13,7 @@ import { Range } from '../models/range';
 // to
 // Step 1: <p><strong>beginning<em>one</em><focus /><em>two</em>end</strong></p>
 // Step 2: <p><strong>beginning<em>one</em></strong><focus /><strong><em>two</em>end</strong></p>
-export function splitNodes(node: Nodes, offset: number, limit: Nodes): { left: Nodes, right: Nodes } | null {
+export function splitNodes(node: Nodes, offset: number, limitNode: Nodes): { left: Nodes, right: Nodes } | null {
   const range = new Range();
   let parent;
   if (node.isText) {
@@ -24,26 +24,30 @@ export function splitNodes(node: Nodes, offset: number, limit: Nodes): { left: N
     range.setStart(node, offset);
     parent = node;
   }
-  range.collapseToStart();
-  if (parent.get(0) === limit.get(0)) {
+  parent.debug();
+  if (parent.name === 'body' || parent.name === 'html') {
     return null;
   }
-  const leftParent = parent.clone();
+  if (parent.get(0) === limitNode.get(0)) {
+    return null;
+  }
+  range.collapseToStart();
+  const leftPart = parent.clone();
   let child = parent.first();
   while (child.length > 0) {
     if (range.compareBeforeNode(child) >= 0) {
       break;
     }
     const next = child.next();
-    leftParent.append(child);
+    leftPart.append(child);
     child = next;
   }
-  parent.before(leftParent);
-  if (parent.parent().length > 0 && parent.parent().get(0) !== limit.get(0)) {
-    return splitNodes(parent.parent(), parent.index(), limit);
+  parent.before(leftPart);
+  if (parent.parent().length > 0 && parent.parent().get(0) !== limitNode.get(0)) {
+    return splitNodes(parent.parent(), parent.index(), limitNode);
   }
   return {
-    left: leftParent,
+    left: leftPart,
     right: parent,
   };
 }
