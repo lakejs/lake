@@ -24,7 +24,6 @@ export function splitNodes(node: Nodes, offset: number, limitNode: Nodes): { lef
     range.setStart(node, offset);
     parent = node;
   }
-  parent.debug();
   if (parent.name === 'body' || parent.name === 'html') {
     return null;
   }

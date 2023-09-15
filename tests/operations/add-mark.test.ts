@@ -41,7 +41,7 @@ describe('operations.addMark()', () => {
     <p><strong>foo<focus />bar</strong></p>
     `;
     const output = `
-    <p><strong>foo<focus />bar</strong></p>
+    <p><strong>foo</strong><strong>\u200B<focus /></strong><strong>bar</strong></p>
     `;
     testOperation(
       content,
@@ -57,7 +57,7 @@ describe('operations.addMark()', () => {
     <p><strong>foo<anchor />bold<focus />bar</strong></p>
     `;
     const output = `
-    <p><strong>foo<anchor />bold<focus />bar</strong></p>
+    <p><strong>foo</strong><anchor /><strong>bold</strong><focus /><strong>bar</strong></p>
     `;
     testOperation(
       content,
@@ -68,7 +68,7 @@ describe('operations.addMark()', () => {
     );
   });
 
-  it('collapsed range: adds a mark in the other mark', () => {
+  it('collapsed range: adds a mark in another mark', () => {
     const content = `
     <p><em>foo<focus />bar</em></p>
     `;
@@ -84,7 +84,23 @@ describe('operations.addMark()', () => {
     );
   });
 
-  it('expanded range: adds a mark in the other mark', () => {
+  it('collapsed range: adds a style in another span', () => {
+    const content = `
+    <p><span style="color: red;">foo<focus />bar</span></p>
+    `;
+    const output = `
+    <p><span style="color: red;">foo</span><span style="color: red; font-size: 18px;">\u200B<focus /></span><span style="color: red;">bar</span></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        addMark(range, '<span style="font-size: 18px;" />');
+      },
+    );
+  });
+
+  it('expanded range: adds a mark in another mark', () => {
     const content = `
     <p><em>foo<anchor />bold<focus />bar</em></p>
     `;
@@ -100,7 +116,7 @@ describe('operations.addMark()', () => {
     );
   });
 
-  it('expanded range: adds a mark in the other nested mark', () => {
+  it('expanded range: adds a mark in another nested mark', () => {
     const content = `
     <p><strong><em>foo<anchor />bold<focus />bar</em></strong></p>
     `;
@@ -183,6 +199,22 @@ describe('operations.addMark()', () => {
   it('should add a CSS property to a span', () => {
     const content = `
     <p>one<anchor /><span style="color: red;">two</span><focus />three</p>
+    `;
+    const output = `
+    <p>one<anchor /><span style="color: red; text-decoration: underline;">two</span><focus />three</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        addMark(range, '<span style="text-decoration: underline;" />');
+      },
+    );
+  });
+
+  it('should add a CSS property to a span when only text is selected', () => {
+    const content = `
+    <p>one<span style="color: red;"><anchor />two<focus /></span>three</p>
     `;
     const output = `
     <p>one<anchor /><span style="color: red; text-decoration: underline;">two</span><focus />three</p>

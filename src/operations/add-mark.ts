@@ -68,13 +68,10 @@ export function addMark(range: Range, value: string): void {
   if (!range.commonAncestor.isContentEditable) {
     return;
   }
-  const valueNode = query(value);
+  let valueNode = query(value);
   const tagName = valueNode.name;
   const styleValue = valueNode.attr('style');
   const styleProperties = parseStyle(styleValue);
-  if (range.commonAncestor.closest(tagName).length > 0) {
-    return;
-  }
   if (range.isCollapsed) {
     // https://en.wikipedia.org/wiki/Zero-width_space
     const zeroWidthSpace = new Nodes(document.createTextNode('\u200B'));
@@ -82,8 +79,13 @@ export function addMark(range: Range, value: string): void {
     if (parts.left) {
       const newMark = copyNestedMarks(parts.left);
       if (newMark) {
-        appendDeepest(newMark, zeroWidthSpace);
-        valueNode.append(newMark);
+        if (newMark.name === tagName) {
+          mergeStyleProperties(newMark, styleProperties);
+          valueNode = newMark;
+        } else {
+          appendDeepest(newMark, zeroWidthSpace);
+          valueNode.append(newMark);
+        }
       }
     }
     if (valueNode.text() === '') {
