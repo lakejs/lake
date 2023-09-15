@@ -28,12 +28,12 @@
 * [X] subscript
 * [X] superscript
 * [X] code
-* [X] fontfamily
-* [ ] fontsize
-* [ ] textcolor
-* [ ] highlight
-* [ ] formatpainter
-* [ ] removeformat
+* [X] font family
+* [X] font size
+* [X] font color
+* [X] highlight
+* [ ] format painter
+* [ ] remove format
 * [ ] hr
 * [ ] image
 * [ ] link

@@ -14,6 +14,9 @@ import subscript from './plugins/subscript';
 import superscript from './plugins/superscript';
 import code from './plugins/code';
 import fontFamily from './plugins/font-family';
+import fontSize from './plugins/font-size';
+import fontColor from './plugins/font-color';
+import highlight from './plugins/highlight';
 import enter from './plugins/enter';
 import shiftEnter from './plugins/shift-enter';
 
@@ -105,6 +108,9 @@ export default class LakeCore {
     plugins.add(superscript);
     plugins.add(code);
     plugins.add(fontFamily);
+    plugins.add(fontSize);
+    plugins.add(fontColor);
+    plugins.add(highlight);
     plugins.add(enter);
     plugins.add(shiftEnter);
   }

@@ -43,6 +43,18 @@ query('.lake-toolbar-icon').on('click', event => {
     editor.commands.execute('fontFamily', 'Segoe UI');
     return;
   }
+  if (type === 'fontSize') {
+    editor.commands.execute('fontSize', '18px');
+    return;
+  }
+  if (type === 'fontColor') {
+    editor.commands.execute('fontColor', '#ff0000');
+    return;
+  }
+  if (type === 'highlight') {
+    editor.commands.execute('highlight', '#0000ff');
+    return;
+  }
   if (noParameterCommandNames.indexOf(type) >= 0) {
     editor.commands.execute(type);
   }
