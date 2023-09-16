@@ -10,7 +10,7 @@
 * [X] models
 * [X] operations
 * [X] plugins
-* [ ] history (undo, redo)
+* [X] history (undo, redo)
 * [ ] HTML parser
 * [ ] markdown parser
 * [ ] text parser

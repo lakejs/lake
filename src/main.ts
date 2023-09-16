@@ -71,7 +71,7 @@ export default class LakeCore {
     this.event = new EventEmitter();
     this.selection = new models.Selection(this.container);
     this.commands = new models.Commands();
-    this.history = new models.History(this.container);
+    this.history = new models.History(this.selection);
     this.keystroke = new models.Keystroke(this.container);
     this.plugins = new models.Plugins();
 

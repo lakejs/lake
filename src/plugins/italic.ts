@@ -11,6 +11,7 @@ export default (editor: LakeCore) => {
     } else {
       editor.selection.addMark(`<${tagName} />`);
     }
+    editor.history.save();
     editor.select();
   });
   editor.keystroke.setKeydown('$mod+KeyI', event => {

@@ -19,7 +19,7 @@ export class Selection {
   private selection: NativeSelection;
 
   // Is the root element which has contenteditable="true" attribute.
-  private container: Nodes;
+  public container: Nodes;
 
   // Is a saved range which is used to add it to the selection later.
   public range: Range;

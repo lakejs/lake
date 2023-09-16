@@ -39,6 +39,8 @@ import './operations/add-mark.test';
 import './operations/remove-mark.test';
 
 // Plugins
+import './plugins/undo.test';
+import './plugins/redo.test';
 import './plugins/select-all.test';
 import './plugins/heading.test';
 import './plugins/blockquote.test';
