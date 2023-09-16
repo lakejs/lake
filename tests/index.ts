@@ -22,6 +22,7 @@ import './utils/get-right-text.test';
 // Models
 import './models/nodes.test';
 import './models/range.test';
+import './models/history.test';
 
 // Operations
 import './operations/insert-bookmark.test';

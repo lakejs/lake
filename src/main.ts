@@ -3,6 +3,8 @@ import pkg from '../package.json';
 import { NativeNode } from './types/native';
 import * as utils from './utils';
 import * as models from './models';
+import undo from './plugins/undo';
+import redo from './plugins/redo';
 import selectAll from './plugins/select-all';
 import heading from './plugins/heading';
 import blockquote from './plugins/blockquote';
@@ -52,6 +54,8 @@ export default class LakeCore {
 
   public commands: models.Commands;
 
+  public history: models.History;
+
   public keystroke: models.Keystroke;
 
   public plugins: models.Plugins;
@@ -67,6 +71,7 @@ export default class LakeCore {
     this.event = new EventEmitter();
     this.selection = new models.Selection(this.container);
     this.commands = new models.Commands();
+    this.history = new models.History(this.container);
     this.keystroke = new models.Keystroke(this.container);
     this.plugins = new models.Plugins();
 
@@ -76,6 +81,7 @@ export default class LakeCore {
       this.selection.syncByRange();
     };
     document.addEventListener('selectionchange', this.selectionchangeListener);
+    this.container.on('input', () => this.history.save());
   }
 
   private setDefaultOptions(): void {
@@ -97,6 +103,8 @@ export default class LakeCore {
 
   private addBuiltInPlugins(): void {
     const plugins = this.plugins;
+    plugins.add(undo);
+    plugins.add(redo);
     plugins.add(selectAll);
     plugins.add(heading);
     plugins.add(blockquote);
@@ -151,6 +159,7 @@ export default class LakeCore {
     targetNode.hide();
     this.setValue(this.options.defaultValue);
     targetNode.after(container);
+    this.history.save();
     this.focus();
     this.selection.synByBookmark();
     this.select();

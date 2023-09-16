@@ -13,6 +13,8 @@ window.DEBUG = true;
 const headingTypes = 'h1,h2,h3,h4,h5,h6,p'.split(',');
 
 const noParameterCommandNames = [
+  'undo',
+  'redo',
   'selectAll',
   'blockquote',
   'bold',

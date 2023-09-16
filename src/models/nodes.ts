@@ -46,13 +46,13 @@ export class Nodes {
     this.length = this.nodeList.length;
   }
 
-  // Gets node ID at the first index.
+  // Returns node ID at the first index.
   public get id(): number {
     const node = this.get(0);
     return node.lakeId;
   }
 
-  // Gets node name at the first index.
+  // Returns node name at the first index.
   public get name(): string {
     if (this.length === 0) {
       return '';
