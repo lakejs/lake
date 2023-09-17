@@ -8,7 +8,8 @@ describe('operations.insertBookmark()', () => {
   let container: Nodes;
 
   beforeEach(() => {
-    container = query('<div contenteditable="true"></div>').appendTo(document.body);
+    container = query('<div contenteditable="true"></div>');
+    query(document.body).append(container);
     container.html('<p>outer start</p>foo<strong>bold</strong><p>outer end</p>');
   });
 

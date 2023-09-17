@@ -549,23 +549,6 @@ export class Nodes {
     });
   }
 
-  // Inserts each node as the first child of the target.
-  public prependTo(target: string | NativeElement | Nodes): this {
-    const nodes = this.getAll();
-    for (let i = nodes.length - 1; i >= 0; i--) {
-      const node = nodes[i];
-      let targetNode: Nodes;
-      if (target instanceof Nodes) {
-        targetNode = target;
-      } else {
-        const list = toNodeList(target);
-        targetNode = new Nodes(list);
-      }
-      targetNode.prepend(node);
-    }
-    return this;
-  }
-
   // Inserts the specified content as the last child of each element.
   public append(content: string | NativeNode | Nodes): this {
     return this.eachElement(element => {
@@ -578,20 +561,6 @@ export class Nodes {
       list.forEach((node: NativeNode) => {
         element.appendChild(node);
       });
-    });
-  }
-
-  // Inserts each node as the last child of the target.
-  public appendTo(target: string | NativeElement | Nodes): this {
-    return this.each(node => {
-      let targetNode: Nodes;
-      if (target instanceof Nodes) {
-        targetNode = target;
-      } else {
-        const list = toNodeList(target);
-        targetNode = new Nodes(list);
-      }
-      targetNode.append(node);
     });
   }
 

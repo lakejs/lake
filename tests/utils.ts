@@ -11,7 +11,8 @@ function format(value: string) {
 }
 
 export function createContainer(content: string): { container: Nodes, range: Range} {
-  const container = query('<div contenteditable="true"></div>').appendTo(document.body);
+  const container = query('<div contenteditable="true"></div>');
+  query(document.body).append(container);
   container.html(normalizeValue(format(content)));
   const range = new Range();
   const anchor = container.find('bookmark[type="anchor"]');

@@ -8,7 +8,8 @@ describe('models.History class', () => {
 
   beforeEach(() => {
 
-    container = query('<div />').appendTo(document.body);
+    container = query('<div />');
+    query(document.body).append(container);
   });
 
   afterEach(() => {

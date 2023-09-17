@@ -24,7 +24,7 @@ describe('utils.query()', () => {
 
   it('is a selector string', () => {
     const nodes = query('<div><p class="class-p">foo</p><p class="class-p">bar</p></div>');
-    nodes.appendTo(document.body);
+    query(document.body).append(nodes);
     expect(query('body .class-p').html()).to.equal('foo');
     expect(query('body .class-p').eq(1).html()).to.equal('bar');
     nodes.remove();

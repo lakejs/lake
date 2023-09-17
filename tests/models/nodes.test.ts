@@ -589,24 +589,6 @@ describe('models.Nodes class', () => {
     expect(nodes.eq(1).html()).to.equal('<p><strong>foo</strong>bar</p>');
   });
 
-  it('method: prependTo', () => {
-    const elem1 = query('<p><strong>foo</strong>bar</p>').get(0);
-    const elem2 = query('<p><strong>foo2</strong>bar2</p>').get(0);
-    const nodes1 = new Nodes([elem1, elem2]);
-    // prepend to a selector string
-    const targetContainer = query('<div><div class="class-div">one</div><div class="class-div">two</div></div>').prependTo(document.body);
-    nodes1.prependTo('.class-div');
-    expect(targetContainer.html()).to.equal('<div class="class-div">one</div><div class="class-div"><p><strong>foo</strong>bar</p><p><strong>foo2</strong>bar2</p>two</div>');
-    targetContainer.remove();
-    // prepend to a native node
-    query('<p><strong>foo</strong>bar</p>').prependTo(element);
-    expect(element.innerHTML).to.equal('<p><strong>foo</strong>bar</p>one');
-    // prepend to nodes
-    element.innerHTML = 'one';
-    query('<p><strong>foo</strong>bar</p>').prependTo(element);
-    expect(element.innerHTML).to.equal('<p><strong>foo</strong>bar</p>one');
-  });
-
   it('method: append', () => {
     const nodes = new Nodes([element, elementTwo]);
     // insert a HTML string
@@ -634,24 +616,6 @@ describe('models.Nodes class', () => {
     nodes.append(newNodes);
     expect(nodes.html()).to.equal('');
     expect(nodes.eq(1).html()).to.equal('<p><strong>foo</strong>bar</p>');
-  });
-
-  it('method: appendTo', () => {
-    const elem1 = query('<p><strong>foo</strong>bar</p>').get(0);
-    const elem2 = query('<p><strong>foo2</strong>bar2</p>').get(0);
-    const nodes1 = new Nodes([elem1, elem2]);
-    // append to a selector string
-    const targetContainer = query('<div><div class="class-div">one</div><div class="class-div">two</div></div>').appendTo(document.body);
-    nodes1.appendTo('.class-div');
-    expect(targetContainer.html()).to.equal('<div class="class-div">one</div><div class="class-div">two<p><strong>foo</strong>bar</p><p><strong>foo2</strong>bar2</p></div>');
-    targetContainer.remove();
-    // append to a native node
-    query('<p><strong>foo</strong>bar</p>').appendTo(element);
-    expect(element.innerHTML).to.equal('one<p><strong>foo</strong>bar</p>');
-    // append to nodes
-    element.innerHTML = 'one';
-    query('<p><strong>foo</strong>bar</p>').appendTo(element);
-    expect(element.innerHTML).to.equal('one<p><strong>foo</strong>bar</p>');
   });
 
   it('method: before', () => {

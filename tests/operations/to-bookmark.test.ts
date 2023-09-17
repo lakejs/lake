@@ -8,7 +8,8 @@ describe('operations.toBookmark()', () => {
   let container: Nodes;
 
   beforeEach(() => {
-    container = query('<div contenteditable="true"></div>').appendTo(document.body);
+    container = query('<div contenteditable="true"></div>');
+    query(document.body).append(container);
   });
 
   afterEach(() => {
