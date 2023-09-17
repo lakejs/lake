@@ -4,6 +4,7 @@ export default (editor: LakeCore) => {
   editor.commands.add('selectAll', () => {
     editor.focus();
     editor.selection.range.selectNodeContents(editor.container);
+    editor.history.save();
     editor.select();
   });
   editor.keystroke.setKeydown('$mod+KeyA', event => {

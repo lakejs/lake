@@ -16,80 +16,99 @@ describe('models.History class', () => {
     container.remove();
   });
 
-  it('should get correct content after undoing', () => {
+  it('should set correct content after undoing', () => {
     const selection = new Selection(container);
     const history = new History(selection);
     container.html('<p>foo</p>');
-    history.save();
+    expect(history.canUndo).to.equal(false);
+    history.save(); // index: 1
+    expect(history.canUndo).to.equal(false);
     container.find('p').append('<i>one</i>');
-    history.save();
+    history.save(); // index: 2
+    expect(history.canUndo).to.equal(true);
     container.find('p').append('<i>two</i>');
-    history.save();
+    history.save(); // index: 3
     container.find('p').append('<i>three</i>');
-    history.save();
+    history.save(); // index: 4
     container.find('p').append('<i>four</i>');
-    history.save();
-    history.undo();
+    history.undo(); // index: 3
     expect(container.html()).to.equal('<p>foo<i>one</i><i>two</i><i>three</i></p>');
-    history.undo();
+    history.undo(); // index: 2
     expect(container.html()).to.equal('<p>foo<i>one</i><i>two</i></p>');
-    history.undo();
+    history.undo(); // index: 1
     expect(container.html()).to.equal('<p>foo<i>one</i></p>');
-    history.undo();
+    history.undo(); // index: 1
     expect(container.html()).to.equal('<p>foo</p>');
   });
 
-  it('should get correct content after redoing', () => {
+  it('should set correct content after redoing', () => {
     const selection = new Selection(container);
     const history = new History(selection);
-    container.html('one');
+    container.html('a');
     history.save();
-    container.html('two');
+    container.html('ab');
     history.save();
-    container.html('three');
+    container.html('abc');
     history.save();
-    container.html('four');
+    container.html('abcd');
     history.save();
     history.undo();
-    expect(container.html()).to.equal('three');
+    expect(container.html()).to.equal('abc');
     history.undo();
-    expect(container.html()).to.equal('two');
+    expect(container.html()).to.equal('ab');
     history.undo();
-    expect(container.html()).to.equal('one');
+    expect(container.html()).to.equal('a');
+    expect(history.canUndo).to.equal(false);
+    expect(history.canRedo).to.equal(true);
     history.redo();
-    expect(container.html()).to.equal('two');
+    expect(container.html()).to.equal('ab');
     history.redo();
-    expect(container.html()).to.equal('three');
+    expect(container.html()).to.equal('abc');
     history.redo();
-    expect(container.html()).to.equal('four');
+    expect(container.html()).to.equal('abcd');
   });
 
   it('should remove all the items from the next item to the end of the items after saving new item', () => {
     const selection = new Selection(container);
     const history = new History(selection);
-    container.html('one');
+    container.html('a');
     history.save();
-    container.html('two');
+    container.html('ab');
     history.save();
-    container.html('three');
+    container.html('abc');
     history.save();
-    container.html('four');
-    history.save();
-    history.undo();
-    expect(container.html()).to.equal('three');
-    history.undo();
-    expect(container.html()).to.equal('two');
-    history.save();
-    container.html('five');
+    container.html('abcd');
     history.save();
     history.undo();
-    expect(container.html()).to.equal('two');
+    expect(container.html()).to.equal('abc');
     history.undo();
-    expect(container.html()).to.equal('one');
+    expect(container.html()).to.equal('ab');
+    history.save();
+    container.html('abe');
+    history.save();
+    history.undo();
+    expect(container.html()).to.equal('ab');
+    history.undo();
+    expect(container.html()).to.equal('a');
     history.redo();
-    expect(container.html()).to.equal('two');
+    expect(container.html()).to.equal('ab');
     history.redo();
-    expect(container.html()).to.equal('five');
+    expect(container.html()).to.equal('abe');
+  });
+
+  it('undoes to the first item', () => {
+    const selection = new Selection(container);
+    const history = new History(selection);
+    container.html('a');
+    history.save();
+    container.html('ab');
+    history.save();
+    history.undo();
+    expect(container.html()).to.equal('a');
+    history.undo();
+    expect(container.html()).to.equal('a');
+    history.undo();
+    expect(container.html()).to.equal('a');
   });
 
 });

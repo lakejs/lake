@@ -14,5 +14,7 @@ export default (editor: LakeCore) => {
     } else {
       selection.setBlocks('<p />');
     }
+    editor.history.save();
+    editor.select();
   });
 };

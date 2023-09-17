@@ -38,4 +38,23 @@ describe('undo plugin', () => {
     );
   });
 
+  it('undoes selectAll command', () => {
+    const content = `
+    <p>one<anchor />two<focus />three</p>
+    `;
+    const output = `
+    <p>one<anchor />two<focus />three</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.commands.execute('selectAll');
+        editor.commands.execute('bold');
+        editor.commands.execute('undo');
+        editor.commands.execute('undo');
+      },
+    );
+  });
+
 });

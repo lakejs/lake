@@ -38,9 +38,8 @@ export class Selection {
 
   // Returns the current selected range from the selection.
   private getRange(): Range {
-    const selection = this.selection;
-    if (selection.rangeCount > 0) {
-      const range = selection.getRangeAt(0);
+    if (this.selection.rangeCount > 0) {
+      const range = this.selection.getRangeAt(0);
       return new Range(range);
     }
     return new Range();
@@ -52,9 +51,8 @@ export class Selection {
     if (range.get() === this.getRange().get()) {
       return;
     }
-    const selection = this.selection;
-    selection.removeAllRanges();
-    selection.addRange(range.get());
+    this.selection.removeAllRanges();
+    this.selection.addRange(range.get());
   }
 
   // Synchronizes the saved range with the range of the selection.

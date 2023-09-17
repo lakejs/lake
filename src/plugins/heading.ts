@@ -4,6 +4,7 @@ export default (editor: LakeCore) => {
   editor.commands.add('heading', (type: string) => {
     editor.focus();
     editor.selection.setBlocks(`<${type} />`);
+    editor.history.save();
     editor.select();
   });
 };
