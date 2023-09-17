@@ -111,4 +111,69 @@ describe('models.History class', () => {
     expect(container.html()).to.equal('a');
   });
 
+  it('undoes or redoes one item', () => {
+    const selection = new Selection(container);
+    const history = new History(selection);
+    container.html('a');
+    history.save();
+    history.save();
+    history.save();
+    history.save();
+    history.save();
+    history.undo();
+    expect(container.html()).to.equal('a');
+    history.undo();
+    expect(container.html()).to.equal('a');
+    history.undo();
+    expect(container.html()).to.equal('a');
+    history.redo();
+    expect(container.html()).to.equal('a');
+    history.redo();
+    expect(container.html()).to.equal('a');
+    history.undo();
+    expect(container.html()).to.equal('a');
+  });
+
+  it('undoes or redoes the same item', () => {
+    const selection = new Selection(container);
+    const history = new History(selection);
+    container.html('a');
+    history.save();
+    history.save();
+    container.html('ab');
+    history.save();
+    history.save();
+    history.save();
+    history.undo();
+    expect(container.html()).to.equal('a');
+    history.undo();
+    expect(container.html()).to.equal('a');
+    history.undo();
+    expect(container.html()).to.equal('a');
+    history.redo();
+    expect(container.html()).to.equal('ab');
+    history.redo();
+    expect(container.html()).to.equal('ab');
+  });
+
+  it('should remove the first item when the list size exceeds the limit', () => {
+    const selection = new Selection(container);
+    const history = new History(selection);
+    history.limit = 3;
+    container.html('a');
+    history.save();
+    container.html('ab');
+    history.save();
+    container.html('abc');
+    history.save();
+    container.html('abcd');
+    history.save();
+    history.undo();
+    expect(container.html()).to.equal('abc');
+    history.undo();
+    expect(container.html()).to.equal('ab');
+    history.undo();
+    expect(container.html()).to.equal('ab');
+  });
+
 });

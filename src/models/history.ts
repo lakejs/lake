@@ -28,12 +28,15 @@ export class History {
 
   private diffDom: DiffDOM;
 
+  public limit: number;
+
   constructor(selection: Selection) {
     this.selection = selection;
     this.container = selection.container;
     this.list = [];
     this.index = 0;
     this.diffDom = new DiffDOM();
+    this.limit = 100;
   }
 
   public get canUndo(): boolean {
@@ -53,13 +56,15 @@ export class History {
     let diff: ReturnType<typeof this.diffDom.diff> = [];
     while(diff.length === 0) {
       const item = this.list[this.index - 1];
+      if (!item) {
+        break;
+      }
       diff = this.diffDom.diff(nativeContainer, item);
       if (this.index === 1) {
         break;
       }
-      this.index--;
-      if (diff.length > 0) {
-        this.index++;
+      if (diff.length === 0) {
+        this.index--;
       }
     }
     if (diff.length > 0) {
@@ -77,10 +82,10 @@ export class History {
     let diff: ReturnType<typeof this.diffDom.diff> = [];
     while(diff.length === 0) {
       const item = this.list[this.index];
-      diff = this.diffDom.diff(nativeContainer, item);
-      if (this.index === this.list.length) {
+      if (!item) {
         break;
       }
+      diff = this.diffDom.diff(nativeContainer, item);
       this.index++;
     }
     if (diff.length > 0) {
@@ -95,5 +100,9 @@ export class History {
     this.selection.toBookmark(bookmark);
     this.list.splice(this.index, Infinity, item);
     this.index++;
+    if (this.list.length > this.limit) {
+      this.list.shift();
+      this.index = this.list.length;
+    }
   }
 }
