@@ -23,7 +23,7 @@ export class History {
   // a stack of the history items
   private list: NativeElement[];
 
-  // the current index of the list
+  // the next index of the list
   private index: number;
 
   private diffDom: DiffDOM;

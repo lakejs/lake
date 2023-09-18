@@ -59,7 +59,7 @@ describe('bold plugin', () => {
     );
   });
 
-  it('the focus is at the end of the text', () => {
+  it('the focus is at the end of the text of the paragraph', () => {
     const content = `
     <p>foo<focus /></p>
     <p>bar</p>
@@ -67,6 +67,22 @@ describe('bold plugin', () => {
     const output = `
     <p>foo<strong>\u200B<focus /></strong></p>
     <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.commands.execute('bold');
+      },
+    );
+  });
+
+  it('the focus is at the end of the text of the strong', () => {
+    const content = `
+    <p>foo<strong>bold<focus /></strong>bar</p>
+    `;
+    const output = `
+    <p>foo<strong>bold</strong>\u200B<focus />bar</p>
     `;
     testPlugin(
       content,

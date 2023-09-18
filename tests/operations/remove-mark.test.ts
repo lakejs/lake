@@ -3,12 +3,28 @@ import { removeMark } from '../../src/operations';
 
 describe('operations.removeMark()', () => {
 
-  it('collapsed range: removes a mark', () => {
+  it('removes an empty mark', () => {
     const content = `
     <p>foo<strong><focus /></strong>bar</p>
     `;
     const output = `
     <p>foo<focus />bar</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        removeMark(range, '<strong />');
+      },
+    );
+  });
+
+  it('removes a mark when the focus is at the end of the text', () => {
+    const content = `
+    <p>foo<strong>bold<focus /></strong>bar</p>
+    `;
+    const output = `
+    <p>foo<strong>bold</strong>\u200B<focus />bar</p>
     `;
     testOperation(
       content,

@@ -18,7 +18,7 @@ export function removeMark(range: Range, value: string): void {
       return;
     }
     const parts = splitMarks(range);
-    if (parts.left && parts.left.isMark && parts.right && parts.right.isMark) {
+    if (parts.left && parts.left.isMark) {
       const zeroWidthSpace = new Nodes(document.createTextNode('\u200B'));
       parts.left.after(zeroWidthSpace);
       range.setStartAfter(zeroWidthSpace);
