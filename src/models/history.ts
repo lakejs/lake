@@ -1,5 +1,6 @@
 import { DiffDOM } from 'diff-dom';
 import { NativeElement } from '../types/native';
+import { debug } from '../utils/debug';
 import { Nodes } from './nodes';
 import { Selection } from './selection';
 
@@ -63,14 +64,13 @@ export class History {
       if (this.index === 1) {
         break;
       }
-      if (diff.length === 0) {
-        this.index--;
-      }
+      this.index--;
     }
     if (diff.length > 0) {
       this.diffDom.apply(nativeContainer, diff);
     }
     this.selection.synByBookmark();
+    debug('Undoing has been finished.', diff);
   }
 
   public redo(): void {
@@ -92,6 +92,7 @@ export class History {
       this.diffDom.apply(nativeContainer, diff);
     }
     this.selection.synByBookmark();
+    debug('Redoing has been finished.', diff);
   }
 
   public save(): void {
@@ -104,5 +105,6 @@ export class History {
       this.list.shift();
       this.index = this.list.length;
     }
+    debug('Saving history has been finished.');
   }
 }

@@ -81,7 +81,9 @@ export default class LakeCore {
       this.selection.syncByRange();
     };
     document.addEventListener('selectionchange', this.selectionchangeListener);
-    this.container.on('input', () => this.history.save());
+    this.container.on('input', () => {
+      window.setTimeout(() => this.history.save(), 100);
+    });
   }
 
   private setDefaultOptions(): void {
@@ -146,9 +148,9 @@ export default class LakeCore {
 
   // Gets the contents from the editor.
   public getValue() {
-    this.selection.insertBookmark();
+    const bookmark = this.selection.insertBookmark();
     const value = utils.denormalizeValue(this.container.html());
-    this.selection.synByBookmark();
+    this.selection.toBookmark(bookmark);
     return value;
   }
 
@@ -159,11 +161,11 @@ export default class LakeCore {
     targetNode.hide();
     this.setValue(this.options.defaultValue);
     targetNode.after(container);
-    this.history.save();
     this.focus();
     this.selection.synByBookmark();
     this.select();
     this.plugins.loadAll(this);
+    this.history.save();
     this.event.emit('ready');
   }
 
