@@ -127,4 +127,19 @@ describe('operations.getBlocks()', () => {
     expect(blocks[0].html()).to.equal('foo<strong>bold</strong>');
   });
 
+  it('selects all', () => {
+    const content = `
+    <anchor /><p>a</p>
+    <p>b</p>
+    <p>c</p><focus />
+    `;
+    const { container, range } = createContainer(content);
+    const blocks = getBlocks(range);
+    container.remove();
+    expect(blocks.length).to.equal(3);
+    expect(blocks[0].html()).to.equal('a');
+    expect(blocks[1].html()).to.equal('b');
+    expect(blocks[2].html()).to.equal('c');
+  });
+
 });

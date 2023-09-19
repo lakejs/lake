@@ -8,6 +8,7 @@ import redo from './plugins/redo';
 import selectAll from './plugins/select-all';
 import heading from './plugins/heading';
 import blockquote from './plugins/blockquote';
+import align from './plugins/align';
 import bold from './plugins/bold';
 import italic from './plugins/italic';
 import underline from './plugins/underline';
@@ -110,6 +111,7 @@ export default class LakeCore {
     plugins.add(selectAll);
     plugins.add(heading);
     plugins.add(blockquote);
+    plugins.add(align);
     plugins.add(bold);
     plugins.add(italic);
     plugins.add(underline);

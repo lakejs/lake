@@ -5,7 +5,11 @@ import { Range } from '../models/range';
 export function getBlocks(range: Range): Nodes[] {
   const startBlock = range.startNode.closestBlock();
   const endBlock = range.endNode.closestBlock();
-  if (startBlock.get(0) && startBlock.get(0) === endBlock.get(0)) {
+  if (
+    startBlock.isEditable &&
+    startBlock.get(0) &&
+    startBlock.get(0) === endBlock.get(0)
+  ) {
     return [ startBlock ];
   }
   const blocks: Nodes[] = [];

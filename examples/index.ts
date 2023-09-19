@@ -10,7 +10,22 @@ declare global {
 
 window.DEBUG = true;
 
-const headingTypes = 'h1,h2,h3,h4,h5,h6,p'.split(',');
+const headingTypes = [
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'p',
+];
+
+const alignTypes = new Map([
+  ['alignLeft', 'left'],
+  ['alignCenter', 'center'],
+  ['alignRight', 'right'],
+  ['alignJustify', 'justify'],
+]);
 
 const noParameterCommandNames = [
   'undo',
@@ -39,6 +54,10 @@ query('.lake-toolbar-icon').on('click', event => {
   const type = query(event.target as Element).attr('data-type');
   if (headingTypes.indexOf(type) >= 0) {
     editor.commands.execute('heading', type);
+    return;
+  }
+  if (alignTypes.has(type)) {
+    editor.commands.execute('align', alignTypes.get(type));
     return;
   }
   if (type === 'fontFamily') {

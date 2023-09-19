@@ -43,7 +43,7 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('adds styles to the selected blocks', () => {
+  it('adds styles by passing through a string value', () => {
     const content = `
     <p>outer start</p>
     <p>f<anchor />oo<strong>bold</strong></p>
@@ -61,6 +61,30 @@ describe('operations.setBlocks()', () => {
       output,
       range => {
         setBlocks(range, '<p style="text-align: center;"></p>');
+      },
+    );
+  });
+
+  it('adds styles by passing through an object value', () => {
+    const content = `
+    <p>outer start</p>
+    <p>f<anchor />oo<strong>bold</strong></p>
+    <p><em>itelic</em>ba<focus />r</p>
+    <p>outer end</p>
+    `;
+    const output = `
+    <p>outer start</p>
+    <p style="text-align: center;">f<anchor />oo<strong>bold</strong></p>
+    <p style="text-align: center;"><em>itelic</em>ba<focus />r</p>
+    <p>outer end</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, {
+          'text-align': 'center',
+        });
       },
     );
   });

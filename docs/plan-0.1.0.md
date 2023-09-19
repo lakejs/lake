@@ -19,7 +19,7 @@
 * [X] heading
 * [X] blockquote
 * [ ] list (numbered list, bulleted list, checklist)
-* [ ] align (left, center, right, justify)
+* [X] align (left, center, right, justify)
 * [ ] indent (increase, decrease)
 * [X] bold
 * [X] italic

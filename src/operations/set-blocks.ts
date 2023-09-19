@@ -30,21 +30,30 @@ function getTopNonBlockNodes(range: Range): Nodes[] {
   return nodeList;
 }
 
-function addStyles(block: Nodes, styleValue: string) {
-  const cssProperties = parseStyle(styleValue);
+function addStyles(block: Nodes, cssProperties: ReturnType<typeof parseStyle>) {
   forEach(cssProperties, (key, val) => {
     block.css(key, val);
   });
 }
 
-// Adds new blocks or modifies target blocks relating to the specified range.
-export function setBlocks(range: Range, value: string): void {
+// Adds new blocks or changes target blocks relating to the specified range.
+export function setBlocks(range: Range, value: string | ReturnType<typeof parseStyle>): void {
   if (!range.commonAncestor.isContentEditable) {
     return;
   }
+  // changes the attributes of target blocks
+  if (typeof value !== 'string') {
+    const blockList = getBlocks(range);
+    for (const block of blockList) {
+      addStyles(block, value);
+    }
+    return;
+  }
+  // adds or replace blocks
   const valueNode = query(value);
   const tagName = valueNode.name;
   const styleValue = valueNode.attr('style');
+  const cssProperties = parseStyle(styleValue);
   const blockList = getBlocks(range);
   // has blocks
   if (blockList.length > 0) {
@@ -61,7 +70,7 @@ export function setBlocks(range: Range, value: string): void {
         }
         node.replaceWith(block);
       }
-      addStyles(block, styleValue);
+      addStyles(block, cssProperties);
     }
     toBookmark(range, bookmark);
     return;
@@ -71,7 +80,7 @@ export function setBlocks(range: Range, value: string): void {
   const nonBlockNodes = getTopNonBlockNodes(range);
   if (nonBlockNodes.length > 0) {
     const block = query(`<${tagName} />`);
-    addStyles(block, styleValue);
+    addStyles(block, cssProperties);
     nonBlockNodes[0].before(block);
     nonBlockNodes.forEach((node, index) => {
       if (node.isText) {
