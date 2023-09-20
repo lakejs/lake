@@ -27,6 +27,11 @@ const alignTypes = new Map([
   ['alignJustify', 'justify'],
 ]);
 
+const indentTypes = new Map([
+  ['increaseIndent', 'increase'],
+  ['decreaseIndent', 'decrease'],
+]);
+
 const noParameterCommandNames = [
   'undo',
   'redo',
@@ -58,6 +63,10 @@ query('.lake-toolbar-icon').on('click', event => {
   }
   if (alignTypes.has(type)) {
     editor.commands.execute('align', alignTypes.get(type));
+    return;
+  }
+  if (indentTypes.has(type)) {
+    editor.commands.execute('indent', indentTypes.get(type));
     return;
   }
   if (type === 'fontFamily') {

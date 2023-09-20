@@ -45,6 +45,7 @@ import './plugins/select-all.test';
 import './plugins/heading.test';
 import './plugins/blockquote.test';
 import './plugins/align.test';
+import './plugins/indent.test';
 import './plugins/bold.test';
 import './plugins/italic.test';
 import './plugins/underline.test';

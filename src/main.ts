@@ -9,6 +9,7 @@ import selectAll from './plugins/select-all';
 import heading from './plugins/heading';
 import blockquote from './plugins/blockquote';
 import align from './plugins/align';
+import indent from './plugins/indent';
 import bold from './plugins/bold';
 import italic from './plugins/italic';
 import underline from './plugins/underline';
@@ -45,7 +46,7 @@ export default class LakeCore {
 
   private options: OptionsType;
 
-  private selectionchangeListener: EventListener;
+  private selectionListener: EventListener;
 
   public container: models.Nodes;
 
@@ -78,10 +79,10 @@ export default class LakeCore {
 
     this.addBuiltInPlugins();
 
-    this.selectionchangeListener = () => {
+    this.selectionListener = () => {
       this.selection.syncByRange();
     };
-    document.addEventListener('selectionchange', this.selectionchangeListener);
+    document.addEventListener('selectionchange', this.selectionListener);
     this.container.on('input', () => {
       window.setTimeout(() => this.history.save(), 100);
     });
@@ -125,6 +126,7 @@ export default class LakeCore {
     plugins.add(highlight);
     plugins.add(enter);
     plugins.add(shiftEnter);
+    plugins.add(indent);
   }
 
   // Adds the saved range to the selection.
@@ -174,7 +176,7 @@ export default class LakeCore {
   // Removes the editor.
   public remove(): void {
     this.container.remove();
-    document.removeEventListener('selectionchange', this.selectionchangeListener);
+    document.removeEventListener('selectionchange', this.selectionListener);
     this.event.emit('remove');
   }
 }

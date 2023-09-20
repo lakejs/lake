@@ -21,7 +21,7 @@ export class History {
 
   private container: Nodes;
 
-  // a stack of the history items
+  // an array for storing the history items
   private list: NativeElement[];
 
   // the next index of the list
