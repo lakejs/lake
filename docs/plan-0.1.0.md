@@ -11,10 +11,10 @@
 * [X] operations
 * [X] plugins
 * [X] history (undo, redo)
-* [ ] HTML parser
+* [X] HTML parser
 * [ ] markdown parser
 * [ ] text parser
-* [ ] paste
+* [X] paste
 * [X] select all
 * [X] heading
 * [X] blockquote

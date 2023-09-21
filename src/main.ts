@@ -3,6 +3,7 @@ import pkg from '../package.json';
 import { NativeNode } from './types/native';
 import * as utils from './utils';
 import * as models from './models';
+import paste from './plugins/paste';
 import undo from './plugins/undo';
 import redo from './plugins/redo';
 import selectAll from './plugins/select-all';
@@ -107,6 +108,7 @@ export default class LakeCore {
 
   private addBuiltInPlugins(): void {
     const plugins = this.plugins;
+    plugins.add(paste);
     plugins.add(undo);
     plugins.add(redo);
     plugins.add(selectAll);
