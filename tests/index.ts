@@ -23,6 +23,7 @@ import './utils/get-right-text.test';
 import './models/nodes.test';
 import './models/range.test';
 import './models/history.test';
+import './models/keystroke.test';
 
 // Operations
 import './operations/insert-bookmark.test';

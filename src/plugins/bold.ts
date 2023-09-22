@@ -14,7 +14,7 @@ export default (editor: LakeCore) => {
     editor.history.save();
     editor.select();
   });
-  editor.keystroke.setKeydown('$mod+KeyB', event => {
+  editor.keystroke.setKeydown('mod+b', event => {
     event.preventDefault();
     editor.commands.execute('bold');
   });

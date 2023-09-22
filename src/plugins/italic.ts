@@ -14,7 +14,7 @@ export default (editor: LakeCore) => {
     editor.history.save();
     editor.select();
   });
-  editor.keystroke.setKeydown('$mod+KeyI', event => {
+  editor.keystroke.setKeydown('mod+i', event => {
     event.preventDefault();
     editor.commands.execute('italic');
   });

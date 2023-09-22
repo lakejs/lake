@@ -14,7 +14,7 @@ export default (editor: LakeCore) => {
     editor.history.save();
     editor.select();
   });
-  editor.keystroke.setKeydown('$mod+Shift+KeyX', event => {
+  editor.keystroke.setKeydown('mod+shift+x', event => {
     event.preventDefault();
     editor.commands.execute('strikethrough');
   });

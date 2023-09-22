@@ -13,7 +13,7 @@ describe('enter plugin', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('Enter');
+        editor.keystroke.keydown('enter');
       },
     );
   });
@@ -29,7 +29,7 @@ describe('enter plugin', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('Enter');
+        editor.keystroke.keydown('enter');
       },
     );
   });
@@ -45,7 +45,7 @@ describe('enter plugin', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('Enter');
+        editor.keystroke.keydown('enter');
       },
     );
   });
@@ -61,7 +61,7 @@ describe('enter plugin', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('Enter');
+        editor.keystroke.keydown('enter');
       },
     );
   });
@@ -77,7 +77,7 @@ describe('enter plugin', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('Enter');
+        editor.keystroke.keydown('enter');
       },
     );
   });
@@ -93,7 +93,7 @@ describe('enter plugin', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('Enter');
+        editor.keystroke.keydown('enter');
       },
     );
   });

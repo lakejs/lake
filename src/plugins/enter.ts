@@ -1,7 +1,7 @@
 import type LakeCore from '../main';
 
 export default (editor: LakeCore) => {
-  editor.keystroke.setKeydown('Enter', event => {
+  editor.keystroke.setKeydown('enter', event => {
     event.preventDefault();
     const selection = editor.selection;
     let blocks = selection.getBlocks();

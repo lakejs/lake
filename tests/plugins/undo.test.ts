@@ -33,7 +33,7 @@ describe('undo plugin', () => {
       editor => {
         editor.commands.execute('bold');
         editor.commands.execute('italic');
-        editor.keystroke.keydown('$mod+KeyZ');
+        editor.keystroke.keydown('mod+z');
       },
     );
   });

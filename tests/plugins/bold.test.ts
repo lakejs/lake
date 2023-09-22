@@ -291,7 +291,7 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('$mod+KeyB');
+        editor.keystroke.keydown('mod+b');
       },
     );
   });

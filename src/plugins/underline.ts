@@ -14,7 +14,7 @@ export default (editor: LakeCore) => {
     editor.history.save();
     editor.select();
   });
-  editor.keystroke.setKeydown('$mod+KeyU', event => {
+  editor.keystroke.setKeydown('mod+u', event => {
     event.preventDefault();
     editor.commands.execute('underline');
   });

@@ -35,7 +35,7 @@ describe('redo plugin', () => {
         editor.commands.execute('bold');
         editor.commands.execute('italic');
         editor.commands.execute('undo');
-        editor.keystroke.keydown('$mod+KeyY');
+        editor.keystroke.keydown('mod+y');
       },
     );
   });

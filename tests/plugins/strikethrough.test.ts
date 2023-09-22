@@ -32,7 +32,7 @@ describe('strikethrough plugin', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('$mod+Shift+KeyX');
+        editor.keystroke.keydown('mod+shift+x');
       },
     );
   });

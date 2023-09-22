@@ -19,8 +19,18 @@ export class Keystroke {
     this.keyupEventList = [];
   }
 
+  private normalizeType(type: string) {
+    type = type.replace(/(^|\+|\s)mod(\+|\s|$)/g, '$1$mod$2').
+      replace(/shift|control|alt|meta|enter|tab|backspace|delete|space|escape/,
+        (match: string) => match.charAt(0).toUpperCase() + match.substring(1)).
+      replace(/(^|\+|\s)([a-z])(\+|\s|$)/g,
+        (match: string, p1: string, p2: string, p3: string) => `${p1}Key${p2.toUpperCase()}${p3}`);
+    return type;
+  }
+
   // Sets a keydown shortcut.
   public setKeydown(type: string, listener: EventListener) {
+    type = this.normalizeType(type);
     const handler = createKeybindingsHandler({
       [type]: event => listener(event),
     });
@@ -33,6 +43,7 @@ export class Keystroke {
 
   // Sets a keyup shortcut.
   public setKeyup(type: string, listener: EventListener) {
+    type = this.normalizeType(type);
     const handler = createKeybindingsHandler({
       [type]: event => listener(event),
     });
@@ -45,6 +56,7 @@ export class Keystroke {
 
   // Executes the keydown shortcuts.
   public keydown(type: string) {
+    type = this.normalizeType(type);
     for (const item of this.keydownEventList) {
       if (item.type === type) {
         item.listener(new Event(type));
@@ -54,6 +66,7 @@ export class Keystroke {
 
   // Executes the keyup shortcuts.
   public keyup(type: string) {
+    type = this.normalizeType(type);
     for (const item of this.keyupEventList) {
       if (item.type === type) {
         item.listener(new Event(type));

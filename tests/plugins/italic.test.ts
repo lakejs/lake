@@ -32,7 +32,7 @@ describe('italic plugin', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('$mod+KeyI');
+        editor.keystroke.keydown('mod+i');
       },
     );
   });

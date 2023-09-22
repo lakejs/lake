@@ -7,7 +7,7 @@ export default (editor: LakeCore) => {
     editor.history.save();
     editor.select();
   });
-  editor.keystroke.setKeydown('$mod+KeyA', event => {
+  editor.keystroke.setKeydown('mod+a', event => {
     event.preventDefault();
     editor.commands.execute('selectAll');
   });

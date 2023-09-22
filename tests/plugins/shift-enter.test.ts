@@ -13,7 +13,7 @@ describe('shiftEnter plugin', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('Shift+Enter');
+        editor.keystroke.keydown('shift+enter');
       },
     );
   });
@@ -29,7 +29,7 @@ describe('shiftEnter plugin', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('Shift+Enter');
+        editor.keystroke.keydown('shift+enter');
       },
     );
   });

@@ -32,7 +32,7 @@ describe('underline plugin', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('$mod+KeyU');
+        editor.keystroke.keydown('mod+u');
       },
     );
   });

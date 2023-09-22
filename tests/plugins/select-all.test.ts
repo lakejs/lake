@@ -31,7 +31,7 @@ describe('selectAll plugin', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('$mod+KeyA');
+        editor.keystroke.keydown('mod+a');
       },
     );
   });

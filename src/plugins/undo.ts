@@ -6,7 +6,7 @@ export default (editor: LakeCore) => {
     editor.history.undo();
     editor.select();
   });
-  editor.keystroke.setKeydown('$mod+KeyZ', event => {
+  editor.keystroke.setKeydown('mod+z', event => {
     event.preventDefault();
     editor.commands.execute('undo');
   });
