@@ -1,4 +1,4 @@
-const blockAttributeRules = {
+const blockAttributeRules: any = {
   id: /^[\w-]+$/,
   class: /^[\w-]+$/,
   style: {
@@ -7,7 +7,7 @@ const blockAttributeRules = {
   },
 };
 
-export const defaultRules = {
+export const defaultRules: any = {
   h1: blockAttributeRules,
   h2: blockAttributeRules,
   h3: blockAttributeRules,

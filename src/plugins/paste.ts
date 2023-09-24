@@ -1,4 +1,3 @@
-import { Nodes } from '../models/nodes';
 import { HTMLParser } from '../models/html-parser';
 import type LakeCore from '../main';
 
@@ -12,6 +11,8 @@ export default (editor: LakeCore) => {
     }
     const content = clipboardData.getData('text/html');
     const parser = new HTMLParser(content);
-    editor.selection.insertContents(new Nodes(parser.getNodeList()));
+    for (const node of parser.getNodeList()) {
+      editor.selection.insertContents(node);
+    }
   });
 };
