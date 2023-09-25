@@ -33,4 +33,5 @@ export const defaultRules: any = {
     href: /^\S+$/,
     target: /^[\w-]+$/,
   },
+  br: {},
 };
