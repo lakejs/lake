@@ -287,7 +287,7 @@ export class Nodes {
 
   // Returns the last child of the first element.
   public last(): Nodes {
-    const element = this.get(0) as NativeElement;
+    const element = this.get(0);
     return new Nodes(element.lastChild);
   }
 

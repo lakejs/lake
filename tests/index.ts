@@ -22,6 +22,7 @@ import './utils/get-right-text.test';
 // Models
 import './models/nodes.test';
 import './models/range.test';
+import './models/html-parser.test';
 import './models/history.test';
 import './models/keystroke.test';
 

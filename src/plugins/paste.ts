@@ -10,8 +10,8 @@ export default (editor: LakeCore) => {
       return;
     }
     const content = clipboardData.getData('text/html');
-    const parser = new HTMLParser(content);
-    for (const node of parser.getNodeList()) {
+    const htmlParser = new HTMLParser(content);
+    for (const node of htmlParser.getNodeList()) {
       editor.selection.insertContents(node);
     }
   });

@@ -31,6 +31,6 @@ export const defaultRules: any = {
   code: {},
   a: {
     href: /^\S+$/,
-    target: /^\S+$/,
+    target: /^[\w-]+$/,
   },
 };

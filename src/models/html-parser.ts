@@ -5,22 +5,28 @@ import { Nodes } from './nodes';
 
 export class HTMLParser {
 
-  private doc: Document;
+  private root: Nodes;
 
-  constructor(html: string) {
+  constructor(content: string | Nodes) {
     const parser = new DOMParser();
-    this.doc = parser.parseFromString(html, 'text/html');
+    if (typeof content === 'string') {
+      const doc = parser.parseFromString(content, 'text/html');
+      this.root = new Nodes(doc.querySelector('body'));
+    } else {
+      this.root = content;
+    }
   }
 
   // Returns a boolan value indicating whether the node should be removed.
-  private sanitizeCurrentNode(node: Nodes): boolean {
+  private sanitizeNode(node: Nodes): void {
     const attributeRules = defaultRules[node.name];
     if (!attributeRules) {
-      return false;
+      node.remove();
+      return;
     }
     const nativeNode = node.get(0) as NativeElement;
     if (!nativeNode.hasAttributes()) {
-      return true;
+      return;
     }
     for (const attr of nativeNode.attributes) {
       if (!attributeRules[attr.name]) {
@@ -44,23 +50,33 @@ export class HTMLParser {
         }
       }
     }
-    return true;
+  }
+
+  public * getWalker(root: Nodes): Generator<Nodes> {
+    function * iterate(node: Nodes): Generator<Nodes> {
+      let child = node.first();
+      while (child.length > 0) {
+        const nextNode = child.next();
+        yield child;
+        yield * iterate(child);
+        child = nextNode;
+      }
+    }
+    for (const node of iterate(root.eq(0))) {
+      yield node;
+    }
   }
 
   public getNodeList(): Nodes[] {
     const nodeList: Nodes[] = [];
-    const body = new Nodes(this.doc.querySelector('body'));
-    if (body.length === 0) {
+    if (this.root.length === 0) {
       return nodeList;
     }
-    let child = body.first();
-    while(child.length > 0) {
-      const next = child.next();
-      if (this.sanitizeCurrentNode(child)) {
-        nodeList.push(child);
+    for (const node of this.getWalker(this.root)) {
+      if (node.isElement) {
+        this.sanitizeNode(node);
       }
-      child = next;
     }
-    return nodeList;
+    return this.root.children();
   }
 }
