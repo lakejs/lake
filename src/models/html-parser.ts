@@ -17,35 +17,35 @@ export class HTMLParser {
     }
   }
 
-  // Removes the node or those attributes or CSS properties that do not match rules.
-  private sanitizeNode(node: Nodes) : void {
-    const attributeRules = defaultRules[node.name];
+  // Removes the element or those attributes or CSS properties that do not match rules.
+  private sanitizeElement(element: Nodes) : void {
+    const attributeRules = defaultRules[element.name];
     if (!attributeRules) {
-      node.remove(true);
+      element.remove(true);
       return;
     }
-    const nativeNode = node.get(0) as NativeElement;
+    const nativeNode = element.get(0) as NativeElement;
     if (!nativeNode.hasAttributes()) {
       return;
     }
     for (const attr of nativeNode.attributes) {
       if (!attributeRules[attr.name]) {
-        node.removeAttr(attr.name);
+        element.removeAttr(attr.name);
       } else {
         if (attr.name !== 'style' && attributeRules[attr.name].exec(attr.value) === null) {
-          node.removeAttr(attr.name);
+          element.removeAttr(attr.name);
         }
         if (attr.name === 'style') {
           const styleRules = attributeRules.style;
           forEach(parseStyle(attr.value), (key, value) => {
             if (!styleRules[key]) {
-              node.css(key, '');
+              element.css(key, '');
             } else if (styleRules[key].exec(value) === null) {
-              node.css(key, '');
+              element.css(key, '');
             }
           });
-          if (node.attr('style') === '') {
-            node.removeAttr('style');
+          if (element.attr('style') === '') {
+            element.removeAttr('style');
           }
         }
       }
@@ -53,14 +53,14 @@ export class HTMLParser {
   }
 
   // Returns a tag string of the node that do not match rules.
-  private static getOpenTag(node: Nodes) : string {
-    const attributeRules = defaultRules[node.name];
+  private static getOpenTagString(element: Nodes) : string {
+    const attributeRules = defaultRules[element.name];
     if (!attributeRules) {
       return '';
     }
-    const nativeNode = node.get(0) as NativeElement;
+    const nativeNode = element.get(0) as NativeElement;
     if (!nativeNode.hasAttributes()) {
-      return node.name;
+      return element.name;
     }
     const attributeMap = new Map();
     for (const attr of nativeNode.attributes) {
@@ -80,7 +80,7 @@ export class HTMLParser {
         }
       }
     }
-    let openTag = node.name;
+    let openTag = element.name;
     for (const [attrName, attrValue] of attributeMap) {
       if (attrName === 'style') {
         let styleString = '';
@@ -98,7 +98,7 @@ export class HTMLParser {
   public getNodeList(): Nodes[] {
     for (const node of this.root.getWalker()) {
       if (node.isElement) {
-        this.sanitizeNode(node);
+        this.sanitizeElement(node);
       }
     }
     return this.root.children();
@@ -112,12 +112,12 @@ export class HTMLParser {
         if (child.isText) {
           yield child.text();
         } else if (child.isVoid) {
-          const openTag = HTMLParser.getOpenTag(child);
+          const openTag = HTMLParser.getOpenTagString(child);
           if (openTag !== '') {
             yield `<${openTag} />`;
           }
         } else {
-          const openTag = HTMLParser.getOpenTag(child);
+          const openTag = HTMLParser.getOpenTagString(child);
           if (openTag !== '') {
             yield `<${openTag}>`;
           }

@@ -16,7 +16,7 @@ describe('models.HTMLParser class', () => {
     container.remove();
   });
 
-  it('DOM: should remove those nodes that do not match rules.', () => {
+  it('DOM: should remove those elements that do not match rules.', () => {
     container.html('<h1>foo</h1><p>bar<temp2>two</temp2></p><temp1>one</temp1>');
     const htmlParser = new HTMLParser(container);
     const nodeList = htmlParser.getNodeList();
@@ -27,7 +27,7 @@ describe('models.HTMLParser class', () => {
     expect(container.find('temp2').length).to.equal(0);
   });
 
-  it('HTML: should remove those nodes that do not match rules.', () => {
+  it('HTML: should remove those tags that do not match rules.', () => {
     const input = '<h1>foo</h1><p>bar<temp2>two</temp2></p><temp1>one</temp1>';
     const output = '<h1>foo</h1><p>bartwo</p>one';
     container.html(input);
