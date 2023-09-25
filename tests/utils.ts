@@ -53,7 +53,7 @@ export function testPlugin(
   });
   editor.create();
   callback(editor);
-  const html = format(editor.getValue());
+  const html = editor.getValue();
   editor.remove();
   debug(html);
   expect(html).to.equal(format(output));

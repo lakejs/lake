@@ -20,9 +20,12 @@ export const defaultRules: any = {
     style: {
       color: /^\S+$/,
       'background-color': /^\S+$/,
+      'font-family': /^\S+$/,
+      'font-size': /^\S+$/,
     },
   },
   strong: {},
+  em: {},
   i: {},
   u: {},
   s: {},
@@ -34,4 +37,7 @@ export const defaultRules: any = {
     target: /^[\w-]+$/,
   },
   br: {},
+  bookmark: {
+    type: /^anchor|focus$/i,
+  },
 };

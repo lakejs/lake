@@ -155,7 +155,9 @@ export default class LakeCore {
   // Gets the contents from the editor.
   public getValue() {
     const bookmark = this.selection.insertBookmark();
-    const value = utils.denormalizeValue(this.container.html());
+    let value = this.container.html();
+    value = new models.HTMLParser(value).getHTML();
+    value = utils.denormalizeValue(value);
     this.selection.toBookmark(bookmark);
     return value;
   }
