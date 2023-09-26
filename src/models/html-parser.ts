@@ -17,6 +17,10 @@ export class HTMLParser {
     }
   }
 
+  private static escape(value: string) {
+    return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
   // Removes the element or those attributes or CSS properties that do not match rules.
   private sanitizeElement(element: Nodes) : void {
     const attributeRules = defaultRules[element.name];
@@ -110,7 +114,7 @@ export class HTMLParser {
       while (child.length > 0) {
         const nextNode = child.next();
         if (child.isText) {
-          yield child.text();
+          yield HTMLParser.escape(child.text());
         } else if (child.isVoid) {
           const openTag = HTMLParser.getOpenTagString(child);
           if (openTag !== '') {
