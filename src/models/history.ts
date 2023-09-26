@@ -70,7 +70,6 @@ export class History {
       this.diffDom.apply(nativeContainer, diff);
     }
     this.selection.synByBookmark();
-    debug('Undoing has been finished.', diff);
   }
 
   public redo(): void {
@@ -92,7 +91,6 @@ export class History {
       this.diffDom.apply(nativeContainer, diff);
     }
     this.selection.synByBookmark();
-    debug('Redoing has been finished.', diff);
   }
 
   public save(): void {
@@ -105,6 +103,6 @@ export class History {
       this.list.shift();
       this.index = this.list.length;
     }
-    debug('Saving history has been finished.');
+    debug(`history.save(), list.length=${this.list.length} index=${this.index}`);
   }
 }

@@ -11,7 +11,7 @@ export class Commands {
 
   public add(name: string, handler: CommandHandler) {
     this.commandMap[name] = handler;
-    debug(`Command '${name}' has been added.`);
+    debug(`added command '${name}'`);
   }
 
   public execute(name: string, ...data: any[]) {
@@ -20,6 +20,6 @@ export class Commands {
       throw new Error(`Command '${name}' doesn't exist.`);
     }
     handler.apply(this, data);
-    debug(`Command '${name}' has been executed.`);
+    debug(`executed command '${name}'`);
   }
 }
