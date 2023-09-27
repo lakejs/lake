@@ -129,8 +129,8 @@ describe('models.HTMLParser class', () => {
     expect(htmlParser.getHTML()).to.equal(output);
   });
 
-  it('getHTML method: the content includes HTML entities', () => {
-    const input = '<p>foo&lt;&gt;&quot;&amp;</p>';
+  it('getHTML method: including reserved characters', () => {
+    const input = '<p>foo&lt;&gt;&quot;&amp; &nbsp; &nbsp; –—©\'</p>';
     const output = input;
     container.html(input);
     const htmlParser = new HTMLParser(container);

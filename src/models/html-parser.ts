@@ -3,6 +3,14 @@ import { NativeElement } from '../types/native';
 import { forEach, parseStyle } from '../utils';
 import { Nodes } from './nodes';
 
+const characterMap = new Map([
+  ['&', '&amp;'],
+  ['<', '&lt;'],
+  ['>', '&gt;'],
+  ['"', '&quot;'],
+  ['\xA0', '&nbsp;'],
+]);
+
 export class HTMLParser {
 
   private root: Nodes;
@@ -17,43 +25,9 @@ export class HTMLParser {
     }
   }
 
-  private static escape(value: string) {
-    return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  }
-
-  // Removes the element or those attributes or CSS properties that do not match rules.
-  private sanitizeElement(element: Nodes) : void {
-    const attributeRules = defaultRules[element.name];
-    if (!attributeRules) {
-      element.remove(true);
-      return;
-    }
-    const nativeNode = element.get(0) as NativeElement;
-    if (!nativeNode.hasAttributes()) {
-      return;
-    }
-    for (const attr of nativeNode.attributes) {
-      if (!attributeRules[attr.name]) {
-        element.removeAttr(attr.name);
-      } else {
-        if (attr.name !== 'style' && attributeRules[attr.name].exec(attr.value) === null) {
-          element.removeAttr(attr.name);
-        }
-        if (attr.name === 'style') {
-          const styleRules = attributeRules.style;
-          forEach(parseStyle(attr.value), (key, value) => {
-            if (!styleRules[key]) {
-              element.css(key, '');
-            } else if (styleRules[key].exec(value) === null) {
-              element.css(key, '');
-            }
-          });
-          if (element.attr('style') === '') {
-            element.removeAttr('style');
-          }
-        }
-      }
-    }
+  // Converts all of the reserved characters in the specified string to HTML entities.
+  private static encode(value: string) {
+    return value.replace(/[&<>"\xA0]/g, match => characterMap.get(match) ?? '');
   }
 
   // Returns a tag string of the node that do not match rules.
@@ -69,14 +43,14 @@ export class HTMLParser {
     const attributeMap = new Map();
     for (const attr of nativeNode.attributes) {
       if (attributeRules[attr.name]) {
-        if (attr.name !== 'style' && attributeRules[attr.name].exec(attr.value) !== null) {
+        if (attr.name !== 'style' && attributeRules[attr.name].test(attr.value)) {
           attributeMap.set(attr.name, attr.value);
         }
         if (attr.name === 'style') {
           const styleRules = attributeRules.style;
           const styleMap = new Map();
           forEach(parseStyle(attr.value), (key, value) => {
-            if (styleRules[key] && styleRules[key].exec(value) !== null) {
+            if (styleRules[key] && styleRules[key].test(value)) {
               styleMap.set(key, value);
             }
           });
@@ -99,6 +73,41 @@ export class HTMLParser {
     return openTag;
   }
 
+  // Removes the element or those attributes or CSS properties that do not match rules.
+  private sanitizeElement(element: Nodes) : void {
+    const attributeRules = defaultRules[element.name];
+    if (!attributeRules) {
+      element.remove(true);
+      return;
+    }
+    const nativeNode = element.get(0) as NativeElement;
+    if (!nativeNode.hasAttributes()) {
+      return;
+    }
+    for (const attr of nativeNode.attributes) {
+      if (!attributeRules[attr.name]) {
+        element.removeAttr(attr.name);
+      } else {
+        if (attr.name !== 'style' && !attributeRules[attr.name].test(attr.value)) {
+          element.removeAttr(attr.name);
+        }
+        if (attr.name === 'style') {
+          const styleRules = attributeRules.style;
+          forEach(parseStyle(attr.value), (key, value) => {
+            if (!styleRules[key]) {
+              element.css(key, '');
+            } else if (!styleRules[key].test(value)) {
+              element.css(key, '');
+            }
+          });
+          if (element.attr('style') === '') {
+            element.removeAttr('style');
+          }
+        }
+      }
+    }
+  }
+
   public getNodeList(): Nodes[] {
     for (const node of this.root.getWalker()) {
       if (node.isElement) {
@@ -114,7 +123,7 @@ export class HTMLParser {
       while (child.length > 0) {
         const nextNode = child.next();
         if (child.isText) {
-          yield HTMLParser.escape(child.text());
+          yield HTMLParser.encode(child.text());
         } else if (child.isVoid) {
           const openTag = HTMLParser.getOpenTagString(child);
           if (openTag !== '') {
