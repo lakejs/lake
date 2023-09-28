@@ -273,7 +273,7 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.commandexecute('bold');
+        editor.command.execute('bold');
       },
     );
   });
