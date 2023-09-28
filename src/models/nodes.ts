@@ -3,7 +3,8 @@ import { blockTagNames, markTagNames, voidTagNames, headingTagNames } from '../c
 import { forEach } from '../utils/for-each';
 import { inString } from '../utils/in-string';
 import { camelCase } from '../utils/camel-case';
-import { getCss } from '../utils/get-css';
+import { getCSS } from '../utils/get-css';
+import { toHex } from '../utils/to-hex';
 import { toNodeList } from '../utils/to-node-list';
 import { debug } from '../utils/debug';
 
@@ -467,6 +468,11 @@ export class Nodes {
     return this;
   }
 
+  public computedCSS(propertyName: string): string {
+    const element = this.get(0) as NativeElement;
+    return getCSS(element, propertyName);
+  }
+
   public css(propertyName: string): string;
 
   public css(propertyName: { [key: string]: string }): this;
@@ -482,7 +488,7 @@ export class Nodes {
     }
     if (value === undefined) {
       const element = this.get(0) as NativeElement;
-      return getCss(element, propertyName);
+      return toHex(element.style[camelCase(propertyName)]);
     }
     return this.eachElement(element => {
       element.style[camelCase(propertyName)] = value;

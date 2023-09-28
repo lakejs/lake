@@ -1,4 +1,4 @@
-import { query, parseStyle, forEach } from '../utils';
+import { query, parseStyle } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { getBlocks } from './get-blocks';
@@ -30,12 +30,6 @@ function getTopNonBlockNodes(range: Range): Nodes[] {
   return nodeList;
 }
 
-function addStyles(block: Nodes, cssProperties: ReturnType<typeof parseStyle>) {
-  forEach(cssProperties, (key, val) => {
-    block.css(key, val);
-  });
-}
-
 // Adds new blocks or changes target blocks relating to the specified range.
 export function setBlocks(range: Range, value: string | ReturnType<typeof parseStyle>): void {
   if (!range.commonAncestor.isContentEditable) {
@@ -45,7 +39,7 @@ export function setBlocks(range: Range, value: string | ReturnType<typeof parseS
   if (typeof value !== 'string') {
     const blockList = getBlocks(range);
     for (const block of blockList) {
-      addStyles(block, value);
+      block.css(value);
     }
     return;
   }
@@ -70,7 +64,7 @@ export function setBlocks(range: Range, value: string | ReturnType<typeof parseS
         }
         node.replaceWith(block);
       }
-      addStyles(block, cssProperties);
+      block.css(cssProperties);
     }
     toBookmark(range, bookmark);
     return;
@@ -80,7 +74,7 @@ export function setBlocks(range: Range, value: string | ReturnType<typeof parseS
   const nonBlockNodes = getTopNonBlockNodes(range);
   if (nonBlockNodes.length > 0) {
     const block = query(`<${tagName} />`);
-    addStyles(block, cssProperties);
+    block.css(cssProperties);
     nonBlockNodes[0].before(block);
     nonBlockNodes.forEach((node, index) => {
       if (node.isText) {

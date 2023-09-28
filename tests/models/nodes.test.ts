@@ -496,18 +496,32 @@ describe('models.Nodes class', () => {
     expect(nodes.eq(1).hasClass('class-two')).to.equal(false);
   });
 
+  it('method: computedCSS', () => {
+    const node = new Nodes(element);
+    node.css('background-color', '');
+    node.css('border', '');
+    node.css('text-align', '');
+    expect(node.computedCSS('background-color')).to.equal('#000000');
+    expect(node.computedCSS('border-color')).to.equal('#000000');
+    expect(node.computedCSS('text-align')).to.equal('start');
+  });
+
   it('css methods: a string', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.css('background-color', '#ff0000');
     nodes.css('border', '1px solid #0000ff');
+    nodes.css('text-align', 'center');
     expect(nodes.css('background-color')).to.equal('#ff0000');
     expect(nodes.eq(1).css('background-color')).to.equal('#ff0000');
     expect(nodes.css('border-color')).to.equal('#0000ff');
+    expect(nodes.css('text-align')).to.equal('center');
     nodes.css('background-color', '');
     nodes.css('border', '');
-    expect(nodes.css('background-color')).to.equal('#000000');
-    expect(nodes.eq(1).css('background-color')).to.equal('#000000');
-    expect(nodes.css('border-color')).to.equal('#000000');
+    nodes.css('text-align', '');
+    expect(nodes.css('background-color')).to.equal('');
+    expect(nodes.eq(1).css('background-color')).to.equal('');
+    expect(nodes.css('border-color')).to.equal('');
+    expect(nodes.css('text-align')).to.equal('');
   });
 
   it('css methods: an array', () => {

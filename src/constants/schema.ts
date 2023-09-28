@@ -2,8 +2,8 @@ const blockAttributeRules: any = {
   id: /^[\w-]+$/,
   class: /^[\w-]+$/,
   style: {
-    'text-align': /^left|center|right|justify$/i,
-    'margin-left': /^\d+px$/i,
+    'text-align': ['left', 'center', 'right', 'justify'],
+    'margin-left': /^-?\d+px$/i,
   },
 };
 
@@ -16,6 +16,14 @@ export const defaultRules: any = {
   h6: blockAttributeRules,
   p: blockAttributeRules,
   blockquote: blockAttributeRules,
+  ul: {
+    type: 'checklist',
+  },
+  ol: {},
+  li: {
+    ...blockAttributeRules,
+    value: ['true', 'false'],
+  },
   span: {
     style: {
       color: /^\S+$/,

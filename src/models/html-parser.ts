@@ -30,6 +30,20 @@ export class HTMLParser {
     return value.replace(/[&<>"\xA0]/g, match => characterMap.get(match) ?? '');
   }
 
+  // Returns a boolean indicating whether a value matches the specified rule.
+  private static matchRule(rule: any, value: string): boolean {
+    if (typeof rule === 'string') {
+      return rule === value;
+    }
+    if (Array.isArray(rule)) {
+      return rule.indexOf(value) >= 0;
+    }
+    if (rule instanceof RegExp) {
+      return rule.test(value);
+    }
+    return false;
+  }
+
   // Returns a tag string of the node that do not match rules.
   private static getOpenTagString(element: Nodes) : string {
     const attributeRules = defaultRules[element.name];
@@ -43,14 +57,14 @@ export class HTMLParser {
     const attributeMap = new Map();
     for (const attr of nativeNode.attributes) {
       if (attributeRules[attr.name]) {
-        if (attr.name !== 'style' && attributeRules[attr.name].test(attr.value)) {
+        if (attr.name !== 'style' && HTMLParser.matchRule(attributeRules[attr.name], attr.value)) {
           attributeMap.set(attr.name, attr.value);
         }
         if (attr.name === 'style') {
           const styleRules = attributeRules.style;
           const styleMap = new Map();
           forEach(parseStyle(attr.value), (key, value) => {
-            if (styleRules[key] && styleRules[key].test(value)) {
+            if (styleRules[key] && HTMLParser.matchRule(styleRules[key], value)) {
               styleMap.set(key, value);
             }
           });
@@ -65,7 +79,9 @@ export class HTMLParser {
         for (const [styleName, styleValue] of attrValue) {
           styleString += `${styleName}: ${styleValue}; `;
         }
-        openTag += ` style="${styleString.trim()}"`;
+        if (styleString !== '') {
+          openTag += ` style="${styleString.trim()}"`;
+        }
       } else {
         openTag += ` ${attrName}="${attrValue}"`;
       }
@@ -88,7 +104,7 @@ export class HTMLParser {
       if (!attributeRules[attr.name]) {
         element.removeAttr(attr.name);
       } else {
-        if (attr.name !== 'style' && !attributeRules[attr.name].test(attr.value)) {
+        if (attr.name !== 'style' && !HTMLParser.matchRule(attributeRules[attr.name], attr.value)) {
           element.removeAttr(attr.name);
         }
         if (attr.name === 'style') {
@@ -96,7 +112,7 @@ export class HTMLParser {
           forEach(parseStyle(attr.value), (key, value) => {
             if (!styleRules[key]) {
               element.css(key, '');
-            } else if (!styleRules[key].test(value)) {
+            } else if (!HTMLParser.matchRule(styleRules[key], value)) {
               element.css(key, '');
             }
           });

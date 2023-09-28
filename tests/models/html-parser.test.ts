@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { parseStyle, query } from '../../src/utils';
+import { query } from '../../src/utils';
 import { Nodes, HTMLParser } from '../../src/models';
 
 describe('models.HTMLParser class', () => {
@@ -16,7 +16,63 @@ describe('models.HTMLParser class', () => {
     container.remove();
   });
 
-  it('getNodeList method: should remove those elements that do not match rules.', () => {
+  it('getNodeList method: should remove type', () => {
+    container.html('<ul type="invalid"><li>foo</li></ul>');
+    const htmlParser = new HTMLParser(container);
+    htmlParser.getNodeList();
+    expect(container.find('ul').hasAttr('type')).to.equal(false);
+  });
+
+  it('getNodeList method: should keep type', () => {
+    container.html('<ul type="checklist"><li>foo</li></ul>');
+    const htmlParser = new HTMLParser(container);
+    htmlParser.getNodeList();
+    expect(container.find('ul').attr('type')).to.equal('checklist');
+  });
+
+  it('getNodeList method: should remove value', () => {
+    container.html('<ul type="checklist"><li value="invalid">foo</li></ul>');
+    const htmlParser = new HTMLParser(container);
+    htmlParser.getNodeList();
+    expect(container.find('li').hasAttr('value')).to.equal(false);
+  });
+
+  it('getNodeList method: should keep value', () => {
+    container.html('<ul type="checklist"><li value="true">foo</li></ul>');
+    const htmlParser = new HTMLParser(container);
+    htmlParser.getNodeList();
+    expect(container.find('li').attr('value')).to.equal('true');
+  });
+
+  it('getNodeList method: should remove text-align', () => {
+    container.html('<ul><li style="text-align: invalid;">foo</li></ul>');
+    const htmlParser = new HTMLParser(container);
+    htmlParser.getNodeList();
+    expect(container.find('li').css('text-align')).to.equal('');
+  });
+
+  it('getNodeList method: should keep text-align', () => {
+    container.html('<ul><li style="text-align: right;">foo</li></ul>');
+    const htmlParser = new HTMLParser(container);
+    htmlParser.getNodeList();
+    expect(container.find('li').css('text-align')).to.equal('right');
+  });
+
+  it('getNodeList method: should remove margin-left', () => {
+    container.html('<ul><li style="margin-left: invalid;">foo</li></ul>');
+    const htmlParser = new HTMLParser(container);
+    htmlParser.getNodeList();
+    expect(container.find('li').css('margin-left')).to.equal('');
+  });
+
+  it('getNodeList method: should keep margin-left', () => {
+    container.html('<ul><li style="margin-left: 10px;">foo</li></ul>');
+    const htmlParser = new HTMLParser(container);
+    htmlParser.getNodeList();
+    expect(container.find('li').css('margin-left')).to.equal('10px');
+  });
+
+  it('getNodeList method: should remove <temp1> and <temp2>', () => {
     container.html('<h1>foo</h1><p>bar<temp2>two</temp2></p><temp1>one</temp1>');
     const htmlParser = new HTMLParser(container);
     const nodeList = htmlParser.getNodeList();
@@ -27,7 +83,7 @@ describe('models.HTMLParser class', () => {
     expect(container.find('temp2').length).to.equal(0);
   });
 
-  it('getNodeList method: should remove those id attributes that do not match rules.', () => {
+  it('getNodeList method: should remove id="..."', () => {
     container.html('<h1 id="one">foo</h1><p id="...">bar</p>');
     const htmlParser = new HTMLParser(container);
     const nodeList = htmlParser.getNodeList();
@@ -36,7 +92,7 @@ describe('models.HTMLParser class', () => {
     expect(container.find('p').hasAttr('id')).to.equal(false);
   });
 
-  it('getNodeList method: should remove those class attributes that do not match rules.', () => {
+  it('getNodeList method: should remove class="..."', () => {
     container.html('<h1 class="one">foo</h1><p class="...">bar</p>');
     const htmlParser = new HTMLParser(container);
     const nodeList = htmlParser.getNodeList();
@@ -45,7 +101,7 @@ describe('models.HTMLParser class', () => {
     expect(container.find('p').hasAttr('class')).to.equal(false);
   });
 
-  it('getNodeList method: should keep those href attributes that match rules.', () => {
+  it('getNodeList method: should keep href', () => {
     container.html('<a href="http://url/">foo</a>');
     const htmlParser = new HTMLParser(container);
     const nodeList = htmlParser.getNodeList();
@@ -53,7 +109,7 @@ describe('models.HTMLParser class', () => {
     expect(container.find('a').attr('href')).to.equal('http://url/');
   });
 
-  it('getNodeList method: should remove those target attributes that do not match rules.', () => {
+  it('getNodeList method: should remove target="..."', () => {
     container.html('<a href="http://url1/" target="_blank">foo</a><a href="http://url2/" target="...">bar</a>');
     const htmlParser = new HTMLParser(container);
     const nodeList = htmlParser.getNodeList();
@@ -62,18 +118,81 @@ describe('models.HTMLParser class', () => {
     expect(container.find('a').eq(1).hasAttr('target')).to.equal(false);
   });
 
-  it('getNodeList method: should remove those styles that do not match rules.', () => {
+  it('getNodeList method: should remove margin', () => {
     container.html('<span style="color: red; background-color: blue; margin: 1px;">foo</span>');
     const htmlParser = new HTMLParser(container);
     const nodeList = htmlParser.getNodeList();
     expect(nodeList.length).to.equal(1);
-    const styles = parseStyle(container.find('span').attr('style'));
-    expect(styles.color).to.equal('red');
-    expect(styles['background-color']).to.equal('blue');
-    expect(styles.margin).to.equal(undefined);
+    expect(container.find('span').css('color')).to.equal('red');
+    expect(container.find('span').css('background-color')).to.equal('blue');
+    expect(container.find('span').css('margin')).to.equal('');
   });
 
-  it('getHTML method: should remove those tags that do not match rules.', () => {
+  it('getHTML method: should remove type', () => {
+    const input = '<ul type="invalid"><li>foo</li></ul>';
+    const output = '<ul><li>foo</li></ul>';
+    container.html(input);
+    const htmlParser = new HTMLParser(container);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
+  it('getHTML method: should keep type', () => {
+    const input = '<ul type="checklist"><li>foo</li></ul>';
+    const output = input;
+    container.html(input);
+    const htmlParser = new HTMLParser(container);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
+  it('getHTML method: should remove value', () => {
+    const input = '<ul type="checklist"><li value="invalid">foo</li></ul>';
+    const output = '<ul type="checklist"><li>foo</li></ul>';
+    container.html(input);
+    const htmlParser = new HTMLParser(container);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
+  it('getHTML method: should keep value', () => {
+    const input = '<ul type="checklist"><li value="true">foo</li></ul>';
+    const output = input;
+    container.html(input);
+    const htmlParser = new HTMLParser(container);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
+  it('getHTML method: should remove text-align', () => {
+    const input = '<ul><li style="text-align: invalid;">foo</li></ul>';
+    const output = '<ul><li>foo</li></ul>';
+    container.html(input);
+    const htmlParser = new HTMLParser(container);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
+  it('getHTML method: should keep text-align', () => {
+    const input = '<ul><li style="text-align: right;">foo</li></ul>';
+    const output = input;
+    container.html(input);
+    const htmlParser = new HTMLParser(container);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
+  it('getHTML method: should remove margin-left', () => {
+    const input = '<ul><li style="margin-left: invalid;">foo</li></ul>';
+    const output = '<ul><li>foo</li></ul>';
+    container.html(input);
+    const htmlParser = new HTMLParser(container);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
+  it('getHTML method: should keep margin-left', () => {
+    const input = '<ul><li style="margin-left: -10px;">foo</li></ul>';
+    const output = input;
+    container.html(input);
+    const htmlParser = new HTMLParser(container);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
+  it('getHTML method: should remove <temp1> and <temp2>', () => {
     const input = '<h1>foo</h1><p>bar<temp2>two</temp2></p><temp1>one</temp1>';
     const output = '<h1>foo</h1><p>bartwo</p>one';
     container.html(input);
@@ -81,7 +200,7 @@ describe('models.HTMLParser class', () => {
     expect(htmlParser.getHTML()).to.equal(output);
   });
 
-  it('getHTML method: should remove those id attributes that do not match rules.', () => {
+  it('getHTML method: should remove id="..."', () => {
     const input = '<h1 id="one">foo</h1><p id="...">bar</p>';
     const output = '<h1 id="one">foo</h1><p>bar</p>';
     container.html(input);
@@ -89,7 +208,7 @@ describe('models.HTMLParser class', () => {
     expect(htmlParser.getHTML()).to.equal(output);
   });
 
-  it('getHTML method: should remove those class attributes that do not match rules.', () => {
+  it('getHTML method: should remove class="..."', () => {
     const input = '<h1 class="one">foo</h1><p class="...">bar</p>';
     const output = '<h1 class="one">foo</h1><p>bar</p>';
     container.html(input);
@@ -97,7 +216,7 @@ describe('models.HTMLParser class', () => {
     expect(htmlParser.getHTML()).to.equal(output);
   });
 
-  it('getHTML method: should keep those href attributes that match rules.', () => {
+  it('getHTML method: should keep href', () => {
     const input = '<a href="http://url/">foo</a>';
     const output = input;
     container.html(input);
@@ -105,7 +224,7 @@ describe('models.HTMLParser class', () => {
     expect(htmlParser.getHTML()).to.equal(output);
   });
 
-  it('getHTML method: should remove those target attributes that do not match rules.', () => {
+  it('getHTML method: should remove target="..."', () => {
     const input = '<a href="http://url1/" target="_blank">foo</a><a href="http://url2/" target="...">bar</a>';
     const output = '<a href="http://url1/" target="_blank">foo</a><a href="http://url2/">bar</a>';
     container.html(input);
@@ -113,7 +232,7 @@ describe('models.HTMLParser class', () => {
     expect(htmlParser.getHTML()).to.equal(output);
   });
 
-  it('getHTML method: should remove those styles that do not match rules.', () => {
+  it('getHTML method: should remove margin', () => {
     const input = '<span style="color: red; background-color: blue; margin: 1px;">foo</span>';
     const output = '<span style="color: red; background-color: blue;">foo</span>';
     container.html(input);
@@ -121,7 +240,7 @@ describe('models.HTMLParser class', () => {
     expect(htmlParser.getHTML()).to.equal(output);
   });
 
-  it('getHTML method: should remove those void nodes that do not match rules.', () => {
+  it('getHTML method: should remove <embed />', () => {
     const input = '<p>bar<br /><embed /></p>';
     const output = '<p>bar<br /></p>';
     container.html(input);

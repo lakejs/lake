@@ -1,4 +1,4 @@
-import { forEach, parseStyle, query, appendDeepest } from '../utils';
+import { parseStyle, query, appendDeepest } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { splitMarks } from './split-marks';
@@ -54,10 +54,8 @@ function getUpperMark(node: Nodes, tagName: string): Nodes {
   return parent;
 }
 
-function mergeStyleProperties(node: Nodes, properties: {[key: string]: string}): void {
-  forEach(properties, (name, value) => {
-    node.css(name, value);
-  });
+function mergeCSSProperties(node: Nodes, cssProperties: {[key: string]: string}): void {
+  node.css(cssProperties);
   if (node.attr('style') === '') {
     node.removeAttr('style');
   }
@@ -71,7 +69,7 @@ export function addMark(range: Range, value: string): void {
   let valueNode = query(value);
   const tagName = valueNode.name;
   const styleValue = valueNode.attr('style');
-  const styleProperties = parseStyle(styleValue);
+  const cssProperties = parseStyle(styleValue);
   if (range.isCollapsed) {
     // https://en.wikipedia.org/wiki/Zero-width_space
     const zeroWidthSpace = new Nodes(document.createTextNode('\u200B'));
@@ -80,7 +78,7 @@ export function addMark(range: Range, value: string): void {
       const newMark = copyNestedMarks(parts.left);
       if (newMark) {
         if (newMark.name === tagName) {
-          mergeStyleProperties(newMark, styleProperties);
+          mergeCSSProperties(newMark, cssProperties);
           valueNode = newMark;
         } else {
           appendDeepest(newMark, zeroWidthSpace);
@@ -106,7 +104,7 @@ export function addMark(range: Range, value: string): void {
     if (node.isText) {
       const upperMark = getUpperMark(node, tagName);
       if (upperMark.isMark && upperMark.name === tagName) {
-        mergeStyleProperties(upperMark, styleProperties);
+        mergeCSSProperties(upperMark, cssProperties);
       } else {
         const newValueNode = valueNode.clone();
         upperMark.before(newValueNode);
