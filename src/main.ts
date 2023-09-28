@@ -61,7 +61,7 @@ export default class LakeCore {
 
   public keystroke: models.Keystroke;
 
-  public plugins: models.Plugins;
+  public plugin: models.Plugin;
 
   constructor(target: string | NativeNode, options?: OptionsType) {
     this.target = target;
@@ -76,7 +76,7 @@ export default class LakeCore {
     this.commands = new models.Commands();
     this.history = new models.History(this.selection);
     this.keystroke = new models.Keystroke(this.container);
-    this.plugins = new models.Plugins();
+    this.plugin = new models.Plugin();
 
     this.addBuiltInPlugins();
 
@@ -107,28 +107,27 @@ export default class LakeCore {
   }
 
   private addBuiltInPlugins(): void {
-    const plugins = this.plugins;
-    plugins.add(paste);
-    plugins.add(undo);
-    plugins.add(redo);
-    plugins.add(selectAll);
-    plugins.add(heading);
-    plugins.add(blockquote);
-    plugins.add(align);
-    plugins.add(bold);
-    plugins.add(italic);
-    plugins.add(underline);
-    plugins.add(strikethrough);
-    plugins.add(subscript);
-    plugins.add(superscript);
-    plugins.add(code);
-    plugins.add(fontFamily);
-    plugins.add(fontSize);
-    plugins.add(fontColor);
-    plugins.add(highlight);
-    plugins.add(enter);
-    plugins.add(shiftEnter);
-    plugins.add(indent);
+    this.plugin.add(paste);
+    this.plugin.add(undo);
+    this.plugin.add(redo);
+    this.plugin.add(selectAll);
+    this.plugin.add(heading);
+    this.plugin.add(blockquote);
+    this.plugin.add(align);
+    this.plugin.add(bold);
+    this.plugin.add(italic);
+    this.plugin.add(underline);
+    this.plugin.add(strikethrough);
+    this.plugin.add(subscript);
+    this.plugin.add(superscript);
+    this.plugin.add(code);
+    this.plugin.add(fontFamily);
+    this.plugin.add(fontSize);
+    this.plugin.add(fontColor);
+    this.plugin.add(highlight);
+    this.plugin.add(enter);
+    this.plugin.add(shiftEnter);
+    this.plugin.add(indent);
   }
 
   // Adds the saved range to the selection.
@@ -172,7 +171,7 @@ export default class LakeCore {
     this.focus();
     this.selection.synByBookmark();
     this.select();
-    this.plugins.loadAll(this);
+    this.plugin.loadAll(this);
     this.history.save();
     this.event.emit('ready');
   }

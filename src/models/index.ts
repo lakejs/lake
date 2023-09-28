@@ -5,4 +5,4 @@ export * from './selection';
 export * from './commands';
 export * from './history';
 export * from './keystroke';
-export * from './plugins';
+export * from './plugin';

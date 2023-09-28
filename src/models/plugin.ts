@@ -2,7 +2,7 @@ import type LakeCore from '../main';
 
 type PluginFunction = (editor: LakeCore) => void;
 
-export class Plugins {
+export class Plugin {
   private pluginList: PluginFunction[];
 
   constructor() {

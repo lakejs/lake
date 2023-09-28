@@ -58,7 +58,7 @@
     * get-css.ts
     * index.ts
   * models/
-    * plugins.ts
+    * plugin.ts
     * commands.ts
     * nodes.ts
     * text.ts
