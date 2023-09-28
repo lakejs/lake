@@ -3,7 +3,7 @@ import type LakeCore from '../main';
 const tagName = 'u';
 
 export default (editor: LakeCore) => {
-  editor.commands.add('underline', () => {
+  editor.command.add('underline', () => {
     editor.focus();
     const appliedTags = editor.selection.getTags();
     if (appliedTags.find(item => item.name === tagName)) {
@@ -16,6 +16,6 @@ export default (editor: LakeCore) => {
   });
   editor.keystroke.setKeydown('mod+u', event => {
     event.preventDefault();
-    editor.commands.execute('underline');
+    editor.command.execute('underline');
   });
 };

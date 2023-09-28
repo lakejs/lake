@@ -13,7 +13,7 @@ describe('superscript plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('superscript');
+        editor.command.execute('superscript');
       },
     );
   });

@@ -55,7 +55,7 @@ export default class LakeCore {
 
   public selection: models.Selection;
 
-  public commands: models.Commands;
+  public command: models.Command;
 
   public history: models.History;
 
@@ -73,7 +73,7 @@ export default class LakeCore {
 
     this.event = new EventEmitter();
     this.selection = new models.Selection(this.container);
-    this.commands = new models.Commands();
+    this.command = new models.Command();
     this.history = new models.History(this.selection);
     this.keystroke = new models.Keystroke(this.container);
     this.plugin = new models.Plugin();

@@ -1,7 +1,7 @@
 import type LakeCore from '../main';
 
 export default (editor: LakeCore) => {
-  editor.commands.add('indent', (type: 'increase' | 'decrease') => {
+  editor.command.add('indent', (type: 'increase' | 'decrease') => {
     editor.focus();
     const blocks = editor.selection.getBlocks();
     for (const block of blocks) {

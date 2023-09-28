@@ -13,9 +13,9 @@ describe('undo plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
-        editor.commands.execute('italic');
-        editor.commands.execute('undo');
+        editor.command.execute('bold');
+        editor.command.execute('italic');
+        editor.command.execute('undo');
       },
     );
   });
@@ -31,8 +31,8 @@ describe('undo plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
-        editor.commands.execute('italic');
+        editor.command.execute('bold');
+        editor.command.execute('italic');
         editor.keystroke.keydown('mod+z');
       },
     );
@@ -49,10 +49,10 @@ describe('undo plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('selectAll');
-        editor.commands.execute('bold');
-        editor.commands.execute('undo');
-        editor.commands.execute('undo');
+        editor.command.execute('selectAll');
+        editor.command.execute('bold');
+        editor.command.execute('undo');
+        editor.command.execute('undo');
       },
     );
   });

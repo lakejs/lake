@@ -58,35 +58,35 @@ query('.lake-toolbar-icon').on('click', event => {
   event.preventDefault();
   const type = query(event.target as Element).attr('data-type');
   if (headingTypes.indexOf(type) >= 0) {
-    editor.commands.execute('heading', type);
+    editor.command.execute('heading', type);
     return;
   }
   if (alignTypes.has(type)) {
-    editor.commands.execute('align', alignTypes.get(type));
+    editor.command.execute('align', alignTypes.get(type));
     return;
   }
   if (indentTypes.has(type)) {
-    editor.commands.execute('indent', indentTypes.get(type));
+    editor.command.execute('indent', indentTypes.get(type));
     return;
   }
   if (type === 'fontFamily') {
-    editor.commands.execute('fontFamily', 'Segoe UI');
+    editor.command.execute('fontFamily', 'Segoe UI');
     return;
   }
   if (type === 'fontSize') {
-    editor.commands.execute('fontSize', '18px');
+    editor.command.execute('fontSize', '18px');
     return;
   }
   if (type === 'fontColor') {
-    editor.commands.execute('fontColor', '#ff0000');
+    editor.command.execute('fontColor', '#ff0000');
     return;
   }
   if (type === 'highlight') {
-    editor.commands.execute('highlight', '#0000ff');
+    editor.command.execute('highlight', '#0000ff');
     return;
   }
   if (noParameterCommandNames.indexOf(type) >= 0) {
-    editor.commands.execute(type);
+    editor.command.execute(type);
   }
 });
 

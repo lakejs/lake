@@ -2,7 +2,7 @@ import { debug } from '../utils/debug';
 
 type CommandHandler = (...data: any[]) => void;
 
-export class Commands {
+export class Command {
   private commandMap: { [key: string]: CommandHandler };
 
   constructor() {

@@ -15,7 +15,7 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
+        editor.command.execute('bold');
       },
     );
   });
@@ -33,8 +33,8 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
-        editor.commands.execute('bold');
+        editor.command.execute('bold');
+        editor.command.execute('bold');
       },
     );
   });
@@ -52,9 +52,9 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
-        editor.commands.execute('bold');
-        editor.commands.execute('bold');
+        editor.command.execute('bold');
+        editor.command.execute('bold');
+        editor.command.execute('bold');
       },
     );
   });
@@ -72,7 +72,7 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
+        editor.command.execute('bold');
       },
     );
   });
@@ -88,7 +88,7 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
+        editor.command.execute('bold');
       },
     );
   });
@@ -106,8 +106,8 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
-        editor.commands.execute('bold');
+        editor.command.execute('bold');
+        editor.command.execute('bold');
       },
     );
   });
@@ -125,7 +125,7 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
+        editor.command.execute('bold');
       },
     );
   });
@@ -143,8 +143,8 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
-        editor.commands.execute('bold');
+        editor.command.execute('bold');
+        editor.command.execute('bold');
       },
     );
   });
@@ -162,7 +162,7 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
+        editor.command.execute('bold');
       },
     );
   });
@@ -180,8 +180,8 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
-        editor.commands.execute('bold');
+        editor.command.execute('bold');
+        editor.command.execute('bold');
       },
     );
   });
@@ -199,9 +199,9 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
-        editor.commands.execute('bold');
-        editor.commands.execute('bold');
+        editor.command.execute('bold');
+        editor.command.execute('bold');
+        editor.command.execute('bold');
       },
     );
   });
@@ -219,7 +219,7 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
+        editor.command.execute('bold');
       },
     );
   });
@@ -237,7 +237,7 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
+        editor.command.execute('bold');
       },
     );
   });
@@ -255,7 +255,7 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
+        editor.command.execute('bold');
       },
     );
   });
@@ -273,7 +273,7 @@ describe('bold plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
+        editor.commandexecute('bold');
       },
     );
   });

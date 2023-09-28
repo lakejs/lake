@@ -15,7 +15,7 @@ describe('indent plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('indent', 'increase');
+        editor.command.execute('indent', 'increase');
       },
     );
   });
@@ -33,8 +33,8 @@ describe('indent plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('indent', 'increase');
-        editor.commands.execute('indent', 'increase');
+        editor.command.execute('indent', 'increase');
+        editor.command.execute('indent', 'increase');
       },
     );
   });
@@ -52,7 +52,7 @@ describe('indent plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('indent', 'decrease');
+        editor.command.execute('indent', 'decrease');
       },
     );
   });
@@ -70,8 +70,8 @@ describe('indent plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('indent', 'decrease');
-        editor.commands.execute('indent', 'decrease');
+        editor.command.execute('indent', 'decrease');
+        editor.command.execute('indent', 'decrease');
       },
     );
   });

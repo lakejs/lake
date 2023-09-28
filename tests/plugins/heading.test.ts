@@ -15,7 +15,7 @@ describe('heading plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('heading', 'h1');
+        editor.command.execute('heading', 'h1');
       },
     );
   });
@@ -33,7 +33,7 @@ describe('heading plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('heading', 'h2');
+        editor.command.execute('heading', 'h2');
       },
     );
   });
@@ -51,7 +51,7 @@ describe('heading plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('heading', 'p');
+        editor.command.execute('heading', 'p');
       },
     );
   });
@@ -71,7 +71,7 @@ describe('heading plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('heading', 'h3');
+        editor.command.execute('heading', 'h3');
       },
     );
   });

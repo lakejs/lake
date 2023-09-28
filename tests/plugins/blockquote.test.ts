@@ -15,7 +15,7 @@ describe('blockquote plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('blockquote');
+        editor.command.execute('blockquote');
       },
     );
   });
@@ -33,7 +33,7 @@ describe('blockquote plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('blockquote');
+        editor.command.execute('blockquote');
       },
     );
   });
@@ -53,7 +53,7 @@ describe('blockquote plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('blockquote');
+        editor.command.execute('blockquote');
       },
     );
   });

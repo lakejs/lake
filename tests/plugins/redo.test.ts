@@ -13,10 +13,10 @@ describe('redo plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
-        editor.commands.execute('italic');
-        editor.commands.execute('undo');
-        editor.commands.execute('redo');
+        editor.command.execute('bold');
+        editor.command.execute('italic');
+        editor.command.execute('undo');
+        editor.command.execute('redo');
       },
     );
   });
@@ -32,9 +32,9 @@ describe('redo plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
-        editor.commands.execute('italic');
-        editor.commands.execute('undo');
+        editor.command.execute('bold');
+        editor.command.execute('italic');
+        editor.command.execute('undo');
         editor.keystroke.keydown('mod+y');
       },
     );

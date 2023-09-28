@@ -13,8 +13,8 @@ describe('strikethrough plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
-        editor.commands.execute('strikethrough');
+        editor.command.execute('bold');
+        editor.command.execute('strikethrough');
       },
     );
   });

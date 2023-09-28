@@ -3,7 +3,7 @@ import type LakeCore from '../main';
 const tagName = 's';
 
 export default (editor: LakeCore) => {
-  editor.commands.add('strikethrough', () => {
+  editor.command.add('strikethrough', () => {
     editor.focus();
     const appliedTags = editor.selection.getTags();
     if (appliedTags.find(item => item.name === tagName)) {
@@ -16,6 +16,6 @@ export default (editor: LakeCore) => {
   });
   editor.keystroke.setKeydown('mod+shift+x', event => {
     event.preventDefault();
-    editor.commands.execute('strikethrough');
+    editor.command.execute('strikethrough');
   });
 };

@@ -13,7 +13,7 @@ describe('fontSize plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('fontSize', '18px');
+        editor.command.execute('fontSize', '18px');
       },
     );
   });
@@ -29,7 +29,7 @@ describe('fontSize plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('fontSize', '');
+        editor.command.execute('fontSize', '');
       },
     );
   });

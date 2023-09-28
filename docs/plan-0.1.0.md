@@ -59,7 +59,7 @@
     * index.ts
   * models/
     * plugin.ts
-    * commands.ts
+    * command.ts
     * nodes.ts
     * text.ts
     * range.ts

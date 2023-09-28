@@ -13,8 +13,8 @@ describe('underline plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('bold');
-        editor.commands.execute('underline');
+        editor.command.execute('bold');
+        editor.command.execute('underline');
       },
     );
   });

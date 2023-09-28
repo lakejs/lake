@@ -13,7 +13,7 @@ describe('fontColor plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('fontColor', '#ff0000');
+        editor.command.execute('fontColor', '#ff0000');
       },
     );
   });
@@ -29,7 +29,7 @@ describe('fontColor plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('fontColor', '');
+        editor.commandexecute('fontColor', '');
       },
     );
   });

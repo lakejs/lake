@@ -13,7 +13,7 @@ describe('selectAll plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('selectAll');
+        editor.command.execute('selectAll');
       },
     );
   });

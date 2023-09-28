@@ -3,7 +3,7 @@ import type LakeCore from '../main';
 const tagName = 'code';
 
 export default (editor: LakeCore) => {
-  editor.commands.add('code', () => {
+  editor.command.add('code', () => {
     editor.focus();
     const appliedTags = editor.selection.getTags();
     if (appliedTags.find(item => item.name === tagName)) {

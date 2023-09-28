@@ -4,7 +4,7 @@ Lake is a WYSIWYG editor based on the browser that enables writing rich text dir
 
 ## Getting Started
 
-First, you need to clone the repository and install all necessary dependencies. Then, start a combined server that includes both HTTP serving and real-time compilation. You can do this by running the following commands in your terminal.
+First, you need to clone the repository and install all necessary dependencies. Then, start a combined server that includes both HTTP serving and real-time compilation. You can do this by running the following command in your terminal.
 
 ``` bash
 # clone the repository

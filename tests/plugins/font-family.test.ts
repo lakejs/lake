@@ -13,7 +13,7 @@ describe('fontFamily plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('fontFamily', 'Tahoma');
+        editor.command.execute('fontFamily', 'Tahoma');
       },
     );
   });
@@ -29,8 +29,8 @@ describe('fontFamily plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('fontFamily', 'Tahoma');
-        editor.commands.execute('fontFamily', 'Verdana');
+        editor.command.execute('fontFamily', 'Tahoma');
+        editor.command.execute('fontFamily', 'Verdana');
       },
     );
   });
@@ -46,7 +46,7 @@ describe('fontFamily plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('fontFamily', '');
+        editor.command.execute('fontFamily', '');
       },
     );
   });

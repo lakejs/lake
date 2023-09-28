@@ -15,7 +15,7 @@ describe('align plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('align', 'left');
+        editor.command.execute('align', 'left');
       },
     );
   });
@@ -33,7 +33,7 @@ describe('align plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('align', 'center');
+        editor.command.execute('align', 'center');
       },
     );
   });
@@ -51,7 +51,7 @@ describe('align plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('align', 'right');
+        editor.command.execute('align', 'right');
       },
     );
   });
@@ -69,7 +69,7 @@ describe('align plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('align', 'justify');
+        editor.command.execute('align', 'justify');
       },
     );
   });

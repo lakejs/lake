@@ -13,7 +13,7 @@ describe('code plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('code');
+        editor.command.execute('code');
       },
     );
   });

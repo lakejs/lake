@@ -13,7 +13,7 @@ describe('subscript plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('subscript');
+        editor.command.execute('subscript');
       },
     );
   });

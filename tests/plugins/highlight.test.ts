@@ -13,7 +13,7 @@ describe('highlight plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('highlight', '#ff0000');
+        editor.command.execute('highlight', '#ff0000');
       },
     );
   });
@@ -29,7 +29,7 @@ describe('highlight plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('highlight', '');
+        editor.command.execute('highlight', '');
       },
     );
   });

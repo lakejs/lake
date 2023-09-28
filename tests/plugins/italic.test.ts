@@ -13,8 +13,8 @@ describe('italic plugin', () => {
       content,
       output,
       editor => {
-        editor.commands.execute('italic');
-        editor.commands.execute('bold');
+        editor.command.execute('italic');
+        editor.command.execute('bold');
       },
     );
   });
