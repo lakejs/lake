@@ -1,6 +1,7 @@
 // String Utils
 import './utils/camel-case.test';
 import './utils/in-string.test';
+import './utils/encode.test';
 import './utils/to-hex.test';
 import './utils/parse-style.test';
 import './utils/normalize-value.test';
@@ -23,6 +24,7 @@ import './utils/get-right-text.test';
 import './models/nodes.test';
 import './models/range.test';
 import './models/html-parser.test';
+import './models/text-parser.test';
 import './models/history.test';
 import './models/keystroke.test';
 

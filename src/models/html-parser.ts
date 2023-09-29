@@ -1,15 +1,7 @@
 import { defaultRules } from '../constants/schema';
 import { NativeElement } from '../types/native';
-import { forEach, parseStyle } from '../utils';
+import { forEach, parseStyle, encode } from '../utils';
 import { Nodes } from './nodes';
-
-const characterMap = new Map([
-  ['&', '&amp;'],
-  ['<', '&lt;'],
-  ['>', '&gt;'],
-  ['"', '&quot;'],
-  ['\xA0', '&nbsp;'],
-]);
 
 export class HTMLParser {
 
@@ -23,11 +15,6 @@ export class HTMLParser {
     } else {
       this.root = content;
     }
-  }
-
-  // Converts all of the reserved characters in the specified string to HTML entities.
-  private static encode(value: string) {
-    return value.replace(/[&<>"\xA0]/g, match => characterMap.get(match) ?? '');
   }
 
   // Returns a boolean indicating whether a value matches the specified rule.
@@ -139,7 +126,7 @@ export class HTMLParser {
       while (child.length > 0) {
         const nextNode = child.next();
         if (child.isText) {
-          yield HTMLParser.encode(child.text());
+          yield encode(child.text());
         } else if (child.isVoid) {
           const openTag = HTMLParser.getOpenTagString(child);
           if (openTag !== '') {

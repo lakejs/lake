@@ -13,7 +13,7 @@
 * [X] history (undo, redo)
 * [X] HTML parser
 * [ ] markdown parser
-* [ ] text parser
+* [X] text parser
 * [X] paste
 * [X] select all
 * [X] heading

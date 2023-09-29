@@ -1,6 +1,7 @@
 // String
 export * from './camel-case';
 export * from './in-string';
+export * from './encode';
 export * from './to-hex';
 export * from './parse-style';
 export * from './normalize-value';
