@@ -103,6 +103,6 @@ export class History {
       this.list.shift();
       this.index = this.list.length;
     }
-    debug(`history.save(), list.length=${this.list.length} index=${this.index}`);
+    debug(`saved history (index = ${this.index})`);
   }
 }

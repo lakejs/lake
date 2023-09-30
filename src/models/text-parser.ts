@@ -12,10 +12,8 @@ export class TextParser {
     let html = '';
     html = encode(this.content);
     html = `<p>${html}</p>`;
-    html = html.replace(/(\r\n){2,}/g, '</p><p>');
-    html = html.replace(/\r\n/g, '<br />');
-    html = html.replace(/(\r|\n){2,}/g, '</p><p>');
-    html = html.replace(/\r|\n/g, '<br />');
+    html = html.replace(/(\r\n)+/g, '</p><p>');
+    html = html.replace(/[\r\n]+/g, '</p><p>');
     html = html.replace(/<p><\/p>/g, '');
     return html;
   }
