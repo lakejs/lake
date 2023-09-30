@@ -4,6 +4,7 @@ const blockAttributeRules: any = {
   style: {
     'text-align': ['left', 'center', 'right', 'justify'],
     'margin-left': /^-?\d+px$/i,
+    'text-indent': /^-?\d+em$/i,
   },
 };
 
