@@ -10,11 +10,12 @@ export class TextParser {
 
   public getHTML(): string {
     let html = '';
-    html = encode(this.content);
+    html = encode(this.content.trim());
     html = `<p>${html}</p>`;
-    html = html.replace(/(\r\n)+/g, '</p><p>');
-    html = html.replace(/[\r\n]+/g, '</p><p>');
-    html = html.replace(/<p><\/p>/g, '');
+    html = html.replace(/(\r\n){2,}/g, '</p><p><br /></p><p>');
+    html = html.replace(/\r\n/g, '</p><p>');
+    html = html.replace(/[\r\n]{2,}/g, '</p><p><br /></p><p>');
+    html = html.replace(/[\r\n]/g, '</p><p>');
     return html;
   }
 }
