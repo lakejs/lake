@@ -17,25 +17,25 @@ pnpm install
 pnpm start
 ```
 
-### Open examples
+### Visiting examples
 
 ```text
 http://localhost:8080/examples/
 ```
 
-### Run tests
+### Running tests
 
 ```text
 http://localhost:8080/tests/
 ```
 
-### Analyze code
+### Analyzing code
 
 ```bash
 pnpm lint
 ```
 
-### Build code
+### Building code
 
 ```bash
 pnpm build
