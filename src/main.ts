@@ -1,3 +1,4 @@
+import './main.css';
 import EventEmitter from 'eventemitter3';
 import pkg from '../package.json';
 import { NativeNode } from './types/native';
