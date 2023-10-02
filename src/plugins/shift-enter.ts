@@ -1,4 +1,4 @@
-import type LakeCore from '../main';
+import type LakeCore from '..';
 
 export default (editor: LakeCore) => {
   editor.keystroke.setKeydown('shift+enter', event => {

@@ -1,30 +1,8 @@
-import './main.css';
 import EventEmitter from 'eventemitter3';
-import pkg from '../package.json';
-import { NativeNode } from './types/native';
-import * as utils from './utils';
-import * as models from './models';
-import paste from './plugins/paste';
-import undo from './plugins/undo';
-import redo from './plugins/redo';
-import selectAll from './plugins/select-all';
-import heading from './plugins/heading';
-import blockquote from './plugins/blockquote';
-import align from './plugins/align';
-import indent from './plugins/indent';
-import bold from './plugins/bold';
-import italic from './plugins/italic';
-import underline from './plugins/underline';
-import strikethrough from './plugins/strikethrough';
-import subscript from './plugins/subscript';
-import superscript from './plugins/superscript';
-import code from './plugins/code';
-import fontFamily from './plugins/font-family';
-import fontSize from './plugins/font-size';
-import fontColor from './plugins/font-color';
-import highlight from './plugins/highlight';
-import enter from './plugins/enter';
-import shiftEnter from './plugins/shift-enter';
+import pkg from '../../package.json';
+import { NativeNode } from '../types/native';
+import * as utils from '../utils';
+import * as models from '../models';
 
 type TargetType = string | NativeNode;
 
@@ -37,12 +15,14 @@ const defaultOptions: OptionsType = {
   defaultValue: '<p><br /><focus /></p>',
 };
 
-export default class LakeCore {
-  static version: string = pkg.version;
+export class Core {
+  public static version: string = pkg.version;
 
-  static utils = utils;
+  public static utils = utils;
 
-  static models = models;
+  public static models = models;
+
+  public static plugin = new models.Plugin();
 
   private target: TargetType;
 
@@ -62,8 +42,6 @@ export default class LakeCore {
 
   public keystroke: models.Keystroke;
 
-  public plugin: models.Plugin;
-
   constructor(target: string | NativeNode, options?: OptionsType) {
     this.target = target;
     this.options = options ?? defaultOptions;
@@ -77,9 +55,6 @@ export default class LakeCore {
     this.command = new models.Command();
     this.history = new models.History(this.selection);
     this.keystroke = new models.Keystroke(this.container);
-    this.plugin = new models.Plugin();
-
-    this.addBuiltInPlugins();
 
     this.selectionListener = () => {
       this.selection.syncByRange();
@@ -105,30 +80,6 @@ export default class LakeCore {
       contenteditable: 'true',
     });
     container.addClass(this.options.className);
-  }
-
-  private addBuiltInPlugins(): void {
-    this.plugin.add(paste);
-    this.plugin.add(undo);
-    this.plugin.add(redo);
-    this.plugin.add(selectAll);
-    this.plugin.add(heading);
-    this.plugin.add(blockquote);
-    this.plugin.add(align);
-    this.plugin.add(bold);
-    this.plugin.add(italic);
-    this.plugin.add(underline);
-    this.plugin.add(strikethrough);
-    this.plugin.add(subscript);
-    this.plugin.add(superscript);
-    this.plugin.add(code);
-    this.plugin.add(fontFamily);
-    this.plugin.add(fontSize);
-    this.plugin.add(fontColor);
-    this.plugin.add(highlight);
-    this.plugin.add(enter);
-    this.plugin.add(shiftEnter);
-    this.plugin.add(indent);
   }
 
   // Adds the saved range to the selection.
@@ -172,7 +123,7 @@ export default class LakeCore {
     this.focus();
     this.selection.synByBookmark();
     this.select();
-    this.plugin.loadAll(this);
+    Core.plugin.loadAll(this);
     this.history.save();
     this.event.emit('ready');
   }

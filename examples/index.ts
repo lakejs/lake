@@ -1,4 +1,4 @@
-import LakeCore from '../src/main';
+import LakeCore from '../src';
 
 const { query } = LakeCore.utils;
 

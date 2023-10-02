@@ -1,6 +1,6 @@
 import { HTMLParser } from '../models/html-parser';
 import { TextParser } from '../models/text-parser';
-import type LakeCore from '../main';
+import type LakeCore from '..';
 
 export default (editor: LakeCore) => {
   editor.container.on('paste', event => {

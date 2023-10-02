@@ -1,6 +1,6 @@
-import type LakeCore from '../main';
+import type { Core } from './core';
 
-type PluginFunction = (editor: LakeCore) => void;
+type PluginFunction = (editor: Core) => void;
 
 export class Plugin {
   private pluginList: PluginFunction[];
@@ -13,7 +13,7 @@ export class Plugin {
     this.pluginList.push(plugin);
   }
 
-  public loadAll(editor: LakeCore) {
+  public loadAll(editor: Core) {
     this.pluginList.forEach(plugin => {
       plugin(editor);
     });

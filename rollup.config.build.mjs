@@ -6,7 +6,7 @@ import terser from '@rollup/plugin-terser';
 import css from 'rollup-plugin-import-css';
 
 export default [{
-  input: './src/main.ts',
+  input: './src/index.ts',
   output: [{
     file: './dist/lake-core.js',
     format: 'iife',
@@ -29,7 +29,7 @@ export default [{
     css(),
   ],
 }, {
-  input: './src/main.ts',
+  input: './src/index.ts',
   output: {
     file: './lib/lake-core.js',
     format: 'es',

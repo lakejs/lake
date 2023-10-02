@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { query, normalizeValue, denormalizeValue, debug } from '../src/utils';
 import { Nodes, Range } from '../src/models';
 import { insertBookmark, toBookmark } from '../src/operations';
-import LakeCore from '../src/main';
+import LakeCore from '../src';
 
 function format(value: string) {
   value = value.replace(/>[\s\r\n]+</g, '><');
