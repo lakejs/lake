@@ -1,3 +1,4 @@
+import { KeyValue } from '../types/object';
 import { query, parseStyle } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
@@ -31,7 +32,7 @@ function getTopNonBlockNodes(range: Range): Nodes[] {
 }
 
 // Adds new blocks or changes target blocks relating to the specified range.
-export function setBlocks(range: Range, value: string | ReturnType<typeof parseStyle>): void {
+export function setBlocks(range: Range, value: string | KeyValue): void {
   if (!range.commonAncestor.isContentEditable) {
     return;
   }

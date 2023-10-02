@@ -1,3 +1,4 @@
+import { KeyValue } from '../types/object';
 import { parseStyle, query, appendDeepest } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
@@ -54,7 +55,7 @@ function getUpperMark(node: Nodes, tagName: string): Nodes {
   return parent;
 }
 
-function mergeCSSProperties(node: Nodes, cssProperties: {[key: string]: string}): void {
+function mergeCSSProperties(node: Nodes, cssProperties: KeyValue): void {
   node.css(cssProperties);
   if (node.attr('style') === '') {
     node.removeAttr('style');

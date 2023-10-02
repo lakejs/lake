@@ -1,3 +1,4 @@
+import { KeyValue } from '../types/object';
 import { NativeHTMLElement, NativeElement, NativeNode, NativeText } from '../types/native';
 import { blockTagNames, markTagNames, voidTagNames, headingTagNames } from '../constants/tag-names';
 import { forEach } from '../utils/for-each';
@@ -411,7 +412,7 @@ export class Nodes {
 
   public attr(attributeName: string, value: string): this;
 
-  public attr(attributeName: { [key: string]: string }): this;
+  public attr(attributeName: KeyValue): this;
 
   public attr(attributeName: any, value?: any): any {
     if (typeof attributeName === 'object') {
@@ -475,7 +476,7 @@ export class Nodes {
 
   public css(propertyName: string): string;
 
-  public css(propertyName: { [key: string]: string }): this;
+  public css(propertyName: KeyValue): this;
 
   public css(propertyName: string, value: string): this;
 

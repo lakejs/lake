@@ -1,10 +1,12 @@
+import { KeyValue } from './object';
+
 declare global {
   interface Window {
     DEBUG: boolean;
   }
 
   interface Element {
-    style: { [key: string]: string };
+    style: KeyValue;
   }
 
   interface Node {

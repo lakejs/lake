@@ -1,10 +1,9 @@
+import { KeyValue } from '../types/object';
 import { toHex } from './to-hex';
 
-type PropertiesType = {[key: string]: string};
-
-export function parseStyle(styleValue: string): PropertiesType {
+export function parseStyle(styleValue: string): KeyValue {
   styleValue = styleValue.replace(/&quot;/ig, '"');
-  const properties: PropertiesType = {};
+  const properties: KeyValue = {};
   const expression = /\s*([\w-]+)\s*:([^;]*)(;|$)/g;
   let match;
   while ((match = expression.exec(styleValue))) {

@@ -1,20 +1,19 @@
+import { KeyValue } from '../types/object';
 import { NativeElement } from '../types/native';
 import { parseStyle } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
-type KeyValueType = {[key: string]: string};
-
 type AppliedTagMapType = {
   name: string,
-  attributes: KeyValueType,
-  styles: KeyValueType,
+  attributes: KeyValue,
+  styles: KeyValue,
 };
 
 // Returns the attributes of the element as an key-value object.
-function getAttributes(node: Nodes): KeyValueType {
+function getAttributes(node: Nodes): KeyValue {
   const nativeNode = node.get(0) as NativeElement;
-  const attributes: KeyValueType = {};
+  const attributes: KeyValue = {};
   if (nativeNode.hasAttributes()) {
     for (const attr of nativeNode.attributes) {
       attributes[attr.name] = attr.value;
