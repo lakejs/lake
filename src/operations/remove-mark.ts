@@ -7,13 +7,13 @@ import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 
 // Removes empty marks that contain no content.
-function removeEmptyNodes(node: Nodes): void {
-  if ((node.isMark || node.isText) && node.hasEmptyText) {
+function removeEmptyMarks(node: Nodes): void {
+  if (node.isMark && node.hasEmptyText) {
     node.remove();
     return;
   }
   for (const child of node.getWalker()) {
-    if ((child.isMark || child.isText) && child.hasEmptyText) {
+    if (child.isMark && child.hasEmptyText) {
       child.remove();
     }
   }
@@ -64,20 +64,20 @@ export function removeMark(range: Range, value?: string): void {
       return;
     }
     if (parts.right) {
-      removeEmptyNodes(parts.right);
+      removeEmptyMarks(parts.right);
     }
     const zeroWidthSpace = new Nodes(document.createTextNode('\u200B'));
     const newMark = copyNestedMarks(parts.left, tagName);
     if (!newMark) {
       parts.left.after(zeroWidthSpace);
-      removeEmptyNodes(parts.left);
+      removeEmptyMarks(parts.left);
       range.setStartAfter(zeroWidthSpace);
       range.collapseToStart();
       return;
     }
     appendDeepest(newMark, zeroWidthSpace);
     parts.left.after(newMark);
-    removeEmptyNodes(parts.left);
+    removeEmptyMarks(parts.left);
     // Resets the position of the selection
     range.selectNodeContents(newMark);
     range.reduce();
