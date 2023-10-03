@@ -44,6 +44,7 @@ const noParameterCommandNames = [
   'subscript',
   'superscript',
   'code',
+  'removeFormat',
 ];
 
 const editor = new LakeCore('.lake-editor', {

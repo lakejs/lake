@@ -149,10 +149,10 @@ describe('operations.removeMark()', () => {
 
   it('collapsed range: removes a mark in another mark', () => {
     const content = `
-    <p><em>foo</em><strong><em><focus /></em></strong><em>bar</em></p>
+    <p><em>foo</em><strong><em>\u200B<focus /></em></strong><em>bar</em></p>
     `;
     const output = `
-    <p><em>foo</em><focus /><em>bar</em></p>
+    <p><em>foo</em><em>\u200B<focus /></em><em>bar</em></p>
     `;
     testOperation(
       content,

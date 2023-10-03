@@ -33,7 +33,7 @@
 * [X] font color
 * [X] highlight
 * [ ] format painter
-* [ ] remove format
+* [X] remove format
 * [ ] hr
 * [ ] image
 * [ ] link

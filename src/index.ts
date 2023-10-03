@@ -19,6 +19,7 @@ import fontFamily from './plugins/font-family';
 import fontSize from './plugins/font-size';
 import fontColor from './plugins/font-color';
 import highlight from './plugins/highlight';
+import removeFormat from './plugins/remove-format';
 import enter from './plugins/enter';
 import shiftEnter from './plugins/shift-enter';
 
@@ -41,6 +42,7 @@ Core.plugin.add(fontSize);
 Core.plugin.add(fontColor);
 Core.plugin.add(highlight);
 Core.plugin.add(enter);
+Core.plugin.add(removeFormat);
 Core.plugin.add(shiftEnter);
 Core.plugin.add(indent);
 
