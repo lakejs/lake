@@ -1,5 +1,5 @@
+import { TwoParts } from '../types/object';
 import { query, splitNodes, appendDeepest } from '../utils';
-import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { deleteContents } from './delete-contents';
 
@@ -8,7 +8,7 @@ import { deleteContents } from './delete-contents';
 // to
 // <p>one</p>
 // <p><focus />three</p>
-export function splitBlock(range: Range): { left: Nodes | null, right: Nodes | null } {
+export function splitBlock(range: Range): TwoParts {
   if (!range.commonAncestor.isContentEditable) {
     return {
       left: null,

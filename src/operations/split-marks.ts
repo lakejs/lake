@@ -1,15 +1,7 @@
+import { TwoParts, ThreeParts } from '../types/object';
 import { splitNodes } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
-
-type TwoParts = {
-  left: Nodes | null;
-  right: Nodes | null;
-};
-
-type ThreeParts = TwoParts & {
-  center: Nodes | null;
-};
 
 // Removes empty marks that contain no content.
 function removeEmptyMarks(node: Nodes): void {
