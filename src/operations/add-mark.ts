@@ -29,8 +29,9 @@ function copyNestedMarks(node: Nodes): Nodes | null {
   let child = node.last();
   while (child.length > 0) {
     if (child.isMark) {
-      newMark.append(child.clone());
-      newMark = child;
+      const newChild = child.clone();
+      newMark.append(newChild);
+      newMark = newChild;
     }
     child = child.last();
   }

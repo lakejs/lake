@@ -5,10 +5,10 @@ describe('operations.removeMark()', () => {
 
   it('removes an empty mark', () => {
     const content = `
-    <p>foo<strong><focus /></strong>bar</p>
+    <p>foo<strong>\u200B<focus /></strong>bar</p>
     `;
     const output = `
-    <p>foo<focus />bar</p>
+    <p>foo\u200B<focus />bar</p>
     `;
     testOperation(
       content,

@@ -118,7 +118,7 @@ export class Selection {
   }
 
   // Removes the specified marks from the selection.
-  public removeMark(value: Parameters<typeof removeMark>[1]): ReturnType<typeof removeMark> {
+  public removeMark(value?: Parameters<typeof removeMark>[1]): ReturnType<typeof removeMark> {
     return removeMark(this.range, value);
   }
 

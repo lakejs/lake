@@ -26,7 +26,7 @@ describe('bold plugin', () => {
     <p>bar</p>
     `;
     const output = `
-    <p>f<focus />oo</p>
+    <p>f\u200B<focus />oo</p>
     <p>bar</p>
     `;
     testPlugin(
@@ -45,7 +45,7 @@ describe('bold plugin', () => {
     <p>bar</p>
     `;
     const output = `
-    <p>f<strong>\u200B<focus /></strong>oo</p>
+    <p>f\u200B<strong>\u200B<focus /></strong>oo</p>
     <p>bar</p>
     `;
     testPlugin(
@@ -99,7 +99,7 @@ describe('bold plugin', () => {
     <p>bar</p>
     `;
     const output = `
-    <p>foo<focus /></p>
+    <p>foo\u200B<focus /></p>
     <p>bar</p>
     `;
     testPlugin(
@@ -136,7 +136,7 @@ describe('bold plugin', () => {
     <p>bar</p>
     `;
     const output = `
-    <p><focus />foo</p>
+    <p>\u200B<focus />foo</p>
     <p>bar</p>
     `;
     testPlugin(
