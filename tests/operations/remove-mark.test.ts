@@ -179,4 +179,40 @@ describe('operations.removeMark()', () => {
     );
   });
 
+  it('expanded range: no selected text', () => {
+    const content = `
+    <p><em>foo<anchor /></em><strong><focus />bar</strong></p>
+    `;
+    const output = `
+    <p><em>foo</em><focus /><strong>bar</strong></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        removeMark(range);
+      },
+    );
+  });
+
+  it('expanded range: astride a block', () => {
+    const content = `
+    <p><anchor /><em>foo</em></p>
+    <p>one<strong>two</strong>three</p>
+    <p>bar<focus /></p>
+    `;
+    const output = `
+    <p><anchor />foo</p>
+    <p>onetwothree</p>
+    <p>bar<focus /></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        removeMark(range);
+      },
+    );
+  });
+
 });
