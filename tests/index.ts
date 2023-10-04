@@ -19,6 +19,7 @@ import './utils/query.test';
 import './utils/split-nodes.test';
 import './utils/append-deepest.test';
 import './utils/get-right-text.test';
+import './utils/remove-zws.test';
 
 // Models
 import './models/nodes.test';

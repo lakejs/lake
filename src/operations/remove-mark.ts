@@ -71,6 +71,12 @@ export function removeMark(range: Range, value?: string): void {
     if (!newMark) {
       parts.left.after(zeroWidthSpace);
       removeEmptyMarks(parts.left);
+      if (zeroWidthSpace.prev().isText) {
+        range.setStartAfter(zeroWidthSpace.prev());
+        range.collapseToStart();
+        zeroWidthSpace.remove();
+        return;
+      }
       range.setStartAfter(zeroWidthSpace);
       range.collapseToStart();
       return;
