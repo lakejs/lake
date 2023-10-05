@@ -27,7 +27,7 @@ export class History {
   // the next index of the list
   private index: number;
 
-  private diffDom: DiffDOM;
+  private diffDOM: DiffDOM;
 
   public limit: number;
 
@@ -36,8 +36,15 @@ export class History {
     this.container = selection.container;
     this.list = [];
     this.index = 0;
-    this.diffDom = new DiffDOM();
+    this.diffDOM = new DiffDOM();
     this.limit = 100;
+  }
+
+  private isEmptyDiff(diffList: ReturnType<typeof this.diffDOM.diff>): boolean {
+    return diffList.length === 0 ||
+      diffList.length === 1 &&
+      (diffList[0] as any).action === 'addTextElement' &&
+      (diffList[0] as any).value === '';
   }
 
   public get canUndo(): boolean {
@@ -54,20 +61,20 @@ export class History {
     }
     this.selection.insertBookmark();
     const nativeContainer = this.container.get(0) as NativeElement;
-    let diff: ReturnType<typeof this.diffDom.diff> = [];
-    while(diff.length === 0) {
+    let diffList: ReturnType<typeof this.diffDOM.diff> = [];
+    while(this.isEmptyDiff(diffList)) {
       const item = this.list[this.index - 1];
       if (!item) {
         break;
       }
-      diff = this.diffDom.diff(nativeContainer, item);
+      diffList = this.diffDOM.diff(nativeContainer, item);
       if (this.index === 1) {
         break;
       }
       this.index--;
     }
-    if (diff.length > 0) {
-      this.diffDom.apply(nativeContainer, diff);
+    if (diffList.length > 0) {
+      this.diffDOM.apply(nativeContainer, diffList);
     }
     this.selection.synByBookmark();
   }
@@ -78,25 +85,29 @@ export class History {
     }
     this.selection.insertBookmark();
     const nativeContainer = this.container.get(0) as NativeElement;
-    let diff: ReturnType<typeof this.diffDom.diff> = [];
-    while(diff.length === 0) {
+    let diffList: ReturnType<typeof this.diffDOM.diff> = [];
+    while(this.isEmptyDiff(diffList)) {
       const item = this.list[this.index];
       if (!item) {
         break;
       }
-      diff = this.diffDom.diff(nativeContainer, item);
+      diffList = this.diffDOM.diff(nativeContainer, item);
       this.index++;
     }
-    if (diff.length > 0) {
-      this.diffDom.apply(nativeContainer, diff);
+    if (diffList.length > 0) {
+      this.diffDOM.apply(nativeContainer, diffList);
     }
     this.selection.synByBookmark();
   }
 
-  public save(): void {
-    const bookmark = this.selection.insertBookmark();
+  public save(needBookmark: boolean = true): void {
+    if (needBookmark) {
+      this.selection.insertBookmark();
+    }
     const item = this.container.clone(true).get(0) as NativeElement;
-    this.selection.toBookmark(bookmark);
+    if (needBookmark) {
+      this.selection.synByBookmark();
+    }
     this.list.splice(this.index, Infinity, item);
     this.index++;
     if (this.list.length > this.limit) {

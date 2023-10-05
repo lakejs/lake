@@ -102,6 +102,12 @@ export class Core {
         preData = '';
       }, 100);
     });
+    this.command.event.on('execute:before', () => {
+      if (preData.length > 0) {
+        this.history.save();
+        preData = '';
+      }
+    });
   }
 
   // Adds the saved range to the selection.
@@ -143,10 +149,10 @@ export class Core {
     this.setValue(this.options.defaultValue);
     targetNode.after(container);
     this.focus();
+    this.history.save(false);
     this.selection.synByBookmark();
     this.select();
     Core.plugin.loadAll(this);
-    this.history.save();
     document.addEventListener('selectionchange', this.selectionListener);
     this.bindInputEvent();
     this.event.emit('ready');

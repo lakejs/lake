@@ -398,7 +398,7 @@ export class Nodes {
   }
 
   // Returns a duplicate of the first node.
-  public clone(deep?: boolean): Nodes {
+  public clone(deep: boolean = false): Nodes {
     const node = this.get(0);
     return new Nodes(node.cloneNode(deep));
   }
