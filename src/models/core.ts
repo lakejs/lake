@@ -13,6 +13,7 @@ const containerClassName = 'lake-editor-container';
 const defaultOptions: OptionsType = {
   className: '',
   defaultValue: '<p><br /><focus /></p>',
+  minChangeSize: 5,
 };
 
 export class Core {
@@ -48,7 +49,7 @@ export class Core {
     this.container = utils.query('<div />');
 
     this.setDefaultOptions();
-    this.addContainerAttributes();
+    this.setContainerAttributes();
 
     this.event = new EventEmitter();
     this.selection = new models.Selection(this.container);
@@ -59,10 +60,7 @@ export class Core {
     this.selectionListener = () => {
       this.selection.syncByRange();
     };
-    document.addEventListener('selectionchange', this.selectionListener);
-    this.container.on('input', () => {
-      window.setTimeout(() => this.history.save(), 100);
-    });
+
   }
 
   private setDefaultOptions(): void {
@@ -73,13 +71,37 @@ export class Core {
     });
   }
 
-  private addContainerAttributes(): void {
+  private setContainerAttributes(): void {
     const container = this.container;
     container.attr({
       class: containerClassName,
       contenteditable: 'true',
     });
     container.addClass(this.options.className);
+  }
+
+  private bindInputEvent(): void {
+    let isComposing = false;
+    this.container.on('compositionstart', () => {
+      isComposing = true;
+    });
+    this.container.on('compositionend', () => {
+      isComposing = false;
+    });
+    let preData = '';
+    this.container.on('input', event => {
+      window.setTimeout(() => {
+        if (isComposing) {
+          return;
+        }
+        preData += (event as InputEvent).data ?? '';
+        if (preData.length < this.options.minChangeSize) {
+          return;
+        }
+        this.history.save();
+        preData = '';
+      }, 100);
+    });
   }
 
   // Adds the saved range to the selection.
@@ -125,6 +147,8 @@ export class Core {
     this.select();
     Core.plugin.loadAll(this);
     this.history.save();
+    document.addEventListener('selectionchange', this.selectionListener);
+    this.bindInputEvent();
     this.event.emit('ready');
   }
 
