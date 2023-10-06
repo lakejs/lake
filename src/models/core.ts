@@ -77,7 +77,9 @@ export class Core {
       class: containerClassName,
       contenteditable: 'true',
     });
-    container.addClass(this.options.className);
+    if (this.options.className !== '') {
+      container.addClass(this.options.className);
+    }
   }
 
   private bindInputEvent(): void {

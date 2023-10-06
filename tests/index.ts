@@ -30,6 +30,7 @@ import './models/selection.test';
 import './models/command.test';
 import './models/history.test';
 import './models/keystroke.test';
+import './models/plugin.test';
 
 // Operations
 import './operations/insert-bookmark.test';
