@@ -60,7 +60,7 @@ export class Selection {
     this.range = this.getRange();
   }
 
-  // Synchronizes the saved range with the bookmarks.
+  // Synchronizes the saved range with the range represented by the bookmark.
   public synByBookmark(): void {
     const range = this.range;
     const container = this.container;
