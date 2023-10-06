@@ -27,6 +27,7 @@ import './models/range.test';
 import './models/html-parser.test';
 import './models/text-parser.test';
 import './models/selection.test';
+import './models/command.test';
 import './models/history.test';
 import './models/keystroke.test';
 
