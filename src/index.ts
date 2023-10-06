@@ -1,5 +1,5 @@
 import './index.css';
-import { Core } from './models/core';
+import { Core } from './core';
 import paste from './plugins/paste';
 import undo from './plugins/undo';
 import redo from './plugins/redo';

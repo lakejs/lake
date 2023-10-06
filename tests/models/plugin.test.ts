@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { query } from '../../src/utils';
 import { Plugin, Nodes } from '../../src/models';
-import { Core } from '../../src/models/core';
+import { Core } from '../../src/core';
 
 describe('models.Plugin class', () => {
 

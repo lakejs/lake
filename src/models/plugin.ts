@@ -1,4 +1,4 @@
-import type { Core } from './core';
+import type { Core } from '../core';
 
 type PluginFunction = (editor: Core) => void;
 

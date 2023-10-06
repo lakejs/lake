@@ -1,8 +1,8 @@
 import EventEmitter from 'eventemitter3';
-import pkg from '../../package.json';
-import { NativeNode } from '../types/native';
-import * as utils from '../utils';
-import * as models from '../models';
+import pkg from '../package.json';
+import { NativeNode } from './types/native';
+import * as utils from './utils';
+import * as models from './models';
 
 type TargetType = string | NativeNode;
 
