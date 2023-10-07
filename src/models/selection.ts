@@ -1,18 +1,16 @@
 import { NativeSelection } from '../types/native';
+import { getRightText } from '../utils/get-right-text';
 import { Nodes } from './nodes';
 import { Range } from './range';
-import {
-  addMark,
-  getBlocks,
-  getTags,
-  insertBookmark,
-  insertContents,
-  removeMark,
-  setBlocks,
-  splitBlock,
-  toBookmark,
-} from '../operations';
-import { getRightText } from '../utils';
+import { getBlocks } from '../operations/get-blocks';
+import { getTags } from '../operations/get-tags';
+import { insertBookmark } from '../operations/insert-bookmark';
+import { toBookmark } from '../operations/to-bookmark';
+import { insertContents } from '../operations/insert-contents';
+import { addMark } from '../operations/add-mark';
+import { removeMark } from '../operations/remove-mark';
+import { setBlocks } from '../operations/set-blocks';
+import { splitBlock } from '../operations/split-block';
 
 export class Selection {
   // Represents the range of text selected by the user or the current position of the caret.

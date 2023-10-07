@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { query } from '../../src/utils';
 import { Range, Nodes } from '../../src/models';
-import { insertBookmark } from '../../src/operations';
+import { insertBookmark } from '../../src/operations/insert-bookmark';
 
 describe('operations.insertBookmark()', () => {
 

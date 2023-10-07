@@ -19,7 +19,7 @@ function removeEmptyMarks(node: Nodes): void {
   }
 }
 
-// Returns an element copied from each first child of the descendants of the specified node.
+// Returns an element copied from each last child of the descendants of the specified node.
 function copyNestedMarks(node: Nodes, tagName?: string): Nodes | null {
   if (!node.isMark || !tagName) {
     return null;

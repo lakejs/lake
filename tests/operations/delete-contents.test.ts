@@ -1,5 +1,5 @@
 import { testOperation } from '../utils';
-import { deleteContents } from '../../src/operations';
+import { deleteContents } from '../../src/operations/delete-contents';
 
 describe('operations.deleteContents()', () => {
 

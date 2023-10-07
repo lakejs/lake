@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { createContainer } from '../utils';
-import { getMarks } from '../../src/operations';
+import { getMarks } from '../../src/operations/get-marks';
 
 describe('operations.getMarks()', () => {
 

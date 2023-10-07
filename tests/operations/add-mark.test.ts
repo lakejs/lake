@@ -1,5 +1,5 @@
 import { testOperation } from '../utils';
-import { addMark } from '../../src/operations';
+import { addMark } from '../../src/operations/add-mark';
 
 describe('operations.addMark()', () => {
 

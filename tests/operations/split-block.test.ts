@@ -1,5 +1,5 @@
 import { testOperation } from '../utils';
-import { splitBlock } from '../../src/operations';
+import { splitBlock } from '../../src/operations/split-block';
 
 describe('operations.splitBlock()', () => {
 

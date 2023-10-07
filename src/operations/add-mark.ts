@@ -8,8 +8,8 @@ import { insertContents } from './insert-contents';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 
-// Removes zero-width space.
-function removeZeroWidthSpace(node: Nodes): void {
+// Removes zero-width space before or after the node.
+function removePreviousOrNextZWS(node: Nodes): void {
   const prevNode = node.prev();
   if (prevNode.length > 0 && prevNode.isText && prevNode.hasEmptyText) {
     prevNode.remove();
@@ -20,7 +20,7 @@ function removeZeroWidthSpace(node: Nodes): void {
   }
 }
 
-// Returns an element copied from each first child of the descendants of the specified node.
+// Returns an element copied from each last child of the descendants of the specified node.
 function copyNestedMarks(node: Nodes): Nodes | null {
   if (!node.isMark) {
     return null;
@@ -92,7 +92,7 @@ export function addMark(range: Range, value: string): void {
       valueNode.append(zeroWidthSpace);
     }
     insertContents(range, valueNode);
-    removeZeroWidthSpace(valueNode);
+    removePreviousOrNextZWS(valueNode);
     // Resets the position of the selection
     range.selectNodeContents(valueNode);
     range.reduce();

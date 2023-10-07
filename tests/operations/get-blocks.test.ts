@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { createContainer } from '../utils';
-import { getBlocks } from '../../src/operations';
+import { getBlocks } from '../../src/operations/get-blocks';
 
 describe('operations.getBlocks()', () => {
 

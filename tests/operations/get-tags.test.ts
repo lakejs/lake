@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { createContainer } from '../utils';
-import { getTags } from '../../src/operations';
+import { getTags } from '../../src/operations/get-tags';
 
 describe('operations.getTags()', () => {
 

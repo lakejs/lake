@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import { query, normalizeValue, denormalizeValue, debug } from '../src/utils';
 import { Nodes, Range } from '../src/models';
-import { insertBookmark, toBookmark } from '../src/operations';
+import { insertBookmark } from '../src/operations/insert-bookmark';
+import { toBookmark } from '../src/operations/to-bookmark';
 import LakeCore from '../src';
 
 function format(value: string) {

@@ -1,5 +1,5 @@
 import { testOperation } from '../utils';
-import { setBlocks } from '../../src/operations';
+import { setBlocks } from '../../src/operations/set-blocks';
 
 describe('operations.setBlocks()', () => {
 

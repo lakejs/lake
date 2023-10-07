@@ -63,7 +63,7 @@
     * nodes.ts
     * text.ts
     * range.ts
-    * component.ts
+    * card.ts
     * history.ts
     * html-parser.ts
     * markdown-parser.ts
@@ -81,9 +81,9 @@
     * split-marks.ts
     * add-link.ts
     * remove-link.ts
-    * insert-component.ts
-    * update-component.ts
-    * delete-component.ts
+    * insert-card.ts
+    * update-card.ts
+    * delete-card.ts
     * index.ts
   * plugins
     * paste.ts
@@ -113,13 +113,15 @@
     * link/
     * table/
     * code-block/
-  * main.ts
+  * core.ts
+  * index.css
+  * index.ts
 * tests/
   * utils/
     * camel-case.test.ts
-    * get-document.test.ts
+    * to-hex.test.ts
   * models/
-    * element-list.test.ts
+    * nodes.test.ts
   * index.ts
   * index.html
 * package.json

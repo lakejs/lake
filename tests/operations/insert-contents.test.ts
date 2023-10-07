@@ -1,5 +1,5 @@
 import { testOperation } from '../utils';
-import { insertContents } from '../../src/operations';
+import { insertContents } from '../../src/operations/insert-contents';
 
 describe('operations.insertContents()', () => {
 

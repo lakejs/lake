@@ -1,5 +1,5 @@
 import { testOperation } from '../utils';
-import { splitMarks } from '../../src/operations';
+import { splitMarks } from '../../src/operations/split-marks';
 
 describe('operations.splitMarks()', () => {
 
