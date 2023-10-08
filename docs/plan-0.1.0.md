@@ -161,11 +161,19 @@
 <ol>
   <li>numbered list</li>
 </ol>
+<ol>
+  <li>numbered list</li>
+</ol>
+<ul>
+  <li>bulleted list</li>
+</ul>
 <ul>
   <li>bulleted list</li>
 </ul>
 <ul type="checklist">
   <li value="true">checklist</li>
+<ul>
+<ul type="checklist">
   <li value="false">checklist</li>
 </ul>
 <blockquote>

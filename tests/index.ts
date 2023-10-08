@@ -52,6 +52,7 @@ import './plugins/redo.test';
 import './plugins/select-all.test';
 import './plugins/heading.test';
 import './plugins/blockquote.test';
+import './plugins/list.test';
 import './plugins/align.test';
 import './plugins/indent.test';
 import './plugins/bold.test';

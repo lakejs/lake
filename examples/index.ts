@@ -20,6 +20,12 @@ const headingTypes = [
   'p',
 ];
 
+const listTypes = new Map([
+  ['numberedList', 'numbered'],
+  ['bulletedList', 'bulleted'],
+  ['checklist', 'checklist'],
+]);
+
 const alignTypes = new Map([
   ['alignLeft', 'left'],
   ['alignCenter', 'center'],
@@ -60,6 +66,10 @@ query('.lake-toolbar-icon').on('click', event => {
   const type = query(event.target as Element).attr('data-type');
   if (headingTypes.indexOf(type) >= 0) {
     editor.command.execute('heading', type);
+    return;
+  }
+  if (listTypes.has(type)) {
+    editor.command.execute('list', listTypes.get(type));
     return;
   }
   if (alignTypes.has(type)) {
