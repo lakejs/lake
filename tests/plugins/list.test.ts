@@ -8,9 +8,7 @@ describe('list plugin', () => {
     <p>foo</p>
     `;
     const output = `
-    <ol>
-      <li>numbered list<focus /></li>
-    </ol>
+    <ol><li>numbered list<focus /></li></ol>
     <p>foo</p>
     `;
     testPlugin(

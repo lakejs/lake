@@ -207,4 +207,104 @@ describe('operations.setBlocks()', () => {
     );
   });
 
+  it('should create a nested block when there is no block', () => {
+    const content = `
+    foo<focus />bar
+    `;
+    const output = `
+    <ol><li>foo<focus />bar</li></ol>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, '<ol><li></li></ol>');
+      },
+    );
+  });
+
+  it('should change a block to a nested block', () => {
+    const content = `
+    <p>outer start</p>
+    <p>foo<strong>bold</strong><focus /></p>
+    <p>outer end</p>
+    `;
+    const output = `
+    <p>outer start</p>
+    <ol><li>foo<strong>bold</strong><focus /></li></ol>
+    <p>outer end</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, '<ol><li></li></ol>');
+      },
+    );
+  });
+
+  it('should change a nested block to another nested block', () => {
+    const content = `
+    <p>outer start</p>
+    <ul><li>foo<strong>bold</strong><focus /></li></ul>
+    <p>outer end</p>
+    `;
+    const output = `
+    <p>outer start</p>
+    <ol><li>foo<strong>bold</strong><focus /></li></ol>
+    <p>outer end</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, '<ol><li></li></ol>');
+      },
+    );
+  });
+
+  it('should change a nested block to a non-nested block', () => {
+    const content = `
+    <p>outer start</p>
+    <ul><li>foo<strong>bold</strong><focus /></li></ul>
+    <p>outer end</p>
+    `;
+    const output = `
+    <p>outer start</p>
+    <h1>foo<strong>bold</strong><focus /></h1>
+    <p>outer end</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, '<h1 />');
+      },
+    );
+  });
+
+  it('should change multiple blocks to a nested block', () => {
+    const content = `
+    <p>outer start</p>
+    <p>f<anchor />oo<strong>bold</strong></p>
+    <h1>heading</h1>
+    <p><em>itelic</em>ba<focus />r</p>
+    <p>outer end</p>
+    `;
+    const output = `
+    <p>outer start</p>
+    <ol><li>f<anchor />oo<strong>bold</strong></li></ol>
+    <ol><li>heading</li></ol>
+    <ol><li><em>itelic</em>ba<focus />r</li></ol>
+    <p>outer end</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, '<ol><li></li></ol>');
+      },
+    );
+  });
+
 });

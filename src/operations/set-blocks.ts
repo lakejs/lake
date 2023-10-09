@@ -6,6 +6,21 @@ import { getBlocks } from './get-blocks';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 
+export function getDeepestElement(element: Nodes): Nodes {
+  let child = element;
+  while (child.length > 0) {
+    let firstChild = child.first();
+    if (firstChild.isText && firstChild.hasEmptyText) {
+      firstChild = firstChild.next();
+    }
+    if (child.isElement && !child.isVoid && firstChild.length === 0) {
+      break;
+    }
+    child = firstChild;
+  }
+  return child;
+}
+
 function getTopNonBlockNodes(range: Range): Nodes[] {
   const container = range.commonAncestor.closestContainer();
   let nodeList: Nodes[] = [];
@@ -54,18 +69,22 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
   if (blockList.length > 0) {
     const bookmark = insertBookmark(range);
     for (const node of blockList) {
-      let block = node;
-      if (node.name !== tagName) {
-        block = query(`<${tagName} />`);
+      if (node.name === tagName && valueNode.first().length === 0) {
+        node.css(cssProperties);
+      } else {
+        const block = valueNode.clone(true);
+        const deepestBlock = getDeepestElement(block);
         let child = node.first();
         while(child.length > 0) {
-          const next = child.next();
-          block.append(child);
-          child = next;
+          const nextNode = child.next();
+          deepestBlock.append(child);
+          if (deepestBlock.name === child.name || child.name === 'li') {
+            child.remove(true);
+          }
+          child = nextNode;
         }
         node.replaceWith(block);
       }
-      block.css(cssProperties);
     }
     toBookmark(range, bookmark);
     return;
@@ -74,8 +93,8 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
   const bookmark = insertBookmark(range);
   const nonBlockNodes = getTopNonBlockNodes(range);
   if (nonBlockNodes.length > 0) {
-    const block = query(`<${tagName} />`);
-    block.css(cssProperties);
+    const block = valueNode.clone(true);
+    const deepestBlock = getDeepestElement(block);
     nonBlockNodes[0].before(block);
     nonBlockNodes.forEach((node, index) => {
       if (node.isText) {
@@ -91,7 +110,7 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
           }
         }
       }
-      block.append(node);
+      deepestBlock.append(node);
     });
   }
   toBookmark(range, bookmark);
