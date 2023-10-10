@@ -51,3 +51,10 @@ export const headingTagNames: Set<string> = new Set([
   'h5',
   'h6',
 ]);
+
+
+export const listTagNames: Set<string> = new Set([
+  'ol',
+  'ul',
+  'li',
+]);

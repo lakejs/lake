@@ -1,6 +1,12 @@
 import { KeyValue } from '../types/object';
-import { NativeHTMLElement, NativeElement, NativeNode, NativeText } from '../types/native';
-import { blockTagNames, markTagNames, voidTagNames, headingTagNames } from '../constants/tag-names';
+import {
+  NativeHTMLElement, NativeElement,
+  NativeNode, NativeText,
+} from '../types/native';
+import {
+  blockTagNames, markTagNames, voidTagNames,
+  headingTagNames, listTagNames,
+} from '../constants/tag-names';
 import { forEach } from '../utils/for-each';
 import { inString } from '../utils/in-string';
 import { camelCase } from '../utils/camel-case';
@@ -106,6 +112,14 @@ export class Nodes {
       return false;
     }
     return headingTagNames.has(this.name);
+  }
+
+  // Returns a boolean value indicating whether the node is a list element.
+  public get isList(): boolean {
+    if (this.length === 0) {
+      return false;
+    }
+    return listTagNames.has(this.name);
   }
 
   // Returns a boolean value indicating whether the node is a bookmark element.
