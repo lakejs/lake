@@ -13,6 +13,7 @@ const containerClassName = 'lake-editor-container';
 const defaultOptions: OptionsType = {
   className: '',
   defaultValue: '<p><br /><focus /></p>',
+  spellcheck: 'true',
   minChangeSize: 5,
 };
 
@@ -76,6 +77,7 @@ export class Core {
     container.attr({
       class: containerClassName,
       contenteditable: 'true',
+      spellcheck: this.options.spellcheck,
     });
     if (this.options.className !== '') {
       container.addClass(this.options.className);

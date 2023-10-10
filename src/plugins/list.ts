@@ -8,7 +8,6 @@ export default (editor: LakeCore) => {
     let isNumberedList = false;
     let isBulletedList = false;
     for (const block of blocks) {
-      block.debug();
       if (!isList && block.isList) {
         isList = true;
       }
