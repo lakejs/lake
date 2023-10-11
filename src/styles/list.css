@@ -23,7 +23,7 @@
   vertical-align: middle;
   margin-right: 6px;
   cursor: pointer;
-  pointer-events: all;
+  pointer-events: auto;
 }
 /*
 Fluent Regular 20px icons
