@@ -41,7 +41,6 @@ function copyNestedMarks(node: Nodes, tagName?: string): Nodes | null {
       return null;
     }
   }
-  newMark.debug();
   return newMark;
 }
 

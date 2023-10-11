@@ -1,4 +1,5 @@
-import './index.css';
+import './styles/core.css';
+import './styles/list.css';
 import { Core } from './core';
 import paste from './plugins/paste';
 import undo from './plugins/undo';

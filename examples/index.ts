@@ -1,4 +1,5 @@
 import LakeCore from '../src';
+import { defaultValue } from './default-value';
 
 const { query } = LakeCore.utils;
 
@@ -55,8 +56,7 @@ const noParameterCommandNames = [
 
 const editor = new LakeCore('.lake-editor', {
   className: 'my-editor-container',
-  defaultValue: query('.lake-editor').html(),
-  // defaultValue: 'foo',
+  defaultValue,
 });
 
 editor.create();

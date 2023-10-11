@@ -8,7 +8,7 @@ type TargetType = string | NativeNode;
 
 type OptionsType = {[key: string]: any};
 
-const containerClassName = 'lake-editor-container';
+const containerClassName = 'lake-container';
 
 const defaultOptions: OptionsType = {
   className: '',

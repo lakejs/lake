@@ -1,0 +1,12 @@
+.lake-container {
+  font-family: 'Segoe UI', -apple-system, Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  padding: 10px;
+  overflow: auto;
+}
+.lake-container:focus {
+  outline: none;
+}
+.lake-container bookmark {
+  display: inline;
+}

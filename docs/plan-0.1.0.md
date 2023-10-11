@@ -158,10 +158,10 @@
 <p style="text-align:center;">
   align
 </p>
-<ol>
+<ol start="1">
   <li>numbered list</li>
 </ol>
-<ol>
+<ol start="2">
   <li>numbered list</li>
 </ol>
 <ul>
@@ -172,7 +172,7 @@
 </ul>
 <ul type="checklist">
   <li value="true">checklist</li>
-<ul>
+</ul>
 <ul type="checklist">
   <li value="false">checklist</li>
 </ul>

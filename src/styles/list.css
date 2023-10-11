@@ -1,0 +1,40 @@
+.lake-container ol,
+.lake-container ul {
+  padding-left: 20px;
+}
+.lake-container ol li,
+.lake-container ul li {
+  padding-left: 6px;
+}
+.lake-container ul[type="checklist"] {
+  list-style-type: none;
+  padding-left: 0;
+}
+.lake-container ul[type="checklist"] li {
+  padding-left: 0;
+}
+.lake-container ul[type="checklist"] li[value="true"] {
+  color: #999;
+  text-decoration: line-through;
+}
+.lake-container ul[type="checklist"] li::before {
+  line-height: 16px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+/*
+Fluent Regular 20px icons
+file: assets/checkbox-checked.png
+designer: Microsoft
+*/
+.lake-container ul[type="checklist"] li[value="true"]::before {
+  content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAUxJREFUOE+11D1PhDAYB/CnbRgg3KYxTlAGGJjcNXHUL+DL4gfQxcnBON/g4qa7oy+jcTN+BBcWElIYUAedJISXpDVNjuTuglzJIRtJnx//PvQpgoEfNLAH/wu6rrtSluUNAOxgjM2u9JzzDGP8rGnacRiGX83amYSWZd0TQlJd1y+CIMi6QN/3zTzPxwCwxhjb/wv8MU1zfRHWFEs0y7KPJElGrSClVDDGevV1vmamWAW0bXsbIXTFGNuQqZYCKaVbQogHQshhFEUvS4GO42xyzh+nsV4gpfRNCHEax/Gr3CYA3AHAnnyf/vvKW24QhNClEOKsDeuVUC6eoLcAcDSfrEmpnFB1xjtBy7J6HWzP80ZFUbx3HWzZ+E/DMM4XTcsEG2OMVxljB62TIi+Huq6vOee7ipfDU1VVJ2mafreCqn3rWtdrblU+ODj4Cw1hwRURMrqGAAAAAElFTkSuQmCC');
+}
+/*
+Fluent Regular 20px icons
+file: assets/checkbox-unchecked.png
+designer: Microsoft
+*/
+.lake-container ul[type="checklist"] li[value="false"]::before {
+  content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAALFJREFUOE/tlMENwjAMRd0kW4CInDlgAMQAiAXYCe6wAgyA2CKNo3aOGOXAIaiorhQkDvXV9pPl7+8GKkdTmQe/BTrndgBwYuaFZPKUUg8Axxjj7V1fTGit7Ywxe+/9UwJ0zq1TSlciWg0CEZFDCJPW8NlTNM9AiS4w77C03v+fTbae1vrQtu1DIjEibpj58tV61totAJyVUksJkJm7/ByI6D7oZQlkrGbSIxiD5Xx14At4V30VZpS09QAAAABJRU5ErkJggg==');
+}
