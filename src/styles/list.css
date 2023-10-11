@@ -12,6 +12,7 @@
 }
 .lake-container ul[type="checklist"] li {
   padding-left: 0;
+  pointer-events: none;
 }
 .lake-container ul[type="checklist"] li[value="true"] {
   color: #999;
@@ -21,6 +22,8 @@
   line-height: 16px;
   vertical-align: middle;
   margin-right: 6px;
+  cursor: pointer;
+  pointer-events: all;
 }
 /*
 Fluent Regular 20px icons

@@ -108,4 +108,10 @@ export default (editor: LakeCore) => {
     editor.history.save();
     editor.select();
   });
+  editor.container.on('click', event => {
+    const target = new Nodes(event.target as Element);
+    if (target.name === 'li' && target.attr('value') !== '') {
+      target.attr('value', target.attr('value') === 'true' ? 'false' : 'true');
+    }
+  });
 };
