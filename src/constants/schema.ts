@@ -20,7 +20,9 @@ export const defaultRules: any = {
   ul: {
     type: 'checklist',
   },
-  ol: {},
+  ol: {
+    start: /^\d+$/,
+  },
   li: {
     ...blockAttributeRules,
     value: ['true', 'false'],

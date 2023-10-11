@@ -5,7 +5,7 @@ export default (editor: LakeCore) => {
     editor.focus();
     const blocks = editor.selection.getBlocks();
     for (const block of blocks) {
-      let value = window.parseInt(block.css('margin-left'), 10) || 0;
+      let value = Number.parseInt(block.css('margin-left'), 10) || 0;
       if (type === 'increase') {
         value += 40;
       } else {

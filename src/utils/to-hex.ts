@@ -1,5 +1,5 @@
 function hex(value: string) {
-  const hexString = window.parseInt(value, 10).toString(16).toLowerCase();
+  const hexString = Number.parseInt(value, 10).toString(16).toLowerCase();
   return hexString.length > 1 ? hexString : `0${hexString}`;
 }
 
