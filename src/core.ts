@@ -13,7 +13,7 @@ const containerClassName = 'lake-container';
 const defaultOptions: OptionsType = {
   className: '',
   defaultValue: '<p><br /><focus /></p>',
-  spellcheck: 'true',
+  spellcheck: 'false',
   minChangeSize: 5,
 };
 

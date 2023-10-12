@@ -1,18 +1,26 @@
 .lake-container ol,
 .lake-container ul {
-  padding-left: 20px;
+  list-style: none;
+  margin: 0;
+  margin-bottom: 4px;
+  padding: 0;
 }
 .lake-container ol li,
 .lake-container ul li {
-  padding-left: 6px;
+  margin-left: 20px;
+  padding-left: 4px;
 }
-.lake-container ul[type="checklist"] {
-  list-style-type: none;
-  padding-left: 0;
+.lake-container ol li {
+  list-style: decimal;
+}
+.lake-container ul li {
+  list-style: disc;
 }
 .lake-container ul[type="checklist"] li {
+  list-style: none;
   position: relative;
-  padding-left: 26px;
+  margin-left: 0;
+  padding-left: 24px;
   pointer-events: none;
 }
 .lake-container ul[type="checklist"] li[value="true"] {

@@ -1,12 +1,93 @@
 .lake-container {
-  font-family: 'Segoe UI', -apple-system, Tahoma, Geneva, Verdana, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
   font-size: 16px;
+  color: #000000e0;
   padding: 10px;
   overflow: auto;
 }
 .lake-container:focus {
   outline: none;
 }
+.lake-container::selection,
+.lake-container *::selection {
+  background: #e6f4ff;
+}
 .lake-container bookmark {
   display: inline;
+}
+.lake-container h1,
+.lake-container h2,
+.lake-container h3,
+.lake-container h4,
+.lake-container h5,
+.lake-container h6 {
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+.lake-container h1 {
+  font-size: 36px;
+  margin-bottom: 16px;
+}
+.lake-container h2 {
+  font-size: 30px;
+  margin-bottom: 14px;
+}
+.lake-container h3 {
+  font-size: 24px;
+  margin-bottom: 14px;
+}
+.lake-container h4 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+.lake-container h5 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.lake-container h6 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.lake-container p {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 8px;
+}
+.lake-container strong {
+  font-weight: 600;
+}
+.lake-container i {
+  font-style: italic;
+}
+.lake-container u {
+  text-decoration: underline;
+}
+.lake-container s {
+  text-decoration: line-through;
+}
+.lake-container sub {
+  vertical-align: sub;
+  font-size: 0.85em;
+}
+.lake-container sup {
+  vertical-align: super;
+  font-size: 0.85em;
+}
+.lake-container a {
+  color: #1677ff;
+  text-decoration: none;
+  outline: none;
+  transition: color .3s;
+}
+.lake-container a:hover {
+  color: #69b1ff;
+  text-decoration: underline;
+}
+.lake-container code {
+  font-family: Consolas, Courier, monospace;
+  font-size: 0.9em;
+  border-radius: 3px;
+  padding: 0.2em 0.4em;
+  background: #0000000a;
 }

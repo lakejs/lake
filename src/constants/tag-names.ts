@@ -10,6 +10,7 @@ export const blockTagNames: Set<string> = new Set([
   'blockquote',
   'ul',
   'ol',
+  'li',
 ]);
 
 export const markTagNames: Set<string> = new Set([
