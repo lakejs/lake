@@ -18,13 +18,14 @@ export const defaultRules: any = {
   p: blockAttributeRules,
   blockquote: blockAttributeRules,
   ul: {
+    ...blockAttributeRules,
     type: 'checklist',
   },
   ol: {
+    ...blockAttributeRules,
     start: /^\d+$/,
   },
   li: {
-    ...blockAttributeRules,
     value: ['true', 'false'],
   },
   span: {

@@ -45,31 +45,31 @@ describe('models.HTMLParser class', () => {
   });
 
   it('getNodeList method: should remove text-align', () => {
-    container.html('<ul><li style="text-align: invalid;">foo</li></ul>');
+    container.html('<ul style="text-align: invalid;"><li>foo</li></ul>');
     const htmlParser = new HTMLParser(container);
     htmlParser.getNodeList();
-    expect(container.find('li').css('text-align')).to.equal('');
+    expect(container.find('ul').css('text-align')).to.equal('');
   });
 
   it('getNodeList method: should keep text-align', () => {
-    container.html('<ul><li style="text-align: right;">foo</li></ul>');
+    container.html('<ul style="text-align: right;"><li>foo</li></ul>');
     const htmlParser = new HTMLParser(container);
     htmlParser.getNodeList();
-    expect(container.find('li').css('text-align')).to.equal('right');
+    expect(container.find('ul').css('text-align')).to.equal('right');
   });
 
   it('getNodeList method: should remove margin-left', () => {
-    container.html('<ul><li style="margin-left: invalid;">foo</li></ul>');
+    container.html('<ul style="margin-left: invalid;"><li>foo</li></ul>');
     const htmlParser = new HTMLParser(container);
     htmlParser.getNodeList();
-    expect(container.find('li').css('margin-left')).to.equal('');
+    expect(container.find('ul').css('margin-left')).to.equal('');
   });
 
   it('getNodeList method: should keep margin-left', () => {
-    container.html('<ul><li style="margin-left: 10px;">foo</li></ul>');
+    container.html('<ul style="margin-left: 10px;"><li>foo</li></ul>');
     const htmlParser = new HTMLParser(container);
     htmlParser.getNodeList();
-    expect(container.find('li').css('margin-left')).to.equal('10px');
+    expect(container.find('ul').css('margin-left')).to.equal('10px');
   });
 
   it('getNodeList method: should remove <temp1> and <temp2>', () => {
@@ -161,7 +161,7 @@ describe('models.HTMLParser class', () => {
   });
 
   it('getHTML method: should remove text-align', () => {
-    const input = '<ul><li style="text-align: invalid;">foo</li></ul>';
+    const input = '<ul style="text-align: invalid;"><li>foo</li></ul>';
     const output = '<ul><li>foo</li></ul>';
     container.html(input);
     const htmlParser = new HTMLParser(container);
@@ -169,7 +169,7 @@ describe('models.HTMLParser class', () => {
   });
 
   it('getHTML method: should keep text-align', () => {
-    const input = '<ul><li style="text-align: right;">foo</li></ul>';
+    const input = '<ul style="text-align: right;"><li>foo</li></ul>';
     const output = input;
     container.html(input);
     const htmlParser = new HTMLParser(container);
@@ -177,7 +177,7 @@ describe('models.HTMLParser class', () => {
   });
 
   it('getHTML method: should remove margin-left', () => {
-    const input = '<ul><li style="margin-left: invalid;">foo</li></ul>';
+    const input = '<ul style="margin-left: invalid;"><li>foo</li></ul>';
     const output = '<ul><li>foo</li></ul>';
     container.html(input);
     const htmlParser = new HTMLParser(container);
@@ -185,7 +185,7 @@ describe('models.HTMLParser class', () => {
   });
 
   it('getHTML method: should keep margin-left', () => {
-    const input = '<ul><li style="margin-left: -10px;">foo</li></ul>';
+    const input = '<ul style="margin-left: -10px;"><li>foo</li></ul>';
     const output = input;
     container.html(input);
     const htmlParser = new HTMLParser(container);
