@@ -18,7 +18,7 @@
 * [X] select all
 * [X] heading
 * [X] blockquote
-* [ ] list (numbered list, bulleted list, checklist)
+* [X] list (numbered list, bulleted list, checklist)
 * [X] align (left, center, right, justify)
 * [X] indent (increase, decrease)
 * [X] bold
