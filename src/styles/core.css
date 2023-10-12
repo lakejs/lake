@@ -9,8 +9,9 @@
   outline: none;
 }
 .lake-container::selection,
-.lake-container *::selection {
-  background: #e6f4ff;
+.lake-container ::selection {
+  color: inherit;
+  background: #1ba2e333;
 }
 .lake-container bookmark {
   display: inline;
