@@ -11,33 +11,42 @@
   padding-left: 0;
 }
 .lake-container ul[type="checklist"] li {
-  padding-left: 0;
+  position: relative;
+  padding-left: 26px;
   pointer-events: none;
 }
 .lake-container ul[type="checklist"] li[value="true"] {
-  color: #999;
+  color: #8c8c8c;
   text-decoration: line-through;
 }
 .lake-container ul[type="checklist"] li::before {
-  line-height: 16px;
-  vertical-align: middle;
-  margin-right: 6px;
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
   cursor: pointer;
   pointer-events: auto;
 }
-/*
-Fluent Regular 20px icons
-file: assets/checkbox-checked.svg
-designer: Microsoft
-*/
 .lake-container ul[type="checklist"] li[value="true"]::before {
-  content: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgZmlsbD0ibm9uZSIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIiB3aWR0aD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEzLjg1MzYgNy44NTM1NUMxNC4wNDg4IDcuNjU4MjkgMTQuMDQ4OCA3LjM0MTcxIDEzLjg1MzYgNy4xNDY0NUMxMy42NTgzIDYuOTUxMTggMTMuMzQxNyA2Ljk1MTE4IDEzLjE0NjQgNy4xNDY0NUw4LjUgMTEuNzkyOUw2Ljg1MzU1IDEwLjE0NjRDNi42NTgyOSA5Ljk1MTE4IDYuMzQxNzEgOS45NTExOCA2LjE0NjQ1IDEwLjE0NjRDNS45NTExOCAxMC4zNDE3IDUuOTUxMTggMTAuNjU4MyA2LjE0NjQ1IDEwLjg1MzZMOC4xNDY0NSAxMi44NTM2QzguMzQxNzEgMTMuMDQ4OCA4LjY1ODI5IDEzLjA0ODggOC44NTM1NSAxMi44NTM2TDEzLjg1MzYgNy44NTM1NVoiIGZpbGw9IiMyMTIxMjEiLz48cGF0aCBkPSJNNS42ODE4MiAzQzQuMjAwNjkgMyAzIDQuMjAwNjkgMyA1LjY4MTgyVjE0LjMxODJDMyAxNS43OTkzIDQuMjAwNjkgMTcgNS42ODE4MiAxN0gxNC4zMTgyQzE1Ljc5OTMgMTcgMTcgMTUuNzk5MyAxNyAxNC4zMTgyVjUuNjgxODJDMTcgNC4yMDA2OSAxNS43OTkzIDMgMTQuMzE4MiAzSDUuNjgxODJaTTQgNS42ODE4MkM0IDQuNzUyOTggNC43NTI5OCA0IDUuNjgxODIgNEgxNC4zMTgyQzE1LjI0NyA0IDE2IDQuNzUyOTggMTYgNS42ODE4MlYxNC4zMTgyQzE2IDE1LjI0NyAxNS4yNDcgMTYgMTQuMzE4MiAxNkg1LjY4MTgyQzQuNzUyOTggMTYgNCAxNS4yNDcgNCAxNC4zMTgyVjUuNjgxODJaIiBmaWxsPSIjMjEyMTIxIi8+PC9zdmc+');
+  border: 1px solid #1890ff;
+  background-color: #1890ff;
 }
-/*
-Fluent Regular 20px icons
-file: assets/checkbox-unchecked.svg
-designer: Microsoft
-*/
 .lake-container ul[type="checklist"] li[value="false"]::before {
-  content: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgZmlsbD0ibm9uZSIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIiB3aWR0aD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTMgNUMzIDMuODk1NDMgMy44OTU0MyAzIDUgM0gxNUMxNi4xMDQ2IDMgMTcgMy44OTU0MyAxNyA1VjE1QzE3IDE2LjEwNDYgMTYuMTA0NiAxNyAxNSAxN0g1QzMuODk1NDMgMTcgMyAxNi4xMDQ2IDMgMTVWNVpNNSA0QzQuNDQ3NzIgNCA0IDQuNDQ3NzIgNCA1VjE1QzQgMTUuNTUyMyA0LjQ0NzcyIDE2IDUgMTZIMTVDMTUuNTUyMyAxNiAxNiAxNS41NTIzIDE2IDE1VjVDMTYgNC40NDc3MiAxNS41NTIzIDQgMTUgNEg1WiIgZmlsbD0iIzIxMjEyMSIvPjwvc3ZnPg==');
+  border: 1px solid #d9d9d9;
+  background-color: #fff;
+}
+.lake-container ul[type="checklist"] li::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 4px;
+  width: 4px;
+  height: 8px;
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+  border-radius: 1px;
+  transform: rotate(45deg) scale(1) translate(-50%,-50%);
 }
