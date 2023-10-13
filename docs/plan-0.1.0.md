@@ -143,7 +143,7 @@
   <i>italic</i>
   <u>underline</u>
   <s>strikeThrough</s>
-  <span style="font-family: Arial;">fontName</>
+  <span style="font-family: Arial;">fontName</span>
   <span style="font-size: 14px;">fontSize</span>
   <span style="color: red;">fontColor</span>
   <span style="background-color: #eeeeee;">highlight</span>
