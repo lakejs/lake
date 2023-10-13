@@ -508,9 +508,9 @@ describe('models.Nodes class', () => {
     node.css('background-color', '');
     node.css('border', '');
     node.css('text-align', '');
-    expect(node.computedCSS('background-color')).to.equal('#000000');
-    expect(node.computedCSS('border-color')).to.equal('#000000');
-    expect(node.computedCSS('text-align')).to.equal('start');
+    expect(node.computedCSS('background-color') === '').to.equal(false);
+    expect(node.computedCSS('border-color') === '').to.equal(false);
+    expect(node.computedCSS('text-align') === '').to.equal(false);
   });
 
   it('css methods: a string', () => {

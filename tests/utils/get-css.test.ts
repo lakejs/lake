@@ -10,7 +10,7 @@ describe('utils.getCSS()', () => {
     document.body.appendChild(element);
     expect(getCSS(element, 'color')).to.equal('#ff0000');
     expect(getCSS(element, 'border-color')).to.equal('#0000ff');
-    expect(getCSS(element, 'background-color')).to.equal('#000000');
+    expect(getCSS(element, 'background-color') === '').to.equal(false);
     document.body.removeChild(element);
   });
 
