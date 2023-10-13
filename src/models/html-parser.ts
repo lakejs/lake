@@ -76,6 +76,28 @@ export class HTMLParser {
     return openTag;
   }
 
+  // Returns the value of the text node with trimming invisible whitespace.
+  // <p>foo</p>\n<p>bar</p>
+  // or
+  // <p>\nfoo\n</p>
+  private static getTrimmedText(textNode: Nodes): string {
+    const parentNode = textNode.parent();
+    const prevSibling = textNode.prev();
+    const nextSibling = textNode.next();
+    let nodeValue = textNode.text();
+    if (
+      prevSibling.isBlock && nextSibling.isBlock ||
+      prevSibling.length === 0 && nextSibling.length === 0 && parentNode.isBlock
+    ) {
+      nodeValue = nodeValue.trim();
+    } else if (prevSibling.isBlock || prevSibling.length === 0 && parentNode.isBlock) {
+      nodeValue = nodeValue.replace(/^[\s\r\n]+/, '');
+    } else if (nextSibling.isBlock || nextSibling.length === 0 && parentNode.isBlock) {
+      nodeValue = nodeValue.replace(/[\s\r\n]+$/, '');
+    }
+    return nodeValue;
+  }
+
   // Removes the element or those attributes or CSS properties that do not match rules.
   private sanitizeElement(element: Nodes) : void {
     const attributeRules = defaultRules[element.name];
@@ -115,6 +137,14 @@ export class HTMLParser {
     for (const node of this.root.getWalker()) {
       if (node.isElement) {
         this.sanitizeElement(node);
+      } else if (node.isText) {
+        const nodeValue = node.text();
+        const newNodeValue = HTMLParser.getTrimmedText(node);
+        if (newNodeValue === '') {
+          node.remove();
+        } else if (nodeValue !== newNodeValue) {
+          node.get(0).nodeValue = newNodeValue;
+        }
       }
     }
     return this.root.children();
@@ -126,7 +156,7 @@ export class HTMLParser {
       while (child.length > 0) {
         const nextNode = child.next();
         if (child.isText) {
-          yield encode(child.text());
+          yield encode(HTMLParser.getTrimmedText(child));
         } else if (child.isVoid) {
           const openTag = HTMLParser.getOpenTagString(child);
           if (openTag !== '') {

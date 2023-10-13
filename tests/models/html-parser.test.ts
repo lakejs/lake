@@ -128,6 +128,20 @@ describe('models.HTMLParser class', () => {
     expect(container.find('span').css('margin')).to.equal('');
   });
 
+  it('getNodeList method: should trim text in a block element', () => {
+    container.html('<h1>\r\n\theading1</h1>\n\t<h2>heading2\r\n\t</h2>\ntext1<h3>\r\n\theading3\r\n\t</h3>text2\n<p> foo <strong> bar </strong></p>');
+    const htmlParser = new HTMLParser(container);
+    const nodeList = htmlParser.getNodeList();
+    expect(nodeList.length).to.equal(6);
+    expect(container.find('h1').html()).to.equal('heading1');
+    expect(container.find('h2').html()).to.equal('heading2');
+    expect(container.find('h2').next().text()).to.equal('text1');
+    expect(container.find('h3').html()).to.equal('heading3');
+    expect(container.find('h3').next().text()).to.equal('text2');
+    expect(container.find('p').first().text()).to.equal('foo ');
+    expect(container.find('strong').html()).to.equal(' bar ');
+  });
+
   it('getHTML method: should remove type', () => {
     const input = '<ul type="invalid"><li>foo</li></ul>';
     const output = '<ul><li>foo</li></ul>';
@@ -251,6 +265,14 @@ describe('models.HTMLParser class', () => {
   it('getHTML method: including reserved characters', () => {
     const input = '<p>foo&lt;&gt;&quot;&amp; &nbsp; &nbsp; –—©\'</p>';
     const output = input;
+    container.html(input);
+    const htmlParser = new HTMLParser(container);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
+  it('getHTML method: should trim text in a block element', () => {
+    const input = '<h1>\r\n\theading1</h1>\n\t<h2>heading2\r\n\t</h2>\ntext1<h3>\r\n\theading3\r\n\t</h3>text2\n<p> foo <strong> bar </strong></p>';
+    const output = '<h1>heading1</h1><h2>heading2</h2>text1<h3>heading3</h3>text2<p>foo <strong> bar </strong></p>';
     container.html(input);
     const htmlParser = new HTMLParser(container);
     expect(htmlParser.getHTML()).to.equal(output);

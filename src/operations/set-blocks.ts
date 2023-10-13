@@ -96,20 +96,7 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
     const block = valueNode.clone(true);
     const deepestBlock = getDeepestElement(block);
     nonBlockNodes[0].before(block);
-    nonBlockNodes.forEach((node, index) => {
-      if (node.isText) {
-        if (index === 0) {
-          const nodeValue = node.text().replace(/^[\s\r\n]+/, '');
-          if (node.text() !== nodeValue) {
-            node.get(0).nodeValue = nodeValue;
-          }
-        } else if (index === nonBlockNodes.length - 1) {
-          const nodeValue = node.text().replace(/[\s\r\n]+$/, '');
-          if (node.text() !== nodeValue) {
-            node.get(0).nodeValue = nodeValue;
-          }
-        }
-      }
+    nonBlockNodes.forEach(node => {
       deepestBlock.append(node);
     });
   }

@@ -1,13 +1,14 @@
 import { expect } from 'chai';
 import { query, normalizeValue, denormalizeValue, debug } from '../src/utils';
-import { Nodes, Range } from '../src/models';
+import { Nodes, Range, HTMLParser } from '../src/models';
 import { insertBookmark } from '../src/operations/insert-bookmark';
 import { toBookmark } from '../src/operations/to-bookmark';
 import LakeCore from '../src';
 
 function format(value: string) {
-  value = value.replace(/>[\s\r\n]+</g, '><');
-  value = value.replace(/<br>/ig, '<br />');
+  value = normalizeValue(value);
+  value = new HTMLParser(value).getHTML();
+  value = denormalizeValue(value);
   return value.trim();
 }
 
@@ -36,7 +37,7 @@ export function testOperation(
   const { container, range } = createContainer(content);
   callback(range);
   insertBookmark(range);
-  const html = denormalizeValue(format(container.html()));
+  const html = format(container.html());
   container.remove();
   debug(html);
   expect(html).to.equal(format(output));
@@ -47,10 +48,11 @@ export function testPlugin(
   output: string,
   callback: (editor: LakeCore) => void,
 ) {
-  const { container } = createContainer(content);
+  const container = query('<div contenteditable="true"></div>');
+  query(document.body).append(container);
   const editor = new LakeCore(container.get(0), {
     className: 'my-editor-container',
-    defaultValue: format(content),
+    defaultValue: content,
   });
   editor.create();
   callback(editor);

@@ -29,6 +29,7 @@ export const defaultRules: any = {
     value: ['true', 'false'],
   },
   span: {
+    class: /^[\w-]+$/,
     style: {
       color: /^\S+$/,
       'background-color': /^\S+$/,

@@ -240,4 +240,32 @@ describe('list plugin', () => {
     );
   });
 
+  it('should adjust start attributes when remove two middle items', () => {
+    const content = `
+    <p>one</p>
+    <ol start="1"><li>two</li></ol>
+    <ol start="2"><li>three</li></ol>
+    <ol start="3"><li><anchor />four</li></ol>
+    <ol start="4"><li>five<focus /></li></ol>
+    <ol start="5"><li>six</li></ol>
+    <p>seven</p>
+    `;
+    const output = `
+    <p>one</p>
+    <ol start="1"><li>two</li></ol>
+    <ol start="2"><li>three</li></ol>
+    <p><anchor />four</p>
+    <p>five<focus /></p>
+    <ol start="1"><li>six</li></ol>
+    <p>seven</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.command.execute('list', 'numbered');
+      },
+    );
+  });
+
 });

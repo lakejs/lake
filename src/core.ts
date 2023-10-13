@@ -132,14 +132,16 @@ export class Core {
   // Sets the specified HTML string to the editor area.
   public setValue(value: string) {
     value = utils.normalizeValue(value);
-    this.container.html(value);
+    const htmlParser = new models.HTMLParser(value);
+    for (const node of htmlParser.getNodeList()) {
+      this.container.append(node);
+    }
   }
 
   // Gets the contents from the editor.
   public getValue() {
     const bookmark = this.selection.insertBookmark();
-    let value = this.container.html();
-    value = new models.HTMLParser(value).getHTML();
+    let value = new models.HTMLParser(this.container).getHTML();
     value = utils.denormalizeValue(value);
     this.selection.toBookmark(bookmark);
     return value;
