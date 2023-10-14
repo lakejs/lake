@@ -19,7 +19,7 @@ export function splitBlock(range: Range): TwoParts {
     deleteContents(range);
   }
   const node = range.startNode;
-  const closestBlock = node.closestBlock();
+  const closestBlock = node.closestOperableBlock();
   let limitBlock = closestBlock.parent();
   if (!limitBlock.isContentEditable) {
     limitBlock = node.closestContainer();

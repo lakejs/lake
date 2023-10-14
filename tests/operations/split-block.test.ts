@@ -123,4 +123,21 @@ describe('operations.splitBlock()', () => {
     );
   });
 
+  it('collapsed range: splits a list with a text', () => {
+    const content = `
+    <ul><li>one<focus />two</li></ul>
+    `;
+    const output = `
+    <ul><li>one</li></ul>
+    <ul><li><focus />two</li></ul>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        splitBlock(range);
+      },
+    );
+  });
+
 });

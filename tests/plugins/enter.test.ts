@@ -2,12 +2,13 @@ import { testPlugin } from '../utils';
 
 describe('enter plugin', () => {
 
-  it('the focus is between the characters of the text', () => {
+  it('paragraph: the focus is between the characters of the text', () => {
     const content = `
     <p>f<focus />oo</p>
     `;
     const output = `
-    <p>f</p><p><focus />oo</p>
+    <p>f</p>
+    <p><focus />oo</p>
     `;
     testPlugin(
       content,
@@ -18,12 +19,30 @@ describe('enter plugin', () => {
     );
   });
 
-  it('the focus is at the beginning of the text', () => {
+  it('list: the focus is between the characters of the text', () => {
+    const content = `
+    <ul><li>f<focus />oo</li></ul>
+    `;
+    const output = `
+    <ul><li>f</li></ul>
+    <ul><li><focus />oo</li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('paragraph: the focus is at the beginning of the text', () => {
     const content = `
     <p><focus />foo</p>
     `;
     const output = `
-    <p><br /></p><p><focus />foo</p>
+    <p><br /></p>
+    <p><focus />foo</p>
     `;
     testPlugin(
       content,
@@ -34,12 +53,13 @@ describe('enter plugin', () => {
     );
   });
 
-  it('the focus is at the end of the text', () => {
+  it('paragraph: the focus is at the end of the text', () => {
     const content = `
     <p>foo<focus /></p>
     `;
     const output = `
-    <p>foo</p><p><focus /><br /></p>
+    <p>foo</p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -50,7 +70,7 @@ describe('enter plugin', () => {
     );
   });
 
-  it('should create a new block when there is no closest block', () => {
+  it('paragraph: should create a new block when there is no closest block', () => {
     const content = `
     foo<focus />bar
     `;
@@ -66,12 +86,13 @@ describe('enter plugin', () => {
     );
   });
 
-  it('should become paragraph when the focus is at the end of the heading', () => {
+  it('heading: should become paragraph when the focus is at the end of the heading', () => {
     const content = `
     <h1>foo<focus /></h1>
     `;
     const output = `
-    <h1>foo</h1><p><focus /><br /></p>
+    <h1>foo</h1>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -82,12 +103,13 @@ describe('enter plugin', () => {
     );
   });
 
-  it('should not become paragraph when the focus is at the beginning of the heading', () => {
+  it('heading: should not become paragraph when the focus is at the beginning of the heading', () => {
     const content = `
     <h1><focus />foo</h1>
     `;
     const output = `
-    <h1><br /></h1><h1><focus />foo</h1>
+    <h1><br /></h1>
+    <h1><focus />foo</h1>
     `;
     testPlugin(
       content,
