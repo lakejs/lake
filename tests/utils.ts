@@ -48,9 +48,9 @@ export function testPlugin(
   output: string,
   callback: (editor: LakeCore) => void,
 ) {
-  const container = query('<div contenteditable="true"></div>');
-  query(document.body).append(container);
-  const editor = new LakeCore(container.get(0), {
+  const targetNode = query('<div />');
+  query(document.body).append(targetNode);
+  const editor = new LakeCore(targetNode.get(0), {
     className: 'my-editor-container',
     defaultValue: content,
   });
@@ -58,6 +58,7 @@ export function testPlugin(
   callback(editor);
   const html = editor.getValue();
   editor.remove();
+  targetNode.remove();
   debug(html);
   expect(html).to.equal(format(output));
 }
