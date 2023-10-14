@@ -272,6 +272,19 @@ export class Nodes {
     return node;
   }
 
+  // Traverses the first node and its parents until it finds an operable block.
+  public closestOperableBlock(): Nodes {
+    const block = this.closestBlock();
+    if (block.length === 0) {
+      return block;
+    }
+    const parentBlock = block.parent();
+    if (block.name === 'li' && parentBlock.isList) {
+      return parentBlock;
+    }
+    return block;
+  }
+
   // Traverses the first node and its parents until it finds a root element which has contenteditable="true" attribute..
   public closestContainer(): Nodes {
     return this.closest('div[contenteditable="true"]');

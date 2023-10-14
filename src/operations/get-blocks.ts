@@ -1,21 +1,10 @@
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
-function getTargetBlock(block: Nodes): Nodes {
-  if (block.length === 0) {
-    return block;
-  }
-  const parentBlock = block.parent();
-  if (block.name === 'li' && parentBlock.isList) {
-    return parentBlock;
-  }
-  return block;
-}
-
 // Returns target blocks relating to the specified range that can be modified by other operations.
 export function getBlocks(range: Range): Nodes[] {
-  const startBlock = getTargetBlock(range.startNode.closestBlock());
-  const endBlock = getTargetBlock(range.endNode.closestBlock());
+  const startBlock = range.startNode.closestOperableBlock();
+  const endBlock = range.endNode.closestOperableBlock();
   if (
     startBlock.isEditable &&
     startBlock.get(0) &&

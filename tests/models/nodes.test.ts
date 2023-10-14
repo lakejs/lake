@@ -233,6 +233,12 @@ describe('models.Nodes class', () => {
     expect(container.find('p').next().closestBlock().length).to.equal(0);
   });
 
+  it('method: closestOperableBlock', () => {
+    const container = query('<div contenteditable="true"><ul><li>foo</li></ul><p>bar</p>');
+    expect(container.find('li').first().closestOperableBlock().html()).to.equal('<li>foo</li>');
+    expect(container.find('p').first().closestOperableBlock().html()).to.equal('bar');
+  });
+
   it('method: closestContainer', () => {
     const container = query('<div contenteditable="true"><p>foo</p>bar</div>');
     expect(container.find('p').first().closestContainer().html()).to.equal('<p>foo</p>bar');
