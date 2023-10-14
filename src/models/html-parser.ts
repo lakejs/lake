@@ -10,7 +10,7 @@ export class HTMLParser {
   constructor(content: string | Nodes) {
     const parser = new DOMParser();
     if (typeof content === 'string') {
-      const doc = parser.parseFromString(content, 'text/html');
+      const doc = parser.parseFromString(content.trim(), 'text/html');
       this.root = new Nodes(doc.querySelector('body'));
     } else {
       this.root = content;

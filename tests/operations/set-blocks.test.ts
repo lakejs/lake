@@ -173,14 +173,14 @@ describe('operations.setBlocks()', () => {
     `;
     const output = `
     <p>outer start</p>
-    <h1><h2>foo<strong>bold</strong><focus /></h2></h1>
+    <h1><blockquote>foo<strong>bold</strong><focus /></blockquote></h1>
     <p>outer end</p>
     `;
     testOperation(
       content,
       output,
       range => {
-        setBlocks(range, '<h2 />');
+        setBlocks(range, '<blockquote />');
       },
     );
   });
