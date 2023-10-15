@@ -8,8 +8,13 @@ export default (editor: LakeCore) => {
     if (blocks.length > 0) {
       selection.splitBlock();
       blocks = selection.getBlocks();
-      if (blocks[0] && blocks[0].isHeading && selection.getRightText() === '') {
-        selection.setBlocks('<p />');
+      if (blocks[0] && selection.getRightText() === '') {
+        if (blocks[0].isHeading) {
+          selection.setBlocks('<p />');
+        }
+        if (blocks[0].isList && blocks[0].attr('type') === 'checklist') {
+          blocks[0].find('li').attr('value', 'false');
+        }
       }
     } else {
       selection.setBlocks('<p />');

@@ -70,6 +70,23 @@ describe('enter plugin', () => {
     );
   });
 
+  it('checklist: the focus is at the end of the text', () => {
+    const content = `
+    <ul type="checklist"><li value="true">foo<focus /></li></ul>
+    `;
+    const output = `
+    <ul type="checklist"><li value="true">foo</li></ul>
+    <ul type="checklist"><li value="false"><focus /><br /></li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
   it('paragraph: should create a new block when there is no closest block', () => {
     const content = `
     foo<focus />bar
