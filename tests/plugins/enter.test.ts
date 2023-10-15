@@ -36,6 +36,23 @@ describe('enter plugin', () => {
     );
   });
 
+  it('list: should keep correct number', () => {
+    const content = `
+    <ol start="1"><li>f<focus />oo</li></ol>
+    `;
+    const output = `
+    <ol start="1"><li>f</li></ol>
+    <ol start="2"><li><focus />oo</li></ol>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
   it('paragraph: the focus is at the beginning of the text', () => {
     const content = `
     <p><focus />foo</p>

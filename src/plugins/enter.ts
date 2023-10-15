@@ -1,4 +1,5 @@
 import type LakeCore from '..';
+import { adjustStartAttributes } from './list';
 
 export default (editor: LakeCore) => {
   editor.keystroke.setKeydown('enter', event => {
@@ -16,6 +17,7 @@ export default (editor: LakeCore) => {
           blocks[0].find('li').attr('value', 'false');
         }
       }
+      adjustStartAttributes(editor);
     } else {
       selection.setBlocks('<p />');
     }

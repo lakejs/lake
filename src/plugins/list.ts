@@ -1,7 +1,7 @@
 import type LakeCore from '..';
 import { Nodes } from '../models/nodes';
 
-function adjustStartAttributes(editor: LakeCore): void {
+export function adjustStartAttributes(editor: LakeCore): void {
   const blocks = editor.selection.getBlocks();
   if (blocks.length === 0) {
     return;
