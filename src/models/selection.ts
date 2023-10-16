@@ -6,8 +6,9 @@ import { getBlocks } from '../operations/get-blocks';
 import { getTags } from '../operations/get-tags';
 import { insertBookmark } from '../operations/insert-bookmark';
 import { toBookmark } from '../operations/to-bookmark';
-import { insertContents } from '../operations/insert-contents';
+import { insertNode } from '../operations/insert-node';
 import { insertFragment } from '../operations/insert-fragment';
+import { insertContents } from '../operations/insert-contents';
 import { addMark } from '../operations/add-mark';
 import { removeMark } from '../operations/remove-mark';
 import { setBlocks } from '../operations/set-blocks';
@@ -97,14 +98,19 @@ export class Selection {
     return toBookmark(this.range, bookmark);
   }
 
-  // Inserts a HTML string into the selection.
-  public insertContents(value: Parameters<typeof insertContents>[1]): ReturnType<typeof insertContents> {
-    return insertContents(this.range, value);
+  // Inserts a node into the selection.
+  public insertNode(node: Parameters<typeof insertNode>[1]): ReturnType<typeof insertNode> {
+    return insertNode(this.range, node);
   }
 
   // Inserts a DocumentFragment object into the selection.
   public insertFragment(fragment: Parameters<typeof insertFragment>[1]): ReturnType<typeof insertFragment> {
     return insertFragment(this.range, fragment);
+  }
+
+  // Inserts a HTML string into the selection.
+  public insertContents(value: Parameters<typeof insertContents>[1]): ReturnType<typeof insertContents> {
+    return insertContents(this.range, value);
   }
 
   // Adds new blocks or modifies target blocks relating to the selection.

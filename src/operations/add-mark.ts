@@ -4,9 +4,9 @@ import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { splitMarks } from './split-marks';
 import { getMarks } from './get-marks';
-import { insertContents } from './insert-contents';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
+import { insertNode } from './insert-node';
 
 // Removes zero-width space before or after the node.
 function removePreviousOrNextZWS(node: Nodes): void {
@@ -91,7 +91,7 @@ export function addMark(range: Range, value: string): void {
     if (valueNode.text() === '') {
       valueNode.append(zeroWidthSpace);
     }
-    insertContents(range, valueNode);
+    insertNode(range, valueNode);
     removePreviousOrNextZWS(valueNode);
     // Resets the position of the selection
     range.selectNodeContents(valueNode);

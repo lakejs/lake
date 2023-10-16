@@ -1,11 +1,11 @@
-import { NativeNode } from '../types/native';
 import { query } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { deleteContents } from './delete-contents';
+import { insertFragment } from './insert-fragment';
 
 // Inserts a HTML string into the specified range.
-export function insertContents(range: Range, value: string | NativeNode | Nodes): Nodes {
+export function insertContents(range: Range, value: string): Nodes {
   const nodes = query(value);
   if (!range.commonAncestor.isContentEditable) {
     return nodes;
@@ -13,11 +13,10 @@ export function insertContents(range: Range, value: string | NativeNode | Nodes)
   if (!range.isCollapsed) {
     deleteContents(range);
   }
-  nodes.each(node => {
-    const nativeRange = range.get();
-    nativeRange.insertNode(node);
-    nativeRange.selectNode(node);
-    nativeRange.collapse(false);
+  const fragment = document.createDocumentFragment();
+  nodes.each(nativeNode => {
+    fragment.appendChild(nativeNode);
   });
+  insertFragment(range, fragment);
   return nodes;
 }
