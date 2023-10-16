@@ -53,4 +53,20 @@ describe('operations.insertContents()', () => {
     );
   });
 
+  it('inserts an element after selecting text', () => {
+    const content = `
+    <strong><anchor />foo<focus /></strong>bar
+    `;
+    const output = `
+    <strong><em>italic</em><focus /></strong>bar
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertContents(range, '<em>italic</em>');
+      },
+    );
+  });
+
 });

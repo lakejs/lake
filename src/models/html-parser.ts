@@ -133,7 +133,7 @@ export class HTMLParser {
     }
   }
 
-  public getNodeList(): Nodes[] {
+  private sanitizeTree(): void {
     for (const node of this.root.getWalker()) {
       if (node.isElement) {
         this.sanitizeElement(node);
@@ -147,7 +147,20 @@ export class HTMLParser {
         }
       }
     }
+  }
+
+  public getNodeList(): Nodes[] {
+    this.sanitizeTree();
     return this.root.children();
+  }
+
+  public getFragment(): DocumentFragment {
+    this.sanitizeTree();
+    const fragment = document.createDocumentFragment();
+    this.root.get(0).childNodes.forEach(node => {
+      fragment.appendChild(node.cloneNode(true));
+    });
+    return fragment;
   }
 
   public getHTML(): string {

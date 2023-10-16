@@ -7,6 +7,7 @@ import { getTags } from '../operations/get-tags';
 import { insertBookmark } from '../operations/insert-bookmark';
 import { toBookmark } from '../operations/to-bookmark';
 import { insertContents } from '../operations/insert-contents';
+import { insertFragment } from '../operations/insert-fragment';
 import { addMark } from '../operations/add-mark';
 import { removeMark } from '../operations/remove-mark';
 import { setBlocks } from '../operations/set-blocks';
@@ -91,6 +92,7 @@ export class Selection {
     return insertBookmark(this.range);
   }
 
+  // Sets the saved range to the range represented by the bookmark.
   public toBookmark(bookmark: Parameters<typeof toBookmark>[1]): ReturnType<typeof toBookmark> {
     return toBookmark(this.range, bookmark);
   }
@@ -98,6 +100,11 @@ export class Selection {
   // Inserts a HTML string into the selection.
   public insertContents(value: Parameters<typeof insertContents>[1]): ReturnType<typeof insertContents> {
     return insertContents(this.range, value);
+  }
+
+  // Inserts a DocumentFragment object into the selection.
+  public insertFragment(fragment: Parameters<typeof insertFragment>[1]): ReturnType<typeof insertFragment> {
+    return insertFragment(this.range, fragment);
   }
 
   // Adds new blocks or modifies target blocks relating to the selection.

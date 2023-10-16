@@ -18,8 +18,7 @@ export default (editor: LakeCore) => {
     }
     const content = clipboardData.getData('text/html');
     const htmlParser = new HTMLParser(content);
-    for (const node of htmlParser.getNodeList()) {
-      editor.selection.insertContents(node);
-    }
+    const fragment = htmlParser.getFragment();
+    editor.selection.insertFragment(fragment);
   });
 };

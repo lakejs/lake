@@ -564,79 +564,103 @@ export class Nodes {
   }
 
   // Inserts the specified content as the first child of each element.
-  public prepend(content: string | NativeNode | Nodes): this {
-    return this.eachElement(element => {
-      let list: NativeNode[] = [];
-      if (content instanceof Nodes) {
-        list = content.getAll();
-      } else {
-        list = toNodeList(content);
-      }
-      list = list.reverse();
-      list.forEach((node: NativeNode) => {
-        if (element.firstChild) {
-          element.insertBefore(node, element.firstChild);
-        } else {
-          element.appendChild(node);
-        }
+  public prepend(content: string | NativeNode | DocumentFragment | Nodes): this {
+    if (typeof content === 'string') {
+      return this.eachElement(element => {
+        const list = toNodeList(content as string).reverse();
+        list.forEach((node: NativeNode) => {
+          if (element.firstChild) {
+            element.insertBefore(node, element.firstChild);
+          } else {
+            element.appendChild(node);
+          }
+        });
       });
-    });
+    }
+    const element = this.get(0);
+    if (content instanceof Nodes) {
+      content = content.get(0);
+    }
+    if (element.firstChild) {
+      element.insertBefore(content, element.firstChild);
+    } else {
+      element.appendChild(content);
+    }
+    return this;
   }
 
   // Inserts the specified content as the last child of each element.
-  public append(content: string | NativeNode | Nodes): this {
-    return this.eachElement(element => {
-      let list: NativeNode[] = [];
-      if (content instanceof Nodes) {
-        list = content.getAll();
-      } else {
-        list = toNodeList(content);
-      }
-      list.forEach((node: NativeNode) => {
-        element.appendChild(node);
+  public append(content: string | NativeNode | DocumentFragment | Nodes): this {
+    if (typeof content === 'string') {
+      return this.eachElement(element => {
+        const list = toNodeList(content as string);
+        list.forEach((node: NativeNode) => {
+          element.appendChild(node);
+        });
       });
-    });
+    }
+    const element = this.get(0);
+    if (content instanceof Nodes) {
+      content = content.get(0);
+    }
+    element.appendChild(content);
+    return this;
   }
 
   // Inserts the specified content before each node.
-  public before(content: string | NativeNode | Nodes): this {
-    return this.each(node => {
-      let list: NativeNode[] = [];
-      if (content instanceof Nodes) {
-        list = content.getAll();
-      } else {
-        list = toNodeList(content);
-      }
-      list.forEach(target => {
-        if (!node.parentNode) {
-          return;
-        }
-        node.parentNode.insertBefore(target, node);
+  public before(content: string | NativeNode | DocumentFragment | Nodes): this {
+    if (typeof content === 'string') {
+      return this.each(node => {
+        const list = toNodeList(content as string);
+        list.forEach(target => {
+          if (!node.parentNode) {
+            return;
+          }
+          node.parentNode.insertBefore(target, node);
+        });
       });
-    });
+    }
+    const node = this.get(0);
+    if (content instanceof Nodes) {
+      content = content.get(0);
+    }
+    if (!node.parentNode) {
+      return this;
+    }
+    node.parentNode.insertBefore(content, node);
+    return this;
   }
 
   // Inserts the specified content after each node.
-  public after(content: string | NativeNode | Nodes): this {
-    return this.each(node => {
-      let list: NativeNode[] = [];
-      if (content instanceof Nodes) {
-        list = content.getAll();
-      } else {
-        list = toNodeList(content);
-      }
-      list = list.reverse();
-      list.forEach(target => {
-        if (!node.parentNode) {
-          return;
-        }
-        if (node.nextSibling) {
-          node.parentNode.insertBefore(target, node.nextSibling);
-        } else {
-          node.parentNode.appendChild(target);
-        }
+  public after(content: string | NativeNode | DocumentFragment | Nodes): this {
+    if (typeof content === 'string') {
+      return this.each(node => {
+        const list = toNodeList(content as string).reverse();
+        list.forEach(target => {
+          if (!node.parentNode) {
+            return;
+          }
+          if (node.nextSibling) {
+            node.parentNode.insertBefore(target, node.nextSibling);
+          } else {
+            node.parentNode.appendChild(target);
+          }
+        });
       });
-    });
+    }
+    const node = this.get(0);
+    if (content instanceof Nodes) {
+      content = content.get(0);
+    }
+    if (!node.parentNode) {
+      return this;
+    }
+    if (node.nextSibling) {
+      node.parentNode.insertBefore(content, node.nextSibling);
+    } else {
+      node.parentNode.appendChild(content);
+    }
+    return this;
   }
 
   // Replaces each node with the provided new content.

@@ -38,6 +38,7 @@ import './operations/to-bookmark.test';
 import './operations/get-tags.test';
 import './operations/insert-contents.test';
 import './operations/delete-contents.test';
+import './operations/insert-fragment.test';
 import './operations/get-blocks.test';
 import './operations/set-blocks.test';
 import './operations/split-block.test';

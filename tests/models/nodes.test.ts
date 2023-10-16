@@ -590,9 +590,9 @@ describe('models.Nodes class', () => {
   it('method: prepend', () => {
     const nodes = new Nodes([element, elementTwo]);
     // insert a HTML string
-    nodes.prepend('<p>foo</p>');
-    expect(nodes.html()).to.equal('<p>foo</p>one');
-    expect(nodes.eq(1).html()).to.equal('<p>foo</p>two');
+    nodes.prepend('<p>string</p>');
+    expect(nodes.html()).to.equal('<p>string</p>one');
+    expect(nodes.eq(1).html()).to.equal('<p>string</p>two');
     nodes.empty();
     // insert a HTML string with multi-element
     nodes.html('foo');
@@ -602,18 +602,24 @@ describe('models.Nodes class', () => {
     nodes.empty();
     // insert a native node
     const newElement1 = document.createElement('p');
-    newElement1.innerHTML = '<strong>foo</strong>bar';
+    newElement1.innerHTML = '<strong>native1</strong>native2';
     nodes.prepend(newElement1);
-    expect(nodes.html()).to.equal('');
-    expect(nodes.eq(1).html()).to.equal('<p><strong>foo</strong>bar</p>');
+    expect(nodes.html()).to.equal('<p><strong>native1</strong>native2</p>');
     nodes.empty();
     // insert nodes
     const newElement2 = document.createElement('p');
-    newElement2.innerHTML = '<strong>foo</strong>bar';
+    newElement2.innerHTML = '<strong>nodes1</strong>nodes2';
     const newNodes = new Nodes(newElement2);
     nodes.prepend(newNodes);
-    expect(nodes.html()).to.equal('');
-    expect(nodes.eq(1).html()).to.equal('<p><strong>foo</strong>bar</p>');
+    expect(nodes.html()).to.equal('<p><strong>nodes1</strong>nodes2</p>');
+    nodes.empty();
+    // insert a document fragment
+    const newElement3 = document.createElement('p');
+    newElement3.innerHTML = '<strong>fragment1</strong>fragment2';
+    const fragment = document.createDocumentFragment();
+    fragment.appendChild(newElement3);
+    nodes.prepend(fragment);
+    expect(nodes.html()).to.equal('<p><strong>fragment1</strong>fragment2</p>');
   });
 
   it('method: append', () => {
@@ -633,16 +639,22 @@ describe('models.Nodes class', () => {
     const newElement1 = document.createElement('p');
     newElement1.innerHTML = '<strong>foo</strong>bar';
     nodes.append(newElement1);
-    expect(nodes.html()).to.equal('');
-    expect(nodes.eq(1).html()).to.equal('<p><strong>foo</strong>bar</p>');
+    expect(nodes.html()).to.equal('<p><strong>foo</strong>bar</p>');
     nodes.empty();
     // insert nodes
     const newElement2 = document.createElement('p');
     newElement2.innerHTML = '<strong>foo</strong>bar';
     const newNodes = new Nodes(newElement2);
     nodes.append(newNodes);
-    expect(nodes.html()).to.equal('');
-    expect(nodes.eq(1).html()).to.equal('<p><strong>foo</strong>bar</p>');
+    expect(nodes.html()).to.equal('<p><strong>foo</strong>bar</p>');
+    nodes.empty();
+    // insert a document fragment
+    const newElement3 = document.createElement('p');
+    newElement3.innerHTML = '<strong>foo</strong>bar';
+    const fragment = document.createDocumentFragment();
+    fragment.appendChild(newElement3);
+    nodes.append(fragment);
+    expect(nodes.html()).to.equal('<p><strong>foo</strong>bar</p>');
   });
 
   it('method: before', () => {
@@ -660,12 +672,19 @@ describe('models.Nodes class', () => {
     // insert a native node
     const nativeElement = query('<div class="insert-test">native node</div>').get(0);
     nodes.before(nativeElement);
-    expect(nodes.eq(1).prev().html()).to.equal('native node');
+    expect(nodes.prev().html()).to.equal('native node');
     query('.insert-test').remove();
     // insert nodes
     const newNodes = query('<div class="insert-test">nodes</div>');
     nodes.before(newNodes);
-    expect(nodes.eq(1).prev().html()).to.equal('nodes');
+    expect(nodes.prev().html()).to.equal('nodes');
+    query('.insert-test').remove();
+    // insert a document fragment
+    const nativeElement2 = query('<div class="insert-test">fragment</div>').get(0);
+    const fragment = document.createDocumentFragment();
+    fragment.appendChild(nativeElement2);
+    nodes.before(fragment);
+    expect(nodes.prev().html()).to.equal('fragment');
     query('.insert-test').remove();
   });
 
@@ -684,12 +703,19 @@ describe('models.Nodes class', () => {
     // insert a native node
     const nativeElement = query('<div class="insert-test">native node</div>').get(0);
     nodes.after(nativeElement);
-    expect(nodes.eq(1).next().html()).to.equal('native node');
+    expect(nodes.next().html()).to.equal('native node');
     query('.insert-test').remove();
     // insert nodes
     const newNodes = query('<div class="insert-test">nodes</div>');
     nodes.after(newNodes);
-    expect(nodes.eq(1).next().html()).to.equal('nodes');
+    expect(nodes.next().html()).to.equal('nodes');
+    query('.insert-test').remove();
+    // insert a document fragment
+    const nativeElement2 = query('<div class="insert-test">fragment</div>').get(0);
+    const fragment = document.createDocumentFragment();
+    fragment.appendChild(nativeElement2);
+    nodes.after(fragment);
+    expect(nodes.next().html()).to.equal('fragment');
     query('.insert-test').remove();
   });
 

@@ -15,6 +15,7 @@ function removeAndNormalizeNode(node: Nodes) {
   }
 }
 
+// Sets the specified range to the range represented by the bookmark.
 export function toBookmark(range: Range, bookmark: { anchor: Nodes, focus: Nodes }): void {
   const anchor = bookmark.anchor;
   const focus = bookmark.focus;
