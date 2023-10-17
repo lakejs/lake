@@ -14,11 +14,11 @@ function hex(value: string) {
 export function toHex(value: string): string {
   return value.replace(
     /rgba?\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+)\s*)?\)/ig,
-    ($0, $1, $2, $3, $4) => {
-      if ($4 === undefined) {
-        return `#${hex($1)}${hex($2)}${hex($3)}`;
+    (match, p1, p2, p3, p4) => {
+      if (p4 === undefined) {
+        return `#${hex(p1)}${hex(p2)}${hex(p3)}`;
       }
-      return `#${hex($1)}${hex($2)}${hex($3)}${alphaToHex($4)}`;
+      return `#${hex(p1)}${hex(p2)}${hex(p3)}${alphaToHex(p4)}`;
     },
   );
 }
