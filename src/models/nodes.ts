@@ -1,7 +1,7 @@
 import { KeyValue } from '../types/object';
 import {
   NativeHTMLElement, NativeElement,
-  NativeNode, NativeText,
+  NativeNode, NativeText, NativeEvent,
 } from '../types/native';
 import {
   blockTagNames, markTagNames, voidTagNames,
@@ -392,13 +392,13 @@ export class Nodes {
   }
 
   // Executes all event listeners attached to the Nodes object for the given event type.
-  public emit(type: string): this {
+  public emit(type: string, event?: NativeEvent): this {
     return this.eachElement(element => {
       const elementId = element.lakeId;
       const eventItems = eventData[elementId];
       eventItems.forEach(item => {
         if (item.type === type) {
-          item.listener(new Event(type));
+          item.listener(event ?? new NativeEvent(type));
         }
       });
     });

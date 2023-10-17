@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { NativeElement } from '../../src/types/native';
+import { NativeElement, NativeEvent } from '../../src/types/native';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models';
 
@@ -414,6 +414,19 @@ describe('models.Nodes class', () => {
     // remove all events
     nodesTwo.off();
     expect(nodesOne.getEventListeners(0).length).to.equal(0);
+  });
+
+  it('event methods: emit has event parameter', () => {
+    const nodesOne = new Nodes(element);
+    const clickListenerOne = (event: NativeEvent) => {
+      element.innerHTML = `click event one: ${event.type}`;
+    };
+    const nodesTwo = new Nodes(element);
+    // bind events
+    nodesOne.on('click', clickListenerOne);
+    const event = new NativeEvent('click');
+    nodesTwo.emit('click', event);
+    expect(element.innerHTML).to.equal('click event one: click');
   });
 
   it('event methods: no event binding', () => {

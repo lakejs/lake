@@ -15,6 +15,7 @@ declare global {
 }
 
 export type NativeEvent = Event;
+export const NativeEvent = Event;
 
 export type NativeHTMLElement = HTMLElement;
 
