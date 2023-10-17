@@ -1,0 +1,30 @@
+import LakeCore from '../../src';
+import { testPlugin } from '../utils';
+
+function pasteData(editor: LakeCore, format: string, data: string) {
+  const event = new ClipboardEvent('paste', {
+    clipboardData: new DataTransfer(),
+  });
+  event.clipboardData?.setData(format, data);
+  editor.container.emit('paste', event);
+}
+
+describe('paste plugin', () => {
+
+  it('pastes plain text', () => {
+    const content = `
+    <p>f<focus />oo</p>
+    `;
+    const output = `
+    <p>fbar<focus />oo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/plain', 'bar');
+      },
+    );
+  });
+
+});

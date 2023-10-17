@@ -49,6 +49,7 @@ import './operations/add-mark.test';
 import './operations/remove-mark.test';
 
 // Plugins
+import './plugins/paste.test';
 import './plugins/undo.test';
 import './plugins/redo.test';
 import './plugins/select-all.test';
