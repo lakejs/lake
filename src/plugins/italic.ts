@@ -1,8 +1,8 @@
-import type LakeCore from '..';
+import type Editor from '..';
 
 const tagName = 'i';
 
-export default (editor: LakeCore) => {
+export default (editor: Editor) => {
   editor.command.add('italic', () => {
     editor.focus();
     const appliedTags = editor.selection.getTags();

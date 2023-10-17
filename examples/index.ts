@@ -1,11 +1,11 @@
-import LakeCore from '../src';
+import Editor from '../src';
 import { defaultValue } from './default-value';
 
-const { query } = LakeCore.utils;
+const { query } = Editor.utils;
 
 declare global {
   interface Window {
-    editor: LakeCore;
+    editor: Editor;
   }
 }
 
@@ -54,7 +54,7 @@ const noParameterCommandNames = [
   'removeFormat',
 ];
 
-const editor = new LakeCore('.lake-editor', {
+const editor = new Editor('.lake-editor', {
   className: 'my-editor-container',
   defaultValue,
 });

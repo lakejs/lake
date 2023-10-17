@@ -1,7 +1,7 @@
-import type LakeCore from '..';
+import type Editor from '..';
 import { Nodes } from '../models/nodes';
 
-export function adjustStartAttributes(editor: LakeCore): void {
+export function adjustStartAttributes(editor: Editor): void {
   const blocks = editor.selection.getBlocks();
   if (blocks.length === 0) {
     return;
@@ -45,7 +45,7 @@ export function adjustStartAttributes(editor: LakeCore): void {
   }
 }
 
-export default (editor: LakeCore) => {
+export default (editor: Editor) => {
   editor.command.add('list', (type: 'numbered' | 'bulleted' | 'checklist') => {
     editor.focus();
     const blocks = editor.selection.getBlocks();

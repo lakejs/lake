@@ -1,6 +1,6 @@
-import type LakeCore from '..';
+import type Editor from '..';
 
-export default (editor: LakeCore) => {
+export default (editor: Editor) => {
   editor.command.add('selectAll', () => {
     editor.focus();
     editor.selection.range.selectNodeContents(editor.container);

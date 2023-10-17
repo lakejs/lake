@@ -1,7 +1,7 @@
-import LakeCore from '../../src';
+import Editor from '../../src';
 import { testPlugin } from '../utils';
 
-function pasteData(editor: LakeCore, format: string, data: string) {
+function pasteData(editor: Editor, format: string, data: string) {
   const event = new ClipboardEvent('paste', {
     clipboardData: new DataTransfer(),
   });

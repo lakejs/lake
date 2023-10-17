@@ -1,7 +1,7 @@
-import type LakeCore from '..';
+import type Editor from '..';
 import { adjustStartAttributes } from './list';
 
-export default (editor: LakeCore) => {
+export default (editor: Editor) => {
   editor.keystroke.setKeydown('enter', event => {
     event.preventDefault();
     const selection = editor.selection;

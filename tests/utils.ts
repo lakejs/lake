@@ -3,7 +3,7 @@ import { query, normalizeValue, denormalizeValue, debug } from '../src/utils';
 import { Nodes, Range, HTMLParser } from '../src/models';
 import { insertBookmark } from '../src/operations/insert-bookmark';
 import { toBookmark } from '../src/operations/to-bookmark';
-import LakeCore from '../src';
+import Editor from '../src';
 
 export function formatHTML(value: string) {
   value = normalizeValue(value);
@@ -51,11 +51,11 @@ export function testOperation(
 export function testPlugin(
   content: string,
   output: string,
-  callback: (editor: LakeCore) => void,
+  callback: (editor: Editor) => void,
 ) {
   const targetNode = query('<div />');
   query(document.body).append(targetNode);
-  const editor = new LakeCore(targetNode.get(0), {
+  const editor = new Editor(targetNode.get(0), {
     className: 'my-editor-container',
     defaultValue: content,
   });

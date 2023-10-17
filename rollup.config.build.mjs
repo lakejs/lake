@@ -10,13 +10,13 @@ export default [{
   output: [{
     file: './dist/lake-core.js',
     format: 'iife',
-    name: 'LakeCore',
+    name: 'Editor',
     sourcemap: true,
     assetFileNames: 'lake-core.css',
   }, {
     file: './dist/lake-core.min.js',
     format: 'iife',
-    name: 'LakeCore',
+    name: 'Editor',
     sourcemap: true,
     plugins: [terser()],
     assetFileNames: 'lake-core.css',

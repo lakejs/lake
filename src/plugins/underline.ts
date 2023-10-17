@@ -1,8 +1,8 @@
-import type LakeCore from '..';
+import type Editor from '..';
 
 const tagName = 'u';
 
-export default (editor: LakeCore) => {
+export default (editor: Editor) => {
   editor.command.add('underline', () => {
     editor.focus();
     const appliedTags = editor.selection.getTags();

@@ -1,6 +1,6 @@
-import type LakeCore from '..';
+import type Editor from '..';
 
-export default (editor: LakeCore) => {
+export default (editor: Editor) => {
   editor.command.add('align', (type: string) => {
     editor.focus();
     editor.selection.setBlocks({

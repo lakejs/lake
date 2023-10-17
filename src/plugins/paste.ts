@@ -1,8 +1,8 @@
 import { HTMLParser } from '../models/html-parser';
 import { TextParser } from '../models/text-parser';
-import type LakeCore from '..';
+import type Editor from '..';
 
-export default (editor: LakeCore) => {
+export default (editor: Editor) => {
   editor.container.on('paste', event => {
     event.preventDefault();
     const clipboardData = (event as ClipboardEvent).clipboardData;

@@ -1,6 +1,6 @@
-import type LakeCore from '..';
+import type Editor from '..';
 
-export default (editor: LakeCore) => {
+export default (editor: Editor) => {
   editor.command.add('redo', () => {
     editor.focus();
     editor.history.redo();
