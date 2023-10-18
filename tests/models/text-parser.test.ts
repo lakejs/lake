@@ -24,4 +24,12 @@ describe('models.TextParser class', () => {
     expect(textParser.getHTML()).to.equal(output);
   });
 
+  it('getFragment method: converts \\n', () => {
+    const input = 'one\ntwo';
+    const textParser = new TextParser(input);
+    const fragment = textParser.getFragment();
+    expect(fragment.childNodes.length).to.equal(2);
+    expect(fragment.firstChild?.nodeName).to.equal('P');
+  });
+
 });

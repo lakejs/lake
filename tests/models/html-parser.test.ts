@@ -142,6 +142,15 @@ describe('models.HTMLParser class', () => {
     expect(container.find('strong').html()).to.equal(' bar ');
   });
 
+  it('getFragment method: should remove type', () => {
+    container.html('<ul type="invalid"><li>foo</li></ul>');
+    const htmlParser = new HTMLParser(container);
+    const fragment = htmlParser.getFragment();
+    expect(fragment.childNodes.length).to.equal(1);
+    expect(fragment.firstChild?.nodeName).to.equal('UL');
+    expect(container.find('ul').hasAttr('type')).to.equal(false);
+  });
+
   it('getHTML method: should remove type', () => {
     const input = '<ul type="invalid"><li>foo</li></ul>';
     const output = '<ul><li>foo</li></ul>';

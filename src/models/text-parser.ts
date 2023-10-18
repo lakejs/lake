@@ -1,4 +1,5 @@
 import { encode } from '../utils';
+import { HTMLParser } from './html-parser';
 
 export class TextParser {
 
@@ -17,5 +18,10 @@ export class TextParser {
     html = html.replace(/[\r\n]{2,}/g, '</p><p><br /></p><p>');
     html = html.replace(/[\r\n]/g, '</p><p>');
     return html;
+  }
+
+  public getFragment(): DocumentFragment {
+    const htmlParser = new HTMLParser(this.getHTML());
+    return htmlParser.getFragment();
   }
 }

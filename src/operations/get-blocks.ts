@@ -3,6 +3,10 @@ import { Range } from '../models/range';
 
 // Returns target blocks relating to the specified range that can be modified by other operations.
 export function getBlocks(range: Range): Nodes[] {
+  if (range.isCollapsed) {
+    const startBlock = range.startNode.closestOperableBlock();
+    return startBlock.isEditable ? [ startBlock ] : [];
+  }
   const startBlock = range.startNode.closestOperableBlock();
   const endBlock = range.endNode.closestOperableBlock();
   if (

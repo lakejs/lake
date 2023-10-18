@@ -2,17 +2,20 @@ import { NativeSelection } from '../types/native';
 import { getRightText } from '../utils/get-right-text';
 import { Nodes } from './nodes';
 import { Range } from './range';
-import { getBlocks } from '../operations/get-blocks';
-import { getTags } from '../operations/get-tags';
 import { insertBookmark } from '../operations/insert-bookmark';
 import { toBookmark } from '../operations/to-bookmark';
+import { getTags } from '../operations/get-tags';
 import { insertNode } from '../operations/insert-node';
 import { insertFragment } from '../operations/insert-fragment';
 import { insertContents } from '../operations/insert-contents';
-import { addMark } from '../operations/add-mark';
-import { removeMark } from '../operations/remove-mark';
+import { deleteContents } from '../operations/delete-contents';
+import { getBlocks } from '../operations/get-blocks';
 import { setBlocks } from '../operations/set-blocks';
 import { splitBlock } from '../operations/split-block';
+import { getMarks } from '../operations/get-marks';
+import { splitMarks } from '../operations/split-marks';
+import { addMark } from '../operations/add-mark';
+import { removeMark } from '../operations/remove-mark';
 
 export class Selection {
   // Represents the range of text selected by the user or the current position of the caret.
@@ -72,63 +75,63 @@ export class Selection {
     });
   }
 
-  // Returns the applied tags of the selection.
-  public getTags(): ReturnType<typeof getTags> {
-    return getTags(this.range);
-  }
-
-  // Returns target blocks relating to the selection that can be modified by other operations.
-  public getBlocks(): ReturnType<typeof getBlocks> {
-    return getBlocks(this.range);
-  }
-
   // Returns the text of the right part of the closest block divided into two parts by the end of the selection.
   public getRightText(): ReturnType<typeof getRightText> {
     return getRightText(this.range.endNode, this.range.endOffset);
   }
 
-  // Either the method inserts a bookmark into the current position of the caret
-  // or the method inserts a pair of bookmarks into the beginning and the end of the selection.
   public insertBookmark(): ReturnType<typeof insertBookmark> {
     return insertBookmark(this.range);
   }
 
-  // Sets the saved range to the range represented by the bookmark.
   public toBookmark(bookmark: Parameters<typeof toBookmark>[1]): ReturnType<typeof toBookmark> {
     return toBookmark(this.range, bookmark);
   }
 
-  // Inserts a node into the selection.
+  public getTags(): ReturnType<typeof getTags> {
+    return getTags(this.range);
+  }
+
   public insertNode(node: Parameters<typeof insertNode>[1]): ReturnType<typeof insertNode> {
     return insertNode(this.range, node);
   }
 
-  // Inserts a DocumentFragment object into the selection.
   public insertFragment(fragment: Parameters<typeof insertFragment>[1]): ReturnType<typeof insertFragment> {
     return insertFragment(this.range, fragment);
   }
 
-  // Inserts a HTML string into the selection.
   public insertContents(value: Parameters<typeof insertContents>[1]): ReturnType<typeof insertContents> {
     return insertContents(this.range, value);
   }
 
-  // Adds new blocks or modifies target blocks relating to the selection.
+  public deleteContents(): ReturnType<typeof deleteContents> {
+    return deleteContents(this.range);
+  }
+
+  public getBlocks(): ReturnType<typeof getBlocks> {
+    return getBlocks(this.range);
+  }
+
   public setBlocks(value: Parameters<typeof setBlocks>[1]): ReturnType<typeof setBlocks> {
     return setBlocks(this.range, value);
   }
 
-  // Removes the contents of the selection and then splits the block node at the point of the collapsed range of the selection.
   public splitBlock(): ReturnType<typeof splitBlock> {
     return splitBlock(this.range);
   }
 
-  // Adds the specified mark to the texts of the selection.
+  public getMarks(): ReturnType<typeof getMarks> {
+    return getMarks(this.range);
+  }
+
+  public splitMarks(removeEmptyMark: Parameters<typeof splitMarks>[1]): ReturnType<typeof splitMarks> {
+    return splitMarks(this.range, removeEmptyMark);
+  }
+
   public addMark(value: Parameters<typeof addMark>[1]): ReturnType<typeof addMark> {
     return addMark(this.range, value);
   }
 
-  // Removes the specified marks from the selection.
   public removeMark(value?: Parameters<typeof removeMark>[1]): ReturnType<typeof removeMark> {
     return removeMark(this.range, value);
   }

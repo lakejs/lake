@@ -11,7 +11,23 @@ function pasteData(editor: Editor, format: string, data: string) {
 
 describe('paste plugin', () => {
 
-  it('pastes plain text', () => {
+  it('pastes plain text into empty content', () => {
+    const content = `
+    <focus />
+    `;
+    const output = `
+    <p>bar<focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/plain', 'bar');
+      },
+    );
+  });
+
+  it('pastes plain text into paragraph', () => {
     const content = `
     <p>f<focus />oo</p>
     `;
