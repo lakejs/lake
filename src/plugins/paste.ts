@@ -52,7 +52,29 @@ function pastePlainText(editor: Editor, fragment: DocumentFragment): void {
 }
 
 function pasteHTML(editor: Editor, fragment: DocumentFragment): void {
-  editor.selection.insertFragment(fragment);
+  const selection = editor.selection;
+  const range = selection.range;
+  const blocks = selection.getBlocks();
+  if (fragment.childNodes.length === 0) {
+    return;
+  }
+  const firstNode = new Nodes(fragment.firstChild);
+  const lastNode = new Nodes(fragment.lastChild);
+  if (blocks.length === 0) {
+    selection.setBlocks('<p />');
+  }
+  if (firstNode.isBlock) {
+    insertFirstNode(selection, firstNode);
+  }
+  if (fragment.childNodes.length > 0) {
+    const parts = selection.splitBlock();
+    if (parts.left) {
+      range.setEndAfter(parts.left);
+      range.collapseToEnd();
+    }
+    selection.insertFragment(fragment);
+    selectLastChild(range, lastNode);
+  }
 }
 
 export default (editor: Editor) => {
@@ -63,7 +85,8 @@ export default (editor: Editor) => {
       return;
     }
     editor.selection.deleteContents();
-    const isPlainText = (dataTransfer.types.length === 1);
+    const types = dataTransfer.types;
+    const isPlainText = (types.length === 1 && types[0] === 'text/plain');
     if (isPlainText) {
       const content = dataTransfer.getData('text/plain');
       const textParser = new TextParser(content);
