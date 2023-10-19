@@ -365,4 +365,27 @@ describe('paste plugin', () => {
     );
   });
 
+  it('pastes real data from Chrome into heading', () => {
+    const content = `
+    <h1>f<focus />oo</h1>
+    `;
+    const output = `
+    <h1>fbar<focus />oo</h1>
+    `;
+    const clipboardData = `
+    <html>
+      <body>
+        \x3C!--StartFragment--><h2 style="color: rgba(0, 0, 0, 0.88); font-weight: bold; margin: 0px 0px 14px; padding: 0px; font-size: 30px; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">bar</h2>\x3C!--EndFragment-->
+      </body>
+    </html>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', clipboardData);
+      },
+    );
+  });
+
 });

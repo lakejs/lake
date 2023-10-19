@@ -86,13 +86,20 @@ export class HTMLParser {
     const nextSibling = textNode.next();
     let nodeValue = textNode.text();
     if (
-      prevSibling.isBlock && nextSibling.isBlock ||
+      prevSibling.length > 0 && !prevSibling.isMark &&
+      nextSibling.length > 0 && !nextSibling.isMark ||
       prevSibling.length === 0 && nextSibling.length === 0 && parentNode.isBlock
     ) {
       nodeValue = nodeValue.trim();
-    } else if (prevSibling.isBlock || prevSibling.length === 0 && parentNode.isBlock) {
+    } else if (
+      prevSibling.length > 0 && !prevSibling.isMark ||
+      prevSibling.length === 0 && parentNode.isBlock)
+    {
       nodeValue = nodeValue.replace(/^[\s\r\n]+/, '');
-    } else if (nextSibling.isBlock || nextSibling.length === 0 && parentNode.isBlock) {
+    } else if (
+      nextSibling.length > 0 && !nextSibling.isMark ||
+      nextSibling.length === 0 && parentNode.isBlock
+    ) {
       nodeValue = nodeValue.replace(/[\s\r\n]+$/, '');
     }
     return nodeValue;

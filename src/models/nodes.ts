@@ -712,6 +712,9 @@ export class Nodes {
 
   // Returns information of the first node.
   public toString(): string {
+    if (this.length === 0) {
+      return '';
+    }
     const node = this.get(0);
     let nodeValue = this.isText ? node.nodeValue : (node as NativeElement).outerHTML;
     if (nodeValue && nodeValue.length > 50) {
