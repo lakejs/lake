@@ -142,6 +142,15 @@ describe('models.HTMLParser class', () => {
     expect(container.find('strong').html()).to.equal(' bar ');
   });
 
+  it('getNodeList method: should remove comment', () => {
+    container.html('<!-- StartFragment --><p>foo</p><!-- EndFragment -->');
+    const htmlParser = new HTMLParser(container);
+    const nodeList = htmlParser.getNodeList();
+    expect(nodeList.length).to.equal(1);
+    expect(nodeList[0].name).to.equal('p');
+    expect(nodeList[0].html()).to.equal('foo');
+  });
+
   it('getFragment method: should remove type', () => {
     container.html('<ul type="invalid"><li>foo</li></ul>');
     const htmlParser = new HTMLParser(container);
@@ -282,6 +291,14 @@ describe('models.HTMLParser class', () => {
   it('getHTML method: should trim text in a block element', () => {
     const input = '<h1>\r\n\theading1</h1>\n\t<h2>heading2\r\n\t</h2>\ntext1<h3>\r\n\theading3\r\n\t</h3>text2\n<p> foo <strong> bar </strong></p>';
     const output = '<h1>heading1</h1><h2>heading2</h2>text1<h3>heading3</h3>text2<p>foo <strong> bar </strong></p>';
+    container.html(input);
+    const htmlParser = new HTMLParser(container);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
+  it('getHTML method: should remove comment', () => {
+    const input = '<!-- StartFragment --><p>foo</p><!-- EndFragment -->';
+    const output = '<p>foo</p>';
     container.html(input);
     const htmlParser = new HTMLParser(container);
     expect(htmlParser.getHTML()).to.equal(output);

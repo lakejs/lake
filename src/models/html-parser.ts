@@ -145,6 +145,8 @@ export class HTMLParser {
         } else if (nodeValue !== newNodeValue) {
           node.get(0).nodeValue = newNodeValue;
         }
+      } else {
+        node.remove();
       }
     }
   }
@@ -175,7 +177,7 @@ export class HTMLParser {
           if (openTag !== '') {
             yield `<${openTag} />`;
           }
-        } else {
+        } else if (child.isElement) {
           const openTag = HTMLParser.getOpenTagString(child);
           if (openTag !== '') {
             yield `<${openTag}>`;
