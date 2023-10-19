@@ -1,38 +1,57 @@
 import type Editor from '..';
-import { query } from '../utils';
-import { HTMLParser, TextParser } from '../models';
+import { HTMLParser, TextParser, Nodes, Range, Selection } from '../models';
 
-function pastePlainText(editor: Editor, content: string) {
+function selectLastChild(range: Range, lastNode: Nodes): void {
+  if (!lastNode.isBlock) {
+    range.setEndAfter(lastNode);
+    range.collapseToEnd();
+    return;
+  }
+  range.selectNodeContents(lastNode);
+  range.reduce();
+  range.collapseToEnd();
+}
+
+function insertFirstNode(selection: Selection, otherNode: Nodes): void {
+  let child = otherNode.first();
+  while(child.length > 0) {
+    if (child.name === 'li') {
+      child = child.first();
+    }
+    const nextSibling = child.next();
+    selection.insertNode(child);
+    child = nextSibling;
+  }
+  otherNode.remove();
+}
+
+function pastePlainText(editor: Editor, fragment: DocumentFragment): void {
   const selection = editor.selection;
   const range = selection.range;
   const blocks = selection.getBlocks();
-  const textParser = new TextParser(content);
-  const fragment = textParser.getFragment();
-  if (!fragment.lastChild) {
+  if (fragment.childNodes.length === 0) {
     return;
   }
-  const firstNode = query(fragment.lastChild);
-  const lastNode = query(fragment.lastChild);
+  const firstNode = new Nodes(fragment.firstChild);
+  const lastNode = new Nodes(fragment.lastChild);
   if (blocks.length === 0) {
-    selection.insertFragment(fragment);
-    if (lastNode.isBlock) {
-      range.selectNodeContents(lastNode);
-      range.reduce();
+    selection.setBlocks('<p />');
+  }
+  if (firstNode.isBlock) {
+    insertFirstNode(selection, firstNode);
+  }
+  if (fragment.childNodes.length > 0) {
+    const parts = selection.splitBlock();
+    if (parts.left) {
+      range.setEndAfter(parts.left);
       range.collapseToEnd();
     }
-    return;
+    selection.insertFragment(fragment);
+    selectLastChild(range, lastNode);
   }
-  // TODO
-  if (blocks[0].isBlock && !blocks[0].isList && firstNode.isBlock) {
-    // firstNode.remove(true);
-    // selection.insertNode(firstNode);
-  }
-  selection.insertFragment(fragment);
 }
 
-function pasteHTML(editor: Editor, content: string) {
-  const htmlParser = new HTMLParser(content);
-  const fragment = htmlParser.getFragment();
+function pasteHTML(editor: Editor, fragment: DocumentFragment): void {
   editor.selection.insertFragment(fragment);
 }
 
@@ -47,10 +66,14 @@ export default (editor: Editor) => {
     const isPlainText = (dataTransfer.types.length === 1);
     if (isPlainText) {
       const content = dataTransfer.getData('text/plain');
-      pastePlainText(editor, content);
+      const textParser = new TextParser(content);
+      const fragment = textParser.getFragment();
+      pastePlainText(editor, fragment);
       return;
     }
     const content = dataTransfer.getData('text/html');
-    pasteHTML(editor, content);
+    const htmlParser = new HTMLParser(content);
+    const fragment = htmlParser.getFragment();
+    pasteHTML(editor, fragment);
   });
 };

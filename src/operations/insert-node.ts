@@ -11,7 +11,9 @@ export function insertNode(range: Range, node: NativeNode | Nodes): void {
     node = node.get(0);
   }
   const nativeRange = range.get();
-  nativeRange.deleteContents();
+  if (!range.isCollapsed) {
+    nativeRange.deleteContents();
+  }
   nativeRange.insertNode(node);
   nativeRange.setEndAfter(node);
   nativeRange.collapse(false);
