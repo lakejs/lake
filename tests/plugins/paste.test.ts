@@ -225,6 +225,23 @@ describe('paste plugin', () => {
     );
   });
 
+  it('pastes multi-paragraph into a empty paragraph', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <p>one</p>
+    <p>two<focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<p>one</p><p>two</p>');
+      },
+    );
+  });
+
   it('pastes multi-paragraph into a paragraph', () => {
     const content = `
     <p>f<focus />oo</p>
@@ -419,6 +436,23 @@ describe('paste plugin', () => {
       output,
       editor => {
         pasteData(editor, 'text/html', '<ul><li>bar</li></ul>');
+      },
+    );
+  });
+
+  it('pastes multi-list into an empty paragraph', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <ul><li>one</li></ul>
+    <ul><li>two<focus /></li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<ul><li>one</li></ul><ul><li>two</li></ul>');
       },
     );
   });

@@ -48,6 +48,9 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
       range.setEndAfter(parts.left);
       range.collapseToEnd();
     }
+    if (parts.right && parts.right.text().trim() === '') {
+      parts.right.remove();
+    }
     selection.insertFragment(fragment);
     range.selectAfterNodeContents(lastNode);
   }
