@@ -242,6 +242,28 @@ describe('models.Range class', () => {
     expect(range.isCollapsed).to.equal(false);
   });
 
+  it('method: selectAfterNodeContents (non-block)', () => {
+    container.html('<p>foo<strong>bar</strong></p>');
+    const range = new Range();
+    range.selectAfterNodeContents(container.find('strong'));
+    expect(range.startNode.name).to.equal('p');
+    expect(range.endNode.name).to.equal('p');
+    expect(range.startOffset).to.equal(2);
+    expect(range.endOffset).to.equal(2);
+    expect(range.isCollapsed).to.equal(true);
+  });
+
+  it('method: selectAfterNodeContents (block)', () => {
+    container.html('<p>foo<strong>bar</strong></p>');
+    const range = new Range();
+    range.selectAfterNodeContents(container.find('p'));
+    expect(range.startNode.name).to.equal('strong');
+    expect(range.endNode.name).to.equal('strong');
+    expect(range.startOffset).to.equal(1);
+    expect(range.endOffset).to.equal(1);
+    expect(range.isCollapsed).to.equal(true);
+  });
+
   it('reduce method: is not collapsed', () => {
     container.html('<div><p><strong>foo</strong></p></div>');
     const range = new Range();

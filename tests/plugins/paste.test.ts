@@ -27,7 +27,23 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes plain text into paragraph', () => {
+  it('pastes plain text into an empty paragraph', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <p>bar<focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/plain', 'bar');
+      },
+    );
+  });
+
+  it('pastes plain text into a paragraph', () => {
     const content = `
     <p>f<focus />oo</p>
     `;
@@ -43,7 +59,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes HTML as plain text into paragraph', () => {
+  it('pastes HTML as plain text into a paragraph', () => {
     const content = `
     <p>f<focus />oo</p>
     `;
@@ -59,7 +75,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes plain text into heading', () => {
+  it('pastes plain text into a heading', () => {
     const content = `
     <h1>f<focus />oo</h1>
     `;
@@ -75,7 +91,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes plain text into list', () => {
+  it('pastes plain text into a list', () => {
     const content = `
     <ul><li>f<focus />oo</li></ul>
     `;
@@ -91,7 +107,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes multi-line plain text into paragraph', () => {
+  it('pastes multi-line plain text into a paragraph', () => {
     const content = `
     <p>f<focus />oo</p>
     `;
@@ -109,7 +125,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes multi-line plain text into heading', () => {
+  it('pastes multi-line plain text into a heading', () => {
     const content = `
     <h1>f<focus />oo</h1>
     `;
@@ -127,7 +143,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes multi-line plain text into list', () => {
+  it('pastes multi-line plain text into a list', () => {
     const content = `
     <ul><li>f<focus />oo</li></ul>
     `;
@@ -161,7 +177,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes a paragraph into paragraph', () => {
+  it('pastes a paragraph into a paragraph', () => {
     const content = `
     <p>f<focus />oo</p>
     `;
@@ -177,7 +193,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes a paragraph into heading', () => {
+  it('pastes a paragraph into a heading', () => {
     const content = `
     <h1>f<focus />oo</h1>
     `;
@@ -193,7 +209,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes a paragraph into list', () => {
+  it('pastes a paragraph into a list', () => {
     const content = `
     <ul><li>f<focus />oo</li></ul>
     `;
@@ -209,7 +225,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes multi-paragraph into paragraph', () => {
+  it('pastes multi-paragraph into a paragraph', () => {
     const content = `
     <p>f<focus />oo</p>
     `;
@@ -227,7 +243,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes multi-pragraph into heading', () => {
+  it('pastes multi-pragraph into a heading', () => {
     const content = `
     <h1>f<focus />oo</h1>
     `;
@@ -245,7 +261,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes multi-pragraph into list', () => {
+  it('pastes multi-pragraph into a list', () => {
     const content = `
     <ul><li>f<focus />oo</li></ul>
     `;
@@ -263,7 +279,103 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes a list into paragraph', () => {
+  it('pastes a heading into an empty paragraph', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <h1>bar<focus /></h1>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<h1>bar</h1>');
+      },
+    );
+  });
+
+  it('pastes a heading into a paragraph', () => {
+    const content = `
+    <p>f<focus />oo</p>
+    `;
+    const output = `
+    <p>fbar<focus />oo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<h1>bar</h1>');
+      },
+    );
+  });
+
+  it('pastes a heading into another heading', () => {
+    const content = `
+    <h1>f<focus />oo</h1>
+    `;
+    const output = `
+    <h1>fbar<focus />oo</h1>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<h2>bar</h2>');
+      },
+    );
+  });
+
+  it('pastes a heading into a list', () => {
+    const content = `
+    <ul><li>f<focus />oo</li></ul>
+    `;
+    const output = `
+    <ul><li>fbar<focus />oo</li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<h2>bar</h2>');
+      },
+    );
+  });
+
+  it('pastes a list into empty content', () => {
+    const content = `
+    <focus />
+    `;
+    const output = `
+    <ul><li>bar<focus /></li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<ul><li>bar</li></ul>');
+      },
+    );
+  });
+
+  it('pastes a list into an empty paragraph', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <ul><li>bar<focus /></li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<ul><li>bar</li></ul>');
+      },
+    );
+  });
+
+  it('pastes a list into a paragraph', () => {
     const content = `
     <p>f<focus />oo</p>
     `;
@@ -279,7 +391,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes a list into heading', () => {
+  it('pastes a list into a heading', () => {
     const content = `
     <h1>f<focus />oo</h1>
     `;
@@ -295,7 +407,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes a list into list', () => {
+  it('pastes a list into a list', () => {
     const content = `
     <ul><li>f<focus />oo</li></ul>
     `;
@@ -311,7 +423,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes multi-list into paragraph', () => {
+  it('pastes multi-list into a paragraph', () => {
     const content = `
     <p>f<focus />oo</p>
     `;
@@ -329,7 +441,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes multi-list into heading', () => {
+  it('pastes multi-list into a heading', () => {
     const content = `
     <h1>f<focus />oo</h1>
     `;
@@ -347,7 +459,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes multi-list into list', () => {
+  it('pastes multi-list into a list', () => {
     const content = `
     <ul><li>f<focus />oo</li></ul>
     `;

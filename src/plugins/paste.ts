@@ -1,18 +1,21 @@
 import type Editor from '..';
-import { HTMLParser, TextParser, Nodes, Range, Selection } from '../models';
-
-function selectLastChild(range: Range, lastNode: Nodes): void {
-  if (!lastNode.isBlock) {
-    range.setEndAfter(lastNode);
-    range.collapseToEnd();
-    return;
-  }
-  range.selectNodeContents(lastNode);
-  range.reduce();
-  range.collapseToEnd();
-}
+import { HTMLParser, TextParser, Nodes, Selection } from '../models';
 
 function insertFirstNode(selection: Selection, otherNode: Nodes): void {
+  const range = selection.range;
+  const block = range.startNode.closestBlock();
+  // <p><br /></p>
+  if (
+    block.first().length > 0 && block.first().get(0) === block.last().get(0) &&
+    block.first().name === 'br' && otherNode.first().length > 0
+  ) {
+    block.empty();
+  }
+  if (block.text().trim() === '' && block.name === 'p') {
+    block.replaceWith(otherNode);
+    range.selectAfterNodeContents(otherNode);
+    return;
+  }
   let child = otherNode.first();
   while(child.length > 0) {
     if (child.name === 'li') {
@@ -28,13 +31,12 @@ function insertFirstNode(selection: Selection, otherNode: Nodes): void {
 function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
   const selection = editor.selection;
   const range = selection.range;
-  const blocks = selection.getBlocks();
   if (fragment.childNodes.length === 0) {
     return;
   }
   const firstNode = new Nodes(fragment.firstChild);
   const lastNode = new Nodes(fragment.lastChild);
-  if (blocks.length === 0) {
+  if (selection.getBlocks().length === 0) {
     selection.setBlocks('<p />');
   }
   if (firstNode.isBlock) {
@@ -47,7 +49,7 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
       range.collapseToEnd();
     }
     selection.insertFragment(fragment);
-    selectLastChild(range, lastNode);
+    range.selectAfterNodeContents(lastNode);
   }
 }
 

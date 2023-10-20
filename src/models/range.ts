@@ -169,6 +169,18 @@ export class Range {
     return this;
   }
 
+  // Collapses the range and sets the range to the end of the contents of the specified node.
+  public selectAfterNodeContents(node: Nodes): void {
+    if (!node.isBlock) {
+      this.setEndAfter(node);
+      this.collapseToEnd();
+      return;
+    }
+    this.selectNodeContents(node);
+    this.reduce();
+    this.collapseToEnd();
+  }
+
   // Returns a range object with boundary points identical to the cloned range.
   public clone(): Range {
     return new Range(this.range.cloneRange());
