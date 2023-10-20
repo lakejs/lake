@@ -18,7 +18,6 @@ import './utils/to-node-list.test';
 import './utils/query.test';
 import './utils/split-nodes.test';
 import './utils/append-deepest.test';
-import './utils/get-right-text.test';
 import './utils/remove-zws.test';
 
 // Models
@@ -41,6 +40,7 @@ import './operations/insert-fragment.test';
 import './operations/insert-contents.test';
 import './operations/delete-contents.test';
 import './operations/get-blocks.test';
+import './operations/get-right-text.test';
 import './operations/set-blocks.test';
 import './operations/split-block.test';
 import './operations/get-marks.test';

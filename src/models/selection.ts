@@ -1,5 +1,4 @@
 import { NativeSelection } from '../types/native';
-import { getRightText } from '../utils/get-right-text';
 import { Nodes } from './nodes';
 import { Range } from './range';
 import { insertBookmark } from '../operations/insert-bookmark';
@@ -10,6 +9,7 @@ import { insertFragment } from '../operations/insert-fragment';
 import { insertContents } from '../operations/insert-contents';
 import { deleteContents } from '../operations/delete-contents';
 import { getBlocks } from '../operations/get-blocks';
+import { getRightText } from '../operations/get-right-text';
 import { setBlocks } from '../operations/set-blocks';
 import { splitBlock } from '../operations/split-block';
 import { getMarks } from '../operations/get-marks';
@@ -75,11 +75,6 @@ export class Selection {
     });
   }
 
-  // Returns the text of the right part of the closest block divided into two parts by the end of the selection.
-  public getRightText(): ReturnType<typeof getRightText> {
-    return getRightText(this.range.endNode, this.range.endOffset);
-  }
-
   public insertBookmark(): ReturnType<typeof insertBookmark> {
     return insertBookmark(this.range);
   }
@@ -110,6 +105,10 @@ export class Selection {
 
   public getBlocks(): ReturnType<typeof getBlocks> {
     return getBlocks(this.range);
+  }
+
+  public getRightText(): ReturnType<typeof getRightText> {
+    return getRightText(this.range);
   }
 
   public setBlocks(value: Parameters<typeof setBlocks>[1]): ReturnType<typeof setBlocks> {
