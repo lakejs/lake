@@ -11,7 +11,7 @@ function insertFirstNode(selection: Selection, otherNode: Nodes): void {
   ) {
     block.empty();
   }
-  if (block.text().trim() === '' && block.name === 'p') {
+  if (block.hasEmptyText && block.name === 'p') {
     block.replaceWith(otherNode);
     range.selectAfterNodeContents(otherNode);
     return;
@@ -48,7 +48,7 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
       range.setEndAfter(parts.left);
       range.collapseToEnd();
     }
-    if (parts.right && parts.right.text().trim() === '') {
+    if (parts.right && parts.right.hasEmptyText) {
       parts.right.remove();
     }
     selection.insertFragment(fragment);

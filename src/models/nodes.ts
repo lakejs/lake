@@ -172,10 +172,10 @@ export class Nodes {
     return this.isEditable && parent.isContainer;
   }
 
-  // Returns a boolean value indicating whether the node is an empty node.
+  // Returns a boolean value indicating whether the node has empty text.
   public get hasEmptyText(): boolean {
     const nodeText = this.text();
-    return nodeText === '' || nodeText === '\u200B' || nodeText === '\u2060';
+    return nodeText === '' || /^[\r\n\u200B\u2060]+$/.test(nodeText);
   }
 
   // Returns a boolean value indicating whether the node and the target node are siblings.
