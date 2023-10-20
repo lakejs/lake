@@ -10,8 +10,9 @@ export class TextParser {
   }
 
   public getHTML(): string {
-    let html = '';
-    html = encode(this.content.trim());
+    let html = this.content;
+    html = html.replace(/ {2}/g, ' \xA0');
+    html = encode(html.trim());
     html = `<p>${html}</p>`;
     html = html.replace(/(\r\n){2,}/g, '</p><p><br /></p><p>');
     html = html.replace(/\r\n/g, '</p><p>');

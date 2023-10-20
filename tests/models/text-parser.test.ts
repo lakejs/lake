@@ -24,6 +24,13 @@ describe('models.TextParser class', () => {
     expect(textParser.getHTML()).to.equal(output);
   });
 
+  it('getHTML method: converts all of the reserved characters', () => {
+    const input = '<p id="myId">& one  two</p>   three    four';
+    const output = '<p>&lt;p id=&quot;myId&quot;&gt;&amp; one &nbsp;two&lt;/p&gt; &nbsp; three &nbsp; &nbsp;four</p>';
+    const textParser = new TextParser(input);
+    expect(textParser.getHTML()).to.equal(output);
+  });
+
   it('getFragment method: converts \\n', () => {
     const input = 'one\ntwo';
     const textParser = new TextParser(input);
