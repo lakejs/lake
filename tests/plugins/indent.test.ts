@@ -2,7 +2,7 @@ import { testPlugin } from '../utils';
 
 describe('indent plugin', () => {
 
-  it('increases indent once', () => {
+  it('paragraph: increases indent once', () => {
     const content = `
     <p><anchor />heading<focus /></p>
     <p>foo</p>
@@ -20,7 +20,7 @@ describe('indent plugin', () => {
     );
   });
 
-  it('increases indent twice', () => {
+  it('paragraph: increases indent twice', () => {
     const content = `
     <p><anchor />heading<focus /></p>
     <p>foo</p>
@@ -39,7 +39,7 @@ describe('indent plugin', () => {
     );
   });
 
-  it('decreases indent once', () => {
+  it('paragraph: decreases indent once', () => {
     const content = `
     <p style="margin-left: 40px;"><anchor />heading<focus /></p>
     <p>foo</p>
@@ -57,7 +57,7 @@ describe('indent plugin', () => {
     );
   });
 
-  it('decreases indent twice', () => {
+  it('paragraph: decreases indent twice', () => {
     const content = `
     <p style="margin-left: 80px;"><anchor />heading<focus /></p>
     <p>foo</p>
@@ -72,6 +72,24 @@ describe('indent plugin', () => {
       editor => {
         editor.command.execute('indent', 'decrease');
         editor.command.execute('indent', 'decrease');
+      },
+    );
+  });
+
+  it('list: increases indent once', () => {
+    const content = `
+    <ul><li><anchor />foo<focus /></li></ul>
+    <p>bar</p>
+    `;
+    const output = `
+    <ul style="margin-left: 40px;"><li><anchor />foo<focus /></li></ul>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.command.execute('indent', 'increase');
       },
     );
   });
