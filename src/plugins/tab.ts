@@ -4,8 +4,6 @@ import { setBlockIndent } from './indent';
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('tab', event => {
     event.preventDefault();
-    // const selection = editor.selection;
-    // let blocks = selection.getBlocks();
     const blocks = editor.selection.getBlocks();
     for (const block of blocks) {
       if (block.css('text-indent') === '2em') {
