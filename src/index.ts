@@ -24,6 +24,7 @@ import highlight from './plugins/highlight';
 import removeFormat from './plugins/remove-format';
 import enter from './plugins/enter';
 import shiftEnter from './plugins/shift-enter';
+import tab from './plugins/tab';
 
 Core.plugin.add(paste);
 Core.plugin.add(undo);
@@ -33,6 +34,7 @@ Core.plugin.add(heading);
 Core.plugin.add(blockquote);
 Core.plugin.add(list);
 Core.plugin.add(align);
+Core.plugin.add(indent);
 Core.plugin.add(bold);
 Core.plugin.add(italic);
 Core.plugin.add(underline);
@@ -47,6 +49,6 @@ Core.plugin.add(highlight);
 Core.plugin.add(enter);
 Core.plugin.add(removeFormat);
 Core.plugin.add(shiftEnter);
-Core.plugin.add(indent);
+Core.plugin.add(tab);
 
 export default Core;
