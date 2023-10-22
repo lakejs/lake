@@ -2,6 +2,23 @@ import { testPlugin } from '../utils';
 
 describe('enter plugin', () => {
 
+  it('paragraph: empty content', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <p><br /></p>
+    <p><focus /><br /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
   it('paragraph: the focus is between the characters of the text', () => {
     const content = `
     <p>f<focus />oo</p>
@@ -9,40 +26,6 @@ describe('enter plugin', () => {
     const output = `
     <p>f</p>
     <p><focus />oo</p>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.keystroke.keydown('enter');
-      },
-    );
-  });
-
-  it('list: the focus is between the characters of the text', () => {
-    const content = `
-    <ul><li>f<focus />oo</li></ul>
-    `;
-    const output = `
-    <ul><li>f</li></ul>
-    <ul><li><focus />oo</li></ul>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.keystroke.keydown('enter');
-      },
-    );
-  });
-
-  it('list: should keep correct number', () => {
-    const content = `
-    <ol start="1"><li>f<focus />oo</li></ol>
-    `;
-    const output = `
-    <ol start="1"><li>f</li></ol>
-    <ol start="2"><li><focus />oo</li></ol>
     `;
     testPlugin(
       content,
@@ -77,23 +60,6 @@ describe('enter plugin', () => {
     const output = `
     <p>foo</p>
     <p><focus /><br /></p>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.keystroke.keydown('enter');
-      },
-    );
-  });
-
-  it('checklist: the focus is at the end of the text', () => {
-    const content = `
-    <ul type="checklist"><li value="true">foo<focus /></li></ul>
-    `;
-    const output = `
-    <ul type="checklist"><li value="true">foo</li></ul>
-    <ul type="checklist"><li value="false"><focus /><br /></li></ul>
     `;
     testPlugin(
       content,
@@ -144,6 +110,75 @@ describe('enter plugin', () => {
     const output = `
     <h1><br /></h1>
     <h1><focus />foo</h1>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('list: the focus is between the characters of the text', () => {
+    const content = `
+    <ul><li>f<focus />oo</li></ul>
+    `;
+    const output = `
+    <ul><li>f</li></ul>
+    <ul><li><focus />oo</li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('list: empty content', () => {
+    const content = `
+    <ul><li>foo</li></ul>
+    <ul><li><br /><focus /></li></ul>
+    `;
+    const output = `
+    <ul><li>foo</li></ul>
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('list: should keep correct number', () => {
+    const content = `
+    <ol start="1"><li>f<focus />oo</li></ol>
+    `;
+    const output = `
+    <ol start="1"><li>f</li></ol>
+    <ol start="2"><li><focus />oo</li></ol>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('checklist: the focus is at the end of the text', () => {
+    const content = `
+    <ul type="checklist"><li value="true">foo<focus /></li></ul>
+    `;
+    const output = `
+    <ul type="checklist"><li value="true">foo</li></ul>
+    <ul type="checklist"><li value="false"><focus /><br /></li></ul>
     `;
     testPlugin(
       content,

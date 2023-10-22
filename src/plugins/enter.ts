@@ -1,27 +1,44 @@
 import type Editor from '..';
 import { adjustStartAttributes } from './list';
 
+function setParagraph(editor: Editor) {
+  editor.selection.setBlocks('<p />');
+  adjustStartAttributes(editor);
+  editor.history.save();
+  editor.select();
+}
+
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('enter', event => {
     event.preventDefault();
     const selection = editor.selection;
-    let blocks = selection.getBlocks();
-    if (blocks.length > 0) {
-      selection.splitBlock();
-      blocks = selection.getBlocks();
-      if (blocks[0] && selection.getRightText() === '') {
-        if (blocks[0].isHeading) {
-          selection.setBlocks('<p />');
-        }
-        if (blocks[0].isList && blocks[0].attr('type') === 'checklist') {
-          blocks[0].find('li').attr('value', 'false');
-        }
-      }
-      adjustStartAttributes(editor);
-    } else {
-      selection.setBlocks('<p />');
+    let block = selection.getBlocks()[0];
+    if (!block) {
+      setParagraph(editor);
+      return;
     }
-    editor.history.save();
-    editor.select();
+    if (block.hasEmptyText && block.name !== 'p') {
+      setParagraph(editor);
+      return;
+    }
+    const rightText = selection.getRightText();
+    selection.splitBlock();
+    if (rightText !== '') {
+      adjustStartAttributes(editor);
+      editor.history.save();
+      editor.select();
+      return;
+    }
+    block = selection.getBlocks()[0];
+    if (block.isHeading) {
+      setParagraph(editor);
+      return;
+    }
+    if (block.isList && block.attr('type') === 'checklist') {
+      block.find('li').attr('value', 'false');
+      adjustStartAttributes(editor);
+      editor.history.save();
+      editor.select();
+    }
   });
 };
