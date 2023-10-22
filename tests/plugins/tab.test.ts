@@ -38,4 +38,22 @@ describe('tab plugin', () => {
     );
   });
 
+  it('heading: should not add text indent', () => {
+    const content = `
+    <h1>foo<focus /></h1>
+    <p>bar</p>
+    `;
+    const output = `
+    <h1 style="margin-left: 40px;">foo<focus /></h1>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('tab');
+      },
+    );
+  });
+
 });
