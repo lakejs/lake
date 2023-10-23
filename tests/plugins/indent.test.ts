@@ -41,11 +41,11 @@ describe('indent plugin', () => {
 
   it('paragraph: decreases indent once', () => {
     const content = `
-    <p style="margin-left: 40px;"><anchor />heading<focus /></p>
+    <p style="text-indent: 2em; margin-left: 40px;"><anchor />heading<focus /></p>
     <p>foo</p>
     `;
     const output = `
-    <p><anchor />heading<focus /></p>
+    <p style="text-indent: 2em;"><anchor />heading<focus /></p>
     <p>foo</p>
     `;
     testPlugin(
@@ -71,6 +71,24 @@ describe('indent plugin', () => {
       output,
       editor => {
         editor.command.execute('indent', 'decrease');
+        editor.command.execute('indent', 'decrease');
+      },
+    );
+  });
+
+  it('paragraph: decreases text indent', () => {
+    const content = `
+    <p style="text-indent: 2em;"><anchor />heading<focus /></p>
+    <p>foo</p>
+    `;
+    const output = `
+    <p><anchor />heading<focus /></p>
+    <p>foo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
         editor.command.execute('indent', 'decrease');
       },
     );
