@@ -561,6 +561,20 @@ describe('models.Nodes class', () => {
     expect(nodes.css('border-color')).to.equal('#0000ff');
   });
 
+  it('css methods: remove style attribute', () => {
+    const nodes = new Nodes([element, elementTwo]);
+    nodes.css({
+      'background-color': '#ff0000',
+    });
+    nodes.css({
+      'background-color': '',
+    });
+    expect(nodes.hasAttr('style')).to.equal(false);
+    nodes.css('background-color', '#ff0000');
+    nodes.css('background-color', '');
+    expect(nodes.hasAttr('style')).to.equal(false);
+  });
+
   it('method: show', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.show();

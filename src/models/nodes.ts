@@ -493,7 +493,6 @@ export class Nodes {
         element.removeAttribute('class');
       }
     });
-    return this;
   }
 
   public computedCSS(propertyName: string): string {
@@ -520,6 +519,9 @@ export class Nodes {
     }
     return this.eachElement(element => {
       element.style[camelCase(propertyName)] = value;
+      if (element.getAttribute('style') === '') {
+        element.removeAttribute('style');
+      }
     });
   }
 

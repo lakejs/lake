@@ -5,13 +5,7 @@ export function setBlockIndent(block: Nodes, type: 'increase' | 'decrease'): voi
   let value = Number.parseInt(block.css('margin-left'), 10) || 0;
   if (type === 'decrease' && value === 0 && block.css('text-indent') !== '') {
     block.css('text-indent', '');
-    if (block.attr('style') === '') {
-      block.removeAttr('style');
-    }
     return;
-  }
-  if (block.attr('style') === '') {
-    block.removeAttr('style');
   }
   if (type === 'increase') {
     value += 40;
@@ -25,9 +19,6 @@ export function setBlockIndent(block: Nodes, type: 'increase' | 'decrease'): voi
     block.css('margin-left', '');
   } else {
     block.css('margin-left', `${value}px`);
-  }
-  if (block.attr('style') === '') {
-    block.removeAttr('style');
   }
 }
 

@@ -132,9 +132,6 @@ export class HTMLParser {
               element.css(key, '');
             }
           });
-          if (element.attr('style') === '') {
-            element.removeAttr('style');
-          }
         }
       }
     }

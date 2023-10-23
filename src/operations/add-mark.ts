@@ -1,4 +1,3 @@
-import { KeyValue } from '../types/object';
 import { parseStyle, query, appendDeepest } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
@@ -56,13 +55,6 @@ function getUpperMark(node: Nodes, tagName: string): Nodes {
   return parent;
 }
 
-function mergeCSSProperties(node: Nodes, cssProperties: KeyValue): void {
-  node.css(cssProperties);
-  if (node.attr('style') === '') {
-    node.removeAttr('style');
-  }
-}
-
 // Adds the specified mark to the texts of the range.
 export function addMark(range: Range, value: string): void {
   if (!range.commonAncestor.isContentEditable) {
@@ -80,7 +72,7 @@ export function addMark(range: Range, value: string): void {
       const newMark = copyNestedMarks(parts.left);
       if (newMark) {
         if (newMark.name === tagName) {
-          mergeCSSProperties(newMark, cssProperties);
+          newMark.css(cssProperties);
           valueNode = newMark;
         } else {
           appendDeepest(newMark, zeroWidthSpace);
@@ -106,7 +98,7 @@ export function addMark(range: Range, value: string): void {
     if (node.isText) {
       const upperMark = getUpperMark(node, tagName);
       if (upperMark.isMark && upperMark.name === tagName) {
-        mergeCSSProperties(upperMark, cssProperties);
+        upperMark.css(cssProperties);
       } else {
         const newValueNode = valueNode.clone();
         upperMark.before(newValueNode);
