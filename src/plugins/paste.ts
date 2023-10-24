@@ -1,4 +1,6 @@
 import type Editor from '..';
+import { getDefaultRules } from '../constants/schema';
+import { forEach } from '../utils';
 import { HTMLParser, TextParser, Nodes, Selection } from '../models';
 
 function insertFirstNode(selection: Selection, otherNode: Nodes): void {
@@ -74,7 +76,12 @@ export default (editor: Editor) => {
       return;
     }
     const content = dataTransfer.getData('text/html');
-    const htmlParser = new HTMLParser(content);
+    const rules = getDefaultRules();
+    forEach(rules, (key, attributeRules) => {
+      delete attributeRules.id;
+      delete attributeRules.class;
+    });
+    const htmlParser = new HTMLParser(content, rules);
     const fragment = htmlParser.getFragment();
     pasteFragment(editor, fragment);
   });

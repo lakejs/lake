@@ -5,7 +5,7 @@ function alphaToHex(value: string): string {
 }
 
 // Converts a decimal to a hex value.
-function hex(value: string) {
+function hex(value: string): string {
   const hexString = Number.parseInt(value, 10).toString(16).toLowerCase();
   return hexString.length > 1 ? hexString : `0${hexString}`;
 }

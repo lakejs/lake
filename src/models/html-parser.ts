@@ -1,13 +1,16 @@
-import { defaultRules } from '../constants/schema';
+import { getDefaultRules } from '../constants/schema';
 import { NativeElement } from '../types/native';
 import { forEach, parseStyle, encode } from '../utils';
 import { Nodes } from './nodes';
 
 export class HTMLParser {
 
+  private rules: any;
+
   private root: Nodes;
 
-  constructor(content: string | Nodes) {
+  constructor(content: string | Nodes, rules = getDefaultRules()) {
+    this.rules = rules;
     const parser = new DOMParser();
     if (typeof content === 'string') {
       const doc = parser.parseFromString(content.trim(), 'text/html');
@@ -32,8 +35,8 @@ export class HTMLParser {
   }
 
   // Returns a tag string of the node that do not match rules.
-  private static getOpenTagString(element: Nodes) : string {
-    const attributeRules = defaultRules[element.name];
+  private static getOpenTagString(element: Nodes, rules: any) : string {
+    const attributeRules = rules[element.name];
     if (!attributeRules) {
       return '';
     }
@@ -107,7 +110,7 @@ export class HTMLParser {
 
   // Removes the element or those attributes or CSS properties that do not match rules.
   private sanitizeElement(element: Nodes) : void {
-    const attributeRules = defaultRules[element.name];
+    const attributeRules = this.rules[element.name];
     if (!attributeRules) {
       element.remove(true);
       return;
@@ -170,6 +173,7 @@ export class HTMLParser {
   }
 
   public getHTML(): string {
+    const rules = this.rules;
     function * iterate(node: Nodes): Generator<string> {
       let child = node.first();
       while (child.length > 0) {
@@ -177,12 +181,12 @@ export class HTMLParser {
         if (child.isText) {
           yield encode(HTMLParser.getTrimmedText(child));
         } else if (child.isVoid) {
-          const openTag = HTMLParser.getOpenTagString(child);
+          const openTag = HTMLParser.getOpenTagString(child, rules);
           if (openTag !== '') {
             yield `<${openTag} />`;
           }
         } else if (child.isElement) {
-          const openTag = HTMLParser.getOpenTagString(child);
+          const openTag = HTMLParser.getOpenTagString(child, rules);
           if (openTag !== '') {
             yield `<${openTag}>`;
           }

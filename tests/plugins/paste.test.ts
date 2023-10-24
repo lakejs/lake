@@ -534,4 +534,21 @@ describe('paste plugin', () => {
     );
   });
 
+  it('should remove id and class', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <p>one</p>
+    <p>two<focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<p id="one">one</p><p class="two">two</p>');
+      },
+    );
+  });
+
 });

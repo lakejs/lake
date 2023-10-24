@@ -44,9 +44,9 @@ export class Core {
 
   public keystroke: models.Keystroke;
 
-  constructor(target: string | NativeNode, options?: OptionsType) {
+  constructor(target: string | NativeNode, options = defaultOptions) {
     this.target = target;
-    this.options = options ?? defaultOptions;
+    this.options = options;
     this.container = utils.query('<div />');
 
     this.setDefaultOptions();
