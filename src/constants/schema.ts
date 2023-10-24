@@ -9,14 +9,31 @@ const blockAttributeRules: any = {
 };
 
 export const defaultRules: any = {
-  h1: blockAttributeRules,
-  h2: blockAttributeRules,
-  h3: blockAttributeRules,
-  h4: blockAttributeRules,
-  h5: blockAttributeRules,
-  h6: blockAttributeRules,
-  p: blockAttributeRules,
-  blockquote: blockAttributeRules,
+  h1: {
+    ...blockAttributeRules,
+  },
+  h2: {
+    ...blockAttributeRules,
+  },
+  h3: {
+    ...blockAttributeRules,
+  },
+  h4: {
+    ...blockAttributeRules,
+  },
+  h5: {
+    ...blockAttributeRules,
+  },
+  h6: {
+    ...blockAttributeRules,
+  },
+  p: {
+    ...blockAttributeRules,
+  },
+  blockquote: {
+    ...blockAttributeRules,
+    type: ['success', 'info', 'warning', 'error'],
+  },
   ul: {
     ...blockAttributeRules,
     type: 'checklist',

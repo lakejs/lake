@@ -168,46 +168,46 @@ describe('operations.setBlocks()', () => {
   it('sets a nested block when no text is selected', () => {
     const content = `
     <p>outer start</p>
-    <h1><p>foo<strong>bold</strong><focus /></p></h1>
+    <blockquote><p>foo<strong>bold</strong><focus /></p></blockquote>
     <p>outer end</p>
     `;
     const output = `
     <p>outer start</p>
-    <h1><blockquote>foo<strong>bold</strong><focus /></blockquote></h1>
+    <blockquote><ul><li>foo<strong>bold</strong><focus /></li></ul></blockquote>
     <p>outer end</p>
     `;
     testOperation(
       content,
       output,
       range => {
-        setBlocks(range, '<blockquote />');
+        setBlocks(range, '<ul><li></li></ul>');
       },
     );
   });
 
-  it('sets nested blocks after select multiple blocks', () => {
+  it('sets blockquotes after select multi-block', () => {
     const content = `
     <p>outer start</p>
-    <h1><p><anchor />foo1<strong>bold1</strong></p></h1>
-    <h1><p>foo2<strong>bold2</strong><focus /></p></h1>
+    <blockquote><p><anchor />foo1<strong>bold1</strong></p></blockquote>
+    <blockquote><p>foo2<strong>bold2</strong><focus /></p></blockquote>
     <p>outer end</p>
     `;
     const output = `
     <p>outer start</p>
-    <h2><p><anchor />foo1<strong>bold1</strong></p></h2>
-    <h2><p>foo2<strong>bold2</strong><focus /></p></h2>
+    <blockquote type="error"><p><anchor />foo1<strong>bold1</strong></p></blockquote>
+    <blockquote type="error"><p>foo2<strong>bold2</strong><focus /></p></blockquote>
     <p>outer end</p>
     `;
     testOperation(
       content,
       output,
       range => {
-        setBlocks(range, '<h2 />');
+        setBlocks(range, '<blockquote type="error" />');
       },
     );
   });
 
-  it('should create a nested block when there is no block', () => {
+  it('should create a list when there is no block', () => {
     const content = `
     foo<focus />bar
     `;
@@ -223,7 +223,7 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('should change a block to a nested block', () => {
+  it('should change a block to a list', () => {
     const content = `
     <p>outer start</p>
     <p>foo<strong>bold</strong><focus /></p>
@@ -243,7 +243,7 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('should change a nested block to another nested block', () => {
+  it('should change a list to another list', () => {
     const content = `
     <p>outer start</p>
     <ul><li>foo<strong>bold</strong><focus /></li></ul>
@@ -263,7 +263,7 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('should change a nested block to a non-nested block', () => {
+  it('should change a list to a heading', () => {
     const content = `
     <p>outer start</p>
     <ul><li>foo<strong>bold</strong><focus /></li></ul>
@@ -283,7 +283,7 @@ describe('operations.setBlocks()', () => {
     );
   });
 
-  it('should change multiple blocks to a nested block', () => {
+  it('should change multi-block to a list', () => {
     const content = `
     <p>outer start</p>
     <p>f<anchor />oo<strong>bold</strong></p>

@@ -1,5 +1,10 @@
 export const defaultValue = `
 <h1>heading 1</h1>
+<h2>heading 2</h2>
+<h3>heading 3</h3>
+<h4>heading 4</h4>
+<h5>heading 5</h5>
+<h6>heading 6</h6>
 <p>
   <strong>bold</strong>
   <i>italic</i>
@@ -14,37 +19,24 @@ export const defaultValue = `
   <code>code</code>
   <a href="url" target="_blank">link</a>
 </p>
-<p style="text-indent: 2em;">
-  indent
-</p>
-<p style="text-align:center;">
-  align
-</p>
-<ol start="1">
-  <li>numbered list</li>
-</ol>
-<ol start="2">
-  <li>numbered list</li>
-</ol>
-<ul>
-  <li>bulleted list</li>
-</ul>
-<ul>
-  <li>bulleted list</li>
-</ul>
-<ul type="checklist">
-  <li value="true">checklist</li>
-</ul>
-<ul type="checklist">
-  <li value="false">checklist</li>
-</ul>
-<h2>heading 2</h2>
-<h3>heading 3</h3>
-<h4>heading 4</h4>
-<h5>heading 5</h5>
-<h6>heading 6</h6>
-<blockquote>
-  blockquote
-</blockquote>
+<p style="text-indent: 2em;">text indent</p>
+<p style="margin-left: 40px;">indent</p>
+<p style="text-align:center;">align</p>
+<ol start="1"><li>numbered list</li></ol>
+<ol start="2"><li>numbered list</li></ol>
+<ul><li>bulleted list</li></ul>
+<ul><li>bulleted list</li></ul>
+<ul type="checklist"><li value="true">checklist</li></ul>
+<ul type="checklist"><li value="false">checklist</li></ul>
+<blockquote>normal</blockquote>
+<blockquote type="success">success</blockquote>
+<blockquote type="info">info</blockquote>
+<blockquote type="warning">warning</blockquote>
+<blockquote type="error">error</blockquote>
 <anchor />selected contents<focus />
+<blockquote>
+  <p>paragraph 1</p>
+  <p>paragraph 2</p>
+</blockquote>
+<p><anchor />selected contents<focus /></p>
 `;

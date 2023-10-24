@@ -72,7 +72,7 @@ describe('operations.getBlocks()', () => {
   it('returns a sub-block in the nested blocks when no text is selected', () => {
     const content = `
     <p>outer start</p>
-    <h1><p>foo<strong>bold</strong><focus /></p></h1>
+    <blockquote><p>foo<strong>bold</strong><focus /></p></blockquote>
     <p>outer end</p>
     `;
     const { container, range } = createContainer(content);
@@ -85,8 +85,8 @@ describe('operations.getBlocks()', () => {
   it('returns top blocks in the nested blocks after select multiple blocks', () => {
     const content = `
     <p>outer start</p>
-    <h1><p><anchor />foo1<strong>bold1</strong></p></h1>
-    <h1><p>foo2<strong>bold2</strong><focus /></p></h1>
+    <blockquote><p><anchor />foo1<strong>bold1</strong></p></blockquote>
+    <blockquote><p>foo2<strong>bold2</strong><focus /></p></blockquote>
     <p>outer end</p>
     `;
     const { container, range } = createContainer(content);
@@ -100,10 +100,10 @@ describe('operations.getBlocks()', () => {
   it('returns sub-block in the nested blocks after select multiple blocks', () => {
     const content = `
     <p>outer start</p>
-    <h1>
+    <blockquote>
       <p><anchor />foo1<strong>bold1</strong></p>
       <p>foo2<strong>bold2</strong><focus /></p>
-    </h1>
+    </blockquote>
     <p>outer end</p>
     `;
     const { container, range } = createContainer(content);

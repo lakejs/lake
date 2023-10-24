@@ -36,9 +36,9 @@ describe('utils.splitNodes()', () => {
   });
 
   it('splits nested blocks', () => {
-    const container = query('<div><h1><p>one<strong>two</strong>three</p></h1></div>');
+    const container = query('<div><blockquote><p>one<strong>two</strong>three</p></blockquote></div>');
     const parts = splitNodes(container.find('strong'), 0, container);
-    expect(container.html()).to.equal('<h1><p>one<strong></strong></p></h1><h1><p><strong>two</strong>three</p></h1>');
+    expect(container.html()).to.equal('<blockquote><p>one<strong></strong></p></blockquote><blockquote><p><strong>two</strong>three</p></blockquote>');
     expect(parts?.left.html()).to.equal('<p>one<strong></strong></p>');
     expect(parts?.right.html()).to.equal('<p><strong>two</strong>three</p>');
   });
