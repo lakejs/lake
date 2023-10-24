@@ -1,4 +1,5 @@
 import { KeyValue } from '../types/object';
+import { NativeElement } from '../types/native';
 import { query, parseStyle } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
@@ -62,6 +63,8 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
   // adds or replace blocks
   const valueNode = query(value);
   const tagName = valueNode.name;
+  const nativeValueNode = valueNode.get(0) as NativeElement;
+  const attributes = nativeValueNode.attributes;
   const styleValue = valueNode.attr('style');
   const cssProperties = parseStyle(styleValue);
   const blockList = getBlocks(range);
@@ -70,6 +73,9 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
     const bookmark = insertBookmark(range);
     for (const node of blockList) {
       if (node.name === tagName && valueNode.first().length === 0) {
+        for (const attr of attributes) {
+          node.attr(attr.name, attr.value);
+        }
         node.css(cssProperties);
       } else {
         const block = valueNode.clone(true);

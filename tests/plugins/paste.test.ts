@@ -513,10 +513,10 @@ describe('paste plugin', () => {
 
   it('pastes real data from Chrome into heading', () => {
     const content = `
-    <h1>f<focus />oo</h1>
+    <p><br /><focus /></p>
     `;
     const output = `
-    <h1>fbar<focus />oo</h1>
+    <h2>bar<focus /></h2>
     `;
     const clipboardData = `
     <html>
