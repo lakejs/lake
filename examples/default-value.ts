@@ -5,6 +5,15 @@ export const defaultValue = `
 <h4>heading 4</h4>
 <h5>heading 5</h5>
 <h6>heading 6</h6>
+<blockquote>normal</blockquote>
+<blockquote type="success">success</blockquote>
+<blockquote type="info">info</blockquote>
+<blockquote type="warning">warning</blockquote>
+<blockquote type="error">error</blockquote>
+<blockquote>
+  <p>paragraph 1</p>
+  <p>paragraph 2</p>
+</blockquote>
 <p>
   <strong>bold</strong>
   <i>italic</i>
@@ -28,15 +37,5 @@ export const defaultValue = `
 <ul><li>bulleted list</li></ul>
 <ul type="checklist"><li value="true">checklist</li></ul>
 <ul type="checklist"><li value="false">checklist</li></ul>
-<blockquote>normal</blockquote>
-<blockquote type="success">success</blockquote>
-<blockquote type="info">info</blockquote>
-<blockquote type="warning">warning</blockquote>
-<blockquote type="error">error</blockquote>
-<anchor />selected contents<focus />
-<blockquote>
-  <p>paragraph 1</p>
-  <p>paragraph 2</p>
-</blockquote>
 <p><anchor />selected contents<focus /></p>
 `;

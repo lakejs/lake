@@ -1,0 +1,28 @@
+
+.lake-container blockquote {
+  margin: 0;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  color: var(--secondary-text-color);
+  border-left: 4px solid #0505050f;
+}
+.lake-container blockquote[type] {
+  color: var(--text-color);
+  border-radius: 8px;
+}
+.lake-container blockquote[type="success"] {
+  background-color: #f6ffed;
+  border: 1px solid #b7eb8f;
+}
+.lake-container blockquote[type="info"] {
+  background-color: #e6f4ff;
+  border: 1px solid #91caff;
+}
+.lake-container blockquote[type="warning"] {
+  background-color: #fffbe6;
+  border: 1px solid #ffe58f;
+}
+.lake-container blockquote[type="error"] {
+  background-color: #fff2f0;
+  border: 1px solid #ffccc7;
+}
