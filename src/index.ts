@@ -1,4 +1,6 @@
 import './styles/core.css';
+import './styles/mark.css';
+import './styles/heading.css';
 import './styles/list.css';
 import './styles/blockquote.css';
 import { Core } from './core';

@@ -1,0 +1,27 @@
+.lake-container strong {
+  font-weight: 600;
+}
+.lake-container i {
+  font-style: italic;
+}
+.lake-container u {
+  text-decoration: underline;
+}
+.lake-container s {
+  text-decoration: line-through;
+}
+.lake-container sub {
+  vertical-align: sub;
+  font-size: 0.85em;
+}
+.lake-container sup {
+  vertical-align: super;
+  font-size: 0.85em;
+}
+.lake-container code {
+  font-family: Consolas, Courier, monospace;
+  font-size: 0.9em;
+  border-radius: 3px;
+  padding: 0.2em 0.4em;
+  background: var(--code-background-color);
+}
