@@ -511,7 +511,7 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes real data from Chrome into heading', () => {
+  it('pastes a heading from Chrome into paragraph', () => {
     const content = `
     <p><br /><focus /></p>
     `;
@@ -523,6 +523,29 @@ describe('paste plugin', () => {
       <body>
         \x3C!--StartFragment--><h2 style="color: rgba(0, 0, 0, 0.88); font-weight: bold; margin: 0px 0px 14px; padding: 0px; font-size: 30px; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">bar</h2>\x3C!--EndFragment-->
       </body>
+    </html>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', clipboardData);
+      },
+    );
+  });
+
+  it('pastes a span from Chrome into paragraph', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <p><span style="color: #000000e0; font-size: 14px; background-color: #ffffff;">foo</span><focus /></p>
+    `;
+    const clipboardData = `
+    <html>
+    <body>
+      <!--StartFragment--><span style="color: rgba(0, 0, 0, 0.88); font-family: -apple-system, BlinkMacSystemFont, &quot;segoe ui&quot;, Roboto, &quot;helvetica neue&quot;, Arial, &quot;noto sans&quot;, sans-serif, &quot;apple color emoji&quot;, &quot;segoe ui emoji&quot;, &quot;segoe ui symbol&quot;, &quot;noto color emoji&quot;; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">foo</span><!--EndFragment-->
+    </body>
     </html>
     `;
     testPlugin(
@@ -547,6 +570,22 @@ describe('paste plugin', () => {
       output,
       editor => {
         pasteData(editor, 'text/html', '<p id="one">one</p><p class="two">two</p>');
+      },
+    );
+  });
+
+  it('should remove br', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <p>foo<focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<p id="one">foo</p><br />');
       },
     );
   });

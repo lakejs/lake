@@ -37,13 +37,35 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
     return;
   }
   const firstNode = new Nodes(fragment.firstChild);
-  const lastNode = new Nodes(fragment.lastChild);
+  let lastNode = new Nodes(fragment.lastChild);
   if (selection.getBlocks().length === 0) {
     selection.setBlocks('<p />');
   }
+  // remove br element
+  const block = range.startNode.closestBlock();
+  if (block.length > 0 && block.hasEmptyText) {
+    block.empty();
+  }
+  // is mark or text
+  if (!firstNode.isBlock) {
+    selection.insertFragment(fragment);
+    return;
+  }
+  // is block
   if (firstNode.isBlock) {
     insertFirstNode(selection, firstNode);
   }
+  // remove br
+  let child = new Nodes(fragment.firstChild);
+  while (child.length > 0) {
+    const next = child.next();
+    if (child.name === 'br') {
+      child.remove();
+    }
+    child = next;
+  }
+  lastNode = new Nodes(fragment.lastChild);
+  // insert fragment
   if (fragment.childNodes.length > 0) {
     const parts = selection.splitBlock();
     if (parts.left) {
