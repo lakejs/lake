@@ -5,12 +5,12 @@ import { Range } from '../models/range';
 
 // Removes empty marks that contain no content.
 function removeEmptyMarks(node: Nodes): void {
-  if (node.isMark && node.hasEmptyText) {
+  if (node.isMark && node.isEmpty) {
     node.remove();
     return;
   }
   for (const child of node.getWalker()) {
-    if (child.isMark && child.hasEmptyText) {
+    if (child.isMark && child.isEmpty) {
       child.remove();
     }
   }
@@ -26,10 +26,10 @@ function splitMarksAtPoint(node: Nodes, offset: number, removeEmptyMark: boolean
     if (removeEmptyMark) {
       removeEmptyMarks(parts.left);
       removeEmptyMarks(parts.right);
-      if (!parts.left.hasEmptyText) {
+      if (!parts.left.isEmpty) {
         left = parts.left;
       }
-      if (!parts.right.hasEmptyText) {
+      if (!parts.right.isEmpty) {
         right = parts.right;
       }
     } else {

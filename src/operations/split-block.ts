@@ -41,13 +41,13 @@ export function splitBlock(range: Range): TwoParts {
     }
   }
   if (left) {
-    if (left.hasEmptyText) {
+    if (left.isEmpty) {
       const br = query('<br />');
       appendDeepest(left, br);
     }
   }
   if (right) {
-    if (right.hasEmptyText) {
+    if (right.isEmpty) {
       const br = query('<br />');
       appendDeepest(right, br);
     }

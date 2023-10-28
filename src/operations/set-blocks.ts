@@ -11,7 +11,7 @@ export function getDeepestElement(element: Nodes): Nodes {
   let child = element;
   while (child.length > 0) {
     let firstChild = child.first();
-    if (firstChild.isText && firstChild.hasEmptyText) {
+    if (firstChild.isText && firstChild.isEmpty) {
       firstChild = firstChild.next();
     }
     if (child.isElement && !child.isVoid && firstChild.length === 0) {

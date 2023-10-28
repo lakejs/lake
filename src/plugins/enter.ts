@@ -17,7 +17,7 @@ export default (editor: Editor) => {
       setParagraph(editor);
       return;
     }
-    if (block.hasEmptyText && block.name !== 'p') {
+    if (block.isEmpty && block.name !== 'p') {
       setParagraph(editor);
       return;
     }

@@ -13,7 +13,7 @@ function insertFirstNode(selection: Selection, otherNode: Nodes): void {
   ) {
     block.empty();
   }
-  if (block.hasEmptyText && block.name === 'p') {
+  if (block.isEmpty && block.name === 'p') {
     block.replaceWith(otherNode);
     range.selectAfterNodeContents(otherNode);
     return;
@@ -43,7 +43,7 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
   }
   // remove br element
   const block = range.startNode.closestBlock();
-  if (block.length > 0 && block.hasEmptyText) {
+  if (block.length > 0 && block.isEmpty) {
     block.empty();
   }
   // is mark or text
@@ -72,7 +72,7 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
       range.setEndAfter(parts.left);
       range.collapseToEnd();
     }
-    if (parts.right && parts.right.hasEmptyText) {
+    if (parts.right && parts.right.isEmpty) {
       parts.right.remove();
     }
     selection.insertFragment(fragment);

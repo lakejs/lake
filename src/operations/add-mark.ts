@@ -10,11 +10,11 @@ import { insertNode } from './insert-node';
 // Removes zero-width space before or after the node.
 function removePreviousOrNextZWS(node: Nodes): void {
   const prevNode = node.prev();
-  if (prevNode.length > 0 && prevNode.isText && prevNode.hasEmptyText) {
+  if (prevNode.length > 0 && prevNode.isText && prevNode.isEmpty) {
     prevNode.remove();
   }
   const nextNode = node.next();
-  if (nextNode.length > 0 && nextNode.isText && nextNode.hasEmptyText) {
+  if (nextNode.length > 0 && nextNode.isText && nextNode.isEmpty) {
     nextNode.remove();
   }
 }

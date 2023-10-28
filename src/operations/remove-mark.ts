@@ -8,12 +8,12 @@ import { toBookmark } from './to-bookmark';
 
 // Removes empty marks that contain no content.
 function removeEmptyMarks(node: Nodes): void {
-  if (node.isMark && node.hasEmptyText) {
+  if (node.isMark && node.isEmpty) {
     node.remove();
     return;
   }
   for (const child of node.getWalker()) {
-    if (child.isMark && child.hasEmptyText) {
+    if (child.isMark && child.isEmpty) {
       child.remove();
     }
   }
