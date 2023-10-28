@@ -7,14 +7,14 @@ export class HTMLParser {
 
   private rules: any;
 
-  private root: Nodes;
+  private source: Nodes;
 
   constructor(content: string | Nodes, rules = getDefaultRules()) {
     this.rules = rules;
     if (typeof content === 'string') {
-      this.root = this.parseHTML(content);
+      this.source = this.parseHTML(content);
     } else {
-      this.root = content;
+      this.source = content;
     }
   }
 
@@ -140,7 +140,7 @@ export class HTMLParser {
       }
     }
     let html = '';
-    for (const value of iterate(this.root)) {
+    for (const value of iterate(this.source)) {
       html += value;
     }
     return html.trim();

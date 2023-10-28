@@ -179,4 +179,10 @@ describe('models.HTMLParser class', () => {
     expect(ul.hasAttr('type')).to.equal(false);
   });
 
+  it('getFragment method: empty content', () => {
+    const htmlParser = new HTMLParser('');
+    const fragment = htmlParser.getFragment();
+    expect(fragment.childNodes.length).to.equal(0);
+  });
+
 });
