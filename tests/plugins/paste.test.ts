@@ -590,4 +590,21 @@ describe('paste plugin', () => {
     );
   });
 
+  it('should remove div', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <p>foo</p>
+    <p>bar<focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<p>foo</p><div><p>bar</p></div>');
+      },
+    );
+  });
+
 });

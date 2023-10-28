@@ -11,13 +11,18 @@ export class HTMLParser {
 
   constructor(content: string | Nodes, rules = getDefaultRules()) {
     this.rules = rules;
-    const parser = new DOMParser();
     if (typeof content === 'string') {
-      const doc = parser.parseFromString(content.trim(), 'text/html');
-      this.root = new Nodes(doc.querySelector('body'));
+      this.root = this.parseHTML(content);
     } else {
       this.root = content;
     }
+  }
+
+  // Parses HTML string and returns the resulting body element.
+  private parseHTML(html: string): Nodes {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    return new Nodes(doc.querySelector('body'));
   }
 
   // Returns a boolean indicating whether a value matches the specified rule.
@@ -108,70 +113,6 @@ export class HTMLParser {
     return nodeValue;
   }
 
-  // Removes the element or those attributes or CSS properties that do not match rules.
-  private sanitizeElement(element: Nodes) : void {
-    const attributeRules = this.rules[element.name];
-    if (!attributeRules) {
-      element.remove(true);
-      return;
-    }
-    const nativeNode = element.get(0) as NativeElement;
-    if (!nativeNode.hasAttributes()) {
-      return;
-    }
-    for (const attr of nativeNode.attributes) {
-      if (!attributeRules[attr.name]) {
-        element.removeAttr(attr.name);
-      } else {
-        if (attr.name !== 'style' && !HTMLParser.matchRule(attributeRules[attr.name], attr.value)) {
-          element.removeAttr(attr.name);
-        }
-        if (attr.name === 'style') {
-          const styleRules = attributeRules.style;
-          forEach(parseStyle(attr.value), (key, value) => {
-            if (!styleRules[key]) {
-              element.css(key, '');
-            } else if (!HTMLParser.matchRule(styleRules[key], value)) {
-              element.css(key, '');
-            }
-          });
-        }
-      }
-    }
-  }
-
-  private sanitizeTree(): void {
-    for (const node of this.root.getWalker()) {
-      if (node.isElement) {
-        this.sanitizeElement(node);
-      } else if (node.isText) {
-        const nodeValue = node.text();
-        const newNodeValue = HTMLParser.getTrimmedText(node);
-        if (newNodeValue === '') {
-          node.remove();
-        } else if (nodeValue !== newNodeValue) {
-          node.get(0).nodeValue = newNodeValue;
-        }
-      } else {
-        node.remove();
-      }
-    }
-  }
-
-  public getNodeList(): Nodes[] {
-    this.sanitizeTree();
-    return this.root.children();
-  }
-
-  public getFragment(): DocumentFragment {
-    this.sanitizeTree();
-    const fragment = document.createDocumentFragment();
-    this.root.get(0).childNodes.forEach(node => {
-      fragment.appendChild(node.cloneNode(true));
-    });
-    return fragment;
-  }
-
   public getHTML(): string {
     const rules = this.rules;
     function * iterate(node: Nodes): Generator<string> {
@@ -202,6 +143,22 @@ export class HTMLParser {
     for (const value of iterate(this.root)) {
       html += value;
     }
-    return html;
+    return html.trim();
+  }
+
+  public getNodeList(): Nodes[] {
+    const html = this.getHTML();
+    const body = this.parseHTML(html);
+    return body.children();
+  }
+
+  public getFragment(): DocumentFragment {
+    const html = this.getHTML();
+    const body = this.parseHTML(html);
+    const fragment = document.createDocumentFragment();
+    body.get(0).childNodes.forEach(node => {
+      fragment.appendChild(node.cloneNode(true));
+    });
+    return fragment;
   }
 }
