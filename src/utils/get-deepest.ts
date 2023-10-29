@@ -1,7 +1,7 @@
 import { Nodes } from '../models/nodes';
 
-// Appends a node to the deepest element of the specified element.
-export function appendDeepest(element: Nodes, node: Nodes): void {
+// Returns the deepest element of the specified element.
+export function getDeepest(element: Nodes): Nodes {
   let child = element;
   while (child.length > 0) {
     let firstChild = child.first();
@@ -9,9 +9,9 @@ export function appendDeepest(element: Nodes, node: Nodes): void {
       firstChild = firstChild.next();
     }
     if (child.isElement && !child.isVoid && firstChild.length === 0) {
-      child.append(node);
       break;
     }
     child = firstChild;
   }
+  return child;
 }

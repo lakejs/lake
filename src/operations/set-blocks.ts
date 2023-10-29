@@ -1,26 +1,11 @@
 import { KeyValue } from '../types/object';
 import { NativeElement } from '../types/native';
-import { query, parseStyle } from '../utils';
+import { query, parseStyle, getDeepest } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { getBlocks } from './get-blocks';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
-
-export function getDeepestElement(element: Nodes): Nodes {
-  let child = element;
-  while (child.length > 0) {
-    let firstChild = child.first();
-    if (firstChild.isText && firstChild.isEmpty) {
-      firstChild = firstChild.next();
-    }
-    if (child.isElement && !child.isVoid && firstChild.length === 0) {
-      break;
-    }
-    child = firstChild;
-  }
-  return child;
-}
 
 function getTopNonBlockNodes(range: Range): Nodes[] {
   const container = range.commonAncestor.closestContainer();
@@ -79,7 +64,7 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
         node.css(cssProperties);
       } else {
         const block = valueNode.clone(true);
-        const deepestBlock = getDeepestElement(block);
+        const deepestBlock = getDeepest(block);
         let child = node.first();
         while(child.length > 0) {
           const nextNode = child.next();
@@ -100,7 +85,7 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
   const nonBlockNodes = getTopNonBlockNodes(range);
   if (nonBlockNodes.length > 0) {
     const block = valueNode.clone(true);
-    const deepestBlock = getDeepestElement(block);
+    const deepestBlock = getDeepest(block);
     nonBlockNodes[0].before(block);
     nonBlockNodes.forEach(node => {
       deepestBlock.append(node);
