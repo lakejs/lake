@@ -156,9 +156,12 @@ export class HTMLParser {
     const html = this.getHTML();
     const body = this.parseHTML(html);
     const fragment = document.createDocumentFragment();
-    body.get(0).childNodes.forEach(node => {
-      fragment.appendChild(node.cloneNode(true));
-    });
+    let child = body.first();
+    while (child.length > 0) {
+      const next = child.next();
+      fragment.appendChild(child.get(0));
+      child = next;
+    }
     return fragment;
   }
 }
