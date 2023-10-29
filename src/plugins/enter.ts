@@ -36,9 +36,9 @@ export default (editor: Editor) => {
     }
     if (block.isList && block.attr('type') === 'checklist') {
       block.find('li').attr('value', 'false');
-      adjustStartAttributes(editor);
-      editor.history.save();
-      editor.select();
     }
+    adjustStartAttributes(editor);
+    editor.history.save();
+    editor.select();
   });
 };
