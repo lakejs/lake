@@ -511,6 +511,26 @@ describe('paste plugin', () => {
     );
   });
 
+  it('pastes mixed elements into a paragraph', () => {
+    const content = `
+    <p>f<focus />oo</p>
+    `;
+    const output = `
+    <p>f<strong>one</strong></p>
+    <h2>two</h2>
+    <p>three</p>
+    <p>four<focus /></p>
+    <p>oo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<strong>one</strong><h2>two</h2><p>three</p>four');
+      },
+    );
+  });
+
   it('pastes a heading from Chrome into paragraph', () => {
     const content = `
     <p><br /><focus /></p>

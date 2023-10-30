@@ -1,7 +1,36 @@
 import type Editor from '..';
 import { getDefaultRules } from '../constants/schema';
-import { forEach } from '../utils';
+import { forEach, getDeepest, query } from '../utils';
 import { HTMLParser, TextParser, Nodes, Selection } from '../models';
+
+function wrapNodeList(nodeList: Nodes[], wrapper?: Nodes) {
+  wrapper = wrapper ?? query('<p />');
+  if (nodeList.length === 0) {
+    return;
+  }
+  wrapper = wrapper.clone(true);
+  const deepestElement = getDeepest(wrapper);
+  nodeList[0].before(wrapper);
+  nodeList.forEach(node => {
+    deepestElement.append(node);
+  });
+}
+
+function fixClipboardData(fragment: DocumentFragment): void {
+  let nodeList: Nodes[] = [];
+  let node = new Nodes(fragment.firstChild);
+  while (node.length > 0) {
+    const next = node.next();
+    if (node.isMark || node.isText || node.isBookmark) {
+      nodeList.push(node);
+    } else {
+      wrapNodeList(nodeList);
+      nodeList = [];
+    }
+    node = next;
+  }
+  wrapNodeList(nodeList);
+}
 
 function insertFirstNode(selection: Selection, otherNode: Nodes): void {
   const range = selection.range;
@@ -49,6 +78,8 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
   // is mark or text
   if (!firstNode.isBlock) {
     selection.insertFragment(fragment);
+    editor.history.save();
+    editor.select();
     return;
   }
   // is block
@@ -78,6 +109,8 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
     selection.insertFragment(fragment);
     range.selectAfterNodeContents(lastNode);
   }
+  editor.history.save();
+  editor.select();
 }
 
 export default (editor: Editor) => {
@@ -105,6 +138,7 @@ export default (editor: Editor) => {
     });
     const htmlParser = new HTMLParser(content, rules);
     const fragment = htmlParser.getFragment();
+    fixClipboardData(fragment);
     pasteFragment(editor, fragment);
   });
 };
