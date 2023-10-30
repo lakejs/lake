@@ -176,8 +176,16 @@ export class Range {
       this.collapseToEnd();
       return;
     }
-    this.selectNodeContents(node);
-    this.reduce();
+    this.setEnd(node, node.children().length);
+    let child;
+    while (
+      this.endNode.isBlock &&
+      this.endOffset > 0 &&
+      (child = this.endNode.children()[this.endOffset - 1]) &&
+      child.isBlock && !child.isVoid
+    ) {
+      this.setEnd(child, child.children().length);
+    }
     this.collapseToEnd();
   }
 

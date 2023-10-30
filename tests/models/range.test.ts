@@ -254,13 +254,13 @@ describe('models.Range class', () => {
   });
 
   it('method: selectAfterNodeContents (block)', () => {
-    container.html('<p>foo<strong>bar</strong></p>');
+    container.html('<blockquote><p>foo<strong>bar</strong></p></blockquote>');
     const range = new Range();
-    range.selectAfterNodeContents(container.find('p'));
-    expect(range.startNode.name).to.equal('strong');
-    expect(range.endNode.name).to.equal('strong');
-    expect(range.startOffset).to.equal(1);
-    expect(range.endOffset).to.equal(1);
+    range.selectAfterNodeContents(container.find('blockquote'));
+    expect(range.startNode.name).to.equal('p');
+    expect(range.endNode.name).to.equal('p');
+    expect(range.startOffset).to.equal(2);
+    expect(range.endOffset).to.equal(2);
     expect(range.isCollapsed).to.equal(true);
   });
 
