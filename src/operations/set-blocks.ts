@@ -1,6 +1,6 @@
 import { KeyValue } from '../types/object';
 import { NativeElement } from '../types/native';
-import { query, parseStyle, getDeepest } from '../utils';
+import { query, parseStyle, getDeepest, wrapNodeList } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { getBlocks } from './get-blocks';
@@ -83,13 +83,7 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
   // no block
   const bookmark = insertBookmark(range);
   const nonBlockNodes = getTopNonBlockNodes(range);
-  if (nonBlockNodes.length > 0) {
-    const block = valueNode.clone(true);
-    const deepestBlock = getDeepest(block);
-    nonBlockNodes[0].before(block);
-    nonBlockNodes.forEach(node => {
-      deepestBlock.append(node);
-    });
-  }
+  const block = valueNode.clone(true);
+  wrapNodeList(nonBlockNodes, block);
   toBookmark(range, bookmark);
 }
