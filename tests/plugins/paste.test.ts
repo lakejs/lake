@@ -516,17 +516,17 @@ describe('paste plugin', () => {
     <p>f<focus />oo</p>
     `;
     const output = `
-    <p>f<strong>one</strong></p>
-    <h2>two</h2>
-    <p>three</p>
-    <p>four<focus /></p>
+    <p>fone<strong>two</strong></p>
+    <h2>three</h2>
+    <p>four</p>
+    <p>five<focus /></p>
     <p>oo</p>
     `;
     testPlugin(
       content,
       output,
       editor => {
-        pasteData(editor, 'text/html', '<strong>one</strong><h2>two</h2><p>three</p>four');
+        pasteData(editor, 'text/html', 'one<strong>two</strong><h2>three</h2><p>four</p>five');
       },
     );
   });
