@@ -17,6 +17,7 @@ import './utils/to-node-list.test';
 // Nodes Utils
 import './utils/query.test';
 import './utils/split-nodes.test';
+import './utils/wrap-node-list.test';
 import './utils/get-deepest.test';
 import './utils/append-deepest.test';
 import './utils/remove-zws.test';

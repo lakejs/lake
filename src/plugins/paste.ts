@@ -1,20 +1,7 @@
 import type Editor from '..';
 import { getDefaultRules } from '../constants/schema';
-import { forEach, getDeepest, query } from '../utils';
+import { forEach, wrapNodeList } from '../utils';
 import { HTMLParser, TextParser, Nodes, Selection } from '../models';
-
-function wrapNodeList(nodeList: Nodes[], wrapper?: Nodes) {
-  wrapper = wrapper ?? query('<p />');
-  if (nodeList.length === 0) {
-    return;
-  }
-  wrapper = wrapper.clone(true);
-  const deepestElement = getDeepest(wrapper);
-  nodeList[0].before(wrapper);
-  nodeList.forEach(node => {
-    deepestElement.append(node);
-  });
-}
 
 function fixClipboardData(fragment: DocumentFragment): void {
   let nodeList: Nodes[] = [];

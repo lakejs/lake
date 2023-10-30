@@ -14,6 +14,7 @@ export * from './to-node-list';
 // Nodes
 export * from './query';
 export * from './split-nodes';
+export * from './wrap-node-list';
 export * from './get-deepest';
 export * from './append-deepest';
 export * from './remove-zws';
