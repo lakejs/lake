@@ -1,6 +1,6 @@
 import { KeyValue } from '../types/object';
 import { NativeElement } from '../types/native';
-import { query, parseStyle, getDeepest, wrapNodeList } from '../utils';
+import { query, getDeepest, wrapNodeList } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { getBlocks } from './get-blocks';
@@ -50,8 +50,6 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
   const tagName = valueNode.name;
   const nativeValueNode = valueNode.get(0) as NativeElement;
   const attributes = nativeValueNode.attributes;
-  const styleValue = valueNode.attr('style');
-  const cssProperties = parseStyle(styleValue);
   const blockList = getBlocks(range);
   // has blocks
   if (blockList.length > 0) {
@@ -61,7 +59,6 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
         for (const attr of attributes) {
           node.attr(attr.name, attr.value);
         }
-        node.css(cssProperties);
       } else {
         const block = valueNode.clone(true);
         const deepestBlock = getDeepest(block);
