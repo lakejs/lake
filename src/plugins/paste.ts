@@ -7,11 +7,10 @@ import { HTMLParser, TextParser, Nodes, Selection } from '../models';
 
 const blockSelector = Array.from(blockTagNames).join(',');
 
-function replaceTagName(element: Nodes, newTagName: string): Nodes {
-  const nativeValueNode = element.get(0) as NativeElement;
-  const attributes = nativeValueNode.attributes;
+function changeTagName(element: Nodes, newTagName: string): Nodes {
+  const nativeElement = element.get(0) as NativeElement;
   const newElement = query(`<${newTagName} />`);
-  for (const attr of attributes) {
+  for (const attr of nativeElement.attributes) {
     newElement.attr(attr.name, attr.value);
   }
   let child = element.first();
@@ -34,7 +33,7 @@ function fixNestedBlocks(block: Nodes): void {
       if (node.find(blockSelector).length > 0) {
         node.remove(true);
       } else {
-        replaceTagName(node, 'p');
+        changeTagName(node, 'p');
       }
     }
     if (node.isHeading) {
