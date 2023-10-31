@@ -35,7 +35,7 @@ describe('operations.getBlocks()', () => {
     <p>outer start</p>
     <p>f<anchor />oo<strong>bold</strong></p>
     <h1>heading</h1>
-    <p><em>itelic</em>ba<focus />r</p>
+    <p><i>itelic</i>ba<focus />r</p>
     <p>outer end</p>
     `;
     const { container, range } = createContainer(content);
@@ -44,7 +44,7 @@ describe('operations.getBlocks()', () => {
     expect(blocks.length).to.equal(3);
     expect(blocks[0].html()).to.equal('foo<strong>bold</strong>');
     expect(blocks[1].html()).to.equal('heading');
-    expect(blocks[2].html()).to.equal('<em>itelic</em>bar');
+    expect(blocks[2].html()).to.equal('<i>itelic</i>bar');
   });
 
   it('no block', () => {

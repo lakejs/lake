@@ -262,11 +262,11 @@ describe('bold plugin', () => {
 
   it('the focus is in another mark', () => {
     const content = `
-    <p><em>f<focus />oo</em></p>
+    <p><i>f<focus />oo</i></p>
     <p>bar</p>
     `;
     const output = `
-    <p><em>f</em><strong><em>\u200B<focus /></em></strong><em>oo</em></p>
+    <p><i>f</i><strong><i>\u200B<focus /></i></strong><i>oo</i></p>
     <p>bar</p>
     `;
     testPlugin(

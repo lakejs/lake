@@ -70,10 +70,10 @@ describe('operations.addMark()', () => {
 
   it('collapsed range: adds a mark in another mark', () => {
     const content = `
-    <p><em>foo<focus />bar</em></p>
+    <p><i>foo<focus />bar</i></p>
     `;
     const output = `
-    <p><em>foo</em><strong><em>\u200B<focus /></em></strong><em>bar</em></p>
+    <p><i>foo</i><strong><i>\u200B<focus /></i></strong><i>bar</i></p>
     `;
     testOperation(
       content,
@@ -102,10 +102,10 @@ describe('operations.addMark()', () => {
 
   it('expanded range: adds a mark in another mark', () => {
     const content = `
-    <p><em>foo<anchor />bold<focus />bar</em></p>
+    <p><i>foo<anchor />bold<focus />bar</i></p>
     `;
     const output = `
-    <p><em>foo</em><anchor /><strong><em>bold</em></strong><focus /><em>bar</em></p>
+    <p><i>foo</i><anchor /><strong><i>bold</i></strong><focus /><i>bar</i></p>
     `;
     testOperation(
       content,
@@ -118,10 +118,10 @@ describe('operations.addMark()', () => {
 
   it('expanded range: adds a mark in another nested mark', () => {
     const content = `
-    <p><strong><em>foo<anchor />bold<focus />bar</em></strong></p>
+    <p><strong><i>foo<anchor />bold<focus />bar</i></strong></p>
     `;
     const output = `
-    <p><strong><em>foo</em></strong><anchor /><i><strong><em>bold</em></strong></i><focus /><strong><em>bar</em></strong></p>
+    <p><strong><i>foo</i></strong><anchor /><i><strong><i>bold</i></strong></i><focus /><strong><i>bar</i></strong></p>
     `;
     testOperation(
       content,
@@ -134,10 +134,10 @@ describe('operations.addMark()', () => {
 
   it('expanded range: the beginning of the range is in another mark', () => {
     const content = `
-    <p><em><anchor />one</em>two<focus />three</p>
+    <p><i><anchor />one</i>two<focus />three</p>
     `;
     const output = `
-    <p><anchor /><strong><em>one</em></strong><strong>two</strong><focus />three</p>
+    <p><anchor /><strong><i>one</i></strong><strong>two</strong><focus />three</p>
     `;
     testOperation(
       content,
@@ -150,10 +150,10 @@ describe('operations.addMark()', () => {
 
   it('expanded range: the end of the range is in another mark', () => {
     const content = `
-    <p>one<anchor /><em>two<focus />three</em></p>
+    <p>one<anchor /><i>two<focus />three</i></p>
     `;
     const output = `
-    <p>one<anchor /><strong><em>two</em></strong><focus /><em>three</em></p>
+    <p>one<anchor /><strong><i>two</i></strong><focus /><i>three</i></p>
     `;
     testOperation(
       content,
@@ -166,10 +166,10 @@ describe('operations.addMark()', () => {
 
   it('should add a strong to an em', () => {
     const content = `
-    <p>one<anchor /><em>two</em><focus />three</p>
+    <p>one<anchor /><i>two</i><focus />three</p>
     `;
     const output = `
-    <p>one<anchor /><strong><em>two</em></strong><focus />three</p>
+    <p>one<anchor /><strong><i>two</i></strong><focus />three</p>
     `;
     testOperation(
       content,
@@ -182,10 +182,10 @@ describe('operations.addMark()', () => {
 
   it('should add a strong to an em with a text', () => {
     const content = `
-    <p>one<anchor /><em>two</em>foo<focus />three</p>
+    <p>one<anchor /><i>two</i>foo<focus />three</p>
     `;
     const output = `
-    <p>one<anchor /><strong><em>two</em></strong><strong>foo</strong><focus />three</p>
+    <p>one<anchor /><strong><i>two</i></strong><strong>foo</strong><focus />three</p>
     `;
     testOperation(
       content,

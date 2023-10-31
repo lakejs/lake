@@ -125,10 +125,10 @@ describe('models.Nodes class', () => {
   });
 
   it('property: isEmpty', () => {
-    const container = query('<div contenteditable="true"><strong></strong><em>\u200B</em><u>\u2060</u></div>');
+    const container = query('<div contenteditable="true"><strong></strong><i>\u200B</i><u>\u2060</u></div>');
     expect(container.find('strong').isEmpty).to.equal(true);
-    expect(container.find('em').isEmpty).to.equal(true);
-    expect(container.find('em').first().isEmpty).to.equal(true);
+    expect(container.find('i').isEmpty).to.equal(true);
+    expect(container.find('i').first().isEmpty).to.equal(true);
     expect(container.find('u').isEmpty).to.equal(true);
   });
 
@@ -277,12 +277,12 @@ describe('models.Nodes class', () => {
 
   it('method: index', () => {
     const node = new Nodes(element);
-    node.html('one<strong>two</strong>three<em>four</em>five');
+    node.html('one<strong>two</strong>three<i>four</i>five');
     expect(node.find('strong').prev().index()).to.equal(0);
     expect(node.find('strong').index()).to.equal(1);
     expect(node.find('strong').next().index()).to.equal(2);
-    expect(node.find('em').index()).to.equal(3);
-    expect(node.find('em').next().index()).to.equal(4);
+    expect(node.find('i').index()).to.equal(3);
+    expect(node.find('i').next().index()).to.equal(4);
   });
 
   it('method: children', () => {
@@ -296,7 +296,7 @@ describe('models.Nodes class', () => {
 
   it('method: getWalker', () => {
     const node = new Nodes(element);
-    node.html('<p>foo<strong>bold</strong></p><p><em>itelic</em>bar</p>');
+    node.html('<p>foo<strong>bold</strong></p><p><i>itelic</i>bar</p>');
     const childList: Nodes[] = [];
     for (const child of node.getWalker()) {
       childList.push(child);
@@ -305,7 +305,7 @@ describe('models.Nodes class', () => {
     expect(childList[0].name).to.equal('p');
     expect(childList[2].name).to.equal('strong');
     expect(childList[4].name).to.equal('p');
-    expect(childList[5].name).to.equal('em');
+    expect(childList[5].name).to.equal('i');
   });
 
   it('event methods: an event', () => {
@@ -749,8 +749,8 @@ describe('models.Nodes class', () => {
   it('method: replaceWith', () => {
     const node = new Nodes(element);
     node.html('<p><strong>foo1</strong>bar1</p><p><strong>foo2</strong>bar2</p>');
-    node.find('strong').eq(0).replaceWith('<em>itelic</em>');
-    expect(node.html()).to.equal('<p><em>itelic</em>bar1</p><p><strong>foo2</strong>bar2</p>');
+    node.find('strong').eq(0).replaceWith('<i>itelic</i>');
+    expect(node.html()).to.equal('<p><i>itelic</i>bar1</p><p><strong>foo2</strong>bar2</p>');
   });
 
   it('method: remove', () => {

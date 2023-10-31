@@ -39,15 +39,20 @@ export class HTMLParser {
     return false;
   }
 
-  // Returns a tag string of the node that do not match rules.
+  // Returns an open tag string of the specified element.
   private static getOpenTagString(element: Nodes, rules: any) : string {
-    const attributeRules = rules[element.name];
+    let tagName = element.name;
+    let attributeRules = rules[tagName];
     if (!attributeRules) {
       return '';
     }
+    if (typeof attributeRules === 'string') {
+      tagName = attributeRules;
+      attributeRules = rules[tagName];
+    }
     const nativeNode = element.get(0) as NativeElement;
     if (!nativeNode.hasAttributes()) {
-      return element.name;
+      return tagName;
     }
     const attributeMap = new Map();
     for (const attr of nativeNode.attributes) {
@@ -67,7 +72,7 @@ export class HTMLParser {
         }
       }
     }
-    let openTag = element.name;
+    let openTag = tagName;
     for (const [attrName, attrValue] of attributeMap) {
       if (attrName === 'style') {
         let styleString = '';
@@ -82,6 +87,19 @@ export class HTMLParser {
       }
     }
     return openTag;
+  }
+
+  // Returns a closed tag string of the specified element.
+  private static getClosedTagString(element: Nodes, rules: any) : string {
+    let tagName = element.name;
+    const attributeRules = rules[tagName];
+    if (!attributeRules) {
+      return '';
+    }
+    if (typeof attributeRules === 'string') {
+      tagName = attributeRules;
+    }
+    return tagName;
   }
 
   // Returns the value of the text node with trimming invisible whitespace.
@@ -113,6 +131,7 @@ export class HTMLParser {
     return nodeValue;
   }
 
+  // Returns the result as HTML format.
   public getHTML(): string {
     const rules = this.rules;
     function * iterate(node: Nodes): Generator<string> {
@@ -128,12 +147,13 @@ export class HTMLParser {
           }
         } else if (child.isElement) {
           const openTag = HTMLParser.getOpenTagString(child, rules);
+          const closedTag = HTMLParser.getClosedTagString(child, rules);
           if (openTag !== '') {
             yield `<${openTag}>`;
           }
           yield * iterate(child);
-          if (openTag !== '') {
-            yield `</${child.name}>`;
+          if (closedTag !== '') {
+            yield `</${closedTag}>`;
           }
         }
         child = nextNode;
@@ -146,12 +166,14 @@ export class HTMLParser {
     return html.trim();
   }
 
+  // Returns the result as node list.
   public getNodeList(): Nodes[] {
     const html = this.getHTML();
     const body = this.parseHTML(html);
     return body.children();
   }
 
+  // Returns the result as document fragment.
   public getFragment(): DocumentFragment {
     const html = this.getHTML();
     const body = this.parseHTML(html);

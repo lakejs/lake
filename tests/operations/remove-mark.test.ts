@@ -149,10 +149,10 @@ describe('operations.removeMark()', () => {
 
   it('collapsed range: removes a mark in another mark', () => {
     const content = `
-    <p><em>foo</em><strong><em>\u200B<focus /></em></strong><em>bar</em></p>
+    <p><i>foo</i><strong><i>\u200B<focus /></i></strong><i>bar</i></p>
     `;
     const output = `
-    <p><em>foo</em><em>\u200B<focus /></em><em>bar</em></p>
+    <p><i>foo</i><i>\u200B<focus /></i><i>bar</i></p>
     `;
     testOperation(
       content,
@@ -165,10 +165,10 @@ describe('operations.removeMark()', () => {
 
   it('expanded range: removes a mark in another mark', () => {
     const content = `
-    <p><em>foo</em><anchor /><strong><em>bold</em></strong><focus /><em>bar</em></p>
+    <p><i>foo</i><anchor /><strong><i>bold</i></strong><focus /><i>bar</i></p>
     `;
     const output = `
-    <p><em>foo</em><anchor /><em>bold</em><focus /><em>bar</em></p>
+    <p><i>foo</i><anchor /><i>bold</i><focus /><i>bar</i></p>
     `;
     testOperation(
       content,
@@ -181,10 +181,10 @@ describe('operations.removeMark()', () => {
 
   it('expanded range: no selected text', () => {
     const content = `
-    <p><em>foo<anchor /></em><strong><focus />bar</strong></p>
+    <p><i>foo<anchor /></i><strong><focus />bar</strong></p>
     `;
     const output = `
-    <p><em>foo</em><focus /><strong>bar</strong></p>
+    <p><i>foo</i><focus /><strong>bar</strong></p>
     `;
     testOperation(
       content,
@@ -197,7 +197,7 @@ describe('operations.removeMark()', () => {
 
   it('expanded range: astride a block', () => {
     const content = `
-    <p><anchor /><em>foo</em></p>
+    <p><anchor /><i>foo</i></p>
     <p>one<strong>two</strong>three</p>
     <p>bar<focus /></p>
     `;

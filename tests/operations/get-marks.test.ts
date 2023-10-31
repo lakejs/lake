@@ -19,7 +19,7 @@ describe('operations.getMarks()', () => {
 
   it('the range is in the other mark', () => {
     const content = `
-    <p><em><anchor />foo<strong>bold</strong><focus /></em></p>
+    <p><i><anchor />foo<strong>bold</strong><focus /></i></p>
     `;
     const { container, range } = createContainer(content);
     const marks = getMarks(range);
@@ -32,13 +32,13 @@ describe('operations.getMarks()', () => {
 
   it('the range is part of a mark', () => {
     const content = `
-    <p><em><anchor />foo</em><strong>bold</strong><focus /></p>
+    <p><i><anchor />foo</i><strong>bold</strong><focus /></p>
     `;
     const { container, range } = createContainer(content);
     const marks = getMarks(range);
     container.remove();
     expect(marks.length).to.equal(4);
-    expect(marks[0].name).to.equal('em');
+    expect(marks[0].name).to.equal('i');
     expect(marks[1].text()).to.equal('foo');
     expect(marks[2].name).to.equal('strong');
     expect(marks[3].text()).to.equal('bold');

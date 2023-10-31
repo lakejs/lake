@@ -531,6 +531,43 @@ describe('paste plugin', () => {
     );
   });
 
+  it('pastes div blocks into a paragraph', () => {
+    const content = `
+    <p>f<focus />oo</p>
+    `;
+    const output = `
+    <p>fone</p>
+    <p>two</p>
+    <p>three<focus /></p>
+    <p>oo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<div>one</div><div>two</div>three');
+      },
+    );
+  });
+
+  it('pastes unsupported nested blocks into a paragraph', () => {
+    const content = `
+    <p>f<focus />oo</p>
+    `;
+    const output = `
+    <p>fonetwo</p>
+    <h2>three<focus /></p>
+    <p>oo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<h1><p>one</p>two</h1><h2>three</h2>');
+      },
+    );
+  });
+
   it('pastes a heading from Chrome into paragraph', () => {
     const content = `
     <p><br /><focus /></p>

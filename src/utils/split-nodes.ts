@@ -3,16 +3,16 @@ import { Range } from '../models/range';
 
 // Splits nodes upwards according to the position until a limiting element is encountered.
 // Case 1:
-// <p><strong><em>foo<focus />bar</em></strong></p>
+// <p><strong><i>foo<focus />bar</i></strong></p>
 // to
-// Step 1: <p><strong><em>foo</em><focus /><em>bar</em></strong></p>
-// Step 2: <p><strong><em>foo</em></strong><focus /><strong><em>bar</em></strong></p>
+// Step 1: <p><strong><i>foo</i><focus /><i>bar</i></strong></p>
+// Step 2: <p><strong><i>foo</i></strong><focus /><strong><i>bar</i></strong></p>
 //
 // Case 2:
-// <p><strong>beginning<em>one<focus />two</em>end</strong></p>
+// <p><strong>beginning<i>one<focus />two</i>end</strong></p>
 // to
-// Step 1: <p><strong>beginning<em>one</em><focus /><em>two</em>end</strong></p>
-// Step 2: <p><strong>beginning<em>one</em></strong><focus /><strong><em>two</em>end</strong></p>
+// Step 1: <p><strong>beginning<i>one</i><focus /><i>two</i>end</strong></p>
+// Step 2: <p><strong>beginning<i>one</i></strong><focus /><strong><i>two</i>end</strong></p>
 export function splitNodes(node: Nodes, offset: number, limitNode: Nodes): { left: Nodes, right: Nodes } | null {
   const range = new Range();
   let parent;

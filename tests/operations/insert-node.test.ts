@@ -9,13 +9,13 @@ describe('operations.insertNode()', () => {
     <strong>foo<focus /></strong>bar
     `;
     const output = `
-    <strong>foo<em>italic</em><focus /></strong>bar
+    <strong>foo<i>italic</i><focus /></strong>bar
     `;
     testOperation(
       content,
       output,
       range => {
-        insertNode(range, query('<em>italic</em>').get(0));
+        insertNode(range, query('<i>italic</i>').get(0));
       },
     );
   });
@@ -25,13 +25,13 @@ describe('operations.insertNode()', () => {
     <strong><anchor />foo<focus /></strong>bar
     `;
     const output = `
-    <strong><em>italic</em><focus /></strong>bar
+    <strong><i>italic</i><focus /></strong>bar
     `;
     testOperation(
       content,
       output,
       range => {
-        insertNode(range, query('<em>italic</em>').get(0));
+        insertNode(range, query('<i>italic</i>').get(0));
       },
     );
   });
@@ -41,13 +41,13 @@ describe('operations.insertNode()', () => {
     <strong>foo<focus /></strong>bar
     `;
     const output = `
-    <strong>foo<em>italic</em><focus /></strong>bar
+    <strong>foo<i>italic</i><focus /></strong>bar
     `;
     testOperation(
       content,
       output,
       range => {
-        insertNode(range, query('<em>italic</em>'));
+        insertNode(range, query('<i>italic</i>'));
       },
     );
   });
@@ -57,13 +57,13 @@ describe('operations.insertNode()', () => {
     <strong><anchor />foo<focus /></strong>bar
     `;
     const output = `
-    <strong><em>italic</em><focus /></strong>bar
+    <strong><i>italic</i><focus /></strong>bar
     `;
     testOperation(
       content,
       output,
       range => {
-        insertNode(range, query('<em>italic</em>'));
+        insertNode(range, query('<i>italic</i>'));
       },
     );
   });

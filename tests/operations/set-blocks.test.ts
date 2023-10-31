@@ -47,13 +47,13 @@ describe('operations.setBlocks()', () => {
     const content = `
     <p>outer start</p>
     <p>f<anchor />oo<strong>bold</strong></p>
-    <p><em>itelic</em>ba<focus />r</p>
+    <p><i>itelic</i>ba<focus />r</p>
     <p>outer end</p>
     `;
     const output = `
     <p>outer start</p>
     <p style="text-align: center;">f<anchor />oo<strong>bold</strong></p>
-    <p style="text-align: center;"><em>itelic</em>ba<focus />r</p>
+    <p style="text-align: center;"><i>itelic</i>ba<focus />r</p>
     <p>outer end</p>
     `;
     testOperation(
@@ -69,13 +69,13 @@ describe('operations.setBlocks()', () => {
     const content = `
     <p>outer start</p>
     <p>f<anchor />oo<strong>bold</strong></p>
-    <p><em>itelic</em>ba<focus />r</p>
+    <p><i>itelic</i>ba<focus />r</p>
     <p>outer end</p>
     `;
     const output = `
     <p>outer start</p>
     <p style="text-align: center;">f<anchor />oo<strong>bold</strong></p>
-    <p style="text-align: center;"><em>itelic</em>ba<focus />r</p>
+    <p style="text-align: center;"><i>itelic</i>ba<focus />r</p>
     <p>outer end</p>
     `;
     testOperation(
@@ -94,14 +94,14 @@ describe('operations.setBlocks()', () => {
     <p>outer start</p>
     <p>f<anchor />oo<strong>bold</strong></p>
     <h1>heading</h1>
-    <p><em>itelic</em>ba<focus />r</p>
+    <p><i>itelic</i>ba<focus />r</p>
     <p>outer end</p>
     `;
     const output = `
     <p>outer start</p>
     <h2>f<anchor />oo<strong>bold</strong></h2>
     <h2>heading</h2>
-    <h2><em>itelic</em>ba<focus />r</h2>
+    <h2><i>itelic</i>ba<focus />r</h2>
     <p>outer end</p>
     `;
     testOperation(
@@ -288,14 +288,14 @@ describe('operations.setBlocks()', () => {
     <p>outer start</p>
     <p>f<anchor />oo<strong>bold</strong></p>
     <h1>heading</h1>
-    <p><em>itelic</em>ba<focus />r</p>
+    <p><i>itelic</i>ba<focus />r</p>
     <p>outer end</p>
     `;
     const output = `
     <p>outer start</p>
     <ol><li>f<anchor />oo<strong>bold</strong></li></ol>
     <ol><li>heading</li></ol>
-    <ol><li><em>itelic</em>ba<focus />r</li></ol>
+    <ol><li><i>itelic</i>ba<focus />r</li></ol>
     <p>outer end</p>
     `;
     testOperation(

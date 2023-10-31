@@ -128,14 +128,14 @@ describe('models.Range class', () => {
   });
 
   it('method: intersectsNode', () => {
-    container.html('<p>outer start</p><p>foo<strong>bold</strong></p><h1>heading</h1><p><em>itelic</em>bar</p><p>outer end</p>');
+    container.html('<p>outer start</p><p>foo<strong>bold</strong></p><h1>heading</h1><p><i>itelic</i>bar</p><p>outer end</p>');
     const range = new Range();
     range.setStart(container.find('strong').prev(), 1);
-    range.setEnd(container.find('em').next(), 2);
+    range.setEnd(container.find('i').next(), 2);
     expect(range.intersectsNode(container.find('strong'))).to.equal(true);
     expect(range.intersectsNode(container.find('strong').first())).to.equal(true);
     expect(range.intersectsNode(container.find('strong').prev())).to.equal(true);
-    expect(range.intersectsNode(container.find('em').next())).to.equal(true);
+    expect(range.intersectsNode(container.find('i').next())).to.equal(true);
     expect(range.intersectsNode(container.find('p').eq(0))).to.equal(false);
     expect(range.intersectsNode(container.find('p').eq(0).first())).to.equal(false);
   });
@@ -300,7 +300,7 @@ describe('models.Range class', () => {
   });
 
   it('reduce method: empty tag', () => {
-    container.html('<div><p><em><strong></strong></em></p></div>');
+    container.html('<div><p><i><strong></strong></i></p></div>');
     const range = new Range();
     range.selectNode(container.find('p'));
     range.collapseToStart();

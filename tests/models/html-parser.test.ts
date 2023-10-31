@@ -160,6 +160,22 @@ describe('models.HTMLParser class', () => {
     expect(htmlParser.getHTML()).to.equal(output);
   });
 
+  it('getHTML method: should convert b into strong', () => {
+    const input = '<b>foo</b>';
+    const output = '<strong>foo</strong>';
+    container.html(input);
+    const htmlParser = new HTMLParser(container);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
+  it('getHTML method: should convert em into i', () => {
+    const input = '<i>foo</i>';
+    const output = '<i>foo</i>';
+    container.html(input);
+    const htmlParser = new HTMLParser(container);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
   it('getNodeList method: should remove comment', () => {
     container.html('<!-- StartFragment --><p>foo</p><!-- EndFragment -->');
     const htmlParser = new HTMLParser(container);

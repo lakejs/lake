@@ -101,10 +101,10 @@ describe('operations.splitMarks()', () => {
 
   it('collapsed range: splits a mark among the marks', () => {
     const content = `
-    <p><strong>beginning<em>one</em><focus /><em>two</em>end</strong></p>
+    <p><strong>beginning<i>one</i><focus /><i>two</i>end</strong></p>
     `;
     const output = `
-    <p><strong>beginning<em>one</em></strong><focus /><strong><em>two</em>end</strong></p>
+    <p><strong>beginning<i>one</i></strong><focus /><strong><i>two</i>end</strong></p>
     `;
     testOperation(
       content,
@@ -117,10 +117,10 @@ describe('operations.splitMarks()', () => {
 
   it('collapsed range: splits a mark without parent mark', () => {
     const content = `
-    <p><em>one</em>two<em>th<focus />ree</em>four<em>five</em></p>
+    <p><i>one</i>two<i>th<focus />ree</i>four<i>five</i></p>
     `;
     const output = `
-    <p><em>one</em>two<em>th</em><focus /><em>ree</em>four<em>five</em></p>
+    <p><i>one</i>two<i>th</i><focus /><i>ree</i>four<i>five</i></p>
     `;
     testOperation(
       content,
@@ -133,10 +133,10 @@ describe('operations.splitMarks()', () => {
 
   it('collapsed range: splits nested masks and a text', () => {
     const content = `
-    <p><strong>beginning<em>one<focus />two</em>end</strong></p>
+    <p><strong>beginning<i>one<focus />two</i>end</strong></p>
     `;
     const output = `
-    <p><strong>beginning<em>one</em></strong><focus /><strong><em>two</em>end</strong></p>
+    <p><strong>beginning<i>one</i></strong><focus /><strong><i>two</i>end</strong></p>
     `;
     testOperation(
       content,
@@ -149,10 +149,10 @@ describe('operations.splitMarks()', () => {
 
   it('collapsed range: splits nested masks without splitting text', () => {
     const content = `
-    <p><strong>beginning<em><focus />foo</em>end</strong></p>
+    <p><strong>beginning<i><focus />foo</i>end</strong></p>
     `;
     const output = `
-    <p><strong>beginning</strong><focus /><strong><em>foo</em>end</strong></p>
+    <p><strong>beginning</strong><focus /><strong><i>foo</i>end</strong></p>
     `;
     testOperation(
       content,
@@ -165,10 +165,10 @@ describe('operations.splitMarks()', () => {
 
   it('collapsed range: splits three levels of nested masks', () => {
     const content = `
-    <p><strong>beginning<em>one<span><focus />two</span></em>end</strong></p>
+    <p><strong>beginning<i>one<span><focus />two</span></i>end</strong></p>
     `;
     const output = `
-    <p><strong>beginning<em>one</em></strong><focus /><strong><em><span>two</span></em>end</strong></p>
+    <p><strong>beginning<i>one</i></strong><focus /><strong><i><span>two</span></i>end</strong></p>
     `;
     testOperation(
       content,
@@ -181,10 +181,10 @@ describe('operations.splitMarks()', () => {
 
   it('expanded range: splits three levels of nested masks', () => {
     const content = `
-    <p><strong>beginning<em>one<span><anchor />two<focus /></span></em>end</strong></p>
+    <p><strong>beginning<i>one<span><anchor />two<focus /></span></i>end</strong></p>
     `;
     const output = `
-    <p><strong>beginning<em>one</em></strong><anchor /><strong><em><span>two</span></em></strong><focus /><strong>end</strong></p>
+    <p><strong>beginning<i>one</i></strong><anchor /><strong><i><span>two</span></i></strong><focus /><strong>end</strong></p>
     `;
     testOperation(
       content,

@@ -9,14 +9,14 @@ describe('operations.insertFragment()', () => {
     <strong>foo<focus /></strong>bar
     `;
     const output = `
-    <strong>foo<em>italic</em>text<focus /></strong>bar
+    <strong>foo<i>italic</i>text<focus /></strong>bar
     `;
     testOperation(
       content,
       output,
       range => {
         const fragment = document.createDocumentFragment();
-        fragment.appendChild(query('<em>italic</em>').get(0));
+        fragment.appendChild(query('<i>italic</i>').get(0));
         fragment.appendChild(document.createTextNode('text'));
         insertFragment(range, fragment);
       },
@@ -28,14 +28,14 @@ describe('operations.insertFragment()', () => {
     <strong><anchor />foo<focus /></strong>bar
     `;
     const output = `
-    <strong><em>italic</em>text<focus /></strong>bar
+    <strong><i>italic</i>text<focus /></strong>bar
     `;
     testOperation(
       content,
       output,
       range => {
         const fragment = document.createDocumentFragment();
-        fragment.appendChild(query('<em>italic</em>').get(0));
+        fragment.appendChild(query('<i>italic</i>').get(0));
         fragment.appendChild(document.createTextNode('text'));
         insertFragment(range, fragment);
       },
