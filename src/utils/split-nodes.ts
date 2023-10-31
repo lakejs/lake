@@ -37,9 +37,9 @@ export function splitNodes(node: Nodes, offset: number, limitNode: Nodes): { lef
     if (range.compareBeforeNode(child) >= 0) {
       break;
     }
-    const next = child.next();
+    const nextNode = child.next();
     leftPart.append(child);
-    child = next;
+    child = nextNode;
   }
   parent.before(leftPart);
   if (parent.parent().length > 0 && parent.parent().get(0) !== limitNode.get(0)) {

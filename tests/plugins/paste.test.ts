@@ -537,7 +537,7 @@ describe('paste plugin', () => {
     `;
     const output = `
     <p>fone</p>
-    <p>two</p>
+    <p style="text-align: center;">two</p>
     <p>three<focus /></p>
     <p>oo</p>
     `;
@@ -545,7 +545,7 @@ describe('paste plugin', () => {
       content,
       output,
       editor => {
-        pasteData(editor, 'text/html', '<div>one</div><div>two</div>three');
+        pasteData(editor, 'text/html', '<div>one</div><div id="test" class="..." style="text-align: center;">two</div>three');
       },
     );
   });
@@ -556,7 +556,7 @@ describe('paste plugin', () => {
     `;
     const output = `
     <p>fonetwo</p>
-    <h2>three<focus /></p>
+    <h2>three<focus /></h2>
     <p>oo</p>
     `;
     testPlugin(

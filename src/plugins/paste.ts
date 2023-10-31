@@ -1,20 +1,71 @@
 import type Editor from '..';
+import { NativeElement } from '../types/native';
+import { blockTagNames } from '../constants/tag-names';
 import { getDefaultRules } from '../constants/schema';
-import { forEach, wrapNodeList } from '../utils';
+import { forEach, query, wrapNodeList } from '../utils';
 import { HTMLParser, TextParser, Nodes, Selection } from '../models';
 
+const blockSelector = Array.from(blockTagNames).join(',');
+
+function replaceTagName(element: Nodes, newTagName: string): Nodes {
+  const nativeValueNode = element.get(0) as NativeElement;
+  const attributes = nativeValueNode.attributes;
+  const newElement = query(`<${newTagName} />`);
+  for (const attr of attributes) {
+    newElement.attr(attr.name, attr.value);
+  }
+  let child = element.first();
+  while(child.length > 0) {
+    const nextNode = child.next();
+    newElement.append(child);
+    child = nextNode;
+  }
+  element.replaceWith(newElement);
+  return newElement;
+}
+
+function fixNestedBlocks(block: Nodes): void {
+  const nodeList = [ block ];
+  for  (const node of block.getWalker()) {
+    nodeList.push(node);
+  }
+  for (const node of nodeList) {
+    if (node.name === 'div') {
+      if (node.find(blockSelector).length > 0) {
+        node.remove(true);
+      } else {
+        replaceTagName(node, 'p');
+      }
+    }
+    if (node.isHeading) {
+      const blocks = node.find(blockSelector);
+      if (blocks.length > 0) {
+        blocks.remove(true);
+      }
+    }
+  }
+}
+
 function fixClipboardData(fragment: DocumentFragment): void {
-  let nodeList: Nodes[] = [];
   let node = new Nodes(fragment.firstChild);
   while (node.length > 0) {
-    const next = node.next();
+    const nextNode = node.next();
+    if (node.isBlock) {
+      fixNestedBlocks(node);
+    }
+    node = nextNode;
+  }
+  let nodeList: Nodes[] = [];
+  node = new Nodes(fragment.firstChild);
+  while (node.length > 0) {
+    const nextNode = node.next();
     if (node.isMark || node.isText || node.isBookmark) {
       nodeList.push(node);
     } else {
       wrapNodeList(nodeList);
       nodeList = [];
     }
-    node = next;
+    node = nextNode;
   }
   wrapNodeList(nodeList);
 }
@@ -119,6 +170,7 @@ export default (editor: Editor) => {
     }
     const content = dataTransfer.getData('text/html');
     const rules = getDefaultRules();
+    rules.div = rules.p;
     forEach(rules, (key, attributeRules) => {
       delete attributeRules.id;
       delete attributeRules.class;

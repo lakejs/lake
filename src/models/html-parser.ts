@@ -180,9 +180,9 @@ export class HTMLParser {
     const fragment = document.createDocumentFragment();
     let child = body.first();
     while (child.length > 0) {
-      const next = child.next();
+      const nextNode = child.next();
       fragment.appendChild(child.get(0));
-      child = next;
+      child = nextNode;
     }
     return fragment;
   }
