@@ -1,27 +1,10 @@
 import type Editor from '..';
-import { NativeElement } from '../types/native';
 import { blockTagNames } from '../constants/tag-names';
 import { getDefaultRules } from '../constants/schema';
-import { forEach, query, wrapNodeList } from '../utils';
+import { forEach, wrapNodeList, changeTagName } from '../utils';
 import { HTMLParser, TextParser, Nodes, Selection } from '../models';
 
 const blockSelector = Array.from(blockTagNames).join(',');
-
-function changeTagName(element: Nodes, newTagName: string): Nodes {
-  const nativeElement = element.get(0) as NativeElement;
-  const newElement = query(`<${newTagName} />`);
-  for (const attr of nativeElement.attributes) {
-    newElement.attr(attr.name, attr.value);
-  }
-  let child = element.first();
-  while(child.length > 0) {
-    const nextNode = child.next();
-    newElement.append(child);
-    child = nextNode;
-  }
-  element.replaceWith(newElement);
-  return newElement;
-}
 
 function fixNestedBlocks(block: Nodes): void {
   const nodeList = [ block ];

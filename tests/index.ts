@@ -21,6 +21,7 @@ import './utils/wrap-node-list.test';
 import './utils/get-deepest.test';
 import './utils/append-deepest.test';
 import './utils/remove-zws.test';
+import './utils/change-tag-name.test';
 
 // Models
 import './models/nodes.test';
