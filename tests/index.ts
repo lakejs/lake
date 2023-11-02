@@ -75,4 +75,5 @@ import './plugins/highlight.test';
 import './plugins/remove-format.test';
 import './plugins/enter.test';
 import './plugins/shift-enter.test';
+import './plugins/backspace.test';
 import './plugins/tab.test';

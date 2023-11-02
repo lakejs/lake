@@ -27,6 +27,7 @@ import highlight from './plugins/highlight';
 import removeFormat from './plugins/remove-format';
 import enter from './plugins/enter';
 import shiftEnter from './plugins/shift-enter';
+import backspace from './plugins/backspace';
 import tab from './plugins/tab';
 
 Core.plugin.add(paste);
@@ -49,9 +50,10 @@ Core.plugin.add(fontFamily);
 Core.plugin.add(fontSize);
 Core.plugin.add(fontColor);
 Core.plugin.add(highlight);
-Core.plugin.add(enter);
 Core.plugin.add(removeFormat);
+Core.plugin.add(enter);
 Core.plugin.add(shiftEnter);
+Core.plugin.add(backspace);
 Core.plugin.add(tab);
 
 export default Core;
