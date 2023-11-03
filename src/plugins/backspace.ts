@@ -1,7 +1,6 @@
 import type Editor from '..';
 import { adjustStartAttributes } from './list';
 
-// utils.mergeNodes(node, otherNode)
 // selection.getLeftText()
 
 function setParagraph(editor: Editor) {
