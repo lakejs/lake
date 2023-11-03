@@ -42,7 +42,6 @@ export function mergeNodes(former: Nodes, latter: Nodes): { node: Nodes, offset:
     child = nextNode;
   }
   latter.remove();
-
   if (
     wouldBeFormer.length > 0 &&
     wouldBeFormer.isElement &&
