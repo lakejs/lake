@@ -42,14 +42,13 @@ export function splitBlock(range: Range): TwoParts {
   }
   if (left) {
     if (left.isEmpty) {
-      const br = query('<br />');
-      appendDeepest(left, br);
+      appendDeepest(left, query('<br />'));
+
     }
   }
   if (right) {
     if (right.isEmpty) {
-      const br = query('<br />');
-      appendDeepest(right, br);
+      appendDeepest(right, query('<br />'));
     }
     range.selectNodeContents(right);
     range.reduce();

@@ -1,5 +1,7 @@
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
+import { appendDeepest } from './append-deepest';
+import { query } from './query';
 
 // In the specified block which is empty, removes <br /> element.
 function removeBr(block: Nodes): void {
@@ -52,6 +54,9 @@ export function mergeNodes(former: Nodes, latter: Nodes): { node: Nodes, offset:
   }
   removeBr(former);
   removeBr(latter);
+  if (former.isBlock && former.isEmpty && latter.isEmpty) {
+    appendDeepest(former, query('<br />'));
+  }
   const wouldBeFormer = former.last();
   const wouldBeLatter = latter.first();
   let child = wouldBeLatter;

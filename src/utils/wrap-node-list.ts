@@ -2,10 +2,10 @@ import { getDeepest } from './get-deepest';
 import { query } from './query';
 import { Nodes } from '../models/nodes';
 
-export function wrapNodeList(nodeList: Nodes[], wrapper?: Nodes) {
+export function wrapNodeList(nodeList: Nodes[], wrapper?: Nodes): Nodes {
   wrapper = wrapper ?? query('<p />');
   if (nodeList.length === 0) {
-    return;
+    return wrapper;
   }
   wrapper = wrapper.clone(true);
   const deepestElement = getDeepest(wrapper);
@@ -13,4 +13,5 @@ export function wrapNodeList(nodeList: Nodes[], wrapper?: Nodes) {
   nodeList.forEach(node => {
     deepestElement.append(node);
   });
+  return wrapper;
 }

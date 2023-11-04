@@ -5,7 +5,8 @@ describe('utils.wrapNodeList()', () => {
 
   it('wrap nodes in paragraph', () => {
     const container = query('<div>one<strong>two</strong>three</div>');
-    wrapNodeList(container.children());
+    const block = wrapNodeList(container.children());
+    expect(block.html()).to.equal('one<strong>two</strong>three');
     expect(container.html()).to.equal('<p>one<strong>two</strong>three</p>');
   });
 

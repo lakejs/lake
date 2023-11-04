@@ -18,12 +18,19 @@ export default (editor: Editor) => {
     const leftText = selection.getLeftText();
     if (leftText === '') {
       event.preventDefault();
-      const block = selection.getBlocks()[0];
+      let block = selection.getBlocks()[0];
       if (!block) {
         editor.selection.setBlocks('<p />');
+        block = selection.getBlocks()[0];
       }
       let prevBlock = block.prev();
       if (prevBlock.length === 0) {
+        if (block.name !== 'p') {
+          editor.selection.setBlocks('<p />');
+        }
+        adjustStartAttributes(editor);
+        editor.history.save();
+        editor.select();
         return;
       }
       if (!prevBlock.isBlock) {
