@@ -6,6 +6,14 @@ import { HTMLParser, TextParser, Nodes, Selection } from '../models';
 
 const blockSelector = Array.from(blockTagNames).join(',');
 
+// In the specified block which is empty, removes <br /> element.
+function removeBr(block: Nodes): void {
+  const br = block.find('br');
+  if (br.length > 0 && block.isEmpty) {
+    br.remove();
+  }
+}
+
 function fixNestedBlocks(block: Nodes): void {
   const nodeList = [ block ];
   for  (const node of block.getWalker()) {
@@ -55,12 +63,8 @@ function fixClipboardData(fragment: DocumentFragment): void {
 function insertFirstNode(selection: Selection, otherNode: Nodes): void {
   const range = selection.range;
   const block = range.startNode.closestBlock();
-  // remove <br /> element
-  if (
-    block.first().length > 0 && block.first().get(0) === block.last().get(0) &&
-    block.first().name === 'br' && otherNode.first().length > 0
-  ) {
-    block.empty();
+  if (otherNode.first().length > 0) {
+    removeBr(block);
   }
   if (block.isEmpty && block.name === 'p') {
     block.replaceWith(otherNode);
@@ -89,11 +93,6 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
   let lastNode = new Nodes(fragment.lastChild);
   if (selection.getBlocks().length === 0) {
     selection.setBlocks('<p />');
-  }
-  // remove <br /> element
-  const block = range.startNode.closestBlock();
-  if (block.length > 0 && block.isEmpty) {
-    block.empty();
   }
   // is mark or text
   if (!firstNode.isBlock) {
