@@ -30,6 +30,15 @@ function getAfterPoint(node: Nodes): { node: Nodes, offset: number } {
 // to
 // <p><strong><i>foo|bar</i></strong></p>
 export function mergeNodes(former: Nodes, latter: Nodes): { node: Nodes, offset: number } {
+  const originalLatter = latter;
+  if (['ul', 'ol'].indexOf(former.name) >= 0) {
+    const list = former.find('li');
+    former = list.eq(list.length - 1);
+  }
+  if (['ul', 'ol'].indexOf(latter.name) >= 0) {
+    const list = latter.find('li');
+    latter = list.eq(0);
+  }
   if (former.isText || latter.isText || former.isVoid || latter.isVoid) {
     return getAfterPoint(former);
   }
@@ -41,11 +50,13 @@ export function mergeNodes(former: Nodes, latter: Nodes): { node: Nodes, offset:
     former.append(child);
     child = nextNode;
   }
-  latter.remove();
+  originalLatter.remove();
+  const newWouldBeFormer = wouldBeFormer.clone(false);
+  const newWouldBeLatter = wouldBeLatter.clone(false);
   if (
     wouldBeFormer.length > 0 &&
     wouldBeFormer.isElement &&
-    wouldBeFormer.clone(false).get(0).isEqualNode(wouldBeLatter.clone(false).get(0))
+    newWouldBeFormer.get(0).isEqualNode(newWouldBeLatter.get(0))
   ) {
     return mergeNodes(wouldBeFormer, wouldBeLatter);
   }
