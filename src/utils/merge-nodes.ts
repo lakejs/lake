@@ -1,6 +1,14 @@
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
+// In the specified block which is empty, removes <br /> element.
+function removeBr(block: Nodes): void {
+  const br = block.find('br');
+  if (br.length > 0 && block.isEmpty) {
+    br.remove();
+  }
+}
+
 // Returns a point after the specified node.
 function getAfterPoint(node: Nodes): { node: Nodes, offset: number } {
   if (node.isText) {
@@ -42,6 +50,8 @@ export function mergeNodes(former: Nodes, latter: Nodes): { node: Nodes, offset:
   if (former.isText || latter.isText || former.isVoid || latter.isVoid) {
     return getAfterPoint(former);
   }
+  removeBr(former);
+  removeBr(latter);
   const wouldBeFormer = former.last();
   const wouldBeLatter = latter.first();
   let child = wouldBeLatter;
@@ -51,14 +61,19 @@ export function mergeNodes(former: Nodes, latter: Nodes): { node: Nodes, offset:
     child = nextNode;
   }
   originalLatter.remove();
-  const newWouldBeFormer = wouldBeFormer.clone(false);
-  const newWouldBeLatter = wouldBeLatter.clone(false);
   if (
     wouldBeFormer.length > 0 &&
+    wouldBeLatter.length > 0 &&
     wouldBeFormer.isElement &&
-    newWouldBeFormer.get(0).isEqualNode(newWouldBeLatter.get(0))
+    wouldBeFormer.clone(false).get(0).isEqualNode(wouldBeLatter.clone(false).get(0))
   ) {
     return mergeNodes(wouldBeFormer, wouldBeLatter);
+  }
+  if (wouldBeFormer.length === 0) {
+    return {
+      node: former,
+      offset: 0,
+    };
   }
   return getAfterPoint(wouldBeFormer);
 }

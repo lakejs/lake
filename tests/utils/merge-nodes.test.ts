@@ -35,7 +35,7 @@ describe('utils.mergeNodes()', () => {
     expect(points.offset).to.equal(1);
   });
 
-  it('merges two paragraphs (strong-i-text, text) into one paragraph', () => {
+  it('merges two paragraphs (p-strong-i-text, p-text) into one paragraph', () => {
     const container = query('<div><p><strong><i>foo</i></strong></p><p>bar</p></div>');
     const points = mergeNodes(container.first(), container.last());
     expect(container.html()).to.equal('<p><strong><i>foo</i></strong>bar</p>');
@@ -43,7 +43,7 @@ describe('utils.mergeNodes()', () => {
     expect(points.offset).to.equal(1);
   });
 
-  it('merges two paragraphs (text, strong-i-text) into one paragraph', () => {
+  it('merges two paragraphs (p-text, p-strong-i-text) into one paragraph', () => {
     const container = query('<div><p>foo</p><p><strong><i>bar</i></strong></p></div>');
     const points = mergeNodes(container.first(), container.last());
     expect(container.html()).to.equal('<p>foo<strong><i>bar</i></strong></p>');
@@ -51,7 +51,7 @@ describe('utils.mergeNodes()', () => {
     expect(points.offset).to.equal(3);
   });
 
-  it('merges two paragraphs (strong-i-text, strong-i-text) into one paragraph', () => {
+  it('merges two paragraphs (p-strong-i-text, p-strong-i-text) into one paragraph', () => {
     const container = query('<div><p><strong><i>foo</i></strong></p><p><strong><i>bar</i></strong></p></div>');
     const points = mergeNodes(container.first(), container.last());
     expect(container.html()).to.equal('<p><strong><i>foobar</i></strong></p>');
@@ -59,7 +59,7 @@ describe('utils.mergeNodes()', () => {
     expect(points.offset).to.equal(3);
   });
 
-  it('merges two paragraphs (i-text, strong-i-text) into one paragraph', () => {
+  it('merges two paragraphs (p-i-text, p-strong-i-text) into one paragraph', () => {
     const container = query('<div><p><i>foo</i></p><p><strong><i>bar</i></strong></p></div>');
     const points = mergeNodes(container.first(), container.last());
     expect(container.html()).to.equal('<p><i>foo</i><strong><i>bar</i></strong></p>');
@@ -67,7 +67,23 @@ describe('utils.mergeNodes()', () => {
     expect(points.offset).to.equal(1);
   });
 
-  it('merges two paragraphs (span, span) into one paragraph', () => {
+  it('merges two paragraphs (p-br, p-text) into one paragraph', () => {
+    const container = query('<div><p><br></p><p>foo</p></div>');
+    const points = mergeNodes(container.first(), container.last());
+    expect(container.html()).to.equal('<p>foo</p>');
+    expect(points.node.name).to.equal('p');
+    expect(points.offset).to.equal(0);
+  });
+
+  it('merges two paragraphs (p-text, p-br) into one paragraph', () => {
+    const container = query('<div><p>foo</p><p><br></p></div>');
+    const points = mergeNodes(container.first(), container.last());
+    expect(container.html()).to.equal('<p>foo</p>');
+    expect(points.node.text()).to.equal('foo');
+    expect(points.offset).to.equal(3);
+  });
+
+  it('merges two paragraphs (p-span, p-span) into one paragraph', () => {
     const container = query('<div><p><span style="color: red;">foo</span></p><p><span style="background-color: blue;">bar</span></p></div>');
     const points = mergeNodes(container.first(), container.last());
     expect(container.html()).to.equal('<p><span style="color: red;">foo</span><span style="background-color: blue;">bar</span></p>');
@@ -75,7 +91,7 @@ describe('utils.mergeNodes()', () => {
     expect(points.offset).to.equal(1);
   });
 
-  it('merges two list (bulleted list, checklist) into one bulleted list', () => {
+  it('merges two list (ul-li, checklist) into one bulleted list', () => {
     const container = query('<div><ul><li>foo</li></ul><ul type="checklist"><li value="true">bar</li></ul></div>');
     const points = mergeNodes(container.first(), container.last());
     expect(container.html()).to.equal('<ul><li>foobar</li></ul>');
@@ -83,7 +99,7 @@ describe('utils.mergeNodes()', () => {
     expect(points.offset).to.equal(3);
   });
 
-  it('merges two list (checklist, bulleted list) into one bulleted list', () => {
+  it('merges two list (checklist, ul-li) into one bulleted list', () => {
     const container = query('<div><ul type="checklist"><li value="true">foo</li></ul><ul><li>bar</li></ul></div>');
     const points = mergeNodes(container.first(), container.last());
     expect(container.html()).to.equal('<ul type="checklist"><li value="true">foobar</li></ul>');
@@ -91,7 +107,7 @@ describe('utils.mergeNodes()', () => {
     expect(points.offset).to.equal(3);
   });
 
-  it('merges two blocks (paragraph, checklist) into one pragraph', () => {
+  it('merges two blocks (p-text, checklist) into one pragraph', () => {
     const container = query('<div><p>foo</p><ul type="checklist"><li value="true">bar</li></ul></div>');
     const points = mergeNodes(container.first(), container.last());
     expect(container.html()).to.equal('<p>foobar</p>');
@@ -99,7 +115,7 @@ describe('utils.mergeNodes()', () => {
     expect(points.offset).to.equal(3);
   });
 
-  it('merges two blocks (checklist, paragraph) into one checklist', () => {
+  it('merges two blocks (checklist, p-text) into one checklist', () => {
     const container = query('<div><ul type="checklist"><li value="true">foo</li></ul><p>bar</p></div>');
     const points = mergeNodes(container.first(), container.last());
     expect(container.html()).to.equal('<ul type="checklist"><li value="true">foobar</li></ul>');

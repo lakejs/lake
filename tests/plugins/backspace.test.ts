@@ -19,4 +19,21 @@ describe('backspace plugin', () => {
     );
   });
 
+  it('merges empty paragraph into heading', () => {
+    const content = `
+    <h1>foo</h1>
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <h1>foo<focus /></h1>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
 });

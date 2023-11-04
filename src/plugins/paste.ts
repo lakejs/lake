@@ -55,7 +55,7 @@ function fixClipboardData(fragment: DocumentFragment): void {
 function insertFirstNode(selection: Selection, otherNode: Nodes): void {
   const range = selection.range;
   const block = range.startNode.closestBlock();
-  // <p><br /></p>
+  // remove <br /> element
   if (
     block.first().length > 0 && block.first().get(0) === block.last().get(0) &&
     block.first().name === 'br' && otherNode.first().length > 0
@@ -90,7 +90,7 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
   if (selection.getBlocks().length === 0) {
     selection.setBlocks('<p />');
   }
-  // remove br element
+  // remove <br /> element
   const block = range.startNode.closestBlock();
   if (block.length > 0 && block.isEmpty) {
     block.empty();
