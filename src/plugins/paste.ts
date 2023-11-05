@@ -90,17 +90,7 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
   if (selection.getBlocks().length === 0) {
     selection.setBlocks('<p />');
   }
-  // is mark or text
-  if (!firstNode.isBlock) {
-    selection.insertFragment(fragment);
-    editor.history.save();
-    editor.select();
-    return;
-  }
-  // is block
-  if (firstNode.isBlock) {
-    insertFirstNode(selection, firstNode);
-  }
+  insertFirstNode(selection, firstNode);
   // remove br
   let child = new Nodes(fragment.firstChild);
   while (child.length > 0) {

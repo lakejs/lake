@@ -702,4 +702,24 @@ describe('paste plugin', () => {
     );
   });
 
+  it('pastes marks with blocks', () => {
+    const content = `
+    <p>f<focus />oo</p>
+    <p>bar</p>
+    `;
+    const output = `
+    <p>f<i>one</i></p>
+    <p>two<focus /></p>
+    <p>oo</p>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<i>one</i><p>two</p>');
+      },
+    );
+  });
+
 });
