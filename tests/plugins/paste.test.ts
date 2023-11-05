@@ -550,20 +550,56 @@ describe('paste plugin', () => {
     );
   });
 
-  it('pastes unsupported nested blocks into a paragraph', () => {
+  it('pastes headings containing paragraphs into a paragraph', () => {
     const content = `
     <p>f<focus />oo</p>
     `;
     const output = `
     <p>fonetwo</p>
-    <h2>three<focus /></h2>
+    <h2>threefour<focus /></h2>
     <p>oo</p>
     `;
     testPlugin(
       content,
       output,
       editor => {
-        pasteData(editor, 'text/html', '<h1><p>one</p>two</h1><h2>three</h2>');
+        pasteData(editor, 'text/html', '<h1><p>one</p>two</h1><h2><p>three</p><p>four</p></h2>');
+      },
+    );
+  });
+
+  it('pastes blockquotes containing paragraphs into a paragraph', () => {
+    const content = `
+    <p>f<focus />oo</p>
+    `;
+    const output = `
+    <p>fonetwo</p>
+    <blockquote>threefour<focus /></blockquote>
+    <p>oo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<blockquote><p>one</p><p>two</p></blockquote><blockquote><p>three</p><p>four</p></blockquote>');
+      },
+    );
+  });
+
+  it('pastes lists containing paragraphs into a paragraph', () => {
+    const content = `
+    <p>f<focus />oo</p>
+    `;
+    const output = `
+    <p>fonetwo</p>
+    <ul><li>threefour<focus /></li></ul>
+    <p>oo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<ul><li><p>one</p><p>two</p></li></ul><ul><li><p>three</p><p>four</p></li></ul>');
       },
     );
   });

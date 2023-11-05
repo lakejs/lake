@@ -26,12 +26,8 @@ function fixNestedBlocks(block: Nodes): void {
       } else {
         changeTagName(node, 'p');
       }
-    }
-    if (node.isHeading) {
-      const blocks = node.find(blockSelector);
-      if (blocks.length > 0) {
-        blocks.remove(true);
-      }
+    } else if (node.isHeading || ['blockquote', 'li'].indexOf(node.name) >= 0) {
+      node.find(blockSelector).remove(true);
     }
   }
 }

@@ -10,10 +10,6 @@ export const defaultValue = `
 <blockquote type="info">info</blockquote>
 <blockquote type="warning">warning</blockquote>
 <blockquote type="error">error</blockquote>
-<blockquote>
-  <p>paragraph 1</p>
-  <p>paragraph 2</p>
-</blockquote>
 <p>
   <strong>bold</strong>
   <i>italic</i>
