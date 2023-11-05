@@ -14,8 +14,8 @@ export default (editor: Editor) => {
     const selection = editor.selection;
     let block = selection.getBlocks()[0];
     if (!block) {
-      setParagraph(editor);
-      return;
+      editor.selection.setBlocks('<p />');
+      block = selection.getBlocks()[0];
     }
     if (block.isEmpty && block.name !== 'p') {
       setParagraph(editor);

@@ -75,7 +75,8 @@ describe('enter plugin', () => {
     foo<focus />bar
     `;
     const output = `
-    <p>foo<focus />bar</p>
+    <p>foo</p>
+    <p><focus />bar</p>
     `;
     testPlugin(
       content,
