@@ -23,6 +23,7 @@ import './utils/get-deepest.test';
 import './utils/append-deepest.test';
 import './utils/remove-zws.test';
 import './utils/change-tag-name.test';
+import './utils/fix-numbered-list.test';
 
 // Models
 import './models/nodes.test';
@@ -52,6 +53,7 @@ import './operations/get-marks.test';
 import './operations/split-marks.test';
 import './operations/add-mark.test';
 import './operations/remove-mark.test';
+import './operations/fix-list.test';
 
 // Plugins
 import './plugins/paste.test';

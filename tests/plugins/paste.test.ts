@@ -463,14 +463,16 @@ describe('paste plugin', () => {
     `;
     const output = `
     <p>fone</p>
-    <ul><li>two<focus /></li></ul>
+    <ol start="1"><li>two</li></ol>
+    <p>three</p>
+    <p>four<focus /></p>
     <p>oo</p>
     `;
     testPlugin(
       content,
       output,
       editor => {
-        pasteData(editor, 'text/html', '<ul><li>one</li></ul><ul><li>two</li></ul>');
+        pasteData(editor, 'text/html', '<ol><li>one</li></ol><ol><li>two</li></ol><p>three</p><p>four</p>');
       },
     );
   });

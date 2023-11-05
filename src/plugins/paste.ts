@@ -1,7 +1,7 @@
 import type Editor from '..';
 import { blockTagNames } from '../constants/tag-names';
 import { getDefaultRules } from '../constants/schema';
-import { forEach, wrapNodeList, changeTagName } from '../utils';
+import { forEach, wrapNodeList, changeTagName, fixNumberedList } from '../utils';
 import { HTMLParser, TextParser, Nodes, Selection } from '../models';
 
 const blockSelector = Array.from(blockTagNames).join(',');
@@ -124,6 +124,7 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
     selection.insertFragment(fragment);
     range.selectAfterNodeContents(lastNode);
   }
+  fixNumberedList(editor.container.children());
   editor.history.save();
   editor.select();
 }

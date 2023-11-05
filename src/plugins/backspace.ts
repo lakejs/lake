@@ -1,7 +1,6 @@
 import type Editor from '..';
 import { mergeNodes } from '../utils';
 import { Range } from '../models';
-import { adjustStartAttributes } from './list';
 import { setBlocks } from '../operations/set-blocks';
 
 export default (editor: Editor) => {
@@ -10,7 +9,7 @@ export default (editor: Editor) => {
     const range = selection.range;
     if (!range.isCollapsed) {
       selection.deleteContents();
-      adjustStartAttributes(editor);
+      editor.selection.fixList();
       editor.history.save();
       editor.select();
       return;
@@ -28,7 +27,7 @@ export default (editor: Editor) => {
         if (block.name !== 'p') {
           editor.selection.setBlocks('<p />');
         }
-        adjustStartAttributes(editor);
+        editor.selection.fixList();
         editor.history.save();
         editor.select();
         return;
@@ -42,7 +41,7 @@ export default (editor: Editor) => {
       const bookmark = selection.insertBookmark();
       mergeNodes(prevBlock, block);
       selection.toBookmark(bookmark);
-      adjustStartAttributes(editor);
+      editor.selection.fixList();
       editor.history.save();
       editor.select();
     }
