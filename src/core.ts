@@ -61,7 +61,6 @@ export class Core {
     this.selectionListener = () => {
       this.selection.syncByRange();
     };
-
   }
 
   private setDefaultOptions(): void {

@@ -29,6 +29,7 @@ import enter from './plugins/enter';
 import shiftEnter from './plugins/shift-enter';
 import backspace from './plugins/backspace';
 import tab from './plugins/tab';
+import markdown from './plugins/markdown';
 
 Core.plugin.add(paste);
 Core.plugin.add(undo);
@@ -55,5 +56,6 @@ Core.plugin.add(enter);
 Core.plugin.add(shiftEnter);
 Core.plugin.add(backspace);
 Core.plugin.add(tab);
+Core.plugin.add(markdown);
 
 export default Core;

@@ -81,3 +81,4 @@ import './plugins/enter.test';
 import './plugins/shift-enter.test';
 import './plugins/backspace.test';
 import './plugins/tab.test';
+import './plugins/markdown.test';

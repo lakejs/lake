@@ -7,6 +7,10 @@ type EventItem = {
   listener: EventListener,
 };
 
+const shortenedTypeMap = new Map([
+  ['#', 'shift+#'],
+]);
+
 export class Keystroke {
   private container: Nodes;
 
@@ -21,6 +25,7 @@ export class Keystroke {
   }
 
   private normalizeType(type: string) {
+    type = shortenedTypeMap.get(type) ?? type;
     type = type.replace(/(^|\+|\s)mod(\+|\s|$)/g, '$1$mod$2').
       replace(/shift|control|alt|meta|enter|tab|backspace|delete|space|escape/,
         (match: string) => match.charAt(0).toUpperCase() + match.substring(1)).
