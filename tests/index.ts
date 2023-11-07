@@ -46,6 +46,7 @@ import './operations/insert-contents.test';
 import './operations/delete-contents.test';
 import './operations/get-blocks.test';
 import './operations/get-left-text.test';
+import './operations/remove-left-text.test';
 import './operations/get-right-text.test';
 import './operations/set-blocks.test';
 import './operations/split-block.test';

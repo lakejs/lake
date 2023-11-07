@@ -10,6 +10,7 @@ import { insertContents } from '../operations/insert-contents';
 import { deleteContents } from '../operations/delete-contents';
 import { getBlocks } from '../operations/get-blocks';
 import { getLeftText } from '../operations/get-left-text';
+import { removeLeftText } from '../operations/remove-left-text';
 import { getRightText } from '../operations/get-right-text';
 import { setBlocks } from '../operations/set-blocks';
 import { splitBlock } from '../operations/split-block';
@@ -111,6 +112,10 @@ export class Selection {
 
   public getLeftText(): ReturnType<typeof getLeftText> {
     return getLeftText(this.range);
+  }
+
+  public removeLeftText(): ReturnType<typeof removeLeftText> {
+    return removeLeftText(this.range);
   }
 
   public getRightText(): ReturnType<typeof getRightText> {
