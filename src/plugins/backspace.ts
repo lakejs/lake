@@ -27,7 +27,6 @@ export default (editor: Editor) => {
         if (block.name !== 'p') {
           editor.selection.setBlocks('<p />');
         }
-        editor.selection.fixList();
         editor.history.save();
         editor.select();
         return;

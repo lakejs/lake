@@ -18,4 +18,20 @@ describe('markdown plugin', () => {
     );
   });
 
+  it('keystroke: set heading 2', () => {
+    const content = `
+    <p>## <focus />foo</p>
+    `;
+    const output = `
+    <h2>## <focus />foo</h2>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
 });

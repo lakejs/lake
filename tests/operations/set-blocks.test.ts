@@ -212,7 +212,7 @@ describe('operations.setBlocks()', () => {
     foo<focus />bar
     `;
     const output = `
-    <ol><li>foo<focus />bar</li></ol>
+    <ol start="1"><li>foo<focus />bar</li></ol>
     `;
     testOperation(
       content,
@@ -231,7 +231,7 @@ describe('operations.setBlocks()', () => {
     `;
     const output = `
     <p>outer start</p>
-    <ol><li>foo<strong>bold</strong><focus /></li></ol>
+    <ol start="1"><li>foo<strong>bold</strong><focus /></li></ol>
     <p>outer end</p>
     `;
     testOperation(
@@ -251,7 +251,7 @@ describe('operations.setBlocks()', () => {
     `;
     const output = `
     <p>outer start</p>
-    <ol><li>foo<strong>bold</strong><focus /></li></ol>
+    <ol start="1"><li>foo<strong>bold</strong><focus /></li></ol>
     <p>outer end</p>
     `;
     testOperation(
@@ -293,9 +293,9 @@ describe('operations.setBlocks()', () => {
     `;
     const output = `
     <p>outer start</p>
-    <ol><li>f<anchor />oo<strong>bold</strong></li></ol>
-    <ol><li>heading</li></ol>
-    <ol><li><i>itelic</i>ba<focus />r</li></ol>
+    <ol start="1"><li>f<anchor />oo<strong>bold</strong></li></ol>
+    <ol start="2"><li>heading</li></ol>
+    <ol start="3"><li><i>itelic</i>ba<focus />r</li></ol>
     <p>outer end</p>
     `;
     testOperation(

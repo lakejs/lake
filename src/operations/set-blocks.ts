@@ -6,6 +6,7 @@ import { Range } from '../models/range';
 import { getBlocks } from './get-blocks';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
+import { fixList } from './fix-list';
 
 function getTopNonBlockNodes(range: Range): Nodes[] {
   const container = range.commonAncestor.closestContainer();
@@ -75,6 +76,7 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
       }
     }
     toBookmark(range, bookmark);
+    fixList(range);
     return;
   }
   // no block
@@ -82,6 +84,7 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
   const nonBlockNodes = getTopNonBlockNodes(range);
   const block = wrapNodeList(nonBlockNodes, valueNode);
   toBookmark(range, bookmark);
+  fixList(range);
   if (block.isEmpty) {
     const br = query('<br />');
     appendDeepest(block, br);

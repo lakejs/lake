@@ -60,7 +60,6 @@ export default (editor: Editor) => {
         editor.selection.setBlocks('<ul type="checklist"><li value="false"></li></ul>');
       }
     }
-    editor.selection.fixList();
     editor.history.save();
     editor.select();
   });

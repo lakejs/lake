@@ -2,7 +2,6 @@ import type Editor from '..';
 
 function setParagraph(editor: Editor) {
   editor.selection.setBlocks('<p />');
-  editor.selection.fixList();
   editor.history.save();
   editor.select();
 }
@@ -23,7 +22,6 @@ export default (editor: Editor) => {
     const rightText = selection.getRightText();
     selection.splitBlock();
     if (rightText !== '') {
-      editor.selection.fixList();
       editor.history.save();
       editor.select();
       return;
@@ -36,7 +34,6 @@ export default (editor: Editor) => {
     if (block.isList && block.attr('type') === 'checklist') {
       block.find('li').attr('value', 'false');
     }
-    editor.selection.fixList();
     editor.history.save();
     editor.select();
   });
