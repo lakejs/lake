@@ -18,7 +18,7 @@ export default (editor: Editor) => {
       return;
     }
     const leftText = selection.getLeftText();
-    const result = /^(#+|\d+\.|[*\-+]|\[[\sx]?\])\s$/i.exec(leftText);
+    const result = /^(#+|\d+\.|[*\-+]|\[[\sx]?\]|>)\s$/i.exec(leftText);
     if (result) {
       editor.history.save();
       editor.selection.removeLeftText();
@@ -42,6 +42,9 @@ export default (editor: Editor) => {
       }
       if (/^\[x\]$/i.test(result[1])) {
         editor.command.execute('list', 'checklist', true);
+      }
+      if (/^>$/i.test(result[1])) {
+        editor.command.execute('blockquote');
       }
     }
   });

@@ -290,4 +290,20 @@ describe('markdown plugin', () => {
     );
   });
 
+  it('keystroke: sets blockquote', () => {
+    const content = `
+    <p>> <focus />foo</p>
+    `;
+    const output = `
+    <blockquote><focus />foo</blockquote>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
 });
