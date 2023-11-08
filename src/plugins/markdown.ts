@@ -20,7 +20,7 @@ export default (editor: Editor) => {
     const leftText = selection.getLeftText();
     const result = /^(#+|\d+\.|[*\-+]|\[[\sx]?\]|>)\s$/i.exec(leftText);
     if (result) {
-      editor.history.save();
+      editor.command.event.emit('execute:before');
       editor.selection.removeLeftText();
       block = selection.getBlocks()[0];
       if (block.html() === '') {
@@ -30,18 +30,23 @@ export default (editor: Editor) => {
       if (/^#+$/.test(result[1])) {
         const type = headingTypeMap.get(result[1]) ?? 'h6';
         editor.command.execute('heading', type);
+        return;
       }
       if (/^\d+\.$/.test(result[1])) {
         editor.command.execute('list', 'numbered');
+        return;
       }
       if (/^[*\-+]$/.test(result[1])) {
         editor.command.execute('list', 'bulleted');
+        return;
       }
       if (/^\[\s?\]$/i.test(result[1])) {
         editor.command.execute('list', 'checklist');
+        return;
       }
       if (/^\[x\]$/i.test(result[1])) {
         editor.command.execute('list', 'checklist', true);
+        return;
       }
       if (/^>$/i.test(result[1])) {
         editor.command.execute('blockquote');
