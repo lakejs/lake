@@ -18,7 +18,7 @@ function setChecklist(editor: Editor, value: boolean) {
 }
 
 export default (editor: Editor) => {
-  editor.command.add('list', (type: 'numbered' | 'bulleted' | 'checklist', value: any = false) => {
+  editor.command.add('list', (type: 'numbered' | 'bulleted' | 'checklist', value: boolean = false) => {
     editor.focus();
     const blocks = editor.selection.getBlocks();
     let isNumberedList = false;
@@ -82,7 +82,7 @@ export default (editor: Editor) => {
   editor.container.on('click', event => {
     const target = new Nodes(event.target as Element);
     if (target.name === 'li' && target.attr('value') !== '') {
-      target.attr('value', target.attr('value') === 'true' ? 'false' : 'true');
+      target.attr('value', (target.attr('value') !== 'true').toString());
       editor.history.save();
     }
   });
