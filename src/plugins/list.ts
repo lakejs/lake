@@ -1,8 +1,24 @@
 import type Editor from '..';
 import { Nodes } from '../models/nodes';
 
+function setParagraph(editor: Editor) {
+  editor.selection.setBlocks('<p />');
+}
+
+function setNumberedList(editor: Editor) {
+  editor.selection.setBlocks('<ol><li></li></ol>');
+}
+
+function setBulletedList(editor: Editor) {
+  editor.selection.setBlocks('<ul><li></li></ul>');
+}
+
+function setChecklist(editor: Editor, value: boolean) {
+  editor.selection.setBlocks(`<ul type="checklist"><li value="${value}"></li></ul>`);
+}
+
 export default (editor: Editor) => {
-  editor.command.add('list', (type: 'numbered' | 'bulleted' | 'checklist') => {
+  editor.command.add('list', (type: 'numbered' | 'bulleted' | 'checklist', value: any = false) => {
     editor.focus();
     const blocks = editor.selection.getBlocks();
     let isNumberedList = false;
@@ -21,43 +37,43 @@ export default (editor: Editor) => {
     }
     if (isNumberedList) {
       if (type === 'numbered') {
-        editor.selection.setBlocks('<p />');
+        setParagraph(editor);
       }
       if (type === 'bulleted') {
-        editor.selection.setBlocks('<ul><li></li></ul>');
+        setBulletedList(editor);
       }
       if (type === 'checklist') {
-        editor.selection.setBlocks('<ul type="checklist"><li value="false"></li></ul>');
+        setChecklist(editor, value);
       }
     } else if (isBulletedList) {
       if (type === 'numbered') {
-        editor.selection.setBlocks('<ol><li></li></ol>');
+        setNumberedList(editor);
       }
       if (type === 'bulleted') {
-        editor.selection.setBlocks('<p />');
+        setParagraph(editor);
       }
       if (type === 'checklist') {
-        editor.selection.setBlocks('<ul type="checklist"><li value="false"></li></ul>');
+        setChecklist(editor, value);
       }
     } else if (isChecklist) {
       if (type === 'numbered') {
-        editor.selection.setBlocks('<ol><li></li></ol>');
+        setNumberedList(editor);
       }
       if (type === 'bulleted') {
-        editor.selection.setBlocks('<ul><li></li></ul>');
+        setBulletedList(editor);
       }
       if (type === 'checklist') {
-        editor.selection.setBlocks('<p />');
+        setParagraph(editor);
       }
     } else {
       if (type === 'numbered') {
-        editor.selection.setBlocks('<ol><li></li></ol>');
+        setNumberedList(editor);
       }
       if (type === 'bulleted') {
-        editor.selection.setBlocks('<ul><li></li></ul>');
+        setBulletedList(editor);
       }
       if (type === 'checklist') {
-        editor.selection.setBlocks('<ul type="checklist"><li value="false"></li></ul>');
+        setChecklist(editor, value);
       }
     }
     editor.history.save();
@@ -67,6 +83,7 @@ export default (editor: Editor) => {
     const target = new Nodes(event.target as Element);
     if (target.name === 'li' && target.attr('value') !== '') {
       target.attr('value', target.attr('value') === 'true' ? 'false' : 'true');
+      editor.history.save();
     }
   });
 };

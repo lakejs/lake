@@ -268,4 +268,22 @@ describe('list plugin', () => {
     );
   });
 
+  it('should change a paragraph to a checklist which value is true', () => {
+    const content = `
+    <p>foo<focus /></p>
+    <p>bar</p>
+    `;
+    const output = `
+    <ul type="checklist"><li value="true">foo<focus /></li></ul>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.command.execute('list', 'checklist', true);
+      },
+    );
+  });
+
 });

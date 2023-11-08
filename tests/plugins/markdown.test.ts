@@ -146,4 +146,148 @@ describe('markdown plugin', () => {
     );
   });
 
+  it('keystroke: sets numbered list (1. space)', () => {
+    const content = `
+    <p>1. <focus />foo</p>
+    `;
+    const output = `
+    <ol start="1"><li><focus />foo</li></ol>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
+  it('keystroke: sets numbered list (2. space)', () => {
+    const content = `
+    <p>2. <focus />foo</p>
+    `;
+    const output = `
+    <ol start="1"><li><focus />foo</li></ol>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
+  it('keystroke: sets bulleted list (* space)', () => {
+    const content = `
+    <p>* <focus />foo</p>
+    `;
+    const output = `
+    <ul><li><focus />foo</li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
+  it('keystroke: sets bulleted list (- space)', () => {
+    const content = `
+    <p>- <focus />foo</p>
+    `;
+    const output = `
+    <ul><li><focus />foo</li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
+  it('keystroke: sets bulleted list (+ space)', () => {
+    const content = `
+    <p>+ <focus />foo</p>
+    `;
+    const output = `
+    <ul><li><focus />foo</li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
+  it('keystroke: sets checklist ([] space)', () => {
+    const content = `
+    <p>[] <focus />foo</p>
+    `;
+    const output = `
+    <ul type="checklist"><li value="false"><focus />foo</li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
+  it('keystroke: sets checklist ([ ] space)', () => {
+    const content = `
+    <p>[ ] <focus />foo</p>
+    `;
+    const output = `
+    <ul type="checklist"><li value="false"><focus />foo</li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
+  it('keystroke: sets checklist ([x] space)', () => {
+    const content = `
+    <p>[x] <focus />foo</p>
+    `;
+    const output = `
+    <ul type="checklist"><li value="true"><focus />foo</li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
+  it('keystroke: sets checklist ([X] space)', () => {
+    const content = `
+    <p>[X] <focus />foo</p>
+    `;
+    const output = `
+    <ul type="checklist"><li value="true"><focus />foo</li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
 });

@@ -18,7 +18,7 @@ export default (editor: Editor) => {
       return;
     }
     const leftText = selection.getLeftText();
-    const result = /^(#+)\s$/.exec(leftText);
+    const result = /^(#+|\d+\.|[*\-+]|\[[\sx]?\])\s$/i.exec(leftText);
     if (result) {
       editor.history.save();
       editor.selection.removeLeftText();
@@ -27,8 +27,22 @@ export default (editor: Editor) => {
         block.prepend('<br />');
         selection.range.selectAfterNodeContents(block);
       }
-      const type = headingTypeMap.get(result[1]) ?? 'h6';
-      editor.command.execute('heading', type);
+      if (/^#+$/.test(result[1])) {
+        const type = headingTypeMap.get(result[1]) ?? 'h6';
+        editor.command.execute('heading', type);
+      }
+      if (/^\d+\.$/.test(result[1])) {
+        editor.command.execute('list', 'numbered');
+      }
+      if (/^[*\-+]$/.test(result[1])) {
+        editor.command.execute('list', 'bulleted');
+      }
+      if (/^\[\s?\]$/i.test(result[1])) {
+        editor.command.execute('list', 'checklist');
+      }
+      if (/^\[x\]$/i.test(result[1])) {
+        editor.command.execute('list', 'checklist', true);
+      }
     }
   });
 };
