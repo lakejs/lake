@@ -1,5 +1,19 @@
 import type Editor from '..';
 
+const markdownRegExp = /^(#+|\d+\.|[*\-+]|\[[\sx]?\]|>)\s$/i;
+
+const headingRegExp = /^#+$/;
+
+const numberedListRegExp = /^\d+\.$/;
+
+const bulletedListRegExp = /^[*\-+]$/;
+
+const checklistFalseRegExp = /^\[\s?\]$/i;
+
+const checklistTrueRegExp = /^\[x\]$/i;
+
+const blockquoteRegExp = /^>$/i;
+
 const headingTypeMap = new Map([
   ['#', 'h1'],
   ['##', 'h2'],
@@ -9,46 +23,53 @@ const headingTypeMap = new Map([
   ['######', 'h6'],
 ]);
 
+function removeMarkdownText(editor: Editor) {
+  const selection = editor.selection;
+  selection.removeLeftText();
+  const block = selection.getBlocks()[0];
+  if (block.html() === '') {
+    block.prepend('<br />');
+    selection.range.selectAfterNodeContents(block);
+  }
+}
+
 export default (editor: Editor) => {
   editor.keystroke.setKeyup('space', event => {
     event.preventDefault();
     const selection = editor.selection;
-    let block = selection.getBlocks()[0];
+    const block = selection.getBlocks()[0];
     if (block && !(block.isHeading || block.name === 'p')) {
       return;
     }
     const leftText = selection.getLeftText();
-    const result = /^(#+|\d+\.|[*\-+]|\[[\sx]?\]|>)\s$/i.exec(leftText);
-    if (result) {
+    const result = markdownRegExp.exec(leftText);
+    if (result !== null) {
+      const markdownText = result[1];
+      // Commits unsaved inputted data.
       editor.command.event.emit('execute:before');
-      editor.selection.removeLeftText();
-      block = selection.getBlocks()[0];
-      if (block.html() === '') {
-        block.prepend('<br />');
-        selection.range.selectAfterNodeContents(block);
-      }
-      if (/^#+$/.test(result[1])) {
-        const type = headingTypeMap.get(result[1]) ?? 'h6';
+      removeMarkdownText(editor);
+      if (headingRegExp.test(markdownText)) {
+        const type = headingTypeMap.get(markdownText) ?? 'h6';
         editor.command.execute('heading', type);
         return;
       }
-      if (/^\d+\.$/.test(result[1])) {
+      if (numberedListRegExp.test(markdownText)) {
         editor.command.execute('list', 'numbered');
         return;
       }
-      if (/^[*\-+]$/.test(result[1])) {
+      if (bulletedListRegExp.test(markdownText)) {
         editor.command.execute('list', 'bulleted');
         return;
       }
-      if (/^\[\s?\]$/i.test(result[1])) {
+      if (checklistFalseRegExp.test(markdownText)) {
         editor.command.execute('list', 'checklist');
         return;
       }
-      if (/^\[x\]$/i.test(result[1])) {
+      if (checklistTrueRegExp.test(markdownText)) {
         editor.command.execute('list', 'checklist', true);
         return;
       }
-      if (/^>$/i.test(result[1])) {
+      if (blockquoteRegExp.test(markdownText)) {
         editor.command.execute('blockquote');
       }
     }
