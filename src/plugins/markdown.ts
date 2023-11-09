@@ -1,10 +1,6 @@
 import type Editor from '..';
 import { Point } from '../types/object';
 
-const markSpaceRegExp = /(\*\*)[^*]+\*\*$/i;
-
-const boldRegExp = /^\*\*$/;
-
 const headingTypeMap = new Map([
   ['#', 'h1'],
   ['##', 'h2'],
@@ -13,6 +9,15 @@ const headingTypeMap = new Map([
   ['#####', 'h5'],
   ['######', 'h6'],
 ]);
+
+const markSpaceList = [
+  {
+    re: /(\*\*)([^*]+)(\*\*)$/,
+    getParameters: () => [
+      'bold',
+    ],
+  },
+];
 
 const blockSpaceList = [
   {
@@ -85,14 +90,31 @@ function getMarkdownPoint(editor: Editor): Point | void {
   };
 }
 
-function executeMarkCommand(editor: Editor, point: Point, markdownText: string): void {
+function executeMarkCommand(editor: Editor, text: string, point: Point): boolean {
+  const selection = editor.selection;
+  const range = selection.range;
   editor.command.event.emit('execute:before');
-  if (boldRegExp.test(markdownText)) {
-    // console.log(markdownText);
+  const offset = point.offset;
+  for (const item of markSpaceList) {
+    const result = item.re.exec(text);
+    if (result !== null) {
+      const bookmark = selection.insertBookmark();
+      const node = bookmark.focus.prev();
+      const oldValue = node.text();
+      const newValue = oldValue.substring(0, oldValue.length - 1).replace(item.re, '$2') + oldValue.substring(oldValue.length - 1);
+      node.get(0).nodeValue = newValue;
+      range.setStart(node, offset - result[0].length - 1);
+      range.setEnd(node, offset - (oldValue.length - newValue.length) - 1);
+      const parameters = item.getParameters();
+      editor.command.execute(parameters[0] as string);
+      selection.toBookmark(bookmark);
+      return true;
+    }
   }
+  return false;
 }
 
-function executeBlockCommand(editor: Editor, markdownText: string): void {
+function executeBlockCommand(editor: Editor, text: string): void {
   const selection = editor.selection;
   editor.command.event.emit('execute:before');
   selection.removeLeftText();
@@ -102,8 +124,8 @@ function executeBlockCommand(editor: Editor, markdownText: string): void {
     selection.range.selectAfterNodeContents(block);
   }
   for (const item of blockSpaceList) {
-    if (item.re.test(markdownText)) {
-      const parameters = item.getParameters(markdownText);
+    if (item.re.test(text)) {
+      const parameters = item.getParameters(text);
       editor.command.execute(parameters.shift() as string, ...parameters);
     }
   }
@@ -116,15 +138,15 @@ export default (editor: Editor) => {
     if (!point) {
       return;
     }
-    const markdownText = point.node.text().substring(0, point.offset - 1);
-    if (markSpaceRegExp.test(markdownText)) {
-      executeMarkCommand(editor, point, markdownText);
+    const text = point.node.text().substring(0, point.offset - 1);
+    const isMatched = executeMarkCommand(editor, text, point);
+    if (isMatched) {
       return;
     }
     const block = selection.getBlocks()[0];
     if (block && !(block.isHeading || block.name === 'p')) {
       return;
     }
-    executeBlockCommand(editor, markdownText);
+    executeBlockCommand(editor, text);
   });
 };

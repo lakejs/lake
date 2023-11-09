@@ -101,12 +101,13 @@ export class History {
   }
 
   public save(needBookmark: boolean = true): void {
+    let bookmark;
     if (needBookmark) {
-      this.selection.insertBookmark();
+      bookmark = this.selection.insertBookmark();
     }
     const item = this.container.clone(true).get(0) as NativeElement;
-    if (needBookmark) {
-      this.selection.synByBookmark();
+    if (bookmark) {
+      this.selection.toBookmark(bookmark);
     }
     this.list.splice(this.index, Infinity, item);
     this.index++;
