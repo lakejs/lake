@@ -10,3 +10,8 @@ export type TwoParts = {
 export type ThreeParts = TwoParts & {
   center: Nodes | null;
 };
+
+export type Point = {
+  node: Nodes;
+  offset: number;
+};

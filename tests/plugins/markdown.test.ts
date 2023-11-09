@@ -292,10 +292,26 @@ describe('markdown plugin', () => {
 
   it('keystroke: sets blockquote', () => {
     const content = `
-    <p>> <focus />foo</p>
+    <p>&gt; <focus />foo</p>
     `;
     const output = `
     <blockquote><focus />foo</blockquote>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
+  it('keystroke: adds bold', () => {
+    const content = `
+    <p>**foo** <focus />bar</p>
+    `;
+    const output = `
+    <p><strong>foo</strong><focus />bar</blockquote>
     `;
     testPlugin(
       content,

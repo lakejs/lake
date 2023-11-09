@@ -1,18 +1,9 @@
 import type Editor from '..';
+import { Point } from '../types/object';
 
-const markdownRegExp = /^(#+|\d+\.|[*\-+]|\[[\sx]?\]|>)\s$/i;
+const markSpaceRegExp = /(\*\*)[^*]+\*\*$/i;
 
-const headingRegExp = /^#+$/;
-
-const numberedListRegExp = /^\d+\.$/;
-
-const bulletedListRegExp = /^[*\-+]$/;
-
-const checklistFalseRegExp = /^\[\s?\]$/i;
-
-const checklistTrueRegExp = /^\[x\]$/i;
-
-const blockquoteRegExp = /^>$/i;
+const boldRegExp = /^\*\*$/;
 
 const headingTypeMap = new Map([
   ['#', 'h1'],
@@ -23,55 +14,117 @@ const headingTypeMap = new Map([
   ['######', 'h6'],
 ]);
 
-function removeMarkdownText(editor: Editor) {
+const blockSpaceList = [
+  {
+    re: /^#+$/,
+    getParameters: (text: string) => [
+      'heading',
+      headingTypeMap.get(text) ?? 'h6',
+    ],
+  },
+  {
+    re: /^\d+\.$/,
+    getParameters: () => [
+      'list',
+      'numbered',
+    ],
+  },
+  {
+    re: /^[*\-+]$/,
+    getParameters: () => [
+      'list',
+      'bulleted',
+    ],
+  },
+  {
+    re: /^\[\s?\]$/,
+    getParameters: () => [
+      'list',
+      'checklist',
+      false,
+    ],
+  },
+  {
+    re: /^\[x\]$/i,
+    getParameters: () => [
+      'list',
+      'checklist',
+      true,
+    ],
+  },
+  {
+    re: /^>$/,
+    getParameters: () => [
+      'blockquote',
+    ],
+  },
+];
+
+function getMarkdownPoint(editor: Editor): Point | void {
   const selection = editor.selection;
+  const range = selection.range;
+  let node = range.startNode;
+  let offset = range.startOffset;
+  if (offset === 0) {
+    return;
+  }
+  if (node.isElement) {
+    const child = node.children()[offset - 1];
+    if (!child || !child.isText) {
+      return;
+    }
+    node = child;
+    offset = node.text().length;
+  }
+  if (offset < 2) {
+    return;
+  }
+  return {
+    node,
+    offset,
+  };
+}
+
+function executeMarkCommand(editor: Editor, point: Point, markdownText: string): void {
+  editor.command.event.emit('execute:before');
+  if (boldRegExp.test(markdownText)) {
+    // console.log(markdownText);
+  }
+}
+
+function executeBlockCommand(editor: Editor, markdownText: string): void {
+  const selection = editor.selection;
+  editor.command.event.emit('execute:before');
   selection.removeLeftText();
   const block = selection.getBlocks()[0];
   if (block.html() === '') {
     block.prepend('<br />');
     selection.range.selectAfterNodeContents(block);
   }
+  for (const item of blockSpaceList) {
+    if (item.re.test(markdownText)) {
+      const parameters = item.getParameters(markdownText);
+      editor.command.execute(parameters.shift() as string, ...parameters);
+    }
+  }
 }
 
 export default (editor: Editor) => {
-  editor.keystroke.setKeyup('space', event => {
-    event.preventDefault();
+  editor.keystroke.setKeyup('space', () => {
     const selection = editor.selection;
+    const point = getMarkdownPoint(editor);
+    if (!point) {
+      return;
+    }
+    const markdownText = point.node.text().substring(0, point.offset - 1);
+    if (markSpaceRegExp.test(markdownText)) {
+      executeMarkCommand(editor, point, markdownText);
+      return;
+    }
     const block = selection.getBlocks()[0];
     if (block && !(block.isHeading || block.name === 'p')) {
       return;
     }
-    const leftText = selection.getLeftText();
-    const result = markdownRegExp.exec(leftText);
-    if (result !== null) {
-      const markdownText = result[1];
-      // Commits unsaved inputted data.
-      editor.command.event.emit('execute:before');
-      removeMarkdownText(editor);
-      if (headingRegExp.test(markdownText)) {
-        const type = headingTypeMap.get(markdownText) ?? 'h6';
-        editor.command.execute('heading', type);
-        return;
-      }
-      if (numberedListRegExp.test(markdownText)) {
-        editor.command.execute('list', 'numbered');
-        return;
-      }
-      if (bulletedListRegExp.test(markdownText)) {
-        editor.command.execute('list', 'bulleted');
-        return;
-      }
-      if (checklistFalseRegExp.test(markdownText)) {
-        editor.command.execute('list', 'checklist');
-        return;
-      }
-      if (checklistTrueRegExp.test(markdownText)) {
-        editor.command.execute('list', 'checklist', true);
-        return;
-      }
-      if (blockquoteRegExp.test(markdownText)) {
-        editor.command.execute('blockquote');
-      }
-    }
+    executeBlockCommand(editor, markdownText);
   });
 };
