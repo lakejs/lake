@@ -311,7 +311,7 @@ describe('markdown plugin', () => {
     <p>**foo** <focus />bar</p>
     `;
     const output = `
-    <p><strong>foo</strong><focus />bar</p>
+    <p><strong>foo</strong>\u200B<focus />bar</p>
     `;
     testPlugin(
       content,

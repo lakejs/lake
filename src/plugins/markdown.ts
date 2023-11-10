@@ -90,18 +90,19 @@ function getMarkdownPoint(editor: Editor): Point | void {
   };
 }
 
-function executeMarkCommand(editor: Editor, text: string, point: Point): boolean {
+function executeMarkCommand(editor: Editor, point: Point): boolean {
   const selection = editor.selection;
   const range = selection.range;
   editor.command.event.emit('execute:before');
   const offset = point.offset;
+  const text = point.node.text().slice(0, offset - 1);
   for (const item of markSpaceList) {
     const result = item.re.exec(text);
     if (result !== null) {
       const bookmark = selection.insertBookmark();
       const node = bookmark.focus.prev();
       const oldValue = node.text();
-      const newValue = oldValue.substring(0, oldValue.length - 1).replace(item.re, '$2') + oldValue.substring(oldValue.length - 1);
+      const newValue = `${oldValue.slice(0, -1).replace(item.re, '$2')}\u200B`;
       node.get(0).nodeValue = newValue;
       range.setStart(node, offset - result[0].length - 1);
       range.setEnd(node, offset - (oldValue.length - newValue.length) - 1);
@@ -114,21 +115,28 @@ function executeMarkCommand(editor: Editor, text: string, point: Point): boolean
   return false;
 }
 
-function executeBlockCommand(editor: Editor, text: string): void {
+function executeBlockCommand(editor: Editor, point: Point): boolean {
   const selection = editor.selection;
   editor.command.event.emit('execute:before');
-  selection.removeLeftText();
-  const block = selection.getBlocks()[0];
-  if (block.html() === '') {
-    block.prepend('<br />');
-    selection.range.selectAfterNodeContents(block);
-  }
+  const offset = point.offset;
+  const text = point.node.text().slice(0, offset - 1);
   for (const item of blockSpaceList) {
     if (item.re.test(text)) {
+      const bookmark = selection.insertBookmark();
+      const node = bookmark.focus.prev();
+      node.remove();
+      const block = bookmark.focus.closestBlock();
+      if (block.isEmpty) {
+        block.prepend('<br />');
+        selection.range.selectAfterNodeContents(block);
+      }
       const parameters = item.getParameters(text);
       editor.command.execute(parameters.shift() as string, ...parameters);
+      selection.toBookmark(bookmark);
+      return true;
     }
   }
+  return false;
 }
 
 export default (editor: Editor) => {
@@ -138,8 +146,7 @@ export default (editor: Editor) => {
     if (!point) {
       return;
     }
-    const text = point.node.text().substring(0, point.offset - 1);
-    const isMatched = executeMarkCommand(editor, text, point);
+    const isMatched = executeMarkCommand(editor, point);
     if (isMatched) {
       return;
     }
@@ -147,6 +154,6 @@ export default (editor: Editor) => {
     if (block && !(block.isHeading || block.name === 'p')) {
       return;
     }
-    executeBlockCommand(editor, text);
+    executeBlockCommand(editor, point);
   });
 };
