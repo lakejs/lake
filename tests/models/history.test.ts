@@ -176,4 +176,19 @@ describe('models.History class', () => {
     expect(container.html()).to.equal('ab');
   });
 
+  it('should pause saving operation, and then restore', () => {
+    const selection = new Selection(container);
+    const history = new History(selection);
+    container.html('a');
+    history.save();
+    container.html('ab');
+    history.pause();
+    history.save();
+    history.continue();
+    container.html('abc');
+    history.save();
+    history.undo();
+    expect(container.html()).to.equal('a');
+  });
+
 });

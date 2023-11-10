@@ -29,6 +29,8 @@ export class History {
 
   private diffDOM: DiffDOM;
 
+  private canSave: boolean;
+
   public limit: number;
 
   constructor(selection: Selection) {
@@ -37,6 +39,7 @@ export class History {
     this.list = [];
     this.index = 0;
     this.diffDOM = new DiffDOM();
+    this.canSave = true;
     this.limit = 100;
   }
 
@@ -100,7 +103,18 @@ export class History {
     this.selection.synByBookmark();
   }
 
+  public continue(): void {
+    this.canSave = true;
+  }
+
+  public pause(): void {
+    this.canSave = false;
+  }
+
   public save(needBookmark: boolean = true): void {
+    if (!this.canSave) {
+      return;
+    }
     let bookmark;
     if (needBookmark) {
       bookmark = this.selection.insertBookmark();

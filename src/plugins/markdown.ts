@@ -93,12 +93,12 @@ function getMarkdownPoint(editor: Editor): Point | void {
 function executeMarkCommand(editor: Editor, point: Point): boolean {
   const selection = editor.selection;
   const range = selection.range;
-  editor.command.event.emit('execute:before');
   const offset = point.offset;
   const text = point.node.text().slice(0, offset - 1);
   for (const item of markSpaceList) {
     const result = item.re.exec(text);
     if (result !== null) {
+      editor.command.event.emit('execute:before');
       const bookmark = selection.insertBookmark();
       const node = bookmark.focus.prev();
       const oldValue = node.text();
@@ -106,9 +106,12 @@ function executeMarkCommand(editor: Editor, point: Point): boolean {
       node.get(0).nodeValue = newValue;
       range.setStart(node, offset - result[0].length - 1);
       range.setEnd(node, offset - (oldValue.length - newValue.length) - 1);
+      editor.history.pause();
       const parameters = item.getParameters();
       editor.command.execute(parameters[0] as string);
       selection.toBookmark(bookmark);
+      editor.history.continue();
+      editor.history.save();
       return true;
     }
   }
@@ -117,11 +120,11 @@ function executeMarkCommand(editor: Editor, point: Point): boolean {
 
 function executeBlockCommand(editor: Editor, point: Point): boolean {
   const selection = editor.selection;
-  editor.command.event.emit('execute:before');
   const offset = point.offset;
   const text = point.node.text().slice(0, offset - 1);
   for (const item of blockSpaceList) {
     if (item.re.test(text)) {
+      editor.command.event.emit('execute:before');
       const bookmark = selection.insertBookmark();
       const node = bookmark.focus.prev();
       node.remove();
@@ -130,9 +133,12 @@ function executeBlockCommand(editor: Editor, point: Point): boolean {
         block.prepend('<br />');
         selection.range.selectAfterNodeContents(block);
       }
+      editor.history.pause();
       const parameters = item.getParameters(text);
       editor.command.execute(parameters.shift() as string, ...parameters);
       selection.toBookmark(bookmark);
+      editor.history.continue();
+      editor.history.save();
       return true;
     }
   }
