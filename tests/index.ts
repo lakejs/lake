@@ -83,3 +83,6 @@ import './plugins/shift-enter.test';
 import './plugins/backspace.test';
 import './plugins/tab.test';
 import './plugins/markdown.test';
+
+// Core
+import './core.test';

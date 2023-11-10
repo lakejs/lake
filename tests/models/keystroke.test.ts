@@ -7,7 +7,6 @@ describe('models.Keystroke class', () => {
   let container: Nodes;
 
   beforeEach(() => {
-
     container = query('<div contenteditable="true" />');
     container.html('<p>foo</p>');
     query(document.body).append(container);

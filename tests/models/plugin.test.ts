@@ -8,7 +8,6 @@ describe('models.Plugin class', () => {
   let container: Nodes;
 
   beforeEach(() => {
-
     container = query('<div contenteditable="true"></div>');
     query(document.body).append(container);
   });

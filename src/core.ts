@@ -132,9 +132,11 @@ export class Core {
   public setValue(value: string) {
     value = utils.normalizeValue(value);
     const htmlParser = new models.HTMLParser(value);
-    for (const node of htmlParser.getNodeList()) {
-      this.container.append(node);
-    }
+    const fragment = htmlParser.getFragment();
+    this.container.empty();
+    this.container.append(fragment);
+    value = utils.denormalizeValue(value);
+    this.selection.synByBookmark();
   }
 
   // Gets the contents from the editor.
@@ -151,7 +153,11 @@ export class Core {
     const container = this.container;
     const targetNode = utils.query(this.target);
     targetNode.hide();
-    this.setValue(this.options.defaultValue);
+    const value = utils.normalizeValue(this.options.defaultValue);
+    const htmlParser = new models.HTMLParser(value);
+    const fragment = htmlParser.getFragment();
+    this.container.empty();
+    this.container.append(fragment);
     targetNode.after(container);
     this.focus();
     this.history.save(false);

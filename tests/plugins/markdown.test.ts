@@ -418,4 +418,20 @@ describe('markdown plugin', () => {
     );
   });
 
+  it('keystroke: with zero width space', () => {
+    const content = `
+    <p><strong>\u200B# <focus />foo</strong></p>
+    `;
+    const output = `
+    <h1><strong><focus />foo</strong></h1>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
 });

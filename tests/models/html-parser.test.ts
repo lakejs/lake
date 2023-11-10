@@ -7,7 +7,6 @@ describe('models.HTMLParser class', () => {
   let container: Nodes;
 
   beforeEach(() => {
-
     container = query('<div contenteditable="true" />');
     query(document.body).append(container);
   });

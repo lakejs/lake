@@ -7,7 +7,6 @@ describe('models.History class', () => {
   let container: Nodes;
 
   beforeEach(() => {
-
     container = query('<div />');
     query(document.body).append(container);
   });

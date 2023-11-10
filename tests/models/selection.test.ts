@@ -7,7 +7,6 @@ describe('models.Selection class', () => {
   let container: Nodes;
 
   beforeEach(() => {
-
     container = query('<div />');
     query(document.body).append(container);
   });
