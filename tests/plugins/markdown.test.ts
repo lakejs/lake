@@ -306,12 +306,108 @@ describe('markdown plugin', () => {
     );
   });
 
-  it('keystroke: adds bold', () => {
+  it('keystroke: adds bold (**bold** space)', () => {
     const content = `
     <p>**foo** <focus />bar</p>
     `;
     const output = `
     <p><strong>foo</strong>\u200B<focus />bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
+  it('keystroke: adds bold (__bold__ space)', () => {
+    const content = `
+    <p>__foo__ <focus />bar</p>
+    `;
+    const output = `
+    <p><strong>foo</strong>\u200B<focus />bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
+  it('keystroke: adds bold (_italic_ space)', () => {
+    const content = `
+    <p>_foo_ <focus />bar</p>
+    `;
+    const output = `
+    <p><i>foo</i>\u200B<focus />bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
+  it('keystroke: adds bold (*italic* space)', () => {
+    const content = `
+    <p>*foo* <focus />bar</p>
+    `;
+    const output = `
+    <p><i>foo</i>\u200B<focus />bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
+  it('keystroke: adds highlight', () => {
+    const content = `
+    <p>==foo== <focus />bar</p>
+    `;
+    const output = `
+    <p><span style="background-color: #fff566;">foo</span>\u200B<focus />bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
+  it('keystroke: adds strikethrough', () => {
+    const content = `
+    <p>~~foo~~ <focus />bar</p>
+    `;
+    const output = `
+    <p><s>foo</s>\u200B<focus />bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
+  it('keystroke: adds code', () => {
+    const content = `
+    <p>\`foo\` <focus />bar</p>
+    `;
+    const output = `
+    <p><code>foo</code>\u200B<focus />bar</p>
     `;
     testPlugin(
       content,

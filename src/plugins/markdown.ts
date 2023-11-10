@@ -12,9 +12,46 @@ const headingTypeMap = new Map([
 
 const markSpaceList = [
   {
-    re: /(\*\*)([^*]+)(\*\*)$/,
+    re: /\*\*(.+?)\*\*$/,
     getParameters: () => [
       'bold',
+    ],
+  },
+  {
+    re: /__(.+?)__$/,
+    getParameters: () => [
+      'bold',
+    ],
+  },
+  {
+    re: /_(.+?)_$/,
+    getParameters: () => [
+      'italic',
+    ],
+  },
+  {
+    re: /\*(.+?)\*$/,
+    getParameters: () => [
+      'italic',
+    ],
+  },
+  {
+    re: /==(.+?)==$/,
+    getParameters: () => [
+      'highlight',
+      '#fff566', // yellow-4, from https://ant.design/docs/spec/colors
+    ],
+  },
+  {
+    re: /~~(.+?)~~$/,
+    getParameters: () => [
+      'strikethrough',
+    ],
+  },
+  {
+    re: /`(.+?)`$/,
+    getParameters: () => [
+      'code',
     ],
   },
 ];
@@ -102,13 +139,13 @@ function executeMarkCommand(editor: Editor, point: Point): boolean {
       const bookmark = selection.insertBookmark();
       const node = bookmark.focus.prev();
       const oldValue = node.text();
-      const newValue = `${oldValue.slice(0, -1).replace(item.re, '$2')}\u200B`;
+      const newValue = `${oldValue.slice(0, -1).replace(item.re, '$1')}\u200B`;
       node.get(0).nodeValue = newValue;
       range.setStart(node, offset - result[0].length - 1);
       range.setEnd(node, offset - (oldValue.length - newValue.length) - 1);
       editor.history.pause();
       const parameters = item.getParameters();
-      editor.command.execute(parameters[0] as string);
+      editor.command.execute(parameters.shift() as string, ...parameters);
       selection.toBookmark(bookmark);
       editor.history.continue();
       editor.history.save();
