@@ -292,4 +292,37 @@ describe('operations.addMark()', () => {
     );
   });
 
+  it('should remove br', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <p><strong>\u200B<focus /></strong></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        addMark(range, '<strong />');
+      },
+    );
+  });
+
+  it('should remove br with empty text', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <p><strong>\u200B<focus /></strong></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        range.startNode.closestBlock().prepend(document.createTextNode(''));
+        addMark(range, '<strong />');
+      },
+    );
+  });
+
 });

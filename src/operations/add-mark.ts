@@ -7,6 +7,14 @@ import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 import { insertNode } from './insert-node';
 
+// In the specified block which is empty, removes <br /> element.
+function removeBr(block: Nodes): void {
+  const br = block.find('br');
+  if (br.length > 0 && block.isEmpty) {
+    br.remove();
+  }
+}
+
 // Removes zero-width space before or after the node.
 function removePreviousOrNextZWS(node: Nodes): void {
   const prevNode = node.prev();
@@ -65,6 +73,8 @@ export function addMark(range: Range, value: string): void {
   const styleValue = valueNode.attr('style');
   const cssProperties = parseStyle(styleValue);
   if (range.isCollapsed) {
+    const block = range.startNode.closestBlock();
+    removeBr(block);
     // https://en.wikipedia.org/wiki/Zero-width_space
     const zeroWidthSpace = new Nodes(document.createTextNode('\u200B'));
     const parts = splitMarks(range);
