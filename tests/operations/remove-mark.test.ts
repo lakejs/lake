@@ -37,10 +37,10 @@ describe('operations.removeMark()', () => {
 
   it('collapsed range: no target mark', () => {
     const content = `
-    <p>foo<strong><focus /></strong>bar</p>
+    <p>foo<strong>\u200B<focus /></strong>bar</p>
     `;
     const output = `
-    <p>foo<strong><focus /></strong>bar</p>
+    <p>foo<strong>\u200B<focus /></strong>bar</p>
     `;
     testOperation(
       content,

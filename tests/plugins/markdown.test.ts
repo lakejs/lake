@@ -434,4 +434,20 @@ describe('markdown plugin', () => {
     );
   });
 
+  it('keystroke: with empty mark', () => {
+    const content = `
+    <p><strong>\u200B# <focus /></strong></p>
+    `;
+    const output = `
+    <h1><strong>\u200B<focus /></strong></h1>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keyup('space');
+      },
+    );
+  });
+
 });

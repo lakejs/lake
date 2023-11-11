@@ -2,7 +2,7 @@ import { removeZWS } from '../utils/remove-zws';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
-function removeAndNormalizeNode(node: Nodes) {
+function removeAndNormalizeNode(node: Nodes, range?: Range) {
   const previousNode = node.prev();
   const nextNode = node.next();
   if (previousNode.isText && nextNode.isText) {
@@ -10,6 +10,15 @@ function removeAndNormalizeNode(node: Nodes) {
     removeZWS(parentNode);
     node.remove();
     parentNode.get(0).normalize();
+  } else if (previousNode.length === 0 && nextNode.length === 0) {
+    const parentNode = node.parent();
+    if (parentNode.isMark && range) {
+      const zeroWidthSpace = new Nodes(document.createTextNode('\u200B'));
+      node.before(zeroWidthSpace);
+      range.setStartAfter(zeroWidthSpace);
+      range.collapseToStart();
+    }
+    node.remove();
   } else {
     node.remove();
   }
@@ -27,7 +36,7 @@ export function toBookmark(range: Range, bookmark: { anchor: Nodes, focus: Nodes
   if (focus.length > 0 && anchor.length === 0) {
     range.setStartBefore(focus);
     range.collapseToStart();
-    removeAndNormalizeNode(focus);
+    removeAndNormalizeNode(focus, range);
     return;
   }
   if (anchor.length > 0 && focus.length > 0) {

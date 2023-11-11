@@ -1,5 +1,6 @@
 import type Editor from '..';
 import { Point } from '../types/object';
+import { Nodes } from '../models';
 
 const headingTypeMap = new Map([
   ['#', 'h1'],
@@ -127,6 +128,19 @@ function getMarkdownPoint(editor: Editor): Point | void {
   };
 }
 
+function fixEmptyBlock(block: Nodes): void {
+  if (block.text() !== '') {
+    return;
+  }
+  if (block.find('br').length > 0) {
+    return;
+  }
+  if (block.children().length > 1 || !block.first().isBookmark) {
+    return;
+  }
+  block.prepend('<br />');
+}
+
 function executeMarkCommand(editor: Editor, point: Point): boolean {
   const selection = editor.selection;
   const range = selection.range;
@@ -158,7 +172,8 @@ function executeMarkCommand(editor: Editor, point: Point): boolean {
 function executeBlockCommand(editor: Editor, point: Point): boolean {
   const selection = editor.selection;
   const offset = point.offset;
-  const text = point.node.text().slice(0, offset - 1);
+  let text = point.node.text().slice(0, offset - 1);
+  text = text.replace(/[\u200B\u2060]/g, '');
   for (const item of blockSpaceList) {
     if (item.re.test(text)) {
       editor.command.event.emit('execute:before');
@@ -166,10 +181,8 @@ function executeBlockCommand(editor: Editor, point: Point): boolean {
       const node = bookmark.focus.prev();
       node.remove();
       const block = bookmark.focus.closestBlock();
-      if (block.isEmpty) {
-        block.prepend('<br />');
-        selection.range.selectAfterNodeContents(block);
-      }
+      fixEmptyBlock(block);
+      selection.range.selectAfterNodeContents(block);
       editor.history.pause();
       const parameters = item.getParameters(text);
       editor.command.execute(parameters.shift() as string, ...parameters);

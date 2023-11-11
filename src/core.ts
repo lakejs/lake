@@ -135,7 +135,6 @@ export class Core {
     const fragment = htmlParser.getFragment();
     this.container.empty();
     this.container.append(fragment);
-    value = utils.denormalizeValue(value);
     this.selection.synByBookmark();
   }
 
