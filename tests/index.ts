@@ -24,6 +24,7 @@ import './utils/append-deepest.test';
 import './utils/remove-zws.test';
 import './utils/change-tag-name.test';
 import './utils/fix-numbered-list.test';
+import './utils/remove-br.test';
 
 // Models
 import './models/nodes.test';

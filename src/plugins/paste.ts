@@ -1,18 +1,10 @@
 import type Editor from '..';
 import { blockTagNames } from '../constants/tag-names';
 import { getDefaultRules } from '../constants/schema';
-import { forEach, wrapNodeList, changeTagName, fixNumberedList } from '../utils';
+import { forEach, wrapNodeList, changeTagName, fixNumberedList, removeBr } from '../utils';
 import { HTMLParser, TextParser, Nodes, Selection } from '../models';
 
 const blockSelector = Array.from(blockTagNames).join(',');
-
-// In the specified block which is empty, removes <br /> element.
-function removeBr(block: Nodes): void {
-  const br = block.find('br');
-  if (br.length > 0 && block.isEmpty) {
-    br.remove();
-  }
-}
 
 function fixNestedBlocks(block: Nodes): void {
   const nodeList = [ block ];

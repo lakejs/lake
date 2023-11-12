@@ -1,4 +1,4 @@
-import { parseStyle, query, appendDeepest } from '../utils';
+import { parseStyle, query, appendDeepest, removeBr } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { splitMarks } from './split-marks';
@@ -6,14 +6,6 @@ import { getMarks } from './get-marks';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 import { insertNode } from './insert-node';
-
-// In the specified block which is empty, removes <br /> element.
-function removeBr(block: Nodes): void {
-  const br = block.find('br');
-  if (br.length > 0 && block.isEmpty) {
-    br.remove();
-  }
-}
 
 // Removes zero-width space before or after the node.
 function removePreviousOrNextZWS(node: Nodes): void {

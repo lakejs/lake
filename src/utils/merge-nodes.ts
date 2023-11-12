@@ -2,14 +2,7 @@ import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { appendDeepest } from './append-deepest';
 import { query } from './query';
-
-// In the specified block which is empty, removes <br /> element.
-function removeBr(block: Nodes): void {
-  const br = block.find('br');
-  if (br.length > 0 && block.isEmpty) {
-    br.remove();
-  }
-}
+import { removeBr } from './remove-br';
 
 // Returns a point after the specified node.
 function getAfterPoint(node: Nodes): { node: Nodes, offset: number } {

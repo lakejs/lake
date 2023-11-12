@@ -24,6 +24,7 @@ export * from './append-deepest';
 export * from './remove-zws';
 export * from './change-tag-name';
 export * from './fix-numbered-list';
+export * from './remove-br';
 
 // Other
 export * from './debug';

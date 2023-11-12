@@ -11,8 +11,7 @@ function removeAndNormalizeNode(node: Nodes, range?: Range) {
     node.remove();
     parentNode.get(0).normalize();
   } else if (previousNode.length === 0 && nextNode.length === 0) {
-    const parentNode = node.parent();
-    if (parentNode.isMark && range) {
+    if (node.parent().isMark && range) {
       const zeroWidthSpace = new Nodes(document.createTextNode('\u200B'));
       node.before(zeroWidthSpace);
       range.setStartAfter(zeroWidthSpace);
