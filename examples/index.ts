@@ -52,6 +52,7 @@ const noParameterCommandNames = [
   'superscript',
   'code',
   'removeFormat',
+  'formatPainter',
 ];
 
 const editor = new Editor('.lake-editor', {

@@ -79,6 +79,7 @@ import './plugins/font-size.test';
 import './plugins/font-color.test';
 import './plugins/highlight.test';
 import './plugins/remove-format.test';
+import './plugins/format-painter.test';
 import './plugins/enter.test';
 import './plugins/shift-enter.test';
 import './plugins/backspace.test';
