@@ -1,7 +1,7 @@
 import type Editor from '..';
 
 export default (editor: Editor) => {
-  editor.command.add('align', (type: string) => {
+  editor.command.add('align', (type: 'left' | 'center' | 'right' | 'justify') => {
     editor.focus();
     editor.selection.setBlocks({
       'text-align': type,
