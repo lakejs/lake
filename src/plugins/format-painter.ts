@@ -7,8 +7,8 @@ export default (editor: Editor) => {
   editor.command.add('formatPainter', () => {
     editor.focus();
     editor.container.addClass('lake-format-painter');
-    const appliedTags = editor.selection.getTags();
-    for (const item of appliedTags) {
+    const appliedNodes = editor.selection.getAppliedNodes();
+    for (const item of appliedNodes) {
       if (item.node.isMark) {
         markList.push(item.node);
       }

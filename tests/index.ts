@@ -40,7 +40,7 @@ import './models/plugin.test';
 // Operations
 import './operations/insert-bookmark.test';
 import './operations/to-bookmark.test';
-import './operations/get-tags.test';
+import './operations/get-applied-nodes.test';
 import './operations/insert-node.test';
 import './operations/insert-fragment.test';
 import './operations/insert-contents.test';

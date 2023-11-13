@@ -3,7 +3,7 @@ import { Nodes } from './nodes';
 import { Range } from './range';
 import { insertBookmark } from '../operations/insert-bookmark';
 import { toBookmark } from '../operations/to-bookmark';
-import { getTags } from '../operations/get-tags';
+import { getAppliedNodes } from '../operations/get-applied-nodes';
 import { insertNode } from '../operations/insert-node';
 import { insertFragment } from '../operations/insert-fragment';
 import { insertContents } from '../operations/insert-contents';
@@ -86,8 +86,8 @@ export class Selection {
     return toBookmark(this.range, bookmark);
   }
 
-  public getTags(): ReturnType<typeof getTags> {
-    return getTags(this.range);
+  public getAppliedNodes(): ReturnType<typeof getAppliedNodes> {
+    return getAppliedNodes(this.range);
   }
 
   public insertNode(node: Parameters<typeof insertNode>[1]): ReturnType<typeof insertNode> {

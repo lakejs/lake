@@ -23,7 +23,7 @@ function getAttributes(node: Nodes): KeyValue {
   return attributes;
 }
 
-function pushAncestralTags(appliedTags: AppliedTagMapType[], range: Range): void {
+function pushAncestralNodes(appliedNodes: AppliedTagMapType[], range: Range): void {
   let parentNode = range.startNode;
   if (parentNode.isText) {
     parentNode = parentNode.parent();
@@ -32,7 +32,7 @@ function pushAncestralTags(appliedTags: AppliedTagMapType[], range: Range): void
     if (!parentNode.isEditable) {
       break;
     }
-    appliedTags.push({
+    appliedNodes.push({
       node: parentNode.clone(),
       name: parentNode.name,
       attributes: getAttributes(parentNode),
@@ -42,7 +42,7 @@ function pushAncestralTags(appliedTags: AppliedTagMapType[], range: Range): void
   }
 }
 
-function pushNextNestedTags(appliedTags: AppliedTagMapType[], range: Range): void {
+function pushNextNestedNodes(appliedNodes: AppliedTagMapType[], range: Range): void {
   const startNode = range.startNode;
   let nextNode;
   if (startNode.isText && startNode.text().length === range.startOffset) {
@@ -64,7 +64,7 @@ function pushNextNestedTags(appliedTags: AppliedTagMapType[], range: Range): voi
     let child = nextNode;
     while (child.length > 0) {
       if (child.isElement) {
-        appliedTags.push({
+        appliedNodes.push({
           node: child.clone(),
           name: child.name,
           attributes: getAttributes(child),
@@ -76,10 +76,10 @@ function pushNextNestedTags(appliedTags: AppliedTagMapType[], range: Range): voi
   }
 }
 
-// Returns the applied tags of the selection.
-export function getTags(range: Range): AppliedTagMapType[] {
-  const appliedTags: AppliedTagMapType[] = [];
-  pushAncestralTags(appliedTags, range);
-  pushNextNestedTags(appliedTags, range);
-  return appliedTags;
+// Returns the applied nodes of the selection.
+export function getAppliedNodes(range: Range): AppliedTagMapType[] {
+  const appliedNodes: AppliedTagMapType[] = [];
+  pushAncestralNodes(appliedNodes, range);
+  pushNextNestedNodes(appliedNodes, range);
+  return appliedNodes;
 }
