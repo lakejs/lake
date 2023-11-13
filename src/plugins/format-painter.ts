@@ -11,8 +11,9 @@ export default (editor: Editor) => {
     editor.container.addClass(formatPainterClassName);
     const appliedNodes = editor.selection.getAppliedNodes();
     for (const item of appliedNodes) {
-      if (item.node.isMark) {
-        markList.push(item.node);
+      const node = item.node;
+      if (node.isMark && node.name !== 'a') {
+        markList.push(node);
       }
     }
   });

@@ -1,5 +1,14 @@
 import { expect } from 'chai';
+import Editor from '../../src';
 import { testPlugin } from '../utils';
+
+function testFormatPainter(editor: Editor): void {
+  editor.command.execute('formatPainter');
+  expect(editor.container.hasClass('lake-format-painter')).to.equal(true);
+  editor.selection.range.selectNodeContents(editor.container.find('p').eq(1));
+  editor.container.emit('click');
+  expect(editor.container.hasClass('lake-format-painter')).to.equal(false);
+}
 
 describe('formatPainter plugin', () => {
 
@@ -16,11 +25,7 @@ describe('formatPainter plugin', () => {
       content,
       output,
       editor => {
-        editor.command.execute('formatPainter');
-        expect(editor.container.hasClass('lake-format-painter')).to.equal(true);
-        editor.selection.range.selectNodeContents(editor.container.find('p').eq(1));
-        editor.container.emit('click');
-        expect(editor.container.hasClass('lake-format-painter')).to.equal(false);
+        testFormatPainter(editor);
       },
     );
   });
@@ -38,11 +43,7 @@ describe('formatPainter plugin', () => {
       content,
       output,
       editor => {
-        editor.command.execute('formatPainter');
-        expect(editor.container.hasClass('lake-format-painter')).to.equal(true);
-        editor.selection.range.selectNodeContents(editor.container.find('p').eq(1));
-        editor.container.emit('click');
-        expect(editor.container.hasClass('lake-format-painter')).to.equal(false);
+        testFormatPainter(editor);
       },
     );
   });
@@ -60,11 +61,7 @@ describe('formatPainter plugin', () => {
       content,
       output,
       editor => {
-        editor.command.execute('formatPainter');
-        expect(editor.container.hasClass('lake-format-painter')).to.equal(true);
-        editor.selection.range.selectNodeContents(editor.container.find('p').eq(1));
-        editor.container.emit('click');
-        expect(editor.container.hasClass('lake-format-painter')).to.equal(false);
+        testFormatPainter(editor);
       },
     );
   });
@@ -82,11 +79,25 @@ describe('formatPainter plugin', () => {
       content,
       output,
       editor => {
-        editor.command.execute('formatPainter');
-        expect(editor.container.hasClass('lake-format-painter')).to.equal(true);
-        editor.selection.range.selectNodeContents(editor.container.find('p').eq(1));
-        editor.container.emit('click');
-        expect(editor.container.hasClass('lake-format-painter')).to.equal(false);
+        testFormatPainter(editor);
+      },
+    );
+  });
+
+  it('should not copy link', () => {
+    const content = `
+    <p><a href="url">f<focus />oo</a></p>
+    <p>bar</p>
+    `;
+    const output = `
+    <p><a href="url">foo</a></p>
+    <p><anchor />bar<focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        testFormatPainter(editor);
       },
     );
   });
