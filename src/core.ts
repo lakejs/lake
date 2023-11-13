@@ -32,6 +32,8 @@ export class Core {
 
   private selectionListener: EventListener;
 
+  private clickListener: EventListener;
+
   public container: models.Nodes;
 
   public event: EventEmitter;
@@ -60,6 +62,12 @@ export class Core {
 
     this.selectionListener = () => {
       this.selection.syncByRange();
+    };
+    this.clickListener = event => {
+      const targetNode = new models.Nodes(event.target as Element);
+      if (!targetNode.isContentEditable) {
+        this.event.emit('click:outside');
+      }
     };
   }
 
@@ -164,14 +172,16 @@ export class Core {
     this.select();
     Core.plugin.loadAll(this);
     document.addEventListener('selectionchange', this.selectionListener);
+    document.addEventListener('click', this.clickListener);
     this.bindInputEvent();
-    this.event.emit('ready');
+    this.event.emit('create');
   }
 
   // Removes the editor.
   public remove(): void {
     this.container.remove();
     document.removeEventListener('selectionchange', this.selectionListener);
+    document.removeEventListener('click', this.clickListener);
     this.event.emit('remove');
   }
 }

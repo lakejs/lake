@@ -130,11 +130,11 @@ export class Selection {
     return splitBlock(this.range);
   }
 
-  public getMarks(): ReturnType<typeof getMarks> {
-    return getMarks(this.range);
+  public getMarks(hasText?: Parameters<typeof getMarks>[1]): ReturnType<typeof getMarks> {
+    return getMarks(this.range, hasText);
   }
 
-  public splitMarks(removeEmptyMark: Parameters<typeof splitMarks>[1]): ReturnType<typeof splitMarks> {
+  public splitMarks(removeEmptyMark?: Parameters<typeof splitMarks>[1]): ReturnType<typeof splitMarks> {
     return splitMarks(this.range, removeEmptyMark);
   }
 

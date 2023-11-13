@@ -5,6 +5,7 @@ import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
 type AppliedTagMapType = {
+  node: Nodes,
   name: string,
   attributes: KeyValue,
   styles: KeyValue,
@@ -32,6 +33,7 @@ function pushAncestralTags(appliedTags: AppliedTagMapType[], range: Range): void
       break;
     }
     appliedTags.push({
+      node: parentNode.clone(),
       name: parentNode.name,
       attributes: getAttributes(parentNode),
       styles: parseStyle(parentNode.attr('style')),
@@ -63,6 +65,7 @@ function pushNextNestedTags(appliedTags: AppliedTagMapType[], range: Range): voi
     while (child.length > 0) {
       if (child.isElement) {
         appliedTags.push({
+          node: child.clone(),
           name: child.name,
           attributes: getAttributes(child),
           styles: parseStyle(child.attr('style')),

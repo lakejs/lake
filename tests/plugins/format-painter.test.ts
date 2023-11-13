@@ -1,21 +1,26 @@
+import { expect } from 'chai';
 import { testPlugin } from '../utils';
 
 describe('formatPainter plugin', () => {
 
-  it('align left', () => {
+  it('copies and adds strong', () => {
     const content = `
-    <p><anchor />heading<focus /></p>
-    <p>foo</p>
+    <p><strong><anchor />foo<focus /></strong></p>
+    <p>bar</p>
     `;
     const output = `
-    <p style="text-align: left;"><anchor />heading<focus /></p>
-    <p>foo</p>
+    <p><strong>foo</strong></p>
+    <p><anchor /><strong>bar</strong><focus /></p>
     `;
     testPlugin(
       content,
       output,
       editor => {
-        editor.command.execute('align', 'left');
+        editor.command.execute('formatPainter');
+        expect(editor.container.hasClass('lake-format-painter')).to.equal(true);
+        editor.selection.range.selectNodeContents(editor.container.find('p').eq(1));
+        editor.container.emit('click');
+        expect(editor.container.hasClass('lake-format-painter')).to.equal(false);
       },
     );
   });

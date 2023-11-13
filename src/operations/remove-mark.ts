@@ -90,11 +90,11 @@ export function removeMark(range: Range, value?: string): void {
     return;
   }
   splitMarks(range);
-  const nodeList = getMarks(range);
+  const marks = getMarks(range);
   const bookmark = insertBookmark(range);
-  for (const node of nodeList) {
-    if (node.isMark && (!tagName || node.name === tagName)) {
-      node.remove(true);
+  for (const mark of marks) {
+    if (!tagName || mark.name === tagName) {
+      mark.remove(true);
     }
   }
   toBookmark(range, bookmark);

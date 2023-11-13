@@ -111,7 +111,7 @@ export class History {
     this.canSave = false;
   }
 
-  public save(needBookmark: boolean = true): void {
+  public save(needBookmark = true): void {
     if (!this.canSave) {
       return;
     }

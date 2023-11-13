@@ -56,7 +56,7 @@ function getUpperMark(node: Nodes, tagName: string): Nodes {
 }
 
 // Adds the specified mark to the texts of the range.
-export function addMark(range: Range, value: string): void {
+export function addMark(range: Range, value: string | Nodes): void {
   if (!range.commonAncestor.isContentEditable) {
     return;
   }
@@ -94,7 +94,7 @@ export function addMark(range: Range, value: string): void {
     return;
   }
   splitMarks(range);
-  const nodeList = getMarks(range);
+  const nodeList = getMarks(range, true);
   const bookmark = insertBookmark(range);
   for (const node of nodeList) {
     if (node.isText) {

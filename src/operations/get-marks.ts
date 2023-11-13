@@ -2,7 +2,7 @@ import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
 // Returns target marks and text nodes relating to the specified range that can be modified by other operations.
-export function getMarks(range: Range): Nodes[] {
+export function getMarks(range: Range, hasText = false): Nodes[] {
   const stratRange = range.clone();
   stratRange.collapseToStart();
   const endRange = range.clone();
@@ -17,7 +17,9 @@ export function getMarks(range: Range): Nodes[] {
     }
     if (stratRange.compareAfterNode(node) > 0) {
       if ((node.isMark || node.isText) && !node.isEmpty) {
-        marks.push(node);
+        if (node.isMark || hasText) {
+          marks.push(node);
+        }
       }
     }
   }
