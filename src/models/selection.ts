@@ -19,6 +19,7 @@ import { splitMarks } from '../operations/split-marks';
 import { addMark } from '../operations/add-mark';
 import { removeMark } from '../operations/remove-mark';
 import { fixList } from '../operations/fix-list';
+import { insertFigure } from '../operations/insert-figure';
 
 export class Selection {
   // Represents the range of text selected by the user or the current position of the caret.
@@ -148,6 +149,10 @@ export class Selection {
 
   public fixList(): ReturnType<typeof fixList> {
     return fixList(this.range);
+  }
+
+  public insertFigure(figure: Parameters<typeof insertFigure>[1]): ReturnType<typeof insertFigure> {
+    return insertFigure(this.range, figure);
   }
 
 }
