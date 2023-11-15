@@ -1,17 +1,10 @@
 import { FigureItem } from '../types/figure';
 import { Range } from '../models/range';
-import { deleteContents } from './delete-contents';
 import { insertContents } from './insert-contents';
 import { splitBlock } from './split-block';
 
 // Inserts a Figure item into the specified range.
 export function insertFigure(range: Range, figure: FigureItem): void {
-  if (!range.commonAncestor.isContentEditable) {
-    return;
-  }
-  if (!range.isCollapsed) {
-    deleteContents(range);
-  }
   const content = `
     <figure type="${figure.type}" name="${figure.name}">
       ${figure.render(figure.value)}
