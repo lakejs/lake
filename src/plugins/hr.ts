@@ -1,18 +1,16 @@
 import type Editor from '..';
-import { Figure } from '../models/figure';
-import { debug } from '../utils/debug';
+import { FigureItem } from '../types/figure';
 
-class HrFigure extends Figure {
-  constructor() {
-    super();
-    debug('render method');
-  }
-}
+const figure: FigureItem = {
+  type: 'block',
+  name: 'hr',
+  value: {},
+  render: () => '<hr />',
+};
 
 export default (editor: Editor) => {
   editor.command.add('hr', () => {
     editor.focus();
-    const figure = new HrFigure();
     editor.selection.insertFigure(figure);
     editor.history.save();
     editor.select();

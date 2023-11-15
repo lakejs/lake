@@ -41,11 +41,8 @@ export function splitBlock(range: Range): TwoParts {
       right = null;
     }
   }
-  if (left) {
-    if (left.isEmpty) {
-      appendDeepest(left, query('<br />'));
-
-    }
+  if (left && left.isEmpty) {
+    appendDeepest(left, query('<br />'));
   }
   if (right) {
     if (right.isEmpty) {

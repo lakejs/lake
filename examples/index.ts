@@ -53,6 +53,7 @@ const noParameterCommandNames = [
   'code',
   'removeFormat',
   'formatPainter',
+  'hr',
 ];
 
 const editor = new Editor('.lake-editor', {
