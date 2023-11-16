@@ -136,6 +136,11 @@ export class Nodes {
     return this.isElement && node.getAttribute('contenteditable') === 'true';
   }
 
+  // Returns a boolean value indicating whether the node is a figure element or in it.
+  public get inFigure(): boolean {
+    return this.name === 'figure' || this.closest('figure').length > 0;
+  }
+
   // Returns a boolean value indicating whether the node is editable or the node is a root element of contenteditable area.
   public get isContentEditable(): boolean {
     if (this.length === 0) {

@@ -7,7 +7,9 @@ import { splitBlock } from './split-block';
 export function insertFigure(range: Range, figure: FigureItem): void {
   const content = `
     <figure type="${figure.type}" name="${figure.name}">
-      ${figure.render(figure.value)}
+      <span class="figure-left">\u200B</span>
+      <div class="figure-body" contenteditable="false">${figure.render(figure.value)}</div>
+      <span class="figure-right">\u200B</span>
     </figure>
   `;
   if (figure.type === 'inline') {
