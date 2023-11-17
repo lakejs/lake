@@ -5,7 +5,7 @@ const figure: FigureItem = {
   type: 'block',
   name: 'hr',
   value: {},
-  render: () => '<hr />',
+  render: () => '<div class="hr" />',
 };
 
 export default (editor: Editor) => {

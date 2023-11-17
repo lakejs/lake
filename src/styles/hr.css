@@ -1,0 +1,5 @@
+.lake-container figure[name="hr"] .figure-body hr {
+}
+.lake-container figure[name="hr"] .figure-body:hover {
+  background-color: var(--figure-hover-color);
+}

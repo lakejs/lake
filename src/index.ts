@@ -4,6 +4,8 @@ import './styles/format-painter.css';
 import './styles/heading.css';
 import './styles/list.css';
 import './styles/blockquote.css';
+import './styles/figure.css';
+import './styles/hr.css';
 import { Core } from './core';
 import paste from './plugins/paste';
 import undo from './plugins/undo';

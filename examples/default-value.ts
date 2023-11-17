@@ -1,9 +1,9 @@
 export const defaultValue = `
 <h1>heading 1</h1>
 <figure type="block" name="hr">
-  <span class="figure-left">\u200B</span>
+  <span class="figure-left"><br /></span>
   <div class="figure-body" contenteditable="false"><hr /></div>
-  <span class="figure-right">\u200B</span>
+  <span class="figure-right"><br /></span>
 </figure>
 <h2>heading 2</h2>
 <h3>heading 3</h3>

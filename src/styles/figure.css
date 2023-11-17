@@ -1,0 +1,21 @@
+.lake-container figure {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+.lake-container figure .figure-left,
+.lake-container figure .figure-right {
+  display: inline;
+  min-width: 1px;
+  vertical-align: baseline;
+}
+.lake-container figure .figure-left {
+  align-self: flex-start;
+}
+.lake-container figure .figure-right {
+  align-self: flex-end;
+}
+.lake-container figure .figure-body {
+  display: block;
+  width: calc(100% - 2px);
+}
