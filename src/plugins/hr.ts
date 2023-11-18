@@ -4,7 +4,6 @@ import { Figure } from '../types/figure';
 const figure: Figure = {
   type: 'block',
   name: 'hr',
-  value: {},
   render: () => '<hr />',
 };
 

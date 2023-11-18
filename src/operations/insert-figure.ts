@@ -1,19 +1,31 @@
 import { Figure } from '../types/figure';
+import { query } from '../utils';
 import { Range } from '../models/range';
-import { insertContents } from './insert-contents';
+import { insertFragment } from './insert-fragment';
 import { splitBlock } from './split-block';
 
-// Inserts a figure into the specified range.
-export function insertFigure(range: Range, figure: Figure): void {
-  const content = `
+function createFigureFragment(figure: Figure): DocumentFragment {
+  const html = `
     <figure type="${figure.type}" name="${figure.name}">
       <span class="figure-left"><br /></span>
       <div class="figure-body" contenteditable="false">${figure.render(figure.value)}</div>
       <span class="figure-right"><br /></span>
     </figure>
   `;
+  const figureNode = query(html.trim());
+  if (figure.value) {
+    figureNode.attr('value', btoa(JSON.stringify(figure.value)));
+  }
+  const fragment = document.createDocumentFragment();
+  fragment.appendChild(figureNode.get(0));
+  return fragment;
+}
+
+// Inserts a figure into the specified range.
+export function insertFigure(range: Range, figure: Figure): void {
+  const fragment = createFigureFragment(figure);
   if (figure.type === 'inline') {
-    insertContents(range, content);
+    insertFragment(range, fragment);
     return;
   }
   const parts = splitBlock(range);
@@ -24,7 +36,7 @@ export function insertFigure(range: Range, figure: Figure): void {
   if (parts.right && parts.right.isEmpty) {
     parts.right.remove();
   }
-  insertContents(range, content);
+  insertFragment(range, fragment);
   if (parts.left && parts.left.isEmpty) {
     parts.left.remove();
   }
