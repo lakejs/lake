@@ -1,5 +1,14 @@
-.lake-container figure[name="hr"] .figure-body hr {
+.lake-container figure[name="hr"] .figure-body {
+  margin: 0;
+  padding: 10px 0;
+  cursor: pointer;
 }
 .lake-container figure[name="hr"] .figure-body:hover {
-  background-color: var(--figure-hover-color);
+  background-color: #0000000a;
+}
+.lake-container figure[name="hr"] .figure-body hr {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-top: 1px solid #d9d9d9ff;
 }

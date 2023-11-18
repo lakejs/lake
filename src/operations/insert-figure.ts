@@ -1,10 +1,10 @@
-import { FigureItem } from '../types/figure';
+import { Figure } from '../types/figure';
 import { Range } from '../models/range';
 import { insertContents } from './insert-contents';
 import { splitBlock } from './split-block';
 
-// Inserts a Figure item into the specified range.
-export function insertFigure(range: Range, figure: FigureItem): void {
+// Inserts a figure into the specified range.
+export function insertFigure(range: Range, figure: Figure): void {
   const content = `
     <figure type="${figure.type}" name="${figure.name}">
       <span class="figure-left"><br /></span>

@@ -1,8 +1,8 @@
-export type FigureItemValue = { [key: string]: any };
+export type FigureValue = { [key: string]: any };
 
-export type FigureItem = {
+export type Figure = {
   type: 'inline' | 'block';
   name: string;
-  value: FigureItemValue;
-  render: (value: FigureItemValue) => string;
+  value: FigureValue;
+  render: (value: FigureValue) => string;
 };

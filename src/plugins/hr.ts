@@ -1,11 +1,11 @@
 import type Editor from '..';
-import { FigureItem } from '../types/figure';
+import { Figure } from '../types/figure';
 
-const figure: FigureItem = {
+const figure: Figure = {
   type: 'block',
   name: 'hr',
   value: {},
-  render: () => '<div class="hr" />',
+  render: () => '<hr />',
 };
 
 export default (editor: Editor) => {
