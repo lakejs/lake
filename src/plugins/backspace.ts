@@ -1,17 +1,93 @@
 import type Editor from '..';
-import { mergeNodes } from '../utils';
+import { mergeNodes, query } from '../utils';
 import { Range } from '../models';
 import { setBlocks } from '../operations/set-blocks';
+
+// <figure><span class="figure-left">|</span><div class="figure-body"></div> ...
+// <figure><span class="figure-left"></span>|<div class="figure-body"></div> ...
+// <figure>|<span class="figure-left"></span><div class="figure-body"></div> ...
+function isFigureLeft(collapsedRange: Range): boolean {
+  if (!collapsedRange.startNode.inFigure) {
+    return false;
+  }
+  const figureNode = collapsedRange.startNode.closest('figure');
+  const figureBody = figureNode.find('.figure-body');
+  return collapsedRange.compareBeforeNode(figureBody) >= 0;
+}
+
+// ... <div class="figure-body"></div><span class="figure-right">|</span></figure>
+// ... <div class="figure-body"></div>|<span class="figure-right"></span></figure>
+// ... <div class="figure-body"></div><span class="figure-right"></span>|</figure>
+function isFigureRight(collapsedRange: Range): boolean {
+  if (!collapsedRange.startNode.inFigure) {
+    return false;
+  }
+  const figureNode = collapsedRange.startNode.closest('figure');
+  const figureBody = figureNode.find('.figure-body');
+  return collapsedRange.compareAfterNode(figureBody) <= 0;
+}
+
+function relocateFigureRange(range: Range): void {
+  if (range.isCollapsed) {
+    return;
+  }
+  if (range.startNode.inFigure) {
+    const startRange = range.clone();
+    startRange.collapseToStart();
+    const figureNode = range.startNode.closest('figure');
+    if (isFigureLeft(startRange)) {
+      range.setStartBefore(figureNode);
+    }
+    if (isFigureRight(startRange)) {
+      range.setStartAfter(figureNode);
+    }
+  }
+  if (range.endNode.inFigure) {
+    const endRange = range.clone();
+    endRange.collapseToEnd();
+    const figureNode = range.endNode.closest('figure');
+    if (isFigureLeft(endRange)) {
+      range.setEndBefore(figureNode);
+    }
+    if (isFigureRight(endRange)) {
+      range.setEndAfter(figureNode);
+    }
+  }
+}
+
+function removeFigure(range: Range): void {
+  const figureNode = range.startNode.closest('figure');
+  const type = figureNode.attr('type');
+  if (type === 'block') {
+    const paragraph = query('<p><br /></p>');
+    figureNode.before(paragraph);
+    range.selectAfterNodeContents(paragraph);
+    figureNode.remove();
+    return;
+  }
+  range.setStartBefore(figureNode);
+  range.collapseToStart();
+  figureNode.remove();
+}
 
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('backspace', event => {
     const selection = editor.selection;
     const range = selection.range;
+    relocateFigureRange(range);
     if (!range.isCollapsed) {
       selection.deleteContents();
       editor.selection.fixList();
       editor.history.save();
       editor.select();
+      return;
+    }
+    if (isFigureLeft(range)) {
+      return;
+    }
+    if (isFigureRight(range)) {
+      event.preventDefault();
+      removeFigure(range);
       return;
     }
     const leftText = selection.getLeftText();

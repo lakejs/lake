@@ -2,7 +2,7 @@ import { Figure } from '../types/figure';
 import { Range } from '../models/range';
 
 // Update a figure at the beginning of the specified range.
-export function insertFigure(range: Range, figure: Figure): void {
+export function updateFigure(range: Range, figure: Figure): void {
   const figureNode = range.startNode.closest('figure');
   if (figureNode.length === 0) {
     return;
