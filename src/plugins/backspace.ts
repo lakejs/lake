@@ -7,10 +7,10 @@ import { setBlocks } from '../operations/set-blocks';
 // <figure><span class="figure-strip"></span>|<div class="figure-body"></div> ...
 // <figure>|<span class="figure-strip"></span><div class="figure-body"></div> ...
 function isFigureLeft(collapsedRange: Range): boolean {
-  if (!collapsedRange.startNode.inFigure) {
+  const figureNode = collapsedRange.startNode.closest('figure');
+  if (figureNode.length === 0) {
     return false;
   }
-  const figureNode = collapsedRange.startNode.closest('figure');
   const figureBody = figureNode.find('.figure-body');
   return collapsedRange.compareBeforeNode(figureBody) >= 0;
 }
@@ -19,10 +19,10 @@ function isFigureLeft(collapsedRange: Range): boolean {
 // ... <div class="figure-body"></div>|<span class="figure-strip"></span></figure>
 // ... <div class="figure-body"></div><span class="figure-strip"></span>|</figure>
 function isFigureRight(collapsedRange: Range): boolean {
-  if (!collapsedRange.startNode.inFigure) {
+  const figureNode = collapsedRange.startNode.closest('figure');
+  if (figureNode.length === 0) {
     return false;
   }
-  const figureNode = collapsedRange.startNode.closest('figure');
   const figureBody = figureNode.find('.figure-body');
   return collapsedRange.compareAfterNode(figureBody) <= 0;
 }
