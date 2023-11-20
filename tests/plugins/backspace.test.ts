@@ -104,7 +104,7 @@ describe('backspace plugin', () => {
 
   it('should remove figure before paragraph', () => {
     const content = `
-    <figure type="block" name="hr"><span class="figure-left"><br /></span><div class="figure-body" contenteditable="false"><hr /></div><span class="figure-right"><br /></span></figure>
+    <figure type="block" name="hr"><span class="figure-strip"><br /></span><div class="figure-body" contenteditable="false"><hr /></div><span class="figure-strip"><br /></span></figure>
     <p><focus />foo</p>
     `;
     const output = `
@@ -123,7 +123,7 @@ describe('backspace plugin', () => {
   it('should remove empty paragraph before figure', () => {
     const content = `
     <p><br /></p>
-    <figure type="block" name="hr"><span class="figure-left"><br /></span><div class="figure-body" contenteditable="false"><hr /></div><span class="figure-right"><br /></span></figure>
+    <figure type="block" name="hr"><span class="figure-strip"><br /></span><div class="figure-body" contenteditable="false"><hr /></div><span class="figure-strip"><br /></span></figure>
     `;
     const output = `
     <figure type="block" name="hr"></figure>
@@ -133,7 +133,7 @@ describe('backspace plugin', () => {
       output,
       editor => {
         const range = editor.selection.range;
-        range.selectNodeContents(editor.container.find('.figure-left'));
+        range.selectNodeContents(editor.container.find('.figure-strip'));
         range.collapseToEnd();
         editor.keystroke.keydown('backspace');
       },
@@ -143,7 +143,7 @@ describe('backspace plugin', () => {
   it('should move cursor with paragraph before figure', () => {
     const content = `
     <p>foo</p>
-    <figure type="block" name="hr"><span class="figure-left"><br /></span><div class="figure-body" contenteditable="false"><hr /></div><span class="figure-right"><br /></span></figure>
+    <figure type="block" name="hr"><span class="figure-strip"><br /></span><div class="figure-body" contenteditable="false"><hr /></div><span class="figure-strip"><br /></span></figure>
     `;
     const output = `
     <p>foo<focus /></p>
@@ -154,7 +154,7 @@ describe('backspace plugin', () => {
       output,
       editor => {
         const range = editor.selection.range;
-        range.selectNodeContents(editor.container.find('.figure-left'));
+        range.selectNodeContents(editor.container.find('.figure-strip').eq(0));
         range.collapseToEnd();
         editor.keystroke.keydown('backspace');
       },
@@ -164,7 +164,7 @@ describe('backspace plugin', () => {
   it('should remove figure with selecting the end of figure', () => {
     const content = `
     <p>foo</p>
-    <figure type="block" name="hr"><span class="figure-left"><br /></span><div class="figure-body" contenteditable="false"><hr /></div><span class="figure-right"><br /></span></figure>
+    <figure type="block" name="hr"><span class="figure-strip"><br /></span><div class="figure-body" contenteditable="false"><hr /></div><span class="figure-strip"><br /></span></figure>
     `;
     const output = `
     <p>foo</p>
@@ -175,7 +175,7 @@ describe('backspace plugin', () => {
       output,
       editor => {
         const range = editor.selection.range;
-        range.selectNodeContents(editor.container.find('.figure-right'));
+        range.selectNodeContents(editor.container.find('.figure-strip').eq(1));
         range.collapseToEnd();
         editor.keystroke.keydown('backspace');
       },

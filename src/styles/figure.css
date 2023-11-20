@@ -3,16 +3,16 @@
   margin: 0;
   padding: 0;
 }
-.lake-container figure .figure-left,
-.lake-container figure .figure-right {
+.lake-container figure .figure-strip,
+.lake-container figure .figure-strip {
   display: inline;
   min-width: 1px;
   vertical-align: baseline;
 }
-.lake-container figure .figure-left {
+.lake-container figure .figure-strip:first-child {
   align-self: flex-start;
 }
-.lake-container figure .figure-right {
+.lake-container figure .figure-strip:last-child {
   align-self: flex-end;
 }
 .lake-container figure .figure-body {

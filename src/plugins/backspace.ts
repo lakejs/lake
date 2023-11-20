@@ -3,9 +3,9 @@ import { mergeNodes, query } from '../utils';
 import { Nodes, Range } from '../models';
 import { setBlocks } from '../operations/set-blocks';
 
-// <figure><span class="figure-left">|</span><div class="figure-body"></div> ...
-// <figure><span class="figure-left"></span>|<div class="figure-body"></div> ...
-// <figure>|<span class="figure-left"></span><div class="figure-body"></div> ...
+// <figure><span class="figure-strip">|</span><div class="figure-body"></div> ...
+// <figure><span class="figure-strip"></span>|<div class="figure-body"></div> ...
+// <figure>|<span class="figure-strip"></span><div class="figure-body"></div> ...
 function isFigureLeft(collapsedRange: Range): boolean {
   if (!collapsedRange.startNode.inFigure) {
     return false;
@@ -15,9 +15,9 @@ function isFigureLeft(collapsedRange: Range): boolean {
   return collapsedRange.compareBeforeNode(figureBody) >= 0;
 }
 
-// ... <div class="figure-body"></div><span class="figure-right">|</span></figure>
-// ... <div class="figure-body"></div>|<span class="figure-right"></span></figure>
-// ... <div class="figure-body"></div><span class="figure-right"></span>|</figure>
+// ... <div class="figure-body"></div><span class="figure-strip">|</span></figure>
+// ... <div class="figure-body"></div>|<span class="figure-strip"></span></figure>
+// ... <div class="figure-body"></div><span class="figure-strip"></span>|</figure>
 function isFigureRight(collapsedRange: Range): boolean {
   if (!collapsedRange.startNode.inFigure) {
     return false;

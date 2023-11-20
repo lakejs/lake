@@ -7,9 +7,9 @@ import { splitBlock } from './split-block';
 function createFigureFragment(figure: Figure): DocumentFragment {
   const html = `
     <figure type="${figure.type}" name="${figure.name}">
-      <span class="figure-left"><br /></span>
+      <span class="figure-strip"><br /></span>
       <div class="figure-body" contenteditable="false">${figure.render(figure.value)}</div>
-      <span class="figure-right"><br /></span>
+      <span class="figure-strip"><br /></span>
     </figure>
   `;
   const figureNode = query(html.trim());
