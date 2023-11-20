@@ -1,6 +1,6 @@
 import type Editor from '..';
 import { mergeNodes, query } from '../utils';
-import { Range } from '../models';
+import { Nodes, Range } from '../models';
 import { setBlocks } from '../operations/set-blocks';
 
 // <figure><span class="figure-left">|</span><div class="figure-body"></div> ...
@@ -55,8 +55,8 @@ function relocateFigureRange(range: Range): void {
   }
 }
 
-function removeFigure(range: Range): void {
-  const figureNode = range.startNode.closest('figure');
+function removeFigure(range: Range, figureNode?: Nodes): void {
+  figureNode = figureNode ?? range.startNode.closest('figure');
   const type = figureNode.attr('type');
   if (type === 'block') {
     const paragraph = query('<p><br /></p>');
@@ -83,11 +83,30 @@ export default (editor: Editor) => {
       return;
     }
     if (isFigureLeft(range)) {
+      event.preventDefault();
+      const figureNode = range.startNode.closest('figure');
+      const prevNode = figureNode.prev();
+      if (prevNode.isBlock) {
+        if (prevNode.isEmpty) {
+          prevNode.remove();
+          editor.selection.fixList();
+          editor.history.save();
+          editor.select();
+          return;
+        }
+        range.selectAfterNodeContents(prevNode);
+        editor.history.save();
+        editor.select();
+        return;
+      }
+      relocateFigureRange(range);
       return;
     }
     if (isFigureRight(range)) {
       event.preventDefault();
       removeFigure(range);
+      editor.history.save();
+      editor.select();
       return;
     }
     const leftText = selection.getLeftText();
@@ -103,6 +122,12 @@ export default (editor: Editor) => {
         if (block.name !== 'p') {
           editor.selection.setBlocks('<p />');
         }
+        editor.history.save();
+        editor.select();
+        return;
+      }
+      if (prevBlock.inFigure) {
+        removeFigure(range, prevBlock);
         editor.history.save();
         editor.select();
         return;
