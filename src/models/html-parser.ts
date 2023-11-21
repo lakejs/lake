@@ -43,7 +43,7 @@ export class HTMLParser {
   private static getOpenTagString(element: Nodes, rules: any) : string {
     let tagName = element.name;
     let attributeRules = rules[tagName];
-    if (!element.inBox && !attributeRules) {
+    if (!element.isBox && !attributeRules) {
       return '';
     }
     if (typeof attributeRules === 'string') {
@@ -56,15 +56,15 @@ export class HTMLParser {
     }
     const attributeMap = new Map();
     for (const attr of nativeNode.attributes) {
-      if (element.inBox || attributeRules[attr.name]) {
-        if (element.inBox || attr.name !== 'style' && HTMLParser.matchRule(attributeRules[attr.name], attr.value)) {
+      if (element.isBox || attributeRules[attr.name]) {
+        if (element.isBox || attr.name !== 'style' && HTMLParser.matchRule(attributeRules[attr.name], attr.value)) {
           attributeMap.set(attr.name, attr.value);
         }
         if (attr.name === 'style') {
           const styleRules = attributeRules.style;
           const styleMap = new Map();
           forEach(parseStyle(attr.value), (key, value) => {
-            if (element.inBox ||styleRules[key] && HTMLParser.matchRule(styleRules[key], value)) {
+            if (element.isBox ||styleRules[key] && HTMLParser.matchRule(styleRules[key], value)) {
               styleMap.set(key, value);
             }
           });
@@ -92,7 +92,7 @@ export class HTMLParser {
   // Returns a closed tag string of the specified element.
   private static getClosedTagString(element: Nodes, rules: any) : string {
     let tagName = element.name;
-    if (element.inBox) {
+    if (element.isBox) {
       return tagName;
     }
     const attributeRules = rules[tagName];
@@ -148,6 +148,10 @@ export class HTMLParser {
           if (openTag !== '') {
             yield `<${openTag} />`;
           }
+        } else if (child.isBox) {
+          const openTag = HTMLParser.getOpenTagString(child, rules);
+          const closedTag = HTMLParser.getClosedTagString(child, rules);
+          yield `<${openTag}>${child.html()}</${closedTag}>`;
         } else if (child.isElement) {
           const openTag = HTMLParser.getOpenTagString(child, rules);
           const closedTag = HTMLParser.getClosedTagString(child, rules);

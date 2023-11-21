@@ -31,26 +31,26 @@ function relocateBoxRange(range: Range): void {
   if (range.isCollapsed) {
     return;
   }
-  if (range.startNode.inBox) {
+  const startBoxNode = range.startNode.closest('lake-box');
+  if (startBoxNode.length > 0) {
     const startRange = range.clone();
     startRange.collapseToStart();
-    const boxNode = range.startNode.closest('lake-box');
     if (isBoxLeft(startRange)) {
-      range.setStartBefore(boxNode);
+      range.setStartBefore(startBoxNode);
     }
     if (isBoxRight(startRange)) {
-      range.setStartAfter(boxNode);
+      range.setStartAfter(startBoxNode);
     }
   }
-  if (range.endNode.inBox) {
+  const endBoxNode = range.endNode.closest('lake-box');
+  if (endBoxNode.length > 0) {
     const endRange = range.clone();
     endRange.collapseToEnd();
-    const boxNode = range.endNode.closest('lake-box');
     if (isBoxLeft(endRange)) {
-      range.setEndBefore(boxNode);
+      range.setEndBefore(endBoxNode);
     }
     if (isBoxRight(endRange)) {
-      range.setEndAfter(boxNode);
+      range.setEndAfter(endBoxNode);
     }
   }
 }
@@ -126,7 +126,7 @@ export default (editor: Editor) => {
         editor.select();
         return;
       }
-      if (prevBlock.inBox) {
+      if (prevBlock.isBox) {
         removeBox(range, prevBlock);
         editor.history.save();
         editor.select();

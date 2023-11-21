@@ -184,6 +184,14 @@ describe('models.HTMLParser class', () => {
     expect(nodeList[0].html()).to.equal('foo');
   });
 
+  it('getHTML method: should not modify the nodes in the box element', () => {
+    const input = '<lake-box type="block" name="image"><h1>\nheading1</h1><b>foo</b></lake-box>';
+    const output = '<lake-box type="block" name="image"><h1>\nheading1</h1><b>foo</b></lake-box>';
+    container.html(input);
+    const htmlParser = new HTMLParser(container);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
   it('getFragment method: should remove type', () => {
     container.html('<ul type="invalid"><li>foo</li></ul>');
     const htmlParser = new HTMLParser(container);

@@ -127,6 +127,11 @@ export class Nodes {
     return this.name === 'lake-bookmark';
   }
 
+  // Returns a boolean value indicating whether the node is a box element.
+  public get isBox(): boolean {
+    return this.name === 'lake-box';
+  }
+
   // Returns a boolean value indicating whether the element is a root element of contenteditable area.
   public get isContainer(): boolean {
     if (this.length === 0) {
@@ -134,11 +139,6 @@ export class Nodes {
     }
     const node = this.get(0) as NativeHTMLElement;
     return this.isElement && node.getAttribute('contenteditable') === 'true';
-  }
-
-  // Returns a boolean value indicating whether the node is a box element or in it.
-  public get inBox(): boolean {
-    return this.name === 'lake-box' || this.closest('lake-box').length > 0;
   }
 
   // Returns a boolean value indicating whether the node is editable or the node is a root element of contenteditable area.
@@ -170,11 +170,11 @@ export class Nodes {
     if (this.length === 0) {
       return false;
     }
-    const parent = this.parent();
-    if (parent.length === 0) {
+    const parentNode = this.parent();
+    if (parentNode.length === 0) {
       return false;
     }
-    return this.isEditable && parent.isContainer;
+    return this.isEditable && parentNode.isContainer;
   }
 
   // Returns a boolean value indicating whether the node is empty.
