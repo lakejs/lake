@@ -43,7 +43,7 @@ export class HTMLParser {
   private static getOpenTagString(element: Nodes, rules: any) : string {
     let tagName = element.name;
     let attributeRules = rules[tagName];
-    if (!element.inFigure && !attributeRules) {
+    if (!element.inBox && !attributeRules) {
       return '';
     }
     if (typeof attributeRules === 'string') {
@@ -56,15 +56,15 @@ export class HTMLParser {
     }
     const attributeMap = new Map();
     for (const attr of nativeNode.attributes) {
-      if (element.inFigure || attributeRules[attr.name]) {
-        if (element.inFigure || attr.name !== 'style' && HTMLParser.matchRule(attributeRules[attr.name], attr.value)) {
+      if (element.inBox || attributeRules[attr.name]) {
+        if (element.inBox || attr.name !== 'style' && HTMLParser.matchRule(attributeRules[attr.name], attr.value)) {
           attributeMap.set(attr.name, attr.value);
         }
         if (attr.name === 'style') {
           const styleRules = attributeRules.style;
           const styleMap = new Map();
           forEach(parseStyle(attr.value), (key, value) => {
-            if (element.inFigure ||styleRules[key] && HTMLParser.matchRule(styleRules[key], value)) {
+            if (element.inBox ||styleRules[key] && HTMLParser.matchRule(styleRules[key], value)) {
               styleMap.set(key, value);
             }
           });
@@ -92,7 +92,7 @@ export class HTMLParser {
   // Returns a closed tag string of the specified element.
   private static getClosedTagString(element: Nodes, rules: any) : string {
     let tagName = element.name;
-    if (element.inFigure) {
+    if (element.inBox) {
       return tagName;
     }
     const attributeRules = rules[tagName];

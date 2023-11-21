@@ -21,8 +21,8 @@ export function createContainer(content: string): { container: Nodes, range: Ran
     container.append(node);
   }
   const range = new Range();
-  const anchor = container.find('bookmark[type="anchor"]');
-  const focus = container.find('bookmark[type="focus"]');
+  const anchor = container.find('lake-bookmark[type="anchor"]');
+  const focus = container.find('lake-bookmark[type="focus"]');
   toBookmark(range, {
     anchor,
     focus,

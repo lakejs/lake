@@ -69,7 +69,7 @@ export function getDefaultRules(): any {
       target: /^[\w-]+$/,
     },
     br: {},
-    bookmark: {
+    'lake-bookmark': {
       type: /^anchor|focus$/i,
     },
   };

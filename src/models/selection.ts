@@ -19,7 +19,7 @@ import { splitMarks } from '../operations/split-marks';
 import { addMark } from '../operations/add-mark';
 import { removeMark } from '../operations/remove-mark';
 import { fixList } from '../operations/fix-list';
-import { insertFigure } from '../operations/insert-figure';
+import { insertBox } from '../operations/insert-box';
 
 export class Selection {
   // Represents the range of text selected by the user or the current position of the caret.
@@ -71,8 +71,8 @@ export class Selection {
   public synByBookmark(): void {
     const range = this.range;
     const container = this.container;
-    const anchor = container.find('bookmark[type="anchor"]');
-    const focus = container.find('bookmark[type="focus"]');
+    const anchor = container.find('lake-bookmark[type="anchor"]');
+    const focus = container.find('lake-bookmark[type="focus"]');
     toBookmark(range, {
       anchor,
       focus,
@@ -151,8 +151,8 @@ export class Selection {
     return fixList(this.range);
   }
 
-  public insertFigure(figure: Parameters<typeof insertFigure>[1]): ReturnType<typeof insertFigure> {
-    return insertFigure(this.range, figure);
+  public insertBox(box: Parameters<typeof insertBox>[1]): ReturnType<typeof insertBox> {
+    return insertBox(this.range, box);
   }
 
 }

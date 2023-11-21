@@ -85,8 +85,8 @@ describe('models.Nodes class', () => {
   });
 
   it('property: isBookmark', () => {
-    const container = query('<div contenteditable="true"><strong>foo</strong>bar<bookmark /></div>');
-    expect(container.find('bookmark').isBookmark).to.equal(true);
+    const container = query('<div contenteditable="true"><strong>foo</strong>bar<lake-bookmark /></div>');
+    expect(container.find('lake-bookmark').isBookmark).to.equal(true);
     expect(container.find('strong').isBookmark).to.equal(false);
   });
 
@@ -97,11 +97,11 @@ describe('models.Nodes class', () => {
     expect(container.find('strong').isContainer).to.equal(false);
   });
 
-  it('property: inFigure', () => {
-    const container = query('<div contenteditable="true"><figure><div class="figure-body"><hr /></div></figure><p>foo</p></div>');
-    expect(container.find('figure').inFigure).to.equal(true);
-    expect(container.find('.figure-body').inFigure).to.equal(true);
-    expect(container.find('p').inFigure).to.equal(false);
+  it('property: inBox', () => {
+    const container = query('<div contenteditable="true"><lake-box><div class="box-body"><hr /></div></lake-box><p>foo</p></div>');
+    expect(container.find('lake-box').inBox).to.equal(true);
+    expect(container.find('.box-body').inBox).to.equal(true);
+    expect(container.find('p').inBox).to.equal(false);
   });
 
   it('property: isContentEditable', () => {

@@ -4,10 +4,10 @@ import { denormalizeValue } from '../../src/utils';
 describe('utils.denormalizeValue()', () => {
 
   it('denormalizes special tags', () => {
-    expect(denormalizeValue('<figure type="block" name="hr">\n<span class="figure-strip"><br /></span><div class="figure-body" contenteditable="false"><hr /></div><span class="figure-strip"><br /></span></figure>')).to.equal('<figure type="block" name="hr"></figure>');
-    expect(denormalizeValue('<p><br /><bookmark type="focus"></bookmark></p>')).to.equal('<p><br /><focus /></p>');
-    expect(denormalizeValue('<p><bookmark type="anchor"></bookmark>foo<bookmark type="focus"></bookmark></p>')).to.equal('<p><anchor />foo<focus /></p>');
-    expect(denormalizeValue('<p><br /><bookmark type="anchor"></bookmark></p>')).to.equal('<p><br /><anchor /></p>');
+    expect(denormalizeValue('<lake-box type="block" name="hr">\n<span class="box-strip"><br /></span><div class="box-body" contenteditable="false"><hr /></div><span class="box-strip"><br /></span></lake-box>')).to.equal('<lake-box type="block" name="hr"></lake-box>');
+    expect(denormalizeValue('<p><br /><lake-bookmark type="focus"></lake-bookmark></p>')).to.equal('<p><br /><focus /></p>');
+    expect(denormalizeValue('<p><lake-bookmark type="anchor"></lake-bookmark>foo<lake-bookmark type="focus"></lake-bookmark></p>')).to.equal('<p><anchor />foo<focus /></p>');
+    expect(denormalizeValue('<p><br /><lake-bookmark type="anchor"></lake-bookmark></p>')).to.equal('<p><br /><anchor /></p>');
   });
 
 });

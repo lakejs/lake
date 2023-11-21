@@ -124,7 +124,7 @@ export class Nodes {
 
   // Returns a boolean value indicating whether the node is a bookmark element.
   public get isBookmark(): boolean {
-    return this.name === 'bookmark';
+    return this.name === 'lake-bookmark';
   }
 
   // Returns a boolean value indicating whether the element is a root element of contenteditable area.
@@ -136,9 +136,9 @@ export class Nodes {
     return this.isElement && node.getAttribute('contenteditable') === 'true';
   }
 
-  // Returns a boolean value indicating whether the node is a figure element or in it.
-  public get inFigure(): boolean {
-    return this.name === 'figure' || this.closest('figure').length > 0;
+  // Returns a boolean value indicating whether the node is a box element or in it.
+  public get inBox(): boolean {
+    return this.name === 'lake-box' || this.closest('lake-box').length > 0;
   }
 
   // Returns a boolean value indicating whether the node is editable or the node is a root element of contenteditable area.

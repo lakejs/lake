@@ -1,5 +1,7 @@
 import EventEmitter from 'eventemitter3';
 import pkg from '../package.json';
+import './elements/bookmark';
+import './elements/box';
 import { NativeNode } from './types/native';
 import * as utils from './utils';
 import * as models from './models';

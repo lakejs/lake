@@ -23,15 +23,15 @@ describe('utils.removeBr()', () => {
   });
 
   it('with bookmark before br', () => {
-    const element = query('<div><p><bookmark type="focus"></bookmark><br /></p></div>');
+    const element = query('<div><p><lake-bookmark type="focus"></lake-bookmark><br /></p></div>');
     removeBr(element.find('p'));
-    expect(element.html()).to.equal('<p><bookmark type="focus"></bookmark></p>');
+    expect(element.html()).to.equal('<p><lake-bookmark type="focus"></lake-bookmark></p>');
   });
 
   it('with bookmark after br', () => {
-    const element = query('<div><p><br /><bookmark type="focus"></bookmark></p></div>');
+    const element = query('<div><p><br /><lake-bookmark type="focus"></lake-bookmark></p></div>');
     removeBr(element.find('p'));
-    expect(element.html()).to.equal('<p><bookmark type="focus"></bookmark></p>');
+    expect(element.html()).to.equal('<p><lake-bookmark type="focus"></lake-bookmark></p>');
   });
 
 });

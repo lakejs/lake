@@ -1,0 +1,21 @@
+.lake-container lake-box {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+.lake-container lake-box .box-strip,
+.lake-container lake-box .box-strip {
+  display: inline;
+  min-width: 1px;
+  vertical-align: baseline;
+}
+.lake-container lake-box .box-strip:first-child {
+  align-self: flex-start;
+}
+.lake-container lake-box .box-strip:last-child {
+  align-self: flex-end;
+}
+.lake-container lake-box .box-body {
+  display: block;
+  width: calc(100% - 2px);
+}

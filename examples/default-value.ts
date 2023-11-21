@@ -1,10 +1,10 @@
 export const defaultValue = `
 <h1>heading 1</h1>
-<figure type="block" name="hr">
-  <span class="figure-strip"><br /></span>
-  <div class="figure-body" contenteditable="false"><hr /></div>
-  <span class="figure-strip"><br /></span>
-</figure>
+<lake-box type="block" name="hr">
+  <span class="box-strip"><br /></span>
+  <div class="box-body" contenteditable="false"><hr /></div>
+  <span class="box-strip"><br /></span>
+</lake-box>
 <h2>heading 2</h2>
 <h3>heading 3</h3>
 <h4>heading 4</h4>

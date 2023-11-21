@@ -14,7 +14,7 @@ export function insertBookmark(range: Range): { anchor: Nodes, focus: Nodes } {
   }
   if (range.isCollapsed) {
     const endRange = range.clone().collapseToEnd();
-    const focus = query('<bookmark type="focus" />');
+    const focus = query('<lake-bookmark type="focus" />');
     insertNode(endRange, focus);
     return {
       anchor: new Nodes(),
@@ -22,10 +22,10 @@ export function insertBookmark(range: Range): { anchor: Nodes, focus: Nodes } {
     };
   }
   const startRange = range.clone().collapseToStart();
-  const anchor = query('<bookmark type="anchor" />');
+  const anchor = query('<lake-bookmark type="anchor" />');
   insertNode(startRange, anchor);
   const endRange = range.clone().collapseToEnd();
-  const focus = query('<bookmark type="focus" />');
+  const focus = query('<lake-bookmark type="focus" />');
   insertNode(endRange, focus);
   return {
     anchor,

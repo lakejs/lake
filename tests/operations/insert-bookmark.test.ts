@@ -23,17 +23,17 @@ describe('operations.insertBookmark()', () => {
     range.collapseToEnd();
     const bookmark = insertBookmark(range);
     expect(bookmark.anchor.length).to.equal(0);
-    expect(bookmark.focus.name).to.equal('bookmark');
-    expect(container.html()).to.equal('<p>outer start</p>foo<strong>bold<bookmark type="focus"></bookmark></strong><p>outer end</p>');
+    expect(bookmark.focus.name).to.equal('lake-bookmark');
+    expect(container.html()).to.equal('<p>outer start</p>foo<strong>bold<lake-bookmark type="focus"></lake-bookmark></strong><p>outer end</p>');
   });
 
   it('is an expanded range', () => {
     const range = new Range();
     range.selectNodeContents(container.find('strong'));
     const bookmark = insertBookmark(range);
-    expect(bookmark.anchor.name).to.equal('bookmark');
-    expect(bookmark.focus.name).to.equal('bookmark');
-    expect(container.html()).to.equal('<p>outer start</p>foo<strong><bookmark type="anchor"></bookmark>bold<bookmark type="focus"></bookmark></strong><p>outer end</p>');
+    expect(bookmark.anchor.name).to.equal('lake-bookmark');
+    expect(bookmark.focus.name).to.equal('lake-bookmark');
+    expect(container.html()).to.equal('<p>outer start</p>foo<strong><lake-bookmark type="anchor"></lake-bookmark>bold<lake-bookmark type="focus"></lake-bookmark></strong><p>outer end</p>');
   });
 
 });

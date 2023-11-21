@@ -1,7 +1,7 @@
 import type Editor from '..';
-import { Figure } from '../types/figure';
+import { Box } from '../types/box';
 
-const figure: Figure = {
+const box: Box = {
   type: 'block',
   name: 'hr',
   render: () => '<hr />',
@@ -10,7 +10,7 @@ const figure: Figure = {
 export default (editor: Editor) => {
   editor.command.add('hr', () => {
     editor.focus();
-    editor.selection.insertFigure(figure);
+    editor.selection.insertBox(box);
     editor.history.save();
     editor.select();
   });

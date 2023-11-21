@@ -102,9 +102,9 @@ describe('backspace plugin', () => {
     );
   });
 
-  it('should remove figure before paragraph', () => {
+  it('should remove box before paragraph', () => {
     const content = `
-    <figure type="block" name="hr"><span class="figure-strip"><br /></span><div class="figure-body" contenteditable="false"><hr /></div><span class="figure-strip"><br /></span></figure>
+    <lake-box type="block" name="hr"><span class="box-strip"><br /></span><div class="box-body" contenteditable="false"><hr /></div><span class="box-strip"><br /></span></lake-box>
     <p><focus />foo</p>
     `;
     const output = `
@@ -120,51 +120,51 @@ describe('backspace plugin', () => {
     );
   });
 
-  it('should remove empty paragraph before figure', () => {
+  it('should remove empty paragraph before box', () => {
     const content = `
     <p><br /></p>
-    <figure type="block" name="hr"><span class="figure-strip"><br /></span><div class="figure-body" contenteditable="false"><hr /></div><span class="figure-strip"><br /></span></figure>
+    <lake-box type="block" name="hr"><span class="box-strip"><br /></span><div class="box-body" contenteditable="false"><hr /></div><span class="box-strip"><br /></span></lake-box>
     `;
     const output = `
-    <figure type="block" name="hr"></figure>
+    <lake-box type="block" name="hr"></lake-box>
     `;
     testPlugin(
       content,
       output,
       editor => {
         const range = editor.selection.range;
-        range.selectNodeContents(editor.container.find('.figure-strip'));
+        range.selectNodeContents(editor.container.find('.box-strip'));
         range.collapseToEnd();
         editor.keystroke.keydown('backspace');
       },
     );
   });
 
-  it('should move cursor with paragraph before figure', () => {
+  it('should move cursor with paragraph before box', () => {
     const content = `
     <p>foo</p>
-    <figure type="block" name="hr"><span class="figure-strip"><br /></span><div class="figure-body" contenteditable="false"><hr /></div><span class="figure-strip"><br /></span></figure>
+    <lake-box type="block" name="hr"><span class="box-strip"><br /></span><div class="box-body" contenteditable="false"><hr /></div><span class="box-strip"><br /></span></lake-box>
     `;
     const output = `
     <p>foo<focus /></p>
-    <figure type="block" name="hr"></figure>
+    <lake-box type="block" name="hr"></lake-box>
     `;
     testPlugin(
       content,
       output,
       editor => {
         const range = editor.selection.range;
-        range.selectNodeContents(editor.container.find('.figure-strip').eq(0));
+        range.selectNodeContents(editor.container.find('.box-strip').eq(0));
         range.collapseToEnd();
         editor.keystroke.keydown('backspace');
       },
     );
   });
 
-  it('should remove figure with selecting the end of figure', () => {
+  it('should remove box with selecting the end of box', () => {
     const content = `
     <p>foo</p>
-    <figure type="block" name="hr"><span class="figure-strip"><br /></span><div class="figure-body" contenteditable="false"><hr /></div><span class="figure-strip"><br /></span></figure>
+    <lake-box type="block" name="hr"><span class="box-strip"><br /></span><div class="box-body" contenteditable="false"><hr /></div><span class="box-strip"><br /></span></lake-box>
     `;
     const output = `
     <p>foo</p>
@@ -175,7 +175,7 @@ describe('backspace plugin', () => {
       output,
       editor => {
         const range = editor.selection.range;
-        range.selectNodeContents(editor.container.find('.figure-strip').eq(1));
+        range.selectNodeContents(editor.container.find('.box-strip').eq(1));
         range.collapseToEnd();
         editor.keystroke.keydown('backspace');
       },

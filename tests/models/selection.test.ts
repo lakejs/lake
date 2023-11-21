@@ -47,7 +47,7 @@ describe('models.Selection class', () => {
 
   it('synByBookmark method: should synchronize correct range', () => {
     const selection = new Selection(container);
-    container.html('<p><bookmark type="anchor"></bookmark>foo<bookmark type="focus"></bookmark></p>');
+    container.html('<p><lake-bookmark type="anchor"></lake-bookmark>foo<lake-bookmark type="focus"></lake-bookmark></p>');
     selection.synByBookmark();
     expect(selection.range.startNode.name).to.equal('p');
     expect(selection.range.startOffset).to.equal(0);

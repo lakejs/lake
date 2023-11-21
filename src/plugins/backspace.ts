@@ -3,78 +3,78 @@ import { mergeNodes, query } from '../utils';
 import { Nodes, Range } from '../models';
 import { setBlocks } from '../operations/set-blocks';
 
-// <figure><span class="figure-strip">|</span><div class="figure-body"></div> ...
-// <figure><span class="figure-strip"></span>|<div class="figure-body"></div> ...
-// <figure>|<span class="figure-strip"></span><div class="figure-body"></div> ...
-function isFigureLeft(collapsedRange: Range): boolean {
-  const figureNode = collapsedRange.startNode.closest('figure');
-  if (figureNode.length === 0) {
+// <lake-box><span class="box-strip">|</span><div class="box-body"></div> ...
+// <lake-box><span class="box-strip"></span>|<div class="box-body"></div> ...
+// <lake-box>|<span class="box-strip"></span><div class="box-body"></div> ...
+function isBoxLeft(collapsedRange: Range): boolean {
+  const boxNode = collapsedRange.startNode.closest('lake-box');
+  if (boxNode.length === 0) {
     return false;
   }
-  const figureBody = figureNode.find('.figure-body');
-  return collapsedRange.compareBeforeNode(figureBody) >= 0;
+  const boxBody = boxNode.find('.box-body');
+  return collapsedRange.compareBeforeNode(boxBody) >= 0;
 }
 
-// ... <div class="figure-body"></div><span class="figure-strip">|</span></figure>
-// ... <div class="figure-body"></div>|<span class="figure-strip"></span></figure>
-// ... <div class="figure-body"></div><span class="figure-strip"></span>|</figure>
-function isFigureRight(collapsedRange: Range): boolean {
-  const figureNode = collapsedRange.startNode.closest('figure');
-  if (figureNode.length === 0) {
+// ... <div class="box-body"></div><span class="box-strip">|</span></lake-box>
+// ... <div class="box-body"></div>|<span class="box-strip"></span></lake-box>
+// ... <div class="box-body"></div><span class="box-strip"></span>|</lake-box>
+function isBoxRight(collapsedRange: Range): boolean {
+  const boxNode = collapsedRange.startNode.closest('lake-box');
+  if (boxNode.length === 0) {
     return false;
   }
-  const figureBody = figureNode.find('.figure-body');
-  return collapsedRange.compareAfterNode(figureBody) <= 0;
+  const boxBody = boxNode.find('.box-body');
+  return collapsedRange.compareAfterNode(boxBody) <= 0;
 }
 
-function relocateFigureRange(range: Range): void {
+function relocateBoxRange(range: Range): void {
   if (range.isCollapsed) {
     return;
   }
-  if (range.startNode.inFigure) {
+  if (range.startNode.inBox) {
     const startRange = range.clone();
     startRange.collapseToStart();
-    const figureNode = range.startNode.closest('figure');
-    if (isFigureLeft(startRange)) {
-      range.setStartBefore(figureNode);
+    const boxNode = range.startNode.closest('lake-box');
+    if (isBoxLeft(startRange)) {
+      range.setStartBefore(boxNode);
     }
-    if (isFigureRight(startRange)) {
-      range.setStartAfter(figureNode);
+    if (isBoxRight(startRange)) {
+      range.setStartAfter(boxNode);
     }
   }
-  if (range.endNode.inFigure) {
+  if (range.endNode.inBox) {
     const endRange = range.clone();
     endRange.collapseToEnd();
-    const figureNode = range.endNode.closest('figure');
-    if (isFigureLeft(endRange)) {
-      range.setEndBefore(figureNode);
+    const boxNode = range.endNode.closest('lake-box');
+    if (isBoxLeft(endRange)) {
+      range.setEndBefore(boxNode);
     }
-    if (isFigureRight(endRange)) {
-      range.setEndAfter(figureNode);
+    if (isBoxRight(endRange)) {
+      range.setEndAfter(boxNode);
     }
   }
 }
 
-function removeFigure(range: Range, figureNode?: Nodes): void {
-  figureNode = figureNode ?? range.startNode.closest('figure');
-  const type = figureNode.attr('type');
+function removeBox(range: Range, boxNode?: Nodes): void {
+  boxNode = boxNode ?? range.startNode.closest('lake-box');
+  const type = boxNode.attr('type');
   if (type === 'block') {
     const paragraph = query('<p><br /></p>');
-    figureNode.before(paragraph);
+    boxNode.before(paragraph);
     range.selectAfterNodeContents(paragraph);
-    figureNode.remove();
+    boxNode.remove();
     return;
   }
-  range.setStartBefore(figureNode);
+  range.setStartBefore(boxNode);
   range.collapseToStart();
-  figureNode.remove();
+  boxNode.remove();
 }
 
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('backspace', event => {
     const selection = editor.selection;
     const range = selection.range;
-    relocateFigureRange(range);
+    relocateBoxRange(range);
     if (!range.isCollapsed) {
       selection.deleteContents();
       editor.selection.fixList();
@@ -82,10 +82,10 @@ export default (editor: Editor) => {
       editor.select();
       return;
     }
-    if (isFigureLeft(range)) {
+    if (isBoxLeft(range)) {
       event.preventDefault();
-      const figureNode = range.startNode.closest('figure');
-      const prevNode = figureNode.prev();
+      const boxNode = range.startNode.closest('lake-box');
+      const prevNode = boxNode.prev();
       if (prevNode.isBlock) {
         if (prevNode.isEmpty) {
           prevNode.remove();
@@ -99,12 +99,12 @@ export default (editor: Editor) => {
         editor.select();
         return;
       }
-      relocateFigureRange(range);
+      relocateBoxRange(range);
       return;
     }
-    if (isFigureRight(range)) {
+    if (isBoxRight(range)) {
       event.preventDefault();
-      removeFigure(range);
+      removeBox(range);
       editor.history.save();
       editor.select();
       return;
@@ -126,8 +126,8 @@ export default (editor: Editor) => {
         editor.select();
         return;
       }
-      if (prevBlock.inFigure) {
-        removeFigure(range, prevBlock);
+      if (prevBlock.inBox) {
+        removeBox(range, prevBlock);
         editor.history.save();
         editor.select();
         return;

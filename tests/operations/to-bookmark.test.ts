@@ -21,7 +21,7 @@ describe('operations.toBookmark()', () => {
     container.html(content);
     const range = new Range();
     const anchor = new Nodes();
-    const focus = container.find('bookmark[type="focus"]');
+    const focus = container.find('lake-bookmark[type="focus"]');
     toBookmark(range, {
       anchor,
       focus,
@@ -36,7 +36,7 @@ describe('operations.toBookmark()', () => {
     container.html(content);
     const range = new Range();
     const anchor = new Nodes();
-    const focus = container.find('bookmark[type="focus"]');
+    const focus = container.find('lake-bookmark[type="focus"]');
     toBookmark(range, {
       anchor,
       focus,
@@ -51,7 +51,7 @@ describe('operations.toBookmark()', () => {
     const content = normalizeValue('<p>outer start</p>foo<strong>bold<anchor /></strong><p>outer end</p>');
     container.html(content);
     const range = new Range();
-    const anchor = container.find('bookmark[type="anchor"]');
+    const anchor = container.find('lake-bookmark[type="anchor"]');
     const focus = new Nodes();
     toBookmark(range, {
       anchor,
@@ -67,8 +67,8 @@ describe('operations.toBookmark()', () => {
     const content = normalizeValue('<p>outer start</p>foo<strong><anchor />bold<focus /></strong><p>outer end</p>');
     container.html(content);
     const range = new Range();
-    const anchor = container.find('bookmark[type="anchor"]');
-    const focus = container.find('bookmark[type="focus"]');
+    const anchor = container.find('lake-bookmark[type="anchor"]');
+    const focus = container.find('lake-bookmark[type="focus"]');
     toBookmark(range, {
       anchor,
       focus,
@@ -85,8 +85,8 @@ describe('operations.toBookmark()', () => {
     const content = normalizeValue('<p>outer start</p>foo<strong><focus />bold<anchor /></strong><p>outer end</p>');
     container.html(content);
     const range = new Range();
-    const anchor = container.find('bookmark[type="anchor"]');
-    const focus = container.find('bookmark[type="focus"]');
+    const anchor = container.find('lake-bookmark[type="anchor"]');
+    const focus = container.find('lake-bookmark[type="focus"]');
     toBookmark(range, {
       anchor,
       focus,
