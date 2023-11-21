@@ -20,7 +20,7 @@ export function getBlocks(range: Range): Nodes[] {
   const clonedRange = range.clone();
   clonedRange.collapseToEnd();
   for (const child of range.commonAncestor.getWalker()) {
-    if (child.isBlock && child.isTopEditable &&
+    if (child.isBlock && child.isTopInside &&
       // the range doesn't end at the start of a block
       clonedRange.comparePoint(child, 0) !== 0 &&
       range.intersectsNode(child)

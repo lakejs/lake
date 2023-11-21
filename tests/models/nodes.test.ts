@@ -122,13 +122,13 @@ describe('models.Nodes class', () => {
     expect(container.parent().isInside).to.equal(false);
   });
 
-  it('property: isTopEditable', () => {
+  it('property: isTopInside', () => {
     const container = query('<div contenteditable="true"><h1><p>foo</p>bar</h1>end</div>');
-    expect(container.isTopEditable).to.equal(false);
-    expect(container.find('h1').isTopEditable).to.equal(true);
-    expect(container.find('p').isTopEditable).to.equal(false);
-    expect(container.find('h1').next().isTopEditable).to.equal(true);
-    expect(container.parent().isTopEditable).to.equal(false);
+    expect(container.isTopInside).to.equal(false);
+    expect(container.find('h1').isTopInside).to.equal(true);
+    expect(container.find('p').isTopInside).to.equal(false);
+    expect(container.find('h1').next().isTopInside).to.equal(true);
+    expect(container.parent().isTopInside).to.equal(false);
   });
 
   it('property: isEmpty', () => {

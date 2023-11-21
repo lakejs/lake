@@ -166,7 +166,7 @@ export class Nodes {
   }
 
   // Returns a boolean value indicating whether the node is an editable node which parent is the container.
-  public get isTopEditable(): boolean {
+  public get isTopInside(): boolean {
     if (this.length === 0) {
       return false;
     }
@@ -266,7 +266,7 @@ export class Nodes {
   public closestBlock() {
     let node = this.eq(0);
     while (node.length > 0) {
-      if (node.isTopEditable || node.isBlock) {
+      if (node.isTopInside || node.isBlock) {
         break;
       }
       node = node.parent();
