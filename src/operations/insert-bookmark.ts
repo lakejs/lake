@@ -6,7 +6,7 @@ import { insertNode } from './insert-node';
 // Either the method inserts a bookmark into the current position of the collapsed range
 // or the method inserts a pair of bookmarks into the beginning and the end of the range.
 export function insertBookmark(range: Range): { anchor: Nodes, focus: Nodes } {
-  if (!range.commonAncestor.isContentEditable) {
+  if (range.commonAncestor.isOutside) {
     return {
       anchor: new Nodes(),
       focus: new Nodes(),

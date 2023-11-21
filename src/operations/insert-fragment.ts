@@ -5,7 +5,7 @@ import { toBookmark } from './to-bookmark';
 
 // Inserts a DocumentFragment object into the specified range.
 export function insertFragment(range: Range, fragment: DocumentFragment): void {
-  if (!range.commonAncestor.isContentEditable) {
+  if (range.commonAncestor.isOutside) {
     return;
   }
   if (!range.isCollapsed) {

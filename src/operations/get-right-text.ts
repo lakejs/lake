@@ -7,7 +7,7 @@ export function getRightText(range: Range): string {
   const node = range.endNode;
   const offset = range.endOffset;
   let block = node.closestBlock();
-  if (!block.isContentEditable) {
+  if (block.isOutside) {
     block = node.closestContainer();
   }
   if (block.length === 0) {

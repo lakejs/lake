@@ -46,7 +46,7 @@ function copyNestedMarks(node: Nodes, tagName?: string): Nodes | null {
 
 // Removes the specified marks from the range.
 export function removeMark(range: Range, value?: string): void {
-  if (!range.commonAncestor.isContentEditable) {
+  if (range.commonAncestor.isOutside) {
     return;
   }
   let tagName;

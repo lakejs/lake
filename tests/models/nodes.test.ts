@@ -104,13 +104,14 @@ describe('models.Nodes class', () => {
     expect(container.find('strong').isContainer).to.equal(false);
   });
 
-  it('property: isContentEditable', () => {
-    const container = query('<div contenteditable="true"><p>foo</p>bar</div>');
-    expect(container.isContentEditable).to.equal(true);
-    expect(container.find('p').isContentEditable).to.equal(true);
-    expect(container.find('p').first().isContentEditable).to.equal(true);
-    expect(container.find('p').next().isContentEditable).to.equal(true);
-    expect(container.parent().isContentEditable).to.equal(false);
+  it('property: isOutside', () => {
+    const container = query('<div contenteditable="true"><p>foo</p><div contenteditable="false">bar</div></div>');
+    expect(container.isOutside).to.equal(false);
+    expect(container.find('p').isOutside).to.equal(false);
+    expect(container.find('p').first().isOutside).to.equal(false);
+    expect(container.find('div').isOutside).to.equal(false);
+    expect(container.find('div').first().isOutside).to.equal(false);
+    expect(container.parent().isOutside).to.equal(true);
   });
 
   it('property: isInside', () => {
@@ -129,6 +130,16 @@ describe('models.Nodes class', () => {
     expect(container.find('p').isTopInside).to.equal(false);
     expect(container.find('h1').next().isTopInside).to.equal(true);
     expect(container.parent().isTopInside).to.equal(false);
+  });
+
+  it('property: isContentEditable', () => {
+    const container = query('<div contenteditable="true"><p>foo</p><div contenteditable="false">bar</div></div>');
+    expect(container.isContentEditable).to.equal(true);
+    expect(container.find('p').isContentEditable).to.equal(true);
+    expect(container.find('p').first().isContentEditable).to.equal(true);
+    expect(container.find('div').isContentEditable).to.equal(false);
+    expect(container.find('div').first().isContentEditable).to.equal(false);
+    expect(container.parent().isContentEditable).to.equal(false);
   });
 
   it('property: isEmpty', () => {

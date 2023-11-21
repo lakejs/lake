@@ -141,7 +141,29 @@ export class Nodes {
     return this.isElement && node.getAttribute('contenteditable') === 'true';
   }
 
-  // Returns a boolean value indicating whether the node is editable or the node is a root element of contenteditable area.
+  // Returns a boolean value indicating whether the node is ouside the container.
+  public get isOutside(): boolean {
+    return this.closest('[contenteditable="true"]').length === 0;
+  }
+
+  // Returns a boolean value indicating whether the node is inside the container.
+  public get isInside(): boolean {
+    return !this.isOutside && !this.isContainer;
+  }
+
+  // Returns a boolean value indicating whether the node is a top element inside the container.
+  public get isTopInside(): boolean {
+    if (this.length === 0) {
+      return false;
+    }
+    const parentNode = this.parent();
+    if (parentNode.length === 0) {
+      return false;
+    }
+    return this.isInside && parentNode.isContainer;
+  }
+
+  // Returns a boolean value indicating whether the node is editable or the node is a container.
   public get isContentEditable(): boolean {
     if (this.length === 0) {
       return false;
@@ -158,23 +180,6 @@ export class Nodes {
     }
     const element = this.get(0) as NativeHTMLElement;
     return element.isContentEditable;
-  }
-
-  // Returns a boolean value indicating whether the node is editable.
-  public get isInside(): boolean {
-    return this.isContentEditable && !this.isContainer;
-  }
-
-  // Returns a boolean value indicating whether the node is an editable node which parent is the container.
-  public get isTopInside(): boolean {
-    if (this.length === 0) {
-      return false;
-    }
-    const parentNode = this.parent();
-    if (parentNode.length === 0) {
-      return false;
-    }
-    return this.isInside && parentNode.isContainer;
   }
 
   // Returns a boolean value indicating whether the node is empty.

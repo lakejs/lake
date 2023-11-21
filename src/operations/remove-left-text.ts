@@ -6,7 +6,7 @@ export function removeLeftText(range: Range): void {
   const node = range.startNode;
   const offset = range.startOffset;
   let block = node.closestBlock();
-  if (!block.isContentEditable) {
+  if (block.isOutside) {
     block = node.closestContainer();
   }
   if (block.length === 0) {

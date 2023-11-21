@@ -10,7 +10,7 @@ import { fixList } from './fix-list';
 // <p>one</p>
 // <p><focus />three</p>
 export function splitBlock(range: Range): TwoParts {
-  if (!range.commonAncestor.isContentEditable) {
+  if (range.commonAncestor.isOutside) {
     return {
       left: null,
       right: null,
@@ -22,7 +22,7 @@ export function splitBlock(range: Range): TwoParts {
   const node = range.startNode;
   const closestBlock = node.closestOperableBlock();
   let limitBlock = closestBlock.parent();
-  if (!limitBlock.isContentEditable) {
+  if (limitBlock.isOutside) {
     limitBlock = node.closestContainer();
   }
   const parts = splitNodes(node, range.startOffset, limitBlock);

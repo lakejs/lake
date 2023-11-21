@@ -67,7 +67,7 @@ export class Core {
     };
     this.clickListener = event => {
       const targetNode = new models.Nodes(event.target as Element);
-      if (!targetNode.isContentEditable) {
+      if (targetNode.isOutside) {
         this.event.emit('click:outside');
       }
     };

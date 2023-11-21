@@ -4,7 +4,7 @@ import { Range } from '../models/range';
 
 // Inserts a Node into the specified range.
 export function insertNode(range: Range, node: NativeNode | Nodes): void {
-  if (!range.commonAncestor.isContentEditable) {
+  if (range.commonAncestor.isOutside) {
     return;
   }
   if (node instanceof Nodes) {

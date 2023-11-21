@@ -57,7 +57,7 @@ function getUpperMark(node: Nodes, tagName: string): Nodes {
 
 // Adds the specified mark to the texts of the range.
 export function addMark(range: Range, value: string | Nodes): void {
-  if (!range.commonAncestor.isContentEditable) {
+  if (range.commonAncestor.isOutside) {
     return;
   }
   let valueNode = query(value);
