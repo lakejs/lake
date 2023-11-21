@@ -161,11 +161,11 @@ export class Nodes {
   }
 
   // Returns a boolean value indicating whether the node is editable.
-  public get isEditable(): boolean {
+  public get isInside(): boolean {
     return this.isContentEditable && !this.isContainer;
   }
 
-  // Returns a boolean value indicating whether the node is an editable top node.
+  // Returns a boolean value indicating whether the node is an editable node which parent is the container.
   public get isTopEditable(): boolean {
     if (this.length === 0) {
       return false;
@@ -174,7 +174,7 @@ export class Nodes {
     if (parentNode.length === 0) {
       return false;
     }
-    return this.isEditable && parentNode.isContainer;
+    return this.isInside && parentNode.isContainer;
   }
 
   // Returns a boolean value indicating whether the node is empty.

@@ -29,7 +29,7 @@ function pushAncestralNodes(appliedNodes: AppliedTagMapType[], range: Range): vo
     parentNode = parentNode.parent();
   }
   while (parentNode.length > 0) {
-    if (!parentNode.isEditable) {
+    if (!parentNode.isInside) {
       break;
     }
     appliedNodes.push({

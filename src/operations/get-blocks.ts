@@ -5,12 +5,12 @@ import { Range } from '../models/range';
 export function getBlocks(range: Range): Nodes[] {
   if (range.isCollapsed) {
     const startBlock = range.startNode.closestOperableBlock();
-    return startBlock.isEditable ? [ startBlock ] : [];
+    return startBlock.isInside ? [ startBlock ] : [];
   }
   const startBlock = range.startNode.closestOperableBlock();
   const endBlock = range.endNode.closestOperableBlock();
   if (
-    startBlock.isEditable &&
+    startBlock.isInside &&
     startBlock.get(0) &&
     startBlock.get(0) === endBlock.get(0)
   ) {
