@@ -41,6 +41,32 @@ export class Range {
     return this.range.collapsed;
   }
 
+  // Returns a boolean value indicating whether the range's start point is at the left strip of the box.
+  // <lake-box><span class="box-strip">|</span><div class="box-body"></div> ...
+  // <lake-box><span class="box-strip"></span>|<div class="box-body"></div> ...
+  // <lake-box>|<span class="box-strip"></span><div class="box-body"></div> ...
+  public get isBoxLeft(): boolean {
+    const boxNode = this.startNode.closest('lake-box');
+    if (boxNode.length === 0) {
+      return false;
+    }
+    const boxBody = boxNode.find('.box-body');
+    return this.compareBeforeNode(boxBody) >= 0;
+  }
+
+  // Returns a boolean value indicating whether the range's start point is at the right strip of the box.
+  // ... <div class="box-body"></div><span class="box-strip">|</span></lake-box>
+  // ... <div class="box-body"></div>|<span class="box-strip"></span></lake-box>
+  // ... <div class="box-body"></div><span class="box-strip"></span>|</lake-box>
+  public get isBoxRight(): boolean {
+    const boxNode = this.startNode.closest('lake-box');
+    if (boxNode.length === 0) {
+      return false;
+    }
+    const boxBody = boxNode.find('.box-body');
+    return this.compareAfterNode(boxBody) <= 0;
+  }
+
   // Gets a native range.
   public get(): NativeRange {
     return this.range;
@@ -145,7 +171,7 @@ export class Range {
   // <div>[<p><strong>foo</strong></p>]</div>
   // to
   // <div><p><strong>[foo]</strong></p></div>
-  public reduce() {
+  public reduce(): this {
     const isCollapsed = this.isCollapsed;
     let child;
     while (
@@ -169,12 +195,42 @@ export class Range {
     return this;
   }
 
+  // Relocates the start and end points of the range.
+  public adapt(): this {
+    if (this.isCollapsed) {
+      return this;
+    }
+    const startBoxNode = this.startNode.closest('lake-box');
+    if (startBoxNode.length > 0) {
+      const startRange = this.clone();
+      startRange.collapseToStart();
+      if (startRange.isBoxLeft) {
+        this.setStartBefore(startBoxNode);
+      }
+      if (startRange.isBoxRight) {
+        this.setStartAfter(startBoxNode);
+      }
+    }
+    const endBoxNode = this.endNode.closest('lake-box');
+    if (endBoxNode.length > 0) {
+      const endRange = this.clone();
+      endRange.collapseToEnd();
+      if (endRange.isBoxLeft) {
+        this.setEndBefore(endBoxNode);
+      }
+      if (endRange.isBoxRight) {
+        this.setEndAfter(endBoxNode);
+      }
+    }
+    return this;
+  }
+
   // Collapses the range and sets the range to the end of the contents of the specified node.
-  public selectAfterNodeContents(node: Nodes): void {
+  public selectAfterNodeContents(node: Nodes): this {
     if (!node.isBlock) {
       this.setEndAfter(node);
       this.collapseToEnd();
-      return;
+      return this;
     }
     this.setEnd(node, node.children().length);
     let child;
@@ -186,7 +242,7 @@ export class Range {
     ) {
       this.setEnd(child, child.children().length);
     }
-    this.collapseToEnd();
+    return this.collapseToEnd();
   }
 
   // Returns a range object with boundary points identical to the cloned range.

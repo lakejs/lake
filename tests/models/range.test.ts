@@ -63,6 +63,24 @@ describe('models.Range class', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
+  it('property: isBoxLeft', () => {
+    container.html('<lake-box type="block" name="hr"><span class="box-strip"><br /></span><div class="box-body" contenteditable="false"><hr /></div><span class="box-strip"><br /></span></lake-box>');
+    const range = new Range();
+    range.setStartAfter(container.find('.box-strip').eq(0));
+    expect(range.isBoxLeft).to.equal(true);
+    range.setStartAfter(container.find('.box-strip').eq(1));
+    expect(range.isBoxLeft).to.equal(false);
+  });
+
+  it('property: isBoxRight', () => {
+    container.html('<lake-box type="block" name="hr"><span class="box-strip"><br /></span><div class="box-body" contenteditable="false"><hr /></div><span class="box-strip"><br /></span></lake-box>');
+    const range = new Range();
+    range.setStartAfter(container.find('.box-strip').eq(0));
+    expect(range.isBoxRight).to.equal(false);
+    range.setStartAfter(container.find('.box-strip').eq(1));
+    expect(range.isBoxRight).to.equal(true);
+  });
+
   it('method: get', () => {
     container.html('<strong>foo</strong>bar');
     const range = new Range();
@@ -315,6 +333,42 @@ describe('models.Range class', () => {
     expect(range.startOffset).to.equal(0);
     expect(range.endOffset).to.equal(0);
     expect(range.isCollapsed).to.equal(true);
+  });
+
+  it('adapt method: collapsed range', () => {
+    container.html('<p>foo</p><lake-box type="block" name="hr"><span class="box-strip"><br /></span><div class="box-body" contenteditable="false"><hr /></div><span class="box-strip"><br /></span></lake-box><p>bar</p>');
+    const range = new Range();
+    range.setStartAfter(container.find('br').eq(0));
+    range.collapseToStart();
+    expect(range.startNode.name).to.equal('span');
+    expect(range.endNode.name).to.equal('span');
+    expect(range.startOffset).to.equal(1);
+    expect(range.endOffset).to.equal(1);
+    expect(range.isCollapsed).to.equal(true);
+    range.adapt();
+    expect(range.startNode.name).to.equal('span');
+    expect(range.endNode.name).to.equal('span');
+    expect(range.startOffset).to.equal(1);
+    expect(range.endOffset).to.equal(1);
+    expect(range.isCollapsed).to.equal(true);
+  });
+
+  it('adapt method: expanded range', () => {
+    container.html('<p>foo</p><lake-box type="block" name="hr"><span class="box-strip"><br /></span><div class="box-body" contenteditable="false"><hr /></div><span class="box-strip"><br /></span></lake-box><p>bar</p>');
+    const range = new Range();
+    range.setStartAfter(container.find('br').eq(0));
+    range.setEndAfter(container.find('br').eq(1));
+    expect(range.startNode.name).to.equal('span');
+    expect(range.endNode.name).to.equal('span');
+    expect(range.startOffset).to.equal(1);
+    expect(range.endOffset).to.equal(1);
+    expect(range.isCollapsed).to.equal(false);
+    range.adapt();
+    expect(range.startNode.name).to.equal('div');
+    expect(range.endNode.name).to.equal('div');
+    expect(range.startOffset).to.equal(1);
+    expect(range.endOffset).to.equal(2);
+    expect(range.isCollapsed).to.equal(false);
   });
 
   it('method: clone', () => {

@@ -1,58 +1,5 @@
 import type Editor from '..';
-import { Range } from '../models';
 import { query } from '../utils';
-
-// <lake-box><span class="box-strip">|</span><div class="box-body"></div> ...
-// <lake-box><span class="box-strip"></span>|<div class="box-body"></div> ...
-// <lake-box>|<span class="box-strip"></span><div class="box-body"></div> ...
-function isBoxLeft(collapsedRange: Range): boolean {
-  const boxNode = collapsedRange.startNode.closest('lake-box');
-  if (boxNode.length === 0) {
-    return false;
-  }
-  const boxBody = boxNode.find('.box-body');
-  return collapsedRange.compareBeforeNode(boxBody) >= 0;
-}
-
-// ... <div class="box-body"></div><span class="box-strip">|</span></lake-box>
-// ... <div class="box-body"></div>|<span class="box-strip"></span></lake-box>
-// ... <div class="box-body"></div><span class="box-strip"></span>|</lake-box>
-function isBoxRight(collapsedRange: Range): boolean {
-  const boxNode = collapsedRange.startNode.closest('lake-box');
-  if (boxNode.length === 0) {
-    return false;
-  }
-  const boxBody = boxNode.find('.box-body');
-  return collapsedRange.compareAfterNode(boxBody) <= 0;
-}
-
-function relocateBoxRange(range: Range): void {
-  if (range.isCollapsed) {
-    return;
-  }
-  const startBoxNode = range.startNode.closest('lake-box');
-  if (startBoxNode.length > 0) {
-    const startRange = range.clone();
-    startRange.collapseToStart();
-    if (isBoxLeft(startRange)) {
-      range.setStartBefore(startBoxNode);
-    }
-    if (isBoxRight(startRange)) {
-      range.setStartAfter(startBoxNode);
-    }
-  }
-  const endBoxNode = range.endNode.closest('lake-box');
-  if (endBoxNode.length > 0) {
-    const endRange = range.clone();
-    endRange.collapseToEnd();
-    if (isBoxLeft(endRange)) {
-      range.setEndBefore(endBoxNode);
-    }
-    if (isBoxRight(endRange)) {
-      range.setEndAfter(endBoxNode);
-    }
-  }
-}
 
 function setParagraph(editor: Editor) {
   editor.selection.setBlocks('<p />');
@@ -65,8 +12,8 @@ export default (editor: Editor) => {
     event.preventDefault();
     const selection = editor.selection;
     const range = selection.range;
-    relocateBoxRange(range);
-    if (isBoxLeft(range)) {
+    range.adapt();
+    if (range.isBoxLeft) {
       const boxNode = range.startNode.closest('lake-box');
       const prevBlock = query('<p><br /></p>');
       boxNode.before(prevBlock);
@@ -74,7 +21,7 @@ export default (editor: Editor) => {
       editor.select();
       return;
     }
-    if (isBoxRight(range)) {
+    if (range.isBoxRight) {
       const boxNode = range.startNode.closest('lake-box');
       const nextBlock = query('<p><br /></p>');
       boxNode.after(nextBlock);
