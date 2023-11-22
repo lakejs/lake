@@ -133,7 +133,7 @@ describe('backspace plugin', () => {
       output,
       editor => {
         const range = editor.selection.range;
-        range.selectNodeContents(editor.container.find('.box-strip'));
+        range.selectNodeContents(editor.container.find('.box-strip').eq(0));
         range.collapseToEnd();
         editor.keystroke.keydown('backspace');
       },
