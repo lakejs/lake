@@ -1,7 +1,7 @@
 import { getDefaultRules } from '../config/schema';
 import { NativeElement } from '../types/native';
 import { forEach, parseStyle, encode } from '../utils';
-import { Nodes } from './nodes';
+import { Nodes } from '../models/nodes';
 
 export class HTMLParser {
 

@@ -3,6 +3,7 @@ import pkg from '../package.json';
 import './elements/bookmark';
 import './elements/box';
 import { NativeNode } from './types/native';
+import { HTMLParser } from './parsers/html-parser';
 import { Selection } from './managers/selection';
 import { Command } from './managers/command';
 import { History } from './managers/history';
@@ -146,7 +147,7 @@ export class Core {
   // Sets the specified HTML string to the editor area.
   public setValue(value: string) {
     value = utils.normalizeValue(value);
-    const htmlParser = new models.HTMLParser(value);
+    const htmlParser = new HTMLParser(value);
     const fragment = htmlParser.getFragment();
     this.container.empty();
     this.container.append(fragment);
@@ -156,7 +157,7 @@ export class Core {
   // Gets the contents from the editor.
   public getValue() {
     const bookmark = this.selection.insertBookmark();
-    let value = new models.HTMLParser(this.container).getHTML();
+    let value = new HTMLParser(this.container).getHTML();
     value = utils.denormalizeValue(value);
     this.selection.toBookmark(bookmark);
     return value;
@@ -168,7 +169,7 @@ export class Core {
     const targetNode = utils.query(this.target);
     targetNode.hide();
     const value = utils.normalizeValue(this.options.defaultValue);
-    const htmlParser = new models.HTMLParser(value);
+    const htmlParser = new HTMLParser(value);
     const fragment = htmlParser.getFragment();
     this.container.empty();
     this.container.append(fragment);

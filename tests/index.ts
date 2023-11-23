@@ -29,8 +29,10 @@ import './utils/remove-br.test';
 // Models
 import './models/nodes.test';
 import './models/range.test';
-import './models/html-parser.test';
-import './models/text-parser.test';
+
+// Parsers
+import './parsers/html-parser.test';
+import './parsers/text-parser.test';
 
 // Operations
 import './operations/insert-bookmark.test';

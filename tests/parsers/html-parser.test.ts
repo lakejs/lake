@@ -1,8 +1,9 @@
 import { expect } from 'chai';
 import { query } from '../../src/utils';
-import { Nodes, HTMLParser } from '../../src/models';
+import { Nodes } from '../../src/models';
+import { HTMLParser } from '../../src/parsers/html-parser';
 
-describe('models / html-parser', () => {
+describe('parsers / html-parser', () => {
 
   let container: Nodes;
 
