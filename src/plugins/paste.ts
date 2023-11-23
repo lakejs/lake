@@ -2,7 +2,7 @@ import type Editor from '..';
 import { blockTagNames } from '../config/tag-names';
 import { getDefaultRules } from '../config/schema';
 import { forEach, wrapNodeList, changeTagName, fixNumberedList, removeBr } from '../utils';
-import { Nodes } from '../models';
+import { Nodes } from '../models/nodes';
 import { HTMLParser } from '../parsers/html-parser';
 import { TextParser } from '../parsers/text-parser';
 

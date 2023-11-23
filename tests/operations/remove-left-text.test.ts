@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { query } from '../../src/utils';
-import { Range } from '../../src/models';
+import { Range } from '../../src/models/range';
 import { removeLeftText } from '../../src/operations/remove-left-text';
 
 describe('operations / remove-left-text', () => {

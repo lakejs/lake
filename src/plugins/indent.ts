@@ -1,5 +1,5 @@
 import type Editor from '..';
-import { Nodes } from '../models';
+import { Nodes } from '../models/nodes';
 
 export function setBlockIndent(block: Nodes, type: 'increase' | 'decrease'): void {
   let value = Number.parseInt(block.css('margin-left'), 10) || 0;

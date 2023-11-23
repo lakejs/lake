@@ -3,14 +3,14 @@ import pkg from '../package.json';
 import './elements/bookmark';
 import './elements/box';
 import { NativeNode } from './types/native';
+import { denormalizeValue, forEach, normalizeValue, query } from './utils';
+import { Nodes } from './models/nodes';
 import { HTMLParser } from './parsers/html-parser';
 import { Selection } from './managers/selection';
 import { Command } from './managers/command';
 import { History } from './managers/history';
 import { Keystroke } from './managers/keystroke';
 import { Plugin } from './managers/plugin';
-import * as utils from './utils';
-import * as models from './models';
 
 type TargetType = string | NativeNode;
 
@@ -28,10 +28,6 @@ const defaultOptions: OptionsType = {
 export class Core {
   public static version: string = pkg.version;
 
-  public static utils = utils;
-
-  public static models = models;
-
   public static plugin = new Plugin();
 
   private target: TargetType;
@@ -42,7 +38,7 @@ export class Core {
 
   private clickListener: EventListener;
 
-  public container: models.Nodes;
+  public container: Nodes;
 
   public event: EventEmitter;
 
@@ -57,7 +53,7 @@ export class Core {
   constructor(target: string | NativeNode, options = defaultOptions) {
     this.target = target;
     this.options = options;
-    this.container = utils.query('<div />');
+    this.container = query('<div />');
 
     this.setDefaultOptions();
     this.setContainerAttributes();
@@ -72,7 +68,7 @@ export class Core {
       this.selection.syncByRange();
     };
     this.clickListener = event => {
-      const targetNode = new models.Nodes(event.target as Element);
+      const targetNode = new Nodes(event.target as Element);
       if (targetNode.isOutside) {
         this.event.emit('click:outside');
       }
@@ -80,7 +76,7 @@ export class Core {
   }
 
   private setDefaultOptions(): void {
-    utils.forEach(defaultOptions, (key, value) => {
+    forEach(defaultOptions, (key, value) => {
       if (this.options[key] === undefined) {
         this.options[key] = value;
       }
@@ -146,7 +142,7 @@ export class Core {
 
   // Sets the specified HTML string to the editor area.
   public setValue(value: string) {
-    value = utils.normalizeValue(value);
+    value = normalizeValue(value);
     const htmlParser = new HTMLParser(value);
     const fragment = htmlParser.getFragment();
     this.container.empty();
@@ -158,7 +154,7 @@ export class Core {
   public getValue() {
     const bookmark = this.selection.insertBookmark();
     let value = new HTMLParser(this.container).getHTML();
-    value = utils.denormalizeValue(value);
+    value = denormalizeValue(value);
     this.selection.toBookmark(bookmark);
     return value;
   }
@@ -166,9 +162,9 @@ export class Core {
   // Creates an editor area and set default value to it.
   public create(): void {
     const container = this.container;
-    const targetNode = utils.query(this.target);
+    const targetNode = query(this.target);
     targetNode.hide();
-    const value = utils.normalizeValue(this.options.defaultValue);
+    const value = normalizeValue(this.options.defaultValue);
     const htmlParser = new HTMLParser(value);
     const fragment = htmlParser.getFragment();
     this.container.empty();

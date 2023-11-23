@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { query, normalizeValue, denormalizeValue, debug } from '../src/utils';
-import { Nodes, Range } from '../src/models';
+import { Nodes } from '../src/models/nodes';
+import { Range } from '../src/models/range';
 import { HTMLParser } from '../src/parsers/html-parser';
 import { insertBookmark } from '../src/operations/insert-bookmark';
 import { toBookmark } from '../src/operations/to-bookmark';

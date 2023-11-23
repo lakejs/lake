@@ -1,6 +1,6 @@
 import type Editor from '..';
 import { Point } from '../types/object';
-import { Nodes } from '../models';
+import { Nodes } from '../models/nodes';
 
 const headingTypeMap = new Map([
   ['#', 'h1'],

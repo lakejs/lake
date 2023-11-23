@@ -6,6 +6,11 @@ import './styles/list.css';
 import './styles/blockquote.css';
 import './styles/box.css';
 import './styles/hr.css';
+import * as Utils from './utils';
+import { Nodes } from './models/nodes';
+import { Range } from './models/range';
+import { HTMLParser } from './parsers/html-parser';
+import { TextParser } from './parsers/text-parser';
 import { Core } from './core';
 import paste from './plugins/paste';
 import undo from './plugins/undo';
@@ -64,5 +69,13 @@ Core.plugin.add(shiftEnter);
 Core.plugin.add(backspace);
 Core.plugin.add(tab);
 Core.plugin.add(markdown);
+
+export {
+  Utils,
+  Nodes,
+  Range,
+  HTMLParser,
+  TextParser,
+};
 
 export default Core;

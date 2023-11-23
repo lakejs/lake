@@ -1,6 +1,7 @@
 import type Editor from '..';
 import { mergeNodes, query } from '../utils';
-import { Nodes, Range } from '../models';
+import { Nodes } from '../models/nodes';
+import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
 
 function removeBox(range: Range, boxNode?: Nodes): void {

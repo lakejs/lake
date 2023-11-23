@@ -1,4 +1,4 @@
-import type { Nodes } from '../models';
+import type { Nodes } from '../models/nodes';
 
 export type KeyValue = { [key: string]: string };
 

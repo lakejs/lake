@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { query } from '../../src/utils';
-import { Nodes } from '../../src/models';
+import { Nodes } from '../../src/models/nodes';
 import { Plugin } from '../../src/managers/plugin';
 import { Core } from '../../src/core';
 

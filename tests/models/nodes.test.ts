@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { NativeElement, NativeEvent } from '../../src/types/native';
 import { query } from '../../src/utils';
-import { Nodes } from '../../src/models';
+import { Nodes } from '../../src/models/nodes';
 
 describe('models / nodes', () => {
 

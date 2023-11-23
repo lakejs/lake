@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { query } from '../../src/utils';
-import { Nodes } from '../../src/models';
+import { Nodes } from '../../src/models/nodes';
 import { Keystroke } from '../../src/managers/keystroke';
 
 describe('managers / keystroke', () => {

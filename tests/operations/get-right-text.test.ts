@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { query } from '../../src/utils';
-import { Range } from '../../src/models';
+import { Range } from '../../src/models/range';
 import { getRightText } from '../../src/operations/get-right-text';
 
 describe('operations / get-right-text', () => {

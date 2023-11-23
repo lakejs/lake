@@ -1,5 +1,5 @@
 import type Editor from '..';
-import { Nodes } from '../models';
+import { Nodes } from '../models/nodes';
 
 let markList: Nodes[] = [];
 

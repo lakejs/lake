@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { query } from '../../src/utils';
-import { Nodes, Range } from '../../src/models';
+import { Nodes } from '../../src/models/nodes';
+import { Range } from '../../src/models/range';
 
 describe('models / range', () => {
 

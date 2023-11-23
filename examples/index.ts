@@ -1,7 +1,7 @@
-import Editor from '../src';
+import Editor, { Utils } from '../src';
 import { defaultValue } from './default-value';
 
-const { query } = Editor.utils;
+const { query } = Utils;
 
 declare global {
   interface Window {
