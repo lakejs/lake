@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('blockquote plugin', () => {
+describe('plugin / blockquote', () => {
 
   it('no text is selected: sets a block', () => {
     const content = `

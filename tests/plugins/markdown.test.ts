@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('markdown plugin', () => {
+describe('plugin / markdown', () => {
 
   it('keystroke: sets heading 1', () => {
     const content = `

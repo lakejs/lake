@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('shiftEnter plugin', () => {
+describe('plugin / shift-enter', () => {
 
   it('the focus is between the characters of the text', () => {
     const content = `

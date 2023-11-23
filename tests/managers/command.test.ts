@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { Command } from '../../src/managers/command';
 
-describe('managers.Command class', () => {
+describe('managers / command', () => {
 
   it('should execute correct command', () => {
     const command = new Command();

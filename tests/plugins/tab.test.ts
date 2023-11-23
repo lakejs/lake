@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('tab plugin', () => {
+describe('plugin / tab', () => {
 
   it('paragraph: should add text indent', () => {
     const content = `

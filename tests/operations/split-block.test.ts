@@ -1,7 +1,7 @@
 import { testOperation } from '../utils';
 import { splitBlock } from '../../src/operations/split-block';
 
-describe('operations.splitBlock()', () => {
+describe('operations / split-block', () => {
 
   it('collapsed range: splits a block with a text', () => {
     const content = `

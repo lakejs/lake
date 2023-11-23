@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { inString } from '../../src/utils';
 
-describe('utils.inString()', () => {
+describe('utils / in-string', () => {
 
   it('searches a string', () => {
     expect(inString('one,two,three', 'two')).to.equal(true);

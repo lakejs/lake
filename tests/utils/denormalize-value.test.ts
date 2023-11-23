@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { denormalizeValue } from '../../src/utils';
 
-describe('utils.denormalizeValue()', () => {
+describe('utils / denormalize-value', () => {
 
   it('denormalizes special tags', () => {
     expect(denormalizeValue('<lake-box type="block" name="hr">\n<span class="box-strip"><br /></span><div class="box-body" contenteditable="false"><hr /></div><span class="box-strip"><br /></span></lake-box>')).to.equal('<lake-box type="block" name="hr"></lake-box>');

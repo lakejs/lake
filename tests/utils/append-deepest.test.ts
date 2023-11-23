@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { appendDeepest, query } from '../../src/utils';
 
-describe('utils.appendDeepest()', () => {
+describe('utils / append-deepest', () => {
 
   it('should append a text', () => {
     const element = query('<div><p><strong></strong></p></div>');

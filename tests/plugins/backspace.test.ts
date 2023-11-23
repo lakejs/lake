@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('backspace plugin', () => {
+describe('plugin / backspace', () => {
 
   it('no content', () => {
     const content = `

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { toHex } from '../../src/utils';
 
-describe('utils.toHex()', () => {
+describe('utils / to-hex', () => {
 
   it('converts colors in RGB format to hex format', () => {
     expect(toHex('rgb(255, 255, 255) none repeat')).to.equal('#ffffff none repeat');

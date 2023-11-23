@@ -1,7 +1,7 @@
 import { testOperation } from '../utils';
 import { insertContents } from '../../src/operations/insert-contents';
 
-describe('operations.insertContents()', () => {
+describe('operations / insert-contents', () => {
 
   it('inserts an element into after text node', () => {
     const content = `

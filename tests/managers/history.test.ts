@@ -4,7 +4,7 @@ import { Nodes } from '../../src/models';
 import { Selection } from '../../src/managers/selection';
 import { History } from '../../src/managers/history';
 
-describe('managers.History class', () => {
+describe('managers / history', () => {
 
   let container: Nodes;
 

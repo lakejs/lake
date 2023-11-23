@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { query, removeZWS } from '../../src/utils';
 
-describe('utils.removeZWS()', () => {
+describe('utils / remove-zws', () => {
 
   it('should remove Zero-width spaces', () => {
     const container = query('<div><p><strong>foo\u200B</strong>ba\u200Br</p></div>');

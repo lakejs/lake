@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('heading plugin', () => {
+describe('plugin / heading', () => {
 
   it('no text is selected: sets a heading', () => {
     const content = `

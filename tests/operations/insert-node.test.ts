@@ -2,7 +2,7 @@ import { testOperation } from '../utils';
 import { query } from '../../src/utils';
 import { insertNode } from '../../src/operations/insert-node';
 
-describe('operations.insertNode()', () => {
+describe('operations / insert-node', () => {
 
   it('inserts a native node when no text is selected', () => {
     const content = `

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { createContainer } from '../utils';
 import { getMarks } from '../../src/operations/get-marks';
 
-describe('operations.getMarks()', () => {
+describe('operations / get-marks', () => {
 
   it('should get mark and text nodes', () => {
     const content = `

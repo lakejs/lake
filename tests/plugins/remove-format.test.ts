@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('removeFormat plugin', () => {
+describe('plugin / remove-format', () => {
 
   it('should split the marks when no text was selected', () => {
     const content = `

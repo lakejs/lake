@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { query } from '../../src/utils';
 
-describe('utils.query()', () => {
+describe('utils / query', () => {
 
   it('is a native element', () => {
     const element = document.createElement('div');

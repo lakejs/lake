@@ -1,7 +1,7 @@
 import { testOperation } from '../utils';
 import { setBlocks } from '../../src/operations/set-blocks';
 
-describe('operations.setBlocks()', () => {
+describe('operations / set-blocks', () => {
 
   it('no text is selected', () => {
     const content = `

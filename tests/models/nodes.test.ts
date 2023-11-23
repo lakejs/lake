@@ -3,7 +3,7 @@ import { NativeElement, NativeEvent } from '../../src/types/native';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models';
 
-describe('models.Nodes class', () => {
+describe('models / nodes', () => {
 
   let element: Element;
   let elementTwo: Element;

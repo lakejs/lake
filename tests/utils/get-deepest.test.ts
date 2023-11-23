@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { getDeepest, query } from '../../src/utils';
 
-describe('utils.getDeepest()', () => {
+describe('utils / get-deepest', () => {
 
   it('should return strong', () => {
     const element = query('<div><p><strong></strong></p></div>');

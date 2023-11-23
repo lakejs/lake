@@ -3,7 +3,7 @@ import { query } from '../../src/utils';
 import { Range } from '../../src/models';
 import { removeLeftText } from '../../src/operations/remove-left-text';
 
-describe('operations.removeLeftText()', () => {
+describe('operations / remove-left-text', () => {
 
   it('the point is between the characters of the text', () => {
     const container = query('<div contenteditable="true"><p><strong>onetwo</strong></p></div>');

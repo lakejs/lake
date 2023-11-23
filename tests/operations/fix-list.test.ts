@@ -1,7 +1,7 @@
 import { testOperation } from '../utils';
 import { fixList } from '../../src/operations/fix-list';
 
-describe('operations.fixList()', () => {
+describe('operations / fix-list', () => {
 
   it('adds start attributes', () => {
     const content = `

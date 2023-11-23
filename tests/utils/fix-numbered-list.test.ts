@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { query, fixNumberedList } from '../../src/utils';
 
-describe('utils.fixNumberedList()', () => {
+describe('utils / fix-numbered-list', () => {
 
   it('adds start attributes', () => {
     const container = query('<div><ol><li>one</li></ol><ol><li>two</li></ol></div>');

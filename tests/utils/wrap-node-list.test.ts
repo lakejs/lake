@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { query, wrapNodeList } from '../../src/utils';
 
-describe('utils.wrapNodeList()', () => {
+describe('utils / wrap-node-list', () => {
 
   it('wrap nodes in paragraph', () => {
     const container = query('<div>one<strong>two</strong>three</div>');

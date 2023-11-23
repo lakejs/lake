@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { createContainer } from '../utils';
 import { getAppliedNodes } from '../../src/operations/get-applied-nodes';
 
-describe('operations.getAppliedNodes()', () => {
+describe('operations / get-applied-nodes', () => {
 
   it('is a collapsed range', () => {
     const content = `

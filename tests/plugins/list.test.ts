@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('list plugin', () => {
+describe('plugin / list', () => {
 
   it('should change a paragraph to a numbered list', () => {
     const content = `

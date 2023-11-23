@@ -1,7 +1,7 @@
 import { testOperation } from '../utils';
 import { addMark } from '../../src/operations/add-mark';
 
-describe('operations.addMark()', () => {
+describe('operations / add-mark', () => {
 
   it('collapsed range: adds a mark', () => {
     const content = `

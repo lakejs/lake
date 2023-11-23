@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('selectAll plugin', () => {
+describe('plugin / select-all', () => {
 
   it('should select all contents', () => {
     const content = `

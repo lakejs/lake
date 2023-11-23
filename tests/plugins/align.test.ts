@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('align plugin', () => {
+describe('plugin / align', () => {
 
   it('align left', () => {
     const content = `

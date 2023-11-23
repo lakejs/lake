@@ -3,7 +3,7 @@ import { query } from '../../src/utils';
 import { Range, Nodes } from '../../src/models';
 import { insertBookmark } from '../../src/operations/insert-bookmark';
 
-describe('operations.insertBookmark()', () => {
+describe('operations / insert-bookmark', () => {
 
   let container: Nodes;
 

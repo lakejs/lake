@@ -1,7 +1,7 @@
 import { testOperation } from '../utils';
 import { splitMarks } from '../../src/operations/split-marks';
 
-describe('operations.splitMarks()', () => {
+describe('operations / split-marks', () => {
 
   it('collapsed range: splits a text and a mark', () => {
     const content = `

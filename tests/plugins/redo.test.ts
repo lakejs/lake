@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('redo plugin', () => {
+describe('plugin / redo', () => {
 
   it('redoes the previous undo command', () => {
     const content = `

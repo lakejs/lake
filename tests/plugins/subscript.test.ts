@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('subscript plugin', () => {
+describe('plugin / subscript', () => {
 
   it('should add a sub to the selected text', () => {
     const content = `

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { query } from '../../src/utils';
 import { Nodes, Range } from '../../src/models';
 
-describe('models.Range class', () => {
+describe('models / range', () => {
 
   let container: Nodes;
 

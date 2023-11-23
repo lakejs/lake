@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { removeBr, query } from '../../src/utils';
 
-describe('utils.removeBr()', () => {
+describe('utils / remove-br', () => {
 
   it('should remove br', () => {
     const element = query('<div><p><br /></p></div>');

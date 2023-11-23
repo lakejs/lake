@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { query, splitNodes } from '../../src/utils';
 
-describe('utils.splitNodes()', () => {
+describe('utils / split-nodes', () => {
 
   it('splits a text', () => {
     const container = query('<div><p><strong>onetwo</strong></p></div>');

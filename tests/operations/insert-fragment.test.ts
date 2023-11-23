@@ -2,7 +2,7 @@ import { testOperation } from '../utils';
 import { query } from '../../src/utils';
 import { insertFragment } from '../../src/operations/insert-fragment';
 
-describe('operations.insertFragment()', () => {
+describe('operations / insert-fragment', () => {
 
   it('inserts a DocumentFragment object', () => {
     const content = `

@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('fontFamily plugin', () => {
+describe('plugin / font-family', () => {
 
   it('should add a font to the selected text', () => {
     const content = `

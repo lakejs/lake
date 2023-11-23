@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('indent plugin', () => {
+describe('plugin / indent', () => {
 
   it('paragraph: increases indent once', () => {
     const content = `

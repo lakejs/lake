@@ -3,7 +3,7 @@ import { query } from '../../src/utils';
 import { Nodes, Range } from '../../src/models';
 import { Selection } from '../../src/managers/selection';
 
-describe('managers.Selection class', () => {
+describe('managers / selection', () => {
 
   let container: Nodes;
 

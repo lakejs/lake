@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { query, mergeNodes } from '../../src/utils';
 
-describe('utils.mergeNodes()', () => {
+describe('utils / merge-nodes', () => {
 
   it('no merging (text, p)', () => {
     const container = query('<div>foo<p>bar</p></div>');

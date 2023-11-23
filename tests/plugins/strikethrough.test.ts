@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('strikethrough plugin', () => {
+describe('plugin / strikethrough', () => {
 
   it('should get correct result after executing bold and strikethrough', () => {
     const content = `

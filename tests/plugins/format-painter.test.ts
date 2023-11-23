@@ -10,7 +10,7 @@ function testFormatPainter(editor: Editor): void {
   expect(editor.container.hasClass('lake-format-painter')).to.equal(false);
 }
 
-describe('formatPainter plugin', () => {
+describe('plugin / format-painter', () => {
 
   it('copies and adds strong with collapsed selection', () => {
     const content = `

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { query, changeTagName } from '../../src/utils';
 
-describe('utils.changeTagName()', () => {
+describe('utils / change-tag-name', () => {
 
   it('should remove Zero-width spaces', () => {
     const container = query('<div><p id="test" style="text-align: center;">foo<i>bar</i></p></div>');

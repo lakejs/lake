@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { query } from '../../src/utils';
 import { Nodes, HTMLParser } from '../../src/models';
 
-describe('models.HTMLParser class', () => {
+describe('models / html-parser', () => {
 
   let container: Nodes;
 

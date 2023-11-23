@@ -3,7 +3,7 @@ import { query } from '../../src/utils';
 import { Range } from '../../src/models';
 import { getRightText } from '../../src/operations/get-right-text';
 
-describe('operations.getRightText()', () => {
+describe('operations / get-right-text', () => {
 
   it('the point is between the characters of the text', () => {
     const container = query('<div contenteditable="true"><p><strong>onetwo</strong></p></div>');

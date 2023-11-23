@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { TextParser } from '../../src/models';
 
-describe('models.TextParser class', () => {
+describe('models / text-parser', () => {
 
   it('getHTML method: converts \\n', () => {
     const input = 'one\ntwo\n\nthree\n\n\nfour\n\n\n\nfive\n\n\n\n\n';

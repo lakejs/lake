@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { createContainer } from '../utils';
 import { getBlocks } from '../../src/operations/get-blocks';
 
-describe('operations.getBlocks()', () => {
+describe('operations / get-blocks', () => {
 
   it('no text is selected', () => {
     const content = `

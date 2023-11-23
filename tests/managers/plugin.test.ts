@@ -4,7 +4,7 @@ import { Nodes } from '../../src/models';
 import { Plugin } from '../../src/managers/plugin';
 import { Core } from '../../src/core';
 
-describe('managers.Plugin class', () => {
+describe('managers / plugin', () => {
 
   let container: Nodes;
 

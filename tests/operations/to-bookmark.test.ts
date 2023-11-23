@@ -3,7 +3,7 @@ import { query, normalizeValue } from '../../src/utils';
 import { Range, Nodes } from '../../src/models';
 import { toBookmark } from '../../src/operations/to-bookmark';
 
-describe('operations.toBookmark()', () => {
+describe('operations / to-bookmark', () => {
 
   let container: Nodes;
 

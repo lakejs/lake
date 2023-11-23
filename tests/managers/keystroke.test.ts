@@ -3,7 +3,7 @@ import { query } from '../../src/utils';
 import { Nodes } from '../../src/models';
 import { Keystroke } from '../../src/managers/keystroke';
 
-describe('managers.Keystroke class', () => {
+describe('managers / keystroke', () => {
 
   let container: Nodes;
 

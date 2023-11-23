@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('underline plugin', () => {
+describe('plugin / underline', () => {
 
   it('should get correct result after executing bold and underline', () => {
     const content = `

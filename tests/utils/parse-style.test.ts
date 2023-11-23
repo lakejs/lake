@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { parseStyle } from '../../src/utils';
 
-describe('utils.parseStyle()', () => {
+describe('utils / parse-style', () => {
 
   it('parses style string', () => {
     const properties = parseStyle('color: red; border: 1px solid #ccc; margin-right: 10px;');

@@ -1,7 +1,7 @@
 import { testOperation } from '../utils';
 import { removeMark } from '../../src/operations/remove-mark';
 
-describe('operations.removeMark()', () => {
+describe('operations / remove-mark', () => {
 
   it('removes an empty mark', () => {
     const content = `

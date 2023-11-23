@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { getCSS } from '../../src/utils';
 
-describe('utils.getCSS()', () => {
+describe('utils / get-css', () => {
 
   it('gets computed CSS value', () => {
     const element = document.createElement('div');

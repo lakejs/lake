@@ -1,7 +1,7 @@
 import { testOperation } from '../utils';
 import { deleteContents } from '../../src/operations/delete-contents';
 
-describe('operations.deleteContents()', () => {
+describe('operations / delete-contents', () => {
 
   it('deletes the selected text', () => {
     const content = `

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { forEach } from '../../src/utils';
 
-describe('utils.forEach()', () => {
+describe('utils / for-each', () => {
 
   it('is plain object', () => {
     const oldObject = {

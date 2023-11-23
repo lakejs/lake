@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { normalizeValue } from '../../src/utils';
 
-describe('utils.normalizeValue()', () => {
+describe('utils / normalize-value', () => {
 
   it('normalizes special tags', () => {
     expect(normalizeValue('<p><br /><focus /></p>')).to.equal('<p><br /><lake-bookmark type="focus"></lake-bookmark></p>');
