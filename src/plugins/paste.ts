@@ -1,6 +1,6 @@
 import type Editor from '..';
-import { blockTagNames } from '../constants/tag-names';
-import { getDefaultRules } from '../constants/schema';
+import { blockTagNames } from '../config/tag-names';
+import { getDefaultRules } from '../config/schema';
 import { forEach, wrapNodeList, changeTagName, fixNumberedList, removeBr } from '../utils';
 import { HTMLParser, TextParser, Nodes, Selection } from '../models';
 

@@ -6,7 +6,7 @@ import {
 import {
   blockTagNames, markTagNames, voidTagNames,
   headingTagNames, listTagNames,
-} from '../constants/tag-names';
+} from '../config/tag-names';
 import { forEach } from '../utils/for-each';
 import { inString } from '../utils/in-string';
 import { camelCase } from '../utils/camel-case';

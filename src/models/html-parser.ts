@@ -1,4 +1,4 @@
-import { getDefaultRules } from '../constants/schema';
+import { getDefaultRules } from '../config/schema';
 import { NativeElement } from '../types/native';
 import { forEach, parseStyle, encode } from '../utils';
 import { Nodes } from './nodes';
