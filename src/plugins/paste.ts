@@ -2,7 +2,7 @@ import type Editor from '..';
 import { blockTagNames } from '../config/tag-names';
 import { getDefaultRules } from '../config/schema';
 import { forEach, wrapNodeList, changeTagName, fixNumberedList, removeBr } from '../utils';
-import { HTMLParser, TextParser, Nodes, Selection } from '../models';
+import { HTMLParser, TextParser, Nodes } from '../models';
 
 const blockSelector = Array.from(blockTagNames).join(',');
 
@@ -48,8 +48,8 @@ function fixClipboardData(fragment: DocumentFragment): void {
   wrapNodeList(nodeList);
 }
 
-function insertFirstNode(selection: Selection, otherNode: Nodes): void {
-  const range = selection.range;
+function insertFirstNode(editor: Editor, otherNode: Nodes): void {
+  const range = editor.selection.range;
   const block = range.startNode.closestBlock();
   if (otherNode.first().length > 0) {
     removeBr(block);
@@ -65,7 +65,7 @@ function insertFirstNode(selection: Selection, otherNode: Nodes): void {
       child = child.first();
     }
     const nextSibling = child.next();
-    selection.insertNode(child);
+    editor.selection.insertNode(child);
     child = nextSibling;
   }
   otherNode.remove();
@@ -82,7 +82,7 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
   if (selection.getBlocks().length === 0) {
     selection.setBlocks('<p />');
   }
-  insertFirstNode(selection, firstNode);
+  insertFirstNode(editor, firstNode);
   // remove br
   let child = new Nodes(fragment.firstChild);
   while (child.length > 0) {

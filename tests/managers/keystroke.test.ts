@@ -1,8 +1,9 @@
 import { expect } from 'chai';
 import { query } from '../../src/utils';
-import { Nodes, Keystroke } from '../../src/models';
+import { Nodes } from '../../src/models';
+import { Keystroke } from '../../src/managers/keystroke';
 
-describe('models.Keystroke class', () => {
+describe('managers.Keystroke class', () => {
 
   let container: Nodes;
 

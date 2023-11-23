@@ -1,8 +1,10 @@
 import { expect } from 'chai';
 import { query } from '../../src/utils';
-import { History, Selection, Nodes } from '../../src/models';
+import { Nodes } from '../../src/models';
+import { Selection } from '../../src/managers/selection';
+import { History } from '../../src/managers/history';
 
-describe('models.History class', () => {
+describe('managers.History class', () => {
 
   let container: Nodes;
 

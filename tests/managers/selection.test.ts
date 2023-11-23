@@ -1,8 +1,9 @@
 import { expect } from 'chai';
 import { query } from '../../src/utils';
-import { Selection, Nodes, Range } from '../../src/models';
+import { Nodes, Range } from '../../src/models';
+import { Selection } from '../../src/managers/selection';
 
-describe('models.Selection class', () => {
+describe('managers.Selection class', () => {
 
   let container: Nodes;
 

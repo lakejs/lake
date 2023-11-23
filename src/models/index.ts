@@ -2,8 +2,3 @@ export * from './nodes';
 export * from './range';
 export * from './html-parser';
 export * from './text-parser';
-export * from './selection';
-export * from './command';
-export * from './history';
-export * from './keystroke';
-export * from './plugin';

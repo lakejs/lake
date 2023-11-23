@@ -31,11 +31,6 @@ import './models/nodes.test';
 import './models/range.test';
 import './models/html-parser.test';
 import './models/text-parser.test';
-import './models/selection.test';
-import './models/command.test';
-import './models/history.test';
-import './models/keystroke.test';
-import './models/plugin.test';
 
 // Operations
 import './operations/insert-bookmark.test';
@@ -56,6 +51,13 @@ import './operations/split-marks.test';
 import './operations/add-mark.test';
 import './operations/remove-mark.test';
 import './operations/fix-list.test';
+
+// Managers
+import './managers/selection.test';
+import './managers/command.test';
+import './managers/history.test';
+import './managers/keystroke.test';
+import './managers/plugin.test';
 
 // Plugins
 import './plugins/paste.test';

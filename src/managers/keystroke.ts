@@ -1,6 +1,6 @@
 import { createKeybindingsHandler } from 'tinykeys';
 import { NativeEvent } from '../types/native';
-import { Nodes } from './nodes';
+import { Nodes } from '../models/nodes';
 
 type EventItem = {
   type: string,

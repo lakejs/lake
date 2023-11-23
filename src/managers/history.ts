@@ -1,7 +1,7 @@
 import { DiffDOM } from 'diff-dom';
 import { NativeElement } from '../types/native';
 import { debug } from '../utils/debug';
-import { Nodes } from './nodes';
+import { Nodes } from '../models/nodes';
 import { Selection } from './selection';
 
 // Saves and controls the editor value history.

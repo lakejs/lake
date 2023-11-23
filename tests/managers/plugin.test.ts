@@ -1,9 +1,10 @@
 import { expect } from 'chai';
 import { query } from '../../src/utils';
-import { Plugin, Nodes } from '../../src/models';
+import { Nodes } from '../../src/models';
+import { Plugin } from '../../src/managers/plugin';
 import { Core } from '../../src/core';
 
-describe('models.Plugin class', () => {
+describe('managers.Plugin class', () => {
 
   let container: Nodes;
 

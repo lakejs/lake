@@ -1,6 +1,6 @@
 import { NativeSelection } from '../types/native';
-import { Nodes } from './nodes';
-import { Range } from './range';
+import { Nodes } from '../models/nodes';
+import { Range } from '../models/range';
 import { insertBookmark } from '../operations/insert-bookmark';
 import { toBookmark } from '../operations/to-bookmark';
 import { getAppliedNodes } from '../operations/get-applied-nodes';

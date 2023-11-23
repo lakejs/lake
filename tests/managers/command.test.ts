@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { Command } from '../../src/models';
+import { Command } from '../../src/managers/command';
 
-describe('models.Command class', () => {
+describe('managers.Command class', () => {
 
   it('should execute correct command', () => {
     const command = new Command();

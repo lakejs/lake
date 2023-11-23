@@ -3,6 +3,11 @@ import pkg from '../package.json';
 import './elements/bookmark';
 import './elements/box';
 import { NativeNode } from './types/native';
+import { Selection } from './managers/selection';
+import { Command } from './managers/command';
+import { History } from './managers/history';
+import { Keystroke } from './managers/keystroke';
+import { Plugin } from './managers/plugin';
 import * as utils from './utils';
 import * as models from './models';
 
@@ -26,7 +31,7 @@ export class Core {
 
   public static models = models;
 
-  public static plugin = new models.Plugin();
+  public static plugin = new Plugin();
 
   private target: TargetType;
 
@@ -40,13 +45,13 @@ export class Core {
 
   public event: EventEmitter;
 
-  public selection: models.Selection;
+  public selection: Selection;
 
-  public command: models.Command;
+  public command: Command;
 
-  public history: models.History;
+  public history: History;
 
-  public keystroke: models.Keystroke;
+  public keystroke: Keystroke;
 
   constructor(target: string | NativeNode, options = defaultOptions) {
     this.target = target;
@@ -57,10 +62,10 @@ export class Core {
     this.setContainerAttributes();
 
     this.event = new EventEmitter();
-    this.selection = new models.Selection(this.container);
-    this.command = new models.Command();
-    this.history = new models.History(this.selection);
-    this.keystroke = new models.Keystroke(this.container);
+    this.selection = new Selection(this.container);
+    this.command = new Command();
+    this.history = new History(this.selection);
+    this.keystroke = new Keystroke(this.container);
 
     this.selectionListener = () => {
       this.selection.syncByRange();
