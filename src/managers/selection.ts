@@ -8,7 +8,6 @@ import { insertNode } from '../operations/insert-node';
 import { insertFragment } from '../operations/insert-fragment';
 import { insertContents } from '../operations/insert-contents';
 import { deleteContents } from '../operations/delete-contents';
-import { getBlocks } from '../operations/get-blocks';
 import { removeLeftText } from '../operations/remove-left-text';
 import { setBlocks } from '../operations/set-blocks';
 import { splitBlock } from '../operations/split-block';
@@ -102,10 +101,6 @@ export class Selection {
 
   public deleteContents(): ReturnType<typeof deleteContents> {
     return deleteContents(this.range);
-  }
-
-  public getBlocks(): ReturnType<typeof getBlocks> {
-    return getBlocks(this.range);
   }
 
   public removeLeftText(): ReturnType<typeof removeLeftText> {

@@ -61,10 +61,10 @@ export default (editor: Editor) => {
     const leftText = range.getLeftText();
     if (leftText === '') {
       event.preventDefault();
-      let block = selection.getBlocks()[0];
+      let block = range.getBlocks()[0];
       if (!block) {
         editor.selection.setBlocks('<p />');
-        block = selection.getBlocks()[0];
+        block = range.getBlocks()[0];
       }
       let prevBlock = block.prev();
       if (prevBlock.length === 0) {

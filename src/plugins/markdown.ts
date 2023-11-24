@@ -206,7 +206,7 @@ export default (editor: Editor) => {
     if (isMatched) {
       return;
     }
-    const block = selection.getBlocks()[0];
+    const block = selection.range.getBlocks()[0];
     if (block && !(block.isHeading || block.name === 'p')) {
       return;
     }

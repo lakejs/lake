@@ -3,7 +3,6 @@ import { NativeElement } from '../types/native';
 import { query, getDeepest, wrapNodeList, appendDeepest } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
-import { getBlocks } from './get-blocks';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 import { fixList } from './fix-list';
@@ -40,7 +39,7 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
   }
   // changes the attributes of target blocks
   if (typeof value !== 'string') {
-    const blockList = getBlocks(range);
+    const blockList = range.getBlocks();
     for (const block of blockList) {
       block.css(value);
     }
@@ -51,7 +50,7 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
   const tagName = valueNode.name;
   const nativeValueNode = valueNode.get(0) as NativeElement;
   const attributes = nativeValueNode.attributes;
-  const blockList = getBlocks(range);
+  const blockList = range.getBlocks();
   // has blocks
   if (blockList.length > 0) {
     const bookmark = insertBookmark(range);

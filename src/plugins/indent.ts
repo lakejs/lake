@@ -25,7 +25,7 @@ export function setBlockIndent(block: Nodes, type: 'increase' | 'decrease'): voi
 export default (editor: Editor) => {
   editor.command.add('indent', (type: 'increase' | 'decrease') => {
     editor.focus();
-    const blocks = editor.selection.getBlocks();
+    const blocks = editor.selection.range.getBlocks();
     for (const block of blocks) {
       setBlockIndent(block, type);
     }

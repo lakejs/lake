@@ -246,6 +246,46 @@ export class Range {
     return this;
   }
 
+  // Returns target blocks relating to the range.
+  public getBlocks(): Nodes[] {
+    if (this.isCollapsed) {
+      const startBlock = this.startNode.closestOperableBlock();
+      return startBlock.isInside ? [ startBlock ] : [];
+    }
+    const startBlock = this.startNode.closestOperableBlock();
+    const endBlock = this.endNode.closestOperableBlock();
+    if (
+      startBlock.isInside &&
+      startBlock.get(0) &&
+      startBlock.get(0) === endBlock.get(0)
+    ) {
+      return [ startBlock ];
+    }
+    const blocks: Nodes[] = [];
+    const clonedRange = this.clone();
+    clonedRange.collapseToEnd();
+    for (const child of this.commonAncestor.getWalker()) {
+      if (child.isBlock && child.isTopInside &&
+        // the range doesn't end at the start of a block
+        clonedRange.comparePoint(child, 0) !== 0 &&
+        this.intersectsNode(child)
+      ) {
+        blocks.push(child);
+      }
+    }
+    if (blocks.length > 0) {
+      return blocks;
+    }
+    for (const child of this.commonAncestor.getWalker()) {
+      if (child.isBlock &&
+        (startBlock.isSibling(child) || endBlock.isSibling(child)) &&
+        this.intersectsNode(child)) {
+        blocks.push(child);
+      }
+    }
+    return blocks;
+  }
+
   // Returns target marks and text nodes relating to the range.
   public getMarks(hasText = false): Nodes[] {
     const stratRange = this.clone();

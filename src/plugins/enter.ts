@@ -30,10 +30,10 @@ export default (editor: Editor) => {
       editor.select();
       return;
     }
-    let block = selection.getBlocks()[0];
+    let block = range.getBlocks()[0];
     if (!block) {
       editor.selection.setBlocks('<p />');
-      block = selection.getBlocks()[0];
+      block = range.getBlocks()[0];
     }
     if (block.isEmpty && block.name !== 'p') {
       setParagraph(editor);
@@ -46,7 +46,7 @@ export default (editor: Editor) => {
       editor.select();
       return;
     }
-    block = selection.getBlocks()[0];
+    block = range.getBlocks()[0];
     if (block.isHeading) {
       setParagraph(editor);
       return;

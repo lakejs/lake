@@ -373,6 +373,144 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(false);
   });
 
+  it('getBlocks method: no text is selected', () => {
+    const content = `
+    <p>outer start</p>
+    <p>foo<strong>bold</strong><focus /></p>
+    <p>outer end</p>
+    `;
+    const result = createContainer(content);
+    const blocks = result.range.getBlocks();
+    result.container.remove();
+    expect(blocks.length).to.equal(1);
+    expect(blocks[0].html()).to.equal('foo<strong>bold</strong>');
+  });
+
+  it('getBlocks method: after select the contents of a block', () => {
+    const content = `
+    <p>outer start</p>
+    <p><anchor />foo<strong>bold</strong><focus /></p>
+    <p>outer end</p>
+    `;
+    const result = createContainer(content);
+    const blocks = result.range.getBlocks();
+    result.container.remove();
+    expect(blocks.length).to.equal(1);
+    expect(blocks[0].html()).to.equal('foo<strong>bold</strong>');
+  });
+
+  it('getBlocks method: after select multiple blocks', () => {
+    const content = `
+    <p>outer start</p>
+    <p>f<anchor />oo<strong>bold</strong></p>
+    <h1>heading</h1>
+    <p><i>itelic</i>ba<focus />r</p>
+    <p>outer end</p>
+    `;
+    const result = createContainer(content);
+    const blocks = result.range.getBlocks();
+    result.container.remove();
+    expect(blocks.length).to.equal(3);
+    expect(blocks[0].html()).to.equal('foo<strong>bold</strong>');
+    expect(blocks[1].html()).to.equal('heading');
+    expect(blocks[2].html()).to.equal('<i>itelic</i>bar');
+  });
+
+  it('getBlocks method: no block', () => {
+    const content = `
+    foo<strong>bar<focus /></strong>
+    `;
+    const result = createContainer(content);
+    const blocks = result.range.getBlocks();
+    result.container.remove();
+    expect(blocks.length).to.equal(0);
+  });
+
+  it('getBlocks method: no block among other blocks', () => {
+    const content = `
+    <p>outer start</p>
+    foo<strong>bar<focus /></strong>end
+    <p>outer end</p>
+    `;
+    const result = createContainer(content);
+    const blocks = result.range.getBlocks();
+    result.container.remove();
+    expect(blocks.length).to.equal(0);
+  });
+
+  it('getBlocks method: returns a sub-block in the nested blocks when no text is selected', () => {
+    const content = `
+    <p>outer start</p>
+    <blockquote><p>foo<strong>bold</strong><focus /></p></blockquote>
+    <p>outer end</p>
+    `;
+    const result = createContainer(content);
+    const blocks = result.range.getBlocks();
+    result.container.remove();
+    expect(blocks.length).to.equal(1);
+    expect(blocks[0].html()).to.equal('foo<strong>bold</strong>');
+  });
+
+  it('getBlocks method: returns top blocks in the nested blocks after select multiple blocks', () => {
+    const content = `
+    <p>outer start</p>
+    <blockquote><p><anchor />foo1<strong>bold1</strong></p></blockquote>
+    <blockquote><p>foo2<strong>bold2</strong><focus /></p></blockquote>
+    <p>outer end</p>
+    `;
+    const result = createContainer(content);
+    const blocks = result.range.getBlocks();
+    result.container.remove();
+    expect(blocks.length).to.equal(2);
+    expect(blocks[0].html()).to.equal('<p>foo1<strong>bold1</strong></p>');
+    expect(blocks[1].html()).to.equal('<p>foo2<strong>bold2</strong></p>');
+  });
+
+  it('getBlocks method: returns sub-block in the nested blocks after select multiple blocks', () => {
+    const content = `
+    <p>outer start</p>
+    <blockquote>
+      <p><anchor />foo1<strong>bold1</strong></p>
+      <p>foo2<strong>bold2</strong><focus /></p>
+    </blockquote>
+    <p>outer end</p>
+    `;
+    const result = createContainer(content);
+    const blocks = result.range.getBlocks();
+    result.container.remove();
+    expect(blocks.length).to.equal(2);
+    expect(blocks[0].html()).to.equal('foo1<strong>bold1</strong>');
+    expect(blocks[1].html()).to.equal('foo2<strong>bold2</strong>');
+  });
+
+  it('getBlocks method: the selection ends at the start of a block', () => {
+    const content = `
+    <p>outer start</p>
+    <h1><anchor />foo<strong>bold</strong></h1>
+    <p><focus />outer end</p>
+    `;
+    const result = createContainer(content);
+    const blocks = result.range.getBlocks();
+    result.container.remove();
+    expect(blocks.length).to.equal(1);
+    expect(blocks[0].html()).to.equal('foo<strong>bold</strong>');
+  });
+
+  it('getBlocks method: selects all', () => {
+    const content = `
+    <anchor /><p>a</p>
+    <p>b</p>
+    <p>c</p><focus />
+    `;
+    const result = createContainer(content);
+    const blocks = result.range.getBlocks();
+    result.container.remove();
+    expect(blocks.length).to.equal(3);
+    expect(blocks[0].html()).to.equal('a');
+    expect(blocks[1].html()).to.equal('b');
+    expect(blocks[2].html()).to.equal('c');
+  });
+
   it('getMarks method: should get mark and text nodes', () => {
     const content = `
     <p><anchor />foo<strong>bold</strong><focus /></p>

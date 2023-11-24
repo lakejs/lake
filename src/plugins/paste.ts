@@ -81,7 +81,7 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
   }
   const firstNode = new Nodes(fragment.firstChild);
   let lastNode = new Nodes(fragment.lastChild);
-  if (selection.getBlocks().length === 0) {
+  if (range.getBlocks().length === 0) {
     selection.setBlocks('<p />');
   }
   insertFirstNode(editor, firstNode);
