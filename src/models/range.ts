@@ -168,6 +168,26 @@ export class Range {
     return this;
   }
 
+  // Collapses the range and sets the range to the end of the contents of the specified node.
+  public selectAfterNodeContents(node: Nodes): this {
+    if (!node.isBlock) {
+      this.setEndAfter(node);
+      this.collapseToEnd();
+      return this;
+    }
+    this.setEnd(node, node.children().length);
+    let child;
+    while (
+      this.endNode.isBlock &&
+      this.endOffset > 0 &&
+      (child = this.endNode.children()[this.endOffset - 1]) &&
+      child.isBlock && !child.isVoid
+    ) {
+      this.setEnd(child, child.children().length);
+    }
+    return this.collapseToEnd();
+  }
+
   // Reduces the boundary of the range.
   // <div>[<p><strong>foo</strong></p>]</div>
   // to
@@ -226,24 +246,29 @@ export class Range {
     return this;
   }
 
-  // Collapses the range and sets the range to the end of the contents of the specified node.
-  public selectAfterNodeContents(node: Nodes): this {
-    if (!node.isBlock) {
-      this.setEndAfter(node);
-      this.collapseToEnd();
-      return this;
+  // Returns target marks and text nodes relating to the range.
+  public getMarks(hasText = false): Nodes[] {
+    const stratRange = this.clone();
+    stratRange.collapseToStart();
+    const endRange = this.clone();
+    endRange.collapseToEnd();
+    const marks: Nodes[] = [];
+    for (const node of this.commonAncestor.getWalker()) {
+      const targetRange = document.createRange();
+      targetRange.setStartAfter(node.get());
+      targetRange.collapse(true);
+      if (endRange.compareBeforeNode(node) >= 0) {
+        break;
+      }
+      if (stratRange.compareAfterNode(node) > 0) {
+        if ((node.isMark || node.isText) && !node.isEmpty) {
+          if (node.isMark || hasText) {
+            marks.push(node);
+          }
+        }
+      }
     }
-    this.setEnd(node, node.children().length);
-    let child;
-    while (
-      this.endNode.isBlock &&
-      this.endOffset > 0 &&
-      (child = this.endNode.children()[this.endOffset - 1]) &&
-      child.isBlock && !child.isVoid
-    ) {
-      this.setEnd(child, child.children().length);
-    }
-    return this.collapseToEnd();
+    return marks;
   }
 
   // Returns the text of the left part of the closest block divided into two parts by the start point of the range.

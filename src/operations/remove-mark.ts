@@ -2,7 +2,6 @@ import { appendDeepest, query } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { splitMarks } from './split-marks';
-import { getMarks } from './get-marks';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 
@@ -90,7 +89,7 @@ export function removeMark(range: Range, value?: string): void {
     return;
   }
   splitMarks(range);
-  const marks = getMarks(range);
+  const marks = range.getMarks();
   const bookmark = insertBookmark(range);
   for (const mark of marks) {
     if (!tagName || mark.name === tagName) {

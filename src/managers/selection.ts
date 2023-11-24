@@ -12,7 +12,6 @@ import { getBlocks } from '../operations/get-blocks';
 import { removeLeftText } from '../operations/remove-left-text';
 import { setBlocks } from '../operations/set-blocks';
 import { splitBlock } from '../operations/split-block';
-import { getMarks } from '../operations/get-marks';
 import { splitMarks } from '../operations/split-marks';
 import { addMark } from '../operations/add-mark';
 import { removeMark } from '../operations/remove-mark';
@@ -119,10 +118,6 @@ export class Selection {
 
   public splitBlock(): ReturnType<typeof splitBlock> {
     return splitBlock(this.range);
-  }
-
-  public getMarks(hasText?: Parameters<typeof getMarks>[1]): ReturnType<typeof getMarks> {
-    return getMarks(this.range, hasText);
   }
 
   public splitMarks(removeEmptyMark?: Parameters<typeof splitMarks>[1]): ReturnType<typeof splitMarks> {

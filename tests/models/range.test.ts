@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { createContainer } from '../utils';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
@@ -370,6 +371,57 @@ describe('models / range', () => {
     expect(range.startOffset).to.equal(1);
     expect(range.endOffset).to.equal(2);
     expect(range.isCollapsed).to.equal(false);
+  });
+
+  it('getMarks method: should get mark and text nodes', () => {
+    const content = `
+    <p><anchor />foo<strong>bold</strong><focus /></p>
+    `;
+    const result = createContainer(content);
+    const marks = result.range.getMarks(true);
+    result.container.remove();
+    expect(marks.length).to.equal(3);
+    expect(marks[0].text()).to.equal('foo');
+    expect(marks[1].name).to.equal('strong');
+    expect(marks[2].text()).to.equal('bold');
+  });
+
+  it('getMarks method: should only return mark nodes', () => {
+    const content = `
+    <p><anchor />foo<strong>bold</strong><focus /></p>
+    `;
+    const result = createContainer(content);
+    const marks = result.range.getMarks(false);
+    result.container.remove();
+    expect(marks.length).to.equal(1);
+    expect(marks[0].name).to.equal('strong');
+  });
+
+  it('getMarks method: the range is in the other mark', () => {
+    const content = `
+    <p><i><anchor />foo<strong>bold</strong><focus /></i></p>
+    `;
+    const result = createContainer(content);
+    const marks = result.range.getMarks(true);
+    result.container.remove();
+    expect(marks.length).to.equal(3);
+    expect(marks[0].text()).to.equal('foo');
+    expect(marks[1].name).to.equal('strong');
+    expect(marks[2].text()).to.equal('bold');
+  });
+
+  it('getMarks method: the range is part of a mark', () => {
+    const content = `
+    <p><i><anchor />foo</i><strong>bold</strong><focus /></p>
+    `;
+    const result = createContainer(content);
+    const marks = result.range.getMarks(true);
+    result.container.remove();
+    expect(marks.length).to.equal(4);
+    expect(marks[0].name).to.equal('i');
+    expect(marks[1].text()).to.equal('foo');
+    expect(marks[2].name).to.equal('strong');
+    expect(marks[3].text()).to.equal('bold');
   });
 
   it('getLeftText method: the point is between the characters of the text', () => {
