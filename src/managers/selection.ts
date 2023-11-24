@@ -1,9 +1,10 @@
-import { NativeSelection } from '../types/native';
+import { NativeSelection, NativeElement } from '../types/native';
+import { KeyValue } from '../types/object';
+import { parseStyle } from '../utils/parse-style';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertBookmark } from '../operations/insert-bookmark';
 import { toBookmark } from '../operations/to-bookmark';
-import { getAppliedNodes } from '../operations/get-applied-nodes';
 import { insertNode } from '../operations/insert-node';
 import { insertFragment } from '../operations/insert-fragment';
 import { insertContents } from '../operations/insert-contents';
@@ -16,6 +17,78 @@ import { addMark } from '../operations/add-mark';
 import { removeMark } from '../operations/remove-mark';
 import { fixList } from '../operations/fix-list';
 import { insertBox } from '../operations/insert-box';
+
+type AppliedTagMapType = {
+  node: Nodes,
+  name: string,
+  attributes: KeyValue,
+  styles: KeyValue,
+};
+
+// Returns the attributes of the element as an key-value object.
+function getAttributes(node: Nodes): KeyValue {
+  const nativeNode = node.get(0) as NativeElement;
+  const attributes: KeyValue = {};
+  if (nativeNode.hasAttributes()) {
+    for (const attr of nativeNode.attributes) {
+      attributes[attr.name] = attr.value;
+    }
+  }
+  return attributes;
+}
+
+function pushAncestralNodes(appliedNodes: AppliedTagMapType[], range: Range): void {
+  let parentNode = range.startNode;
+  if (parentNode.isText) {
+    parentNode = parentNode.parent();
+  }
+  while (parentNode.length > 0) {
+    if (!parentNode.isInside) {
+      break;
+    }
+    appliedNodes.push({
+      node: parentNode.clone(),
+      name: parentNode.name,
+      attributes: getAttributes(parentNode),
+      styles: parseStyle(parentNode.attr('style')),
+    });
+    parentNode = parentNode.parent();
+  }
+}
+
+function pushNextNestedNodes(appliedNodes: AppliedTagMapType[], range: Range): void {
+  const startNode = range.startNode;
+  let nextNode;
+  if (startNode.isText && startNode.text().length === range.startOffset) {
+    const node = startNode.next();
+    if (node.length > 0 && node.isElement) {
+      nextNode = node;
+    }
+  }
+  if (startNode.isElement) {
+    const children = startNode.children();
+    if (children.length > 0) {
+      const node = children[range.startOffset];
+      if (node && node.isElement) {
+        nextNode = node;
+      }
+    }
+  }
+  if (nextNode) {
+    let child = nextNode;
+    while (child.length > 0) {
+      if (child.isElement) {
+        appliedNodes.push({
+          node: child.clone(),
+          name: child.name,
+          attributes: getAttributes(child),
+          styles: parseStyle(child.attr('style')),
+        });
+      }
+      child = child.first();
+    }
+  }
+}
 
 export class Selection {
   // Represents the range of text selected by the user or the current position of the caret.
@@ -75,16 +148,19 @@ export class Selection {
     });
   }
 
+  public getAppliedNodes(): AppliedTagMapType[] {
+    const appliedNodes: AppliedTagMapType[] = [];
+    pushAncestralNodes(appliedNodes, this.range);
+    pushNextNestedNodes(appliedNodes, this.range);
+    return appliedNodes;
+  }
+
   public insertBookmark(): ReturnType<typeof insertBookmark> {
     return insertBookmark(this.range);
   }
 
   public toBookmark(bookmark: Parameters<typeof toBookmark>[1]): ReturnType<typeof toBookmark> {
     return toBookmark(this.range, bookmark);
-  }
-
-  public getAppliedNodes(): ReturnType<typeof getAppliedNodes> {
-    return getAppliedNodes(this.range);
   }
 
   public insertNode(node: Parameters<typeof insertNode>[1]): ReturnType<typeof insertNode> {
