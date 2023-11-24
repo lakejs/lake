@@ -39,7 +39,7 @@ export default (editor: Editor) => {
       setParagraph(editor);
       return;
     }
-    const rightText = selection.getRightText();
+    const rightText = range.getRightText();
     selection.splitBlock();
     if (rightText !== '') {
       editor.history.save();

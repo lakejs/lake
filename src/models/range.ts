@@ -1,5 +1,6 @@
 import { NativeRange } from '../types/native';
 import { debug } from '../utils/debug';
+import { query } from '../utils/query';
 import { Nodes } from './nodes';
 
 // The Range class represents a fragment of a document that can contain nodes and parts of text nodes.
@@ -243,6 +244,48 @@ export class Range {
       this.setEnd(child, child.children().length);
     }
     return this.collapseToEnd();
+  }
+
+  // Returns the text of the left part of the closest block divided into two parts by the start point of the range.
+  // "<p>one<anchor />two<focus />three</p>" returns "three".
+  public getLeftText(): string {
+    const node = this.startNode;
+    const offset = this.startOffset;
+    let block = node.closestBlock();
+    if (block.isOutside) {
+      block = node.closestContainer();
+    }
+    if (block.length === 0) {
+      return '';
+    }
+    const leftRange = new Range();
+    leftRange.setStartBefore(block);
+    leftRange.setEnd(node, offset);
+    const container = query('<div />');
+    container.append(leftRange.cloneContents());
+    const text = container.text();
+    return text;
+  }
+
+  // Returns the text of the right part of the closest block divided into two parts by the end point of the range.
+  // "<p>one<anchor />two<focus />three</p>" returns "three".
+  public getRightText(): string {
+    const node = this.endNode;
+    const offset = this.endOffset;
+    let block = node.closestBlock();
+    if (block.isOutside) {
+      block = node.closestContainer();
+    }
+    if (block.length === 0) {
+      return '';
+    }
+    const rightRange = new Range();
+    rightRange.setStart(node, offset);
+    rightRange.setEndAfter(block);
+    const container = query('<div />');
+    container.append(rightRange.cloneContents());
+    const text = container.text();
+    return text;
   }
 
   // Returns a range object with boundary points identical to the cloned range.

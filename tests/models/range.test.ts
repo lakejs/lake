@@ -372,6 +372,62 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(false);
   });
 
+  it('getLeftText method: the point is between the characters of the text', () => {
+    container.html('<div contenteditable="true"><p><strong>onetwo</strong></p></div>');
+    const range = new Range();
+    range.setStart(container.find('strong').first(), 3);
+    expect(range.getLeftText()).to.equal('one');
+  });
+
+  it('getLeftText method: the point is at the beginning of the text', () => {
+    container.html('<div contenteditable="true"><p><strong>onetwo</strong></p></div>');
+    const range = new Range();
+    range.setStart(container.find('strong').first(), 0);
+    expect(range.getLeftText()).to.equal('');
+  });
+
+  it('getLeftText method: the point is at the end of the text', () => {
+    container.html('<div contenteditable="true"><p><strong>onetwo</strong></p></div>');
+    const range = new Range();
+    range.setStart(container.find('strong').first(), 6);
+    expect(range.getLeftText()).to.equal('onetwo');
+  });
+
+  it('getLeftText method: should return the text of the closest block', () => {
+    container.html('<div contenteditable="true"><p>previous block</p><p><strong>onetwo</strong></p></div>');
+    const range = new Range();
+    range.setStart(container.find('strong').first(), 0);
+    expect(range.getLeftText()).to.equal('');
+  });
+
+  it('getRightText method: the point is between the characters of the text', () => {
+    container.html('<div contenteditable="true"><p><strong>onetwo</strong></p></div>');
+    const range = new Range();
+    range.setEnd(container.find('strong').first(), 3);
+    expect(range.getRightText()).to.equal('two');
+  });
+
+  it('getRightText method: the point is at the beginning of the text', () => {
+    container.html('<div contenteditable="true"><p><strong>onetwo</strong></p></div>');
+    const range = new Range();
+    range.setEnd(container.find('strong').first(), 0);
+    expect(range.getRightText()).to.equal('onetwo');
+  });
+
+  it('getRightText method: the point is at the end of the text', () => {
+    container.html('<div contenteditable="true"><p><strong>onetwo</strong></p></div>');
+    const range = new Range();
+    range.setEnd(container.find('strong').first(), 6);
+    expect(range.getRightText()).to.equal('');
+  });
+
+  it('getRightText method: should return the text of the closest block', () => {
+    container.html('<div contenteditable="true"><p><strong>onetwo</strong></p><p>next block</p></div>');
+    const range = new Range();
+    range.setEnd(container.find('strong').first(), 6);
+    expect(range.getRightText()).to.equal('');
+  });
+
   it('method: clone', () => {
     container.html('<strong>foo</strong>bar');
     const range = new Range();

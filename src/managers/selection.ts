@@ -9,9 +9,7 @@ import { insertFragment } from '../operations/insert-fragment';
 import { insertContents } from '../operations/insert-contents';
 import { deleteContents } from '../operations/delete-contents';
 import { getBlocks } from '../operations/get-blocks';
-import { getLeftText } from '../operations/get-left-text';
 import { removeLeftText } from '../operations/remove-left-text';
-import { getRightText } from '../operations/get-right-text';
 import { setBlocks } from '../operations/set-blocks';
 import { splitBlock } from '../operations/split-block';
 import { getMarks } from '../operations/get-marks';
@@ -111,16 +109,8 @@ export class Selection {
     return getBlocks(this.range);
   }
 
-  public getLeftText(): ReturnType<typeof getLeftText> {
-    return getLeftText(this.range);
-  }
-
   public removeLeftText(): ReturnType<typeof removeLeftText> {
     return removeLeftText(this.range);
-  }
-
-  public getRightText(): ReturnType<typeof getRightText> {
-    return getRightText(this.range);
   }
 
   public setBlocks(value: Parameters<typeof setBlocks>[1]): ReturnType<typeof setBlocks> {

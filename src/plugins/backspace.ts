@@ -58,7 +58,7 @@ export default (editor: Editor) => {
       editor.select();
       return;
     }
-    const leftText = selection.getLeftText();
+    const leftText = range.getLeftText();
     if (leftText === '') {
       event.preventDefault();
       let block = selection.getBlocks()[0];
