@@ -104,7 +104,7 @@ describe('plugin / backspace', () => {
 
   it('should remove box before paragraph', () => {
     const content = `
-    <lake-box type="block" name="hr"><span class="box-strip"><br /></span><div class="box-body" contenteditable="false"><hr /></div><span class="box-strip"><br /></span></lake-box>
+    <lake-box type="block" name="hr"></lake-box>
     <p><focus />foo</p>
     `;
     const output = `
@@ -123,7 +123,7 @@ describe('plugin / backspace', () => {
   it('should remove empty paragraph before box', () => {
     const content = `
     <p><br /></p>
-    <lake-box type="block" name="hr"><span class="box-strip"><br /></span><div class="box-body" contenteditable="false"><hr /></div><span class="box-strip"><br /></span></lake-box>
+    <lake-box type="block" name="hr"></lake-box>
     `;
     const output = `
     <lake-box type="block" name="hr"></lake-box>
@@ -143,7 +143,7 @@ describe('plugin / backspace', () => {
   it('should move cursor with paragraph before box', () => {
     const content = `
     <p>foo</p>
-    <lake-box type="block" name="hr"><span class="box-strip"><br /></span><div class="box-body" contenteditable="false"><hr /></div><span class="box-strip"><br /></span></lake-box>
+    <lake-box type="block" name="hr"></lake-box>
     `;
     const output = `
     <p>foo<focus /></p>
@@ -164,7 +164,7 @@ describe('plugin / backspace', () => {
   it('should remove box with selecting the end of box', () => {
     const content = `
     <p>foo</p>
-    <lake-box type="block" name="hr"><span class="box-strip"><br /></span><div class="box-body" contenteditable="false"><hr /></div><span class="box-strip"><br /></span></lake-box>
+    <lake-box type="block" name="hr"></lake-box>
     `;
     const output = `
     <p>foo</p>

@@ -148,17 +148,15 @@ export class HTMLParser {
           if (openTag !== '') {
             yield `<${openTag} />`;
           }
-        } else if (child.isBox) {
-          const openTag = HTMLParser.getOpenTagString(child, rules);
-          const closedTag = HTMLParser.getClosedTagString(child, rules);
-          yield `<${openTag}>${child.html()}</${closedTag}>`;
         } else if (child.isElement) {
           const openTag = HTMLParser.getOpenTagString(child, rules);
           const closedTag = HTMLParser.getClosedTagString(child, rules);
           if (openTag !== '') {
             yield `<${openTag}>`;
           }
-          yield * iterate(child);
+          if (!child.isBox) {
+            yield * iterate(child);
+          }
           if (closedTag !== '') {
             yield `</${closedTag}>`;
           }

@@ -185,9 +185,9 @@ describe('parsers / html-parser', () => {
     expect(nodeList[0].html()).to.equal('foo');
   });
 
-  it('getHTML method: should not modify the nodes in the box element', () => {
+  it('getHTML method: should remove all the nodes in the box element', () => {
     const input = '<lake-box type="block" name="image"><h1>\nheading1</h1><b>foo</b></lake-box>';
-    const output = '<lake-box type="block" name="image"><h1>\nheading1</h1><b>foo</b></lake-box>';
+    const output = '<lake-box type="block" name="image"></lake-box>';
     container.html(input);
     const htmlParser = new HTMLParser(container);
     expect(htmlParser.getHTML()).to.equal(output);

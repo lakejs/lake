@@ -10,6 +10,7 @@ import { Selection } from './managers/selection';
 import { Command } from './managers/command';
 import { History } from './managers/history';
 import { Keystroke } from './managers/keystroke';
+import { Box } from './managers/box';
 import { Plugin } from './managers/plugin';
 
 type TargetType = string | NativeNode;
@@ -27,6 +28,8 @@ const defaultOptions: OptionsType = {
 
 export class Core {
   public static version: string = pkg.version;
+
+  public static box = new Box();
 
   public static plugin = new Plugin();
 
@@ -50,6 +53,8 @@ export class Core {
 
   public keystroke: Keystroke;
 
+  public box: Box;
+
   constructor(target: string | NativeNode, options = defaultOptions) {
     this.target = target;
     this.options = options;
@@ -63,6 +68,7 @@ export class Core {
     this.command = new Command();
     this.history = new History(this.selection);
     this.keystroke = new Keystroke(this.container);
+    this.box = Core.box;
 
     this.selectionListener = () => {
       this.selection.syncByRange();
@@ -147,6 +153,7 @@ export class Core {
     const fragment = htmlParser.getFragment();
     this.container.empty();
     this.container.append(fragment);
+    Core.box.renderAll(this);
     this.selection.synByBookmark();
   }
 
@@ -175,6 +182,7 @@ export class Core {
     this.selection.synByBookmark();
     this.select();
     Core.plugin.loadAll(this);
+    Core.box.renderAll(this);
     document.addEventListener('selectionchange', this.selectionListener);
     document.addEventListener('click', this.clickListener);
     this.bindInputEvent();

@@ -192,7 +192,7 @@ describe('plugin / enter', () => {
 
   it('box: the focus is at the beginning of the box', () => {
     const content = `
-    <lake-box type="block" name="hr"><span class="box-strip"><br /></span><div class="box-body" contenteditable="false"><hr /></div><span class="box-strip"><br /></span></lake-box>
+    <lake-box type="block" name="hr"></lake-box>
     `;
     const output = `
     <p><br /></p>
@@ -212,7 +212,7 @@ describe('plugin / enter', () => {
 
   it('box: the focus is at the end of the box', () => {
     const content = `
-    <lake-box type="block" name="hr"><span class="box-strip"><br /></span><div class="box-body" contenteditable="false"><hr /></div><span class="box-strip"><br /></span></lake-box>
+    <lake-box type="block" name="hr"></lake-box>
     `;
     const output = `
     <lake-box type="block" name="hr"></lake-box>
