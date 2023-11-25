@@ -12,6 +12,7 @@ export default (editor: Editor) => {
     editor.focus();
     const boxNode = editor.selection.insertBox(hrBox);
     editor.box.render(boxNode);
+    editor.selection.range.selectBoxRight(boxNode);
     editor.history.save();
     editor.select();
   });

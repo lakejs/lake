@@ -47,6 +47,7 @@ import './operations/split-marks.test';
 import './operations/add-mark.test';
 import './operations/remove-mark.test';
 import './operations/fix-list.test';
+import './operations/insert-box.test';
 
 // Managers
 import './managers/selection.test';
@@ -78,6 +79,7 @@ import './plugins/font-color.test';
 import './plugins/highlight.test';
 import './plugins/remove-format.test';
 import './plugins/format-painter.test';
+import './plugins/hr.test';
 import './plugins/enter.test';
 import './plugins/shift-enter.test';
 import './plugins/backspace.test';
