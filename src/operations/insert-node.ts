@@ -1,4 +1,5 @@
 import { NativeNode } from '../types/native';
+import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
@@ -7,14 +8,13 @@ export function insertNode(range: Range, node: NativeNode | Nodes): void {
   if (range.commonAncestor.isOutside) {
     return;
   }
-  if (node instanceof Nodes) {
-    node = node.get(0);
-  }
+  node = query(node);
+  const nativeNode = node.get(0);
   const nativeRange = range.get();
   if (!range.isCollapsed) {
     nativeRange.deleteContents();
   }
-  nativeRange.insertNode(node);
-  nativeRange.setEndAfter(node);
+  nativeRange.insertNode(nativeNode);
+  nativeRange.setEndAfter(nativeNode);
   nativeRange.collapse(false);
 }
