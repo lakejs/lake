@@ -203,8 +203,7 @@ describe('plugin / enter', () => {
       output,
       editor => {
         const range = editor.selection.range;
-        range.selectNodeContents(editor.container.find('.box-strip').eq(0));
-        range.collapseToEnd();
+        range.selectBoxLeft(editor.container.find('lake-box'));
         editor.keystroke.keydown('enter');
       },
     );
@@ -223,8 +222,7 @@ describe('plugin / enter', () => {
       output,
       editor => {
         const range = editor.selection.range;
-        range.selectNodeContents(editor.container.find('.box-strip').eq(1));
-        range.collapseToEnd();
+        range.selectBoxRight(editor.container.find('lake-box'));
         editor.keystroke.keydown('enter');
       },
     );

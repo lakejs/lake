@@ -188,6 +188,18 @@ export class Range {
     return this.collapseToEnd();
   }
 
+  // Sets the range to the left position of the box.
+  public selectBoxLeft(boxNode: Nodes): void {
+    this.selectNodeContents(boxNode.find('.box-strip').eq(0));
+    this.collapseToEnd();
+  }
+
+  // Sets the range to the left position of the box.
+  public selectBoxRight(boxNode: Nodes): void {
+    this.selectNodeContents(boxNode.find('.box-strip').eq(1));
+    this.collapseToEnd();
+  }
+
   // Reduces the boundary of the range.
   // <div>[<p><strong>foo</strong></p>]</div>
   // to
