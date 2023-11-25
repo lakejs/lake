@@ -1,22 +1,23 @@
-import { Box } from '../types/box';
-import { query } from '../utils';
-import { Nodes } from '../models/nodes';
+import { boxDataMap } from '../data/box';
 import { Range } from '../models/range';
+import { Box } from '../models/box';
 import { insertFragment } from './insert-fragment';
 import { splitBlock } from './split-block';
 
 // Inserts a box into the specified range.
-export function insertBox(range: Range, box: Box): Nodes {
-  const html = `<lake-box type="${box.type}" name="${box.name}"></lake-box>`;
-  const boxNode = query(html.trim());
-  if (box.value) {
-    boxNode.attr('value', btoa(JSON.stringify(box.value)));
+export function insertBox(range: Range, boxName: string): void {
+  const boxData = boxDataMap.get(boxName);
+  if (boxData === undefined) {
+    return;
   }
+  const box = new Box(boxData);
   const fragment = document.createDocumentFragment();
-  fragment.appendChild(boxNode.get(0));
+  fragment.appendChild(box.node.get(0));
   if (box.type === 'inline') {
     insertFragment(range, fragment);
-    return boxNode;
+    box.render();
+    range.selectBoxRight(box.node);
+    return;
   }
   const parts = splitBlock(range);
   if (parts.left) {
@@ -27,8 +28,9 @@ export function insertBox(range: Range, box: Box): Nodes {
     parts.right.remove();
   }
   insertFragment(range, fragment);
+  box.render();
+  range.selectBoxRight(box.node);
   if (parts.left && parts.left.isEmpty) {
     parts.left.remove();
   }
-  return boxNode;
 }

@@ -1,14 +1,19 @@
-import { Box } from '../types/box';
+import { BoxData } from '../types/box';
 import { Range } from '../models/range';
+import { Box } from '../models/box';
 
 // Update a box at the beginning of the specified range.
-export function updateBox(range: Range, box: Box): void {
+export function updateBox(range: Range, data: BoxData): void {
   const boxNode = range.startNode.closest('lake-box');
   if (boxNode.length === 0) {
     return;
   }
-  if (box.value) {
-    boxNode.attr('value', btoa(JSON.stringify(box.value)));
-    boxNode.find('.box-body').html(box.render(box.value));
+  const box = new Box(boxNode);
+  if (box.type !== data.type) {
+    box.type = data.type;
+  }
+  if (data.value) {
+    box.value = data.value;
+    box.render();
   }
 }

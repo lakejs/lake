@@ -1,4 +1,4 @@
-import { Nodes } from '../models/nodes';
+import type { Nodes } from '../models/nodes';
 
 export function fixNumberedList(blocks: Nodes[]): void {
   if (blocks.length === 0) {

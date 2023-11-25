@@ -1,4 +1,4 @@
-import { Nodes } from '../models/nodes';
+import type { Nodes } from '../models/nodes';
 
 // Appends a node to the deepest element of the specified element.
 export function appendDeepest(element: Nodes, node: Nodes): void {

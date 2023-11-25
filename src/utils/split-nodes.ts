@@ -1,4 +1,4 @@
-import { Nodes } from '../models/nodes';
+import type { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
 // Splits nodes upwards according to the position until a limiting element is encountered.

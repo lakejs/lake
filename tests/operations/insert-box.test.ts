@@ -1,18 +1,19 @@
+import { expect } from 'chai';
+import { boxDataMap } from '../../src/data/box';
 import { testOperation } from '../utils';
-import { Box } from '../../src/types/box';
 import { insertBox } from '../../src/operations/insert-box';
 
-const imageBox: Box = {
+boxDataMap.set('image', {
   type: 'inline',
   name: 'image',
   render: () => '<img />',
-};
+});
 
-const hrBox: Box = {
+boxDataMap.set('hr', {
   type: 'block',
   name: 'hr',
   render: () => '<hr />',
-};
+});
 
 describe('operations / insert-box', () => {
 
@@ -21,13 +22,14 @@ describe('operations / insert-box', () => {
     <p>foo<focus /></p>
     `;
     const output = `
-    <p>foo<lake-box type="inline" name="image"></lake-box><focus /></p>
+    <p>foo<lake-box type="inline" name="image"></lake-box></p>
     `;
     testOperation(
       content,
       output,
       range => {
-        insertBox(range, imageBox);
+        insertBox(range, 'image');
+        expect(range.isBoxRight).to.equal(true);
       },
     );
   });
@@ -37,14 +39,15 @@ describe('operations / insert-box', () => {
     <p><focus />foo</p>
     `;
     const output = `
-    <lake-box type="block" name="hr"></lake-box><focus />
+    <lake-box type="block" name="hr"></lake-box>
     <p>foo</p>
     `;
     testOperation(
       content,
       output,
       range => {
-        insertBox(range, hrBox);
+        insertBox(range, 'hr');
+        expect(range.isBoxRight).to.equal(true);
       },
     );
   });
@@ -55,13 +58,14 @@ describe('operations / insert-box', () => {
     `;
     const output = `
     <p>foo</p>
-    <lake-box type="block" name="hr"></lake-box><focus />
+    <lake-box type="block" name="hr"></lake-box>
     `;
     testOperation(
       content,
       output,
       range => {
-        insertBox(range, hrBox);
+        insertBox(range, 'hr');
+        expect(range.isBoxRight).to.equal(true);
       },
     );
   });

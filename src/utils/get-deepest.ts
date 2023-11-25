@@ -1,4 +1,4 @@
-import { Nodes } from '../models/nodes';
+import type { Nodes } from '../models/nodes';
 
 // Returns the deepest element of the specified element.
 export function getDeepest(element: Nodes): Nodes {

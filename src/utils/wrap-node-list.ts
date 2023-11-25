@@ -1,6 +1,6 @@
+import type { Nodes } from '../models/nodes';
 import { getDeepest } from './get-deepest';
 import { query } from './query';
-import { Nodes } from '../models/nodes';
 
 export function wrapNodeList(nodeList: Nodes[], wrapper?: Nodes): Nodes {
   wrapper = wrapper ?? query('<p />');

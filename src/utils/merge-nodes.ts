@@ -1,4 +1,4 @@
-import { Nodes } from '../models/nodes';
+import type { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { appendDeepest } from './append-deepest';
 import { query } from './query';

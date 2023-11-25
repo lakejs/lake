@@ -1,6 +1,6 @@
+import type { Nodes } from '../models/nodes';
 import { NativeElement } from '../types/native';
 import { query } from '../utils/query';
-import { Nodes } from '../models/nodes';
 
 export function changeTagName(element: Nodes, newTagName: string): Nodes {
   const nativeElement = element.get(0) as NativeElement;

@@ -1,4 +1,4 @@
-import { Nodes } from '../models/nodes';
+import type { Nodes } from '../models/nodes';
 
 // Removes Zero-width spaces that are dependent on some other text nodes.
 export function removeZWS(node: Nodes): void {

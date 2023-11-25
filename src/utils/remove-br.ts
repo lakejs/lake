@@ -1,4 +1,4 @@
-import { Nodes } from '../models/nodes';
+import type { Nodes } from '../models/nodes';
 
 // Removes The <br /> element in the specified block which is empty.
 export function removeBr(block: Nodes): void {

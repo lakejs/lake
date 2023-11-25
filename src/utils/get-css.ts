@@ -1,6 +1,6 @@
 import { NativeElement } from '../types/native';
-import { camelCase } from '../utils/camel-case';
-import { toHex } from '../utils/to-hex';
+import { camelCase } from './camel-case';
+import { toHex } from './to-hex';
 
 // Returns a property value of all CSS properties of an element
 export function getCSS(element: NativeElement, propertyName: string): string {
