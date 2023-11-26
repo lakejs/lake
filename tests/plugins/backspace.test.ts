@@ -1,3 +1,4 @@
+import { expect } from 'chai';
 import { testPlugin } from '../utils';
 
 describe('plugin / backspace', () => {
@@ -102,20 +103,41 @@ describe('plugin / backspace', () => {
     );
   });
 
-  it('should remove box before paragraph', () => {
+  it('should move cursor with box before paragraph', () => {
     const content = `
     <lake-box type="block" name="hr"></lake-box>
     <p><focus />foo</p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <lake-box type="block" name="hr"></lake-box>
     <p>foo</p>
     `;
     testPlugin(
       content,
       output,
       editor => {
+        const range = editor.selection.range;
         editor.keystroke.keydown('backspace');
+        expect(range.isBoxRight).to.equal(true);
+      },
+    );
+  });
+
+  it('should remove empty paragraph with box before empty paragraph', () => {
+    const content = `
+    <lake-box type="block" name="hr"></lake-box>
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <lake-box type="block" name="hr"></lake-box>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        const range = editor.selection.range;
+        editor.keystroke.keydown('backspace');
+        expect(range.isBoxRight).to.equal(true);
       },
     );
   });
@@ -135,6 +157,7 @@ describe('plugin / backspace', () => {
         const range = editor.selection.range;
         range.selectBoxLeft(editor.container.find('lake-box'));
         editor.keystroke.keydown('backspace');
+        expect(range.isBoxLeft).to.equal(true);
       },
     );
   });

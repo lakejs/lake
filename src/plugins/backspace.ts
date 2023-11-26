@@ -76,7 +76,10 @@ export default (editor: Editor) => {
         return;
       }
       if (prevBlock.isBox) {
-        removeBox(range, prevBlock);
+        if (block.isEmpty) {
+          block.remove();
+        }
+        range.selectBoxRight(prevBlock);
         editor.history.save();
         editor.select();
         return;
