@@ -1,5 +1,5 @@
-import { BoxData, BoxType, BoxValue } from '../types/box';
-import { boxDataMap } from '../data/box';
+import { BoxDefinition, BoxType, BoxValue } from '../types/box';
+import { boxes } from '../storage/boxes';
 import { encode } from '../utils/encode';
 import { query } from '../utils/query';
 import { Nodes } from './nodes';
@@ -13,18 +13,16 @@ const bodyTemplate = `
 export class Box {
   public node: Nodes;
 
-  constructor(data: BoxData | Nodes) {
-    if (data instanceof Nodes) {
-      this.node = data;
+  constructor(def: BoxDefinition | Nodes) {
+    if (def instanceof Nodes) {
+      this.node = def;
     } else {
-      const type = encode(data.type);
-      const name = encode(data.name);
+      const type = encode(def.type);
+      const name = encode(def.name);
       this.node = query(`<lake-box type="${type}" name="${name}"></lake-box>`);
-      if (data.value) {
-        this.value = data.value;
+      if (def.value) {
+        this.value = def.value;
       }
-      this.node.html(bodyTemplate);
-      boxDataMap.set(data.name, data);
     }
   }
 
@@ -53,14 +51,14 @@ export class Box {
   }
 
   public render(): void {
-    const data = boxDataMap.get(this.name);
-    if (data === undefined) {
+    const def = boxes.get(this.name);
+    if (def === undefined) {
       return;
     }
     if (this.node.find('.box-body').length === 0) {
       this.node.html(bodyTemplate);
     }
-    const html = data.render(this.value);
+    const html = def.render(this.value);
     this.node.find('.box-body').html(html);
   }
 }

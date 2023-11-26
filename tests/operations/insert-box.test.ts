@@ -1,15 +1,15 @@
 import { expect } from 'chai';
-import { boxDataMap } from '../../src/data/box';
+import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
 import { insertBox } from '../../src/operations/insert-box';
 
-boxDataMap.set('image', {
+boxes.set('image', {
   type: 'inline',
   name: 'image',
   render: () => '<img />',
 });
 
-boxDataMap.set('hr', {
+boxes.set('hr', {
   type: 'block',
   name: 'hr',
   render: () => '<hr />',

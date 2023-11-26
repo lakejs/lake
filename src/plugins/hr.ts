@@ -1,7 +1,7 @@
 import type Editor from '..';
-import { boxDataMap } from '../data/box';
+import { boxes } from '../storage/boxes';
 
-boxDataMap.set('hr', {
+boxes.set('hr', {
   type: 'block',
   name: 'hr',
   render: () => '<hr />',
