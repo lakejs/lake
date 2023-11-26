@@ -8,7 +8,7 @@ const blockAttributeRules: any = {
   },
 };
 
-export function getDefaultRules(): any {
+export function getElementRules(): any {
   return {
     h1: {
       ...blockAttributeRules,

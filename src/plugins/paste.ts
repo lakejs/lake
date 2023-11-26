@@ -1,6 +1,6 @@
 import type Editor from '..';
 import { blockTagNames } from '../config/tag-names';
-import { getDefaultRules } from '../config/schema';
+import { getElementRules } from '../config/element-rules';
 import { forEach, wrapNodeList, changeTagName, fixNumberedList, removeBr } from '../utils';
 import { Nodes } from '../models/nodes';
 import { HTMLParser } from '../parsers/html-parser';
@@ -131,7 +131,7 @@ export default (editor: Editor) => {
       return;
     }
     const content = dataTransfer.getData('text/html');
-    const rules = getDefaultRules();
+    const rules = getElementRules();
     rules.div = rules.p;
     forEach(rules, (key, attributeRules) => {
       delete attributeRules.id;

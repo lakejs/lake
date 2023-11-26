@@ -1,4 +1,4 @@
-import { getDefaultRules } from '../config/schema';
+import { getElementRules } from '../config/element-rules';
 import { NativeElement } from '../types/native';
 import { forEach, parseStyle, encode } from '../utils';
 import { Nodes } from '../models/nodes';
@@ -9,7 +9,7 @@ export class HTMLParser {
 
   private source: Nodes;
 
-  constructor(content: string | Nodes, rules = getDefaultRules()) {
+  constructor(content: string | Nodes, rules = getElementRules()) {
     this.rules = rules;
     if (typeof content === 'string') {
       this.source = this.parseHTML(content);
