@@ -275,42 +275,6 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(false);
   });
 
-  it('selectBeforeNodeContents method: non-block', () => {
-    container.html('<p>foo<strong>bar</strong></p>');
-    const range = new Range();
-    range.selectBeforeNodeContents(container.find('strong'));
-    expect(range.startNode.name).to.equal('p');
-    expect(range.startOffset).to.equal(1);
-    expect(range.isCollapsed).to.equal(true);
-  });
-
-  it('selectBeforeNodeContents method: block', () => {
-    container.html('<blockquote><p>foo<strong>bar</strong></p></blockquote>');
-    const range = new Range();
-    range.selectBeforeNodeContents(container.find('blockquote'));
-    expect(range.startNode.name).to.equal('p');
-    expect(range.startOffset).to.equal(0);
-    expect(range.isCollapsed).to.equal(true);
-  });
-
-  it('selectAfterNodeContents method: non-block', () => {
-    container.html('<p>foo<strong>bar</strong></p>');
-    const range = new Range();
-    range.selectAfterNodeContents(container.find('strong'));
-    expect(range.startNode.name).to.equal('p');
-    expect(range.startOffset).to.equal(2);
-    expect(range.isCollapsed).to.equal(true);
-  });
-
-  it('selectAfterNodeContents method: block', () => {
-    container.html('<blockquote><p>foo<strong>bar</strong></p></blockquote>');
-    const range = new Range();
-    range.selectAfterNodeContents(container.find('blockquote'));
-    expect(range.startNode.name).to.equal('p');
-    expect(range.startOffset).to.equal(2);
-    expect(range.isCollapsed).to.equal(true);
-  });
-
   it('method: selectBoxLeft', () => {
     setHrBoxToContainer(container);
     const range = new Range();
@@ -331,7 +295,57 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('reduce method: is not collapsed', () => {
+  it('selectBeforeNodeContents method: non-block', () => {
+    container.html('<p>foo<strong>bar</strong></p>');
+    const range = new Range();
+    range.selectBeforeNodeContents(container.find('strong'));
+    expect(range.startNode.name).to.equal('strong');
+    expect(range.startOffset).to.equal(0);
+    expect(range.isCollapsed).to.equal(true);
+  });
+
+  it('selectBeforeNodeContents method: block', () => {
+    container.html('<blockquote><p>foo<strong>bar</strong></p></blockquote>');
+    const range = new Range();
+    range.selectBeforeNodeContents(container.find('blockquote'));
+    expect(range.startNode.name).to.equal('p');
+    expect(range.startOffset).to.equal(0);
+    expect(range.isCollapsed).to.equal(true);
+  });
+
+  it('selectBeforeNodeContents method: box', () => {
+    setHrBoxToContainer(container);
+    const range = new Range();
+    range.selectBeforeNodeContents(container.find('lake-box'));
+    expect(range.isBoxLeft).to.equal(true);
+  });
+
+  it('selectAfterNodeContents method: non-block', () => {
+    container.html('<p>foo<strong>bar</strong></p>');
+    const range = new Range();
+    range.selectAfterNodeContents(container.find('strong'));
+    expect(range.startNode.name).to.equal('strong');
+    expect(range.startOffset).to.equal(1);
+    expect(range.isCollapsed).to.equal(true);
+  });
+
+  it('selectAfterNodeContents method: block', () => {
+    container.html('<blockquote><p>foo<strong>bar</strong></p></blockquote>');
+    const range = new Range();
+    range.selectAfterNodeContents(container.find('blockquote'));
+    expect(range.startNode.name).to.equal('strong');
+    expect(range.startOffset).to.equal(1);
+    expect(range.isCollapsed).to.equal(true);
+  });
+
+  it('selectAfterNodeContents method: box', () => {
+    setHrBoxToContainer(container);
+    const range = new Range();
+    range.selectAfterNodeContents(container.find('lake-box'));
+    expect(range.isBoxRight).to.equal(true);
+  });
+
+  it('reduce method: expanded range', () => {
     container.html('<div><p><strong>foo</strong></p></div>');
     const range = new Range();
     range.selectNode(container.find('p'));
@@ -348,21 +362,17 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(false);
   });
 
-  it('reduce method: is collapsed', () => {
+  it('reduce method: collapsed range', () => {
     container.html('<div><p><strong>foo</strong></p></div>');
     const range = new Range();
     range.selectNode(container.find('p'));
     range.collapseToStart();
     expect(range.startNode.name).to.equal('div');
-    expect(range.endNode.name).to.equal('div');
     expect(range.startOffset).to.equal(0);
-    expect(range.endOffset).to.equal(0);
     expect(range.isCollapsed).to.equal(true);
     range.reduce();
     expect(range.startNode.name).to.equal('strong');
-    expect(range.endNode.name).to.equal('strong');
     expect(range.startOffset).to.equal(0);
-    expect(range.endOffset).to.equal(0);
     expect(range.isCollapsed).to.equal(true);
   });
 
@@ -372,15 +382,11 @@ describe('models / range', () => {
     range.selectNode(container.find('p'));
     range.collapseToStart();
     expect(range.startNode.name).to.equal('div');
-    expect(range.endNode.name).to.equal('div');
     expect(range.startOffset).to.equal(0);
-    expect(range.endOffset).to.equal(0);
     expect(range.isCollapsed).to.equal(true);
     range.reduce();
     expect(range.startNode.name).to.equal('strong');
-    expect(range.endNode.name).to.equal('strong');
     expect(range.startOffset).to.equal(0);
-    expect(range.endOffset).to.equal(0);
     expect(range.isCollapsed).to.equal(true);
   });
 

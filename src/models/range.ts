@@ -158,45 +158,6 @@ export class Range {
     this.range.selectNodeContents(node.get(0));
   }
 
-  // Collapses the range and sets the range to the beginning of the contents of the specified node.
-  public selectBeforeNodeContents(node: Nodes): void {
-    if (!node.isBlock) {
-      this.setStartBefore(node);
-      this.collapseToStart();
-      return;
-    }
-    this.setStart(node, 0);
-    let child;
-    while (
-      this.startNode.isBlock &&
-      (child = this.startNode.children()[0]) &&
-      child.isBlock && !child.isVoid
-    ) {
-      this.setStart(child, 0);
-    }
-    this.collapseToStart();
-  }
-
-  // Collapses the range and sets the range to the end of the contents of the specified node.
-  public selectAfterNodeContents(node: Nodes): void {
-    if (!node.isBlock) {
-      this.setEndAfter(node);
-      this.collapseToEnd();
-      return;
-    }
-    this.setEnd(node, node.children().length);
-    let child;
-    while (
-      this.endNode.isBlock &&
-      this.endOffset > 0 &&
-      (child = this.endNode.children()[this.endOffset - 1]) &&
-      child.isBlock && !child.isVoid
-    ) {
-      this.setEnd(child, child.children().length);
-    }
-    this.collapseToEnd();
-  }
-
   // Sets the range to the left position of the box.
   public selectBoxLeft(boxNode: Nodes): void {
     this.selectNodeContents(boxNode.find('.box-strip').eq(0));
@@ -206,6 +167,61 @@ export class Range {
   // Sets the range to the left position of the box.
   public selectBoxRight(boxNode: Nodes): void {
     this.selectNodeContents(boxNode.find('.box-strip').eq(1));
+    this.collapseToEnd();
+  }
+
+  // Collapses the range and sets the range to the beginning of the contents of the specified node.
+  public selectBeforeNodeContents(node: Nodes): void {
+    if (node.isBox) {
+      this.selectBoxLeft(node);
+      return;
+    }
+    if (node.isText) {
+      this.setStartBefore(node);
+      this.collapseToStart();
+      return;
+    }
+    this.setStart(node, 0);
+    let child;
+    while (
+      this.startNode.isElement &&
+      (child = this.startNode.children()[0]) &&
+      child.isElement && !child.isVoid
+    ) {
+      if (child.isBox) {
+        this.selectBoxLeft(child);
+      } else {
+        this.setStart(child, 0);
+      }
+    }
+    this.collapseToStart();
+  }
+
+  // Collapses the range and sets the range to the end of the contents of the specified node.
+  public selectAfterNodeContents(node: Nodes): void {
+    if (node.isBox) {
+      this.selectBoxRight(node);
+      return;
+    }
+    if (node.isText) {
+      this.setEndAfter(node);
+      this.collapseToEnd();
+      return;
+    }
+    this.setEnd(node, node.children().length);
+    let child;
+    while (
+      this.endNode.isElement &&
+      this.endOffset > 0 &&
+      (child = this.endNode.children()[this.endOffset - 1]) &&
+      child.isElement && !child.isVoid
+    ) {
+      if (child.isBox) {
+        this.selectBoxLeft(child);
+      } else {
+        this.setEnd(child, child.children().length);
+      }
+    }
     this.collapseToEnd();
   }
 

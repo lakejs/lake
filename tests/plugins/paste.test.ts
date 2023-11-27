@@ -634,7 +634,7 @@ describe('plugin / paste', () => {
     <p><br /><focus /></p>
     `;
     const output = `
-    <p><span style="color: #000000e0; font-size: 14px; background-color: #ffffff;">foo</span><focus /></p>
+    <p><span style="color: #000000e0; font-size: 14px; background-color: #ffffff;">foo<focus /></span></p>
     `;
     const clipboardData = `
     <html>
