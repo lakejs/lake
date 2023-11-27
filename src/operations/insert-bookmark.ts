@@ -13,7 +13,8 @@ export function insertBookmark(range: Range): { anchor: Nodes, focus: Nodes } {
     };
   }
   if (range.isCollapsed) {
-    const endRange = range.clone().collapseToEnd();
+    const endRange = range.clone();
+    endRange.collapseToEnd();
     const focus = query('<lake-bookmark type="focus" />');
     insertNode(endRange, focus);
     return {
@@ -21,10 +22,12 @@ export function insertBookmark(range: Range): { anchor: Nodes, focus: Nodes } {
       focus,
     };
   }
-  const startRange = range.clone().collapseToStart();
+  const startRange = range.clone();
+  startRange.collapseToStart();
   const anchor = query('<lake-bookmark type="anchor" />');
   insertNode(startRange, anchor);
-  const endRange = range.clone().collapseToEnd();
+  const endRange = range.clone();
+  endRange.collapseToEnd();
   const focus = query('<lake-bookmark type="focus" />');
   insertNode(endRange, focus);
   return {

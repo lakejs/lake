@@ -109,71 +109,61 @@ export class Range {
   }
 
   // Sets the start position of the range.
-  public setStart(node: Nodes, offset: number): this {
+  public setStart(node: Nodes, offset: number): void {
     this.range.setStart(node.get(0), offset);
-    return this;
   }
 
   // Sets the start position of the range before a node.
-  public setStartBefore(node: Nodes): this {
+  public setStartBefore(node: Nodes): void {
     this.range.setStartBefore(node.get(0));
-    return this;
   }
 
   // Sets the start position of the range after a node.
-  public setStartAfter(node: Nodes): this {
+  public setStartAfter(node: Nodes): void {
     this.range.setStartAfter(node.get(0));
-    return this;
   }
 
   // Sets the end position of the range.
-  public setEnd(node: Nodes, offset: number): this {
+  public setEnd(node: Nodes, offset: number): void {
     this.range.setEnd(node.get(0), offset);
-    return this;
   }
 
   // Sets the end position of the range before a node.
-  public setEndBefore(node: Nodes): this {
+  public setEndBefore(node: Nodes): void {
     this.range.setEndBefore(node.get(0));
-    return this;
   }
 
   // Sets the end position of the range after a node.
-  public setEndAfter(node: Nodes): this {
+  public setEndAfter(node: Nodes): void {
     this.range.setEndAfter(node.get(0));
-    return this;
   }
 
   // Collapses the range to the start of it.
-  public collapseToStart(): this {
+  public collapseToStart(): void {
     this.range.collapse(true);
-    return this;
   }
 
   // Collapses the range to the end of it.
-  public collapseToEnd(): this {
+  public collapseToEnd(): void {
     this.range.collapse(false);
-    return this;
   }
 
   // Sets the range to contain the specified node and its contents.
-  public selectNode(node: Nodes): this {
+  public selectNode(node: Nodes): void {
     this.range.selectNode(node.get(0));
-    return this;
   }
 
   // Sets the range to contain the contents of the specified node.
-  public selectNodeContents(node: Nodes): this {
+  public selectNodeContents(node: Nodes): void {
     this.range.selectNodeContents(node.get(0));
-    return this;
   }
 
   // Collapses the range and sets the range to the end of the contents of the specified node.
-  public selectAfterNodeContents(node: Nodes): this {
+  public selectAfterNodeContents(node: Nodes): void {
     if (!node.isBlock) {
       this.setEndAfter(node);
       this.collapseToEnd();
-      return this;
+      return;
     }
     this.setEnd(node, node.children().length);
     let child;
@@ -185,7 +175,7 @@ export class Range {
     ) {
       this.setEnd(child, child.children().length);
     }
-    return this.collapseToEnd();
+    this.collapseToEnd();
   }
 
   // Sets the range to the left position of the box.
@@ -204,7 +194,7 @@ export class Range {
   // <div>[<p><strong>foo</strong></p>]</div>
   // to
   // <div><p><strong>[foo]</strong></p></div>
-  public reduce(): this {
+  public reduce(): void {
     const isCollapsed = this.isCollapsed;
     let child;
     while (
@@ -215,7 +205,8 @@ export class Range {
       this.setStart(child, 0);
     }
     if (isCollapsed) {
-      return this.collapseToStart();
+      this.collapseToStart();
+      return;
     }
     while (
       this.endNode.isElement &&
@@ -225,37 +216,34 @@ export class Range {
     ) {
       this.setEnd(child, child.children().length);
     }
-    return this;
   }
 
   // Relocates the start and end points of the range.
-  public adapt(): this {
-    if (this.isCollapsed) {
-      return this;
+  public adapt(): void {
+    if (!this.isCollapsed) {
+      const startBoxNode = this.startNode.closest('lake-box');
+      if (startBoxNode.length > 0) {
+        const startRange = this.clone();
+        startRange.collapseToStart();
+        if (startRange.isBoxLeft) {
+          this.setStartBefore(startBoxNode);
+        }
+        if (startRange.isBoxRight) {
+          this.setStartAfter(startBoxNode);
+        }
+      }
+      const endBoxNode = this.endNode.closest('lake-box');
+      if (endBoxNode.length > 0) {
+        const endRange = this.clone();
+        endRange.collapseToEnd();
+        if (endRange.isBoxLeft) {
+          this.setEndBefore(endBoxNode);
+        }
+        if (endRange.isBoxRight) {
+          this.setEndAfter(endBoxNode);
+        }
+      }
     }
-    const startBoxNode = this.startNode.closest('lake-box');
-    if (startBoxNode.length > 0) {
-      const startRange = this.clone();
-      startRange.collapseToStart();
-      if (startRange.isBoxLeft) {
-        this.setStartBefore(startBoxNode);
-      }
-      if (startRange.isBoxRight) {
-        this.setStartAfter(startBoxNode);
-      }
-    }
-    const endBoxNode = this.endNode.closest('lake-box');
-    if (endBoxNode.length > 0) {
-      const endRange = this.clone();
-      endRange.collapseToEnd();
-      if (endRange.isBoxLeft) {
-        this.setEndBefore(endBoxNode);
-      }
-      if (endRange.isBoxRight) {
-        this.setEndAfter(endBoxNode);
-      }
-    }
-    return this;
   }
 
   // Returns target blocks relating to the range.
