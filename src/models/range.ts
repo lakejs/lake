@@ -229,7 +229,7 @@ export class Range {
   // <div>[<p><strong>foo</strong></p>]</div>
   // to
   // <div><p><strong>[foo]</strong></p></div>
-  public reduce(): void {
+  public shrink(): void {
     const isCollapsed = this.isCollapsed;
     let child;
     while (

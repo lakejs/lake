@@ -345,7 +345,7 @@ describe('models / range', () => {
     expect(range.isBoxRight).to.equal(true);
   });
 
-  it('reduce method: expanded range', () => {
+  it('shrink method: expanded range', () => {
     container.html('<div><p><strong>foo</strong></p></div>');
     const range = new Range();
     range.selectNode(container.find('p'));
@@ -354,7 +354,7 @@ describe('models / range', () => {
     expect(range.startOffset).to.equal(0);
     expect(range.endOffset).to.equal(1);
     expect(range.isCollapsed).to.equal(false);
-    range.reduce();
+    range.shrink();
     expect(range.startNode.name).to.equal('strong');
     expect(range.endNode.name).to.equal('strong');
     expect(range.startOffset).to.equal(0);
@@ -362,7 +362,7 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(false);
   });
 
-  it('reduce method: collapsed range', () => {
+  it('shrink method: collapsed range', () => {
     container.html('<div><p><strong>foo</strong></p></div>');
     const range = new Range();
     range.selectNode(container.find('p'));
@@ -370,13 +370,13 @@ describe('models / range', () => {
     expect(range.startNode.name).to.equal('div');
     expect(range.startOffset).to.equal(0);
     expect(range.isCollapsed).to.equal(true);
-    range.reduce();
+    range.shrink();
     expect(range.startNode.name).to.equal('strong');
     expect(range.startOffset).to.equal(0);
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('reduce method: empty tag', () => {
+  it('shrink method: empty tag', () => {
     container.html('<div><p><i><strong></strong></i></p></div>');
     const range = new Range();
     range.selectNode(container.find('p'));
@@ -384,7 +384,7 @@ describe('models / range', () => {
     expect(range.startNode.name).to.equal('div');
     expect(range.startOffset).to.equal(0);
     expect(range.isCollapsed).to.equal(true);
-    range.reduce();
+    range.shrink();
     expect(range.startNode.name).to.equal('strong');
     expect(range.startOffset).to.equal(0);
     expect(range.isCollapsed).to.equal(true);
