@@ -25,7 +25,7 @@ export default (editor: Editor) => {
       const boxNode = range.startNode.closest('lake-box');
       const nextBlock = query('<p><br /></p>');
       boxNode.after(nextBlock);
-      range.selectAfterNodeContents(nextBlock);
+      range.shrinkAfter(nextBlock);
       editor.history.save();
       editor.select();
       return;

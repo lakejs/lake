@@ -58,7 +58,7 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
   }
   if (block.isEmpty && block.name === 'p') {
     block.replaceWith(otherNode);
-    range.selectAfterNodeContents(otherNode);
+    range.shrinkAfter(otherNode);
     return;
   }
   let child = otherNode.first();
@@ -106,7 +106,7 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
       parts.right.remove();
     }
     selection.insertFragment(fragment);
-    range.selectAfterNodeContents(lastNode);
+    range.shrinkAfter(lastNode);
   }
   fixNumberedList(editor.container.children());
   editor.history.save();

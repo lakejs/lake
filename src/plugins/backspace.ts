@@ -10,7 +10,7 @@ function removeBox(range: Range, boxNode?: Nodes): void {
   if (type === 'block') {
     const paragraph = query('<p><br /></p>');
     boxNode.before(paragraph);
-    range.selectAfterNodeContents(paragraph);
+    range.shrinkAfter(paragraph);
     boxNode.remove();
     return;
   }
@@ -43,7 +43,7 @@ export default (editor: Editor) => {
           editor.select();
           return;
         }
-        range.selectAfterNodeContents(prevNode);
+        range.shrinkAfter(prevNode);
         editor.history.save();
         editor.select();
         return;

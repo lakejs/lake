@@ -182,7 +182,7 @@ function executeBlockCommand(editor: Editor, point: Point): boolean {
       node.remove();
       const block = bookmark.focus.closestBlock();
       fixEmptyBlock(block);
-      selection.range.selectAfterNodeContents(block);
+      selection.range.shrinkAfter(block);
       editor.history.pause();
       const parameters = item.getParameters(text);
       editor.command.execute(parameters.shift() as string, ...parameters);

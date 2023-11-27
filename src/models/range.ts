@@ -171,7 +171,7 @@ export class Range {
   }
 
   // Collapses the range and sets the range to the beginning of the contents of the specified node.
-  public selectBeforeNodeContents(node: Nodes): void {
+  public shrinkBefore(node: Nodes): void {
     if (node.isBox) {
       this.selectBoxLeft(node);
       return;
@@ -198,7 +198,7 @@ export class Range {
   }
 
   // Collapses the range and sets the range to the end of the contents of the specified node.
-  public selectAfterNodeContents(node: Nodes): void {
+  public shrinkAfter(node: Nodes): void {
     if (node.isBox) {
       this.selectBoxRight(node);
       return;
@@ -288,7 +288,7 @@ export class Range {
         if (nextBlock.isBox) {
           this.selectBoxLeft(nextBlock);
         } else if (nextBlock.isBlock) {
-          this.selectBeforeNodeContents(nextBlock);
+          this.shrinkBefore(nextBlock);
         }
       }
     }

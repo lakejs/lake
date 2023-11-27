@@ -295,53 +295,53 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('selectBeforeNodeContents method: non-block', () => {
+  it('shrinkBefore method: non-block', () => {
     container.html('<p>foo<strong>bar</strong></p>');
     const range = new Range();
-    range.selectBeforeNodeContents(container.find('strong'));
+    range.shrinkBefore(container.find('strong'));
     expect(range.startNode.name).to.equal('strong');
     expect(range.startOffset).to.equal(0);
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('selectBeforeNodeContents method: block', () => {
+  it('shrinkBefore method: block', () => {
     container.html('<blockquote><p>foo<strong>bar</strong></p></blockquote>');
     const range = new Range();
-    range.selectBeforeNodeContents(container.find('blockquote'));
+    range.shrinkBefore(container.find('blockquote'));
     expect(range.startNode.name).to.equal('p');
     expect(range.startOffset).to.equal(0);
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('selectBeforeNodeContents method: box', () => {
+  it('shrinkBefore method: box', () => {
     setHrBoxToContainer(container);
     const range = new Range();
-    range.selectBeforeNodeContents(container.find('lake-box'));
+    range.shrinkBefore(container.find('lake-box'));
     expect(range.isBoxLeft).to.equal(true);
   });
 
-  it('selectAfterNodeContents method: non-block', () => {
+  it('shrinkAfter method: non-block', () => {
     container.html('<p>foo<strong>bar</strong></p>');
     const range = new Range();
-    range.selectAfterNodeContents(container.find('strong'));
+    range.shrinkAfter(container.find('strong'));
     expect(range.startNode.name).to.equal('strong');
     expect(range.startOffset).to.equal(1);
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('selectAfterNodeContents method: block', () => {
+  it('shrinkAfter method: block', () => {
     container.html('<blockquote><p>foo<strong>bar</strong></p></blockquote>');
     const range = new Range();
-    range.selectAfterNodeContents(container.find('blockquote'));
+    range.shrinkAfter(container.find('blockquote'));
     expect(range.startNode.name).to.equal('strong');
     expect(range.startOffset).to.equal(1);
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('selectAfterNodeContents method: box', () => {
+  it('shrinkAfter method: box', () => {
     setHrBoxToContainer(container);
     const range = new Range();
-    range.selectAfterNodeContents(container.find('lake-box'));
+    range.shrinkAfter(container.find('lake-box'));
     expect(range.isBoxRight).to.equal(true);
   });
 
