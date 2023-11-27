@@ -190,9 +190,9 @@ export class Range {
     ) {
       if (child.isBox) {
         this.selectBoxLeft(child);
-      } else {
-        this.setStart(child, 0);
+        return;
       }
+      this.setStart(child, 0);
     }
     this.collapseToStart();
   }
@@ -217,10 +217,10 @@ export class Range {
       child.isElement && !child.isVoid
     ) {
       if (child.isBox) {
-        this.selectBoxLeft(child);
-      } else {
-        this.setEnd(child, child.children().length);
+        this.selectBoxRight(child);
+        return;
       }
+      this.setEnd(child, child.children().length);
     }
     this.collapseToEnd();
   }

@@ -3,16 +3,13 @@ import { createContainer } from '../utils';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
+import { Box } from '../../src/models/box';
 
-function setHrBoxToContainer(container: Nodes) {
-  const content = `
-  <lake-box type="block" name="hr">
-    <span class="box-strip"><br /></span>
-    <div class="box-body" contenteditable="false"><hr /></div>
-    <span class="box-strip"><br /></span>
-  </lake-box>'
-  `;
-  container.html(content.trim());
+function setHrBox(block: Nodes) {
+  const box = new Box(query('<lake-box type="block" name="hr"></lake-box>'));
+  block.empty();
+  block.append(box.node);
+  box.render();
 }
 
 describe('models / range', () => {
@@ -77,7 +74,7 @@ describe('models / range', () => {
   });
 
   it('property: isBoxLeft', () => {
-    setHrBoxToContainer(container);
+    setHrBox(container);
     const range = new Range();
     const boxNode = container.find('lake-box');
     range.selectBoxLeft(boxNode);
@@ -87,7 +84,7 @@ describe('models / range', () => {
   });
 
   it('property: isBoxRight', () => {
-    setHrBoxToContainer(container);
+    setHrBox(container);
     const range = new Range();
     const boxNode = container.find('lake-box');
     range.selectBoxLeft(boxNode);
@@ -276,7 +273,7 @@ describe('models / range', () => {
   });
 
   it('method: selectBoxLeft', () => {
-    setHrBoxToContainer(container);
+    setHrBox(container);
     const range = new Range();
     range.selectBoxLeft(container.find('lake-box'));
     const node = new Nodes((range.startNode.get(0) as Element).nextElementSibling);
@@ -286,7 +283,7 @@ describe('models / range', () => {
   });
 
   it('method: selectBoxRight', () => {
-    setHrBoxToContainer(container);
+    setHrBox(container);
     const range = new Range();
     range.selectBoxRight(container.find('lake-box'));
     const node = new Nodes((range.startNode.get(0) as Element).previousElementSibling);
@@ -314,9 +311,17 @@ describe('models / range', () => {
   });
 
   it('shrinkBefore method: box', () => {
-    setHrBoxToContainer(container);
+    setHrBox(container);
     const range = new Range();
     range.shrinkBefore(container.find('lake-box'));
+    expect(range.isBoxLeft).to.equal(true);
+  });
+
+  it('shrinkBefore method: box in the paragraph', () => {
+    container.html('<p></p>');
+    setHrBox(container.find('p'));
+    const range = new Range();
+    range.shrinkBefore(container.find('p'));
     expect(range.isBoxLeft).to.equal(true);
   });
 
@@ -339,9 +344,17 @@ describe('models / range', () => {
   });
 
   it('shrinkAfter method: box', () => {
-    setHrBoxToContainer(container);
+    setHrBox(container);
     const range = new Range();
     range.shrinkAfter(container.find('lake-box'));
+    expect(range.isBoxRight).to.equal(true);
+  });
+
+  it('shrinkAfter method: box in the paragraph', () => {
+    container.html('<p></p>');
+    setHrBox(container.find('p'));
+    const range = new Range();
+    range.shrinkAfter(container.find('p'));
     expect(range.isBoxRight).to.equal(true);
   });
 
@@ -391,7 +404,7 @@ describe('models / range', () => {
   });
 
   it('adapt method: should not move', () => {
-    setHrBoxToContainer(container);
+    setHrBox(container);
     container.prepend('<p>foo</p>');
     container.append('<p>bar</p>');
     const range = new Range();
@@ -404,7 +417,7 @@ describe('models / range', () => {
   });
 
   it('adapt method: should move out to both sides of the box', () => {
-    setHrBoxToContainer(container);
+    setHrBox(container);
     container.prepend('<p>foo</p>');
     container.append('<p>bar</p>');
     const range = new Range();
@@ -432,7 +445,7 @@ describe('models / range', () => {
   });
 
   it('adapt method: should move to next box', () => {
-    setHrBoxToContainer(container);
+    setHrBox(container);
     container.prepend('<p>foo</p>');
     container.append('<p>bar</p>');
     const range = new Range();
