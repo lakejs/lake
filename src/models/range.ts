@@ -158,6 +158,25 @@ export class Range {
     this.range.selectNodeContents(node.get(0));
   }
 
+  // Collapses the range and sets the range to the beginning of the contents of the specified node.
+  public selectBeforeNodeContents(node: Nodes): void {
+    if (!node.isBlock) {
+      this.setStartBefore(node);
+      this.collapseToStart();
+      return;
+    }
+    this.setStart(node, 0);
+    let child;
+    while (
+      this.startNode.isBlock &&
+      (child = this.startNode.children()[0]) &&
+      child.isBlock && !child.isVoid
+    ) {
+      this.setStart(child, 0);
+    }
+    this.collapseToStart();
+  }
+
   // Collapses the range and sets the range to the end of the contents of the specified node.
   public selectAfterNodeContents(node: Nodes): void {
     if (!node.isBlock) {
@@ -241,6 +260,19 @@ export class Range {
         }
         if (endRange.isBoxRight) {
           this.setEndAfter(endBoxNode);
+        }
+      }
+    }
+    // <p>foo</p>|<p>bar</p>
+    // to
+    // <p>foo</p><p>|bar</p>
+    if (this.isCollapsed && this.startNode.isElement) {
+      const nextBlock = this.startNode.children()[this.startOffset];
+      if (nextBlock) {
+        if (nextBlock.isBox) {
+          this.selectBoxLeft(nextBlock);
+        } else if (nextBlock.isBlock) {
+          this.selectBeforeNodeContents(nextBlock);
         }
       }
     }

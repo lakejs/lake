@@ -275,14 +275,30 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(false);
   });
 
+  it('selectBeforeNodeContents method: non-block', () => {
+    container.html('<p>foo<strong>bar</strong></p>');
+    const range = new Range();
+    range.selectBeforeNodeContents(container.find('strong'));
+    expect(range.startNode.name).to.equal('p');
+    expect(range.startOffset).to.equal(1);
+    expect(range.isCollapsed).to.equal(true);
+  });
+
+  it('selectBeforeNodeContents method: block', () => {
+    container.html('<blockquote><p>foo<strong>bar</strong></p></blockquote>');
+    const range = new Range();
+    range.selectBeforeNodeContents(container.find('blockquote'));
+    expect(range.startNode.name).to.equal('p');
+    expect(range.startOffset).to.equal(0);
+    expect(range.isCollapsed).to.equal(true);
+  });
+
   it('selectAfterNodeContents method: non-block', () => {
     container.html('<p>foo<strong>bar</strong></p>');
     const range = new Range();
     range.selectAfterNodeContents(container.find('strong'));
     expect(range.startNode.name).to.equal('p');
-    expect(range.endNode.name).to.equal('p');
     expect(range.startOffset).to.equal(2);
-    expect(range.endOffset).to.equal(2);
     expect(range.isCollapsed).to.equal(true);
   });
 
@@ -291,9 +307,7 @@ describe('models / range', () => {
     const range = new Range();
     range.selectAfterNodeContents(container.find('blockquote'));
     expect(range.startNode.name).to.equal('p');
-    expect(range.endNode.name).to.equal('p');
     expect(range.startOffset).to.equal(2);
-    expect(range.endOffset).to.equal(2);
     expect(range.isCollapsed).to.equal(true);
   });
 
@@ -370,40 +384,56 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('adapt method: collapsed range', () => {
+  it('adapt method: should not move', () => {
     setHrBoxToContainer(container);
     container.prepend('<p>foo</p>');
     container.append('<p>bar</p>');
     const range = new Range();
     range.setStartAfter(container.find('br').eq(0));
     range.collapseToStart();
-    expect(range.startNode.name).to.equal('span');
-    expect(range.startOffset).to.equal(1);
-    expect(range.isCollapsed).to.equal(true);
     range.adapt();
     expect(range.startNode.name).to.equal('span');
     expect(range.startOffset).to.equal(1);
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('adapt method: expanded range', () => {
+  it('adapt method: should move out to both sides of the box', () => {
     setHrBoxToContainer(container);
     container.prepend('<p>foo</p>');
     container.append('<p>bar</p>');
     const range = new Range();
     range.setStartAfter(container.find('br').eq(0));
     range.setEndAfter(container.find('br').eq(1));
-    expect(range.startNode.name).to.equal('span');
-    expect(range.endNode.name).to.equal('span');
-    expect(range.startOffset).to.equal(1);
-    expect(range.endOffset).to.equal(1);
-    expect(range.isCollapsed).to.equal(false);
     range.adapt();
     expect(range.startNode.name).to.equal('div');
     expect(range.endNode.name).to.equal('div');
     expect(range.startOffset).to.equal(1);
     expect(range.endOffset).to.equal(2);
     expect(range.isCollapsed).to.equal(false);
+  });
+
+  it('adapt method: should move to next paragraph', () => {
+    container.prepend('<p>foo</p>');
+    container.append('<p>bar</p>');
+    const range = new Range();
+    range.setStartAfter(container.find('p').eq(0));
+    range.collapseToStart();
+    range.adapt();
+    expect(range.startNode.name).to.equal('p');
+    expect(range.startNode.text()).to.equal('bar');
+    expect(range.startOffset).to.equal(0);
+    expect(range.isCollapsed).to.equal(true);
+  });
+
+  it('adapt method: should move to next box', () => {
+    setHrBoxToContainer(container);
+    container.prepend('<p>foo</p>');
+    container.append('<p>bar</p>');
+    const range = new Range();
+    range.setStartAfter(container.find('p').eq(0));
+    range.collapseToStart();
+    range.adapt();
+    expect(range.isBoxLeft).to.equal(true);
   });
 
   it('getBlocks method: no text is selected', () => {

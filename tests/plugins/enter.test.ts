@@ -235,8 +235,8 @@ describe('plugin / enter', () => {
     `;
     const output = `
     <lake-box type="block" name="hr"></lake-box>
-    <p><br /><focus /></p>
-    <p>foo</p>
+    <p><br /></p>
+    <p><focus />foo</p>
     `;
     testPlugin(
       content,
