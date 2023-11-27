@@ -48,9 +48,7 @@ export function splitBlock(range: Range): TwoParts {
     if (right.isEmpty) {
       appendDeepest(right, query('<br />'));
     }
-    range.selectNodeContents(right);
-    range.reduce();
-    range.collapseToStart();
+    range.shrinkBefore(right);
   }
   fixList(range);
   return {

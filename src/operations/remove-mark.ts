@@ -82,10 +82,7 @@ export function removeMark(range: Range, value?: string): void {
     appendDeepest(newMark, zeroWidthSpace);
     parts.left.after(newMark);
     removeEmptyMarks(parts.left);
-    // Resets the position of the selection
-    range.selectNodeContents(newMark);
-    range.reduce();
-    range.collapseToEnd();
+    range.shrinkAfter(newMark);
     return;
   }
   splitMarks(range);

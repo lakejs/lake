@@ -86,10 +86,7 @@ export function addMark(range: Range, value: string | Nodes): void {
     }
     insertNode(range, valueNode);
     removePreviousOrNextZWS(valueNode);
-    // Resets the position of the selection
-    range.selectNodeContents(valueNode);
-    range.reduce();
-    range.collapseToEnd();
+    range.shrinkAfter(valueNode);
     return;
   }
   splitMarks(range);
