@@ -20,6 +20,7 @@ type OptionsType = {[key: string]: any};
 const containerClassName = 'lake-container';
 
 const defaultOptions: OptionsType = {
+  readonly: false,
   className: '',
   defaultValue: '<p><br /><focus /></p>',
   spellcheck: 'false',
@@ -43,6 +44,8 @@ export class Core {
 
   public container: Nodes;
 
+  public readonly: boolean;
+
   public event: EventEmitter;
 
   public selection: Selection;
@@ -61,6 +64,7 @@ export class Core {
     this.container = query('<div />');
 
     this.setDefaultOptions();
+    this.readonly = this.options.readonly;
     this.setContainerAttributes();
 
     this.event = new EventEmitter();
@@ -93,7 +97,7 @@ export class Core {
     const container = this.container;
     container.attr({
       class: containerClassName,
-      contenteditable: 'true',
+      contenteditable: this.readonly ? 'false' : 'true',
       spellcheck: this.options.spellcheck,
     });
     if (this.options.className !== '') {
@@ -177,22 +181,28 @@ export class Core {
     this.container.empty();
     this.container.append(fragment);
     targetNode.after(container);
-    this.focus();
-    this.history.save(false);
-    this.selection.synByBookmark();
-    this.select();
+    if (!this.readonly) {
+      this.focus();
+      this.history.save(false);
+      this.selection.synByBookmark();
+      this.select();
+    }
     Core.plugin.loadAll(this);
     Core.box.renderAll(this);
-    document.addEventListener('selectionchange', this.selectionListener);
+    if (!this.readonly) {
+      document.addEventListener('selectionchange', this.selectionListener);
+      this.bindInputEvent();
+    }
     document.addEventListener('click', this.clickListener);
-    this.bindInputEvent();
     this.event.emit('create');
   }
 
   // Removes the editor.
   public remove(): void {
     this.container.remove();
-    document.removeEventListener('selectionchange', this.selectionListener);
+    if (!this.readonly) {
+      document.removeEventListener('selectionchange', this.selectionListener);
+    }
     document.removeEventListener('click', this.clickListener);
     this.event.emit('remove');
   }

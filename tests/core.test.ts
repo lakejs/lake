@@ -9,7 +9,6 @@ describe('core', () => {
   let editor: Core;
 
   beforeEach(() => {
-
     targetNode = query('<div />');
     query(document.body).append(targetNode);
     editor = new Core(targetNode.get(0), {
@@ -27,8 +26,20 @@ describe('core', () => {
     const input = '<p><strong>\u200B# <focus />foo</strong></p>';
     const output = '<p><strong># <focus />foo</strong></p>';
     editor.setValue(input);
-    const html = editor.getValue();
-    expect(html).to.equal(output);
+    expect(editor.getValue()).to.equal(output);
+  });
+
+  it('readonly mode', () => {
+    const input = '<p>foo<focus /></p>';
+    editor.remove();
+    const view = new Core(targetNode.get(0), {
+      readonly: true,
+      className: 'my-editor-container',
+      defaultValue: input,
+    });
+    view.create();
+    expect(view.readonly).to.equal(true);
+    view.remove();
   });
 
 });

@@ -80,6 +80,9 @@ export default (editor: Editor) => {
     editor.select();
   });
   editor.container.on('click', event => {
+    if (editor.readonly) {
+      return;
+    }
     const target = new Nodes(event.target as Element);
     if (target.name === 'li' && target.attr('value') !== '') {
       target.attr('value', (target.attr('value') !== 'true').toString());

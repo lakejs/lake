@@ -11,7 +11,7 @@ declare global {
 
 window.DEBUG = true;
 
-const headingTypes = [
+const headingTypes = new Set([
   'h1',
   'h2',
   'h3',
@@ -19,7 +19,7 @@ const headingTypes = [
   'h5',
   'h6',
   'p',
-];
+]);
 
 const listTypes = new Map([
   ['numberedList', 'numbered'],
@@ -57,6 +57,7 @@ const noParameterCommandNames = [
 ];
 
 const editor = new Editor('.lake-editor', {
+  readonly: false,
   className: 'my-editor-container',
   defaultValue,
 });
@@ -67,7 +68,7 @@ query('.lake-toolbar-icon').on('click', event => {
   event.preventDefault();
   event.stopPropagation();
   const type = query(event.target as Element).attr('data-type');
-  if (headingTypes.indexOf(type) >= 0) {
+  if (headingTypes.has(type)) {
     editor.command.execute('heading', type);
     return;
   }
