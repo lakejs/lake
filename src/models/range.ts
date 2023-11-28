@@ -284,12 +284,8 @@ export class Range {
     // <p>foo</p><p>|bar</p>
     if (this.isCollapsed && this.startNode.isElement) {
       const nextBlock = this.startNode.children()[this.startOffset];
-      if (nextBlock) {
-        if (nextBlock.isBox) {
-          this.selectBoxLeft(nextBlock);
-        } else if (nextBlock.isBlock) {
-          this.shrinkBefore(nextBlock);
-        }
+      if (nextBlock && (nextBlock.isBox || nextBlock.isBlock)) {
+        this.shrinkBefore(nextBlock);
       }
     }
   }
