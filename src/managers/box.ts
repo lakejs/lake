@@ -9,6 +9,10 @@ export class Box {
     boxes.set(def.name, def);
   }
 
+  public getNames(): string[] {
+    return Array.from(boxes.keys());
+  }
+
   public renderAll(editor: Core) {
     editor.container.find('lake-box').each(node => {
       const boxNode = new Nodes(node);

@@ -1,4 +1,4 @@
-import { BoxDefinition, BoxType, BoxValue } from '../types/box';
+import { BoxType, BoxValue } from '../types/box';
 import { boxes } from '../storage/boxes';
 import { encode } from '../utils/encode';
 import { query } from '../utils/query';
@@ -13,16 +13,20 @@ const bodyTemplate = `
 export class Box {
   public node: Nodes;
 
-  constructor(def: BoxDefinition | Nodes) {
-    if (def instanceof Nodes) {
-      this.node = def;
-    } else {
+  constructor(node: string | Nodes) {
+    if (typeof node === 'string') {
+      const def = boxes.get(node);
+      if (def === undefined) {
+        throw new Error(`Box '${node}' has not been defined yet.`);
+      }
       const type = encode(def.type);
       const name = encode(def.name);
       this.node = query(`<lake-box type="${type}" name="${name}"></lake-box>`);
       if (def.value) {
         this.value = def.value;
       }
+    } else {
+      this.node = node;
     }
   }
 
