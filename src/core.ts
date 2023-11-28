@@ -39,6 +39,8 @@ export class Core {
 
   private options: OptionsType;
 
+  private unsavedInputData: string;
+
   private selectionListener: EventListener;
 
   private clickListener: EventListener;
@@ -75,6 +77,7 @@ export class Core {
     this.keystroke = new Keystroke(this.container);
     this.box = Core.box;
 
+    this.unsavedInputData = '';
     this.selectionListener = () => {
       this.selection.syncByRange();
     };
@@ -140,7 +143,12 @@ export class Core {
     this.container.on('compositionend', () => {
       isComposing = false;
     });
-    let preData = '';
+    this.container.on('beforeinput', () => {
+      const range = this.selection.range;
+      if (range.isBoxLeft || range.isBoxRight) {
+        this.commitUnsavedInputData();
+      }
+    });
     this.container.on('input', event => {
       window.setTimeout(() => {
         if (isComposing) {
@@ -150,21 +158,36 @@ export class Core {
         if (range.isBoxLeft || range.isBoxRight) {
           this.inputInBoxStrip();
         } else {
-          preData += (event as InputEvent).data ?? '';
-          if (preData.length < this.options.minChangeSize) {
+          this.unsavedInputData += (event as InputEvent).data ?? '';
+          if (this.unsavedInputData.length < this.options.minChangeSize) {
             return;
           }
         }
         this.history.save();
-        preData = '';
+        this.unsavedInputData = '';
       }, 100);
     });
-    this.command.event.on('execute:before', () => {
-      if (preData.length > 0) {
-        this.history.save();
-        preData = '';
-      }
-    });
+    this.command.event.on('execute:before', () => this.commitUnsavedInputData());
+  }
+
+  // Saves the input data which is unsaved.
+  public commitUnsavedInputData(): void {
+    if (this.unsavedInputData.length > 0) {
+      this.history.save();
+      this.unsavedInputData = '';
+    }
+  }
+
+  // Updates some state before custom modifications.
+  public prepareOperation(): void {
+    this.commitUnsavedInputData();
+    this.history.pause();
+  }
+
+  // Saves custom modifications to the history.
+  public commitOperation(): void {
+    this.history.continue();
+    this.history.save();
   }
 
   // Adds the saved range to the selection.

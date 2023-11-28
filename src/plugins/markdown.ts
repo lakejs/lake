@@ -149,7 +149,7 @@ function executeMarkCommand(editor: Editor, point: Point): boolean {
   for (const item of markSpaceList) {
     const result = item.re.exec(text);
     if (result !== null) {
-      editor.command.event.emit('execute:before');
+      editor.prepareOperation();
       const bookmark = selection.insertBookmark();
       const node = bookmark.focus.prev();
       const oldValue = node.text();
@@ -157,12 +157,10 @@ function executeMarkCommand(editor: Editor, point: Point): boolean {
       node.get(0).nodeValue = newValue;
       range.setStart(node, offset - result[0].length - 1);
       range.setEnd(node, offset - (oldValue.length - newValue.length) - 1);
-      editor.history.pause();
       const parameters = item.getParameters();
       editor.command.execute(parameters.shift() as string, ...parameters);
       selection.toBookmark(bookmark);
-      editor.history.continue();
-      editor.history.save();
+      editor.commitOperation();
       return true;
     }
   }
@@ -176,19 +174,17 @@ function executeBlockCommand(editor: Editor, point: Point): boolean {
   text = text.replace(/[\u200B\u2060]/g, '');
   for (const item of blockSpaceList) {
     if (item.re.test(text)) {
-      editor.command.event.emit('execute:before');
+      editor.prepareOperation();
       const bookmark = selection.insertBookmark();
       const node = bookmark.focus.prev();
       node.remove();
       const block = bookmark.focus.closestBlock();
       fixEmptyBlock(block);
       selection.range.shrinkAfter(block);
-      editor.history.pause();
       const parameters = item.getParameters(text);
       editor.command.execute(parameters.shift() as string, ...parameters);
       selection.toBookmark(bookmark);
-      editor.history.continue();
-      editor.history.save();
+      editor.commitOperation();
       return true;
     }
   }
