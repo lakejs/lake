@@ -5,12 +5,13 @@ import './elements/box';
 import { NativeNode } from './types/native';
 import { denormalizeValue, forEach, normalizeValue, query } from './utils';
 import { Nodes } from './models/nodes';
+import { Box } from './models/box';
 import { HTMLParser } from './parsers/html-parser';
 import { Selection } from './managers/selection';
 import { Command } from './managers/command';
 import { History } from './managers/history';
 import { Keystroke } from './managers/keystroke';
-import { Box } from './managers/box';
+import { BoxManager } from './managers/box';
 import { Plugin } from './managers/plugin';
 
 type TargetType = string | NativeNode;
@@ -30,7 +31,7 @@ const defaultOptions: OptionsType = {
 export class Core {
   public static version: string = pkg.version;
 
-  public static box = new Box();
+  public static box = new BoxManager();
 
   public static plugin = new Plugin();
 
@@ -56,7 +57,7 @@ export class Core {
 
   public keystroke: Keystroke;
 
-  public box: Box;
+  public box: BoxManager;
 
   constructor(target: string | NativeNode, options = defaultOptions) {
     this.target = target;
@@ -105,6 +106,32 @@ export class Core {
     }
   }
 
+  private inputInBoxStrip(): void {
+    const selection = this.selection;
+    const range = selection.range;
+    const stripNode = range.startNode.closest('.box-strip');
+    const boxNode = stripNode.closest('lake-box');
+    const box = new Box(boxNode);
+    if (box.type === 'inline') {
+      if (range.isBoxLeft) {
+        range.selectBoxLeft(boxNode);
+      } else {
+        range.selectBoxRight(boxNode);
+      }
+    } else {
+      const paragraph = query('<p />');
+      if (range.isBoxLeft) {
+        boxNode.before(paragraph);
+      } else {
+        boxNode.after(paragraph);
+      }
+      range.shrinkAfter(paragraph);
+    }
+    const data = stripNode.text();
+    stripNode.html('<br />');
+    selection.insertNode(document.createTextNode(data));
+  }
+
   private bindInputEvent(): void {
     let isComposing = false;
     this.container.on('compositionstart', () => {
@@ -119,9 +146,14 @@ export class Core {
         if (isComposing) {
           return;
         }
-        preData += (event as InputEvent).data ?? '';
-        if (preData.length < this.options.minChangeSize) {
-          return;
+        const range = this.selection.range;
+        if (range.isBoxLeft || range.isBoxRight) {
+          this.inputInBoxStrip();
+        } else {
+          preData += (event as InputEvent).data ?? '';
+          if (preData.length < this.options.minChangeSize) {
+            return;
+          }
         }
         this.history.save();
         preData = '';
