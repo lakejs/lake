@@ -23,10 +23,16 @@ describe('models / box', () => {
     container.remove();
   });
 
-  it('constructor', () => {
+  it('constructor: is a string', () => {
     const box = new Box('blockBox');
     container.append(box.node);
     expect(container.html()).to.equal('<lake-box type="block" name="blockBox"></lake-box>');
+  });
+
+  it('constructor: is a native node', () => {
+    container.html('<lake-box type="block" name="blockBox"></lake-box>');
+    const box = new Box(container.find('lake-box').get(0));
+    expect(box.name).to.equal('blockBox');
   });
 
   it('property: type', () => {
@@ -42,7 +48,7 @@ describe('models / box', () => {
     expect(box.name).to.equal('blockBox');
   });
 
-  it('property: type', () => {
+  it('property: value', () => {
     container.html('<lake-box type="block" name="blockBox"></lake-box>');
     const box = new Box(container.find('lake-box'));
     box.value = {

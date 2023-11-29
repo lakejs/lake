@@ -1,3 +1,4 @@
+import { NativeNode } from '../types/native';
 import { BoxType, BoxValue } from '../types/box';
 import { boxes } from '../storage/boxes';
 import { encode } from '../utils/encode';
@@ -13,7 +14,7 @@ const bodyTemplate = `
 export class Box {
   public node: Nodes;
 
-  constructor(node: string | Nodes) {
+  constructor(node: string | Nodes | NativeNode) {
     if (typeof node === 'string') {
       const def = boxes.get(node);
       if (def === undefined) {
@@ -26,7 +27,7 @@ export class Box {
         this.value = def.value;
       }
     } else {
-      this.node = node;
+      this.node = query(node);
     }
   }
 
