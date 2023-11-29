@@ -6,14 +6,8 @@ import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
 import { Box } from '../../src/models/box';
 
-boxes.set('myBox', {
-  type: 'block',
-  name: 'myBox',
-  render: () => 'This is a block box.',
-});
-
 function setTestBox(block: Nodes) {
-  const box = new Box('myBox');
+  const box = new Box('blockBox');
   block.empty();
   block.append(box.node);
   box.render();
@@ -24,11 +18,17 @@ describe('models / range', () => {
   let container: Nodes;
 
   beforeEach(() => {
+    boxes.set('blockBox', {
+      type: 'block',
+      name: 'blockBox',
+      render: () => '<hr />',
+    });
     container = query('<div contenteditable="true"></div>');
     query(document.body).append(container);
   });
 
   afterEach(() => {
+    boxes.delete('blockBox');
     container.remove();
   });
 

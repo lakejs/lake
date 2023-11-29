@@ -3,32 +3,38 @@ import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
 import { insertBox } from '../../src/operations/insert-box';
 
-boxes.set('image', {
-  type: 'inline',
-  name: 'image',
-  render: () => '<img />',
-});
-
-boxes.set('hr', {
-  type: 'block',
-  name: 'hr',
-  render: () => '<hr />',
-});
-
 describe('operations / insert-box', () => {
+
+  beforeEach(() => {
+    boxes.set('inlineBox', {
+      type: 'inline',
+      name: 'inlineBox',
+      render: () => '<img />',
+    });
+    boxes.set('blockBox', {
+      type: 'block',
+      name: 'blockBox',
+      render: () => '<hr />',
+    });
+  });
+
+  afterEach(() => {
+    boxes.delete('inlineBox');
+    boxes.delete('blockBox');
+  });
 
   it('inserts a inline box', () => {
     const content = `
     <p>foo<focus /></p>
     `;
     const output = `
-    <p>foo<lake-box type="inline" name="image"></lake-box></p>
+    <p>foo<lake-box type="inline" name="inlineBox"></lake-box></p>
     `;
     testOperation(
       content,
       output,
       range => {
-        insertBox(range, 'image');
+        insertBox(range, 'inlineBox');
         expect(range.isBoxRight).to.equal(true);
       },
     );
@@ -39,14 +45,14 @@ describe('operations / insert-box', () => {
     <p><focus />foo</p>
     `;
     const output = `
-    <lake-box type="block" name="hr"></lake-box>
+    <lake-box type="block" name="blockBox"></lake-box>
     <p>foo</p>
     `;
     testOperation(
       content,
       output,
       range => {
-        insertBox(range, 'hr');
+        insertBox(range, 'blockBox');
         expect(range.isBoxRight).to.equal(true);
       },
     );
@@ -58,13 +64,13 @@ describe('operations / insert-box', () => {
     `;
     const output = `
     <p>foo</p>
-    <lake-box type="block" name="hr"></lake-box>
+    <lake-box type="block" name="blockBox"></lake-box>
     `;
     testOperation(
       content,
       output,
       range => {
-        insertBox(range, 'hr');
+        insertBox(range, 'blockBox');
         expect(range.isBoxRight).to.equal(true);
       },
     );

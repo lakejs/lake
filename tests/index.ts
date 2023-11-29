@@ -29,6 +29,7 @@ import './utils/remove-br.test';
 // Models
 import './models/nodes.test';
 import './models/range.test';
+import './models/box.test';
 
 // Parsers
 import './parsers/html-parser.test';
@@ -54,6 +55,7 @@ import './managers/selection.test';
 import './managers/command.test';
 import './managers/history.test';
 import './managers/keystroke.test';
+import './managers/box.test';
 import './managers/plugin.test';
 
 // Plugins
