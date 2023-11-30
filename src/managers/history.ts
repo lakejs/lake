@@ -2,6 +2,7 @@ import { DiffDOM } from 'diff-dom';
 import { NativeElement } from '../types/native';
 import { debug } from '../utils/debug';
 import { Nodes } from '../models/nodes';
+import { Box } from '../models/box';
 import { Selection } from './selection';
 
 // Saves and controls the editor value history.
@@ -38,7 +39,19 @@ export class History {
     this.container = selection.container;
     this.list = [];
     this.index = 0;
-    this.diffDOM = new DiffDOM();
+    this.diffDOM = new DiffDOM({
+      preDiffApply: info => {
+        if (info.diff.action === 'removeAttribute') {
+          return true;
+        }
+        return false;
+      },
+      filterOuterDiff: t1 => {
+        if (t1.nodeName.toLowerCase() === 'lake-box') {
+          t1.innerDone = true;
+        }
+      },
+    });
     this.canSave = true;
     this.limit = 100;
   }
@@ -48,6 +61,15 @@ export class History {
       diffList.length === 1 &&
       (diffList[0] as any).action === 'addTextElement' &&
       (diffList[0] as any).value === '';
+  }
+
+  private renderBoxes(): void {
+    this.container.find('lake-box').each(node => {
+      const boxNode = new Nodes(node);
+      if (boxNode.find('.lake-body').length === 0) {
+        new Box(boxNode).render();
+      }
+    });
   }
 
   public get canUndo(): boolean {
@@ -78,6 +100,7 @@ export class History {
     }
     if (diffList.length > 0) {
       this.diffDOM.apply(nativeContainer, diffList);
+      this.renderBoxes();
     }
     this.selection.synByBookmark();
   }
@@ -99,6 +122,7 @@ export class History {
     }
     if (diffList.length > 0) {
       this.diffDOM.apply(nativeContainer, diffList);
+      this.renderBoxes();
     }
     this.selection.synByBookmark();
   }
@@ -119,7 +143,9 @@ export class History {
     if (needBookmark) {
       bookmark = this.selection.insertBookmark();
     }
-    const item = this.container.clone(true).get(0) as NativeElement;
+    const clonedContainer = this.container.clone(true);
+    clonedContainer.find('lake-box').empty();
+    const item = clonedContainer.get(0) as NativeElement;
     if (bookmark) {
       this.selection.toBookmark(bookmark);
     }
