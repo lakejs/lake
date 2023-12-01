@@ -1,3 +1,6 @@
+.lake-container lake-box[name="hr"] {
+  margin-bottom: 8px;
+}
 .lake-container lake-box[name="hr"] .lake-box-container {
   margin: 0;
   padding: 10px 0;
