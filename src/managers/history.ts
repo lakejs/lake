@@ -1,8 +1,10 @@
-import { DiffDOM } from 'diff-dom';
+import morphdom from 'morphdom';
 import { NativeElement } from '../types/native';
 import { debug } from '../utils/debug';
+import { denormalizeValue } from '../utils/denormalize-value';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
+import { HTMLParser } from '../parsers/html-parser';
 import { Selection } from './selection';
 
 // Saves and controls the editor value history.
@@ -23,12 +25,10 @@ export class History {
   private container: Nodes;
 
   // an array for storing the history items
-  private list: NativeElement[];
+  private list: Nodes[];
 
   // the next index of the list
   private index: number;
-
-  private diffDOM: DiffDOM;
 
   private canSave: boolean;
 
@@ -39,28 +39,13 @@ export class History {
     this.container = selection.container;
     this.list = [];
     this.index = 0;
-    this.diffDOM = new DiffDOM({
-      preDiffApply: info => {
-        if (info.diff.action === 'removeAttribute') {
-          return true;
-        }
-        return false;
-      },
-      filterOuterDiff: t1 => {
-        if (t1.nodeName.toLowerCase() === 'lake-box') {
-          t1.innerDone = true;
-        }
-      },
-    });
     this.canSave = true;
     this.limit = 100;
   }
 
-  private isEmptyDiff(diffList: ReturnType<typeof this.diffDOM.diff>): boolean {
-    return diffList.length === 0 ||
-      diffList.length === 1 &&
-      (diffList[0] as any).action === 'addTextElement' &&
-      (diffList[0] as any).value === '';
+  private getValue(container: Nodes): string {
+    const value = new HTMLParser(container).getHTML();
+    return denormalizeValue(value);
   }
 
   private renderBoxes(): void {
@@ -70,6 +55,23 @@ export class History {
         new Box(boxNode).render();
       }
     });
+  }
+
+  private merge(sourceContainer: Nodes): void {
+    const options = {
+      onBeforeElChildrenUpdated: (fromElement: NativeElement, toElement: NativeElement) => {
+        if (fromElement.nodeName.toLowerCase() === 'lake-box') {
+          return false;
+        }
+        if (toElement.nodeName.toLowerCase() === 'lake-box') {
+          return false;
+        }
+        return true;
+      },
+      childrenOnly: true,
+    };
+    morphdom(this.container.get(0), sourceContainer.clone(true).get(0), options);
+    this.renderBoxes();
   }
 
   public get canUndo(): boolean {
@@ -85,22 +87,21 @@ export class History {
       return;
     }
     this.selection.insertBookmark();
-    const nativeContainer = this.container.get(0) as NativeElement;
-    let diffList: ReturnType<typeof this.diffDOM.diff> = [];
-    while(this.isEmptyDiff(diffList)) {
+    const value = this.getValue(this.container);
+    let sourceContainer = null;
+    while (this.index > 0) {
       const item = this.list[this.index - 1];
       if (!item) {
         break;
       }
-      diffList = this.diffDOM.diff(nativeContainer, item);
-      if (this.index === 1) {
+      this.index--;
+      if (this.getValue(item) !== value) {
+        sourceContainer = item;
         break;
       }
-      this.index--;
     }
-    if (diffList.length > 0) {
-      this.diffDOM.apply(nativeContainer, diffList);
-      this.renderBoxes();
+    if (sourceContainer) {
+      this.merge(sourceContainer);
     }
     this.selection.synByBookmark();
   }
@@ -110,19 +111,21 @@ export class History {
       return;
     }
     this.selection.insertBookmark();
-    const nativeContainer = this.container.get(0) as NativeElement;
-    let diffList: ReturnType<typeof this.diffDOM.diff> = [];
-    while(this.isEmptyDiff(diffList)) {
+    const value = this.getValue(this.container);
+    let sourceContainer = null;
+    while (this.index < this.list.length) {
       const item = this.list[this.index];
       if (!item) {
         break;
       }
-      diffList = this.diffDOM.diff(nativeContainer, item);
       this.index++;
+      if (this.getValue(item) !== value) {
+        sourceContainer = item;
+        break;
+      }
     }
-    if (diffList.length > 0) {
-      this.diffDOM.apply(nativeContainer, diffList);
-      this.renderBoxes();
+    if (sourceContainer) {
+      this.merge(sourceContainer);
     }
     this.selection.synByBookmark();
   }
@@ -143,9 +146,7 @@ export class History {
     if (needBookmark) {
       bookmark = this.selection.insertBookmark();
     }
-    const clonedContainer = this.container.clone(true);
-    clonedContainer.find('lake-box').empty();
-    const item = clonedContainer.get(0) as NativeElement;
+    const item = this.container.clone(true);
     if (bookmark) {
       this.selection.toBookmark(bookmark);
     }
