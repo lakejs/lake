@@ -112,7 +112,7 @@ export class Core {
   private inputInBoxStrip(): void {
     const selection = this.selection;
     const range = selection.range;
-    const stripNode = range.startNode.closest('.box-strip');
+    const stripNode = range.startNode.closest('.lake-box-strip');
     const boxNode = stripNode.closest('lake-box');
     const box = new Box(boxNode);
     if (box.type === 'inline') {

@@ -1,12 +1,12 @@
-.lake-container lake-box[name="hr"] .box-body {
+.lake-container lake-box[name="hr"] .lake-box-container {
   margin: 0;
   padding: 10px 0;
   cursor: pointer;
 }
-.lake-container lake-box[name="hr"] .box-body:hover {
+.lake-container lake-box[name="hr"] .lake-box-container:hover {
   background-color: #0000000a;
 }
-.lake-container lake-box[name="hr"] .box-body hr {
+.lake-container lake-box[name="hr"] .lake-box-container hr {
   margin: 0;
   padding: 0;
   border: 0;

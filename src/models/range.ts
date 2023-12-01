@@ -43,28 +43,28 @@ export class Range {
   }
 
   // Returns a boolean value indicating whether the range's start point is at the left strip of the box.
-  // <lake-box><span class="box-strip">|</span><div class="box-body"></div> ...
-  // <lake-box><span class="box-strip"></span>|<div class="box-body"></div> ...
-  // <lake-box>|<span class="box-strip"></span><div class="box-body"></div> ...
+  // <lake-box><span class="lake-box-strip">|</span><div class="lake-box-container"></div> ...
+  // <lake-box><span class="lake-box-strip"></span>|<div class="lake-box-container"></div> ...
+  // <lake-box>|<span class="lake-box-strip"></span><div class="lake-box-container"></div> ...
   public get isBoxLeft(): boolean {
     const boxNode = this.startNode.closest('lake-box');
     if (boxNode.length === 0) {
       return false;
     }
-    const boxBody = boxNode.find('.box-body');
+    const boxBody = boxNode.find('.lake-box-container');
     return this.compareBeforeNode(boxBody) >= 0;
   }
 
   // Returns a boolean value indicating whether the range's start point is at the right strip of the box.
-  // ... <div class="box-body"></div><span class="box-strip">|</span></lake-box>
-  // ... <div class="box-body"></div>|<span class="box-strip"></span></lake-box>
-  // ... <div class="box-body"></div><span class="box-strip"></span>|</lake-box>
+  // ... <div class="lake-box-container"></div><span class="lake-box-strip">|</span></lake-box>
+  // ... <div class="lake-box-container"></div>|<span class="lake-box-strip"></span></lake-box>
+  // ... <div class="lake-box-container"></div><span class="lake-box-strip"></span>|</lake-box>
   public get isBoxRight(): boolean {
     const boxNode = this.startNode.closest('lake-box');
     if (boxNode.length === 0) {
       return false;
     }
-    const boxBody = boxNode.find('.box-body');
+    const boxBody = boxNode.find('.lake-box-container');
     return this.compareAfterNode(boxBody) <= 0;
   }
 
@@ -160,13 +160,13 @@ export class Range {
 
   // Sets the range to the left position of the box.
   public selectBoxLeft(boxNode: Nodes): void {
-    this.selectNodeContents(boxNode.find('.box-strip').eq(0));
+    this.selectNodeContents(boxNode.find('.lake-box-strip').eq(0));
     this.collapseToEnd();
   }
 
   // Sets the range to the left position of the box.
   public selectBoxRight(boxNode: Nodes): void {
-    this.selectNodeContents(boxNode.find('.box-strip').eq(1));
+    this.selectNodeContents(boxNode.find('.lake-box-strip').eq(1));
     this.collapseToEnd();
   }
 

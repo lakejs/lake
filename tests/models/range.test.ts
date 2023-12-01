@@ -284,7 +284,7 @@ describe('models / range', () => {
     const range = new Range();
     range.selectBoxLeft(container.find('lake-box'));
     const node = new Nodes((range.startNode.get(0) as Element).nextElementSibling);
-    expect(node.attr('class')).to.equal('box-body');
+    expect(node.attr('class')).to.equal('lake-box-container');
     expect(range.startOffset).to.equal(1);
     expect(range.isCollapsed).to.equal(true);
   });
@@ -294,7 +294,7 @@ describe('models / range', () => {
     const range = new Range();
     range.selectBoxRight(container.find('lake-box'));
     const node = new Nodes((range.startNode.get(0) as Element).previousElementSibling);
-    expect(node.attr('class')).to.equal('box-body');
+    expect(node.attr('class')).to.equal('lake-box-container');
     expect(range.startOffset).to.equal(1);
     expect(range.isCollapsed).to.equal(true);
   });

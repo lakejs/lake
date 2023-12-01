@@ -91,9 +91,9 @@ describe('models / nodes', () => {
   });
 
   it('property: isBox', () => {
-    const container = query('<div contenteditable="true"><lake-box><div class="box-body"><hr /></div></lake-box><p>foo</p></div>');
+    const container = query('<div contenteditable="true"><lake-box><div class="lake-box-container"><hr /></div></lake-box><p>foo</p></div>');
     expect(container.find('lake-box').isBox).to.equal(true);
-    expect(container.find('.box-body').isBox).to.equal(false);
+    expect(container.find('.lake-box-container').isBox).to.equal(false);
     expect(container.find('p').isBox).to.equal(false);
   });
 

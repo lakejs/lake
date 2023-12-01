@@ -6,9 +6,9 @@ import { query } from '../utils/query';
 import { Nodes } from './nodes';
 
 const bodyTemplate = `
-  <span class="box-strip"><br /></span>
-    <div class="box-body" contenteditable="false"></div>
-  <span class="box-strip"><br /></span>
+  <span class="lake-box-strip"><br /></span>
+    <div class="lake-box-container" contenteditable="false"></div>
+  <span class="lake-box-strip"><br /></span>
 `.replace(/^\s+/gm, '').replace(/\n/g, '');
 
 export class Box {
@@ -60,10 +60,10 @@ export class Box {
     if (def === undefined) {
       return;
     }
-    if (this.node.find('.box-body').length === 0) {
+    if (this.node.find('.lake-box-container').length === 0) {
       this.node.html(bodyTemplate);
     }
     const html = def.render(this.value);
-    this.node.find('.box-body').html(html);
+    this.node.find('.lake-box-container').html(html);
   }
 }
