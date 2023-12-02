@@ -6,8 +6,11 @@
   padding: 10px 0;
   cursor: pointer;
 }
-.lake-container lake-box[name="hr"] .lake-box-container:hover {
+.lake-container lake-box[name="hr"] .lake-box-hovered {
   background-color: #0000000a;
+}
+.lake-container lake-box[name="hr"] .lake-box-focused {
+  background-color: var(--selection-background-color);
 }
 .lake-container lake-box[name="hr"] .lake-box-container hr {
   margin: 0;

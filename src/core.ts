@@ -85,7 +85,9 @@ export class Core {
       const targetNode = new Nodes(event.target as Element);
       if (targetNode.isOutside) {
         this.event.emit('click:outside');
+        return;
       }
+      this.event.emit('click:inside', targetNode);
     };
   }
 
@@ -135,7 +137,7 @@ export class Core {
     selection.insertNode(document.createTextNode(data));
   }
 
-  private bindInputEvent(): void {
+  private bindInputEvents(): void {
     let isComposing = false;
     this.container.on('compositionstart', () => {
       isComposing = true;
@@ -168,6 +170,27 @@ export class Core {
       }, 100);
     });
     this.command.event.on('execute:before', () => this.commitUnsavedInputData());
+  }
+
+  private bindBoxEvents(): void {
+    this.event.on('click:inside', target => {
+      const targetBoxNode = target.closest('lake-box');
+      if (targetBoxNode.length > 0) {
+        targetBoxNode.find('.lake-box-container').addClass('lake-box-focused');
+      }
+      const boxNodeList = this.box.getAllNodeList(this);
+      for (const boxNode of boxNodeList) {
+        if (boxNode.get(0) !== targetBoxNode.get(0)) {
+          boxNode.find('.lake-box-container').removeClass('lake-box-focused');
+        }
+      }
+    });
+    this.event.on('click:outside', () => {
+      const boxNodeList = this.box.getAllNodeList(this);
+      for (const boxNode of boxNodeList) {
+        boxNode.find('.lake-box-container').removeClass('lake-box-focused');
+      }
+    });
   }
 
   // Saves the input data which is unsaved.
@@ -246,7 +269,8 @@ export class Core {
     Core.box.renderAll(this);
     if (!this.readonly) {
       document.addEventListener('selectionchange', this.selectionListener);
-      this.bindInputEvent();
+      this.bindInputEvents();
+      this.bindBoxEvents();
     }
     document.addEventListener('click', this.clickListener);
     this.event.emit('create');

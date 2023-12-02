@@ -1,6 +1,7 @@
 import type { Core } from '../core';
 import { BoxDefinition } from '../types/box';
 import { boxes } from '../storage/boxes';
+import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 
 export class BoxManager {
@@ -12,9 +13,18 @@ export class BoxManager {
     return Array.from(boxes.keys());
   }
 
-  public renderAll(editor: Core) {
+  public getAllNodeList(editor: Core): Nodes[] {
+    const nodeList: Nodes[] = [];
     editor.container.find('lake-box').each(node => {
-      new Box(node).render();
+      nodeList.push(new Nodes(node));
     });
+    return nodeList;
+  }
+
+  public renderAll(editor: Core) {
+    const boxNodeList = this.getAllNodeList(editor);
+    for (const boxNode of boxNodeList) {
+      new Box(boxNode).render();
+    }
   }
 }
