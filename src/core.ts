@@ -176,19 +176,22 @@ export class Core {
     this.event.on('click:inside', target => {
       const targetBoxNode = target.closest('lake-box');
       if (targetBoxNode.length > 0) {
-        targetBoxNode.find('.lake-box-container').addClass('lake-box-focused');
+        const targetBox = new Box(targetBoxNode);
+        targetBox.container.addClass('lake-box-focused');
       }
       const boxNodeList = this.box.getAllNodeList(this);
       for (const boxNode of boxNodeList) {
         if (boxNode.get(0) !== targetBoxNode.get(0)) {
-          boxNode.find('.lake-box-container').removeClass('lake-box-focused');
+          const box = new Box(boxNode);
+          box.container.removeClass('lake-box-focused');
         }
       }
     });
     this.event.on('click:outside', () => {
       const boxNodeList = this.box.getAllNodeList(this);
       for (const boxNode of boxNodeList) {
-        boxNode.find('.lake-box-container').removeClass('lake-box-focused');
+        const box = new Box(boxNode);
+        box.container.removeClass('lake-box-focused');
       }
     });
   }

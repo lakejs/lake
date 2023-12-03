@@ -12,6 +12,7 @@ const bodyTemplate = `
 `.replace(/^\s+/gm, '').replace(/\n/g, '');
 
 export class Box {
+  // <lake-box> element
   public node: Nodes;
 
   constructor(node: string | Nodes | NativeNode) {
@@ -55,15 +56,19 @@ export class Box {
     this.node.attr('value', btoa(JSON.stringify(value)));
   }
 
+  public get container(): Nodes {
+    return this.node.find('.lake-box-container');
+  }
+
   public render(): void {
     const def = boxes.get(this.name);
     if (def === undefined) {
       return;
     }
-    if (this.node.find('.lake-box-container').length === 0) {
+    if (this.container.length === 0) {
       this.node.html(bodyTemplate);
     }
-    const html = def.render(this.value);
-    this.node.find('.lake-box-container').html(html);
+    const content = def.render(this.value);
+    this.container.html(content);
   }
 }
