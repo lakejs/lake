@@ -24,7 +24,7 @@ const defaultOptions: OptionsType = {
   readonly: false,
   className: '',
   defaultValue: '<p><br /><focus /></p>',
-  spellcheck: 'false',
+  spellcheck: false,
   minChangeSize: 5,
 };
 
@@ -104,7 +104,7 @@ export class Core {
     container.attr({
       class: containerClassName,
       contenteditable: this.readonly ? 'false' : 'true',
-      spellcheck: this.options.spellcheck,
+      spellcheck: this.options.spellcheck ? 'true' : 'false',
     });
     if (this.options.className !== '') {
       container.addClass(this.options.className);
