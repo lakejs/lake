@@ -255,28 +255,26 @@ export class Range {
 
   // Relocates the start and end points of the range.
   public adapt(): void {
-    if (!this.isCollapsed) {
-      const startBoxNode = this.startNode.closest('lake-box');
-      if (startBoxNode.length > 0) {
-        const startRange = this.clone();
-        startRange.collapseToStart();
-        if (startRange.isBoxLeft) {
-          this.setStartBefore(startBoxNode);
-        }
-        if (startRange.isBoxRight) {
-          this.setStartAfter(startBoxNode);
-        }
+    const startBoxNode = this.startNode.closest('lake-box');
+    if (startBoxNode.length > 0) {
+      const startRange = this.clone();
+      startRange.collapseToStart();
+      if (startRange.isBoxLeft) {
+        this.setStartBefore(startBoxNode);
       }
-      const endBoxNode = this.endNode.closest('lake-box');
-      if (endBoxNode.length > 0) {
-        const endRange = this.clone();
-        endRange.collapseToEnd();
-        if (endRange.isBoxLeft) {
-          this.setEndBefore(endBoxNode);
-        }
-        if (endRange.isBoxRight) {
-          this.setEndAfter(endBoxNode);
-        }
+      if (startRange.isBoxRight) {
+        this.setStartAfter(startBoxNode);
+      }
+    }
+    const endBoxNode = this.endNode.closest('lake-box');
+    if (endBoxNode.length > 0) {
+      const endRange = this.clone();
+      endRange.collapseToEnd();
+      if (endRange.isBoxLeft) {
+        this.setEndBefore(endBoxNode);
+      }
+      if (endRange.isBoxRight) {
+        this.setEndAfter(endBoxNode);
       }
     }
     // <p>foo</p>|<p>bar</p>

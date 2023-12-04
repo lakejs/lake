@@ -12,7 +12,6 @@ export default (editor: Editor) => {
     event.preventDefault();
     const selection = editor.selection;
     const range = selection.range;
-    range.adapt();
     if (range.isBoxLeft) {
       const boxNode = range.startNode.closest('lake-box');
       const prevBlock = query('<p><br /></p>');
@@ -30,6 +29,7 @@ export default (editor: Editor) => {
       editor.select();
       return;
     }
+    range.adapt();
     let block = range.getBlocks()[0];
     if (!block) {
       editor.selection.setBlocks('<p />');

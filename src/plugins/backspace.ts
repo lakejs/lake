@@ -23,7 +23,6 @@ export default (editor: Editor) => {
   editor.keystroke.setKeydown('backspace', event => {
     const selection = editor.selection;
     const range = selection.range;
-    range.adapt();
     if (!range.isCollapsed) {
       selection.deleteContents();
       editor.selection.fixList();
@@ -58,6 +57,7 @@ export default (editor: Editor) => {
       editor.select();
       return;
     }
+    range.adapt();
     const leftText = range.getLeftText();
     if (leftText === '') {
       event.preventDefault();
