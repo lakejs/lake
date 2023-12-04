@@ -60,14 +60,26 @@ export class Box {
     return this.node.find('.lake-box-container');
   }
 
+  private renderBody(): void {
+    let container: Nodes;
+    if (this.container.length === 0) {
+      this.node.html(bodyTemplate);
+      container = this.container;
+    } else {
+      container = this.container;
+      container.off('mouseenter');
+      container.off('mouseleave');
+    }
+    container.on('mouseenter', () => container.addClass('lake-box-hovered'));
+    container.on('mouseleave', () => container.removeClass('lake-box-hovered'));
+  }
+
   public render(): void {
     const def = boxes.get(this.name);
     if (def === undefined) {
       return;
     }
-    if (this.container.length === 0) {
-      this.node.html(bodyTemplate);
-    }
+    this.renderBody();
     const content = def.render(this.value);
     this.container.html(content);
   }
