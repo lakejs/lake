@@ -45,6 +45,8 @@ export class Core {
 
   private clickListener: EventListener;
 
+  private mouseoverListener: EventListener;
+
   public container: Nodes;
 
   public readonly: boolean;
@@ -78,6 +80,7 @@ export class Core {
     this.box = Core.box;
 
     this.unsavedInputData = '';
+
     this.selectionListener = () => {
       this.selection.syncByRange();
     };
@@ -88,6 +91,10 @@ export class Core {
         return;
       }
       this.event.emit('click:inside', targetNode);
+    };
+    this.mouseoverListener = event => {
+      const targetNode = new Nodes(event.target as Element);
+      this.event.emit('mouseover', targetNode);
     };
   }
 
@@ -276,6 +283,7 @@ export class Core {
       this.bindBoxEvents();
     }
     document.addEventListener('click', this.clickListener);
+    document.addEventListener('mouseover', this.mouseoverListener);
     this.event.emit('create');
   }
 
@@ -286,6 +294,7 @@ export class Core {
       document.removeEventListener('selectionchange', this.selectionListener);
     }
     document.removeEventListener('click', this.clickListener);
+    document.removeEventListener('mouseover', this.mouseoverListener);
     this.event.emit('remove');
   }
 }
