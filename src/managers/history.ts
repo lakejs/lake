@@ -57,7 +57,7 @@ export class History {
     });
   }
 
-  private merge(sourceContainer: Nodes): void {
+  private merge(item: Nodes): void {
     const options = {
       onBeforeElChildrenUpdated: (fromElement: NativeElement, toElement: NativeElement) => {
         if (fromElement.nodeName.toLowerCase() === 'lake-box') {
@@ -70,7 +70,7 @@ export class History {
       },
       childrenOnly: true,
     };
-    morphdom(this.container.get(0), sourceContainer.clone(true).get(0), options);
+    morphdom(this.container.get(0), item.clone(true).get(0), options);
     this.renderBoxes();
   }
 
@@ -88,20 +88,20 @@ export class History {
     }
     this.selection.insertBookmark();
     const value = this.getValue(this.container);
-    let sourceContainer = null;
+    let item = null;
     while (this.index > 0) {
-      const item = this.list[this.index - 1];
-      if (!item) {
+      const prevItem = this.list[this.index - 1];
+      if (!prevItem) {
         break;
       }
       this.index--;
-      if (this.getValue(item) !== value) {
-        sourceContainer = item;
+      if (this.getValue(prevItem) !== value) {
+        item = prevItem;
         break;
       }
     }
-    if (sourceContainer) {
-      this.merge(sourceContainer);
+    if (item) {
+      this.merge(item);
     }
     this.selection.synByBookmark();
   }
@@ -112,20 +112,20 @@ export class History {
     }
     this.selection.insertBookmark();
     const value = this.getValue(this.container);
-    let sourceContainer = null;
+    let item = null;
     while (this.index < this.list.length) {
-      const item = this.list[this.index];
-      if (!item) {
+      const nextItem = this.list[this.index];
+      if (!nextItem) {
         break;
       }
       this.index++;
-      if (this.getValue(item) !== value) {
-        sourceContainer = item;
+      if (this.getValue(nextItem) !== value) {
+        item = nextItem;
         break;
       }
     }
-    if (sourceContainer) {
-      this.merge(sourceContainer);
+    if (item) {
+      this.merge(item);
     }
     this.selection.synByBookmark();
   }

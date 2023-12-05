@@ -9,12 +9,14 @@ export function insertBox(range: Range, boxName: string): void {
   range.adapt();
   const fragment = document.createDocumentFragment();
   fragment.appendChild(box.node.get(0));
+  // inline box
   if (box.type === 'inline') {
     insertFragment(range, fragment);
     box.render();
     range.selectBoxRight(box.node);
     return;
   }
+  // block box
   const parts = splitBlock(range);
   if (parts.left) {
     range.setEndAfter(parts.left);
