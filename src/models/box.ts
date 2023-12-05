@@ -1,3 +1,4 @@
+import morphdom from 'morphdom';
 import { NativeNode } from '../types/native';
 import { BoxType, BoxValue } from '../types/box';
 import { boxes } from '../storage/boxes';
@@ -5,7 +6,7 @@ import { encode } from '../utils/encode';
 import { query } from '../utils/query';
 import { Nodes } from './nodes';
 
-const bodyTemplate = `
+const structure = `
   <span class="lake-box-strip"><br /></span>
     <div class="lake-box-container" contenteditable="false"></div>
   <span class="lake-box-strip"><br /></span>
@@ -29,21 +30,32 @@ export class Box {
       }
     } else {
       this.node = query(node);
+      const def = boxes.get(this.name);
+      if (def === undefined) {
+        throw new Error(`Box '${this.name}' has not been defined yet.`);
+      }
+      if (def.value && !this.node.hasAttr('value')) {
+        this.value = def.value;
+      }
     }
   }
 
+  // Returns the type of the box.
   public get type(): BoxType {
     return this.node.attr('type') as BoxType;
   }
 
+  // Updates the type of the box.
   public set type(type: BoxType) {
     this.node.attr('type', type);
   }
 
+  // Returns the name of the box.
   public get name(): string {
     return this.node.attr('name');
   }
 
+  // Returns the value of the box.
   public get value(): BoxValue {
     const value = this.node.attr('value');
     if (value === '') {
@@ -52,21 +64,23 @@ export class Box {
     return JSON.parse(atob(value));
   }
 
+  // Updates the value of the box.
   public set value(value: BoxValue) {
     this.node.attr('value', btoa(JSON.stringify(value)));
   }
 
-  public get container(): Nodes {
+  // Returns the container node of the box.
+  public getContainer(): Nodes {
     return this.node.find('.lake-box-container');
   }
 
-  private renderBody(): void {
-    let container: Nodes;
-    if (this.container.length === 0) {
-      this.node.html(bodyTemplate);
-      container = this.container;
+  // Renders the structure of the box.
+  private renderStructure(): void {
+    let container = this.getContainer();
+    if (container.length === 0) {
+      this.node.html(structure);
+      container = this.getContainer();
     } else {
-      container = this.container;
       container.off('mouseenter');
       container.off('mouseleave');
     }
@@ -74,13 +88,33 @@ export class Box {
     container.on('mouseleave', () => container.removeClass('lake-box-hovered'));
   }
 
+  // Renders the contents of the box.
   public render(): void {
     const def = boxes.get(this.name);
     if (def === undefined) {
       return;
     }
-    this.renderBody();
+    this.renderStructure();
     const content = def.render(this.value);
-    this.container.html(content);
+    this.getContainer().html(content);
+  }
+
+  // Updates the value of the box and refreshes the container of the box.
+  public update(value: BoxValue): void {
+    const def = boxes.get(this.name);
+    if (def === undefined) {
+      return;
+    }
+    const content = def.render(value);
+    this.value = value;
+    const container = this.getContainer();
+    const newContainer = container.clone(false);
+    newContainer.html(content);
+    morphdom(container.get(0), newContainer.get(0));
+  }
+
+  // Removes the box.
+  public remove(): void {
+    this.node.remove();
   }
 }

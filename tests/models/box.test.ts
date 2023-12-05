@@ -9,6 +9,14 @@ describe('models / box', () => {
   let container: Nodes;
 
   beforeEach(() => {
+    boxes.set('inlineBox', {
+      type: 'inline',
+      name: 'inlineBox',
+      value: {
+        url: 'http://foo.com',
+      },
+      render: value => `<img src="${value?.url}" />`,
+    });
     boxes.set('blockBox', {
       type: 'block',
       name: 'blockBox',
@@ -19,6 +27,7 @@ describe('models / box', () => {
   });
 
   afterEach(() => {
+    boxes.delete('inlineBox');
     boxes.delete('blockBox');
     container.remove();
   });
@@ -62,6 +71,27 @@ describe('models / box', () => {
     const box = new Box(container.find('lake-box'));
     box.render();
     expect(container.find('lake-box').children().length).to.equal(3);
+  });
+
+  it('method: update', () => {
+    container.html('<lake-box type="inline" name="inlineBox"></lake-box>');
+    const box = new Box(container.find('lake-box'));
+    box.render();
+    expect(box.value.url).to.equal('http://foo.com');
+    expect(container.find('img').attr('src')).to.equal('http://foo.com');
+    box.update({
+      url: 'http://bar.com',
+    });
+    expect(box.value.url).to.equal('http://bar.com');
+    expect(container.find('img').attr('src')).to.equal('http://bar.com');
+  });
+
+  it('method: remove', () => {
+    container.html('<p>foo</p><lake-box type="block" name="blockBox"></lake-box>');
+    const box = new Box(container.find('lake-box'));
+    box.render();
+    box.remove();
+    expect(container.html()).to.equal('<p>foo</p>');
   });
 
 });
