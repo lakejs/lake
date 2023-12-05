@@ -1,7 +1,6 @@
 import { TwoParts } from '../types/object';
 import { query, splitNodes, appendDeepest } from '../utils';
 import { Range } from '../models/range';
-import { deleteContents } from './delete-contents';
 import { fixList } from './fix-list';
 
 // Removes the contents of the specified range and then splits the block node at the point of the collapsed range.
@@ -17,7 +16,9 @@ export function splitBlock(range: Range): TwoParts {
     };
   }
   if (!range.isCollapsed) {
-    deleteContents(range);
+    range.adapt();
+    const nativeRange = range.get();
+    nativeRange.deleteContents();
   }
   const node = range.startNode;
   const closestBlock = node.closestOperableBlock();
