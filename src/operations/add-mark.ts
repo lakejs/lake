@@ -64,6 +64,17 @@ export function addMark(range: Range, value: string | Nodes): void {
   const styleValue = valueNode.attr('style');
   const cssProperties = parseStyle(styleValue);
   if (range.isCollapsed) {
+    if (range.isBoxLeft) {
+      const boxNode = range.startNode.closest('lake-box');
+      const prevBlock = query('<p><br /></p>');
+      boxNode.before(prevBlock);
+      range.shrinkAfter(prevBlock);
+    } else if (range.isBoxRight) {
+      const boxNode = range.startNode.closest('lake-box');
+      const nextBlock = query('<p><br /></p>');
+      boxNode.after(nextBlock);
+      range.shrinkAfter(nextBlock);
+    }
     const block = range.startNode.closestBlock();
     removeBr(block);
     // https://en.wikipedia.org/wiki/Zero-width_space
