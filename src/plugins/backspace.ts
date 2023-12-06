@@ -1,23 +1,9 @@
 import type Editor from '..';
-import { mergeNodes, query } from '../utils';
+import { mergeNodes } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
-
-function removeBox(range: Range, boxNode?: Nodes): void {
-  boxNode = boxNode ?? range.startNode.closest('lake-box');
-  const type = boxNode.attr('type');
-  if (type === 'block') {
-    const paragraph = query('<p><br /></p>');
-    boxNode.before(paragraph);
-    range.shrinkAfter(paragraph);
-    boxNode.remove();
-    return;
-  }
-  range.setStartBefore(boxNode);
-  range.collapseToStart();
-  boxNode.remove();
-}
+import { removeBox } from '../operations/remove-box';
 
 function mergeBlocks(editor: Editor, block: Nodes): void {
   const selection = editor.selection;
