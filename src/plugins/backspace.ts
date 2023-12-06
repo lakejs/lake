@@ -19,15 +19,50 @@ function removeBox(range: Range, boxNode?: Nodes): void {
   boxNode.remove();
 }
 
+function mergeBlocks(editor: Editor, block: Nodes): void {
+  const selection = editor.selection;
+  const range = selection.range;
+  let prevBlock = block.prev();
+  if (prevBlock.length === 0) {
+    if (block.name !== 'p') {
+      editor.selection.setBlocks('<p />');
+    }
+    editor.history.save();
+    editor.select();
+    return;
+  }
+  if (prevBlock.isBox) {
+    if (block.isEmpty) {
+      block.remove();
+    }
+    range.selectBoxRight(prevBlock);
+    editor.history.save();
+    editor.select();
+    return;
+  }
+  if (!prevBlock.isBlock) {
+    const prevRange = new Range();
+    prevRange.selectNodeContents(prevBlock);
+    setBlocks(prevRange, '<p />');
+    prevBlock = prevBlock.closestBlock();
+  }
+  const bookmark = selection.insertBookmark();
+  mergeNodes(prevBlock, block);
+  selection.toBookmark(bookmark);
+  editor.selection.fixList();
+  editor.history.save();
+  editor.select();
+}
+
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('backspace', event => {
     const selection = editor.selection;
     const range = selection.range;
     if (!range.isCollapsed) {
+      event.preventDefault();
       selection.deleteContents();
-      editor.selection.fixList();
-      editor.history.save();
-      editor.select();
+      const block = range.getBlocks()[0];
+      mergeBlocks(editor, block);
       return;
     }
     if (range.isBoxLeft) {
@@ -66,36 +101,7 @@ export default (editor: Editor) => {
         editor.selection.setBlocks('<p />');
         block = range.getBlocks()[0];
       }
-      let prevBlock = block.prev();
-      if (prevBlock.length === 0) {
-        if (block.name !== 'p') {
-          editor.selection.setBlocks('<p />');
-        }
-        editor.history.save();
-        editor.select();
-        return;
-      }
-      if (prevBlock.isBox) {
-        if (block.isEmpty) {
-          block.remove();
-        }
-        range.selectBoxRight(prevBlock);
-        editor.history.save();
-        editor.select();
-        return;
-      }
-      if (!prevBlock.isBlock) {
-        const prevRange = new Range();
-        prevRange.selectNodeContents(prevBlock);
-        setBlocks(prevRange, '<p />');
-        prevBlock = prevBlock.closestBlock();
-      }
-      const bookmark = selection.insertBookmark();
-      mergeNodes(prevBlock, block);
-      selection.toBookmark(bookmark);
-      editor.selection.fixList();
-      editor.history.save();
-      editor.select();
+      mergeBlocks(editor, block);
     }
   });
 };

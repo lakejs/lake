@@ -19,7 +19,7 @@ describe('plugin / backspace', () => {
     );
   });
 
-  it('paragraph', () => {
+  it('empty paragraph', () => {
     const content = `
     <p><br /><focus /></p>
     `;
@@ -93,6 +93,23 @@ describe('plugin / backspace', () => {
     `;
     const output = `
     <h1>foo<focus /></h1>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should delete contents and merge two blocks', () => {
+    const content = `
+    <p>fo<anchor />o</p>
+    <p>b<focus />ar</p>
+    `;
+    const output = `
+    <p>fo<focus />ar</p>
     `;
     testPlugin(
       content,
