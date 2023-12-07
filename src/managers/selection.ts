@@ -16,6 +16,7 @@ import { addMark } from '../operations/add-mark';
 import { removeMark } from '../operations/remove-mark';
 import { fixList } from '../operations/fix-list';
 import { insertBox } from '../operations/insert-box';
+import { removeBox } from '../operations/remove-box';
 
 type AppliedTagMapType = {
   node: Nodes,
@@ -206,4 +207,7 @@ export class Selection {
     return insertBox(this.range, box);
   }
 
+  public removeBox(): ReturnType<typeof removeBox> {
+    return removeBox(this.range);
+  }
 }

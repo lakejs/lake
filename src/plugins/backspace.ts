@@ -3,11 +3,9 @@ import { mergeNodes } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
-import { removeBox } from '../operations/remove-box';
 
 function mergeBlocks(editor: Editor, block: Nodes): void {
-  const selection = editor.selection;
-  const range = selection.range;
+  const range = editor.selection.range;
   let prevBlock = block.prev();
   if (prevBlock.length === 0) {
     if (block.name !== 'p') {
@@ -32,9 +30,9 @@ function mergeBlocks(editor: Editor, block: Nodes): void {
     setBlocks(prevRange, '<p />');
     prevBlock = prevBlock.closestBlock();
   }
-  const bookmark = selection.insertBookmark();
+  const bookmark = editor.selection.insertBookmark();
   mergeNodes(prevBlock, block);
-  selection.toBookmark(bookmark);
+  editor.selection.toBookmark(bookmark);
   editor.selection.fixList();
   editor.history.save();
   editor.select();
@@ -42,11 +40,10 @@ function mergeBlocks(editor: Editor, block: Nodes): void {
 
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('backspace', event => {
-    const selection = editor.selection;
-    const range = selection.range;
+    const range = editor.selection.range;
     if (!range.isCollapsed) {
       event.preventDefault();
-      selection.deleteContents();
+      editor.selection.deleteContents();
       const block = range.getBlocks()[0];
       mergeBlocks(editor, block);
       return;
@@ -73,7 +70,7 @@ export default (editor: Editor) => {
     }
     if (range.isBoxRight) {
       event.preventDefault();
-      removeBox(range);
+      editor.selection.removeBox();
       editor.history.save();
       editor.select();
       return;
