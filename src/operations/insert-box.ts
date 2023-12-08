@@ -6,7 +6,6 @@ import { splitBlock } from './split-block';
 // Inserts a box into the specified range.
 export function insertBox(range: Range, boxName: string): void {
   const box = new Box(boxName);
-  range.adapt();
   const fragment = document.createDocumentFragment();
   fragment.appendChild(box.node.get(0));
   // inline box

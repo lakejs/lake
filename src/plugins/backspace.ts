@@ -30,7 +30,6 @@ export default (editor: Editor) => {
         editor.select();
         return;
       }
-      range.adapt();
       return;
     }
     if (range.isBoxRight) {

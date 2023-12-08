@@ -9,10 +9,10 @@ export function deleteContents(range: Range): void {
   if (range.commonAncestor.isOutside) {
     return;
   }
-  range.adapt();
+  range.adaptBox();
   const nativeRange = range.get();
   nativeRange.deleteContents();
-  range.adapt();
+  range.adaptBlock();
   const block = range.getBlocks()[0];
   if (!block) {
     return;
