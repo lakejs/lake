@@ -8,10 +8,13 @@ export function insertFragment(range: Range, fragment: DocumentFragment): void {
   if (range.commonAncestor.isOutside) {
     return;
   }
-  if (!range.isCollapsed) {
+  if (range.isCollapsed) {
+    range.adaptBox();
+  } else {
     deleteContents(range);
   }
   const bookmark = insertBookmark(range);
   bookmark.focus.before(fragment);
   toBookmark(range, bookmark);
+  range.adaptBlock();
 }

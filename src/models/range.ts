@@ -253,8 +253,8 @@ export class Range {
     }
   }
 
-  // Relocates the start and end points of the range.
-  public adapt(): void {
+  // Relocates the start and end points of the range for the box.
+  public adaptBox(): void {
     const startBoxNode = this.startNode.closest('lake-box');
     if (startBoxNode.length > 0) {
       const startRange = this.clone();
@@ -277,15 +277,25 @@ export class Range {
         this.setEndAfter(endBoxNode);
       }
     }
-    // <p>foo</p>|<p>bar</p>
-    // to
-    // <p>foo</p><p>|bar</p>
+  }
+
+  // Relocates the start point of the range for the block.
+  // <p>foo</p>|<p>bar</p>
+  // to
+  // <p>foo</p><p>|bar</p>
+  public adaptBlock(): void {
     if (this.isCollapsed && this.startNode.isElement) {
       const nextBlock = this.startNode.children()[this.startOffset];
       if (nextBlock && (nextBlock.isBox || nextBlock.isBlock)) {
         this.shrinkBefore(nextBlock);
       }
     }
+  }
+
+  // Relocates the start and end points of the range.
+  public adapt(): void {
+    this.adaptBox();
+    this.adaptBlock();
   }
 
   // Returns target blocks relating to the range.

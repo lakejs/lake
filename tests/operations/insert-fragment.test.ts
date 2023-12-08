@@ -1,10 +1,30 @@
+import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
 import { query } from '../../src/utils';
+import { Box } from '../../src/models/box';
 import { insertFragment } from '../../src/operations/insert-fragment';
 
 describe('operations / insert-fragment', () => {
 
-  it('inserts a DocumentFragment object', () => {
+  beforeEach(() => {
+    boxes.set('inlineBox', {
+      type: 'inline',
+      name: 'inlineBox',
+      render: () => '<img />',
+    });
+    boxes.set('blockBox', {
+      type: 'block',
+      name: 'blockBox',
+      render: () => '<hr />',
+    });
+  });
+
+  afterEach(() => {
+    boxes.delete('inlineBox');
+    boxes.delete('blockBox');
+  });
+
+  it('inserts a fragment when no text is selected', () => {
     const content = `
     <strong>foo<focus /></strong>bar
     `;
@@ -23,7 +43,7 @@ describe('operations / insert-fragment', () => {
     );
   });
 
-  it('inserts a DocumentFragment object while the text is selected', () => {
+  it('inserts a fragment after seleting text', () => {
     const content = `
     <strong><anchor />foo<focus /></strong>bar
     `;
@@ -37,6 +57,32 @@ describe('operations / insert-fragment', () => {
         const fragment = document.createDocumentFragment();
         fragment.appendChild(query('<i>italic</i>').get(0));
         fragment.appendChild(document.createTextNode('text'));
+        insertFragment(range, fragment);
+      },
+    );
+  });
+
+  it('the cursor is at the left of the box', () => {
+    const content = `
+    <lake-box type="block" name="blockBox"></lake-box>
+    <p><focus />foo</p>
+    `;
+    const output = `
+    <p>bar</p>
+    <lake-box type="block" name="blockBox"></lake-box>
+    <p>foo</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        const container = range.startNode.closestContainer();
+        const boxNode = container.find('lake-box');
+        const box = new Box(boxNode);
+        box.render();
+        range.selectBoxLeft(boxNode);
+        const fragment = document.createDocumentFragment();
+        fragment.appendChild(query('<p>bar</p>').get(0));
         insertFragment(range, fragment);
       },
     );

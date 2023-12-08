@@ -410,7 +410,76 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('adapt method: should not move', () => {
+  it('adaptBox method: should move out to the left side of the box', () => {
+    setTestBox(container);
+    container.prepend('<p>foo</p>');
+    container.append('<p>bar</p>');
+    const range = new Range();
+    range.setStartAfter(container.find('br').eq(0));
+    range.collapseToStart();
+    range.adaptBox();
+    expect(range.startNode.name).to.equal('div');
+    expect(range.endNode.name).to.equal('div');
+    expect(range.startOffset).to.equal(1);
+    expect(range.endOffset).to.equal(1);
+    expect(range.isCollapsed).to.equal(true);
+  });
+
+  it('adaptBox method: should move out to the right side of the box', () => {
+    setTestBox(container);
+    container.prepend('<p>foo</p>');
+    container.append('<p>bar</p>');
+    const range = new Range();
+    range.setStartAfter(container.find('br').eq(1));
+    range.collapseToStart();
+    range.adaptBox();
+    expect(range.startNode.name).to.equal('div');
+    expect(range.endNode.name).to.equal('div');
+    expect(range.startOffset).to.equal(2);
+    expect(range.endOffset).to.equal(2);
+    expect(range.isCollapsed).to.equal(true);
+  });
+
+  it('adaptBox method: should move out to either side of the box', () => {
+    setTestBox(container);
+    container.prepend('<p>foo</p>');
+    container.append('<p>bar</p>');
+    const range = new Range();
+    range.setStartAfter(container.find('br').eq(0));
+    range.setEndAfter(container.find('br').eq(1));
+    range.adaptBox();
+    expect(range.startNode.name).to.equal('div');
+    expect(range.endNode.name).to.equal('div');
+    expect(range.startOffset).to.equal(1);
+    expect(range.endOffset).to.equal(2);
+    expect(range.isCollapsed).to.equal(false);
+  });
+
+  it('adaptBlock method: should move into next paragraph', () => {
+    container.prepend('<p>foo</p>');
+    container.append('<p>bar</p>');
+    const range = new Range();
+    range.setStartAfter(container.find('p').eq(0));
+    range.collapseToStart();
+    range.adaptBlock();
+    expect(range.startNode.name).to.equal('p');
+    expect(range.startNode.text()).to.equal('bar');
+    expect(range.startOffset).to.equal(0);
+    expect(range.isCollapsed).to.equal(true);
+  });
+
+  it('adaptBlock method: should move into next box', () => {
+    setTestBox(container);
+    container.prepend('<p>foo</p>');
+    container.append('<p>bar</p>');
+    const range = new Range();
+    range.setStartAfter(container.find('p').eq(0));
+    range.collapseToStart();
+    range.adaptBlock();
+    expect(range.isBoxLeft).to.equal(true);
+  });
+
+  it('method: adapt', () => {
     setTestBox(container);
     container.prepend('<p>foo</p>');
     container.append('<p>bar</p>');
@@ -421,45 +490,6 @@ describe('models / range', () => {
     expect(range.startNode.name).to.equal('span');
     expect(range.startOffset).to.equal(1);
     expect(range.isCollapsed).to.equal(true);
-  });
-
-  it('adapt method: should move out to both sides of the box', () => {
-    setTestBox(container);
-    container.prepend('<p>foo</p>');
-    container.append('<p>bar</p>');
-    const range = new Range();
-    range.setStartAfter(container.find('br').eq(0));
-    range.setEndAfter(container.find('br').eq(1));
-    range.adapt();
-    expect(range.startNode.name).to.equal('div');
-    expect(range.endNode.name).to.equal('div');
-    expect(range.startOffset).to.equal(1);
-    expect(range.endOffset).to.equal(2);
-    expect(range.isCollapsed).to.equal(false);
-  });
-
-  it('adapt method: should move to next paragraph', () => {
-    container.prepend('<p>foo</p>');
-    container.append('<p>bar</p>');
-    const range = new Range();
-    range.setStartAfter(container.find('p').eq(0));
-    range.collapseToStart();
-    range.adapt();
-    expect(range.startNode.name).to.equal('p');
-    expect(range.startNode.text()).to.equal('bar');
-    expect(range.startOffset).to.equal(0);
-    expect(range.isCollapsed).to.equal(true);
-  });
-
-  it('adapt method: should move to next box', () => {
-    setTestBox(container);
-    container.prepend('<p>foo</p>');
-    container.append('<p>bar</p>');
-    const range = new Range();
-    range.setStartAfter(container.find('p').eq(0));
-    range.collapseToStart();
-    range.adapt();
-    expect(range.isBoxLeft).to.equal(true);
   });
 
   it('getBlocks method: no text is selected', () => {
