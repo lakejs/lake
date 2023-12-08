@@ -14,11 +14,14 @@ export default (editor: Editor) => {
       return;
     }
     if (range.isBoxLeft) {
-      event.preventDefault();
       const boxNode = range.startNode.closest('lake-box');
       const prevNode = boxNode.prev();
+      if (prevNode.length === 0) {
+        return;
+      }
       if (prevNode.isBlock) {
         if (prevNode.isEmpty) {
+          event.preventDefault();
           prevNode.remove();
           editor.selection.fixList();
           editor.history.save();
@@ -26,10 +29,9 @@ export default (editor: Editor) => {
           return;
         }
         range.shrinkAfter(prevNode);
-        editor.history.save();
-        editor.select();
         return;
       }
+      range.adaptBox();
       return;
     }
     if (range.isBoxRight) {
