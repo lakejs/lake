@@ -32,46 +32,46 @@ function getAfterPoint(node: Nodes): { node: Nodes, offset: number } {
 // <p>|<strong><i>bar</i></strong></p>
 // to
 // <p><strong><i>foo|bar</i></strong></p>
-export function mergeNodes(former: Nodes, latter: Nodes): { node: Nodes, offset: number } {
-  const originalLatter = latter;
-  if (['ul', 'ol'].indexOf(former.name) >= 0) {
-    const list = former.find('li');
-    former = list.eq(list.length - 1);
+export function mergeNodes(node: Nodes, otherNode: Nodes): { node: Nodes, offset: number } {
+  const originalOtherNode = otherNode;
+  if (['ul', 'ol'].indexOf(node.name) >= 0) {
+    const list = node.find('li');
+    node = list.eq(list.length - 1);
   }
-  if (['ul', 'ol'].indexOf(latter.name) >= 0) {
-    const list = latter.find('li');
-    latter = list.eq(0);
+  if (['ul', 'ol'].indexOf(otherNode.name) >= 0) {
+    const list = otherNode.find('li');
+    otherNode = list.eq(0);
   }
-  if (former.isText || latter.isText || former.isVoid || latter.isVoid) {
-    return getAfterPoint(former);
+  if (node.isText || otherNode.isText || node.isVoid || otherNode.isVoid) {
+    return getAfterPoint(node);
   }
-  removeBr(former);
-  removeBr(latter);
-  if (former.isBlock && former.isEmpty && latter.isEmpty) {
-    appendDeepest(former, query('<br />'));
+  removeBr(node);
+  removeBr(otherNode);
+  if (node.isBlock && node.isEmpty && otherNode.isEmpty) {
+    appendDeepest(node, query('<br />'));
   }
-  const wouldBeFormer = former.last();
-  const wouldBeLatter = latter.first();
-  let child = wouldBeLatter;
+  const nextNode = node.last();
+  const nextOtherNode = otherNode.first();
+  let child = nextOtherNode;
   while (child.length > 0) {
-    const nextNode = child.next();
-    former.append(child);
-    child = nextNode;
+    const next = child.next();
+    node.append(child);
+    child = next;
   }
-  originalLatter.remove();
+  originalOtherNode.remove();
   if (
-    wouldBeFormer.length > 0 &&
-    wouldBeLatter.length > 0 &&
-    wouldBeFormer.isElement &&
-    wouldBeFormer.clone(false).get(0).isEqualNode(wouldBeLatter.clone(false).get(0))
+    nextNode.length > 0 &&
+    nextOtherNode.length > 0 &&
+    nextNode.isElement &&
+    nextNode.clone(false).get(0).isEqualNode(nextOtherNode.clone(false).get(0))
   ) {
-    return mergeNodes(wouldBeFormer, wouldBeLatter);
+    return mergeNodes(nextNode, nextOtherNode);
   }
-  if (wouldBeFormer.length === 0) {
+  if (nextNode.length === 0) {
     return {
-      node: former,
+      node,
       offset: 0,
     };
   }
-  return getAfterPoint(wouldBeFormer);
+  return getAfterPoint(nextNode);
 }

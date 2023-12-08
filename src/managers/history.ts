@@ -57,7 +57,7 @@ export class History {
     });
   }
 
-  private merge(item: Nodes): void {
+  private merge(sourceItem: Nodes): void {
     const options = {
       onBeforeElChildrenUpdated: (fromElement: NativeElement, toElement: NativeElement) => {
         if (fromElement.nodeName.toLowerCase() === 'lake-box') {
@@ -70,7 +70,7 @@ export class History {
       },
       childrenOnly: true,
     };
-    morphdom(this.container.get(0), item.clone(true).get(0), options);
+    morphdom(this.container.get(0), sourceItem.clone(true).get(0), options);
     this.renderBoxes();
   }
 
