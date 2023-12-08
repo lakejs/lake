@@ -45,8 +45,7 @@ describe('operations / delete-contents', () => {
     <p>foo2<focus />bar2</p>
     `;
     const output = `
-    <p>foo1</p>
-    <p><focus />bar2</p>
+    <p>foo1<focus />bar2</p>
     `;
     testOperation(
       content,

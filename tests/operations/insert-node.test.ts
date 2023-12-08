@@ -25,7 +25,7 @@ describe('operations / insert-node', () => {
     <strong><anchor />foo<focus /></strong>bar
     `;
     const output = `
-    <strong><i>italic</i><focus /></strong>bar
+    <strong><i>italic</i><focus />foo</strong>bar
     `;
     testOperation(
       content,
@@ -36,7 +36,7 @@ describe('operations / insert-node', () => {
     );
   });
 
-  it('inserts a nodes when no text is selected', () => {
+  it('inserts a node when no text is selected', () => {
     const content = `
     <strong>foo<focus /></strong>bar
     `;
@@ -52,12 +52,30 @@ describe('operations / insert-node', () => {
     );
   });
 
-  it('inserts a nodes when text is selected', () => {
+  it('inserts a node when text is selected', () => {
     const content = `
     <strong><anchor />foo<focus /></strong>bar
     `;
     const output = `
-    <strong><i>italic</i><focus /></strong>bar
+    <strong><i>italic</i><focus />foo</strong>bar
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertNode(range, query('<i>italic</i>'));
+      },
+    );
+  });
+
+  it('inserts a node after selecting the contents of two blocks', () => {
+    const content = `
+    <p><anchor />foo</p>
+    <p>bar<focus /></p>
+    `;
+    const output = `
+    <p><i>italic</i><focus />foo</p>
+    <p>bar</p>
     `;
     testOperation(
       content,
