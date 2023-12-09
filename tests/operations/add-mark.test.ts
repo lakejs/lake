@@ -440,7 +440,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('add marks after selecting content with box', () => {
+  it('adds marks after selecting content with box', () => {
     const content = `
     <p><focus />foo</p>
     <lake-box type="block" name="blockBox"></lake-box>
