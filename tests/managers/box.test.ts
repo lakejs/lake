@@ -33,7 +33,7 @@ describe('managers / box', () => {
     box.renderAll(editor);
     editor.remove();
     boxes.delete('managerTest');
-    expect(editor.container.find('lake-box').children().length).to.equal(3);
+    expect(box.getNodeList(editor)[0].children().length).to.equal(3);
   });
 
 });

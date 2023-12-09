@@ -13,7 +13,7 @@ export class BoxManager {
     return Array.from(boxes.keys());
   }
 
-  public getAllNodeList(editor: Core): Nodes[] {
+  public getNodeList(editor: Core): Nodes[] {
     const nodeList: Nodes[] = [];
     editor.container.find('lake-box').each(node => {
       nodeList.push(new Nodes(node));
@@ -22,7 +22,7 @@ export class BoxManager {
   }
 
   public renderAll(editor: Core) {
-    const boxNodeList = this.getAllNodeList(editor);
+    const boxNodeList = this.getNodeList(editor);
     for (const boxNode of boxNodeList) {
       new Box(boxNode).render();
     }

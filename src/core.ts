@@ -186,7 +186,7 @@ export class Core {
         const targetBox = new Box(targetBoxNode);
         targetBox.getContainer().addClass('lake-box-focused');
       }
-      const boxNodeList = this.box.getAllNodeList(this);
+      const boxNodeList = this.box.getNodeList(this);
       for (const boxNode of boxNodeList) {
         if (boxNode.get(0) !== targetBoxNode.get(0)) {
           const box = new Box(boxNode);
@@ -195,7 +195,7 @@ export class Core {
       }
     });
     this.event.on('click:outside', () => {
-      const boxNodeList = this.box.getAllNodeList(this);
+      const boxNodeList = this.box.getNodeList(this);
       for (const boxNode of boxNodeList) {
         const box = new Box(boxNode);
         box.getContainer().removeClass('lake-box-focused');
