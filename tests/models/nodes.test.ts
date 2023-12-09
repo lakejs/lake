@@ -314,16 +314,17 @@ describe('models / nodes', () => {
 
   it('method: getWalker', () => {
     const node = new Nodes(element);
-    node.html('<p>foo<strong>bold</strong></p><p><i>itelic</i>bar</p>');
+    node.html('<p>foo<strong>bold</strong></p><lake-box><div class="lake-box-container">box</div></lake-box><p><i>itelic</i>bar</p>');
     const childList: Nodes[] = [];
     for (const child of node.getWalker()) {
       childList.push(child);
     }
-    expect(childList.length).to.equal(8);
+    expect(childList.length).to.equal(9);
     expect(childList[0].name).to.equal('p');
     expect(childList[2].name).to.equal('strong');
-    expect(childList[4].name).to.equal('p');
-    expect(childList[5].name).to.equal('i');
+    expect(childList[4].name).to.equal('lake-box');
+    expect(childList[5].name).to.equal('p');
+    expect(childList[6].name).to.equal('i');
   });
 
   it('event methods: an event', () => {

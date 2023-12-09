@@ -355,6 +355,9 @@ export class Nodes {
   // Returns a node generator that iterates over the descendants of the first element.
   public * getWalker(): Generator<Nodes> {
     function * iterate(node: Nodes): Generator<Nodes> {
+      if (node.isBox) {
+        return;
+      }
       let child = node.first();
       while (child.length > 0) {
         const nextNode = child.next();
