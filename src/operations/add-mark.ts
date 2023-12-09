@@ -1,6 +1,7 @@
 import { parseStyle, query, appendDeepest, removeBr } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
+import { Box } from '../models/box';
 import { splitMarks } from './split-marks';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
@@ -64,16 +65,20 @@ export function addMark(range: Range, value: string | Nodes): void {
   const styleValue = valueNode.attr('style');
   const cssProperties = parseStyle(styleValue);
   if (range.isCollapsed) {
-    if (range.isBoxLeft) {
-      const boxNode = range.startNode.closest('lake-box');
-      const prevBlock = query('<p><br /></p>');
-      boxNode.before(prevBlock);
-      range.shrinkAfter(prevBlock);
-    } else if (range.isBoxRight) {
-      const boxNode = range.startNode.closest('lake-box');
-      const nextBlock = query('<p><br /></p>');
-      boxNode.after(nextBlock);
-      range.shrinkAfter(nextBlock);
+    const boxNode = range.startNode.closest('lake-box');
+    if (boxNode.length > 0) {
+      const box = new Box(boxNode);
+      if (box.type === 'block') {
+        const newBlock = query('<p><br /></p>');
+        if (range.isBoxLeft) {
+          boxNode.before(newBlock);
+        } else {
+          boxNode.after(newBlock);
+        }
+        range.shrinkAfter(newBlock);
+      } else {
+        range.adaptBox();
+      }
     }
     const block = range.startNode.closestBlock();
     removeBr(block);
@@ -100,6 +105,7 @@ export function addMark(range: Range, value: string | Nodes): void {
     range.shrinkAfter(valueNode);
     return;
   }
+  range.adaptBox();
   splitMarks(range);
   const nodeList = range.getMarks(true);
   const bookmark = insertBookmark(range);

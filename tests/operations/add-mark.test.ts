@@ -345,7 +345,53 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('the cursor is at the left of the box', () => {
+  it('the cursor is at the left of the inline box', () => {
+    const content = `
+    <p><lake-box type="inline" name="inlineBox"></lake-box></p>
+    <p><focus />foo</p>
+    `;
+    const output = `
+    <p><strong>\u200B<focus /></strong><lake-box type="inline" name="inlineBox"></lake-box></p>
+    <p>foo</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        const container = range.startNode.closestContainer();
+        const boxNode = container.find('lake-box');
+        const box = new Box(boxNode);
+        box.render();
+        range.selectBoxLeft(boxNode);
+        addMark(range, '<strong />');
+      },
+    );
+  });
+
+  it('the cursor is at the right of the inline box', () => {
+    const content = `
+    <p><lake-box type="inline" name="inlineBox"></lake-box></p>
+    <p><focus />foo</p>
+    `;
+    const output = `
+    <p><lake-box type="inline" name="inlineBox"></lake-box><strong>\u200B<focus /></strong></p>
+    <p>foo</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        const container = range.startNode.closestContainer();
+        const boxNode = container.find('lake-box');
+        const box = new Box(boxNode);
+        box.render();
+        range.selectBoxRight(boxNode);
+        addMark(range, '<strong />');
+      },
+    );
+  });
+
+  it('the cursor is at the left of the block box', () => {
     const content = `
     <lake-box type="block" name="blockBox"></lake-box>
     <p><focus />foo</p>
@@ -369,7 +415,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('the cursor is at the right of the box', () => {
+  it('the cursor is at the right of the block box', () => {
     const content = `
     <lake-box type="block" name="blockBox"></lake-box>
     <p><focus />foo</p>
@@ -389,6 +435,33 @@ describe('operations / add-mark', () => {
         box.render();
         boxNode.debug();
         range.selectBoxRight(boxNode);
+        addMark(range, '<strong />');
+      },
+    );
+  });
+
+  it('add marks after selecting content with box', () => {
+    const content = `
+    <p><focus />foo</p>
+    <lake-box type="block" name="blockBox"></lake-box>
+    <p><lake-box type="inline" name="inlineBox"></lake-box>bar</p>
+    `;
+    const output = `
+    <p>foo</p>
+    <anchor /><lake-box type="block" name="blockBox"></lake-box>
+    <p><lake-box type="inline" name="inlineBox"></lake-box><strong>bar</strong><focus /></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        const container = range.startNode.closestContainer();
+        const boxNode = container.find('lake-box').eq(0);
+        const box = new Box(boxNode);
+        box.render();
+        boxNode.debug();
+        range.selectBoxLeft(boxNode);
+        range.setEnd(container.find('p').eq(1), 2);
         addMark(range, '<strong />');
       },
     );
