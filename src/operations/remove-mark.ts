@@ -54,6 +54,10 @@ export function removeMark(range: Range, value?: string): void {
     tagName = valueNode.name;
   }
   if (range.isCollapsed) {
+    const boxNode = range.startNode.closest('lake-box');
+    if (boxNode.length > 0) {
+      return;
+    }
     if (tagName && range.commonAncestor.closest(tagName).length === 0) {
       return;
     }
@@ -85,6 +89,7 @@ export function removeMark(range: Range, value?: string): void {
     range.shrinkAfter(newMark);
     return;
   }
+  range.adaptBox();
   splitMarks(range);
   const marks = range.getMarks();
   const bookmark = insertBookmark(range);
