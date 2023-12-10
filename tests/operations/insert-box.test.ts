@@ -1,7 +1,5 @@
-import { expect } from 'chai';
 import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
-import { Box } from '../../src/models/box';
 import { insertBox } from '../../src/operations/insert-box';
 
 describe('operations / insert-box', () => {
@@ -29,14 +27,13 @@ describe('operations / insert-box', () => {
     <p>foo<focus /></p>
     `;
     const output = `
-    <p>foo<lake-box type="inline" name="inlineBox"></lake-box></p>
+    <p>foo<lake-box type="inline" name="inlineBox" focus="right"></lake-box></p>
     `;
     testOperation(
       content,
       output,
       range => {
         insertBox(range, 'inlineBox');
-        expect(range.isBoxRight).to.equal(true);
       },
     );
   });
@@ -46,7 +43,7 @@ describe('operations / insert-box', () => {
     <p><focus />foo</p>
     `;
     const output = `
-    <lake-box type="block" name="blockBox"></lake-box>
+    <lake-box type="block" name="blockBox" focus="right"></lake-box>
     <p>foo</p>
     `;
     testOperation(
@@ -54,7 +51,6 @@ describe('operations / insert-box', () => {
       output,
       range => {
         insertBox(range, 'blockBox');
-        expect(range.isBoxRight).to.equal(true);
       },
     );
   });
@@ -65,39 +61,32 @@ describe('operations / insert-box', () => {
     `;
     const output = `
     <p>foo</p>
-    <lake-box type="block" name="blockBox"></lake-box>
+    <lake-box type="block" name="blockBox" focus="right"></lake-box>
     `;
     testOperation(
       content,
       output,
       range => {
         insertBox(range, 'blockBox');
-        expect(range.isBoxRight).to.equal(true);
       },
     );
   });
 
   it('inserts a block box when the cursor is at the right of the box', () => {
     const content = `
-    <lake-box type="block" name="blockBox"></lake-box>
-    <p><focus />foo</p>
+    <lake-box type="block" name="blockBox" focus="right"></lake-box>
+    <p>foo</p>
     `;
     const output = `
     <lake-box type="block" name="blockBox"></lake-box>
-    <lake-box type="block" name="blockBox"></lake-box>
+    <lake-box type="block" name="blockBox" focus="right"></lake-box>
     <p>foo</p>
     `;
     testOperation(
       content,
       output,
       range => {
-        const container = range.startNode.closestContainer();
-        const boxNode = container.find('lake-box');
-        const box = new Box(boxNode);
-        box.render();
-        range.selectBoxRight(boxNode);
         insertBox(range, 'blockBox');
-        expect(range.isBoxRight).to.equal(true);
       },
     );
   });

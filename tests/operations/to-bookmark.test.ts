@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { boxes } from '../../src/storage/boxes';
 import { query, normalizeValue } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
@@ -9,11 +10,23 @@ describe('operations / to-bookmark', () => {
   let container: Nodes;
 
   beforeEach(() => {
+    boxes.set('inlineBox', {
+      type: 'inline',
+      name: 'inlineBox',
+      render: () => '<img />',
+    });
+    boxes.set('blockBox', {
+      type: 'block',
+      name: 'blockBox',
+      render: () => '<hr />',
+    });
     container = query('<div contenteditable="true"></div>');
     query(document.body).append(container);
   });
 
   afterEach(() => {
+    boxes.delete('inlineBox');
+    boxes.delete('blockBox');
     container.remove();
   });
 
@@ -99,5 +112,32 @@ describe('operations / to-bookmark', () => {
     expect(range.isCollapsed).to.equal(false);
     expect(container.html()).to.equal('<p>outer start</p>foo<strong>bold</strong><p>outer end</p>');
   });
+
+  it('focus is on the left strip of box', () => {
+    const content = '<lake-box type="block" name="blockBox" focus="left"></lake-box>';
+    container.html(content);
+    const range = new Range();
+    const anchor = new Nodes();
+    const focus = container.find('lake-box');
+    toBookmark(range, {
+      anchor,
+      focus,
+    });
+    expect(range.isBoxLeft).to.equal(true);
+  });
+
+  it('focus is on the right strip of box', () => {
+    const content = '<lake-box type="block" name="blockBox" focus="right"></lake-box>';
+    container.html(content);
+    const range = new Range();
+    const anchor = new Nodes();
+    const focus = container.find('lake-box');
+    toBookmark(range, {
+      anchor,
+      focus,
+    });
+    expect(range.isBoxRight).to.equal(true);
+  });
+
 
 });

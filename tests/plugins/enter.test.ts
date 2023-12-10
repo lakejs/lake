@@ -192,18 +192,16 @@ describe('plugin / enter', () => {
 
   it('box: the focus is at the beginning of the box', () => {
     const content = `
-    <lake-box type="block" name="hr"></lake-box>
+    <lake-box type="block" name="hr" focus="left"></lake-box>
     `;
     const output = `
     <p><br /></p>
-    <lake-box type="block" name="hr"></lake-box>
+    <lake-box type="block" name="hr" focus="left"></lake-box>
     `;
     testPlugin(
       content,
       output,
       editor => {
-        const range = editor.selection.range;
-        range.selectBoxLeft(editor.container.find('lake-box'));
         editor.keystroke.keydown('enter');
       },
     );
@@ -211,7 +209,7 @@ describe('plugin / enter', () => {
 
   it('box: the focus is at the end of the box', () => {
     const content = `
-    <lake-box type="block" name="hr"></lake-box>
+    <lake-box type="block" name="hr" focus="right"></lake-box>
     `;
     const output = `
     <lake-box type="block" name="hr"></lake-box>
@@ -221,8 +219,6 @@ describe('plugin / enter', () => {
       content,
       output,
       editor => {
-        const range = editor.selection.range;
-        range.selectBoxRight(editor.container.find('lake-box'));
         editor.keystroke.keydown('enter');
       },
     );

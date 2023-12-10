@@ -1,6 +1,7 @@
 import { removeZWS } from '../utils/remove-zws';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
+import { Box } from '../models/box';
 
 function removeAndNormalizeNode(node: Nodes, range?: Range) {
   const previousNode = node.prev();
@@ -33,6 +34,16 @@ export function toBookmark(range: Range, bookmark: { anchor: Nodes, focus: Nodes
     return;
   }
   if (focus.length > 0 && anchor.length === 0) {
+    if (focus.isBox) {
+      new Box(focus).render();
+      if (focus.attr('focus') === 'left') {
+        range.selectBoxLeft(focus);
+      } else {
+        range.selectBoxRight(focus);
+      }
+      focus.removeAttr('focus');
+      return;
+    }
     range.setStartBefore(focus);
     range.collapseToStart();
     removeAndNormalizeNode(focus, range);

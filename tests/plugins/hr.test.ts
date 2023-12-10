@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { testPlugin } from '../utils';
 
 describe('plugin / hr', () => {
@@ -8,7 +7,7 @@ describe('plugin / hr', () => {
     <p><focus />foo</p>
     `;
     const output = `
-    <lake-box type="block" name="hr"></lake-box>
+    <lake-box type="block" name="hr" focus="right"></lake-box>
     <p>foo</p>
     `;
     testPlugin(
@@ -16,7 +15,6 @@ describe('plugin / hr', () => {
       output,
       editor => {
         editor.command.execute('hr');
-        expect(editor.selection.range.isBoxRight).to.equal(true);
       },
     );
   });
@@ -27,14 +25,13 @@ describe('plugin / hr', () => {
     `;
     const output = `
     <p>foo</p>
-    <lake-box type="block" name="hr"></lake-box>
+    <lake-box type="block" name="hr" focus="right"></lake-box>
     `;
     testPlugin(
       content,
       output,
       editor => {
         editor.command.execute('hr');
-        expect(editor.selection.range.isBoxRight).to.equal(true);
       },
     );
   });

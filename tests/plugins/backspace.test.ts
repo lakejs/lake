@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { testPlugin } from '../utils';
 
 describe('plugin / backspace', () => {
@@ -126,16 +125,14 @@ describe('plugin / backspace', () => {
     <p><focus />foo</p>
     `;
     const output = `
-    <lake-box type="block" name="hr"></lake-box>
+    <lake-box type="block" name="hr" focus="right"></lake-box>
     <p>foo</p>
     `;
     testPlugin(
       content,
       output,
       editor => {
-        const range = editor.selection.range;
         editor.keystroke.keydown('backspace');
-        expect(range.isBoxRight).to.equal(true);
       },
     );
   });
@@ -146,15 +143,13 @@ describe('plugin / backspace', () => {
     <p><br /><focus /></p>
     `;
     const output = `
-    <lake-box type="block" name="hr"></lake-box>
+    <lake-box type="block" name="hr" focus="right"></lake-box>
     `;
     testPlugin(
       content,
       output,
       editor => {
-        const range = editor.selection.range;
         editor.keystroke.keydown('backspace');
-        expect(range.isBoxRight).to.equal(true);
       },
     );
   });
@@ -162,19 +157,16 @@ describe('plugin / backspace', () => {
   it('should remove empty paragraph before box', () => {
     const content = `
     <p><br /></p>
-    <lake-box type="block" name="hr"></lake-box>
+    <lake-box type="block" name="hr" focus="left"></lake-box>
     `;
     const output = `
-    <lake-box type="block" name="hr"></lake-box>
+    <lake-box type="block" name="hr" focus="left"></lake-box>
     `;
     testPlugin(
       content,
       output,
       editor => {
-        const range = editor.selection.range;
-        range.selectBoxLeft(editor.container.find('lake-box'));
         editor.keystroke.keydown('backspace');
-        expect(range.isBoxLeft).to.equal(true);
       },
     );
   });
@@ -182,7 +174,7 @@ describe('plugin / backspace', () => {
   it('should move cursor with paragraph before box', () => {
     const content = `
     <p>foo</p>
-    <lake-box type="block" name="hr"></lake-box>
+    <lake-box type="block" name="hr" focus="left"></lake-box>
     `;
     const output = `
     <p>foo<focus /></p>
@@ -192,8 +184,6 @@ describe('plugin / backspace', () => {
       content,
       output,
       editor => {
-        const range = editor.selection.range;
-        range.selectBoxLeft(editor.container.find('lake-box'));
         editor.keystroke.keydown('backspace');
       },
     );
@@ -202,7 +192,7 @@ describe('plugin / backspace', () => {
   it('should remove box with selecting the end of box', () => {
     const content = `
     <p>foo</p>
-    <lake-box type="block" name="hr"></lake-box>
+    <lake-box type="block" name="hr" focus="right"></lake-box>
     `;
     const output = `
     <p>foo</p>
@@ -212,8 +202,6 @@ describe('plugin / backspace', () => {
       content,
       output,
       editor => {
-        const range = editor.selection.range;
-        range.selectBoxRight(editor.container.find('lake-box'));
         editor.keystroke.keydown('backspace');
       },
     );

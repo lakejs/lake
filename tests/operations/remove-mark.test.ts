@@ -1,6 +1,5 @@
 import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
-import { Box } from '../../src/models/box';
 import { removeMark } from '../../src/operations/remove-mark';
 
 describe('operations / remove-mark', () => {
@@ -237,22 +236,17 @@ describe('operations / remove-mark', () => {
 
   it('the cursor is at the left of the inline box', () => {
     const content = `
-    <p><lake-box type="inline" name="inlineBox"></lake-box></p>
-    <p><focus />foo</p>
+    <p><lake-box type="inline" name="inlineBox" focus="left"></lake-box></p>
+    <p>foo</p>
     `;
     const output = `
-    <p><lake-box type="inline" name="inlineBox"></lake-box></p>
+    <p><lake-box type="inline" name="inlineBox" focus="left"></lake-box></p>
     <p>foo</p>
     `;
     testOperation(
       content,
       output,
       range => {
-        const container = range.startNode.closestContainer();
-        const boxNode = container.find('lake-box');
-        const box = new Box(boxNode);
-        box.render();
-        range.selectBoxLeft(boxNode);
         removeMark(range);
       },
     );
@@ -260,9 +254,9 @@ describe('operations / remove-mark', () => {
 
   it('removes marks after selecting content with box', () => {
     const content = `
-    <p><focus />foo</p>
-    <lake-box type="block" name="blockBox"></lake-box>
-    <p><lake-box type="inline" name="inlineBox"></lake-box><strong>bar</strong></p>
+    <p>foo</p>
+    <anchor /><lake-box type="block" name="blockBox"></lake-box>
+    <p><lake-box type="inline" name="inlineBox"></lake-box><strong>bar</strong><focus /></p>
     `;
     const output = `
     <p>foo</p>
@@ -273,13 +267,6 @@ describe('operations / remove-mark', () => {
       content,
       output,
       range => {
-        const container = range.startNode.closestContainer();
-        const boxNode = container.find('lake-box').eq(0);
-        const box = new Box(boxNode);
-        box.render();
-        boxNode.debug();
-        range.selectBoxLeft(boxNode);
-        range.setEnd(container.find('p').eq(1), 2);
         removeMark(range);
       },
     );

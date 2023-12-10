@@ -43,9 +43,9 @@ export class Range {
   }
 
   // Returns a boolean value indicating whether the range's start point is at the left strip of the box.
-  // <lake-box><span class="lake-box-strip">|</span><div class="lake-box-container"></div> ...
-  // <lake-box><span class="lake-box-strip"></span>|<div class="lake-box-container"></div> ...
-  // <lake-box>|<span class="lake-box-strip"></span><div class="lake-box-container"></div> ...
+  // case 1: <lake-box><span class="lake-box-strip">|</span><div class="lake-box-container"></div> ...
+  // case 2: <lake-box><span class="lake-box-strip"></span>|<div class="lake-box-container"></div> ...
+  // case 3: <lake-box>|<span class="lake-box-strip"></span><div class="lake-box-container"></div> ...
   public get isBoxLeft(): boolean {
     const boxNode = this.startNode.closest('lake-box');
     if (boxNode.length === 0) {
@@ -56,9 +56,9 @@ export class Range {
   }
 
   // Returns a boolean value indicating whether the range's start point is at the right strip of the box.
-  // ... <div class="lake-box-container"></div><span class="lake-box-strip">|</span></lake-box>
-  // ... <div class="lake-box-container"></div>|<span class="lake-box-strip"></span></lake-box>
-  // ... <div class="lake-box-container"></div><span class="lake-box-strip"></span>|</lake-box>
+  // case 1: ... <div class="lake-box-container"></div><span class="lake-box-strip">|</span></lake-box>
+  // case 2: ... <div class="lake-box-container"></div>|<span class="lake-box-strip"></span></lake-box>
+  // case 3: ... <div class="lake-box-container"></div><span class="lake-box-strip"></span>|</lake-box>
   public get isBoxRight(): boolean {
     const boxNode = this.startNode.closest('lake-box');
     if (boxNode.length === 0) {

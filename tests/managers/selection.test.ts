@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { boxes } from '../../src/storage/boxes';
 import { normalizeValue, query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
@@ -9,15 +10,27 @@ describe('managers / selection', () => {
   let container: Nodes;
 
   beforeEach(() => {
+    boxes.set('inlineBox', {
+      type: 'inline',
+      name: 'inlineBox',
+      render: () => '<img />',
+    });
+    boxes.set('blockBox', {
+      type: 'block',
+      name: 'blockBox',
+      render: () => '<hr />',
+    });
     container = query('<div contenteditable="true" />');
     query(document.body).append(container);
   });
 
   afterEach(() => {
+    boxes.delete('inlineBox');
+    boxes.delete('blockBox');
     container.remove();
   });
 
-  it('setRange method: should set correct range', () => {
+  it('setRange method: sets the saved range to the selection', () => {
     const selection = new Selection(container);
     const range = new Range();
     container.html('<p>foo</p>');
@@ -31,7 +44,7 @@ describe('managers / selection', () => {
     expect(rangeFromSelection.endOffset).to.equal(1);
   });
 
-  it('syncByRange method: should synchronize correct range', () => {
+  it('syncByRange method: with the current selected range from the selection', () => {
     const selection = new Selection(container);
     const range = new Range();
     container.html('<p>foo</p>');
@@ -47,7 +60,7 @@ describe('managers / selection', () => {
     expect(selection.range.endOffset).to.equal(1);
   });
 
-  it('synByBookmark method: should synchronize correct range', () => {
+  it('synByBookmark method: with ordinary bookmark', () => {
     const content = `
     <p><anchor />foo<focus /></p>
     `;
@@ -58,6 +71,16 @@ describe('managers / selection', () => {
     expect(selection.range.startOffset).to.equal(0);
     expect(selection.range.endNode.name).to.equal('p');
     expect(selection.range.endOffset).to.equal(1);
+  });
+
+  it('synByBookmark method: with box-bookmark', () => {
+    const content = `
+    <lake-box type="block" name="blockBox" focus="right"></lake-box>
+    `;
+    const selection = new Selection(container);
+    container.html(normalizeValue(content.trim()));
+    selection.synByBookmark();
+    expect(selection.range.isBoxRight).to.equal(true);
   });
 
   it('getAppliedNodes method: is a collapsed range', () => {

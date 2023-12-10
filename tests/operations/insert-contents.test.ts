@@ -1,6 +1,5 @@
 import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
-import { Box } from '../../src/models/box';
 import { insertContents } from '../../src/operations/insert-contents';
 
 describe('operations / insert-contents', () => {
@@ -91,23 +90,18 @@ describe('operations / insert-contents', () => {
 
   it('the cursor is at the left of the box', () => {
     const content = `
-    <lake-box type="block" name="blockBox"></lake-box>
-    <p><focus />foo</p>
+    <lake-box type="block" name="blockBox" focus="left"></lake-box>
+    <p>foo</p>
     `;
     const output = `
     <p>bar</p>
-    <lake-box type="block" name="blockBox"></lake-box>
+    <lake-box type="block" name="blockBox" focus="left"></lake-box>
     <p>foo</p>
     `;
     testOperation(
       content,
       output,
       range => {
-        const container = range.startNode.closestContainer();
-        const boxNode = container.find('lake-box');
-        const box = new Box(boxNode);
-        box.render();
-        range.selectBoxLeft(boxNode);
         insertContents(range, '<p>bar</p>');
       },
     );

@@ -1,6 +1,5 @@
 import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
-import { Box } from '../../src/models/box';
 import { deleteContents } from '../../src/operations/delete-contents';
 
 describe('operations / delete-contents', () => {
@@ -58,22 +57,17 @@ describe('operations / delete-contents', () => {
 
   it('the cursor is at the left of the box', () => {
     const content = `
-    <lake-box type="block" name="blockBox"></lake-box>
-    <p><focus />foo</p>
+    <lake-box type="block" name="blockBox" focus="left"></lake-box>
+    <p>foo</p>
     `;
     const output = `
-    <lake-box type="block" name="blockBox"></lake-box>
+    <lake-box type="block" name="blockBox" focus="left"></lake-box>
     <p>foo</p>
     `;
     testOperation(
       content,
       output,
       range => {
-        const container = range.startNode.closestContainer();
-        const boxNode = container.find('lake-box');
-        const box = new Box(boxNode);
-        box.render();
-        range.selectBoxLeft(boxNode);
         deleteContents(range);
       },
     );
@@ -81,7 +75,7 @@ describe('operations / delete-contents', () => {
 
   it('the start position of the range is at the left of the box', () => {
     const content = `
-    <lake-box type="block" name="blockBox"></lake-box>
+    <anchor /><lake-box type="block" name="blockBox"></lake-box>
     <p><focus />foo</p>
     `;
     const output = `
@@ -91,12 +85,6 @@ describe('operations / delete-contents', () => {
       content,
       output,
       range => {
-        const container = range.startNode.closestContainer();
-        const boxNode = container.find('lake-box');
-        const box = new Box(boxNode);
-        box.render();
-        range.selectBoxLeft(boxNode);
-        range.setEnd(container.find('p'), 0);
         deleteContents(range);
       },
     );

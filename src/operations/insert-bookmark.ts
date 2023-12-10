@@ -5,6 +5,11 @@ import { insertNode } from './insert-node';
 
 // Either the method inserts a bookmark into the current position of the collapsed range
 // or the method inserts a pair of bookmarks into the beginning and the end of the range.
+// case 1: foo<lake-bookmark type="focus" />bar
+// case 2: <lake-bookmark type="anchor" />foo<lake-bookmark type="focus" />
+// case 3: foo<lake-box type="inline" name="image" focus="left"></lake-box>bar
+// case 4: foo<lake-box type="inline" name="image" focus="right"></lake-box>bar
+// case 5: <lake-bookmark type="anchor" /><lake-box type="inline" name="image"></lake-box>foo<lake-bookmark type="focus" />
 export function insertBookmark(range: Range): { anchor: Nodes, focus: Nodes } {
   if (range.commonAncestor.isOutside) {
     return {
@@ -12,7 +17,20 @@ export function insertBookmark(range: Range): { anchor: Nodes, focus: Nodes } {
       focus: new Nodes(),
     };
   }
+  // collapsed range
   if (range.isCollapsed) {
+    const boxNode = range.startNode.closest('lake-box');
+    if (boxNode.length > 0) {
+      if (range.isBoxLeft) {
+        boxNode.attr('focus', 'left');
+      } else {
+        boxNode.attr('focus', 'right');
+      }
+      return {
+        anchor: new Nodes(),
+        focus: boxNode,
+      };
+    }
     const endRange = range.clone();
     endRange.collapseToEnd();
     const focus = query('<lake-bookmark type="focus" />');
@@ -22,6 +40,7 @@ export function insertBookmark(range: Range): { anchor: Nodes, focus: Nodes } {
       focus,
     };
   }
+  // expanded range
   const startRange = range.clone();
   startRange.collapseToStart();
   const anchor = query('<lake-bookmark type="anchor" />');

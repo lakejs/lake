@@ -1,7 +1,6 @@
 import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
 import { query } from '../../src/utils';
-import { Box } from '../../src/models/box';
 import { insertFragment } from '../../src/operations/insert-fragment';
 
 describe('operations / insert-fragment', () => {
@@ -64,23 +63,19 @@ describe('operations / insert-fragment', () => {
 
   it('the cursor is at the left of the box', () => {
     const content = `
-    <lake-box type="block" name="blockBox"></lake-box>
-    <p><focus />foo</p>
+    <lake-box type="block" name="blockBox" focus="left"></lake-box>
+    <p>foo</p>
     `;
     const output = `
     <p>bar</p>
-    <lake-box type="block" name="blockBox"></lake-box>
+    <lake-box type="block" name="blockBox" focus="left"></lake-box>
     <p>foo</p>
     `;
     testOperation(
       content,
       output,
       range => {
-        const container = range.startNode.closestContainer();
-        const boxNode = container.find('lake-box');
-        const box = new Box(boxNode);
-        box.render();
-        range.selectBoxLeft(boxNode);
+        range.debug();
         const fragment = document.createDocumentFragment();
         fragment.appendChild(query('<p>bar</p>').get(0));
         insertFragment(range, fragment);
