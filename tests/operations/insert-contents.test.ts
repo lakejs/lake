@@ -1,7 +1,27 @@
+import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
+import { Box } from '../../src/models/box';
 import { insertContents } from '../../src/operations/insert-contents';
 
 describe('operations / insert-contents', () => {
+
+  beforeEach(() => {
+    boxes.set('inlineBox', {
+      type: 'inline',
+      name: 'inlineBox',
+      render: () => '<img />',
+    });
+    boxes.set('blockBox', {
+      type: 'block',
+      name: 'blockBox',
+      render: () => '<hr />',
+    });
+  });
+
+  afterEach(() => {
+    boxes.delete('inlineBox');
+    boxes.delete('blockBox');
+  });
 
   it('inserts an element into after text node', () => {
     const content = `
@@ -35,7 +55,7 @@ describe('operations / insert-contents', () => {
     );
   });
 
-  it('calls insertContents() several times consecutively', () => {
+  it('calls the method several times consecutively', () => {
     const content = `
     <strong>foo<focus /></strong>bar
     `;
@@ -65,6 +85,30 @@ describe('operations / insert-contents', () => {
       output,
       range => {
         insertContents(range, '<i>italic</i>');
+      },
+    );
+  });
+
+  it('the cursor is at the left of the box', () => {
+    const content = `
+    <lake-box type="block" name="blockBox"></lake-box>
+    <p><focus />foo</p>
+    `;
+    const output = `
+    <p>bar</p>
+    <lake-box type="block" name="blockBox"></lake-box>
+    <p>foo</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        const container = range.startNode.closestContainer();
+        const boxNode = container.find('lake-box');
+        const box = new Box(boxNode);
+        box.render();
+        range.selectBoxLeft(boxNode);
+        insertContents(range, '<p>bar</p>');
       },
     );
   });
