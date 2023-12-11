@@ -134,10 +134,10 @@ describe('operations / set-blocks', () => {
 
   it('creates a new block when the selected contents are not in a block', () => {
     const content = `
-    foo<strong>bar<focus /></strong>cat
+    foo<strong>bar<focus /></strong><lake-box type="inline" name="inlineBox"></lake-box>cat
     `;
     const output = `
-    <h2>foo<strong>bar<focus /></strong>cat</h2>
+    <h2>foo<strong>bar<focus /></strong><lake-box type="inline" name="inlineBox"></lake-box>cat</h2>
     `;
     testOperation(
       content,

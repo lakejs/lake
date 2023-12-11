@@ -16,7 +16,12 @@ function getTopNonBlockNodes(range: Range): Nodes[] {
   let node = container.first();
   let isBeforeRange = true;
   while (node.length > 0) {
-    if (node.isMark || node.isText || node.isBookmark) {
+    if (
+      node.isMark ||
+      node.isText ||
+      node.isBookmark ||
+      (node.isBox && node.attr('type') === 'inline')
+    ) {
       nodeList.push(node);
     } else {
       if (!isBeforeRange) {
