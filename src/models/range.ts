@@ -269,8 +269,7 @@ export class Range {
       startRange.collapseToStart();
       if (startRange.isBoxLeft) {
         this.setStartBefore(startBoxNode);
-      }
-      if (startRange.isBoxRight) {
+      } else {
         this.setStartAfter(startBoxNode);
       }
     }
@@ -280,8 +279,7 @@ export class Range {
       endRange.collapseToEnd();
       if (endRange.isBoxLeft) {
         this.setEndBefore(endBoxNode);
-      }
-      if (endRange.isBoxRight) {
+      } else {
         this.setEndAfter(endBoxNode);
       }
     }
@@ -292,11 +290,15 @@ export class Range {
   // to
   // <p>foo</p><p>|bar</p>
   public adaptBlock(): void {
-    if (this.isCollapsed && this.startNode.isElement) {
-      const nextBlock = this.startNode.children()[this.startOffset];
-      if (nextBlock && (nextBlock.isBox || nextBlock.isBlock)) {
-        this.shrinkBefore(nextBlock);
-      }
+    if (!this.isCollapsed) {
+      return;
+    }
+    if (!this.startNode.isElement) {
+      return;
+    }
+    const nextBlock = this.startNode.children()[this.startOffset];
+    if (nextBlock && (nextBlock.isBox || nextBlock.isBlock)) {
+      this.shrinkBefore(nextBlock);
     }
   }
 
