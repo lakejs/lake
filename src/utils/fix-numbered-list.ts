@@ -30,15 +30,15 @@ export function fixNumberedList(blocks: Nodes[]): void {
   // to reset start number
   let index = 1;
   for (const block of targetBlocks) {
-    if (block.name !== 'ol') {
+    const prev = block.prev();
+    if (prev.length === 0 || prev.name !== 'ol') {
       index = 1;
-    } else {
-      const currentStart = block.attr('start');
-      const expectedStart = index.toString(10);
-      if (currentStart !== expectedStart) {
-        block.attr('start', expectedStart);
-      }
-      index++;
     }
+    const currentStart = block.attr('start');
+    const expectedStart = index.toString(10);
+    if (currentStart !== expectedStart) {
+      block.attr('start', expectedStart);
+    }
+    index++;
   }
 }

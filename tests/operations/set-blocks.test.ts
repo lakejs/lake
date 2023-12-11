@@ -1,7 +1,26 @@
+import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
 import { setBlocks } from '../../src/operations/set-blocks';
 
 describe('operations / set-blocks', () => {
+
+  beforeEach(() => {
+    boxes.set('inlineBox', {
+      type: 'inline',
+      name: 'inlineBox',
+      render: () => '<img />',
+    });
+    boxes.set('blockBox', {
+      type: 'block',
+      name: 'blockBox',
+      render: () => '<hr />',
+    });
+  });
+
+  afterEach(() => {
+    boxes.delete('inlineBox');
+    boxes.delete('blockBox');
+  });
 
   it('no text is selected', () => {
     const content = `
@@ -296,6 +315,48 @@ describe('operations / set-blocks', () => {
     <ol start="1"><li>f<anchor />oo<strong>bold</strong></li></ol>
     <ol start="2"><li>heading</li></ol>
     <ol start="3"><li><i>itelic</i>ba<focus />r</li></ol>
+    <p>outer end</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, '<ol><li></li></ol>');
+      },
+    );
+  });
+
+  it('the cursor is at the right of the box', () => {
+    const content = `
+    <lake-box type="block" name="blockBox" focus="right"></lake-box>
+    <p>foo</p>
+    `;
+    const output = `
+    <lake-box type="block" name="blockBox" focus="right"></lake-box>
+    <p>foo</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, '<h2 />');
+      },
+    );
+  });
+
+  it('should change multi-block with box to a list', () => {
+    const content = `
+    <p>outer start</p>
+    <p>f<anchor />oo<strong>bold</strong></p>
+    <lake-box type="block" name="blockBox"></lake-box>
+    <p><i>itelic</i>ba<focus />r</p>
+    <p>outer end</p>
+    `;
+    const output = `
+    <p>outer start</p>
+    <ol start="1"><li>f<anchor />oo<strong>bold</strong></li></ol>
+    <lake-box type="block" name="blockBox"></lake-box>
+    <ol start="1"><li><i>itelic</i>ba<focus />r</li></ol>
     <p>outer end</p>
     `;
     testOperation(

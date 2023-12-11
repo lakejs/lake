@@ -37,6 +37,12 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
   if (range.commonAncestor.isOutside) {
     return;
   }
+  if (range.isCollapsed) {
+    const boxNode = range.startNode.closest('lake-box');
+    if (boxNode.length > 0) {
+      return;
+    }
+  }
   // changes the attributes of target blocks
   if (typeof value !== 'string') {
     const blockList = range.getBlocks();

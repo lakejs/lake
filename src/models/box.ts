@@ -40,6 +40,30 @@ export class Box {
     }
   }
 
+  // Renders the structure of the box.
+  private renderStructure(): void {
+    let container = this.getContainer();
+    if (container.length === 0) {
+      this.node.html(structure);
+      container = this.getContainer();
+    } else {
+      container.off('mouseenter');
+      container.off('mouseleave');
+    }
+    container.on('mouseenter', () => {
+      if (container.hasClass('lake-box-selected')) {
+        return;
+      }
+      container.addClass('lake-box-hovered');
+    });
+    container.on('mouseleave', () => {
+      if (!container.hasClass('lake-box-hovered')) {
+        return;
+      }
+      container.removeClass('lake-box-hovered');
+    });
+  }
+
   // Returns the type of the box.
   public get type(): BoxType {
     return this.node.attr('type') as BoxType;
@@ -74,30 +98,6 @@ export class Box {
     return this.node.find('.lake-box-container');
   }
 
-  // Renders the structure of the box.
-  private renderStructure(): void {
-    let container = this.getContainer();
-    if (container.length === 0) {
-      this.node.html(structure);
-      container = this.getContainer();
-    } else {
-      container.off('mouseenter');
-      container.off('mouseleave');
-    }
-    container.on('mouseenter', () => {
-      if (container.hasClass('lake-box-selected')) {
-        return;
-      }
-      container.addClass('lake-box-hovered');
-    });
-    container.on('mouseleave', () => {
-      if (!container.hasClass('lake-box-hovered')) {
-        return;
-      }
-      container.removeClass('lake-box-hovered');
-    });
-  }
-
   // Renders the contents of the box.
   public render(): void {
     const def = boxes.get(this.name);
@@ -106,21 +106,16 @@ export class Box {
     }
     this.renderStructure();
     const content = def.render(this.value);
-    this.getContainer().html(content);
-  }
-
-  // Updates the value of the box and refreshes the container of the box.
-  public update(value: BoxValue): void {
-    const def = boxes.get(this.name);
-    if (def === undefined) {
-      return;
-    }
-    const content = def.render(value);
-    this.value = value;
     const container = this.getContainer();
     const newContainer = container.clone(false);
     newContainer.html(content);
     morphdom(container.get(0), newContainer.get(0));
+  }
+
+  // Updates the value of the box and refreshes the container of the box.
+  public update(value: BoxValue): void {
+    this.value = value;
+    this.render();
   }
 
   // Removes the box.
