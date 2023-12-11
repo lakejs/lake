@@ -298,9 +298,11 @@ describe('plugin / paste', () => {
 
   it('pastes a heading into an empty paragraph', () => {
     const content = `
+    <p>foo</p>
     <p><br /><focus /></p>
     `;
     const output = `
+    <p>foo</p>
     <h1>bar<focus /></h1>
     `;
     testPlugin(

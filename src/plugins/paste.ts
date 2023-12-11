@@ -141,5 +141,6 @@ export default (editor: Editor) => {
     const fragment = htmlParser.getFragment();
     fixClipboardData(fragment);
     pasteFragment(editor, fragment);
+    editor.box.renderAll(editor);
   });
 };

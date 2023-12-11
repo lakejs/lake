@@ -9,6 +9,9 @@ export function deleteContents(range: Range): void {
   if (range.commonAncestor.isOutside) {
     return;
   }
+  if (range.isCollapsed) {
+    return;
+  }
   range.adaptBox();
   const nativeRange = range.get();
   nativeRange.deleteContents();

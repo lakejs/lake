@@ -46,6 +46,12 @@ export function getElementRules(): any {
     li: {
       value: ['true', 'false'],
     },
+    'lake-box': {
+      type: ['inline', 'block'],
+      name: /^[\w-]+$/,
+      value: /^\S+$/,
+      focus: ['left', 'right'],
+    },
     span: {
       class: /^[\w-]+$/,
       style: {
@@ -70,7 +76,7 @@ export function getElementRules(): any {
     },
     br: {},
     'lake-bookmark': {
-      type: /^anchor|focus$/i,
+      type: ['anchor', 'focus'],
     },
   };
 }
