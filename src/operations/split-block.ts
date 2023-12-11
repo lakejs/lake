@@ -17,7 +17,7 @@ export function splitBlock(range: Range): TwoParts {
     };
   }
   if (range.isCollapsed) {
-    range.adapt();
+    range.adaptBox();
   } else {
     deleteContents(range);
   }

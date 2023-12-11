@@ -184,6 +184,9 @@ export class Nodes {
 
   // Returns a boolean value indicating whether the node is empty.
   public get isEmpty(): boolean {
+    if (this.isBox) {
+      return false;
+    }
     const nodeText = this.text();
     return nodeText === '' || /^[\r\n\u200B\u2060]+$/.test(nodeText);
   }

@@ -1,7 +1,26 @@
+import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
 import { splitBlock } from '../../src/operations/split-block';
 
 describe('operations / split-block', () => {
+
+  beforeEach(() => {
+    boxes.set('inlineBox', {
+      type: 'inline',
+      name: 'inlineBox',
+      render: () => '<img />',
+    });
+    boxes.set('blockBox', {
+      type: 'block',
+      name: 'blockBox',
+      render: () => '<hr />',
+    });
+  });
+
+  afterEach(() => {
+    boxes.delete('inlineBox');
+    boxes.delete('blockBox');
+  });
 
   it('collapsed range: splits a block with a text', () => {
     const content = `
@@ -130,6 +149,40 @@ describe('operations / split-block', () => {
     const output = `
     <ul><li>one</li></ul>
     <ul><li><focus />two</li></ul>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        splitBlock(range);
+      },
+    );
+  });
+
+  it('collapsed range: the cursor is on the left side of the inline box', () => {
+    const content = `
+    <p>one<lake-box type="inline" name="inlineBox" focus="left"></lake-box>two</p>
+    `;
+    const output = `
+    <p>one</p>
+    <p><lake-box type="inline" name="inlineBox" focus="left"></lake-box>two</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        splitBlock(range);
+      },
+    );
+  });
+
+  it('collapsed range: the cursor is on the right side of the inline box', () => {
+    const content = `
+    <p>one<lake-box type="inline" name="inlineBox" focus="right"></lake-box>two</p>
+    `;
+    const output = `
+    <p>one<lake-box type="inline" name="inlineBox"></lake-box></p>
+    <p><focus />two</p>
     `;
     testOperation(
       content,
