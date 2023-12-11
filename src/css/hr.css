@@ -9,7 +9,7 @@
 .lake-container lake-box[name="hr"] .lake-box-hovered {
   background-color: #0000000a;
 }
-.lake-container lake-box[name="hr"] .lake-box-focused {
+.lake-container lake-box[name="hr"] .lake-box-selected {
   background-color: var(--selection-background-color);
 }
 .lake-container lake-box[name="hr"] .lake-box-container hr {

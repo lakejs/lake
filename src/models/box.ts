@@ -84,8 +84,18 @@ export class Box {
       container.off('mouseenter');
       container.off('mouseleave');
     }
-    container.on('mouseenter', () => container.addClass('lake-box-hovered'));
-    container.on('mouseleave', () => container.removeClass('lake-box-hovered'));
+    container.on('mouseenter', () => {
+      if (container.hasClass('lake-box-selected')) {
+        return;
+      }
+      container.addClass('lake-box-hovered');
+    });
+    container.on('mouseleave', () => {
+      if (!container.hasClass('lake-box-hovered')) {
+        return;
+      }
+      container.removeClass('lake-box-hovered');
+    });
   }
 
   // Renders the contents of the box.
