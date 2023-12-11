@@ -160,13 +160,21 @@ export class Range {
 
   // Sets the range to the left position of the box.
   public selectBoxLeft(boxNode: Nodes): void {
-    this.selectNodeContents(boxNode.find('.lake-box-strip').eq(0));
+    const boxStrip = boxNode.find('.lake-box-strip');
+    if (boxStrip.length === 0) {
+      throw new Error(`The box cannot be selected because the box '${boxNode.attr('name')}' (id=${boxNode.id}) has not been rendered yet.`);
+    }
+    this.selectNodeContents(boxStrip.eq(0));
     this.collapseToEnd();
   }
 
   // Sets the range to the left position of the box.
   public selectBoxRight(boxNode: Nodes): void {
-    this.selectNodeContents(boxNode.find('.lake-box-strip').eq(1));
+    const boxStrip = boxNode.find('.lake-box-strip');
+    if (boxStrip.length === 0) {
+      throw new Error(`The box cannot be selected because the box '${boxNode.attr('name')}' (id=${boxNode.id}) has not been rendered yet.`);
+    }
+    this.selectNodeContents(boxStrip.eq(1));
     this.collapseToEnd();
   }
 
