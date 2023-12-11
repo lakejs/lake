@@ -105,7 +105,6 @@ export function addMark(range: Range, value: string | Nodes): void {
     range.shrinkAfter(valueNode);
     return;
   }
-  range.adaptBox();
   splitMarks(range);
   const nodeList = range.getMarks(true);
   const bookmark = insertBookmark(range);

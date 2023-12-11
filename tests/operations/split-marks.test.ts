@@ -1,7 +1,26 @@
+import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
 import { splitMarks } from '../../src/operations/split-marks';
 
 describe('operations / split-marks', () => {
+
+  beforeEach(() => {
+    boxes.set('inlineBox', {
+      type: 'inline',
+      name: 'inlineBox',
+      render: () => '<img />',
+    });
+    boxes.set('blockBox', {
+      type: 'block',
+      name: 'blockBox',
+      render: () => '<hr />',
+    });
+  });
+
+  afterEach(() => {
+    boxes.delete('inlineBox');
+    boxes.delete('blockBox');
+  });
 
   it('collapsed range: splits a text and a mark', () => {
     const content = `
@@ -185,6 +204,38 @@ describe('operations / split-marks', () => {
     `;
     const output = `
     <p><strong>beginning<i>one</i></strong><anchor /><strong><i><span>two</span></i></strong><focus /><strong>end</strong></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        splitMarks(range);
+      },
+    );
+  });
+
+  it('collapsed range: the cursor is on the left side of the inline box', () => {
+    const content = `
+    <p><strong>one<lake-box type="inline" name="inlineBox" focus="left"></lake-box>two</strong></p>
+    `;
+    const output = `
+    <p><strong>one</strong><focus /><strong><lake-box type="inline" name="inlineBox"></lake-box>two</strong></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        splitMarks(range);
+      },
+    );
+  });
+
+  it('collapsed range: the cursor is on the right side of the inline box', () => {
+    const content = `
+    <p><strong>one<lake-box type="inline" name="inlineBox" focus="right"></lake-box>two</strong></p>
+    `;
+    const output = `
+    <p><strong>one<lake-box type="inline" name="inlineBox"></lake-box></strong><focus /><strong>two</strong></p>
     `;
     testOperation(
       content,

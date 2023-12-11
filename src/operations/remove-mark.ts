@@ -89,7 +89,6 @@ export function removeMark(range: Range, value?: string): void {
     range.shrinkAfter(newMark);
     return;
   }
-  range.adaptBox();
   splitMarks(range);
   const marks = range.getMarks();
   const bookmark = insertBookmark(range);
