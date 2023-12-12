@@ -75,7 +75,6 @@ describe('operations / insert-fragment', () => {
       content,
       output,
       range => {
-        range.debug();
         const fragment = document.createDocumentFragment();
         fragment.appendChild(query('<p>bar</p>').get(0));
         insertFragment(range, fragment);

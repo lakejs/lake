@@ -433,7 +433,6 @@ describe('operations / add-mark', () => {
         const boxNode = container.find('lake-box');
         const box = new Box(boxNode);
         box.render();
-        boxNode.debug();
         range.selectBoxRight(boxNode);
         addMark(range, '<strong />');
       },
@@ -459,7 +458,6 @@ describe('operations / add-mark', () => {
         const boxNode = container.find('lake-box').eq(0);
         const box = new Box(boxNode);
         box.render();
-        boxNode.debug();
         range.selectBoxLeft(boxNode);
         range.setEnd(container.find('p').eq(1), 2);
         addMark(range, '<strong />');

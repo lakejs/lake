@@ -15,7 +15,6 @@ export class Command {
 
   public add(name: string, handler: CommandHandler) {
     this.commandMap.set(name, handler);
-    debug(`added command '${name}'`);
   }
 
   public getNames(): string[] {
