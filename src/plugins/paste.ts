@@ -1,8 +1,9 @@
 import type Editor from '..';
 import { blockTagNames } from '../config/tag-names';
 import { getElementRules } from '../config/element-rules';
-import { forEach, wrapNodeList, changeTagName, fixNumberedList, removeBr } from '../utils';
+import { forEach, wrapNodeList, changeTagName, fixNumberedList, removeBr, query } from '../utils';
 import { Nodes } from '../models/nodes';
+import { Box } from '../models/box';
 import { HTMLParser } from '../parsers/html-parser';
 import { TextParser } from '../parsers/text-parser';
 
@@ -52,6 +53,25 @@ function fixClipboardData(fragment: DocumentFragment): void {
 
 function insertFirstNode(editor: Editor, otherNode: Nodes): void {
   const range = editor.selection.range;
+  const boxNode = range.startNode.closest('lake-box');
+  if (boxNode.length > 0) {
+    const box = new Box(boxNode);
+    if (box.type === 'inline') {
+      if (range.isBoxLeft) {
+        range.selectBoxLeft(boxNode);
+      } else {
+        range.selectBoxRight(boxNode);
+      }
+    } else {
+      const paragraph = query('<p />');
+      if (range.isBoxLeft) {
+        boxNode.before(paragraph);
+      } else {
+        boxNode.after(paragraph);
+      }
+      range.shrinkAfter(paragraph);
+    }
+  }
   const block = range.startNode.closestBlock();
   if (otherNode.first().length > 0) {
     removeBr(block);
@@ -108,7 +128,7 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
     selection.insertFragment(fragment);
     range.shrinkAfter(lastNode);
   }
-  fixNumberedList(editor.container.children());
+  fixNumberedList(editor.container.children().filter(node => node.isBlock));
   editor.history.save();
   editor.select();
 }

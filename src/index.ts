@@ -34,12 +34,14 @@ import fontColor from './plugins/font-color';
 import highlight from './plugins/highlight';
 import removeFormat from './plugins/remove-format';
 import formatPainter from './plugins/format-painter';
-import hr from './plugins/hr';
+import hr, { hrBox } from './plugins/hr';
 import enter from './plugins/enter';
 import shiftEnter from './plugins/shift-enter';
 import backspace from './plugins/backspace';
 import tab from './plugins/tab';
 import markdown from './plugins/markdown';
+
+Core.box.add(hrBox);
 
 Core.plugin.add(paste);
 Core.plugin.add(undo);

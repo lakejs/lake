@@ -1,11 +1,13 @@
 import type Editor from '..';
+import { BoxDefinition } from '../types/box';
+
+export const hrBox: BoxDefinition = {
+  type: 'block',
+  name: 'hr',
+  render: () => '<hr />',
+};
 
 export default (editor: Editor) => {
-  editor.box.add({
-    type: 'block',
-    name: 'hr',
-    render: () => '<hr />',
-  });
   editor.command.add('hr', () => {
     editor.focus();
     editor.selection.insertBox('hr');

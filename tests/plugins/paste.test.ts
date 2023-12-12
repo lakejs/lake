@@ -1,4 +1,4 @@
-import Editor from '../../src';
+import type Editor from '../../src';
 import { testPlugin } from '../utils';
 
 function pasteData(editor: Editor, format: string, data: string) {
@@ -97,6 +97,48 @@ describe('plugin / paste', () => {
     `;
     const output = `
     <ul><li>fbar<focus />oo</li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/plain', 'bar');
+      },
+    );
+  });
+
+  it('pastes plain text when cursor is on the left side of hr', () => {
+    const content = `
+    <p>top</p>
+    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <p>bottom</p>
+    `;
+    const output = `
+    <p>top</p>
+    <p>bar<focus /></p>
+    <lake-box type="block" name="hr"></lake-box>
+    <p>bottom</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/plain', 'bar');
+      },
+    );
+  });
+
+  it('pastes plain text when cursor is on the right side of hr', () => {
+    const content = `
+    <p>top</p>
+    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <p>bottom</p>
+    `;
+    const output = `
+    <p>top</p>
+    <lake-box type="block" name="hr"></lake-box>
+    <p>bar<focus /></p>
+    <p>bottom</p>
     `;
     testPlugin(
       content,
@@ -352,6 +394,48 @@ describe('plugin / paste', () => {
     `;
     const output = `
     <ul><li>fbar<focus />oo</li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<h2>bar</h2>');
+      },
+    );
+  });
+
+  it('pastes a heading when cursor is on the left side of hr', () => {
+    const content = `
+    <p>top</p>
+    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <p>bottom</p>
+    `;
+    const output = `
+    <p>top</p>
+    <h2>bar<focus /></h2>
+    <lake-box type="block" name="hr"></lake-box>
+    <p>bottom</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<h2>bar</h2>');
+      },
+    );
+  });
+
+  it('pastes a heading when cursor is on the right side of hr', () => {
+    const content = `
+    <p>top</p>
+    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <p>bottom</p>
+    `;
+    const output = `
+    <p>top</p>
+    <lake-box type="block" name="hr"></lake-box>
+    <h2>bar<focus /></h2>
+    <p>bottom</p>
     `;
     testPlugin(
       content,
