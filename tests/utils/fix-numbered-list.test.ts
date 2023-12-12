@@ -15,4 +15,10 @@ describe('utils / fix-numbered-list', () => {
     expect(container.html()).to.equal('<ol start="1"><li>one</li></ol><ol start="2"><li>two</li></ol>');
   });
 
+  it('no numbered list', () => {
+    const container = query('<div><h1>foo</h1><h2>bar</h2></div>');
+    fixNumberedList(container.children());
+    expect(container.html()).to.equal('<h1>foo</h1><h2>bar</h2>');
+  });
+
 });

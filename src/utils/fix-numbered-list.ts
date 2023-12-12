@@ -34,11 +34,13 @@ export function fixNumberedList(blocks: Nodes[]): void {
     if (prev.length === 0 || prev.name !== 'ol') {
       index = 1;
     }
-    const currentStart = block.attr('start');
-    const expectedStart = index.toString(10);
-    if (currentStart !== expectedStart) {
-      block.attr('start', expectedStart);
+    if (block.name === 'ol') {
+      const currentStart = block.attr('start');
+      const expectedStart = index.toString(10);
+      if (currentStart !== expectedStart) {
+        block.attr('start', expectedStart);
+      }
+      index++;
     }
-    index++;
   }
 }
