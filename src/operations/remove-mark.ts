@@ -54,8 +54,7 @@ export function removeMark(range: Range, value?: string): void {
     tagName = valueNode.name;
   }
   if (range.isCollapsed) {
-    const boxNode = range.startNode.closest('lake-box');
-    if (boxNode.length > 0) {
+    if (range.isBox) {
       return;
     }
     if (tagName && range.commonAncestor.closest(tagName).length === 0) {

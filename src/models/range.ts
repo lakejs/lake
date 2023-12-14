@@ -42,6 +42,12 @@ export class Range {
     return this.range.collapsed;
   }
 
+  // Returns a boolean value indicating whether the range's start point is in the box.
+  public get isBox(): boolean {
+    const boxNode = this.startNode.closest('lake-box');
+    return boxNode.length > 0;
+  }
+
   // Returns a boolean value indicating whether the range's start point is at the left strip of the box.
   // case 1: <lake-box><span class="lake-box-strip">|</span><div class="lake-box-container"></div> ...
   // case 2: <lake-box><span class="lake-box-strip"></span>|<div class="lake-box-container"></div> ...

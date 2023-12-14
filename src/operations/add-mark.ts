@@ -65,8 +65,8 @@ export function addMark(range: Range, value: string | Nodes): void {
   const styleValue = valueNode.attr('style');
   const cssProperties = parseStyle(styleValue);
   if (range.isCollapsed) {
-    const boxNode = range.startNode.closest('lake-box');
-    if (boxNode.length > 0) {
+    if (range.isBox) {
+      const boxNode = range.startNode.closest('lake-box');
       const box = new Box(boxNode);
       if (box.type === 'block') {
         const newBlock = query('<p><br /></p>');

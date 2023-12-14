@@ -50,7 +50,7 @@ export function getElementRules(): any {
       type: ['inline', 'block'],
       name: /^[\w-]+$/,
       value: /^\S+$/,
-      focus: ['left', 'right'],
+      focus: ['left', 'center', 'right'],
     },
     span: {
       class: /^[\w-]+$/,

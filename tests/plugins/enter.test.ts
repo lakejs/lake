@@ -243,4 +243,23 @@ describe('plugin / enter', () => {
     );
   });
 
+  it('box: the focus is in the box', () => {
+    const content = `
+    <lake-box type="block" name="hr" focus="center"></lake-box>
+    <p>foo</p>
+    `;
+    const output = `
+    <lake-box type="block" name="hr"></lake-box>
+    <p><br /><focus /></p>
+    <p>foo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
 });

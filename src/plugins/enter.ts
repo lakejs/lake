@@ -12,19 +12,15 @@ export default (editor: Editor) => {
     event.preventDefault();
     const selection = editor.selection;
     const range = selection.range;
-    if (range.isBoxLeft) {
+    if (range.isBox) {
       const boxNode = range.startNode.closest('lake-box');
-      const prevBlock = query('<p><br /></p>');
-      boxNode.before(prevBlock);
-      editor.history.save();
-      editor.select();
-      return;
-    }
-    if (range.isBoxRight) {
-      const boxNode = range.startNode.closest('lake-box');
-      const nextBlock = query('<p><br /></p>');
-      boxNode.after(nextBlock);
-      range.shrinkAfter(nextBlock);
+      const newBlock = query('<p><br /></p>');
+      if (range.isBoxLeft) {
+        boxNode.before(newBlock);
+      } else {
+        boxNode.after(newBlock);
+        range.shrinkAfter(newBlock);
+      }
       editor.history.save();
       editor.select();
       return;

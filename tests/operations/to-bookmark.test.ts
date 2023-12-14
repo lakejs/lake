@@ -139,5 +139,19 @@ describe('operations / to-bookmark', () => {
     expect(range.isBoxRight).to.equal(true);
   });
 
+  it('focus is on the box', () => {
+    const content = '<lake-box type="block" name="blockBox" focus="center"></lake-box>';
+    container.html(content);
+    const range = new Range();
+    const anchor = new Nodes();
+    const focus = container.find('lake-box');
+    toBookmark(range, {
+      anchor,
+      focus,
+    });
+    const boxNode = range.startNode.closest('lake-box');
+    expect(boxNode.length).to.equal(1);
+    expect(boxNode.find('.lake-box-selected').length).to.equal(1);
+  });
 
 });

@@ -80,6 +80,14 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
+  it('property: isBox', () => {
+    setTestBox(container);
+    const range = new Range();
+    const boxNode = container.find('lake-box');
+    range.selectNodeContents(boxNode.find('.lake-box-container'));
+    expect(range.isBox).to.equal(true);
+  });
+
   it('property: isBoxLeft', () => {
     setTestBox(container);
     const range = new Range();

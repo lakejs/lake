@@ -35,9 +35,14 @@ export function toBookmark(range: Range, bookmark: { anchor: Nodes, focus: Nodes
   }
   if (focus.length > 0 && anchor.length === 0) {
     if (focus.isBox) {
-      new Box(focus).render();
-      if (focus.attr('focus') === 'left') {
+      const box = new Box(focus);
+      box.render();
+      const focusValue = focus.attr('focus');
+      if (focusValue === 'left') {
         range.selectBoxLeft(focus);
+      } else if (focusValue === 'center') {
+        range.selectNodeContents(box.getContainer());
+        box.focus();
       } else {
         range.selectBoxRight(focus);
       }

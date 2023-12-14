@@ -43,8 +43,7 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
     return;
   }
   if (range.isCollapsed) {
-    const boxNode = range.startNode.closest('lake-box');
-    if (boxNode.length > 0) {
+    if (range.isBox) {
       return;
     }
   }

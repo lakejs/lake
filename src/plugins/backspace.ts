@@ -6,37 +6,37 @@ import { setBlocks } from '../operations/set-blocks';
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('backspace', event => {
     const range = editor.selection.range;
-    if (!range.isCollapsed) {
+    if (range.isBox) {
+      if (range.isBoxLeft) {
+        const boxNode = range.startNode.closest('lake-box');
+        const prevNode = boxNode.prev();
+        if (prevNode.length === 0) {
+          return;
+        }
+        if (prevNode.isBlock) {
+          if (prevNode.isEmpty) {
+            event.preventDefault();
+            prevNode.remove();
+            editor.selection.fixList();
+            editor.history.save();
+            editor.select();
+            return;
+          }
+          range.shrinkAfter(prevNode);
+          return;
+        }
+        range.adaptBox();
+        return;
+      }
       event.preventDefault();
-      editor.selection.deleteContents();
+      editor.selection.removeBox();
       editor.history.save();
       editor.select();
       return;
     }
-    if (range.isBoxLeft) {
-      const boxNode = range.startNode.closest('lake-box');
-      const prevNode = boxNode.prev();
-      if (prevNode.length === 0) {
-        return;
-      }
-      if (prevNode.isBlock) {
-        if (prevNode.isEmpty) {
-          event.preventDefault();
-          prevNode.remove();
-          editor.selection.fixList();
-          editor.history.save();
-          editor.select();
-          return;
-        }
-        range.shrinkAfter(prevNode);
-        return;
-      }
-      range.adaptBox();
-      return;
-    }
-    if (range.isBoxRight) {
+    if (!range.isCollapsed) {
       event.preventDefault();
-      editor.selection.removeBox();
+      editor.selection.deleteContents();
       editor.history.save();
       editor.select();
       return;

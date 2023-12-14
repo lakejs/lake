@@ -17,20 +17,21 @@ export function insertBookmark(range: Range): { anchor: Nodes, focus: Nodes } {
       focus: new Nodes(),
     };
   }
+  // box
+  const boxNode = range.startNode.closest('lake-box');
+  if (boxNode.length > 0) {
+    if (range.isBoxLeft) {
+      boxNode.attr('focus', 'left');
+    } else {
+      boxNode.attr('focus', 'right');
+    }
+    return {
+      anchor: new Nodes(),
+      focus: boxNode,
+    };
+  }
   // collapsed range
   if (range.isCollapsed) {
-    const boxNode = range.startNode.closest('lake-box');
-    if (boxNode.length > 0) {
-      if (range.isBoxLeft) {
-        boxNode.attr('focus', 'left');
-      } else {
-        boxNode.attr('focus', 'right');
-      }
-      return {
-        anchor: new Nodes(),
-        focus: boxNode,
-      };
-    }
     const endRange = range.clone();
     endRange.collapseToEnd();
     const focus = query('<lake-bookmark type="focus" />');

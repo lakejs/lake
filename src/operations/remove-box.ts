@@ -6,10 +6,10 @@ export function removeBox(range: Range): void {
   if (range.commonAncestor.isOutside) {
     return;
   }
-  const boxNode = range.startNode.closest('lake-box');
-  if (boxNode.length === 0) {
+  if (!range.isBox) {
     return;
   }
+  const boxNode = range.startNode.closest('lake-box');
   const box = new Box(boxNode);
   if (box.type === 'block') {
     const paragraph = query('<p><br /></p>');

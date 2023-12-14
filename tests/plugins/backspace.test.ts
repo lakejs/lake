@@ -189,10 +189,28 @@ describe('plugin / backspace', () => {
     );
   });
 
-  it('should remove box with selecting the end of box', () => {
+  it('should remove box after selecting the end of box', () => {
     const content = `
     <p>foo</p>
     <lake-box type="block" name="hr" focus="right"></lake-box>
+    `;
+    const output = `
+    <p>foo</p>
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should remove box after selecting the box', () => {
+    const content = `
+    <p>foo</p>
+    <lake-box type="block" name="hr" focus="center"></lake-box>
     `;
     const output = `
     <p>foo</p>

@@ -184,13 +184,13 @@ export class Core {
       const targetBoxNode = target.closest('lake-box');
       if (targetBoxNode.length > 0) {
         const targetBox = new Box(targetBoxNode);
-        targetBox.getContainer().addClass('lake-box-selected');
+        targetBox.focus();
       }
       const boxNodeList = this.box.getNodeList(this);
       for (const boxNode of boxNodeList) {
         if (boxNode.get(0) !== targetBoxNode.get(0)) {
           const box = new Box(boxNode);
-          box.getContainer().removeClass('lake-box-selected');
+          box.blur();
         }
       }
     });
@@ -198,7 +198,7 @@ export class Core {
       const boxNodeList = this.box.getNodeList(this);
       for (const boxNode of boxNodeList) {
         const box = new Box(boxNode);
-        box.getContainer().removeClass('lake-box-selected');
+        box.blur();
       }
     });
   }
