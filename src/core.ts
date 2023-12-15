@@ -83,6 +83,19 @@ export class Core {
 
     this.selectionListener = () => {
       this.selection.syncByRange();
+      // TODO: need to review performance
+      const range = this.selection.range;
+      const clonedRange = range.clone();
+      clonedRange.adaptBox();
+      const boxNodeList = this.box.getNodeList(this);
+      for (const boxNode of boxNodeList) {
+        const box = new Box(boxNode);
+        if (clonedRange.intersectsNode(boxNode)) {
+          box.focus();
+        } else {
+          box.blur();
+        }
+      }
     };
     this.clickListener = event => {
       const targetNode = new Nodes(event.target as Element);
@@ -185,20 +198,6 @@ export class Core {
       if (targetBoxNode.length > 0) {
         const targetBox = new Box(targetBoxNode);
         targetBox.focus();
-      }
-      const boxNodeList = this.box.getNodeList(this);
-      for (const boxNode of boxNodeList) {
-        if (boxNode.get(0) !== targetBoxNode.get(0)) {
-          const box = new Box(boxNode);
-          box.blur();
-        }
-      }
-    });
-    this.event.on('click:outside', () => {
-      const boxNodeList = this.box.getNodeList(this);
-      for (const boxNode of boxNodeList) {
-        const box = new Box(boxNode);
-        box.blur();
       }
     });
   }

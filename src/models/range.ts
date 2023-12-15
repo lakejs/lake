@@ -320,15 +320,15 @@ export class Range {
       const startBox = this.startNode.closest('lake-box');
       return startBox.length > 0 ? [ startBox ] : [];
     }
-    const boxes: Nodes[] = [];
+    const nodeList: Nodes[] = [];
     const clonedRange = this.clone();
     clonedRange.adaptBox();
     for (const child of clonedRange.commonAncestor.getWalker()) {
       if (child.isBox && clonedRange.intersectsNode(child)) {
-        boxes.push(child);
+        nodeList.push(child);
       }
     }
-    return boxes;
+    return nodeList;
   }
 
   // Returns target blocks relating to the range.
