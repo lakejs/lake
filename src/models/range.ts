@@ -314,6 +314,23 @@ export class Range {
     this.adaptBlock();
   }
 
+  // Returns target boxes relating to the range.
+  public getBoxes(): Nodes[] {
+    if (this.isCollapsed) {
+      const startBox = this.startNode.closest('lake-box');
+      return startBox.length > 0 ? [ startBox ] : [];
+    }
+    const boxes: Nodes[] = [];
+    const clonedRange = this.clone();
+    clonedRange.adaptBox();
+    for (const child of clonedRange.commonAncestor.getWalker()) {
+      if (child.isBox && clonedRange.intersectsNode(child)) {
+        boxes.push(child);
+      }
+    }
+    return boxes;
+  }
+
   // Returns target blocks relating to the range.
   public getBlocks(): Nodes[] {
     if (this.isCollapsed) {

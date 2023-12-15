@@ -18,6 +18,11 @@ describe('models / range', () => {
   let container: Nodes;
 
   beforeEach(() => {
+    boxes.set('inlineBox', {
+      type: 'inline',
+      name: 'inlineBox',
+      render: () => '<img />',
+    });
     boxes.set('blockBox', {
       type: 'block',
       name: 'blockBox',
@@ -28,6 +33,7 @@ describe('models / range', () => {
   });
 
   afterEach(() => {
+    boxes.delete('inlineBox');
     boxes.delete('blockBox');
     container.remove();
   });
@@ -500,6 +506,45 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
+  it('getBoxes method: collapsed range', () => {
+    setTestBox(container);
+    container.prepend('<p>foo</p>');
+    container.append('<p>bar</p>');
+    const range = new Range();
+    range.setStartAfter(container.find('br').eq(1));
+    range.collapseToStart();
+    const boxList = range.getBoxes();
+    expect(boxList.length).to.equal(1);
+    expect(boxList[0].name).to.equal('lake-box');
+  });
+
+  it('getBoxes method: expanded range', () => {
+    setTestBox(container);
+    container.prepend('<p>foo</p>');
+    container.append('<p>bar</p>');
+    const range = new Range();
+    range.setStartAfter(container.find('br').eq(0));
+    range.setEndAfter(container.find('br').eq(1));
+    const boxList = range.getBoxes();
+    expect(boxList.length).to.equal(1);
+    expect(boxList[0].name).to.equal('lake-box');
+  });
+
+  it('getBoxes method: select all', () => {
+    setTestBox(container);
+    container.append('<p>bar</p>');
+    const box = new Box('inlineBox');
+    container.find('p').prepend(box.node);
+    box.render();
+    container.prepend('<p>foo</p>');
+    const range = new Range();
+    range.selectNodeContents(container);
+    const boxList = range.getBoxes();
+    expect(boxList.length).to.equal(2);
+    expect(boxList[0].attr('name')).to.equal('blockBox');
+    expect(boxList[1].attr('name')).to.equal('inlineBox');
+  });
+
   it('getBlocks method: no text is selected', () => {
     const content = `
     <p>outer start</p>
@@ -513,7 +558,7 @@ describe('models / range', () => {
     expect(blocks[0].html()).to.equal('foo<strong>bold</strong>');
   });
 
-  it('getBlocks method: after select the contents of a block', () => {
+  it('getBlocks method: after selecting the contents of a block', () => {
     const content = `
     <p>outer start</p>
     <p><anchor />foo<strong>bold</strong><focus /></p>
@@ -526,7 +571,7 @@ describe('models / range', () => {
     expect(blocks[0].html()).to.equal('foo<strong>bold</strong>');
   });
 
-  it('getBlocks method: after select multiple blocks', () => {
+  it('getBlocks method: after selecting multiple blocks', () => {
     const content = `
     <p>outer start</p>
     <p>f<anchor />oo<strong>bold</strong></p>
