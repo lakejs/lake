@@ -3,11 +3,13 @@
   margin: 0;
   padding: 0;
 }
-.lake-container lake-box .lake-box-strip,
 .lake-container lake-box .lake-box-strip {
   display: inline;
   min-width: 1px;
   vertical-align: baseline;
+}
+.lake-container lake-box .lake-box-strip ::selection {
+  background: transparent;
 }
 .lake-container lake-box .lake-box-strip:first-child {
   align-self: flex-start;
