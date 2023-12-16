@@ -1,5 +1,5 @@
 import Editor, { Utils } from '../src';
-import { defaultValue } from './default-value';
+import { defaultValue } from './data/default-value';
 
 const { query } = Utils;
 
@@ -98,6 +98,10 @@ query('.lake-toolbar-icon').on('click', event => {
   }
   if (type === 'highlight') {
     editor.command.execute('highlight', '#0000ff');
+    return;
+  }
+  if (type === 'image') {
+    editor.command.execute('image', './data/changbai.jpg');
     return;
   }
   if (noParameterCommandNames.indexOf(type) >= 0) {

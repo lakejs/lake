@@ -1,6 +1,7 @@
 export const defaultValue = `
 <h1>heading 1</h1>
 <lake-box type="block" name="hr"></lake-box>
+<p>foo<lake-box type="inline" name="image" value="eyJ1cmwiOiIuL2RhdGEvY2hhbmdiYWkuanBnIn0="></lake-box>bar</p>
 <h2>heading 2</h2>
 <h3>heading 3</h3>
 <h4>heading 4</h4>

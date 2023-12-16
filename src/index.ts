@@ -35,6 +35,7 @@ import highlight from './plugins/highlight';
 import removeFormat from './plugins/remove-format';
 import formatPainter from './plugins/format-painter';
 import hr, { hrBox } from './plugins/hr';
+import image, { imageBox } from './plugins/image';
 import enter from './plugins/enter';
 import shiftEnter from './plugins/shift-enter';
 import backspace from './plugins/backspace';
@@ -42,6 +43,7 @@ import tab from './plugins/tab';
 import markdown from './plugins/markdown';
 
 Core.box.add(hrBox);
+Core.box.add(imageBox);
 
 Core.plugin.add(paste);
 Core.plugin.add(undo);
@@ -66,6 +68,7 @@ Core.plugin.add(highlight);
 Core.plugin.add(removeFormat);
 Core.plugin.add(formatPainter);
 Core.plugin.add(hr);
+Core.plugin.add(image);
 Core.plugin.add(enter);
 Core.plugin.add(shiftEnter);
 Core.plugin.add(backspace);

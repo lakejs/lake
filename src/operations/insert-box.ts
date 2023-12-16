@@ -1,14 +1,18 @@
+import { BoxValue } from '../types/box';
 import { Range } from '../models/range';
 import { Box } from '../models/box';
 import { insertFragment } from './insert-fragment';
 import { splitBlock } from './split-block';
 
 // Inserts a box into the specified range.
-export function insertBox(range: Range, boxName: string): void {
+export function insertBox(range: Range, boxName: string, boxValue?: BoxValue): void {
   if (range.commonAncestor.isOutside) {
     return;
   }
   const box = new Box(boxName);
+  if (boxValue) {
+    box.value = boxValue;
+  }
   const fragment = document.createDocumentFragment();
   fragment.appendChild(box.node.get(0));
   // inline box

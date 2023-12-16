@@ -1,4 +1,9 @@
-.lake-container lake-box {
+.lake-container lake-box[type="inline"] {
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+}
+.lake-container lake-box[type="block"] {
   display: flex;
   margin: 0;
   padding: 0;
@@ -7,15 +12,10 @@
   display: inline;
   min-width: 1px;
   vertical-align: baseline;
+  align-self: flex-end;
 }
 .lake-container lake-box .lake-box-strip ::selection {
   background: transparent;
-}
-.lake-container lake-box .lake-box-strip:first-child {
-  align-self: flex-start;
-}
-.lake-container lake-box .lake-box-strip:last-child {
-  align-self: flex-end;
 }
 .lake-container lake-box .lake-box-container {
   display: block;

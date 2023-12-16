@@ -211,8 +211,8 @@ export class Selection {
     return fixList(this.range);
   }
 
-  public insertBox(box: Parameters<typeof insertBox>[1]): ReturnType<typeof insertBox> {
-    return insertBox(this.range, box);
+  public insertBox(boxName: Parameters<typeof insertBox>[1], boxValue?: Parameters<typeof insertBox>[2]): ReturnType<typeof insertBox> {
+    return insertBox(this.range, boxName, boxValue);
   }
 
   public removeBox(): ReturnType<typeof removeBox> {
