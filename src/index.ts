@@ -6,6 +6,7 @@ import './css/list.css';
 import './css/blockquote.css';
 import './css/box.css';
 import './css/hr.css';
+import './css/image.css';
 import * as Utils from './utils';
 import { Nodes } from './models/nodes';
 import { Range } from './models/range';

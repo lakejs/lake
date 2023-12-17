@@ -1,0 +1,7 @@
+.lake-container lake-box[name="image"] .lake-box-container {
+  border: 2px solid transparent;
+  font-size: 0;
+}
+.lake-container lake-box[name="image"] .lake-box-selected {
+  border-color: var(--link-color);
+}

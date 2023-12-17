@@ -101,7 +101,7 @@ query('.lake-toolbar-icon').on('click', event => {
     return;
   }
   if (type === 'image') {
-    editor.command.execute('image', './data/changbai.jpg');
+    editor.command.execute('image', './data/tianchi.png');
     return;
   }
   if (noParameterCommandNames.indexOf(type) >= 0) {
