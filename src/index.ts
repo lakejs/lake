@@ -38,9 +38,9 @@ import formatPainter from './plugins/format-painter';
 import hr, { hrBox } from './plugins/hr';
 import image, { imageBox } from './plugins/image';
 import enterKey from './plugins/enter-key';
-import shiftEnter from './plugins/shift-enter';
-import backspace from './plugins/backspace';
-import tab from './plugins/tab';
+import shiftEnterKey from './plugins/shift-enter-key';
+import backspaceKey from './plugins/backspace-key';
+import tabKey from './plugins/tab-key';
 import arrowKeys from './plugins/arrow-keys';
 import markdown from './plugins/markdown';
 
@@ -72,9 +72,9 @@ Core.plugin.add(formatPainter);
 Core.plugin.add(hr);
 Core.plugin.add(image);
 Core.plugin.add(enterKey);
-Core.plugin.add(shiftEnter);
-Core.plugin.add(backspace);
-Core.plugin.add(tab);
+Core.plugin.add(shiftEnterKey);
+Core.plugin.add(backspaceKey);
+Core.plugin.add(tabKey);
 Core.plugin.add(arrowKeys);
 Core.plugin.add(markdown);
 

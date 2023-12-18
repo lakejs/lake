@@ -84,9 +84,9 @@ import './plugins/remove-format.test';
 import './plugins/format-painter.test';
 import './plugins/hr.test';
 import './plugins/enter-key.test';
-import './plugins/shift-enter.test';
-import './plugins/backspace.test';
-import './plugins/tab.test';
+import './plugins/shift-enter-key.test';
+import './plugins/backspace-key.test';
+import './plugins/tab-key.test';
 import './plugins/arrow-keys.test';
 import './plugins/markdown.test';
 
