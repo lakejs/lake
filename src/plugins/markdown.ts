@@ -119,7 +119,7 @@ function getMarkdownPoint(editor: Editor): Point | void {
     node = child;
     offset = node.text().length;
   }
-  if (offset < 2) {
+  if (offset < 1) {
     return;
   }
   return {
@@ -145,17 +145,22 @@ function executeMarkCommand(editor: Editor, point: Point): boolean {
   const selection = editor.selection;
   const range = selection.range;
   const offset = point.offset;
-  const text = point.node.text().slice(0, offset - 1);
+  const text = point.node.text().slice(0, offset);
   for (const item of markSpaceList) {
     const result = item.re.exec(text);
     if (result !== null) {
+      // <p>foo**bold**<focus /></p>, offset = 11
+      // to
+      // <p>foobold\u200B<focus /></p>,
+      // to
+      // <p>foo[bold]\u200B<focus /></p>, startOffset = 3, endOffset = 7
       editor.prepareOperation();
       const bookmark = selection.insertBookmark();
       const node = bookmark.focus.prev();
       const oldValue = node.text();
-      const newValue = `${oldValue.slice(0, -1).replace(item.re, '$1')}\u200B`;
+      const newValue = `${oldValue.replace(item.re, '$1')}\u200B`;
       node.get(0).nodeValue = newValue;
-      range.setStart(node, offset - result[0].length - 1);
+      range.setStart(node, offset - result[0].length);
       range.setEnd(node, offset - (oldValue.length - newValue.length) - 1);
       const parameters = item.getParameters();
       editor.command.execute(parameters.shift() as string, ...parameters);
@@ -170,10 +175,13 @@ function executeMarkCommand(editor: Editor, point: Point): boolean {
 function executeBlockCommand(editor: Editor, point: Point): boolean {
   const selection = editor.selection;
   const offset = point.offset;
-  let text = point.node.text().slice(0, offset - 1);
+  let text = point.node.text().slice(0, offset);
   text = text.replace(/[\u200B\u2060]/g, '');
   for (const item of blockSpaceList) {
     if (item.re.test(text)) {
+      // <p>#<focus />foo</p>
+      // to
+      // <h1><focus />foo</h1>
       editor.prepareOperation();
       const bookmark = selection.insertBookmark();
       const node = bookmark.focus.prev();
@@ -192,20 +200,22 @@ function executeBlockCommand(editor: Editor, point: Point): boolean {
 }
 
 export default (editor: Editor) => {
-  editor.keystroke.setKeyup('space', () => {
+  editor.keystroke.setKeydown('space', event => {
     const selection = editor.selection;
     const point = getMarkdownPoint(editor);
     if (!point) {
       return;
     }
-    const isMatched = executeMarkCommand(editor, point);
-    if (isMatched) {
+    if (executeMarkCommand(editor, point)) {
+      event.preventDefault();
       return;
     }
     const block = selection.range.getBlocks()[0];
     if (block && !(block.isHeading || block.name === 'p')) {
       return;
     }
-    executeBlockCommand(editor, point);
+    if (executeBlockCommand(editor, point)) {
+      event.preventDefault();
+    }
   });
 };
