@@ -15,7 +15,7 @@ describe('plugin / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('ArrowLeft');
+        editor.keystroke.keydown('arrow-left');
       },
     );
   });
@@ -31,7 +31,7 @@ describe('plugin / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('ArrowLeft');
+        editor.keystroke.keydown('arrow-left');
       },
     );
   });
@@ -47,7 +47,7 @@ describe('plugin / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('ArrowRight');
+        editor.keystroke.keydown('arrow-right');
       },
     );
   });
@@ -63,7 +63,7 @@ describe('plugin / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('ArrowRight');
+        editor.keystroke.keydown('arrow-right');
       },
     );
   });

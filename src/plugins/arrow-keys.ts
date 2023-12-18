@@ -1,7 +1,7 @@
 import type Editor from '..';
 
 export default (editor: Editor) => {
-  editor.keystroke.setKeydown('ArrowLeft', () => {
+  editor.keystroke.setKeydown('arrow-left', () => {
     const range = editor.selection.range;
     if (!range.isCollapsed) {
       return;
@@ -21,7 +21,7 @@ export default (editor: Editor) => {
       range.collapseToStart();
     }
   });
-  editor.keystroke.setKeydown('ArrowRight', () => {
+  editor.keystroke.setKeydown('arrow-right', () => {
     const range = editor.selection.range;
     if (!range.isCollapsed) {
       return;

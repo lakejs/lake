@@ -47,6 +47,16 @@ describe('managers / keystroke', () => {
     expect(container.html()).to.equal('enter');
   });
 
+  it('sets arrow-left and then emits it', () => {
+    const keystroke = new Keystroke(container);
+    keystroke.setKeydown('arrow-left', () => container.html('arrow-left'));
+    keystroke.keydown('arrow-left');
+    expect(container.html()).to.equal('arrow-left');
+    container.html('<p>foo</p>');
+    keystroke.keydown('arrow-left');
+    expect(container.html()).to.equal('arrow-left');
+  });
+
   it('sets mod+] and then emits it', () => {
     const keystroke = new Keystroke(container);
     keystroke.setKeydown('mod+]', () => container.html('mod+]'));

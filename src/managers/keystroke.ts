@@ -1,5 +1,6 @@
 import { createKeybindingsHandler } from 'tinykeys';
 import { NativeEvent } from '../types/native';
+import { camelCase } from '../utils/camel-case';
 import { Nodes } from '../models/nodes';
 
 type EventItem = {
@@ -27,8 +28,8 @@ export class Keystroke {
   private normalizeType(type: string) {
     type = shortenedTypeMap.get(type) ?? type;
     type = type.replace(/(^|\+|\s)mod(\+|\s|$)/g, '$1$mod$2').
-      replace(/shift|control|alt|meta|enter|tab|backspace|delete|space|escape/,
-        (match: string) => match.charAt(0).toUpperCase() + match.substring(1)).
+      replace(/shift|control|alt|meta|enter|tab|backspace|delete|space|escape|arrow-left|arrow-right|arrow-up|arrow-down/,
+        (match: string) => match.charAt(0).toUpperCase() + camelCase(match.substring(1))).
       replace(/(^|\+|\s)([a-z])(\+|\s|$)/g,
         (match: string, p1: string, p2: string, p3: string) => `${p1}Key${p2.toUpperCase()}${p3}`);
     return type;
