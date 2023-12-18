@@ -83,7 +83,7 @@ import './plugins/highlight.test';
 import './plugins/remove-format.test';
 import './plugins/format-painter.test';
 import './plugins/hr.test';
-import './plugins/enter.test';
+import './plugins/enter-key.test';
 import './plugins/shift-enter.test';
 import './plugins/backspace.test';
 import './plugins/tab.test';

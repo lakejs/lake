@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('plugin / enter', () => {
+describe('plugin / enter-key', () => {
 
   it('paragraph: empty content', () => {
     const content = `
