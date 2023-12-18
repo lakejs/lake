@@ -41,6 +41,7 @@ import enter from './plugins/enter';
 import shiftEnter from './plugins/shift-enter';
 import backspace from './plugins/backspace';
 import tab from './plugins/tab';
+import arrowKeys from './plugins/arrow-keys';
 import markdown from './plugins/markdown';
 
 Core.box.add(hrBox);
@@ -74,6 +75,7 @@ Core.plugin.add(enter);
 Core.plugin.add(shiftEnter);
 Core.plugin.add(backspace);
 Core.plugin.add(tab);
+Core.plugin.add(arrowKeys);
 Core.plugin.add(markdown);
 
 export {
