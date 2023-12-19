@@ -196,8 +196,11 @@ export class Core {
     this.event.on('click:inside', target => {
       const targetBoxNode = target.closest('lake-box');
       if (targetBoxNode.length > 0) {
+        const range = this.selection.range;
         const targetBox = new Box(targetBoxNode);
-        targetBox.focus();
+        range.setStart(targetBox.getContainer(), 0);
+        range.collapseToStart();
+        window.setTimeout(() => targetBox.focus(), 0);
       }
     });
   }
