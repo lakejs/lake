@@ -225,11 +225,6 @@ export class Core {
     this.history.save();
   }
 
-  // Adds the saved range to the selection.
-  public select(): void {
-    this.selection.setRange();
-  }
-
   // Sets focus on the editor area.
   public focus(): void {
     this.container.focus();
@@ -275,7 +270,6 @@ export class Core {
       this.focus();
       this.history.save(false);
       this.selection.synByBookmark();
-      this.select();
     }
     Core.plugin.loadAll(this);
     Core.box.renderAll(this);

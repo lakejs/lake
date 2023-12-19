@@ -30,13 +30,13 @@ describe('managers / selection', () => {
     container.remove();
   });
 
-  it('setRange method: sets the saved range to the selection', () => {
+  it('addRangeToNativeSelection method: sets the saved range to the selection', () => {
     const selection = new Selection(container);
     const range = new Range();
     container.html('<p>foo</p>');
     range.selectNodeContents(container.find('p'));
     selection.range = range;
-    selection.setRange();
+    selection.addRangeToNativeSelection();
     const rangeFromSelection = new Range(window.getSelection()?.getRangeAt(0));
     expect(rangeFromSelection.startNode.name).to.equal('p');
     expect(rangeFromSelection.startOffset).to.equal(0);
@@ -50,7 +50,7 @@ describe('managers / selection', () => {
     container.html('<p>foo</p>');
     range.selectNodeContents(container.find('p'));
     selection.range = range;
-    selection.setRange();
+    selection.addRangeToNativeSelection();
     selection.range = new Range();
     expect(selection.range.startNode.get(0)).to.equal(document);
     selection.syncByRange();

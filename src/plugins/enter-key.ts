@@ -4,7 +4,6 @@ import { query } from '../utils';
 function setParagraph(editor: Editor) {
   editor.selection.setBlocks('<p />');
   editor.history.save();
-  editor.select();
 }
 
 export default (editor: Editor) => {
@@ -22,7 +21,6 @@ export default (editor: Editor) => {
         range.shrinkAfter(newBlock);
       }
       editor.history.save();
-      editor.select();
       return;
     }
     range.adapt();
@@ -39,7 +37,6 @@ export default (editor: Editor) => {
     selection.splitBlock();
     if (rightText !== '') {
       editor.history.save();
-      editor.select();
       return;
     }
     block = range.getBlocks()[0];
@@ -51,6 +48,5 @@ export default (editor: Editor) => {
       block.find('li').attr('value', 'false');
     }
     editor.history.save();
-    editor.select();
   });
 };

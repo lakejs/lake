@@ -9,11 +9,9 @@ export const imageBox: BoxDefinition = {
 
 export default (editor: Editor) => {
   editor.command.add('image', url => {
-    editor.focus();
     editor.selection.insertBox('image', {
       url,
     });
     editor.history.save();
-    editor.select();
   });
 };

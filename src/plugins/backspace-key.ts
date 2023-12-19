@@ -19,7 +19,6 @@ export default (editor: Editor) => {
             prevNode.remove();
             editor.selection.fixList();
             editor.history.save();
-            editor.select();
             return;
           }
           range.shrinkAfter(prevNode);
@@ -31,14 +30,12 @@ export default (editor: Editor) => {
       event.preventDefault();
       editor.selection.removeBox();
       editor.history.save();
-      editor.select();
       return;
     }
     if (!range.isCollapsed) {
       event.preventDefault();
       editor.selection.deleteContents();
       editor.history.save();
-      editor.select();
       return;
     }
     range.adapt();
@@ -56,7 +53,6 @@ export default (editor: Editor) => {
           editor.selection.setBlocks('<p />');
         }
         editor.history.save();
-        editor.select();
         return;
       }
       if (prevBlock.isBox) {
@@ -65,7 +61,6 @@ export default (editor: Editor) => {
         }
         range.selectBoxRight(prevBlock);
         editor.history.save();
-        editor.select();
         return;
       }
       if (!prevBlock.isBlock) {
@@ -79,7 +74,6 @@ export default (editor: Editor) => {
       editor.selection.toBookmark(bookmark);
       editor.selection.fixList();
       editor.history.save();
-      editor.select();
     }
   });
 };

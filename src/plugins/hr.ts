@@ -9,9 +9,7 @@ export const hrBox: BoxDefinition = {
 
 export default (editor: Editor) => {
   editor.command.add('hr', () => {
-    editor.focus();
     editor.selection.insertBox('hr');
     editor.history.save();
-    editor.select();
   });
 };

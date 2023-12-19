@@ -5,6 +5,5 @@ export default (editor: Editor) => {
     event.preventDefault();
     editor.selection.insertContents('<br />\u200B');
     editor.history.save();
-    editor.select();
   });
 };

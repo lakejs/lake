@@ -19,7 +19,6 @@ function setChecklist(editor: Editor, value: boolean) {
 
 export default (editor: Editor) => {
   editor.command.add('list', (type: 'numbered' | 'bulleted' | 'checklist', value: boolean = false) => {
-    editor.focus();
     const blocks = editor.selection.range.getBlocks();
     let isNumberedList = false;
     let isBulletedList = false;
@@ -77,7 +76,6 @@ export default (editor: Editor) => {
       }
     }
     editor.history.save();
-    editor.select();
   });
   editor.container.on('click', event => {
     if (editor.readonly) {

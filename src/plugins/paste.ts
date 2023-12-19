@@ -130,7 +130,6 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
   }
   fixNumberedList(editor.container.children().filter(node => node.isBlock));
   editor.history.save();
-  editor.select();
 }
 
 export default (editor: Editor) => {

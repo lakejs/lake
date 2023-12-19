@@ -7,7 +7,6 @@ const formatPainterClassName = 'lake-format-painter';
 
 export default (editor: Editor) => {
   editor.command.add('formatPainter', () => {
-    editor.focus();
     editor.container.addClass(formatPainterClassName);
     const appliedNodes = editor.selection.getAppliedNodes();
     for (const item of appliedNodes) {
@@ -21,6 +20,7 @@ export default (editor: Editor) => {
     for (const mark of markList) {
       editor.selection.addMark(mark);
     }
+    editor.history.save();
     markList = [];
     editor.container.removeClass(formatPainterClassName);
   });

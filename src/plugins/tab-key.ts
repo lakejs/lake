@@ -13,6 +13,5 @@ export default (editor: Editor) => {
       block.css('text-indent', '2em');
     });
     editor.history.save();
-    editor.select();
   });
 };

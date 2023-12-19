@@ -109,11 +109,11 @@ export class Selection {
     }
     this.selection = selection;
     this.container = container;
-    this.range = this.getRange();
+    this.range = this.getRangeFromNativeSelection();
   }
 
-  // Returns the current selected range from the selection.
-  private getRange(): Range {
+  // Returns the current selected range from the native selection.
+  private getRangeFromNativeSelection(): Range {
     if (this.selection.rangeCount > 0) {
       const range = this.selection.getRangeAt(0);
       return new Range(range);
@@ -121,19 +121,19 @@ export class Selection {
     return new Range();
   }
 
-  // Sets the saved range to the selection.
-  public setRange(): void {
-    const range = this.range;
-    if (range.get() === this.getRange().get()) {
-      return;
-    }
+  // Adds the saved range to the native selection.
+  public addRangeToNativeSelection(): void {
     this.selection.removeAllRanges();
-    this.selection.addRange(range.get());
+    this.selection.addRange(this.range.get());
   }
 
   // Synchronizes the saved range with the range of the selection.
   public syncByRange(): void {
-    this.range = this.getRange();
+    const newRange = this.getRangeFromNativeSelection();
+    if (this.range.get() === newRange.get()) {
+      return;
+    }
+    this.range = newRange;
   }
 
   // Synchronizes the saved range with the range represented by the bookmark.
@@ -146,6 +146,7 @@ export class Selection {
         anchor: new Nodes(),
         focus: boxFocus,
       });
+      this.addRangeToNativeSelection();
       return;
     }
     const anchor = container.find('lake-bookmark[type="anchor"]');
@@ -154,6 +155,7 @@ export class Selection {
       anchor,
       focus,
     });
+    this.addRangeToNativeSelection();
   }
 
   public getAppliedNodes(): AppliedTagMapType[] {
