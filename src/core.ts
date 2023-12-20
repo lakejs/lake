@@ -268,8 +268,8 @@ export class Core {
     targetNode.after(container);
     if (!this.readonly) {
       this.focus();
-      this.history.save(false);
       this.selection.synByBookmark();
+      this.history.save();
     }
     Core.plugin.loadAll(this);
     Core.box.renderAll(this);

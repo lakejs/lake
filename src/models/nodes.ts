@@ -257,6 +257,9 @@ export class Nodes {
     let node = this.eq(0);
     for (const index of selector) {
       node = node.children()[index];
+      if (!node) {
+        return new Nodes();
+      }
     }
     return node;
   }
@@ -354,8 +357,11 @@ export class Nodes {
 
   // Returns a path of the first element.
   public path(): NodePath {
-    const path = [];
+    const path: NodePath = [];
     let node = this.eq(0);
+    if (node.isContainer) {
+      return path;
+    }
     while (node.length > 0) {
       const parent = node.parent();
       if (parent.length === 0) {

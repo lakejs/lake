@@ -5,7 +5,7 @@ import { denormalizeValue } from '../utils/denormalize-value';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { HTMLParser } from '../parsers/html-parser';
-// import { insertBookmark } from '../operations/insert-bookmark';
+import { insertBookmark } from '../operations/insert-bookmark';
 import { Selection } from './selection';
 
 // Saves and controls the editor value history.
@@ -75,12 +75,14 @@ export class History {
     this.renderBoxes();
   }
 
-  /*
   private cloneContainer(): Nodes {
     const range = this.selection.range;
     const newContainer = this.container.clone(true);
-    const startNodePath = range.startNode.getPath();
-    const endNodePath = range.endNode.getPath();
+    if (range.commonAncestor.isOutside) {
+      return newContainer;
+    }
+    const startNodePath = range.startNode.path();
+    const endNodePath = range.endNode.path();
     const newStartNode = newContainer.find(startNodePath);
     const newEndNode = newContainer.find(endNodePath);
     const newRange = range.clone();
@@ -89,7 +91,6 @@ export class History {
     insertBookmark(newRange);
     return newContainer;
   }
-  */
 
   public get canUndo(): boolean {
     return this.index > 1 && !!this.list[this.index - 1];
@@ -155,19 +156,11 @@ export class History {
     this.canSave = false;
   }
 
-  public save(needBookmark = true): void {
+  public save(): void {
     if (!this.canSave) {
       return;
     }
-    // TODO: should not modify editor content
-    let bookmark;
-    if (needBookmark) {
-      bookmark = this.selection.insertBookmark();
-    }
-    const item = this.container.clone(true);
-    if (bookmark) {
-      this.selection.toBookmark(bookmark);
-    }
+    const item = this.cloneContainer();
     this.list.splice(this.index, Infinity, item);
     this.index++;
     if (this.list.length > this.limit) {

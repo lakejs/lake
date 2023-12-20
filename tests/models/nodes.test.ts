@@ -241,6 +241,7 @@ describe('models / nodes', () => {
   it('find method: by path', () => {
     const container = query('<div contenteditable="true"><ol><li>foo</li><li>bar<lake-box></lake-box></li></ol></div>');
     expect(container.find([0, 1, 1]).name).to.equal('lake-box');
+    expect(container.find([]).get(0)).to.equal(container.get(0));
   });
 
   it('method: closest', () => {
@@ -312,6 +313,7 @@ describe('models / nodes', () => {
   it('method: path', () => {
     const container = query('<div contenteditable="true"><ol><li>foo</li><li>bar<lake-box></lake-box></li></ol></div>');
     expect(container.find('lake-box').path()).to.deep.equal([0, 1, 1]);
+    expect(container.path()).to.deep.equal([]);
   });
 
   it('method: children', () => {
