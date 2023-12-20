@@ -128,14 +128,12 @@ function getMarkdownPoint(editor: Editor): Point | void {
   };
 }
 
+// case 1: <p></p> to <p><br /></p>
+// case 2: <p><focus /></p> to <p><br /><focus /></p>
 function fixEmptyBlock(block: Nodes): void {
-  if (block.text() !== '') {
-    return;
-  }
-  if (block.find('br').length > 0) {
-    return;
-  }
-  if (block.children().length > 1 || !block.first().isBookmark) {
+  const newBlock = block.clone(true);
+  newBlock.find('lake-bookmark').remove();
+  if (newBlock.html() !== '') {
     return;
   }
   block.prepend('<br />');

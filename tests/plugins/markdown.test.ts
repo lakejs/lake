@@ -146,6 +146,25 @@ describe('plugin / markdown', () => {
     );
   });
 
+  it('keystroke: should append br with empty text', () => {
+    const content = `
+    <p>#<focus /></p>
+    `;
+    const output = `
+    <h1><br /><focus /></h1>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        const range = editor.selection.range;
+        const block = range.startNode.closestBlock();
+        block.prepend(document.createTextNode(''));
+        editor.keystroke.keydown('space');
+      },
+    );
+  });
+
   it('keystroke: sets numbered list (1. space)', () => {
     const content = `
     <p>1.<focus />foo</p>
