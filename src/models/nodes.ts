@@ -3,6 +3,7 @@ import {
   NativeHTMLElement, NativeElement,
   NativeNode, NativeText, NativeEvent,
 } from '../types/native';
+import { NodePath } from '../types/node';
 import {
   blockTagNames, markTagNames, voidTagNames,
   headingTagNames, listTagNames,
@@ -246,11 +247,18 @@ export class Nodes {
     return new Nodes(nodes);
   }
 
-  // Gets the descendants of the first element filtered by a selector.
-  public find(selector: string): Nodes {
-    const element = this.get(0) as NativeElement;
-    const nodeList = element.querySelectorAll(selector);
-    return new Nodes(Array.from(nodeList));
+  // Returns the descendants of the first element filtered by a selector.
+  public find(selector: string | NodePath): Nodes {
+    if (typeof selector === 'string') {
+      const element = this.get(0) as NativeElement;
+      const nodeList = element.querySelectorAll(selector);
+      return new Nodes(Array.from(nodeList));
+    }
+    let node = this.eq(0);
+    for (const index of selector) {
+      node = node.children()[index];
+    }
+    return node;
   }
 
   // Traverses the first node and its parents (heading toward the document root)
@@ -342,6 +350,24 @@ export class Nodes {
       sibling = sibling.previousSibling;
     }
     return i;
+  }
+
+  // Returns a path of the first element.
+  public path(): NodePath {
+    const path = [];
+    let node = this.eq(0);
+    while (node.length > 0) {
+      const parent = node.parent();
+      if (parent.length === 0) {
+        break;
+      }
+      path.push(node.index());
+      if (parent.isContainer) {
+        break;
+      }
+      node = parent;
+    }
+    return path.reverse();
   }
 
   // Returns a list of child nodes of the first element.

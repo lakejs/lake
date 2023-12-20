@@ -6,7 +6,7 @@ export function fixNumberedList(blocks: Nodes[]): void {
   }
   const firstBlock = blocks[0];
   const lastBlock = blocks[blocks.length - 1];
-  let targetBlocks: Nodes[] = [];
+  const targetBlocks: Nodes[] = [];
   // to find all numbered list before current blocks
   let prevNode = firstBlock.prev();
   while (prevNode.length > 0) {
@@ -16,7 +16,7 @@ export function fixNumberedList(blocks: Nodes[]): void {
     targetBlocks.push(prevNode);
     prevNode = prevNode.prev();
   }
-  targetBlocks = targetBlocks.reverse();
+  targetBlocks.reverse();
   targetBlocks.push(...blocks);
   // to find all numbered list after current blocks
   let nextNode = lastBlock.next();

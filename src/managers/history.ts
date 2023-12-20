@@ -5,6 +5,7 @@ import { denormalizeValue } from '../utils/denormalize-value';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { HTMLParser } from '../parsers/html-parser';
+// import { insertBookmark } from '../operations/insert-bookmark';
 import { Selection } from './selection';
 
 // Saves and controls the editor value history.
@@ -74,6 +75,22 @@ export class History {
     this.renderBoxes();
   }
 
+  /*
+  private cloneContainer(): Nodes {
+    const range = this.selection.range;
+    const newContainer = this.container.clone(true);
+    const startNodePath = range.startNode.getPath();
+    const endNodePath = range.endNode.getPath();
+    const newStartNode = newContainer.find(startNodePath);
+    const newEndNode = newContainer.find(endNodePath);
+    const newRange = range.clone();
+    newRange.setStart(newStartNode, range.startOffset);
+    newRange.setEnd(newEndNode, range.endOffset);
+    insertBookmark(newRange);
+    return newContainer;
+  }
+  */
+
   public get canUndo(): boolean {
     return this.index > 1 && !!this.list[this.index - 1];
   }
@@ -142,6 +159,7 @@ export class History {
     if (!this.canSave) {
       return;
     }
+    // TODO: should not modify editor content
     let bookmark;
     if (needBookmark) {
       bookmark = this.selection.insertBookmark();

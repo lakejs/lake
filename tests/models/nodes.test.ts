@@ -229,13 +229,18 @@ describe('models / nodes', () => {
     expect(node.eq(2).html()).to.equal('one');
   });
 
-  it('method: find', () => {
+  it('find method: by selector', () => {
     const node = new Nodes(document.body);
     const targetNodes1 = node.find('.class1');
     expect(targetNodes1.html()).to.equal('one');
     const targetNodes2 = node.find('.class1, .class2');
     expect(targetNodes2.html()).to.equal('one');
     expect(targetNodes2.eq(1).html()).to.equal('two');
+  });
+
+  it('find method: by path', () => {
+    const container = query('<div contenteditable="true"><ol><li>foo</li><li>bar<lake-box></lake-box></li></ol></div>');
+    expect(container.find([0, 1, 1]).name).to.equal('lake-box');
   });
 
   it('method: closest', () => {
@@ -302,6 +307,11 @@ describe('models / nodes', () => {
     expect(node.find('strong').next().index()).to.equal(2);
     expect(node.find('i').index()).to.equal(3);
     expect(node.find('i').next().index()).to.equal(4);
+  });
+
+  it('method: path', () => {
+    const container = query('<div contenteditable="true"><ol><li>foo</li><li>bar<lake-box></lake-box></li></ol></div>');
+    expect(container.find('lake-box').path()).to.deep.equal([0, 1, 1]);
   });
 
   it('method: children', () => {
