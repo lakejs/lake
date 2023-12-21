@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('plugin / backspace-key', () => {
+describe('plugin / delete-key', () => {
 
   it('no content', () => {
     const content = `
@@ -13,7 +13,7 @@ describe('plugin / backspace-key', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('backspace');
+        editor.keystroke.keydown('delete');
       },
     );
   });
@@ -29,71 +29,15 @@ describe('plugin / backspace-key', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('backspace');
-      },
-    );
-  });
-
-  it('sets heading to paragraph', () => {
-    const content = `
-    <h1><br /><focus /></h1>
-    `;
-    const output = `
-    <p><br /><focus /></p>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.keystroke.keydown('backspace');
-      },
-    );
-  });
-
-  it('sets list to paragraph', () => {
-    const content = `
-    <h1>heading</h1>
-    <ul><li><focus />foo</li></ul>
-    <ul><li>bar</li></ul>
-    `;
-    const output = `
-    <h1>heading</h1>
-    <p><focus />foo</p>
-    <ul><li>bar</li></ul>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.keystroke.keydown('backspace');
-      },
-    );
-  });
-
-  it('sets blockquote to paragraph', () => {
-    const content = `
-    <h1>heading</h1>
-    <blockquote><focus />foo</blockquote>
-    <blockquote>bar</blockquote>
-    `;
-    const output = `
-    <h1>heading</h1>
-    <p><focus />foo</p>
-    <blockquote>bar</blockquote>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.keystroke.keydown('backspace');
+        editor.keystroke.keydown('delete');
       },
     );
   });
 
   it('merges empty paragraphs', () => {
     const content = `
-    <p><br /></p>
     <p><br /><focus /></p>
+    <p><br /></p>
     `;
     const output = `
     <p><br /><focus /></p>
@@ -102,15 +46,15 @@ describe('plugin / backspace-key', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('backspace');
+        editor.keystroke.keydown('delete');
       },
     );
   });
 
   it('merges paragraph into heading', () => {
     const content = `
-    <h1>foo</h1>
-    <p><focus />bar</p>
+    <h1>foo<focus /></h1>
+    <p>bar</p>
     `;
     const output = `
     <h1>foo<focus />bar</h1>
@@ -119,15 +63,15 @@ describe('plugin / backspace-key', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('backspace');
+        editor.keystroke.keydown('delete');
       },
     );
   });
 
   it('merges empty paragraph into heading', () => {
     const content = `
-    <h1>foo</h1>
-    <p><br /><focus /></p>
+    <h1>foo<focus /></h1>
+    <p><br /></p>
     `;
     const output = `
     <h1>foo<focus /></h1>
@@ -136,7 +80,7 @@ describe('plugin / backspace-key', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('backspace');
+        editor.keystroke.keydown('delete');
       },
     );
   });
@@ -153,113 +97,113 @@ describe('plugin / backspace-key', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('backspace');
+        editor.keystroke.keydown('delete');
       },
     );
   });
 
-  it('should move cursor with box before paragraph', () => {
+  it('should move cursor with box after paragraph', () => {
     const content = `
-    <lake-box type="block" name="hr"></lake-box>
-    <p><focus />foo</p>
-    `;
-    const output = `
-    <lake-box type="block" name="hr" focus="right"></lake-box>
-    <p>foo</p>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.keystroke.keydown('backspace');
-      },
-    );
-  });
-
-  it('should remove empty paragraph with box before empty paragraph', () => {
-    const content = `
-    <lake-box type="block" name="hr"></lake-box>
-    <p><br /><focus /></p>
-    `;
-    const output = `
-    <lake-box type="block" name="hr" focus="right"></lake-box>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.keystroke.keydown('backspace');
-      },
-    );
-  });
-
-  it('should remove empty paragraph before box', () => {
-    const content = `
-    <p><br /></p>
-    <lake-box type="block" name="hr" focus="left"></lake-box>
-    `;
-    const output = `
-    <lake-box type="block" name="hr" focus="left"></lake-box>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.keystroke.keydown('backspace');
-      },
-    );
-  });
-
-  it('should move cursor with paragraph before box', () => {
-    const content = `
-    <p>foo</p>
-    <lake-box type="block" name="hr" focus="left"></lake-box>
-    `;
-    const output = `
     <p>foo<focus /></p>
     <lake-box type="block" name="hr"></lake-box>
     `;
+    const output = `
+    <p>foo</p>
+    <lake-box type="block" name="hr" focus="left"></lake-box>
+    `;
     testPlugin(
       content,
       output,
       editor => {
-        editor.keystroke.keydown('backspace');
+        editor.keystroke.keydown('delete');
       },
     );
   });
 
-  it('should remove box after selecting the end of box', () => {
+  it('should remove empty paragraph with box after empty paragraph', () => {
     const content = `
-    <p>foo</p>
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <p><br /><focus /></p>
+    <lake-box type="block" name="hr"></lake-box>
     `;
     const output = `
-    <p>foo</p>
-    <p><br /><focus /></p>
+    <lake-box type="block" name="hr" focus="left"></lake-box>
     `;
     testPlugin(
       content,
       output,
       editor => {
-        editor.keystroke.keydown('backspace');
+        editor.keystroke.keydown('delete');
+      },
+    );
+  });
+
+  it('should remove empty paragraph after box', () => {
+    const content = `
+    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <p><br /></p>
+    `;
+    const output = `
+    <lake-box type="block" name="hr" focus="right"></lake-box>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('delete');
+      },
+    );
+  });
+
+  it('should remove box after selecting the beginning of box', () => {
+    const content = `
+    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <p>foo</p>
+    `;
+    const output = `
+    <p><br /><focus /></p>
+    <p>foo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('delete');
+      },
+    );
+  });
+
+  it('should move cursor with paragraph after box', () => {
+    const content = `
+    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <p>foo</p>
+    `;
+    const output = `
+    <lake-box type="block" name="hr"></lake-box>
+    <p><focus />foo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('delete');
       },
     );
   });
 
   it('should remove box after selecting the box', () => {
     const content = `
-    <p>foo</p>
     <lake-box type="block" name="hr" focus="center"></lake-box>
+    <p>foo</p>
     `;
     const output = `
-    <p>foo</p>
     <p><br /><focus /></p>
+    <p>foo</p>
     `;
     testPlugin(
       content,
       output,
       editor => {
-        editor.keystroke.keydown('backspace');
+        editor.keystroke.keydown('delete');
       },
     );
   });

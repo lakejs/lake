@@ -86,6 +86,7 @@ import './plugins/hr.test';
 import './plugins/enter-key.test';
 import './plugins/shift-enter-key.test';
 import './plugins/backspace-key.test';
+import './plugins/delete-key.test';
 import './plugins/tab-key.test';
 import './plugins/arrow-keys.test';
 import './plugins/markdown.test';
