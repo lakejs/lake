@@ -51,6 +51,46 @@ describe('plugin / backspace', () => {
     );
   });
 
+  it('sets list to paragraph', () => {
+    const content = `
+    <h1>heading</h1>
+    <ul><li><focus />foo</li></ul>
+    <ul><li>bar</li></ul>
+    `;
+    const output = `
+    <h1>heading</h1>
+    <p><focus />foo</p>
+    <ul><li>bar</li></ul>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('sets blockquote to paragraph', () => {
+    const content = `
+    <h1>heading</h1>
+    <blockquote><focus />foo</blockquote>
+    <blockquote>bar</blockquote>
+    `;
+    const output = `
+    <h1>heading</h1>
+    <p><focus />foo</p>
+    <blockquote>bar</blockquote>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
   it('merges empty paragraphs', () => {
     const content = `
     <p><br /></p>

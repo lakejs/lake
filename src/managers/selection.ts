@@ -127,7 +127,7 @@ export class Selection {
     this.selection.addRange(this.range.get());
   }
 
-  // Synchronizes the saved range with the range of the selection.
+  // Synchronizes the saved range with the range of the native selection.
   public syncByRange(): void {
     const newRange = this.getRangeFromNativeSelection();
     if (this.range.get() === newRange.get()) {

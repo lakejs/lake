@@ -47,6 +47,11 @@ export default (editor: Editor) => {
         editor.selection.setBlocks('<p />');
         block = range.getBlocks()[0];
       }
+      if (block.isList || block.name === 'blockquote') {
+        editor.selection.setBlocks('<p />');
+        editor.history.save();
+        return;
+      }
       let prevBlock = block.prev();
       if (prevBlock.length === 0) {
         if (block.name !== 'p') {
