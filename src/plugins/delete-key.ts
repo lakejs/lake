@@ -2,6 +2,7 @@ import type Editor from '..';
 import { mergeNodes } from '../utils';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
+import { removeBox } from '../operations/remove-box';
 
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('delete', event => {
@@ -39,6 +40,14 @@ export default (editor: Editor) => {
       return;
     }
     range.adapt();
+    const nextNode = range.getNextNode();
+    if (nextNode.isBox) {
+      event.preventDefault();
+      range.selectBoxRight(nextNode);
+      removeBox(range);
+      editor.history.save();
+      return;
+    }
     const rightText = range.getRightText();
     if (rightText === '') {
       event.preventDefault();

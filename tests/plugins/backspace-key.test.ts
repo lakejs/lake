@@ -1,5 +1,7 @@
 import { testPlugin } from '../utils';
 
+const imageBoxValue = 'eyJ1cmwiOiIuL2RhdGEvY293LmpwZyJ9';
+
 describe('plugin / backspace-key', () => {
 
   it('no content', () => {
@@ -254,6 +256,22 @@ describe('plugin / backspace-key', () => {
     const output = `
     <p>foo</p>
     <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should remove inline box', () => {
+    const content = `
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus />bar</p>
+    `;
+    const output = `
+    <p>foo<focus />bar</p>
     `;
     testPlugin(
       content,

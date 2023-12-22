@@ -1,5 +1,7 @@
 import { testPlugin } from '../utils';
 
+const imageBoxValue = 'eyJ1cmwiOiIuL2RhdGEvY293LmpwZyJ9';
+
 describe('plugin / delete-key', () => {
 
   it('no content', () => {
@@ -198,6 +200,22 @@ describe('plugin / delete-key', () => {
     const output = `
     <p><br /><focus /></p>
     <p>foo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('delete');
+      },
+    );
+  });
+
+  it('should remove inline box', () => {
+    const content = `
+    <p>foo<focus /><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>bar</p>
+    `;
+    const output = `
+    <p>foo<focus />bar</p>
     `;
     testPlugin(
       content,

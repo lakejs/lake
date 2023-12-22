@@ -303,7 +303,7 @@ export class Range {
       return;
     }
     const nextBlock = this.startNode.children()[this.startOffset];
-    if (nextBlock && (nextBlock.isBox || nextBlock.isBlock)) {
+    if (nextBlock && (nextBlock.isBox && nextBlock.attr('type') === 'block' || nextBlock.isBlock)) {
       this.shrinkBefore(nextBlock);
     }
   }
@@ -312,6 +312,32 @@ export class Range {
   public adapt(): void {
     this.adaptBox();
     this.adaptBlock();
+  }
+
+  // Returns the previous node of the beginning point of the range.
+  public getPrevNode(): Nodes {
+    let prevNode;
+    if (this.startNode.isText) {
+      if (this.startOffset === 0) {
+        prevNode = this.startNode.prev();
+      }
+    } else {
+      prevNode = this.startNode.children()[this.startOffset - 1];
+    }
+    return prevNode ?? new Nodes();
+  }
+
+  // Returns the next node of the beginning point of the range.
+  public getNextNode(): Nodes {
+    let nextNode;
+    if (this.endNode.isText) {
+      if (this.endOffset === this.endNode.text().length) {
+        nextNode = this.endNode.next();
+      }
+    } else {
+      nextNode = this.endNode.children()[this.endOffset];
+    }
+    return nextNode ?? new Nodes();
   }
 
   // Returns target boxes relating to the range.

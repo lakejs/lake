@@ -6,14 +6,10 @@ export default (editor: Editor) => {
     if (!range.isCollapsed) {
       return;
     }
-    let prevBlock;
-    if (range.startNode.isText && range.startOffset === 0) {
-      prevBlock = range.startNode.prev();
-    } else {
-      prevBlock = range.startNode.children()[range.startOffset - 1];
-    }
-    if (prevBlock && prevBlock.isBox) {
-      range.selectBoxRight(prevBlock);
+    const prevNode = range.getPrevNode();
+    if (prevNode.isBox) {
+      range.selectBoxRight(prevNode);
+      return;
     }
     if (range.isBoxLeft) {
       const boxNode = range.startNode.closest('lake-box');
@@ -26,14 +22,10 @@ export default (editor: Editor) => {
     if (!range.isCollapsed) {
       return;
     }
-    let nextBlock;
-    if (range.startNode.isText && range.startOffset === range.startNode.text().length) {
-      nextBlock = range.startNode.next();
-    } else {
-      nextBlock = range.startNode.children()[range.startOffset];
-    }
-    if (nextBlock && nextBlock.isBox) {
-      range.selectBoxLeft(nextBlock);
+    const nextNode = range.getNextNode();
+    if (nextNode.isBox) {
+      range.selectBoxLeft(nextNode);
+      return;
     }
     if (range.isBoxRight) {
       const boxNode = range.startNode.closest('lake-box');

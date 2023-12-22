@@ -506,6 +506,54 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
+  it('getPrevNode method: startNode is a text, startOffset = 0', () => {
+    container.html('<p>foo<strong>bold</strong>bar</p>');
+    const range = new Range();
+    range.setStart(container.find('strong').next(), 0);
+    const prevNode = range.getPrevNode();
+    expect(prevNode.name).to.equal('strong');
+  });
+
+  it('getPrevNode method: startNode is a text, startOffset > 0', () => {
+    container.html('<p>foo<strong>bold</strong>bar</p>');
+    const range = new Range();
+    range.setStart(container.find('strong').next(), 1);
+    const prevNode = range.getPrevNode();
+    expect(prevNode.length).to.equal(0);
+  });
+
+  it('getPrevNode method: startNode is an element', () => {
+    container.html('<p>foo<strong>bold</strong>bar</p>');
+    const range = new Range();
+    range.setStart(container.find('p'), 2);
+    const prevNode = range.getPrevNode();
+    expect(prevNode.name).to.equal('strong');
+  });
+
+  it('getNextNode method: endNode is a text, endOffset = 0', () => {
+    container.html('<p>foo<strong>bold</strong>bar</p>');
+    const range = new Range();
+    range.setEnd(container.find('strong').prev(), 3);
+    const nextNode = range.getNextNode();
+    expect(nextNode.name).to.equal('strong');
+  });
+
+  it('getNextNode method: endNode is a text, endOffset > 0', () => {
+    container.html('<p>foo<strong>bold</strong>bar</p>');
+    const range = new Range();
+    range.setEnd(container.find('strong').prev(), 1);
+    const nextNode = range.getNextNode();
+    expect(nextNode.length).to.equal(0);
+  });
+
+  it('getNextNode method: endNode is an element', () => {
+    container.html('<p>foo<strong>bold</strong>bar</p>');
+    const range = new Range();
+    range.setEnd(container.find('p'), 1);
+    const nextNode = range.getNextNode();
+    expect(nextNode.name).to.equal('strong');
+  });
+
   it('getBoxes method: collapsed range', () => {
     setTestBox(container);
     container.prepend('<p>foo</p>');
