@@ -9,7 +9,7 @@ describe('managers / history', () => {
   let container: Nodes;
 
   beforeEach(() => {
-    container = query('<div />');
+    container = query('<div contenteditable="true" />');
     query(document.body).append(container);
   });
 
@@ -190,6 +190,20 @@ describe('managers / history', () => {
     history.save();
     history.undo();
     expect(container.html()).to.equal('a');
+  });
+
+  it('should not save when only changing selection', () => {
+    container.html('<p>foo</p>');
+    const selection = new Selection(container);
+    selection.range.setEnd(container.find('p'), 0);
+    selection.range.collapseToEnd();
+    const history = new History(selection);
+    history.save();
+    expect(history.count).to.equal(1);
+    selection.range.setEnd(container.find('p'), 1);
+    selection.range.collapseToEnd();
+    history.save();
+    expect(history.count).to.equal(1);
   });
 
 });

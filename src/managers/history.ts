@@ -1,7 +1,6 @@
 import morphdom from 'morphdom';
-import { NativeElement } from '../types/native';
+import { NativeElement, NativeNode } from '../types/native';
 import { debug } from '../utils/debug';
-import { denormalizeValue } from '../utils/denormalize-value';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { HTMLParser } from '../parsers/html-parser';
@@ -44,27 +43,43 @@ export class History {
     this.limit = 100;
   }
 
-  private getValue(container: Nodes): string {
-    const value = new HTMLParser(container).getHTML();
-    return denormalizeValue(value);
+  private getValueWithoutBookmark(container: Nodes): string {
+    return new HTMLParser(container).getHTML().
+      replace(/(<lake-box[^>]+)\s+focus="\w+"([^>]*>)/ig, '$1$2').
+      replace(/<lake-bookmark\s+type="anchor">\s*<\/lake-bookmark>/ig, '').
+      replace(/<lake-bookmark\s+type="focus">\s*<\/lake-bookmark>/ig, '');
   }
 
   private renderBoxes(): void {
-    this.container.find('lake-box').each(node => {
+    this.container.find('lake-box[status="will"]').each(node => {
       const boxNode = new Nodes(node);
-      if (boxNode.find('.lake-body').length === 0) {
-        new Box(boxNode).render();
-      }
+      new Box(boxNode).render();
+      boxNode.removeAttr('status');
     });
   }
 
   private merge(sourceItem: Nodes): void {
     const options = {
       onBeforeElChildrenUpdated: (fromElement: NativeElement, toElement: NativeElement) => {
-        if (fromElement.nodeName.toLowerCase() === 'lake-box') {
+        if (new Nodes(fromElement).name === 'lake-box') {
           return false;
         }
-        if (toElement.nodeName.toLowerCase() === 'lake-box') {
+        if (new Nodes(toElement).name === 'lake-box') {
+          return false;
+        }
+        return true;
+      },
+      onBeforeNodeAdded: (nativeNode: NativeNode) => {
+        const node = new Nodes(nativeNode);
+        if (node.name === 'lake-box') {
+          node.attr('status', 'will');
+        }
+        return nativeNode;
+      },
+      onBeforeNodeDiscarded: (nativeNode: NativeNode) => {
+        const node = new Nodes(nativeNode);
+        if (node.name === 'lake-box') {
+          new Box(node).remove();
           return false;
         }
         return true;
@@ -92,6 +107,10 @@ export class History {
     return newContainer;
   }
 
+  public get count(): number {
+    return this.list.length;
+  }
+
   public get canUndo(): boolean {
     return this.index > 1 && !!this.list[this.index - 1];
   }
@@ -105,7 +124,7 @@ export class History {
       return;
     }
     this.selection.insertBookmark();
-    const value = this.getValue(this.container);
+    const value = this.getValueWithoutBookmark(this.container);
     let item = null;
     while (this.index > 0) {
       const prevItem = this.list[this.index - 1];
@@ -113,7 +132,7 @@ export class History {
         break;
       }
       this.index--;
-      if (this.getValue(prevItem) !== value) {
+      if (this.getValueWithoutBookmark(prevItem) !== value) {
         item = prevItem;
         break;
       }
@@ -129,7 +148,7 @@ export class History {
       return;
     }
     this.selection.insertBookmark();
-    const value = this.getValue(this.container);
+    const value = this.getValueWithoutBookmark(this.container);
     let item = null;
     while (this.index < this.list.length) {
       const nextItem = this.list[this.index];
@@ -137,7 +156,7 @@ export class History {
         break;
       }
       this.index++;
-      if (this.getValue(nextItem) !== value) {
+      if (this.getValueWithoutBookmark(nextItem) !== value) {
         item = nextItem;
         break;
       }
@@ -161,6 +180,13 @@ export class History {
       return;
     }
     const item = this.cloneContainer();
+    const value = this.getValueWithoutBookmark(item);
+    if (
+      this.list.length > 0 &&
+      this.getValueWithoutBookmark(this.list[this.list.length - 1]) === value
+    ) {
+      return;
+    }
     this.list.splice(this.index, Infinity, item);
     this.index++;
     if (this.list.length > this.limit) {
