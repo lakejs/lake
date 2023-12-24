@@ -22,8 +22,10 @@ export function insertBookmark(range: Range): { anchor: Nodes, focus: Nodes } {
   if (boxNode.length > 0) {
     if (range.isBoxLeft) {
       boxNode.attr('focus', 'left');
-    } else {
+    } else if (range.isBoxRight) {
       boxNode.attr('focus', 'right');
+    } else {
+      boxNode.attr('focus', 'center');
     }
     return {
       anchor: new Nodes(),

@@ -44,34 +44,44 @@ export class Range {
 
   // Returns a boolean value indicating whether the range's start point is in the box.
   public get isBox(): boolean {
-    const boxNode = this.startNode.closest('lake-box');
+    const boxNode = this.commonAncestor.closest('lake-box');
     return boxNode.length > 0;
   }
 
-  // Returns a boolean value indicating whether the range's start point is at the left strip of the box.
+  // Returns a boolean value indicating whether the range's common ancestor node is at the left strip of the box.
   // case 1: <lake-box><span class="lake-box-strip">|</span><div class="lake-box-container"></div> ...
   // case 2: <lake-box><span class="lake-box-strip"></span>|<div class="lake-box-container"></div> ...
   // case 3: <lake-box>|<span class="lake-box-strip"></span><div class="lake-box-container"></div> ...
   public get isBoxLeft(): boolean {
-    const boxNode = this.startNode.closest('lake-box');
+    const boxNode = this.commonAncestor.closest('lake-box');
     if (boxNode.length === 0) {
       return false;
     }
-    const boxBody = boxNode.find('.lake-box-container');
-    return this.compareBeforeNode(boxBody) >= 0;
+    const boxContainer = boxNode.find('.lake-box-container');
+    return this.compareBeforeNode(boxContainer) >= 0;
   }
 
-  // Returns a boolean value indicating whether the range's start point is at the right strip of the box.
+  // Returns a boolean value indicating whether the range's common ancestor node is at the left strip of the box.
+  public get isBoxCenter(): boolean {
+    const boxNode = this.commonAncestor.closest('lake-box');
+    if (boxNode.length === 0) {
+      return false;
+    }
+    const boxContainer = boxNode.find('.lake-box-container');
+    return this.compareBeforeNode(boxContainer) < 0 && this.compareAfterNode(boxContainer) > 0;
+  }
+
+  // Returns a boolean value indicating whether the range's common ancestor node is at the right strip of the box.
   // case 1: ... <div class="lake-box-container"></div><span class="lake-box-strip">|</span></lake-box>
   // case 2: ... <div class="lake-box-container"></div>|<span class="lake-box-strip"></span></lake-box>
   // case 3: ... <div class="lake-box-container"></div><span class="lake-box-strip"></span>|</lake-box>
   public get isBoxRight(): boolean {
-    const boxNode = this.startNode.closest('lake-box');
+    const boxNode = this.commonAncestor.closest('lake-box');
     if (boxNode.length === 0) {
       return false;
     }
-    const boxBody = boxNode.find('.lake-box-container');
-    return this.compareAfterNode(boxBody) <= 0;
+    const boxContainer = boxNode.find('.lake-box-container');
+    return this.compareAfterNode(boxContainer) <= 0;
   }
 
   // Gets a native range.
@@ -162,6 +172,16 @@ export class Range {
   // Sets the range to contain the contents of the specified node.
   public selectNodeContents(node: Nodes): void {
     this.range.selectNodeContents(node.get(0));
+  }
+
+  // Sets the range to the center position of the box.
+  public selectBox(boxNode: Nodes): void {
+    const boxContainer = boxNode.find('.lake-box-container');
+    if (boxContainer.length === 0) {
+      throw new Error(`The box cannot be selected because the box '${boxNode.attr('name')}' (id=${boxNode.id}) has not been rendered yet.`);
+    }
+    this.setStart(boxContainer, 0);
+    this.collapseToStart();
   }
 
   // Sets the range to the left position of the box.
@@ -273,10 +293,10 @@ export class Range {
     if (startBoxNode.length > 0) {
       const startRange = this.clone();
       startRange.collapseToStart();
-      if (startRange.isBoxLeft) {
-        this.setStartBefore(startBoxNode);
-      } else {
+      if (startRange.isBoxRight) {
         this.setStartAfter(startBoxNode);
+      } else {
+        this.setStartBefore(startBoxNode);
       }
     }
     const endBoxNode = this.endNode.closest('lake-box');

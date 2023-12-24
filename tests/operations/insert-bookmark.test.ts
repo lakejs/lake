@@ -88,7 +88,7 @@ describe('operations / insert-bookmark', () => {
     const bookmark = insertBookmark(range);
     expect(bookmark.anchor.length).to.equal(0);
     expect(bookmark.focus.name).to.equal('lake-box');
-    expect(bookmark.focus.attr('focus')).to.equal('right');
+    expect(bookmark.focus.attr('focus')).to.equal('center');
   });
 
 });

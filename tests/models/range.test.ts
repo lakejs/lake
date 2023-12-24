@@ -104,6 +104,18 @@ describe('models / range', () => {
     expect(range.isBoxLeft).to.equal(false);
   });
 
+  it('property: isBoxCenter', () => {
+    setTestBox(container);
+    const range = new Range();
+    const boxNode = container.find('lake-box');
+    range.selectBox(boxNode);
+    expect(range.isBoxCenter).to.equal(true);
+    range.selectBoxLeft(boxNode);
+    expect(range.isBoxCenter).to.equal(false);
+    range.selectBoxRight(boxNode);
+    expect(range.isBoxCenter).to.equal(false);
+  });
+
   it('property: isBoxRight', () => {
     setTestBox(container);
     const range = new Range();
@@ -291,6 +303,15 @@ describe('models / range', () => {
     expect(range.startOffset).to.equal(0);
     expect(range.endOffset).to.equal(1);
     expect(range.isCollapsed).to.equal(false);
+  });
+
+  it('method: selectBox', () => {
+    setTestBox(container);
+    const range = new Range();
+    range.selectBox(container.find('lake-box'));
+    expect(range.startNode.attr('class')).to.equal('lake-box-container');
+    expect(range.startOffset).to.equal(0);
+    expect(range.isCollapsed).to.equal(true);
   });
 
   it('method: selectBoxLeft', () => {

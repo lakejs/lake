@@ -149,9 +149,7 @@ describe('operations / to-bookmark', () => {
       anchor,
       focus,
     });
-    const boxNode = range.startNode.closest('lake-box');
-    expect(boxNode.length).to.equal(1);
-    expect(boxNode.find('.lake-box-selected').length).to.equal(1);
+    expect(range.isBoxCenter).to.equal(true);
   });
 
 });
