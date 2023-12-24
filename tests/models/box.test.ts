@@ -47,8 +47,7 @@ describe('models / box', () => {
   it('property: type', () => {
     container.html('<lake-box type="block" name="blockBox"></lake-box>');
     const box = new Box(container.find('lake-box'));
-    box.type = 'inline';
-    expect(box.type).to.equal('inline');
+    expect(box.type).to.equal('block');
   });
 
   it('property: name', () => {

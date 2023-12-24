@@ -69,11 +69,6 @@ export class Box {
     return this.node.attr('type') as BoxType;
   }
 
-  // Updates the type of the box.
-  public set type(type: BoxType) {
-    this.node.attr('type', type);
-  }
-
   // Returns the name of the box.
   public get name(): string {
     return this.node.attr('name');
