@@ -51,4 +51,20 @@ export default (editor: Editor) => {
       range.selectBox(nextNode);
     }
   });
+  editor.keystroke.setKeydown('arrow-up', () => {
+    const range = editor.selection.range;
+    const boxNode = range.commonAncestor.closest('lake-box');
+    if (boxNode.length > 0) {
+      range.setStartBefore(boxNode);
+      range.collapseToStart();
+    }
+  });
+  editor.keystroke.setKeydown('arrow-down', () => {
+    const range = editor.selection.range;
+    const boxNode = range.commonAncestor.closest('lake-box');
+    if (boxNode.length > 0) {
+      range.setStartAfter(boxNode);
+      range.collapseToStart();
+    }
+  });
 };

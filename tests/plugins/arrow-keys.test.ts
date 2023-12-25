@@ -132,4 +132,36 @@ describe('plugin / arrow-keys', () => {
     );
   });
 
+  it('up key: box is selected', () => {
+    const content = `
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
+    `;
+    const output = `
+    <p>foo<focus /><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('arrow-up');
+      },
+    );
+  });
+
+  it('down key: box is selected', () => {
+    const content = `
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
+    `;
+    const output = `
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus />bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('arrow-down');
+      },
+    );
+  });
+
 });
