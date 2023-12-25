@@ -9,6 +9,10 @@ export class BoxManager {
     boxes.set(def.name, def);
   }
 
+  public remove(name: string) {
+    boxes.delete(name);
+  }
+
   public getNames(): string[] {
     return Array.from(boxes.keys());
   }

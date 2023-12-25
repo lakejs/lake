@@ -9,7 +9,7 @@ export function removeBox(range: Range): void {
   if (!range.isBox) {
     return;
   }
-  const boxNode = range.startNode.closest('lake-box');
+  const boxNode = range.commonAncestor.closest('lake-box');
   const box = new Box(boxNode);
   if (box.type === 'block') {
     const paragraph = query('<p><br /></p>');

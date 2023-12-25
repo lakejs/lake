@@ -139,9 +139,11 @@ export class Core {
     const box = new Box(boxNode);
     if (box.type === 'inline') {
       if (range.isBoxLeft) {
-        range.selectBoxLeft(boxNode);
+        range.setStartBefore(boxNode);
+        range.collapseToStart();
       } else {
-        range.selectBoxRight(boxNode);
+        range.setStartAfter(boxNode);
+        range.collapseToStart();
       }
     } else {
       const paragraph = query('<p />');
@@ -152,9 +154,9 @@ export class Core {
       }
       range.shrinkAfter(paragraph);
     }
-    const data = stripNode.text();
+    const text = stripNode.text();
     stripNode.html('<br />');
-    selection.insertNode(document.createTextNode(data));
+    selection.insertNode(document.createTextNode(text));
   }
 
   private bindInputEvents(): void {
@@ -170,10 +172,12 @@ export class Core {
       if (range.isBoxLeft || range.isBoxRight) {
         this.commitUnsavedInputData();
       }
+      this.event.emit('input:before');
     });
     this.container.on('input', event => {
       window.setTimeout(() => {
         if (isComposing) {
+          this.event.emit('input');
           return;
         }
         const range = this.selection.range;
@@ -182,11 +186,13 @@ export class Core {
         } else {
           this.unsavedInputData += (event as InputEvent).data ?? '';
           if (this.unsavedInputData.length < this.options.minChangeSize) {
+            this.event.emit('input');
             return;
           }
         }
         this.history.save();
         this.unsavedInputData = '';
+        this.event.emit('input');
       }, 100);
     });
     this.command.event.on('execute:before', () => this.commitUnsavedInputData());

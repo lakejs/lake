@@ -1,18 +1,40 @@
 import { expect } from 'chai';
-import { query } from '../src/utils';
+import { debug, query } from '../src/utils';
 import { Nodes } from '../src/models/nodes';
 import { Core } from '../src/core';
+
+function inputData(editor: Core, data: string) {
+  const event = new InputEvent('input', {
+    data,
+    inputType: 'insertText',
+    isComposing: false,
+  });
+  editor.container.emit('beforeinput', event);
+  editor.container.emit('input', event);
+}
 
 describe('core', () => {
 
   let targetNode: Nodes;
 
   beforeEach(() => {
+    Core.box.add({
+      type: 'inline',
+      name: 'inlineBox',
+      render: () => '<img />',
+    });
+    Core.box.add({
+      type: 'block',
+      name: 'blockBox',
+      render: () => '<hr />',
+    });
     targetNode = query('<div />');
     query(document.body).append(targetNode);
   });
 
   afterEach(() => {
+    Core.box.remove('inlineBox');
+    Core.box.remove('blockBox');
     targetNode.remove();
   });
 
@@ -21,8 +43,9 @@ describe('core', () => {
       className: 'my-editor-container',
     });
     editor.create();
-    expect(editor.container.hasClass('my-editor-container')).to.equal(true);
+    const hasClass = editor.container.hasClass('my-editor-container');
     editor.remove();
+    expect(hasClass).to.equal(true);
   });
 
   it('constructor: sets spellcheck', () => {
@@ -30,8 +53,9 @@ describe('core', () => {
       spellcheck: true,
     });
     editor.create();
-    expect(editor.container.attr('spellcheck')).to.equal('true');
+    const spellcheck = editor.container.attr('spellcheck');
     editor.remove();
+    expect(spellcheck).to.equal('true');
   });
 
   it('method: getValue', () => {
@@ -41,10 +65,11 @@ describe('core', () => {
       defaultValue: input,
     });
     editor.create();
-    expect(editor.getValue()).to.equal(output);
+    const value = editor.getValue();
+    debug(value);
     editor.remove();
+    expect(value).to.equal(output);
   });
-
 
   it('method: setValue', () => {
     const input = '<p><strong>\u200B# <focus />foo</strong></p>';
@@ -54,8 +79,48 @@ describe('core', () => {
     });
     editor.create();
     editor.setValue(input);
-    expect(editor.getValue()).to.equal(output);
+    const value = editor.getValue();
+    debug(value);
     editor.remove();
+    expect(value).to.equal(output);
+  });
+
+  it('input event: input text in the left strip of inline box', done => {
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
+    const output = '<p>fooa<focus /><lake-box type="inline" name="inlineBox"></lake-box>bar</p>';
+    const editor = new Core(targetNode.get(0), {
+      className: 'my-editor-container',
+    });
+    editor.create();
+    editor.setValue(input);
+    editor.event.on('input', () => {
+      const value = editor.getValue();
+      debug(value);
+      editor.remove();
+      expect(value).to.equal(output);
+      done();
+    });
+    editor.container.find('.lake-box-strip').eq(0).html('a');
+    inputData(editor, 'a');
+  });
+
+  it('input event: input text in the right strip of inline box', done => {
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="right"></lake-box>bar</p>';
+    const output = '<p>foo<lake-box type="inline" name="inlineBox"></lake-box>a<focus />bar</p>';
+    const editor = new Core(targetNode.get(0), {
+      className: 'my-editor-container',
+    });
+    editor.create();
+    editor.setValue(input);
+    editor.event.on('input', () => {
+      const value = editor.getValue();
+      debug(value);
+      editor.remove();
+      expect(value).to.equal(output);
+      done();
+    });
+    editor.container.find('.lake-box-strip').eq(1).html('a');
+    inputData(editor, 'a');
   });
 
   it('readonly mode', () => {
@@ -66,9 +131,12 @@ describe('core', () => {
       defaultValue: input,
     });
     view.create();
-    expect(view.readonly).to.equal(true);
-    expect(view.getValue()).to.equal(output);
+    const readonly = view.readonly;
+    const value = view.getValue();
+    debug(value);
     view.remove();
+    expect(readonly).to.equal(true);
+    expect(value).to.equal(output);
   });
 
 });

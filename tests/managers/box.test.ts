@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { boxes } from '../../src/storage/boxes';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { BoxManager } from '../../src/managers/box';
@@ -32,7 +31,7 @@ describe('managers / box', () => {
     editor.create();
     box.renderAll(editor);
     editor.remove();
-    boxes.delete('managerTest');
+    box.remove('managerTest');
     expect(box.getNodeList(editor)[0].children().length).to.equal(3);
   });
 
