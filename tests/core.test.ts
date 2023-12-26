@@ -58,6 +58,20 @@ describe('core', () => {
     expect(spellcheck).to.equal('true');
   });
 
+  it('constructor: empty default value', () => {
+    const input = '';
+    const output = '';
+    const editor = new Core(targetNode.get(0), {
+      className: 'my-editor-container',
+      defaultValue: input,
+    });
+    editor.create();
+    const value = editor.getValue();
+    debug(value);
+    editor.remove();
+    expect(value).to.equal(output);
+  });
+
   it('method: getValue', () => {
     const input = '<p><strong>\u200B# <focus />foo</strong></p>';
     const output = '<p><strong># <focus />foo</strong></p>';
@@ -122,6 +136,25 @@ describe('core', () => {
     editor.container.find('.lake-box-strip').eq(1).html('a');
     inputData(editor, 'a');
   });
+
+  /*
+  it('always keeps empty paragraph', () => {
+    const input = '<p>foo</p>';
+    const output = '<p><br /><focus /></p>';
+    const editor = new Core(targetNode.get(0), {
+      className: 'my-editor-container',
+    });
+    editor.create();
+    editor.setValue(input);
+    editor.command.execute('selectAll');
+    editor.selection.deleteContents();
+    editor.history.save();
+    const value = editor.getValue();
+    debug(value);
+    editor.remove();
+    expect(value).to.equal(output);
+  });
+  */
 
   it('readonly mode', () => {
     const input = '<p>foo<focus /></p>';

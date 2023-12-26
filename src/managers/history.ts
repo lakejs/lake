@@ -1,3 +1,4 @@
+import EventEmitter from 'eventemitter3';
 import morphdom from 'morphdom';
 import { NativeElement, NativeNode } from '../types/native';
 import { debug } from '../utils/debug';
@@ -34,6 +35,8 @@ export class History {
 
   public limit: number;
 
+  public event: EventEmitter;
+
   constructor(selection: Selection) {
     this.selection = selection;
     this.container = selection.container;
@@ -41,6 +44,7 @@ export class History {
     this.index = 0;
     this.canSave = true;
     this.limit = 100;
+    this.event = new EventEmitter();
   }
 
   private getValueWithoutBookmark(container: Nodes): string {
@@ -141,6 +145,7 @@ export class History {
       this.merge(item);
     }
     this.selection.synByBookmark();
+    this.event.emit('undo');
   }
 
   public redo(): void {
@@ -165,6 +170,7 @@ export class History {
       this.merge(item);
     }
     this.selection.synByBookmark();
+    this.event.emit('redo');
   }
 
   public continue(): void {
@@ -193,6 +199,7 @@ export class History {
       this.list.shift();
       this.index = this.list.length;
     }
+    this.event.emit('save', value);
     debug(`saved history (index = ${this.index})`);
   }
 }
