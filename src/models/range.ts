@@ -312,14 +312,32 @@ export class Range {
   }
 
   // Relocates the start point of the range for the block.
+  // case 1:
   // <p>foo</p>|<p>bar</p>
   // to
   // <p>foo</p><p>|bar</p>
+  // case 2:
+  // [<p>foo</p>]<p>bar</p>
+  // to
+  // <p>[foo]</p><p>bar</p>
+  // case 3:
+  // [<p>foo</p><p>]bar</p>
+  // to
+  // <p>[foo]</p><p>bar</p>
   public adaptBlock(): void {
     if (!this.isCollapsed) {
+      // [<p>foo</p><p>]bar</p> to [<p>foo</p>]<p>bar</p>
+      if (this.endNode.isElement && this.endOffset === 0) {
+        let node = this.endNode;
+        while (node.prev().length === 0) {
+          node = node.parent();
+        }
+        this.setEndBefore(node);
+      }
+      this.shrink();
       return;
     }
-    if (!this.startNode.isElement) {
+    if (this.startNode.isText) {
       return;
     }
     const nextBlock = this.startNode.children()[this.startOffset];

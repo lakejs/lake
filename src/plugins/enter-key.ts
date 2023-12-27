@@ -19,7 +19,6 @@ export default (editor: Editor) => {
       return;
     }
     range.adapt();
-    range.shrink();
     let block = range.getBlocks()[0];
     if (!block) {
       editor.selection.setBlocks('<p />');
@@ -32,12 +31,12 @@ export default (editor: Editor) => {
     }
     const rightText = range.getRightText();
     selection.splitBlock();
-    if (rightText !== '') {
+    block = range.getBlocks()[0];
+    if (!block) {
       editor.history.save();
       return;
     }
-    block = range.getBlocks()[0];
-    if (block.isHeading) {
+    if (rightText === '' && block.isHeading) {
       editor.selection.setBlocks('<p />');
       editor.history.save();
       return;

@@ -87,41 +87,6 @@ describe('plugin / enter-key', () => {
     );
   });
 
-  it('paragraph: all content is selected', () => {
-    const content = `
-    <anchor /><p>foo</p><focus />
-    `;
-    const output = `
-    <p><br /></p><p><focus /><br /></p>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.keystroke.keydown('enter');
-      },
-    );
-  });
-
-  it('paragraph: a block is selected', () => {
-    const content = `
-    <anchor /><p>foo</p><focus />
-    <p>bar</p>
-    `;
-    const output = `
-    <p><br /></p>
-    <p><focus /><br /></p>
-    <p>bar</p>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.keystroke.keydown('enter');
-      },
-    );
-  });
-
   it('heading: should become paragraph when the focus is at the end of the heading', () => {
     const content = `
     <h1>foo<focus /></h1>
@@ -146,6 +111,60 @@ describe('plugin / enter-key', () => {
     const output = `
     <h1><br /></h1>
     <h1><focus />foo</h1>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('heading: selecting all content', () => {
+    const content = `
+    <anchor /><h1>foo</h1><focus />
+    `;
+    const output = `
+    <h1><br /></h1><p><focus /><br /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('heading: selecting a block', () => {
+    const content = `
+    <anchor /><h1>foo</h1><focus />
+    <h2>bar</h2>
+    `;
+    const output = `
+    <h1><br /></h1>
+    <p><focus /><br /></p>
+    <h2>bar</h2>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('heading: selecting a block and the beginning of next block', () => {
+    const content = `
+    <anchor /><h1>foo</h1>
+    <h2><focus />bar</h2>
+    `;
+    const output = `
+    <h1><br /></h1>
+    <p><focus /><br /></p>
+    <h2>bar</h2>
     `;
     testPlugin(
       content,

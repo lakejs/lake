@@ -514,6 +514,30 @@ describe('models / range', () => {
     expect(range.isBoxLeft).to.equal(true);
   });
 
+  it('adaptBlock method: should shrink', () => {
+    container.html('<h1>foo</h1><ul><li>bar</li></ul><p>one</p>');
+    const range = new Range();
+    range.setStartBefore(container.find('ul'));
+    range.setEndAfter(container.find('ul'));
+    range.adaptBlock();
+    expect(range.startNode.name).to.equal('li');
+    expect(range.startOffset).to.equal(0);
+    expect(range.endNode.name).to.equal('li');
+    expect(range.endOffset).to.equal(1);
+  });
+
+  it('adaptBlock method: should relocate the end point of the range', () => {
+    container.html('<h1>foo</h1><ul><li>bar</li></ul><p>one</p>');
+    const range = new Range();
+    range.setStartBefore(container.find('h1'));
+    range.setEnd(container.find('li'), 0);
+    range.adaptBlock();
+    expect(range.startNode.name).to.equal('h1');
+    expect(range.startOffset).to.equal(0);
+    expect(range.endNode.name).to.equal('h1');
+    expect(range.endOffset).to.equal(1);
+  });
+
   it('method: adapt', () => {
     setTestBox(container);
     container.prepend('<p>foo</p>');
