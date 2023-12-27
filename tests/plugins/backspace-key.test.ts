@@ -282,4 +282,20 @@ describe('plugin / backspace-key', () => {
     );
   });
 
+  it('should keep empty paragraph after removing all content', () => {
+    const content = `
+    <anchor /><p>foobar</p><focus />
+    `;
+    const output = `
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
 });
