@@ -1,11 +1,6 @@
 import type Editor from '..';
 import { query } from '../utils';
 
-function setParagraph(editor: Editor) {
-  editor.selection.setBlocks('<p />');
-  editor.history.save();
-}
-
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('enter', event => {
     event.preventDefault();
@@ -24,13 +19,15 @@ export default (editor: Editor) => {
       return;
     }
     range.adapt();
+    range.shrink();
     let block = range.getBlocks()[0];
     if (!block) {
       editor.selection.setBlocks('<p />');
       block = range.getBlocks()[0];
     }
     if (block.isEmpty && block.name !== 'p') {
-      setParagraph(editor);
+      editor.selection.setBlocks('<p />');
+      editor.history.save();
       return;
     }
     const rightText = range.getRightText();
@@ -41,7 +38,8 @@ export default (editor: Editor) => {
     }
     block = range.getBlocks()[0];
     if (block.isHeading) {
-      setParagraph(editor);
+      editor.selection.setBlocks('<p />');
+      editor.history.save();
       return;
     }
     if (block.isList && block.attr('type') === 'checklist') {

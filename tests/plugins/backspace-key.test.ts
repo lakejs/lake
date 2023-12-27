@@ -284,7 +284,7 @@ describe('plugin / backspace-key', () => {
 
   it('should keep empty paragraph after removing all content', () => {
     const content = `
-    <anchor /><p>foobar</p><focus />
+    <anchor /><p>foo</p><focus />
     `;
     const output = `
     <p><br /><focus /></p>

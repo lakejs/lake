@@ -87,6 +87,41 @@ describe('plugin / enter-key', () => {
     );
   });
 
+  it('paragraph: all content is selected', () => {
+    const content = `
+    <anchor /><p>foo</p><focus />
+    `;
+    const output = `
+    <p><br /></p><p><focus /><br /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('paragraph: a block is selected', () => {
+    const content = `
+    <anchor /><p>foo</p><focus />
+    <p>bar</p>
+    `;
+    const output = `
+    <p><br /></p>
+    <p><focus /><br /></p>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
   it('heading: should become paragraph when the focus is at the end of the heading', () => {
     const content = `
     <h1>foo<focus /></h1>
