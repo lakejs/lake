@@ -36,6 +36,9 @@ export default (editor: Editor) => {
     if (!range.isCollapsed) {
       event.preventDefault();
       editor.selection.deleteContents();
+      if (editor.container.html().trim() === '') {
+        editor.setValue('<p><br /><focus /></p>');
+      }
       editor.history.save();
       return;
     }

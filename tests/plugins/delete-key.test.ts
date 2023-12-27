@@ -226,4 +226,20 @@ describe('plugin / delete-key', () => {
     );
   });
 
+  it('should keep empty paragraph after removing all content', () => {
+    const content = `
+    <anchor /><p>foo</p><focus />
+    `;
+    const output = `
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('delete');
+      },
+    );
+  });
+
 });
