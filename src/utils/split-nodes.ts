@@ -16,8 +16,14 @@ export function splitNodes(node: Nodes, offset: number, limitNode: Nodes): { lef
   let parent;
   if (node.isText) {
     parent = node.parent();
-    node.splitText(offset);
-    range.setStartAfter(node);
+    if (offset === 0) {
+      range.setStartBefore(node);
+    } else if (offset === node.text().length) {
+      range.setStartAfter(node);
+    } else {
+      node.splitText(offset);
+      range.setStartAfter(node);
+    }
   } else {
     range.setStart(node, offset);
     parent = node;

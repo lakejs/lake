@@ -357,7 +357,7 @@ describe('plugin / markdown', () => {
     );
   });
 
-  it('keystroke: adds bold (_italic_ space)', () => {
+  it('keystroke: adds italic (_italic_ space)', () => {
     const content = `
     <p>_foo_<focus />bar</p>
     `;
@@ -373,7 +373,7 @@ describe('plugin / markdown', () => {
     );
   });
 
-  it('keystroke: adds bold (*italic* space)', () => {
+  it('keystroke: adds italic (*italic* space)', () => {
     const content = `
     <p>*foo*<focus />bar</p>
     `;

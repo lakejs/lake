@@ -437,11 +437,20 @@ export class Range {
 
   // Returns target marks and text nodes relating to the range.
   public getMarks(hasText = false): Nodes[] {
+    const marks: Nodes[] = [];
+    if (this.commonAncestor.isText && hasText) {
+      if (
+        this.startOffset === 0 &&
+        this.endOffset === this.commonAncestor.text().length
+      ) {
+        marks.push(this.commonAncestor);
+        return marks;
+      }
+    }
     const stratRange = this.clone();
     stratRange.collapseToStart();
     const endRange = this.clone();
     endRange.collapseToEnd();
-    const marks: Nodes[] = [];
     for (const node of this.commonAncestor.getWalker()) {
       const targetRange = document.createRange();
       targetRange.setStartAfter(node.get());

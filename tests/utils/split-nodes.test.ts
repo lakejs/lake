@@ -11,6 +11,19 @@ describe('utils / split-nodes', () => {
     expect(parts?.right.html()).to.equal('two');
   });
 
+  it('should not create empty text', () => {
+    let container = query('<div><p>foo</p></div>');
+    let parts = splitNodes(container.find('p').first(), 0, container.find('p'));
+    expect(container.html()).to.equal('<p>foo</p>');
+    expect(container.find('p').children().length).to.equal(1);
+    expect(parts).to.equal(null);
+    container = query('<div><p>foo</p></div>');
+    parts = splitNodes(container.find('p').first(), 3, container.find('p'));
+    expect(container.html()).to.equal('<p>foo</p>');
+    expect(container.find('p').children().length).to.equal(1);
+    expect(parts).to.equal(null);
+  });
+
   it('the position is at the beginning of the text', () => {
     const container = query('<div><p><strong>onetwo</strong></p></div>');
     const parts = splitNodes(container.find('strong').first(), 0, container.find('p'));
