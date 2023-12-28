@@ -79,6 +79,10 @@ export class Core {
     this.keystroke = new Keystroke(this.container);
     this.box = Core.box;
 
+    this.history.event.on('save', value => {
+      this.event.emit('change', value);
+    });
+
     this.unsavedInputData = '';
 
     this.selectionListener = () => {

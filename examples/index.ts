@@ -56,10 +56,17 @@ const noParameterCommandNames = [
   'hr',
 ];
 
+const localStorageKey = 'lake-core-example';
+const editorValue = localStorage.getItem(localStorageKey) ?? defaultValue;
+
 const editor = new Editor('.lake-editor', {
   readonly: false,
   className: 'my-editor-container',
-  defaultValue,
+  defaultValue: editorValue,
+});
+
+editor.event.on('change', value => {
+  localStorage.setItem(localStorageKey, value);
 });
 
 editor.create();

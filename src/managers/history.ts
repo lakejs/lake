@@ -47,11 +47,14 @@ export class History {
     this.event = new EventEmitter();
   }
 
-  private getValueWithoutBookmark(container: Nodes): string {
-    return new HTMLParser(container).getHTML().
-      replace(/(<lake-box[^>]+)\s+focus="\w+"([^>]*>)/ig, '$1$2').
+  private removeBookmark(value: string): string {
+    return value.replace(/(<lake-box[^>]+)\s+focus="\w+"([^>]*>)/ig, '$1$2').
       replace(/<lake-bookmark\s+type="anchor">\s*<\/lake-bookmark>/ig, '').
       replace(/<lake-bookmark\s+type="focus">\s*<\/lake-bookmark>/ig, '');
+  }
+
+  private getValue(container: Nodes): string {
+    return new HTMLParser(container).getHTML();
   }
 
   private renderBoxes(): void {
@@ -128,7 +131,7 @@ export class History {
       return;
     }
     this.selection.insertBookmark();
-    const value = this.getValueWithoutBookmark(this.container);
+    const value = this.getValue(this.container);
     let item = null;
     while (this.index > 0) {
       const prevItem = this.list[this.index - 1];
@@ -136,7 +139,7 @@ export class History {
         break;
       }
       this.index--;
-      if (this.getValueWithoutBookmark(prevItem) !== value) {
+      if (this.removeBookmark(this.getValue(prevItem)) !== this.removeBookmark(value)) {
         item = prevItem;
         break;
       }
@@ -153,7 +156,7 @@ export class History {
       return;
     }
     this.selection.insertBookmark();
-    const value = this.getValueWithoutBookmark(this.container);
+    const value = this.getValue(this.container);
     let item = null;
     while (this.index < this.list.length) {
       const nextItem = this.list[this.index];
@@ -161,7 +164,7 @@ export class History {
         break;
       }
       this.index++;
-      if (this.getValueWithoutBookmark(nextItem) !== value) {
+      if (this.removeBookmark(this.getValue(nextItem)) !== this.removeBookmark(value)) {
         item = nextItem;
         break;
       }
@@ -186,10 +189,10 @@ export class History {
       return;
     }
     const item = this.cloneContainer();
-    const value = this.getValueWithoutBookmark(item);
+    const value = this.getValue(item);
     if (
       this.list.length > 0 &&
-      this.getValueWithoutBookmark(this.list[this.list.length - 1]) === value
+      this.removeBookmark(this.getValue(this.list[this.list.length - 1])) === this.removeBookmark(value)
     ) {
       return;
     }
