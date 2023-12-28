@@ -16,13 +16,13 @@ export function splitNodes(node: Nodes, offset: number, limitNode: Nodes): { lef
   let parent;
   if (node.isText) {
     parent = node.parent();
-    if (offset === 0) {
-      range.setStartBefore(node);
-    } else if (offset === node.text().length) {
-      range.setStartAfter(node);
-    } else {
-      node.splitText(offset);
-      range.setStartAfter(node);
+    const newNode = node.splitText(offset);
+    range.setStartAfter(node);
+    if (node.text() === '') {
+      node.remove();
+    }
+    if (newNode.text() === '') {
+      newNode.remove();
     }
   } else {
     range.setStart(node, offset);

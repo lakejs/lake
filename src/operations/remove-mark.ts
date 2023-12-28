@@ -1,6 +1,8 @@
 import { appendDeepest, query } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
+import { insertBookmark } from './insert-bookmark';
+import { toBookmark } from './to-bookmark';
 import { splitMarks } from './split-marks';
 
 // Removes empty marks that contain no content.
@@ -88,9 +90,11 @@ export function removeMark(range: Range, value?: string): void {
   }
   splitMarks(range);
   const marks = range.getMarks();
+  const bookmark = insertBookmark(range);
   for (const mark of marks) {
     if (!tagName || mark.name === tagName) {
       mark.remove(true);
     }
   }
+  toBookmark(range, bookmark);
 }

@@ -2,6 +2,8 @@ import { parseStyle, query, appendDeepest, removeBr } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { Box } from '../models/box';
+import { insertBookmark } from './insert-bookmark';
+import { toBookmark } from './to-bookmark';
 import { splitMarks } from './split-marks';
 import { insertNode } from './insert-node';
 
@@ -105,6 +107,7 @@ export function addMark(range: Range, value: string | Nodes): void {
   }
   splitMarks(range);
   const nodeList = range.getMarks(true);
+  const bookmark = insertBookmark(range);
   for (const node of nodeList) {
     if (node.isText) {
       const upperMark = getUpperMark(node, tagName);
@@ -117,4 +120,5 @@ export function addMark(range: Range, value: string | Nodes): void {
       }
     }
   }
+  toBookmark(range, bookmark);
 }

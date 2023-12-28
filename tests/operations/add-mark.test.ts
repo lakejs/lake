@@ -55,6 +55,21 @@ describe('operations / add-mark', () => {
     );
   });
 
+  it('expanded range: adds a mark after selecting a block', () => {
+    const content = `
+    <anchor /><p>foo</p><focus />
+    `;
+    const output = `
+    <anchor /><p><strong>foo</strong></p><focus />
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        addMark(range, '<strong />');
+      },
+    );
+  });
 
   it('collapsed range: the mark already exists', () => {
     const content = `
