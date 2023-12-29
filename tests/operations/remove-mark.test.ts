@@ -102,6 +102,22 @@ describe('operations / remove-mark', () => {
     );
   });
 
+  it('expanded range: no block', () => {
+    const content = `
+    <anchor /><strong>foo</strong><focus />
+    `;
+    const output = `
+    <anchor />foo<focus />
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        removeMark(range, '<strong />');
+      },
+    );
+  });
+
   it('expanded range: removes a mark with selecting text', () => {
     const content = `
     <p>foo<strong><anchor />bold<focus /></strong>bar</p>

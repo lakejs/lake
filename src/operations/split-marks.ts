@@ -20,8 +20,11 @@ function removeEmptyMarks(node: Nodes): void {
 function splitMarksAtPoint(node: Nodes, offset: number, removeEmptyMark: boolean): TwoParts {
   let left = null;
   let right = null;
-  const block = node.closestBlock();
-  const parts = splitNodes(node, offset, block);
+  let limitBlock = node.closestBlock();
+  if (limitBlock.length === 0) {
+    limitBlock = node.closestContainer();
+  }
+  const parts = splitNodes(node, offset, limitBlock);
   if (parts) {
     if (removeEmptyMark) {
       removeEmptyMarks(parts.left);

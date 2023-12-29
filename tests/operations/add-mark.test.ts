@@ -71,6 +71,22 @@ describe('operations / add-mark', () => {
     );
   });
 
+  it('expanded range: no block', () => {
+    const content = `
+    <anchor />foo<focus />
+    `;
+    const output = `
+    <anchor /><strong>foo</strong><focus />
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        addMark(range, '<strong />');
+      },
+    );
+  });
+
   it('collapsed range: the mark already exists', () => {
     const content = `
     <p><strong>foo<focus />bar</strong></p>
