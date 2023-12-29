@@ -57,7 +57,7 @@ export function testOperation(
   let html = new HTMLParser(container).getHTML();
   html = denormalizeValue(html);
   container.remove();
-  debug(html);
+  debug(`output: ${html}`);
   expect(html).to.equal(formatHTML(output));
 }
 
@@ -77,6 +77,6 @@ export function testPlugin(
   const html = editor.getValue();
   editor.remove();
   targetNode.remove();
-  debug(html);
+  debug(`output: ${html}`);
   expect(html).to.equal(formatHTML(output));
 }

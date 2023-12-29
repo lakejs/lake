@@ -67,7 +67,7 @@ describe('core', () => {
     });
     editor.create();
     const value = editor.getValue();
-    debug(value);
+    debug(`output: ${value}`);
     editor.remove();
     expect(value).to.equal(output);
   });
@@ -80,7 +80,7 @@ describe('core', () => {
     });
     editor.create();
     const value = editor.getValue();
-    debug(value);
+    debug(`output: ${value}`);
     editor.remove();
     expect(value).to.equal(output);
   });
@@ -94,7 +94,7 @@ describe('core', () => {
     editor.create();
     editor.setValue(input);
     const value = editor.getValue();
-    debug(value);
+    debug(`output: ${value}`);
     editor.remove();
     expect(value).to.equal(output);
   });
@@ -109,7 +109,7 @@ describe('core', () => {
     editor.setValue(input);
     editor.event.on('input', () => {
       const value = editor.getValue();
-      debug(value);
+      debug(`output: ${value}`);
       editor.remove();
       expect(value).to.equal(output);
       done();
@@ -128,7 +128,7 @@ describe('core', () => {
     editor.setValue(input);
     editor.event.on('input', () => {
       const value = editor.getValue();
-      debug(value);
+      debug(`output: ${value}`);
       editor.remove();
       expect(value).to.equal(output);
       done();
@@ -150,7 +150,7 @@ describe('core', () => {
     editor.selection.deleteContents();
     editor.history.save();
     const value = editor.getValue();
-    debug(value);
+    debug(`output: ${value}`);
     editor.remove();
     expect(value).to.equal(output);
   });
@@ -166,7 +166,7 @@ describe('core', () => {
     view.create();
     const readonly = view.readonly;
     const value = view.getValue();
-    debug(value);
+    debug(`output: ${value}`);
     view.remove();
     expect(readonly).to.equal(true);
     expect(value).to.equal(output);
