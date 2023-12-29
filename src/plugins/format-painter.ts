@@ -10,7 +10,7 @@ export default (editor: Editor) => {
     editor.container.addClass(formatPainterClassName);
     const appliedNodes = editor.selection.getAppliedNodes();
     for (const item of appliedNodes) {
-      const node = item.node;
+      const node = item.node.clone();
       if (node.isMark && node.name !== 'a') {
         markList.push(node);
       }

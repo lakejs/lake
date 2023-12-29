@@ -47,7 +47,7 @@ function pushAncestralNodes(appliedNodes: AppliedTagMapType[], range: Range): vo
       break;
     }
     appliedNodes.push({
-      node: parentNode.clone(),
+      node: parentNode,
       name: parentNode.name,
       attributes: getAttributes(parentNode),
       styles: parseStyle(parentNode.attr('style')),
@@ -79,7 +79,7 @@ function pushNextNestedNodes(appliedNodes: AppliedTagMapType[], range: Range): v
     while (child.length > 0) {
       if (child.isElement) {
         appliedNodes.push({
-          node: child.clone(),
+          node: child,
           name: child.name,
           attributes: getAttributes(child),
           styles: parseStyle(child.attr('style')),
