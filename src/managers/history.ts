@@ -132,23 +132,20 @@ export class History {
     }
     this.selection.insertBookmark();
     const value = this.getValue(this.container);
-    let item = null;
     while (this.index > 0) {
       const prevItem = this.list[this.index - 1];
       if (!prevItem) {
         break;
       }
       this.index--;
-      if (this.removeBookmark(this.getValue(prevItem)) !== this.removeBookmark(value)) {
-        item = prevItem;
+      const prevValue = this.getValue(prevItem);
+      if (this.removeBookmark(prevValue) !== this.removeBookmark(value)) {
+        this.merge(prevItem);
+        this.event.emit('undo', prevValue);
         break;
       }
     }
-    if (item) {
-      this.merge(item);
-    }
     this.selection.synByBookmark();
-    this.event.emit('undo');
   }
 
   public redo(): void {
@@ -157,23 +154,20 @@ export class History {
     }
     this.selection.insertBookmark();
     const value = this.getValue(this.container);
-    let item = null;
     while (this.index < this.list.length) {
       const nextItem = this.list[this.index];
       if (!nextItem) {
         break;
       }
       this.index++;
-      if (this.removeBookmark(this.getValue(nextItem)) !== this.removeBookmark(value)) {
-        item = nextItem;
+      const nextValue = this.getValue(nextItem);
+      if (this.removeBookmark(nextValue) !== this.removeBookmark(value)) {
+        this.merge(nextItem);
+        this.event.emit('redo', nextValue);
         break;
       }
     }
-    if (item) {
-      this.merge(item);
-    }
     this.selection.synByBookmark();
-    this.event.emit('redo');
   }
 
   public continue(): void {

@@ -206,4 +206,32 @@ describe('managers / history', () => {
     expect(history.count).to.equal(1);
   });
 
+  it('should trigger events', () => {
+    const selection = new Selection(container);
+    const history = new History(selection);
+    let saveValue = '';
+    history.event.on('save', value => {
+      saveValue = value;
+    });
+    let undoValue = '';
+    history.event.on('undo', value => {
+      undoValue = value;
+    });
+    let redoValue = '';
+    history.event.on('redo', value => {
+      redoValue = value;
+    });
+    container.html('a');
+    history.save();
+    container.html('ab');
+    history.save();
+    container.html('abc');
+    history.save();
+    expect(saveValue).to.equal('abc');
+    history.undo();
+    expect(undoValue).to.equal('ab');
+    history.redo();
+    expect(redoValue).to.equal('abc');
+  });
+
 });

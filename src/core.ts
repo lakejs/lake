@@ -79,10 +79,6 @@ export class Core {
     this.keystroke = new Keystroke(this.container);
     this.box = Core.box;
 
-    this.history.event.on('save', value => {
-      this.event.emit('change', value);
-    });
-
     this.unsavedInputData = '';
 
     this.selectionListener = () => {
@@ -171,32 +167,35 @@ export class Core {
     this.container.on('compositionend', () => {
       isComposing = false;
     });
-    this.container.on('beforeinput', () => {
+    this.container.on('beforeinput', event => {
       const range = this.selection.range;
       if (range.isBoxLeft || range.isBoxRight) {
         this.commitUnsavedInputData();
       }
-      this.event.emit('input:before');
+      this.event.emit('input:before', event);
     });
     this.container.on('input', event => {
+      const inputEvent = event as InputEvent;
       window.setTimeout(() => {
         if (isComposing) {
-          this.event.emit('input');
+          this.event.emit('input', inputEvent);
           return;
         }
-        const range = this.selection.range;
-        if (range.isBoxLeft || range.isBoxRight) {
-          this.inputInBoxStrip();
-        } else {
-          this.unsavedInputData += (event as InputEvent).data ?? '';
-          if (this.unsavedInputData.length < this.options.minChangeSize) {
-            this.event.emit('input');
-            return;
+        if (inputEvent.inputType === 'insertText') {
+          const range = this.selection.range;
+          if (range.isBoxLeft || range.isBoxRight) {
+            this.inputInBoxStrip();
+          } else {
+            this.unsavedInputData += inputEvent.data ?? '';
+            if (this.unsavedInputData.length < this.options.minChangeSize) {
+              this.event.emit('input', inputEvent);
+              return;
+            }
           }
         }
         this.history.save();
         this.unsavedInputData = '';
-        this.event.emit('input');
+        this.event.emit('input', inputEvent);
       }, 100);
     });
     this.command.event.on('execute:before', () => this.commitUnsavedInputData());
@@ -212,6 +211,18 @@ export class Core {
         range.collapseToStart();
         window.setTimeout(() => targetBox.focus(), 0);
       }
+    });
+  }
+
+  private bindHistoryEvents(): void {
+    this.history.event.on('undo', value => {
+      this.event.emit('change', value);
+    });
+    this.history.event.on('redo', value => {
+      this.event.emit('change', value);
+    });
+    this.history.event.on('save', value => {
+      this.event.emit('change', value);
     });
   }
 
@@ -287,6 +298,7 @@ export class Core {
       document.addEventListener('selectionchange', this.selectionListener);
       this.bindInputEvents();
       this.bindBoxEvents();
+      this.bindHistoryEvents();
     }
     document.addEventListener('click', this.clickListener);
     document.addEventListener('mouseover', this.mouseoverListener);
