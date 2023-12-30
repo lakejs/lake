@@ -53,6 +53,7 @@ const noParameterCommandNames = [
   'code',
   'removeFormat',
   'formatPainter',
+  'unlink',
   'hr',
 ];
 
@@ -106,6 +107,10 @@ query('.lake-toolbar-icon').on('click', event => {
   }
   if (type === 'highlight') {
     editor.command.execute('highlight', '#0000ff');
+    return;
+  }
+  if (type === 'link') {
+    editor.command.execute('link', 'https://github.com/');
     return;
   }
   if (type === 'image') {
