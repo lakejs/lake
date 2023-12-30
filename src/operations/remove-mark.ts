@@ -93,7 +93,11 @@ export function removeMark(range: Range, value?: string): void {
   const bookmark = insertBookmark(range);
   for (const mark of marks) {
     if (!tagName || mark.name === tagName) {
+      const parentNode = mark.parent();
       mark.remove(true);
+      if (parentNode.length > 0) {
+        parentNode.get(0).normalize();
+      }
     }
   }
   toBookmark(range, bookmark);

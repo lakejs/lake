@@ -83,6 +83,7 @@ import './plugins/highlight.test';
 import './plugins/remove-format.test';
 import './plugins/format-painter.test';
 import './plugins/link.test';
+import './plugins/unlink.test';
 import './plugins/hr.test';
 import './plugins/image.test';
 import './plugins/enter-key.test';
