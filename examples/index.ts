@@ -1,4 +1,5 @@
 import Editor, { Utils } from '../src';
+import codeBlock, { codeBlockBox } from './plugins/code-block';
 import { defaultValue } from './data/default-value';
 
 const { query } = Utils;
@@ -8,6 +9,9 @@ declare global {
     editor: Editor;
   }
 }
+
+Editor.box.add(codeBlockBox);
+Editor.plugin.add(codeBlock);
 
 window.DEBUG = true;
 
@@ -55,6 +59,7 @@ const noParameterCommandNames = [
   'formatPainter',
   'unlink',
   'hr',
+  'codeBlock',
 ];
 
 const localStorageKey = 'lake-core-example';
