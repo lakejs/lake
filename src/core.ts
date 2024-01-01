@@ -202,9 +202,16 @@ export class Core {
   }
 
   private bindBoxEvents(): void {
-    this.event.on('click:inside', target => {
+    this.event.on('click:inside', (target: Nodes) => {
       const targetBoxNode = target.closest('lake-box');
       if (targetBoxNode.length > 0) {
+        if (
+          target.closest('input').length > 0 ||
+          target.closest('textarea').length > 0 ||
+          target.closestContainer().get(0) !== this.container.get(0)
+        ) {
+          return;
+        }
         const range = this.selection.range;
         const targetBox = new Box(targetBoxNode);
         range.setStart(targetBox.getContainer(), 0);
