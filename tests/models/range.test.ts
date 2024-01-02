@@ -109,6 +109,8 @@ describe('models / range', () => {
     const range = new Range();
     const boxNode = container.find('lake-box');
     range.selectBox(boxNode);
+    expect(range.isBoxCenter).to.equal(false);
+    range.setStart(boxNode.find('.lake-box-container'), 1);
     expect(range.isBoxCenter).to.equal(true);
     range.selectBoxLeft(boxNode);
     expect(range.isBoxCenter).to.equal(false);

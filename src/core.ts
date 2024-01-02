@@ -206,8 +206,7 @@ export class Core {
       const targetBoxNode = target.closest('lake-box');
       if (targetBoxNode.length > 0) {
         if (
-          target.closest('input').length > 0 ||
-          target.closest('textarea').length > 0 ||
+          ['input', 'textarea', 'button'].indexOf(target.name) >= 0 ||
           target.closestContainer().get(0) !== this.container.get(0)
         ) {
           return;

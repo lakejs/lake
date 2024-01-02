@@ -149,7 +149,9 @@ describe('operations / to-bookmark', () => {
       anchor,
       focus,
     });
-    expect(range.isBoxCenter).to.equal(true);
+    expect(range.isBox).to.equal(true);
+    expect(range.isBoxLeft).to.equal(false);
+    expect(range.isBoxRight).to.equal(false);
   });
 
 });

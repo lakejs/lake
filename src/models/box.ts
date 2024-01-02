@@ -8,7 +8,7 @@ import { Nodes } from './nodes';
 
 const structure = `
   <span class="lake-box-strip"><br /></span>
-    <div class="lake-box-container" contenteditable="false"></div>
+  <div class="lake-box-container" contenteditable="false"></div>
   <span class="lake-box-strip"><br /></span>
 `.replace(/^\s+/gm, '').replace(/\n/g, '');
 

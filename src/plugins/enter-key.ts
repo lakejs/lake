@@ -3,9 +3,11 @@ import { query } from '../utils';
 
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('enter', event => {
+    const range = editor.selection.range;
+    if (range.isBoxCenter) {
+      return;
+    }
     event.preventDefault();
-    const selection = editor.selection;
-    const range = selection.range;
     if (range.isBox) {
       const boxNode = range.startNode.closest('lake-box');
       const newBlock = query('<p><br /></p>');
@@ -30,7 +32,7 @@ export default (editor: Editor) => {
       return;
     }
     const rightText = range.getRightText();
-    selection.splitBlock();
+    editor.selection.splitBlock();
     block = range.getBlocks()[0];
     if (!block) {
       editor.history.save();

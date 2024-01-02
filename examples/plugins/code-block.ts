@@ -4,7 +4,7 @@ import { BoxDefinition } from '../../src';
 export const codeBlockBox: BoxDefinition = {
   type: 'block',
   name: 'codeBlock',
-  render: () => '<textarea></textarea>',
+  render: () => '<div><textarea></textarea></div>',
 };
 
 export default (editor: Editor) => {

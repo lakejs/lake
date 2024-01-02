@@ -48,7 +48,7 @@ export class Range {
     return boxNode.length > 0;
   }
 
-  // Returns a boolean value indicating whether the range's common ancestor node is at the left strip of the box.
+  // Returns a boolean value indicating whether the range's common ancestor node is in the left strip of the box.
   // case 1: <lake-box><span class="lake-box-strip">|</span><div class="lake-box-container"></div> ...
   // case 2: <lake-box><span class="lake-box-strip"></span>|<div class="lake-box-container"></div> ...
   // case 3: <lake-box>|<span class="lake-box-strip"></span><div class="lake-box-container"></div> ...
@@ -61,17 +61,28 @@ export class Range {
     return this.compareBeforeNode(boxContainer) >= 0;
   }
 
-  // Returns a boolean value indicating whether the range's common ancestor node is at the left strip of the box.
+  // Returns a boolean value indicating whether the range's common ancestor node is in the center of the box.
+  // case 1: ... <div class="lake-box-container"><div>|</div></div> ...
+  // case 2: ... <div class="lake-box-container"><div></div>|</div> ...
   public get isBoxCenter(): boolean {
     const boxNode = this.commonAncestor.closest('lake-box');
     if (boxNode.length === 0) {
       return false;
     }
     const boxContainer = boxNode.find('.lake-box-container');
+    // Returns false in the following case.
+    // case: ... <div class="lake-box-container">|<div></div></div> ...
+    if (
+      this.isCollapsed &&
+      this.startNode.get(0) === boxContainer.get(0) &&
+      this.startOffset === 0
+    ) {
+      return false;
+    }
     return this.compareBeforeNode(boxContainer) < 0 && this.compareAfterNode(boxContainer) > 0;
   }
 
-  // Returns a boolean value indicating whether the range's common ancestor node is at the right strip of the box.
+  // Returns a boolean value indicating whether the range's common ancestor node is in the right strip of the box.
   // case 1: ... <div class="lake-box-container"></div><span class="lake-box-strip">|</span></lake-box>
   // case 2: ... <div class="lake-box-container"></div>|<span class="lake-box-strip"></span></lake-box>
   // case 3: ... <div class="lake-box-container"></div><span class="lake-box-strip"></span>|</lake-box>

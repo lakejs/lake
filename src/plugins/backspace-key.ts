@@ -7,27 +7,30 @@ import { removeBox } from '../operations/remove-box';
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('backspace', event => {
     const range = editor.selection.range;
-    if (range.isBox) {
-      if (range.isBoxLeft) {
-        const boxNode = range.startNode.closest('lake-box');
-        const prevNode = boxNode.prev();
-        if (prevNode.length === 0) {
-          return;
-        }
-        if (prevNode.isBlock) {
-          if (prevNode.isEmpty) {
-            event.preventDefault();
-            prevNode.remove();
-            editor.selection.fixList();
-            editor.history.save();
-            return;
-          }
-          range.shrinkAfter(prevNode);
-          return;
-        }
-        range.adaptBox();
+    if (range.isBoxCenter) {
+      return;
+    }
+    if (range.isBoxLeft) {
+      const boxNode = range.startNode.closest('lake-box');
+      const prevNode = boxNode.prev();
+      if (prevNode.length === 0) {
         return;
       }
+      if (prevNode.isBlock) {
+        if (prevNode.isEmpty) {
+          event.preventDefault();
+          prevNode.remove();
+          editor.selection.fixList();
+          editor.history.save();
+          return;
+        }
+        range.shrinkAfter(prevNode);
+        return;
+      }
+      range.adaptBox();
+      return;
+    }
+    if (range.isBox) {
       event.preventDefault();
       editor.selection.removeBox();
       editor.history.save();
