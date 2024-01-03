@@ -3,6 +3,9 @@ import type Editor from '..';
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('arrow-left', event => {
     const range = editor.selection.range;
+    if (range.isBoxCenter) {
+      return;
+    }
     const boxNode = range.commonAncestor.closest('lake-box');
     if (boxNode.length > 0) {
       if (range.isBoxLeft) {
@@ -28,6 +31,9 @@ export default (editor: Editor) => {
   });
   editor.keystroke.setKeydown('arrow-right', event => {
     const range = editor.selection.range;
+    if (range.isBoxCenter) {
+      return;
+    }
     const boxNode = range.commonAncestor.closest('lake-box');
     if (boxNode.length > 0) {
       if (range.isBoxLeft) {
@@ -53,6 +59,9 @@ export default (editor: Editor) => {
   });
   editor.keystroke.setKeydown('arrow-up', () => {
     const range = editor.selection.range;
+    if (range.isBoxCenter) {
+      return;
+    }
     const boxNode = range.commonAncestor.closest('lake-box');
     if (boxNode.length > 0) {
       range.setStartBefore(boxNode);
@@ -61,6 +70,9 @@ export default (editor: Editor) => {
   });
   editor.keystroke.setKeydown('arrow-down', () => {
     const range = editor.selection.range;
+    if (range.isBoxCenter) {
+      return;
+    }
     const boxNode = range.commonAncestor.closest('lake-box');
     if (boxNode.length > 0) {
       range.setStartAfter(boxNode);
