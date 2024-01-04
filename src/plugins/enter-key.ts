@@ -1,6 +1,18 @@
 import type Editor from '..';
 import { query } from '../utils';
 
+function addBlockForBox(editor: Editor) {
+  const range = editor.selection.range;
+  const boxNode = range.startNode.closest('lake-box');
+  const newBlock = query('<p><br /></p>');
+  if (range.isBoxLeft) {
+    boxNode.before(newBlock);
+  } else {
+    boxNode.after(newBlock);
+    range.shrinkAfter(newBlock);
+  }
+}
+
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('enter', event => {
     const range = editor.selection.range;
@@ -9,18 +21,16 @@ export default (editor: Editor) => {
     }
     event.preventDefault();
     if (range.isBox) {
-      const boxNode = range.startNode.closest('lake-box');
-      const newBlock = query('<p><br /></p>');
-      if (range.isBoxLeft) {
-        boxNode.before(newBlock);
-      } else {
-        boxNode.after(newBlock);
-        range.shrinkAfter(newBlock);
-      }
+      addBlockForBox(editor);
       editor.history.save();
       return;
     }
     range.adapt();
+    if (range.isBox) {
+      addBlockForBox(editor);
+      editor.history.save();
+      return;
+    }
     let block = range.getBlocks()[0];
     if (!block) {
       editor.selection.setBlocks('<p />');

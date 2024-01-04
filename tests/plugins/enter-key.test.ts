@@ -278,6 +278,25 @@ describe('plugin / enter-key', () => {
     );
   });
 
+  it('box: the focus is outside the beginning of the box', () => {
+    const content = `
+    <focus /><lake-box type="block" name="hr"></lake-box>
+    <p>foo</p>
+    `;
+    const output = `
+    <p><br /></p>
+    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <p>foo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
   it('box: the focus is outside the end of the box', () => {
     const content = `
     <lake-box type="block" name="hr"></lake-box><focus />
