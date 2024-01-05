@@ -149,6 +149,48 @@ describe('plugin / paste', () => {
     );
   });
 
+  it('pastes plain text when cursor is on the center of hr', () => {
+    const content = `
+    <p>top</p>
+    <lake-box type="block" name="hr" focus="center"></lake-box>
+    <p>bottom</p>
+    `;
+    const output = `
+    <p>top</p>
+    <p>bar<focus /></p>
+    <p>bottom</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/plain', 'bar');
+      },
+    );
+  });
+
+  it('becomes native behavior when cursor is in the box', () => {
+    const content = `
+    <p>top</p>
+    <lake-box type="block" name="hr" focus="center"></lake-box>
+    <p>bottom</p>
+    `;
+    const output = `
+    <p>top</p>
+    <lake-box type="block" name="hr" focus="center"></lake-box>
+    <p>bottom</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        const range = editor.selection.range;
+        range.setStart(range.startNode, 1);
+        pasteData(editor, 'text/plain', 'bar');
+      },
+    );
+  });
+
   it('pastes multi-line plain text into a paragraph', () => {
     const content = `
     <p>f<focus />oo</p>

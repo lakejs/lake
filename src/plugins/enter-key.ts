@@ -7,9 +7,11 @@ function addBlockForBox(editor: Editor) {
   const newBlock = query('<p><br /></p>');
   if (range.isBoxLeft) {
     boxNode.before(newBlock);
-  } else {
+  } else if (range.isBoxRight) {
     boxNode.after(newBlock);
     range.shrinkAfter(newBlock);
+  } else {
+    editor.selection.removeBox();
   }
 }
 

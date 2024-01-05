@@ -59,17 +59,22 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
     if (box.type === 'inline') {
       if (range.isBoxLeft) {
         range.selectBoxLeft(boxNode);
-      } else {
+      } else if (range.isBoxRight) {
         range.selectBoxRight(boxNode);
+      } else {
+        editor.selection.removeBox();
       }
     } else {
       const paragraph = query('<p />');
       if (range.isBoxLeft) {
         boxNode.before(paragraph);
-      } else {
+        range.shrinkAfter(paragraph);
+      } else if (range.isBoxRight) {
         boxNode.after(paragraph);
+        range.shrinkAfter(paragraph);
+      } else {
+        editor.selection.removeBox();
       }
-      range.shrinkAfter(paragraph);
     }
   }
   const block = range.startNode.closestBlock();
@@ -134,6 +139,10 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
 
 export default (editor: Editor) => {
   editor.container.on('paste', event => {
+    const range = editor.selection.range;
+    if (range.isBoxCenter) {
+      return;
+    }
     event.preventDefault();
     const dataTransfer = (event as ClipboardEvent).clipboardData;
     if (!dataTransfer) {
