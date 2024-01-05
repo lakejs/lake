@@ -210,6 +210,26 @@ describe('plugin / delete-key', () => {
     );
   });
 
+  it('becomes native behavior when cursor is in the box', () => {
+    const content = `
+    <lake-box type="block" name="hr" focus="center"></lake-box>
+    <p>foo</p>
+    `;
+    const output = `
+    <lake-box type="block" name="hr" focus="center"></lake-box>
+    <p>foo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        const range = editor.selection.range;
+        range.setStart(range.startNode, 1);
+        editor.keystroke.keydown('delete');
+      },
+    );
+  });
+
   it('should remove inline box', () => {
     const content = `
     <p>foo<focus /><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>bar</p>

@@ -266,6 +266,26 @@ describe('plugin / backspace-key', () => {
     );
   });
 
+  it('becomes native behavior when cursor is in the box', () => {
+    const content = `
+    <p>foo</p>
+    <lake-box type="block" name="hr" focus="center"></lake-box>
+    `;
+    const output = `
+    <p>foo</p>
+    <lake-box type="block" name="hr" focus="center"></lake-box>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        const range = editor.selection.range;
+        range.setStart(range.startNode, 1);
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
   it('should remove inline box', () => {
     const content = `
     <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus />bar</p>

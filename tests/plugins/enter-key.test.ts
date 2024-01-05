@@ -316,13 +316,12 @@ describe('plugin / enter-key', () => {
     );
   });
 
-  it('box: the focus is in the box', () => {
+  it('box: the focus is at the center of the box', () => {
     const content = `
     <lake-box type="block" name="hr" focus="center"></lake-box>
     <p>foo</p>
     `;
     const output = `
-    <lake-box type="block" name="hr"></lake-box>
     <p><br /><focus /></p>
     <p>foo</p>
     `;
@@ -330,6 +329,26 @@ describe('plugin / enter-key', () => {
       content,
       output,
       editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('box: the focus is in the box', () => {
+    const content = `
+    <lake-box type="block" name="hr" focus="center"></lake-box>
+    <p>foo</p>
+    `;
+    const output = `
+    <lake-box type="block" name="hr" focus="center"></lake-box>
+    <p>foo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        const range = editor.selection.range;
+        range.setStart(range.startNode, 1);
         editor.keystroke.keydown('enter');
       },
     );
