@@ -1,12 +1,13 @@
-.lake-container lake-box[type="inline"] {
-  display: inline-flex;
+.lake-container lake-box {
   margin: 0;
   padding: 0;
+  text-indent: 0;
+}
+.lake-container lake-box[type="inline"] {
+  display: inline-flex;
 }
 .lake-container lake-box[type="block"] {
   display: flex;
-  margin: 0;
-  padding: 0;
 }
 .lake-container lake-box .lake-box-strip {
   display: inline;

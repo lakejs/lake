@@ -298,7 +298,8 @@ export class Nodes {
 
   // Traverses the first node and its parents until it finds an operable block.
   public closestOperableBlock(): Nodes {
-    const block = this.closestBlock();
+    const boxNode = this.closest('lake-box');
+    const block = boxNode.length > 0 ? boxNode.closestBlock() : this.closestBlock();
     if (block.length === 0) {
       return block;
     }

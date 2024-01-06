@@ -259,9 +259,10 @@ describe('models / nodes', () => {
   });
 
   it('method: closestOperableBlock', () => {
-    const container = query('<div contenteditable="true"><ul><li>foo</li></ul><p>bar</p>');
+    const container = query('<div contenteditable="true"><ul><li>foo</li></ul><p>bar</p><h1><lake-box><div class="lake-box-container">box</div></lake-box></h1>');
     expect(container.find('li').first().closestOperableBlock().html()).to.equal('<li>foo</li>');
     expect(container.find('p').first().closestOperableBlock().html()).to.equal('bar');
+    expect(container.find('.lake-box-container').first().closestOperableBlock().name).to.equal('h1');
   });
 
   it('method: closestContainer', () => {
