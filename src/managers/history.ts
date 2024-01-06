@@ -57,16 +57,14 @@ export class History {
     return new HTMLParser(container).getHTML();
   }
 
-  private renderBoxes(): void {
-    this.container.find('lake-box[status="will"]').each(node => {
-      const boxNode = new Nodes(node);
-      new Box(boxNode).render();
-      boxNode.removeAttr('status');
-    });
-  }
-
   private merge(sourceItem: Nodes): void {
     const options = {
+      onBeforeElUpdated: (fromElement: NativeElement, toElement: NativeElement) => {
+        if (fromElement.isEqualNode(toElement)) {
+          return false;
+        }
+        return true;
+      },
       onBeforeElChildrenUpdated: (fromElement: NativeElement, toElement: NativeElement) => {
         if (new Nodes(fromElement).name === 'lake-box') {
           return false;
@@ -76,12 +74,18 @@ export class History {
         }
         return true;
       },
-      onBeforeNodeAdded: (nativeNode: NativeNode) => {
+      onNodeAdded: (nativeNode: NativeNode) => {
         const node = new Nodes(nativeNode);
         if (node.name === 'lake-box') {
-          node.attr('status', 'will');
+          new Box(node).render();
         }
         return nativeNode;
+      },
+      onElUpdated: (nativeElement: NativeElement) => {
+        const node = new Nodes(nativeElement);
+        if (node.name === 'lake-box') {
+          new Box(node).render();
+        }
       },
       onBeforeNodeDiscarded: (nativeNode: NativeNode) => {
         const node = new Nodes(nativeNode);
@@ -94,7 +98,6 @@ export class History {
       childrenOnly: true,
     };
     morphdom(this.container.get(0), sourceItem.clone(true).get(0), options);
-    this.renderBoxes();
   }
 
   private cloneContainer(): Nodes {
