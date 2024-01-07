@@ -1,9 +1,9 @@
-import morphdom from 'morphdom';
 import { NativeNode } from '../types/native';
 import { BoxType, BoxValue } from '../types/box';
 import { boxes } from '../storage/boxes';
 import { encode } from '../utils/encode';
 import { query } from '../utils/query';
+import { diff } from '../utils/diff';
 import { Nodes } from './nodes';
 
 const structure = `
@@ -116,7 +116,7 @@ export class Box {
     const container = this.getContainer();
     const newContainer = container.clone(false);
     newContainer.html(content);
-    morphdom(container.get(0), newContainer.get(0));
+    diff(container, newContainer);
   }
 
   // Updates the value of the box and refreshes the container of the box.

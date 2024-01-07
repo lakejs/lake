@@ -1,7 +1,7 @@
 import EventEmitter from 'eventemitter3';
-import morphdom from 'morphdom';
 import { NativeElement, NativeNode } from '../types/native';
 import { debug } from '../utils/debug';
+import { diff } from '../utils/diff';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { HTMLParser } from '../parsers/html-parser';
@@ -57,19 +57,19 @@ export class History {
     return new HTMLParser(container).getHTML();
   }
 
-  private merge(sourceItem: Nodes): void {
+  private morph(sourceItem: Nodes): void {
     const options = {
-      onBeforeElUpdated: (fromElement: NativeElement, toElement: NativeElement) => {
-        if (fromElement.isEqualNode(toElement)) {
+      onBeforeElUpdated: (element: NativeElement, otherElement: NativeElement) => {
+        if (element.isEqualNode(otherElement)) {
           return false;
         }
         return true;
       },
-      onBeforeElChildrenUpdated: (fromElement: NativeElement, toElement: NativeElement) => {
-        if (new Nodes(fromElement).name === 'lake-box') {
+      onBeforeElChildrenUpdated: (element: NativeElement, otherElement: NativeElement) => {
+        if (new Nodes(element).name === 'lake-box') {
           return false;
         }
-        if (new Nodes(toElement).name === 'lake-box') {
+        if (new Nodes(otherElement).name === 'lake-box') {
           return false;
         }
         return true;
@@ -97,7 +97,7 @@ export class History {
       },
       childrenOnly: true,
     };
-    morphdom(this.container.get(0), sourceItem.clone(true).get(0), options);
+    diff(this.container, sourceItem.clone(true), options);
   }
 
   private cloneContainer(): Nodes {
@@ -143,7 +143,7 @@ export class History {
       this.index--;
       const prevValue = this.getValue(prevItem);
       if (this.removeBookmark(prevValue) !== this.removeBookmark(value)) {
-        this.merge(prevItem);
+        this.morph(prevItem);
         this.event.emit('undo', prevValue);
         break;
       }
@@ -165,7 +165,7 @@ export class History {
       this.index++;
       const nextValue = this.getValue(nextItem);
       if (this.removeBookmark(nextValue) !== this.removeBookmark(value)) {
-        this.merge(nextItem);
+        this.morph(nextItem);
         this.event.emit('redo', nextValue);
         break;
       }
