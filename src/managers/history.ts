@@ -1,7 +1,7 @@
 import EventEmitter from 'eventemitter3';
-import { NativeElement, NativeNode } from '../types/native';
+import { NativeNode } from '../types/native';
 import { debug } from '../utils/debug';
-import { diff } from '../utils/diff';
+import { morph } from '../utils/morph';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { HTMLParser } from '../parsers/html-parser';
@@ -57,37 +57,24 @@ export class History {
     return new HTMLParser(container).getHTML();
   }
 
-  private morph(sourceItem: Nodes): void {
-    const options = {
-      onBeforeElUpdated: (element: NativeElement, otherElement: NativeElement) => {
-        if (element.isEqualNode(otherElement)) {
+  private morphContainer(sourceItem: Nodes): void {
+    const callbacks = {
+      beforeChildrenUpdated: (oldNode: NativeNode, newNode: NativeNode) => {
+        if (new Nodes(oldNode).name === 'lake-box') {
+          return false;
+        }
+        if (new Nodes(newNode).name === 'lake-box') {
           return false;
         }
         return true;
       },
-      onBeforeElChildrenUpdated: (element: NativeElement, otherElement: NativeElement) => {
-        if (new Nodes(element).name === 'lake-box') {
-          return false;
-        }
-        if (new Nodes(otherElement).name === 'lake-box') {
-          return false;
-        }
-        return true;
-      },
-      onNodeAdded: (nativeNode: NativeNode) => {
+      afterNodeAdded: (nativeNode: NativeNode) => {
         const node = new Nodes(nativeNode);
         if (node.name === 'lake-box') {
           new Box(node).render();
         }
-        return nativeNode;
       },
-      onElUpdated: (nativeElement: NativeElement) => {
-        const node = new Nodes(nativeElement);
-        if (node.name === 'lake-box') {
-          new Box(node).render();
-        }
-      },
-      onBeforeNodeDiscarded: (nativeNode: NativeNode) => {
+      beforeNodeRemoved: (nativeNode: NativeNode) => {
         const node = new Nodes(nativeNode);
         if (node.name === 'lake-box') {
           new Box(node).remove();
@@ -95,9 +82,8 @@ export class History {
         }
         return true;
       },
-      childrenOnly: true,
     };
-    diff(this.container, sourceItem.clone(true), options);
+    morph(this.container, sourceItem.clone(true), { callbacks });
   }
 
   private cloneContainer(): Nodes {
@@ -143,7 +129,7 @@ export class History {
       this.index--;
       const prevValue = this.getValue(prevItem);
       if (this.removeBookmark(prevValue) !== this.removeBookmark(value)) {
-        this.morph(prevItem);
+        this.morphContainer(prevItem);
         this.event.emit('undo', prevValue);
         break;
       }
@@ -165,7 +151,7 @@ export class History {
       this.index++;
       const nextValue = this.getValue(nextItem);
       if (this.removeBookmark(nextValue) !== this.removeBookmark(value)) {
-        this.morph(nextItem);
+        this.morphContainer(nextItem);
         this.event.emit('redo', nextValue);
         break;
       }
