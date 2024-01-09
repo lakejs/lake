@@ -18,8 +18,9 @@
     "url": "https://github.com/lakejs/lake-core/issues"
   },
   "dependencies": {
+    "@types/blueimp-md5": "^2.18.2",
+    "blueimp-md5": "^2.19.0",
     "eventemitter3": "^4.0.7",
-    "morphdom": "^2.7.1",
     "tinykeys": "^2.1.0"
   },
   "devDependencies": {

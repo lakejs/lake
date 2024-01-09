@@ -32,12 +32,10 @@ Repository: https://github.com/bigskysoftware/idiomorph
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-continue */
 
+import md5 from 'blueimp-md5';
 import { Nodes } from '../models/nodes';
 
 declare global {
-  interface Document {
-    generatedByIdiomorph: boolean;
-  }
   interface Node {
     generatedByIdiomorph: boolean;
   }
@@ -831,11 +829,32 @@ function morphNormalizedContent(oldNode: Element, normalizedNewContent: Element,
   throw `Do not understand how to morph style ${  ctx.morphStyle}`;
 }
 
+function addIdToChildren(node: Nodes): void {
+  for (const child of node.children()) {
+    if (child.isElement && !child.hasAttr('id')) {
+      const id = `morph-${md5(child.html())}`;
+      child.attr('id', id);
+    }
+  }
+}
+
+function removeIdfromChildren(node: Nodes): void {
+  for (const child of node.children()) {
+    if (child.isElement && /^morph-/.test(child.attr('id'))) {
+      child.removeAttr('id');
+    }
+  }
+}
+
 // =============================================================================
 // Core Morphing Algorithm - morph, morphNormalizedContent, morphOldNodeTo, morphChildren
 // =============================================================================
 export function morph(node: Nodes, otherNode: Nodes, config: configType = {}): void {
+  addIdToChildren(node);
+  addIdToChildren(otherNode);
   const normalizedContent = normalizeContent(otherNode.get(0)) as Element;
   const ctx = createMorphContext(node.get(0) as Element, normalizedContent, config);
   morphNormalizedContent(node.get(0) as Element, normalizedContent, ctx);
+  removeIdfromChildren(node);
+  removeIdfromChildren(otherNode);
 }

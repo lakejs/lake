@@ -59,31 +59,26 @@ export class History {
 
   private morphContainer(sourceItem: Nodes): void {
     const callbacks = {
-      beforeChildrenUpdated: (oldNode: NativeNode, newNode: NativeNode) => {
+      beforeChildrenUpdated: (oldNode: NativeNode) => {
         if (new Nodes(oldNode).name === 'lake-box') {
           return false;
         }
-        if (new Nodes(newNode).name === 'lake-box') {
-          return false;
-        }
-        return true;
       },
-      afterNodeAdded: (nativeNode: NativeNode) => {
-        const node = new Nodes(nativeNode);
-        if (node.name === 'lake-box') {
+      afterNodeAdded: (node: NativeNode) => {
+        if (new Nodes(node).name === 'lake-box') {
           new Box(node).render();
         }
       },
-      beforeNodeRemoved: (nativeNode: NativeNode) => {
-        const node = new Nodes(nativeNode);
-        if (node.name === 'lake-box') {
+      beforeNodeRemoved: (node: NativeNode) => {
+        if (new Nodes(node).name === 'lake-box') {
           new Box(node).remove();
           return false;
         }
-        return true;
       },
     };
-    morph(this.container, sourceItem.clone(true), { callbacks });
+    morph(this.container, sourceItem.clone(true), {
+      callbacks,
+    });
   }
 
   private cloneContainer(): Nodes {

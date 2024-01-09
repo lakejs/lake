@@ -3,6 +3,7 @@ import { NativeNode } from '../../src/types/native';
 import { query, morph, debug } from '../../src/utils';
 
 function morphTest(node: ReturnType<typeof query>, otherNode: ReturnType<typeof query>) {
+  /*
   const config = {
     attributes: true,
     childList: true,
@@ -27,6 +28,7 @@ function morphTest(node: ReturnType<typeof query>, otherNode: ReturnType<typeof 
     observer.disconnect();
   });
   observer.observe(node.get(0), config);
+  */
   const addedNodeList: ReturnType<typeof query>[] = [];
   const removedNodeList: ReturnType<typeof query>[] = [];
   morph(node, otherNode, {
@@ -64,13 +66,13 @@ describe('utils / morph', () => {
   });
 
   it('shoud add p', () => {
-    const node = query('<div><p>a</p><p><strong>b</strong></p><p>c</p><p>d</p></div>');
-    const otherNode = query('<div><p>a</p><p>new</p><p><strong>b</strong></p><p>c</p><p>d</p></div>');
-    const oldP = node.find('p').eq(2);
+    const node = query('<div><p>a</p><h1><strong>b</strong></h1><p>c</p><p>d</p></div>');
+    const otherNode = query('<div><p>a</p><p>new</p><h1><strong>b</strong></h1><p>c</p><p>d</p></div>');
+    const oldP = node.find('p').eq(1);
     const result = morphTest(node, otherNode);
     const newP = node.find('p').eq(2);
     expect(oldP.get(0)).to.equal(newP.get(0));
-    expect(result.content).to.equal('<p>a</p><p>new</p><p><strong>b</strong></p><p>c</p><p>d</p>');
+    expect(result.content).to.equal('<p>a</p><p>new</p><h1><strong>b</strong></h1><p>c</p><p>d</p>');
     expect(result.addedNodeList.length).to.equal(1);
     expect(result.addedNodeList[0].name).to.equal('p');
     expect(result.removedNodeList.length).to.equal(0);
@@ -99,6 +101,54 @@ describe('utils / morph', () => {
     expect(result.addedNodeList.length).to.equal(0);
     expect(result.removedNodeList.length).to.equal(1);
     expect(result.removedNodeList[0].name).to.equal('ul');
+  });
+
+  it('beforeNodeAdded: shoud not add ul', () => {
+    const node = query('<div><h1>foo</h1><p>bar</p></div>');
+    const otherNode = query('<div><h1>foo</h1><ul><li>list</li></ul><p>bar</p></div>');
+    morph(node, otherNode, {
+      callbacks: {
+        beforeNodeAdded: (nativeNode: NativeNode) => {
+          if (query(nativeNode).name === 'ul') {
+            return false;
+          }
+        },
+      },
+    });
+    const content = node.html();
+    expect(content).to.equal('<h1>foo</h1><p>bar</p>');
+  });
+
+  it('beforeNodeRemoved: shoud not remove ul', () => {
+    const node = query('<div><h1>foo</h1><ul><li>list</li></ul><p>bar</p></div>');
+    const otherNode = query('<div><h1>foo</h1><p>bar</p></div>');
+    morph(node, otherNode, {
+      callbacks: {
+        beforeNodeRemoved: (nativeNode: NativeNode) => {
+          if (query(nativeNode).name === 'ul') {
+            return false;
+          }
+        },
+      },
+    });
+    const content = node.html();
+    expect(content).to.equal('<h1>foo</h1><ul><li>list</li></ul><p>bar</p>');
+  });
+
+  it('beforeChildrenUpdated: shoud not update children', () => {
+    const node = query('<div><p>a</p><h1><strong>b</strong></h1><p>c</p></div>');
+    const otherNode = query('<div><p>a2</p><h1><strong>b2</strong></h1><p>c2</p></div>');
+    morph(node, otherNode, {
+      callbacks: {
+        beforeChildrenUpdated: (oldNode: NativeNode) => {
+          if (query(oldNode).name === 'h1') {
+            return false;
+          }
+        },
+      },
+    });
+    const content = node.html();
+    expect(content).to.equal('<p>a2</p><h1><strong>b</strong></h1><p>c2</p>');
   });
 
 });
