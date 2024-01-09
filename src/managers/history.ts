@@ -1,3 +1,4 @@
+import md5 from 'blueimp-md5';
 import EventEmitter from 'eventemitter3';
 import { NativeNode } from '../types/native';
 import { debug } from '../utils/debug';
@@ -57,6 +58,21 @@ export class History {
     return new HTMLParser(container).getHTML();
   }
 
+  private addIdToBoxes(node: Nodes): void {
+    node.find('lake-box').each(nativeChild => {
+      const child = new Nodes(nativeChild);
+      const id = md5(`${child.attr('type')}-${child.attr('name')}-${child.attr('value')}`);
+      child.attr('id', id);
+    });
+  }
+
+  private removeIdfromBoxes(node: Nodes): void {
+    node.find('lake-box').each(nativeChild => {
+      const child = new Nodes(nativeChild);
+      child.removeAttr('id');
+    });
+  }
+
   private morphContainer(sourceItem: Nodes): void {
     const callbacks = {
       beforeChildrenUpdated: (oldNode: NativeNode) => {
@@ -76,9 +92,15 @@ export class History {
         }
       },
     };
-    morph(this.container, sourceItem.clone(true), {
+    const container = this.container;
+    const otherContainer = sourceItem.clone(true);
+    this.addIdToBoxes(container);
+    this.addIdToBoxes(otherContainer);
+    morph(container, otherContainer, {
       callbacks,
     });
+    this.removeIdfromBoxes(container);
+    this.removeIdfromBoxes(otherContainer);
   }
 
   private cloneContainer(): Nodes {
