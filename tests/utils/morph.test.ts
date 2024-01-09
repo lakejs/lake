@@ -3,6 +3,30 @@ import { NativeNode } from '../../src/types/native';
 import { query, morph, debug } from '../../src/utils';
 
 function morphTest(node: ReturnType<typeof query>, otherNode: ReturnType<typeof query>) {
+  const config = {
+    attributes: true,
+    childList: true,
+    subtree: true,
+    characterData: true,
+  };
+  const observer = new MutationObserver((records: MutationRecord[]) => {
+    for (const record of records) {
+      for (const addedNode of record.addedNodes) {
+        debug('Added node: ', addedNode);
+      }
+      for (const removedNode of record.removedNodes) {
+        debug('Removed node: ', removedNode);
+      }
+      if (record.type === 'attributes') {
+        debug(`The '${record.attributeName}' attribute was modified.`, record.target);
+      }
+      if (record.type === 'characterData') {
+        debug('Character data: ', record.target);
+      }
+    }
+    observer.disconnect();
+  });
+  observer.observe(node.get(0), config);
   const addedNodeList: ReturnType<typeof query>[] = [];
   const removedNodeList: ReturnType<typeof query>[] = [];
   morph(node, otherNode, {
@@ -29,7 +53,10 @@ describe('utils / morph', () => {
   it('shoud add ul', () => {
     const node = query('<div><h1>foo</h1><p>bar</p></div>');
     const otherNode = query('<div><h1>foo</h1><ul><li>list</li></ul><p>bar</p></div>');
+    const oldP = node.find('p');
     const result = morphTest(node, otherNode);
+    const newP = node.find('p');
+    expect(oldP.get(0)).to.equal(newP.get(0));
     expect(result.content).to.equal('<h1>foo</h1><ul><li>list</li></ul><p>bar</p>');
     expect(result.addedNodeList.length).to.equal(1);
     expect(result.addedNodeList[0].name).to.equal('ul');
@@ -37,10 +64,13 @@ describe('utils / morph', () => {
   });
 
   it('shoud add p', () => {
-    const node = query('<div><p>a</p><p>b</p><p>c</p><p>d</p></div>');
-    const otherNode = query('<div><p>a</p><p>new</p><p>b</p><p>c</p><p>d</p></div>');
+    const node = query('<div><p>a</p><p><strong>b</strong></p><p>c</p><p>d</p></div>');
+    const otherNode = query('<div><p>a</p><p>new</p><p><strong>b</strong></p><p>c</p><p>d</p></div>');
+    const oldP = node.find('p').eq(2);
     const result = morphTest(node, otherNode);
-    expect(result.content).to.equal('<p>a</p><p>new</p><p>b</p><p>c</p><p>d</p>');
+    const newP = node.find('p').eq(2);
+    expect(oldP.get(0)).to.equal(newP.get(0));
+    expect(result.content).to.equal('<p>a</p><p>new</p><p><strong>b</strong></p><p>c</p><p>d</p>');
     expect(result.addedNodeList.length).to.equal(1);
     expect(result.addedNodeList[0].name).to.equal('p');
     expect(result.removedNodeList.length).to.equal(0);
@@ -49,7 +79,10 @@ describe('utils / morph', () => {
   it('shoud update ul', () => {
     const node = query('<div><h1>foo</h1><ul class="a"><li>list</li></ul><p>bar</p></div>');
     const otherNode = query('<div><h1>foo</h1><ul class="b"><li>list</li></ul><p>bar</p></div>');
+    const oldP = node.find('p');
     const result = morphTest(node, otherNode);
+    const newP = node.find('p');
+    expect(oldP.get(0)).to.equal(newP.get(0));
     expect(result.content).to.equal('<h1>foo</h1><ul class="b"><li>list</li></ul><p>bar</p>');
     expect(result.addedNodeList.length).to.equal(0);
     expect(result.removedNodeList.length).to.equal(0);
@@ -58,7 +91,10 @@ describe('utils / morph', () => {
   it('shoud remove ul', () => {
     const node = query('<div><h1>foo</h1><ul><li>list</li></ul><p>bar</p></div>');
     const otherNode = query('<div><h1>foo</h1><p>bar</p></div>');
+    const oldP = node.find('p');
     const result = morphTest(node, otherNode);
+    const newP = node.find('p');
+    expect(oldP.get(0)).to.equal(newP.get(0));
     expect(result.content).to.equal('<h1>foo</h1><p>bar</p>');
     expect(result.addedNodeList.length).to.equal(0);
     expect(result.removedNodeList.length).to.equal(1);

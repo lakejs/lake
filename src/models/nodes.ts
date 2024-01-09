@@ -202,7 +202,7 @@ export class Nodes {
   }
 
   // Gets a native node at the specified index.
-  public get(index: number = 0): NativeNode {
+  public get(index: number): NativeNode {
     return this.nodeList[index];
   }
 

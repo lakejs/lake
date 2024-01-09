@@ -121,7 +121,7 @@ export class Range {
   public compareAfterNode(node: Nodes): number {
     const targetRange = new Range();
     if (node.isText) {
-      const nodeValue = node.get().nodeValue ?? '';
+      const nodeValue = node.get(0).nodeValue ?? '';
       targetRange.setStart(node, nodeValue.length);
     } else {
       targetRange.setStartAfter(node);
@@ -132,7 +132,7 @@ export class Range {
 
   // Indicates whether a specified node is part of the range or intersects the range.
   public intersectsNode(node: Nodes): boolean {
-    return this.range.intersectsNode(node.get());
+    return this.range.intersectsNode(node.get(0));
   }
 
   // Sets the start position of the range.
@@ -464,7 +464,7 @@ export class Range {
     endRange.collapseToEnd();
     for (const node of this.commonAncestor.getWalker()) {
       const targetRange = document.createRange();
-      targetRange.setStartAfter(node.get());
+      targetRange.setStartAfter(node.get(0));
       targetRange.collapse(true);
       if (endRange.compareBeforeNode(node) >= 0) {
         break;
