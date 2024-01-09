@@ -176,12 +176,17 @@ export class Core {
     });
     this.container.on('input', event => {
       const inputEvent = event as InputEvent;
+      // Here setTimeout is necessary because isComposing is not false after ending composition.
       window.setTimeout(() => {
+        // isComposing is false after ending composition because compositionend event has been emitted.
         if (isComposing) {
           this.event.emit('input', inputEvent);
           return;
         }
-        if (inputEvent.inputType === 'insertText') {
+        if (
+          inputEvent.inputType === 'insertText' ||
+          inputEvent.inputType === 'insertCompositionText'
+        ) {
           const range = this.selection.range;
           if (range.isBoxLeft || range.isBoxRight) {
             this.inputInBoxStrip();
@@ -196,7 +201,7 @@ export class Core {
         this.history.save();
         this.unsavedInputData = '';
         this.event.emit('input', inputEvent);
-      }, 100);
+      }, 0);
     });
     this.command.event.on('execute:before', () => this.commitUnsavedInputData());
   }
