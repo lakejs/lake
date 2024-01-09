@@ -169,7 +169,7 @@ describe('utils / morph', () => {
     expect(content).to.equal('<div><button>Bar</button></div>');
   });
 
-  it('shoud add ul', () => {
+  it('shoud add a list', () => {
     const node = query('<div><h1>foo</h1><p>bar</p></div>');
     const otherNode = query('<div><h1>foo</h1><ul><li>list</li></ul><p>bar</p></div>');
     const result = morphTest(node, otherNode);
@@ -179,14 +179,24 @@ describe('utils / morph', () => {
     expect(result.removedNodeList.length).to.equal(0);
   });
 
-  it('shoud add p', () => {
+  it('shoud add a paragraph', () => {
     const node = query('<div><p>a</p><h1><strong>b</strong></h1><p>c</p><p>d</p></div>');
     const otherNode = query('<div><p>a</p><p>new</p><h1><strong>b</strong></h1><p>c</p><p>d</p></div>');
     const result = morphTest(node, otherNode);
     expect(result.content).to.equal('<p>a</p><p>new</p><h1><strong>b</strong></h1><p>c</p><p>d</p>');
   });
 
-  it('shoud update ul', () => {
+  it('adds a node with the same ID', () => {
+    const node = query('<div><p id="1">a</p><h1 id="2"><strong>b</strong></h1><p id="1">c</p></div>');
+    const otherNode = query('<div><p id="1">a</p><p id="1">a</p><h1 id="2"><strong>b</strong></h1><p id="1">c</p></div>');
+    const result = morphTest(node, otherNode);
+    expect(result.content).to.equal('<p id="1">a</p><p id="1">a</p><h1 id="2"><strong>b</strong></h1><p id="1">c</p>');
+    expect(result.addedNodeList.length).to.equal(1);
+    expect(result.removedNodeList.length).to.equal(0);
+    expect(result.addedNodeList[0].name).to.equal('p');
+  });
+
+  it('shoud update a list', () => {
     const node = query('<div><h1>foo</h1><ul class="a"><li>list</li></ul><p>bar</p></div>');
     const otherNode = query('<div><h1>foo</h1><ul class="b"><li>list</li></ul><p>bar</p></div>');
     const result = morphTest(node, otherNode);
@@ -195,7 +205,7 @@ describe('utils / morph', () => {
     expect(result.removedNodeList.length).to.equal(0);
   });
 
-  it('shoud remove ul', () => {
+  it('shoud remove a list', () => {
     const node = query('<div><h1>foo</h1><ul><li>list</li></ul><p>bar</p></div>');
     const otherNode = query('<div><h1>foo</h1><p>bar</p></div>');
     const result = morphTest(node, otherNode);
@@ -205,7 +215,17 @@ describe('utils / morph', () => {
     expect(result.removedNodeList[0].name).to.equal('ul');
   });
 
-  it('beforeNodeAdded: shoud not add ul', () => {
+  it('removes a node with the same ID', () => {
+    const node = query('<div><p id="1">a</p><p id="1">a</p><h1 id="2"><strong>b</strong></h1><p id="1">c</p></div>');
+    const otherNode = query('<div><p id="1">a</p><h1 id="2"><strong>b</strong></h1><p id="1">c</p></div>');
+    const result = morphTest(node, otherNode);
+    expect(result.content).to.equal('<p id="1">a</p><h1 id="2"><strong>b</strong></h1><p id="1">c</p>');
+    expect(result.addedNodeList.length).to.equal(0);
+    expect(result.removedNodeList.length).to.equal(1);
+    expect(result.removedNodeList[0].name).to.equal('p');
+  });
+
+  it('beforeNodeAdded: shoud not add a list', () => {
     const node = query('<div><h1>foo</h1><p>bar</p></div>');
     const otherNode = query('<div><h1>foo</h1><ul><li>list</li></ul><p>bar</p></div>');
     morph(node, otherNode, {
@@ -222,7 +242,7 @@ describe('utils / morph', () => {
     expect(content).to.equal('<h1>foo</h1><p>bar</p>');
   });
 
-  it('beforeNodeRemoved: shoud not remove ul', () => {
+  it('beforeNodeRemoved: shoud not remove a list', () => {
     const node = query('<div><h1>foo</h1><ul><li>list</li></ul><p>bar</p></div>');
     const otherNode = query('<div><h1>foo</h1><p>bar</p></div>');
     morph(node, otherNode, {
