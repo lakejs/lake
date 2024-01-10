@@ -1,19 +1,33 @@
 import { expect } from 'chai';
-import { query } from '../../src/utils';
+import { boxes } from '../../src/storage/boxes';
+import { debug, query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Selection } from '../../src/managers/selection';
 import { History } from '../../src/managers/history';
+import { getContainerValue, setContainerValue } from '../utils';
 
 describe('managers / history', () => {
 
   let container: Nodes;
 
   beforeEach(() => {
+    boxes.set('inlineBox', {
+      type: 'inline',
+      name: 'inlineBox',
+      render: () => '<img />',
+    });
+    boxes.set('blockBox', {
+      type: 'block',
+      name: 'blockBox',
+      render: () => '<hr />',
+    });
     container = query('<div contenteditable="true" />');
     query(document.body).append(container);
   });
 
   afterEach(() => {
+    boxes.delete('inlineBox');
+    boxes.delete('blockBox');
     container.remove();
   });
 
@@ -155,6 +169,68 @@ describe('managers / history', () => {
     expect(container.html()).to.equal('ab');
     history.redo();
     expect(container.html()).to.equal('ab');
+  });
+
+  it('undoes or redoes with boxes', () => {
+    let oldBoxNodes: Nodes;
+    let newBoxNodes: Nodes;
+    let value = '';
+    const selection = new Selection(container);
+    const history = new History(selection);
+    // action 1
+    setContainerValue(container, '<p>foo</p>');
+    history.save();
+    // action 2
+    setContainerValue(container, '<p>foo<lake-box type="inline" name="inlineBox"></lake-box></p>');
+    history.save();
+    // action 3
+    setContainerValue(container, '<p>bar</p><p>foo<lake-box type="inline" name="inlineBox"></lake-box></p>');
+    history.save();
+    // action 4
+    setContainerValue(container, '<p>bar</p><p>foo<lake-box type="inline" name="inlineBox"></lake-box><lake-box type="inline" name="inlineBox"></lake-box></p>');
+    history.save();
+    // action 5
+    oldBoxNodes = container.find('lake-box');
+    history.undo();
+    newBoxNodes = container.find('lake-box');
+    value = getContainerValue(container);
+    debug(value);
+    expect(value).to.equal('<p>bar</p><p>foo<lake-box type="inline" name="inlineBox"></lake-box></p>');
+    expect(oldBoxNodes.eq(0).find('img').get(0)).to.equal(newBoxNodes.eq(0).find('img').get(0));
+    // action 6
+    oldBoxNodes = container.find('lake-box');
+    history.undo();
+    newBoxNodes = container.find('lake-box');
+    value = getContainerValue(container);
+    debug(value);
+    expect(value).to.equal('<p>foo<lake-box type="inline" name="inlineBox"></lake-box></p>');
+    expect(oldBoxNodes.eq(0).find('img').get(0)).to.equal(newBoxNodes.eq(0).find('img').get(0));
+    // action 7
+    history.undo();
+    value = getContainerValue(container);
+    debug(value);
+    expect(value).to.equal('<p>foo</p>');
+    // action 8
+    history.redo();
+    value = getContainerValue(container);
+    debug(value);
+    expect(value).to.equal('<p>foo<lake-box type="inline" name="inlineBox"></lake-box></p>');
+    // action 9
+    oldBoxNodes = container.find('lake-box');
+    history.redo();
+    newBoxNodes = container.find('lake-box');
+    value = getContainerValue(container);
+    debug(value);
+    expect(value).to.equal('<p>bar</p><p>foo<lake-box type="inline" name="inlineBox"></lake-box></p>');
+    expect(oldBoxNodes.eq(0).find('img').get(0)).to.equal(newBoxNodes.eq(0).find('img').get(0));
+    // action 10
+    oldBoxNodes = container.find('lake-box');
+    history.redo();
+    newBoxNodes = container.find('lake-box');
+    value = getContainerValue(container);
+    debug(value);
+    expect(value).to.equal('<p>bar</p><p>foo<lake-box type="inline" name="inlineBox"></lake-box><lake-box type="inline" name="inlineBox"></lake-box></p>');
+    expect(oldBoxNodes.eq(0).find('img').get(0)).to.equal(newBoxNodes.eq(0).find('img').get(0));
   });
 
   it('should remove the first item when the list size exceeds the limit', () => {

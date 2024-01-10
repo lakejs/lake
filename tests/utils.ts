@@ -14,11 +14,16 @@ export function formatHTML(value: string) {
   return value;
 }
 
-export function createContainer(content: string): { container: Nodes, range: Range} {
-  const container = query('<div contenteditable="true"></div>');
-  query(document.body).append(container);
-  content = normalizeValue(content);
-  const htmlParser = new HTMLParser(content);
+export function getContainerValue(container: Nodes): string {
+  let value = new HTMLParser(container).getHTML();
+  value = denormalizeValue(value);
+  return value;
+}
+
+export function setContainerValue(container: Nodes, value: string): Range {
+  container.empty();
+  value = normalizeValue(value);
+  const htmlParser = new HTMLParser(value);
   for (const node of htmlParser.getNodeList()) {
     container.append(node);
   }
@@ -29,10 +34,7 @@ export function createContainer(content: string): { container: Nodes, range: Ran
       anchor: new Nodes(),
       focus: boxFocus,
     });
-    return {
-      container,
-      range,
-    };
+    return range;
   }
   const anchor = container.find('lake-bookmark[type="anchor"]');
   const focus = container.find('lake-bookmark[type="focus"]');
@@ -40,6 +42,13 @@ export function createContainer(content: string): { container: Nodes, range: Ran
     anchor,
     focus,
   });
+  return range;
+}
+
+export function createContainer(content: string): { container: Nodes, range: Range} {
+  const container = query('<div contenteditable="true"></div>');
+  query(document.body).append(container);
+  const range = setContainerValue(container, content);
   return {
     container,
     range,

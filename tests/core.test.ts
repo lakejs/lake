@@ -13,6 +13,18 @@ function inputData(editor: Core, data: string) {
   editor.container.emit('input', event);
 }
 
+function inputCompositionData(editor: Core, data: string) {
+  editor.container.emit('compositionstart');
+  const event = new InputEvent('input', {
+    data,
+    inputType: 'insertCompositionText',
+    isComposing: true,
+  });
+  editor.container.emit('beforeinput', event);
+  editor.container.emit('input', event);
+  editor.container.emit('compositionend');
+}
+
 describe('core', () => {
 
   let targetNode: Nodes;
@@ -135,6 +147,25 @@ describe('core', () => {
     });
     editor.container.find('.lake-box-strip').eq(1).html('a');
     inputData(editor, 'a');
+  });
+
+  it('input event: input composition text in the left strip of inline box', done => {
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
+    const output = '<p>foo你好<focus /><lake-box type="inline" name="inlineBox"></lake-box>bar</p>';
+    const editor = new Core(targetNode.get(0), {
+      className: 'my-editor-container',
+    });
+    editor.create();
+    editor.setValue(input);
+    editor.event.on('input', () => {
+      const value = editor.getValue();
+      debug(`output: ${value}`);
+      editor.remove();
+      expect(value).to.equal(output);
+      done();
+    });
+    editor.container.find('.lake-box-strip').eq(0).html('你好');
+    inputCompositionData(editor, '你好');
   });
 
   /*
