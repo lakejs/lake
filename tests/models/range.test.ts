@@ -447,6 +447,24 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
+  it('shrink method: with box', () => {
+    container.html('<div><p><strong>foo</strong></p></div>');
+    const startBox = new Box('inlineBox');
+    container.find('strong').prepend(startBox.node);
+    startBox.render();
+    const endBox = new Box('inlineBox');
+    container.find('strong').append(endBox.node);
+    endBox.render();
+    const range = new Range();
+    range.selectNode(container.find('p'));
+    range.shrink();
+    expect(range.startNode.name).to.equal('strong');
+    expect(range.endNode.name).to.equal('strong');
+    expect(range.startOffset).to.equal(0);
+    expect(range.endOffset).to.equal(3);
+    expect(range.isCollapsed).to.equal(false);
+  });
+
   it('adaptBox method: should move out to the left side of the box', () => {
     setTestBox(container);
     container.prepend('<p>foo</p>');

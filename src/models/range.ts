@@ -280,7 +280,7 @@ export class Range {
     while (
       this.startNode.isElement &&
       (child = this.startNode.children()[this.startOffset]) &&
-      child.isElement && !child.isVoid
+      child.isElement && !child.isVoid && !child.isBox
     ) {
       this.setStart(child, 0);
     }
@@ -292,7 +292,7 @@ export class Range {
       this.endNode.isElement &&
       this.endOffset > 0 &&
       (child = this.endNode.children()[this.endOffset - 1]) &&
-      child.isElement && !child.isVoid
+      child.isElement && !child.isVoid && !child.isBox
     ) {
       this.setEnd(child, child.children().length);
     }

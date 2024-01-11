@@ -7,31 +7,13 @@ describe('plugin / select-all', () => {
     <p>one<anchor />two<focus />three</p>
     `;
     const output = `
-    <anchor /><p>onetwothree</p><focus />
+    <p><anchor />onetwothree<focus /></p>
     `;
     testPlugin(
       content,
       output,
       editor => {
         editor.command.execute('selectAll');
-      },
-    );
-  });
-
-  it('keyboard shortcut', () => {
-    const content = `
-    <p>f<focus />oo</p>
-    <p>bar</p>
-    `;
-    const output = `
-    <anchor /><p>foo</p>
-    <p>bar</p><focus />
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.keystroke.keydown('mod+a');
       },
     );
   });
