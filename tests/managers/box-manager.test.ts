@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
-import { BoxManager } from '../../src/managers/box';
+import { BoxManager } from '../../src/managers/box-manager';
 import { Core } from '../../src/core';
 
-describe('managers / box', () => {
+describe('managers / box-manager', () => {
 
   let targetNode: Nodes;
 

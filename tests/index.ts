@@ -57,7 +57,7 @@ import './managers/selection.test';
 import './managers/command.test';
 import './managers/history.test';
 import './managers/keystroke.test';
-import './managers/box.test';
+import './managers/box-manager.test';
 import './managers/plugin.test';
 
 // Plugins

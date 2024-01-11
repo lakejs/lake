@@ -11,7 +11,7 @@ import { Selection } from './managers/selection';
 import { Command } from './managers/command';
 import { History } from './managers/history';
 import { Keystroke } from './managers/keystroke';
-import { BoxManager } from './managers/box';
+import { BoxManager } from './managers/box-manager';
 import { Plugin } from './managers/plugin';
 
 type TargetType = string | NativeNode;
