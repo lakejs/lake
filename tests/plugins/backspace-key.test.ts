@@ -143,6 +143,42 @@ describe('plugin / backspace-key', () => {
     );
   });
 
+  it('should delete part of text', () => {
+    const content = `
+    <p>foo</p>
+    <p>b<anchor />a<focus />r</p>
+    `;
+    const output = `
+    <p>foo</p>
+    <p>b<focus />r</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should delete all text', () => {
+    const content = `
+    <p>foo</p>
+    <p><anchor />bar<focus /></p>
+    `;
+    const output = `
+    <p>foo</p>
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
   it('should delete contents and merge two blocks', () => {
     const content = `
     <p>fo<anchor />o</p>

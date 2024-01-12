@@ -1,3 +1,5 @@
+import { query } from '../utils/query';
+import { appendDeepest } from '../utils/append-deepest';
 import { mergeNodes } from '../utils/merge-nodes';
 import { Range } from '../models/range';
 import { fixList } from './fix-list';
@@ -13,8 +15,21 @@ export function deleteContents(range: Range): void {
     return;
   }
   range.adaptBox();
+  const startBlock = range.startNode.closestBlock();
+  const endBlock = range.endNode.closestBlock();
+  const noMerge = startBlock.get(0) === endBlock.get(0);
   const nativeRange = range.get();
   nativeRange.deleteContents();
+  if (noMerge) {
+    const block = range.getBlocks()[0];
+    if (block && block.isEmpty) {
+      const br = query('<br />');
+      appendDeepest(block, br);
+      range.setEndAfter(br);
+      range.collapseToEnd();
+    }
+    return;
+  }
   range.adaptBlock();
   const block = range.getBlocks()[0];
   if (!block) {

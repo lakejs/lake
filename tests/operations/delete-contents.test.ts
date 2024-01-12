@@ -38,6 +38,42 @@ describe('operations / delete-contents', () => {
     );
   });
 
+  it('deletes part of text', () => {
+    const content = `
+    <p>foo</p>
+    <p>b<anchor />a<focus />r</p>
+    `;
+    const output = `
+    <p>foo</p>
+    <p>b<focus />r</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        deleteContents(range);
+      },
+    );
+  });
+
+  it('deletes all text', () => {
+    const content = `
+    <p>foo</p>
+    <p><anchor />bar<focus /></p>
+    `;
+    const output = `
+    <p>foo</p>
+    <p><br /><focus /></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        deleteContents(range);
+      },
+    );
+  });
+
   it('deletes part of two blocks', () => {
     const content = `
     <p>foo1<anchor />bar1</p>
