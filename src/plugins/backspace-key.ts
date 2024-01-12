@@ -3,6 +3,7 @@ import { mergeNodes } from '../utils';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
 import { removeBox } from '../operations/remove-box';
+import { setBlockIndent } from './indent';
 
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('backspace', event => {
@@ -61,6 +62,11 @@ export default (editor: Editor) => {
       if (!block) {
         editor.selection.setBlocks('<p />');
         block = range.getBlocks()[0];
+      }
+      if(block.css('margin-left') !== '' || block.css('text-indent') !== '') {
+        setBlockIndent(block, 'decrease');
+        editor.history.save();
+        return;
       }
       if (block.isList || block.name === 'blockquote') {
         editor.selection.setBlocks('<p />');

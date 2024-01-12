@@ -318,4 +318,44 @@ describe('plugin / backspace-key', () => {
     );
   });
 
+  it('paragraph: decreases text indent', () => {
+    const content = `
+    <p>foo</p>
+    <p style="text-indent: 2em;"><focus />heading</p>
+    <p>bar</p>
+    `;
+    const output = `
+    <p>foo</p>
+    <p><focus />heading</p>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('paragraph: decreases indent', () => {
+    const content = `
+    <p>foo</p>
+    <p style="text-indent: 2em; margin-left: 40px;"><focus />heading</p>
+    <p>bar</p>
+    `;
+    const output = `
+    <p>foo</p>
+    <p style="text-indent: 2em;"><focus />heading</p>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
 });
