@@ -1,7 +1,7 @@
 import type Editor from '../../src';
-import { BoxDefinition } from '../../src';
+import { BoxComponent } from '../../src';
 
-export const codeBlockBox: BoxDefinition = {
+export const codeBlockBox: BoxComponent = {
   type: 'block',
   name: 'codeBlock',
   render: () => '<div><textarea></textarea></div>',

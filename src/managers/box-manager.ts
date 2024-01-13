@@ -1,11 +1,11 @@
 import type { Core } from '../core';
-import { BoxDefinition } from '../types/box';
+import { BoxComponent } from '../types/box';
 import { boxes } from '../storage/boxes';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 
 export class BoxManager {
-  public add(def: BoxDefinition) {
+  public add(def: BoxComponent) {
     boxes.set(def.name, def);
   }
 

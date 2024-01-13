@@ -1,7 +1,7 @@
 import type Editor from '..';
-import { BoxDefinition } from '../types/box';
+import { BoxComponent } from '../types/box';
 
-export const hrBox: BoxDefinition = {
+export const hrBox: BoxComponent = {
   type: 'block',
   name: 'hr',
   render: () => '<hr />',

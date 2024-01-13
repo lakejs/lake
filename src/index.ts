@@ -7,7 +7,7 @@ import './css/blockquote.css';
 import './css/box.css';
 import './css/hr.css';
 import './css/image.css';
-import { BoxDefinition } from './types/box';
+import { BoxComponent } from './types/box';
 import * as Utils from './utils';
 import { Nodes } from './models/nodes';
 import { Range } from './models/range';
@@ -86,7 +86,7 @@ Core.plugin.add(arrowKeys);
 Core.plugin.add(markdown);
 
 export {
-  BoxDefinition,
+  BoxComponent,
   Utils,
   Nodes,
   Range,

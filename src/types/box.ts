@@ -4,7 +4,7 @@ export type BoxValue = { [key: string]: any };
 
 export type BoxRender = (value?: BoxValue) => string;
 
-export type BoxDefinition = {
+export type BoxComponent = {
   type: BoxType;
   name: string;
   value?: BoxValue;

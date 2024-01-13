@@ -1,7 +1,7 @@
 import type Editor from '..';
-import { BoxDefinition } from '../types/box';
+import { BoxComponent } from '../types/box';
 
-export const imageBox: BoxDefinition = {
+export const imageBox: BoxComponent = {
   type: 'inline',
   name: 'image',
   render: value => `<img src="${value?.url}" />`,
