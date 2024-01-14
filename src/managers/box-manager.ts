@@ -28,7 +28,7 @@ export class BoxManager {
   public renderAll(editor: Core) {
     const boxNodeList = this.getNodeList(editor);
     for (const boxNode of boxNodeList) {
-      new Box(boxNode).render();
+      new Box(boxNode).render(editor);
     }
   }
 }

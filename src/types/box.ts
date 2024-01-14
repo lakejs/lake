@@ -1,8 +1,12 @@
+import type { Core } from '../core';
+import type { Nodes } from '../models/nodes';
+import type { Box } from '../models/box';
+
 export type BoxType = 'inline' | 'block';
 
 export type BoxValue = { [key: string]: any };
 
-export type BoxRender = (value?: BoxValue) => string;
+export type BoxRender = (value?: BoxValue, box?: Box, editor?: Core) => Nodes | string;
 
 export type BoxComponent = {
   type: BoxType;

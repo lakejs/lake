@@ -1,3 +1,5 @@
+import { Base64 } from 'js-base64';
+import type { Core } from '../core';
 import { NativeNode } from '../types/native';
 import { BoxType, BoxValue } from '../types/box';
 import { boxes } from '../storage/boxes';
@@ -80,12 +82,12 @@ export class Box {
     if (value === '') {
       return {};
     }
-    return JSON.parse(atob(value));
+    return JSON.parse(Base64.decode(value));
   }
 
   // Updates the value of the box.
   public set value(value: BoxValue) {
-    this.node.attr('value', btoa(JSON.stringify(value)));
+    this.node.attr('value', Base64.encode(JSON.stringify(value)));
   }
 
   // Returns the container node of the box.
@@ -106,23 +108,17 @@ export class Box {
   }
 
   // Renders the contents of the box.
-  public render(): void {
+  public render(editor?: Core): void {
     const def = boxes.get(this.name);
     if (def === undefined) {
       return;
     }
     this.renderStructure();
-    const content = def.render(this.value);
+    const content = def.render(this.value, this, editor);
     const container = this.getContainer();
     const newContainer = container.clone(false);
-    newContainer.html(content);
+    newContainer.append(content);
     morph(container, newContainer);
-  }
-
-  // Updates the value of the box and refreshes the container of the box.
-  public update(value: BoxValue): void {
-    this.value = value;
-    this.render();
   }
 
   // Removes the box.

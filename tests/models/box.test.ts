@@ -72,19 +72,6 @@ describe('models / box', () => {
     expect(container.find('lake-box').children().length).to.equal(3);
   });
 
-  it('method: update', () => {
-    container.html('<lake-box type="inline" name="inlineBox"></lake-box>');
-    const box = new Box(container.find('lake-box'));
-    box.render();
-    expect(box.value.url).to.equal('http://foo.com');
-    expect(container.find('img').attr('src')).to.equal('http://foo.com');
-    box.update({
-      url: 'http://bar.com',
-    });
-    expect(box.value.url).to.equal('http://bar.com');
-    expect(container.find('img').attr('src')).to.equal('http://bar.com');
-  });
-
   it('method: remove', () => {
     container.html('<p>foo</p><lake-box type="block" name="blockBox"></lake-box>');
     const box = new Box(container.find('lake-box'));

@@ -91,6 +91,11 @@ export class History {
           return false;
         }
       },
+      beforeAttributeUpdated: (attributeName: string, node: NativeNode) => {
+        if (new Nodes(node).name === 'lake-box' && attributeName === 'value') {
+          new Box(node).render();
+        }
+      },
     };
     const container = this.container;
     const otherContainer = sourceItem.clone(true);
