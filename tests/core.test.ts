@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { debug, query } from '../src/utils';
 import { Nodes } from '../src/models/nodes';
+import { Box } from '../src/models/box';
 import { Core } from '../src/core';
 
 function inputData(editor: Core, data: string) {
@@ -166,6 +167,27 @@ describe('core', () => {
     });
     editor.container.find('.lake-box-strip').eq(0).html('你好');
     inputCompositionData(editor, '你好');
+  });
+
+  it('box event: should save history after box value was updated', () => {
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
+    const editor = new Core(targetNode.get(0), {
+      className: 'my-editor-container',
+    });
+    editor.create();
+    editor.setValue(input);
+    const oldCount = editor.history.count;
+    const boxNode = editor.container.find('lake-box');
+    const box = new Box(boxNode);
+    box.value = {
+      abc: '123',
+    };
+    let newCount = 0;
+    editor.event.on('remove', () => {
+      newCount = editor.history.count;
+    });
+    editor.remove();
+    expect(oldCount + 1).to.equal(newCount);
   });
 
   /*

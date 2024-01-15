@@ -47,6 +47,8 @@ export class Core {
 
   private mouseoverListener: EventListener;
 
+  private mutationObserver: MutationObserver;
+
   public container: Nodes;
 
   public readonly: boolean;
@@ -81,6 +83,12 @@ export class Core {
 
     this.unsavedInputData = '';
 
+    // watch for changes being made to the DOM tree
+    this.mutationObserver = new MutationObserver((records: MutationRecord[]) => {
+      for (const record of records) {
+        this.event.emit('mutation', record);
+      }
+    });
     this.selectionListener = () => {
       this.selection.syncByRange();
       // TODO: need to review performance
@@ -226,6 +234,15 @@ export class Core {
         window.setTimeout(() => targetBox.focus(), 0);
       }
     });
+    this.event.on('mutation', (record: MutationRecord) => {
+      if (record.type === 'attributes' && record.attributeName === 'value') {
+        const boxNode = new Nodes(record.target);
+        if (boxNode.name === 'lake-box') {
+          this.history.save();
+          this.unsavedInputData = '';
+        }
+      }
+    });
   }
 
   private bindHistoryEvents(): void {
@@ -309,6 +326,12 @@ export class Core {
     Core.plugin.loadAll(this);
     Core.box.renderAll(this);
     if (!this.readonly) {
+      this.mutationObserver.observe(this.container.get(0), {
+        attributes: true,
+        childList: true,
+        subtree: true,
+        characterData: true,
+      });
       document.addEventListener('selectionchange', this.selectionListener);
       this.bindInputEvents();
       this.bindBoxEvents();
@@ -323,6 +346,11 @@ export class Core {
   public remove(): void {
     this.container.remove();
     if (!this.readonly) {
+      const records = this.mutationObserver.takeRecords();
+      for (const record of records) {
+        this.event.emit('mutation', record);
+      }
+      this.mutationObserver.disconnect();
       document.removeEventListener('selectionchange', this.selectionListener);
     }
     document.removeEventListener('click', this.clickListener);

@@ -12,32 +12,6 @@ function testFidelity(start: string, end: string) {
 }
 
 function morphTest(node: ReturnType<typeof query>, otherNode: ReturnType<typeof query>) {
-  /*
-  const config = {
-    attributes: true,
-    childList: true,
-    subtree: true,
-    characterData: true,
-  };
-  const observer = new MutationObserver((records: MutationRecord[]) => {
-    for (const record of records) {
-      for (const addedNode of record.addedNodes) {
-        debug('Added node: ', addedNode);
-      }
-      for (const removedNode of record.removedNodes) {
-        debug('Removed node: ', removedNode);
-      }
-      if (record.type === 'attributes') {
-        debug(`The '${record.attributeName}' attribute was modified.`, record.target);
-      }
-      if (record.type === 'characterData') {
-        debug('Character data: ', record.target);
-      }
-    }
-    observer.disconnect();
-  });
-  observer.observe(node.get(0), config);
-  */
   const addedNodeList: ReturnType<typeof query>[] = [];
   const removedNodeList: ReturnType<typeof query>[] = [];
   morph(node, otherNode, {
