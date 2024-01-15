@@ -1,5 +1,4 @@
 import { Base64 } from 'js-base64';
-import type { Core } from '../core';
 import { NativeNode } from '../types/native';
 import { BoxType, BoxValue } from '../types/box';
 import { boxes } from '../storage/boxes';
@@ -108,13 +107,13 @@ export class Box {
   }
 
   // Renders the contents of the box.
-  public render(editor?: Core): void {
+  public render(): void {
     const def = boxes.get(this.name);
     if (def === undefined) {
       return;
     }
     this.renderStructure();
-    const content = def.render(this.value, this, editor);
+    const content = def.render(this.value, this);
     const container = this.getContainer();
     const newContainer = container.clone(false);
     newContainer.append(content);

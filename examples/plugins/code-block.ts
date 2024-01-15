@@ -1,12 +1,11 @@
 import type Editor from '../../src';
 import { BoxComponent } from '../../src';
-import { debug, query } from '../../src/utils';
+import { query } from '../../src/utils';
 
 export const codeBlockBox: BoxComponent = {
   type: 'block',
   name: 'codeBlock',
-  render: (value, box, editor) => {
-    debug(editor);
+  render: (value, box) => {
     const root = query('<div><textarea></textarea></div>');
     const textarea = root.find('textarea');
     if (value) {

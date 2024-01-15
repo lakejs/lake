@@ -178,6 +178,10 @@ export class Core {
       const inputEvent = event as InputEvent;
       // Here setTimeout is necessary because isComposing is not false after ending composition.
       window.setTimeout(() => {
+        const range = this.selection.range;
+        if (range.isBoxCenter) {
+          return;
+        }
         // isComposing is false after ending composition because compositionend event has been emitted.
         if (isComposing) {
           this.event.emit('input', inputEvent);
@@ -187,7 +191,6 @@ export class Core {
           inputEvent.inputType === 'insertText' ||
           inputEvent.inputType === 'insertCompositionText'
         ) {
-          const range = this.selection.range;
           if (range.isBoxLeft || range.isBoxRight) {
             this.inputInBoxStrip();
           } else {
