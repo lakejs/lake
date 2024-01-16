@@ -236,8 +236,7 @@ export class Core {
     });
     this.event.on('mutation', (record: MutationRecord) => {
       if (record.type === 'attributes' && record.attributeName === 'value') {
-        const boxNode = new Nodes(record.target);
-        if (boxNode.name === 'lake-box') {
+        if (new Nodes(record.target).name === 'lake-box') {
           this.history.save();
           this.unsavedInputData = '';
         }

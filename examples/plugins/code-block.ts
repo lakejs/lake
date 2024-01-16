@@ -8,13 +8,14 @@ export const codeBlockBox: BoxComponent = {
   render: (value, box) => {
     const root = query('<div><textarea></textarea></div>');
     const textarea = root.find('textarea');
+    const nativeTextarea = textarea.get(0) as HTMLTextAreaElement;
     if (value) {
-      (textarea.get(0) as HTMLTextAreaElement).value = value?.code || '';
+      nativeTextarea.value = value?.code || '';
     }
     if (box) {
       textarea.on('input', () => {
         box.value = {
-          code: (textarea.get(0) as HTMLTextAreaElement).value,
+          code: nativeTextarea.value,
         };
       });
     }

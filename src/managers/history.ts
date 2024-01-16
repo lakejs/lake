@@ -92,7 +92,7 @@ export class History {
         }
       },
       beforeAttributeUpdated: (attributeName: string, node: NativeNode) => {
-        if (new Nodes(node).name === 'lake-box' && attributeName === 'value') {
+        if (attributeName === 'value' && new Nodes(node).name === 'lake-box') {
           new Box(node).render();
         }
       },
