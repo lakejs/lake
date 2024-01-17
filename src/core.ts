@@ -235,8 +235,10 @@ export class Core {
       }
     });
     this.event.on('mutation', (record: MutationRecord) => {
-      if (record.type === 'attributes' && record.attributeName === 'value') {
-        if (new Nodes(record.target).name === 'lake-box') {
+      if (record.type === 'attributes' && record.attributeName === 'save') {
+        const boxNode = new Nodes(record.target);
+        if (boxNode.name === 'lake-box' && boxNode.attr('save') === 'true') {
+          boxNode.removeAttr('save');
           this.history.save();
           this.unsavedInputData = '';
         }

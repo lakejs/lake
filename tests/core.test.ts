@@ -169,7 +169,7 @@ describe('core', () => {
     inputCompositionData(editor, '你好');
   });
 
-  it('box event: should save history after box value was updated', () => {
+  it('box event: should save history after box value was saved', () => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
     const editor = new Core(targetNode.get(0), {
       className: 'my-editor-container',
@@ -182,11 +182,9 @@ describe('core', () => {
     box.value = {
       abc: '123',
     };
-    let newCount = 0;
-    editor.event.on('remove', () => {
-      newCount = editor.history.count;
-    });
+    box.save();
     editor.remove();
+    const newCount = editor.history.count;
     expect(oldCount + 1).to.equal(newCount);
   });
 

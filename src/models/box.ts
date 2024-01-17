@@ -89,6 +89,11 @@ export class Box {
     this.node.attr('value', Base64.encode(JSON.stringify(value)));
   }
 
+  // Sets an attribute that triggers saving history method.
+  public save() {
+    this.node.attr('save', 'true');
+  }
+
   // Returns the container node of the box.
   public getContainer(): Nodes {
     return this.node.find('.lake-box-container');

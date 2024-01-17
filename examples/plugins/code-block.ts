@@ -17,6 +17,7 @@ export const codeBlockBox: BoxComponent = {
         box.value = {
           code: nativeTextarea.value,
         };
+        box.save();
       });
     }
     return root;
