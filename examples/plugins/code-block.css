@@ -3,14 +3,18 @@
 }
 .lake-container lake-box[name="codeBlock"] .lake-box-container {
   border: 2px solid transparent;
-  font-size: 0;
 }
 .lake-container lake-box[name="codeBlock"] .lake-box-selected {
   border-color: var(--link-color);
 }
-.lake-container lake-box[name="codeBlock"] textarea {
-  width: calc(100% - 6px);
+.lake-container lake-box[name="codeBlock"] .CodeMirror {
+  height: auto;
   outline: none;
   border: 1px solid #d9d9d9ff;
-  font-size: 16px;
+}
+.lake-container lake-box[name="codeBlock"] .CodeMirror-scroll {
+  max-height: 200px;
+}
+.lake-container lake-box[name="codeBlock"] .CodeMirror pre {
+  padding-left: 7px; line-height: 1.25;
 }

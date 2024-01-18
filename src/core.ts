@@ -221,10 +221,7 @@ export class Core {
     this.event.on('click:inside', (target: Nodes) => {
       const targetBoxNode = target.closest('lake-box');
       if (targetBoxNode.length > 0) {
-        if (
-          ['input', 'textarea', 'button'].indexOf(target.name) >= 0 ||
-          target.closestContainer().get(0) !== this.container.get(0)
-        ) {
+        if (target.closest('.lake-box-editarea').length > 0) {
           return;
         }
         const range = this.selection.range;
