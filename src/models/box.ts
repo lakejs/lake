@@ -118,7 +118,7 @@ export class Box {
       return;
     }
     this.renderStructure();
-    const content = def.render(this.value, this);
+    const content = def.render(this);
     if (content === undefined) {
       return;
     }

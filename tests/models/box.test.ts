@@ -15,7 +15,7 @@ describe('models / box', () => {
       value: {
         url: 'http://foo.com',
       },
-      render: value => `<img src="${value?.url}" />`,
+      render: box => `<img src="${box?.value.url}" />`,
     });
     boxes.set('blockBox', {
       type: 'block',

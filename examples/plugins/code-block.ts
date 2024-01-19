@@ -11,7 +11,7 @@ declare global {
 export const codeBlockBox: BoxComponent = {
   type: 'block',
   name: 'codeBlock',
-  render: (value, box) => {
+  render: box => {
     if (!box) {
       return;
     }
@@ -19,9 +19,8 @@ export const codeBlockBox: BoxComponent = {
     const container = box.getContainer();
     container.empty();
     container.append(root);
-    value = value || {};
     const codeMirror = window.CodeMirror(root.get(0), {
-      value: value.code ?? '',
+      value: box?.value.code ?? '',
       mode: 'javascript',
       lineNumbers: true,
     });
