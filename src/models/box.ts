@@ -119,6 +119,9 @@ export class Box {
     }
     this.renderStructure();
     const content = def.render(this.value, this);
+    if (content === undefined) {
+      return;
+    }
     const container = this.getContainer();
     const newContainer = container.clone(false);
     newContainer.append(content);

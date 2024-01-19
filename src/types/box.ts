@@ -5,7 +5,7 @@ export type BoxType = 'inline' | 'block';
 
 export type BoxValue = { [key: string]: any };
 
-export type BoxRender = (value?: BoxValue, box?: Box) => Nodes | string;
+export type BoxRender = (value?: BoxValue, box?: Box) => Nodes | string | void;
 
 export type BoxComponent = {
   type: BoxType;
