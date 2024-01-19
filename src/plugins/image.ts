@@ -3,7 +3,7 @@ import type { Editor, BoxComponent } from '..';
 export const imageBox: BoxComponent = {
   type: 'inline',
   name: 'image',
-  render: box => `<img src="${box?.value.url}" />`,
+  render: box => `<img src="${box.value.url}" />`,
 };
 
 export default (editor: Editor) => {

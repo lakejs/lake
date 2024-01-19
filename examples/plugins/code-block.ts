@@ -12,15 +12,12 @@ export const codeBlockBox: BoxComponent = {
   type: 'block',
   name: 'codeBlock',
   render: box => {
-    if (!box) {
-      return;
-    }
     const root = query('<div class="lake-box-no-focus" />');
     const container = box.getContainer();
     container.empty();
     container.append(root);
     const codeMirror = window.CodeMirror(root.get(0), {
-      value: box?.value.code ?? '',
+      value: box.value.code ?? '',
       mode: 'javascript',
       lineNumbers: true,
     });
