@@ -5,8 +5,8 @@ import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 
 export class BoxManager {
-  public add(def: BoxComponent) {
-    boxes.set(def.name, def);
+  public add(component: BoxComponent) {
+    boxes.set(component.name, component);
   }
 
   public remove(name: string) {

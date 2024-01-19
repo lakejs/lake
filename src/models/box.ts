@@ -19,24 +19,24 @@ export class Box {
 
   constructor(node: string | Nodes | NativeNode) {
     if (typeof node === 'string') {
-      const def = boxes.get(node);
-      if (def === undefined) {
+      const component = boxes.get(node);
+      if (component === undefined) {
         throw new Error(`Box '${node}' has not been defined yet.`);
       }
-      const type = encode(def.type);
-      const name = encode(def.name);
+      const type = encode(component.type);
+      const name = encode(component.name);
       this.node = query(`<lake-box type="${type}" name="${name}"></lake-box>`);
-      if (def.value) {
-        this.value = def.value;
+      if (component.value) {
+        this.value = component.value;
       }
     } else {
       this.node = query(node);
-      const def = boxes.get(this.name);
-      if (def === undefined) {
+      const component = boxes.get(this.name);
+      if (component === undefined) {
         throw new Error(`Box '${this.name}' has not been defined yet.`);
       }
-      if (def.value && !this.node.hasAttr('value')) {
-        this.value = def.value;
+      if (component.value && !this.node.hasAttr('value')) {
+        this.value = component.value;
       }
     }
   }
@@ -113,12 +113,12 @@ export class Box {
 
   // Renders the contents of the box.
   public render(): void {
-    const def = boxes.get(this.name);
-    if (def === undefined) {
+    const component = boxes.get(this.name);
+    if (component === undefined) {
       return;
     }
     this.renderStructure();
-    const content = def.render(this);
+    const content = component.render(this);
     if (content === undefined) {
       return;
     }
