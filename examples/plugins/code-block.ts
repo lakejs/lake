@@ -1,6 +1,6 @@
-import type Editor from '../../src';
-import { BoxComponent } from '../../src';
-import { query } from '../../src/utils';
+import { Editor, BoxComponent, Utils } from '../../src';
+
+const { query } = Utils;
 
 declare global {
   interface Window {

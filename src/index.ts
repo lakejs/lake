@@ -86,6 +86,7 @@ Core.plugin.add(arrowKeys);
 Core.plugin.add(markdown);
 
 export {
+  Core as Editor,
   BoxComponent,
   Utils,
   Nodes,
@@ -93,5 +94,3 @@ export {
   HTMLParser,
   TextParser,
 };
-
-export default Core;

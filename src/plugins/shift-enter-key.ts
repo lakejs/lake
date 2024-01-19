@@ -1,4 +1,4 @@
-import type Editor from '..';
+import type { Editor } from '..';
 import { query } from '../utils';
 
 function addBlockForBox(editor: Editor) {

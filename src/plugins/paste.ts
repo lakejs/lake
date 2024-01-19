@@ -1,4 +1,4 @@
-import type Editor from '..';
+import type { Editor } from '..';
 import { blockTagNames } from '../config/tag-names';
 import { getElementRules } from '../config/element-rules';
 import { forEach, wrapNodeList, changeTagName, fixNumberedList, removeBr, query } from '../utils';

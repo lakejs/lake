@@ -1,4 +1,4 @@
-import type Editor from '../../src';
+import type { Editor } from '../../src';
 import { testPlugin } from '../utils';
 
 function pasteData(editor: Editor, format: string, data: string) {

@@ -5,7 +5,7 @@ import { Range } from '../src/models/range';
 import { HTMLParser } from '../src/parsers/html-parser';
 import { insertBookmark } from '../src/operations/insert-bookmark';
 import { toBookmark } from '../src/operations/to-bookmark';
-import Editor from '../src';
+import { Editor } from '../src';
 
 export function formatHTML(value: string) {
   value = normalizeValue(value);

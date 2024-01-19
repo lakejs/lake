@@ -1,4 +1,4 @@
-import type Editor from '..';
+import type { Editor } from '..';
 import { Point } from '../types/object';
 import { Nodes } from '../models/nodes';
 

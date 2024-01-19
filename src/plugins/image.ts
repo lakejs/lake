@@ -1,5 +1,4 @@
-import type Editor from '..';
-import { BoxComponent } from '../types/box';
+import type { Editor, BoxComponent } from '..';
 
 export const imageBox: BoxComponent = {
   type: 'inline',

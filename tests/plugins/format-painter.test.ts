@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import Editor from '../../src';
+import type { Editor } from '../../src';
 import { testPlugin } from '../utils';
 
 function testFormatPainter(editor: Editor): void {

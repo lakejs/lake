@@ -1,5 +1,4 @@
-import type Editor from '..';
-import { BoxComponent } from '../types/box';
+import type { Editor, BoxComponent } from '..';
 
 export const hrBox: BoxComponent = {
   type: 'block',

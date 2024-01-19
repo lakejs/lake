@@ -1,4 +1,4 @@
-import Editor, { Utils } from '../src';
+import { Editor, Utils } from '../src';
 import codeBlock, { codeBlockBox } from './plugins/code-block';
 import { defaultValue } from './data/default-value';
 

@@ -1,4 +1,4 @@
-import type Editor from '..';
+import type { Editor } from '..';
 import { mergeNodes } from '../utils';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';

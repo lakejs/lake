@@ -1,4 +1,4 @@
-import type Editor from '..';
+import type { Editor } from '..';
 import { Nodes } from '../models/nodes';
 
 export function setBlockIndent(block: Nodes, type: 'increase' | 'decrease'): void {

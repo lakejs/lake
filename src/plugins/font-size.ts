@@ -1,4 +1,4 @@
-import type Editor from '..';
+import type { Editor } from '..';
 
 export default (editor: Editor) => {
   editor.command.add('fontSize', (value: string) => {

@@ -1,4 +1,4 @@
-import type Editor from '..';
+import type { Editor } from '..';
 import { Nodes } from '../models/nodes';
 
 function setParagraph(editor: Editor) {

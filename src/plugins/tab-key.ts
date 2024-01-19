@@ -1,4 +1,4 @@
-import type Editor from '..';
+import type { Editor } from '..';
 import { setBlockIndent } from './indent';
 
 export default (editor: Editor) => {
