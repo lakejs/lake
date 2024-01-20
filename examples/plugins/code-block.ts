@@ -16,14 +16,21 @@ export const codeBlockBox: BoxComponent = {
     const container = box.getContainer();
     container.empty();
     container.append(root);
-    const codeMirror = window.CodeMirror(root.get(0), {
+    const codeEditor = window.CodeMirror(root.get(0), {
       value: box.value.code ?? '',
       mode: 'javascript',
       lineNumbers: true,
     });
-    codeMirror.on('change', (instance: any) => {
+    codeEditor.addKeyMap({
+      Backspace: (cm: any) => {
+        if (cm.doc.getValue() === '') {
+          box.remove();
+        }
+      },
+    });
+    codeEditor.on('change', (cm: any) => {
       box.value = {
-        code: instance.doc.getValue(),
+        code: cm.doc.getValue(),
       };
       box.save();
     });
