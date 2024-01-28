@@ -4,6 +4,24 @@ const imageBoxValue = 'eyJ1cmwiOiIuL2RhdGEvY293LmpwZyJ9';
 
 describe('plugin / arrow-keys', () => {
 
+  it('left key: box input', () => {
+    const content = `
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
+    `;
+    const output = `
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        const range = editor.selection.range;
+        range.setStart(range.startNode, 1);
+        editor.keystroke.keydown('arrow-left');
+      },
+    );
+  });
+
   it('left key: cursor is on the left strip of the inline box', () => {
     const content = `
     <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box>bar</p>
@@ -47,24 +65,6 @@ describe('plugin / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-left');
-      },
-    );
-  });
-
-  it('left key: inline box input', () => {
-    const content = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
-    `;
-    const output = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        const range = editor.selection.range;
-        range.setStart(range.startNode, 1);
         editor.keystroke.keydown('arrow-left');
       },
     );
@@ -146,16 +146,12 @@ describe('plugin / arrow-keys', () => {
     );
   });
 
-  it('left key: block box input', () => {
+  it('right key: box input', () => {
     const content = `
-    <p>foo</p>
-    <lake-box type="block" name="hr" focus="center"></lake-box>
-    <p>bar</p>
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
     `;
     const output = `
-    <p>foo</p>
-    <lake-box type="block" name="hr" focus="center"></lake-box>
-    <p>bar</p>
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
     `;
     testPlugin(
       content,
@@ -163,7 +159,7 @@ describe('plugin / arrow-keys', () => {
       editor => {
         const range = editor.selection.range;
         range.setStart(range.startNode, 1);
-        editor.keystroke.keydown('arrow-left');
+        editor.keystroke.keydown('arrow-right');
       },
     );
   });
@@ -211,24 +207,6 @@ describe('plugin / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-right');
-      },
-    );
-  });
-
-  it('right key: inline box input', () => {
-    const content = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
-    `;
-    const output = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        const range = editor.selection.range;
-        range.setStart(range.startNode, 1);
         editor.keystroke.keydown('arrow-right');
       },
     );
@@ -310,16 +288,12 @@ describe('plugin / arrow-keys', () => {
     );
   });
 
-  it('right key: block box input', () => {
+  it('up key: box input', () => {
     const content = `
-    <p>foo</p>
-    <lake-box type="block" name="hr" focus="center"></lake-box>
-    <p>bar</p>
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
     `;
     const output = `
-    <p>foo</p>
-    <lake-box type="block" name="hr" focus="center"></lake-box>
-    <p>bar</p>
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
     `;
     testPlugin(
       content,
@@ -327,7 +301,7 @@ describe('plugin / arrow-keys', () => {
       editor => {
         const range = editor.selection.range;
         range.setStart(range.startNode, 1);
-        editor.keystroke.keydown('arrow-right');
+        editor.keystroke.keydown('arrow-up');
       },
     );
   });
@@ -348,7 +322,27 @@ describe('plugin / arrow-keys', () => {
     );
   });
 
-  it('up key: inline box input', () => {
+  it('up key: block box is selected', () => {
+    const content = `
+    <p>foo</p>
+    <lake-box type="block" name="hr" focus="center"></lake-box>
+    <p>bar</p>
+    `;
+    const output = `
+    <p>foo<focus /></p>
+    <lake-box type="block" name="hr"></lake-box>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('arrow-up');
+      },
+    );
+  });
+
+  it('down key: box input', () => {
     const content = `
     <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
     `;
@@ -361,7 +355,7 @@ describe('plugin / arrow-keys', () => {
       editor => {
         const range = editor.selection.range;
         range.setStart(range.startNode, 1);
-        editor.keystroke.keydown('arrow-up');
+        editor.keystroke.keydown('arrow-down');
       },
     );
   });
@@ -382,19 +376,21 @@ describe('plugin / arrow-keys', () => {
     );
   });
 
-  it('down key: inline box input', () => {
+  it('down key: block box is selected', () => {
     const content = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
+    <p>foo</p>
+    <lake-box type="block" name="hr" focus="center"></lake-box>
+    <p>bar</p>
     `;
     const output = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
+    <p>foo</p>
+    <lake-box type="block" name="hr"></lake-box>
+    <p><focus />bar</p>
     `;
     testPlugin(
       content,
       output,
       editor => {
-        const range = editor.selection.range;
-        range.setStart(range.startNode, 1);
         editor.keystroke.keydown('arrow-down');
       },
     );

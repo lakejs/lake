@@ -73,24 +73,40 @@ export default (editor: Editor) => {
       range.selectBox(nextNode);
     }
   });
-  editor.keystroke.setKeydown('arrow-up', () => {
+  editor.keystroke.setKeydown('arrow-up', event => {
     const range = editor.selection.range;
     if (range.isBoxCenter) {
       return;
     }
     const boxNode = range.commonAncestor.closest('lake-box');
     if (boxNode.length > 0) {
+      if (boxNode.attr('type') === 'block') {
+        const prevNode = boxNode.prev();
+        if (prevNode.isBlock || prevNode.isBox) {
+          event.preventDefault();
+          range.shrinkAfter(prevNode);
+          return;
+        }
+      }
       range.setStartBefore(boxNode);
       range.collapseToStart();
     }
   });
-  editor.keystroke.setKeydown('arrow-down', () => {
+  editor.keystroke.setKeydown('arrow-down', event => {
     const range = editor.selection.range;
     if (range.isBoxCenter) {
       return;
     }
     const boxNode = range.commonAncestor.closest('lake-box');
     if (boxNode.length > 0) {
+      if (boxNode.attr('type') === 'block') {
+        const nextNode = boxNode.next();
+        if (nextNode.isBlock || nextNode.isBox) {
+          event.preventDefault();
+          range.shrinkBefore(nextNode);
+          return;
+        }
+      }
       range.setStartAfter(boxNode);
       range.collapseToStart();
     }
