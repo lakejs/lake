@@ -9,15 +9,23 @@ export default (editor: Editor) => {
     const boxNode = range.commonAncestor.closest('lake-box');
     if (boxNode.length > 0) {
       if (range.isBoxLeft) {
+        const prevNode = boxNode.prev();
+        if (prevNode.isBlock || prevNode.isBox) {
+          event.preventDefault();
+          range.shrinkAfter(prevNode);
+          return;
+        }
         range.setStartBefore(boxNode);
         range.collapseToStart();
-      } else if (range.isBoxRight) {
+        return;
+      }
+      if (range.isBoxRight) {
         event.preventDefault();
         range.selectBox(boxNode);
-      } else {
-        event.preventDefault();
-        range.selectBoxLeft(boxNode);
+        return;
       }
+      event.preventDefault();
+      range.selectBoxLeft(boxNode);
       return;
     }
     if (!range.isCollapsed) {
@@ -39,13 +47,21 @@ export default (editor: Editor) => {
       if (range.isBoxLeft) {
         event.preventDefault();
         range.selectBox(boxNode);
-      } else if (range.isBoxRight) {
+        return;
+      }
+      if (range.isBoxRight) {
+        const nextNode = boxNode.next();
+        if (nextNode.isBlock || nextNode.isBox) {
+          event.preventDefault();
+          range.shrinkBefore(nextNode);
+          return;
+        }
         range.setStartAfter(boxNode);
         range.collapseToStart();
-      } else {
-        event.preventDefault();
-        range.selectBoxRight(boxNode);
+        return;
       }
+      event.preventDefault();
+      range.selectBoxRight(boxNode);
       return;
     }
     if (!range.isCollapsed) {
