@@ -232,10 +232,14 @@ export class Core {
       }
     });
     this.event.on('mutation', (record: MutationRecord) => {
-      if (record.type === 'attributes' && record.attributeName === 'save') {
+      if (record.type === 'attributes' && record.attributeName === 'method') {
         const boxNode = new Nodes(record.target);
-        if (boxNode.name === 'lake-box' && boxNode.attr('save') === 'true') {
-          boxNode.removeAttr('save');
+        if (boxNode.name !== 'lake-box') {
+          return;
+        }
+        const methodValue = boxNode.attr('method');
+        boxNode.removeAttr('method');
+        if (methodValue === 'save') {
           this.history.save();
           this.unsavedInputData = '';
         }

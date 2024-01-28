@@ -91,7 +91,7 @@ export class Box {
 
   // Sets an attribute that triggers saving history method.
   public save() {
-    this.node.attr('save', 'true');
+    this.node.attr('method', 'save');
   }
 
   // Returns the container node of the box.
