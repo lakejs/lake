@@ -644,18 +644,68 @@ describe('plugin / paste', () => {
     );
   });
 
-  it('pastes inline box into a paragraph', () => {
+  it('pastes image into a paragraph', () => {
     const content = `
     <p>f<focus />oo</p>
     `;
     const output = `
-    <p>f<lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box>oo</p>
+    <p>f<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus />oo</p>
     `;
     testPlugin(
       content,
       output,
       editor => {
         pasteData(editor, 'text/html', `<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>`);
+      },
+    );
+  });
+
+  it('pastes image into an empty paragraph', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', `<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>`);
+      },
+    );
+  });
+
+  it('pastes hr into a paragraph', () => {
+    const content = `
+    <p>f<focus />oo</p>
+    `;
+    const output = `
+    <p>f</p>
+    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <p>oo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<lake-box type="block" name="hr"></lake-box>');
+      },
+    );
+  });
+
+  it('pastes hr into an empty paragraph', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <lake-box type="block" name="hr" focus="right"></lake-box>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<lake-box type="block" name="hr"></lake-box>');
       },
     );
   });

@@ -40,7 +40,7 @@ function fixClipboardData(fragment: DocumentFragment): void {
   node = new Nodes(fragment.firstChild);
   while (node.length > 0) {
     const nextNode = node.next();
-    if (node.isMark || node.isText || node.isBookmark) {
+    if (node.isMark || node.isText || node.isBookmark || node.isInlineBox) {
       nodeList.push(node);
     } else {
       wrapNodeList(nodeList);
@@ -78,11 +78,21 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
     }
   }
   const block = range.startNode.closestBlock();
+  if (otherNode.isBlockBox) {
+    const box = new Box(otherNode);
+    const value = otherNode.attr('value') !== '' ? box.value : undefined;
+    editor.selection.insertBox(box.name, value);
+    otherNode.remove();
+    return;
+  }
   if (otherNode.first().length > 0) {
     removeBr(block);
   }
   if (block.isEmpty && block.name === 'p') {
     block.replaceWith(otherNode);
+    otherNode.find('lake-box').each(node => {
+      new Box(node).render();
+    });
     range.shrinkAfter(otherNode);
     return;
   }

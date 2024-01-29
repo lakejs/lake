@@ -4,7 +4,6 @@ export const hrBox: BoxComponent = {
   type: 'block',
   name: 'hr',
   render: () => '<hr />',
-  html: () => '<hr />',
 };
 
 export default (editor: Editor) => {
