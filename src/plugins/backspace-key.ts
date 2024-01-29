@@ -95,6 +95,11 @@ export default (editor: Editor) => {
         setBlocks(prevRange, '<p />');
         prevBlock = prevBlock.closestBlock();
       }
+      if (prevBlock.isEmpty) {
+        prevBlock.remove();
+        editor.history.save();
+        return;
+      }
       const bookmark = editor.selection.insertBookmark();
       mergeNodes(prevBlock, block);
       editor.selection.toBookmark(bookmark);

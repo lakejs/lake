@@ -143,6 +143,40 @@ describe('plugin / backspace-key', () => {
     );
   });
 
+  it('should merge heading into paragraph', () => {
+    const content = `
+    <p>foo</p>
+    <h1><focus />bar</h1>
+    `;
+    const output = `
+    <p>foo<focus />bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should not merge heading into empty paragraph', () => {
+    const content = `
+    <p><br /></p>
+    <h1><focus />bar</h1>
+    `;
+    const output = `
+    <h1><focus />bar</h1>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
   it('should delete part of text', () => {
     const content = `
     <p>foo</p>
