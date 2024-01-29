@@ -1,5 +1,5 @@
 {
-  "name": "lake-core",
+  "name": "lake",
   "description": "Rich text editor based on the browser",
   "version": "0.0.1",
   "author": "Luo Longhao <luolonghao@gmail.com>",
@@ -7,7 +7,7 @@
   "homepage": "http://lakejs.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lakejs/lake-core.git"
+    "url": "git+https://github.com/lakejs/lake.git"
   },
   "keywords": [
     "rich text",
@@ -15,7 +15,7 @@
     "editor"
   ],
   "bugs": {
-    "url": "https://github.com/lakejs/lake-core/issues"
+    "url": "https://github.com/lakejs/lake/issues"
   },
   "dependencies": {
     "@types/blueimp-md5": "^2.18.2",

@@ -62,7 +62,7 @@ const noParameterCommandNames = [
   'codeBlock',
 ];
 
-const localStorageKey = 'lake-core-example';
+const localStorageKey = 'lake-example';
 const editorValue = localStorage.getItem(localStorageKey) ?? defaultValue;
 
 const editor = new Editor('.lake-editor', {

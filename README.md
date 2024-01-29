@@ -8,9 +8,9 @@ First, you need to clone the repository and install all necessary dependencies. 
 
 ``` bash
 # clone the repository
-git clone https://github.com/lakejs/lake-core.git
+git clone https://github.com/lakejs/lake.git
 # change your directory
-cd lake-core
+cd lake
 # install all dependencies
 pnpm install
 # start a local server
@@ -43,4 +43,4 @@ pnpm build
 
 ## License
 
-[MIT](https://github.com/lakejs/lake-core/blob/master/LICENSE)
+[MIT](https://github.com/lakejs/lake/blob/master/LICENSE)

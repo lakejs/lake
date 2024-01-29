@@ -8,18 +8,18 @@ import css from 'rollup-plugin-import-css';
 export default [{
   input: './src/index.ts',
   output: [{
-    file: './dist/lake-core.js',
+    file: './dist/lake.js',
     format: 'iife',
     name: 'Editor',
     sourcemap: true,
-    assetFileNames: 'lake-core.css',
+    assetFileNames: 'lake.css',
   }, {
-    file: './dist/lake-core.min.js',
+    file: './dist/lake.min.js',
     format: 'iife',
     name: 'Editor',
     sourcemap: true,
     plugins: [terser()],
-    assetFileNames: 'lake-core.css',
+    assetFileNames: 'lake.css',
   }],
   plugins: [
     nodeResolve(),
@@ -31,10 +31,10 @@ export default [{
 }, {
   input: './src/index.ts',
   output: {
-    file: './lib/lake-core.js',
+    file: './lib/lake.js',
     format: 'es',
     sourcemap: true,
-    assetFileNames: 'lake-core.css',
+    assetFileNames: 'lake.css',
   },
   plugins: [
     typescript(),
