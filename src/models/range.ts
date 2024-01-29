@@ -352,7 +352,7 @@ export class Range {
       return;
     }
     const nextBlock = this.startNode.children()[this.startOffset];
-    if (nextBlock && (nextBlock.isBox && nextBlock.attr('type') === 'block' || nextBlock.isBlock)) {
+    if (nextBlock && (nextBlock.isBlockBox || nextBlock.isBlock)) {
       this.shrinkBefore(nextBlock);
     }
   }

@@ -97,6 +97,20 @@ describe('models / nodes', () => {
     expect(container.find('p').isBox).to.equal(false);
   });
 
+  it('property: isInlineBox', () => {
+    const container = query('<div contenteditable="true"><lake-box type="inline"><div class="lake-box-container"><hr /></div></lake-box><p>foo</p></div>');
+    expect(container.find('lake-box').isInlineBox).to.equal(true);
+    expect(container.find('.lake-box-container').isInlineBox).to.equal(false);
+    expect(container.find('p').isInlineBox).to.equal(false);
+  });
+
+  it('property: isBlockBox', () => {
+    const container = query('<div contenteditable="true"><lake-box type="block"><div class="lake-box-container"><hr /></div></lake-box><p>foo</p></div>');
+    expect(container.find('lake-box').isBlockBox).to.equal(true);
+    expect(container.find('.lake-box-container').isBlockBox).to.equal(false);
+    expect(container.find('p').isBlockBox).to.equal(false);
+  });
+
   it('property: isContainer', () => {
     const container = query('<div contenteditable="true"><strong>foo</strong>bar</div>');
     expect(container.isContainer).to.equal(true);

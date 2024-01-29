@@ -80,7 +80,7 @@ export default (editor: Editor) => {
     }
     const boxNode = range.commonAncestor.closest('lake-box');
     if (boxNode.length > 0) {
-      if (boxNode.attr('type') === 'block') {
+      if (boxNode.isBlockBox) {
         const prevNode = boxNode.prev();
         if (prevNode.isBlock || prevNode.isBox) {
           event.preventDefault();
@@ -99,7 +99,7 @@ export default (editor: Editor) => {
     }
     const boxNode = range.commonAncestor.closest('lake-box');
     if (boxNode.length > 0) {
-      if (boxNode.attr('type') === 'block') {
+      if (boxNode.isBlockBox) {
         const nextNode = boxNode.next();
         if (nextNode.isBlock || nextNode.isBox) {
           event.preventDefault();

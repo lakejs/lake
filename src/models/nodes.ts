@@ -133,6 +133,16 @@ export class Nodes {
     return this.name === 'lake-box';
   }
 
+  // Returns a boolean value indicating whether the node is a inline box element.
+  public get isInlineBox(): boolean {
+    return this.isBox && this.attr('type') === 'inline';
+  }
+
+  // Returns a boolean value indicating whether the node is a block box element.
+  public get isBlockBox(): boolean {
+    return this.isBox && this.attr('type') === 'block';
+  }
+
   // Returns a boolean value indicating whether the element is a root element of contenteditable area.
   public get isContainer(): boolean {
     if (this.length === 0) {
