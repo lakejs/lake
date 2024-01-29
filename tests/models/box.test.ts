@@ -21,6 +21,7 @@ describe('models / box', () => {
       type: 'block',
       name: 'blockBox',
       render: () => '<hr />',
+      html: () => '<hr />',
     });
     container = query('<div contenteditable="true"></div>');
     query(document.body).append(container);
@@ -78,6 +79,13 @@ describe('models / box', () => {
     box.render();
     box.remove();
     expect(container.html()).to.equal('<p>foo</p>');
+  });
+
+  it('method: getHTML', () => {
+    container.html('<lake-box type="block" name="blockBox"></lake-box>');
+    const box = new Box(container.find('lake-box'));
+    box.render();
+    expect(box.getHTML()).to.equal('<hr />');
   });
 
 });

@@ -653,6 +653,13 @@ describe('models / nodes', () => {
     expect(node.find('p').first().text()).to.equal('foo');
   });
 
+  it('method: outerHTML', () => {
+    const nodes = new Nodes([element, elementTwo]);
+    nodes.html('<p>foo</p>');
+    expect(nodes.outerHTML()).to.equal('<div class="class1"><p>foo</p></div>');
+    expect(nodes.eq(1).outerHTML()).to.equal('<p class="class2"><p>foo</p></p>');
+  });
+
   it('method: empty', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.html('<p>foo</p>');

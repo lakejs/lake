@@ -1,6 +1,9 @@
 import type { Editor } from '../../src';
 import { testPlugin } from '../utils';
 
+// const imageUrl = './data/cow.jpg';
+const imageBoxValue = 'eyJ1cmwiOiIuL2RhdGEvY293LmpwZyJ9';
+
 function pasteData(editor: Editor, format: string, data: string) {
   const event = new ClipboardEvent('paste', {
     clipboardData: new DataTransfer(),
@@ -637,6 +640,22 @@ describe('plugin / paste', () => {
       output,
       editor => {
         pasteData(editor, 'text/html', '<ul><li>one</li></ul><ul><li>two</li></ul>');
+      },
+    );
+  });
+
+  it('pastes inline box into a paragraph', () => {
+    const content = `
+    <p>f<focus />oo</p>
+    `;
+    const output = `
+    <p>f<lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box>oo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', `<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>`);
       },
     );
   });

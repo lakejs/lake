@@ -7,9 +7,12 @@ export type BoxValue = { [key: string]: any };
 
 export type BoxRender = (box: Box) => Nodes | string | void;
 
+export type BoxHTML = (box: Box) => string;
+
 export type BoxComponent = {
   type: BoxType;
   name: string;
   value?: BoxValue;
   render: BoxRender;
+  html?: BoxHTML;
 };

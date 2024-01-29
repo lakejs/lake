@@ -70,7 +70,7 @@ export class Range {
       return false;
     }
     const boxContainer = boxNode.find('.lake-box-container');
-    // Returns false in the following case.
+    // Returns false when the box was selected.
     // case: ... <div class="lake-box-container">|<div></div></div> ...
     if (
       this.isCollapsed &&

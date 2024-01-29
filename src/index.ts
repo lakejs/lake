@@ -14,6 +14,7 @@ import { Range } from './models/range';
 import { HTMLParser } from './parsers/html-parser';
 import { TextParser } from './parsers/text-parser';
 import { Core } from './core';
+import copy from './plugins/copy';
 import paste from './plugins/paste';
 import undo from './plugins/undo';
 import redo from './plugins/redo';
@@ -51,6 +52,7 @@ import markdown from './plugins/markdown';
 Core.box.add(hrBox);
 Core.box.add(imageBox);
 
+Core.plugin.add(copy);
 Core.plugin.add(paste);
 Core.plugin.add(undo);
 Core.plugin.add(redo);

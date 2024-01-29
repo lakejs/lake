@@ -132,4 +132,16 @@ export class Box {
   public remove(): void {
     this.node.remove();
   }
+
+  // Returns a HTML string of the box.
+  public getHTML(): string {
+    const component = boxes.get(this.name);
+    if (component === undefined) {
+      return '';
+    }
+    if (component.html === undefined) {
+      return this.node.outerHTML();
+    }
+    return component.html(this);
+  }
 }

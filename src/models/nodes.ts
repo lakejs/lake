@@ -618,6 +618,11 @@ export class Nodes {
     return element.innerText;
   }
 
+  public outerHTML(): string {
+    const element = this.get(0) as NativeElement;
+    return element.outerHTML;
+  }
+
   // Removes all child nodes of each element.
   public empty(): this {
     this.html('');
@@ -777,7 +782,7 @@ export class Nodes {
       return '';
     }
     const node = this.get(0);
-    let nodeValue = this.isText ? node.nodeValue : (node as NativeElement).outerHTML;
+    let nodeValue = this.isText ? node.nodeValue : this.outerHTML();
     if (nodeValue && nodeValue.length > 50) {
       nodeValue = `${nodeValue.substring(0, 50)} ...`;
     }
