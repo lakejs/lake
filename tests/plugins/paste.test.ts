@@ -1,7 +1,7 @@
 import type { Editor } from '../../src';
 import { testPlugin } from '../utils';
 
-// const imageUrl = './data/cow.jpg';
+const imageUrl = './data/cow.jpg';
 const imageBoxValue = 'eyJ1cmwiOiIuL2RhdGEvY293LmpwZyJ9';
 
 function pasteData(editor: Editor, format: string, data: string) {
@@ -644,7 +644,7 @@ describe('plugin / paste', () => {
     );
   });
 
-  it('pastes image into a paragraph', () => {
+  it('pastes image box into a paragraph', () => {
     const content = `
     <p>f<focus />oo</p>
     `;
@@ -660,7 +660,7 @@ describe('plugin / paste', () => {
     );
   });
 
-  it('pastes image into an empty paragraph', () => {
+  it('pastes image box into an empty paragraph', () => {
     const content = `
     <p><br /><focus /></p>
     `;
@@ -676,7 +676,23 @@ describe('plugin / paste', () => {
     );
   });
 
-  it('pastes hr into a paragraph', () => {
+  it('pastes image element into a paragraph', () => {
+    const content = `
+    <p>f<focus />oo</p>
+    `;
+    const output = `
+    <p>f<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus />oo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', `<img src="${imageUrl}" />`);
+      },
+    );
+  });
+
+  it('pastes hr box into a paragraph', () => {
     const content = `
     <p>f<focus />oo</p>
     `;
@@ -694,7 +710,7 @@ describe('plugin / paste', () => {
     );
   });
 
-  it('pastes hr into an empty paragraph', () => {
+  it('pastes hr box into an empty paragraph', () => {
     const content = `
     <p><br /><focus /></p>
     `;
@@ -706,6 +722,24 @@ describe('plugin / paste', () => {
       output,
       editor => {
         pasteData(editor, 'text/html', '<lake-box type="block" name="hr"></lake-box>');
+      },
+    );
+  });
+
+  it('pastes hr element into a paragraph', () => {
+    const content = `
+    <p>f<focus />oo</p>
+    `;
+    const output = `
+    <p>f</p>
+    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <p>oo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', '<hr />');
       },
     );
   });

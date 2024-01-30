@@ -9,6 +9,20 @@ import { TextParser } from '../parsers/text-parser';
 
 const blockSelector = Array.from(blockTagNames).join(',');
 
+function getPasteElementRules(): any {
+  const rules = getElementRules();
+  rules.div = rules.p;
+  rules.img = {
+    src: /^\S+$/,
+  };
+  rules.hr = {};
+  forEach(rules, (key, attributeRules) => {
+    delete attributeRules.id;
+    delete attributeRules.class;
+  });
+  return rules;
+}
+
 function fixNestedBlocks(block: Nodes): void {
   const nodeList = [ block ];
   for  (const node of block.getWalker()) {
@@ -147,6 +161,23 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
   editor.history.save();
 }
 
+export function findNode(fragment: DocumentFragment, nodeName: string): Nodes[] {
+  const nodeList: Nodes[] = [];
+  let child = new Nodes(fragment.firstChild);
+  while (child.length > 0) {
+    const nextNode = child.next();
+    if (child.name === nodeName) {
+      nodeList.push(child);
+    } else if (child.isElement) {
+      child.find(nodeName).each(node => {
+        nodeList.push(new Nodes(node));
+      });
+    }
+    child = nextNode;
+  }
+  return nodeList;
+}
+
 export default (editor: Editor) => {
   editor.container.on('paste', event => {
     const range = editor.selection.range;
@@ -165,18 +196,15 @@ export default (editor: Editor) => {
       const content = dataTransfer.getData('text/plain');
       const textParser = new TextParser(content);
       const fragment = textParser.getFragment();
+      editor.event.emit('paste:before', fragment);
       pasteFragment(editor, fragment);
       return;
     }
     const content = dataTransfer.getData('text/html');
-    const rules = getElementRules();
-    rules.div = rules.p;
-    forEach(rules, (key, attributeRules) => {
-      delete attributeRules.id;
-      delete attributeRules.class;
-    });
+    const rules = getPasteElementRules();
     const htmlParser = new HTMLParser(content, rules);
     const fragment = htmlParser.getFragment();
+    editor.event.emit('paste:before', fragment);
     fixClipboardData(fragment);
     pasteFragment(editor, fragment);
     editor.box.renderAll(editor);
