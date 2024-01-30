@@ -257,7 +257,16 @@ export class Nodes {
     return new Nodes(nodes);
   }
 
-  // Returns the descendants of the first element filtered by a selector.
+  // Tests whether the element would be selected by the specified CSS selector.
+  public matches(selector: string): boolean {
+    if (!this.isElement) {
+      return false;
+    }
+    const element = this.get(0) as NativeElement;
+    return element.matches(selector);
+  }
+
+  // Returns the descendants of the first element which are selected by the specified CSS selector.
   public find(selector: string | NodePath): Nodes {
     if (typeof selector === 'string') {
       const element = this.get(0) as NativeElement;

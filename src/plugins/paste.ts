@@ -161,23 +161,6 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
   editor.history.save();
 }
 
-export function findNode(fragment: DocumentFragment, nodeName: string): Nodes[] {
-  const nodeList: Nodes[] = [];
-  let child = new Nodes(fragment.firstChild);
-  while (child.length > 0) {
-    const nextNode = child.next();
-    if (child.name === nodeName) {
-      nodeList.push(child);
-    } else if (child.isElement) {
-      child.find(nodeName).each(node => {
-        nodeList.push(new Nodes(node));
-      });
-    }
-    child = nextNode;
-  }
-  return nodeList;
-}
-
 export default (editor: Editor) => {
   editor.container.on('paste', event => {
     const range = editor.selection.range;

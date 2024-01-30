@@ -29,6 +29,7 @@ import './utils/morph.test';
 
 // Models
 import './models/nodes.test';
+import './models/fragment.test';
 import './models/range.test';
 import './models/box.test';
 

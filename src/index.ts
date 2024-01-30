@@ -10,7 +10,9 @@ import './css/image.css';
 import { BoxComponent } from './types/box';
 import * as Utils from './utils';
 import { Nodes } from './models/nodes';
+import { Fragment } from './models/fragment';
 import { Range } from './models/range';
+import { Box } from './models/box';
 import { HTMLParser } from './parsers/html-parser';
 import { TextParser } from './parsers/text-parser';
 import { Core } from './core';
@@ -92,7 +94,9 @@ export {
   BoxComponent,
   Utils,
   Nodes,
+  Fragment,
   Range,
+  Box,
   HTMLParser,
   TextParser,
 };

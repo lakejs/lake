@@ -243,6 +243,13 @@ describe('models / nodes', () => {
     expect(node.eq(2).html()).to.equal('one');
   });
 
+  it('method: matches', () => {
+    const node = new Nodes(document.body);
+    expect(node.matches('body')).to.equal(true);
+    expect(node.find('.class1').matches('.class1')).to.equal(true);
+    expect(node.find('.class1').matches('.class2')).to.equal(false);
+  });
+
   it('find method: by selector', () => {
     const node = new Nodes(document.body);
     const targetNodes1 = node.find('.class1');
