@@ -17,6 +17,7 @@ import { HTMLParser } from './parsers/html-parser';
 import { TextParser } from './parsers/text-parser';
 import { Core } from './core';
 import copy from './plugins/copy';
+import cut from './plugins/cut';
 import paste from './plugins/paste';
 import undo from './plugins/undo';
 import redo from './plugins/redo';
@@ -55,6 +56,7 @@ Core.box.add(hrBox);
 Core.box.add(imageBox);
 
 Core.plugin.add(copy);
+Core.plugin.add(cut);
 Core.plugin.add(paste);
 Core.plugin.add(undo);
 Core.plugin.add(redo);
