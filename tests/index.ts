@@ -62,6 +62,7 @@ import './managers/box-manager.test';
 import './managers/plugin.test';
 
 // Plugins
+import './plugins/copy.test';
 import './plugins/paste.test';
 import './plugins/undo.test';
 import './plugins/redo.test';

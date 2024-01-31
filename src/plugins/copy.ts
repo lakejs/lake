@@ -11,7 +11,7 @@ export default (editor: Editor) => {
     if (boxNode.length === 0) {
       return;
     }
-    if (range.isBoxLeft && range.isBoxRight) {
+    if (range.isBoxLeft || range.isBoxRight) {
       return;
     }
     event.preventDefault();
