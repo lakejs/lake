@@ -32,7 +32,7 @@ describe('managers / box-manager', () => {
     box.renderAll(editor);
     editor.remove();
     box.remove('managerTest');
-    expect(box.getNodeList(editor)[0].children().length).to.equal(3);
+    expect(box.findAll(editor).eq(0).children().length).to.equal(3);
   });
 
 });

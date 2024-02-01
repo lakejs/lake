@@ -17,18 +17,13 @@ export class BoxManager {
     return Array.from(boxes.keys());
   }
 
-  public getNodeList(editor: Core): Nodes[] {
-    const nodeList: Nodes[] = [];
-    editor.container.find('lake-box').each(node => {
-      nodeList.push(new Nodes(node));
-    });
-    return nodeList;
+  public findAll(editor: Core): Nodes {
+    return editor.container.find('lake-box');
   }
 
   public renderAll(editor: Core) {
-    const boxNodeList = this.getNodeList(editor);
-    for (const boxNode of boxNodeList) {
+    this.findAll(editor).each(boxNode => {
       new Box(boxNode).render();
-    }
+    });
   }
 }

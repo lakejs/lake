@@ -95,15 +95,14 @@ export class Core {
       const range = this.selection.range;
       const clonedRange = range.clone();
       clonedRange.adaptBox();
-      const boxNodeList = this.box.getNodeList(this);
-      for (const boxNode of boxNodeList) {
+      this.box.findAll(this).each(boxNode => {
         const box = new Box(boxNode);
-        if (clonedRange.intersectsNode(boxNode)) {
+        if (clonedRange.intersectsNode(box.node)) {
           box.focus();
         } else {
           box.blur();
         }
-      }
+      });
     };
     this.clickListener = event => {
       const targetNode = new Nodes(event.target as Element);
