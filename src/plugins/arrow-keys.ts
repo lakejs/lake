@@ -12,6 +12,10 @@ export default (editor: Editor) => {
         const prevNode = boxNode.prev();
         if (prevNode.isBlock || prevNode.isBox) {
           event.preventDefault();
+          if (prevNode.isInlineBox) {
+            range.selectBox(prevNode);
+            return;
+          }
           range.shrinkAfter(prevNode);
           return;
         }
@@ -53,6 +57,10 @@ export default (editor: Editor) => {
         const nextNode = boxNode.next();
         if (nextNode.isBlock || nextNode.isBox) {
           event.preventDefault();
+          if (nextNode.isInlineBox) {
+            range.selectBox(nextNode);
+            return;
+          }
           range.shrinkBefore(nextNode);
           return;
         }

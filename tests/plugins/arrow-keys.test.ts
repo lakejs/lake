@@ -146,6 +146,22 @@ describe('plugin / arrow-keys', () => {
     );
   });
 
+  it('left key: two inline boxes', () => {
+    const content = `
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box>bar</p>
+    `;
+    const output = `
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('arrow-left');
+      },
+    );
+  });
+
   it('right key: box input', () => {
     const content = `
     <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
@@ -278,6 +294,22 @@ describe('plugin / arrow-keys', () => {
     <p>foo</p>
     <lake-box type="block" name="hr" focus="right"></lake-box>
     <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('arrow-right');
+      },
+    );
+  });
+
+  it('right key: two inline boxes', () => {
+    const content = `
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>bar</p>
+    `;
+    const output = `
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
     `;
     testPlugin(
       content,
