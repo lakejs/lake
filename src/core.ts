@@ -91,7 +91,6 @@ export class Core {
     });
     this.selectionListener = () => {
       this.selection.syncByRange();
-      // TODO: need to review performance
       const range = this.selection.range;
       const clonedRange = range.clone();
       clonedRange.adaptBox();
@@ -331,7 +330,6 @@ export class Core {
         attributes: true,
         childList: true,
         subtree: true,
-        characterData: true,
       });
       document.addEventListener('selectionchange', this.selectionListener);
       this.bindInputEvents();

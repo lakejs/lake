@@ -544,6 +544,9 @@ export class Nodes {
       return this;
     }
     return this.eachElement(element => {
+      if (inString(element.className, className, ' ')) {
+        return;
+      }
       element.classList.add(className);
     });
   }
@@ -556,6 +559,9 @@ export class Nodes {
       return this;
     }
     return this.eachElement(element => {
+      if (!inString(element.className, className, ' ')) {
+        return;
+      }
       element.classList.remove(className);
       if (element.className === '') {
         element.removeAttribute('class');
