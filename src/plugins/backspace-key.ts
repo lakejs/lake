@@ -8,7 +8,7 @@ import { setBlockIndent } from './indent';
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('backspace', event => {
     const range = editor.selection.range;
-    if (range.isBoxCenter) {
+    if (range.isInsideBox) {
       return;
     }
     if (range.isBoxLeft) {

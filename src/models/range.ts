@@ -70,16 +70,9 @@ export class Range {
       return false;
     }
     const boxContainer = boxNode.find('.lake-box-container');
-    // Returns false when the box was selected.
+    // Returns true when the box was selected.
     // case: ... <div class="lake-box-container">|<div></div></div> ...
-    if (
-      this.isCollapsed &&
-      this.startNode.get(0) === boxContainer.get(0) &&
-      this.startOffset === 0
-    ) {
-      return false;
-    }
-    return this.compareBeforeNode(boxContainer) < 0 && this.compareAfterNode(boxContainer) > 0;
+    return this.isCollapsed && this.startNode.get(0) === boxContainer.get(0) && this.startOffset === 0;
   }
 
   // Returns a boolean value indicating whether the range's common ancestor node is in the right strip of the box.
@@ -93,6 +86,27 @@ export class Range {
     }
     const boxContainer = boxNode.find('.lake-box-container');
     return this.compareAfterNode(boxContainer) <= 0;
+  }
+
+  // Returns a boolean value indicating whether the range's common ancestor node is inside the container of the box.
+  // case 1: ... <div class="lake-box-container"><div>|</div></div> ...
+  // case 2: ... <div class="lake-box-container"><div></div>|</div> ...
+  public get isInsideBox(): boolean {
+    const boxNode = this.commonAncestor.closest('lake-box');
+    if (boxNode.length === 0) {
+      return false;
+    }
+    const boxContainer = boxNode.find('.lake-box-container');
+    // Returns false when the box was selected.
+    // case: ... <div class="lake-box-container">|<div></div></div> ...
+    if (
+      this.isCollapsed &&
+      this.startNode.get(0) === boxContainer.get(0) &&
+      this.startOffset === 0
+    ) {
+      return false;
+    }
+    return this.compareBeforeNode(boxContainer) < 0 && this.compareAfterNode(boxContainer) > 0;
   }
 
   // Gets a native range.

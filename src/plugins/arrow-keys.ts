@@ -3,7 +3,7 @@ import type { Editor } from '..';
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('arrow-left', event => {
     const range = editor.selection.range;
-    if (range.isBoxCenter) {
+    if (range.isInsideBox) {
       return;
     }
     const boxNode = range.commonAncestor.closest('lake-box');
@@ -43,7 +43,7 @@ export default (editor: Editor) => {
   });
   editor.keystroke.setKeydown('arrow-right', event => {
     const range = editor.selection.range;
-    if (range.isBoxCenter) {
+    if (range.isInsideBox) {
       return;
     }
     const boxNode = range.commonAncestor.closest('lake-box');
@@ -83,7 +83,7 @@ export default (editor: Editor) => {
   });
   editor.keystroke.setKeydown('arrow-up', event => {
     const range = editor.selection.range;
-    if (range.isBoxCenter) {
+    if (range.isInsideBox) {
       return;
     }
     const boxNode = range.commonAncestor.closest('lake-box');
@@ -102,7 +102,7 @@ export default (editor: Editor) => {
   });
   editor.keystroke.setKeydown('arrow-down', event => {
     const range = editor.selection.range;
-    if (range.isBoxCenter) {
+    if (range.isInsideBox) {
       return;
     }
     const boxNode = range.commonAncestor.closest('lake-box');

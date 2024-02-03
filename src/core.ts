@@ -185,7 +185,7 @@ export class Core {
       // Here setTimeout is necessary because isComposing is not false after ending composition.
       window.setTimeout(() => {
         const range = this.selection.range;
-        if (range.isBoxCenter) {
+        if (range.isInsideBox) {
           return;
         }
         // isComposing is false after ending composition because compositionend event has been emitted.

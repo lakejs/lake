@@ -109,9 +109,9 @@ describe('models / range', () => {
     const range = new Range();
     const boxNode = container.find('lake-box');
     range.selectBox(boxNode);
-    expect(range.isBoxCenter).to.equal(false);
-    range.setStart(boxNode.find('.lake-box-container'), 1);
     expect(range.isBoxCenter).to.equal(true);
+    range.setStart(boxNode.find('.lake-box-container'), 1);
+    expect(range.isBoxCenter).to.equal(false);
     range.selectBoxLeft(boxNode);
     expect(range.isBoxCenter).to.equal(false);
     range.selectBoxRight(boxNode);
@@ -126,6 +126,20 @@ describe('models / range', () => {
     expect(range.isBoxRight).to.equal(false);
     range.selectBoxRight(boxNode);
     expect(range.isBoxRight).to.equal(true);
+  });
+
+  it('property: isInsideBox', () => {
+    setTestBox(container);
+    const range = new Range();
+    const boxNode = container.find('lake-box');
+    range.selectBox(boxNode);
+    expect(range.isInsideBox).to.equal(false);
+    range.setStart(boxNode.find('.lake-box-container'), 1);
+    expect(range.isInsideBox).to.equal(true);
+    range.selectBoxLeft(boxNode);
+    expect(range.isInsideBox).to.equal(false);
+    range.selectBoxRight(boxNode);
+    expect(range.isInsideBox).to.equal(false);
   });
 
   it('method: get', () => {

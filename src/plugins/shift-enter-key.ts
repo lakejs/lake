@@ -18,7 +18,7 @@ function addBlockForBox(editor: Editor) {
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('shift+enter', event => {
     const range = editor.selection.range;
-    if (range.isBoxCenter) {
+    if (range.isInsideBox) {
       return;
     }
     event.preventDefault();

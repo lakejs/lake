@@ -7,7 +7,7 @@ import { removeBox } from '../operations/remove-box';
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('delete', event => {
     const range = editor.selection.range;
-    if (range.isBoxCenter) {
+    if (range.isInsideBox) {
       return;
     }
     if (range.isBoxRight) {

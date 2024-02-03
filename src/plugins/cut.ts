@@ -4,7 +4,7 @@ import { Box } from '../models/box';
 export default (editor: Editor) => {
   editor.container.on('cut', event => {
     const range = editor.selection.range;
-    if (range.isBoxCenter) {
+    if (range.isInsideBox) {
       return;
     }
     const boxNode = range.startNode.closest('lake-box');

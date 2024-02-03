@@ -164,7 +164,7 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
 export default (editor: Editor) => {
   editor.container.on('paste', event => {
     const range = editor.selection.range;
-    if (range.isBoxCenter) {
+    if (range.isInsideBox) {
       return;
     }
     event.preventDefault();
