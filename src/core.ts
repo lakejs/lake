@@ -224,10 +224,7 @@ export class Core {
           return;
         }
         const range = this.selection.range;
-        const targetBox = new Box(targetBoxNode);
-        const boxContainer = targetBox.getContainer();
-        range.setStart(boxContainer, 0);
-        range.collapseToStart();
+        range.selectBox(targetBoxNode);
       }
     });
     this.event.on('mutation', (record: MutationRecord) => {
