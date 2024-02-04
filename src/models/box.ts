@@ -99,18 +99,6 @@ export class Box {
     return this.node.find('.lake-box-container');
   }
 
-  // Sets focus on the box.
-  public focus(): void {
-    const container = this.getContainer();
-    container.addClass('lake-box-selected');
-  }
-
-  // Removes focus from the editor area.
-  public blur(): void {
-    const container = this.getContainer();
-    container.removeClass('lake-box-selected');
-  }
-
   // Renders the contents of the box.
   public render(): void {
     const component = boxes.get(this.name);

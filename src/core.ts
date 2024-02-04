@@ -96,10 +96,11 @@ export class Core {
       clonedRange.adaptBox();
       this.box.findAll(this).each(boxNode => {
         const box = new Box(boxNode);
+        const container = box.getContainer();
         if (clonedRange.intersectsNode(box.node)) {
-          box.focus();
+          container.addClass('lake-box-selected');
         } else {
-          box.blur();
+          container.removeClass('lake-box-selected');
         }
       });
     };
@@ -224,9 +225,9 @@ export class Core {
         }
         const range = this.selection.range;
         const targetBox = new Box(targetBoxNode);
-        range.setStart(targetBox.getContainer(), 0);
+        const boxContainer = targetBox.getContainer();
+        range.setStart(boxContainer, 0);
         range.collapseToStart();
-        window.setTimeout(() => targetBox.focus(), 0);
       }
     });
     this.event.on('mutation', (record: MutationRecord) => {
