@@ -58,9 +58,6 @@ export class Box {
       container.addClass('lake-box-hovered');
     });
     container.on('mouseleave', () => {
-      if (!container.hasClass('lake-box-hovered')) {
-        return;
-      }
       container.removeClass('lake-box-hovered');
     });
   }
