@@ -5,6 +5,7 @@
   --link-color: #1677ff;
   --link-hover-color: #69b1ff;
   --selection-background-color: #1ba2e333;
+  --warning-color: #faad14;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
   font-size: 16px;
   color: var(--text-color);
