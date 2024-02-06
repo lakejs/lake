@@ -12,6 +12,10 @@ export const codeBlockBox: BoxComponent = {
   type: 'block',
   name: 'codeBlock',
   render: box => {
+    const editor = box.getEditor();
+    if (!editor) {
+      return;
+    }
     const root = query('<div class="lake-box-no-focus" />');
     const container = box.getContainer();
     container.empty();
@@ -22,10 +26,16 @@ export const codeBlockBox: BoxComponent = {
       lineNumbers: true,
     });
     codeEditor.on('change', (cm: any) => {
-      box.value = {
-        code: cm.doc.getValue(),
-      };
-      box.save();
+      // Here setTimeout is necessary because isComposing is not false after ending composition.
+      window.setTimeout(() => {
+        if (editor.isComposing) {
+          return;
+        }
+        box.value = {
+          code: cm.doc.getValue(),
+        };
+        editor.history.save();
+      }, 0);
     });
   },
 };

@@ -3,6 +3,7 @@ import pkg from '../package.json';
 import './elements/bookmark';
 import './elements/box';
 import { NativeNode } from './types/native';
+import { editors } from './storage/editors';
 import { denormalizeValue, forEach, normalizeValue, query } from './utils';
 import { Nodes } from './models/nodes';
 import { Box } from './models/box';
@@ -47,8 +48,6 @@ export class Core {
 
   private mouseoverListener: EventListener;
 
-  private mutationObserver: MutationObserver;
-
   public container: Nodes;
 
   public isComposing: boolean;
@@ -86,12 +85,8 @@ export class Core {
 
     this.unsavedInputData = '';
 
-    // watch for changes being made to the DOM tree
-    this.mutationObserver = new MutationObserver((records: MutationRecord[]) => {
-      for (const record of records) {
-        this.event.emit('mutation', record);
-      }
-    });
+    editors.set(this.container.id, this);
+
     this.selectionListener = () => {
       this.selection.syncByRange();
       const range = this.selection.range;
@@ -238,20 +233,6 @@ export class Core {
         range.selectBox(targetBoxNode);
       }
     });
-    this.event.on('mutation', (record: MutationRecord) => {
-      if (record.type === 'attributes' && record.attributeName === 'method') {
-        const boxNode = new Nodes(record.target);
-        if (boxNode.name !== 'lake-box') {
-          return;
-        }
-        const methodValue = boxNode.attr('method');
-        boxNode.removeAttr('method');
-        if (methodValue === 'save') {
-          this.history.save();
-          this.unsavedInputData = '';
-        }
-      }
-    });
   }
 
   private bindHistoryEvents(): void {
@@ -335,11 +316,6 @@ export class Core {
     Core.plugin.loadAll(this);
     Core.box.renderAll(this);
     if (!this.readonly) {
-      this.mutationObserver.observe(this.container.get(0), {
-        attributes: true,
-        childList: true,
-        subtree: true,
-      });
       document.addEventListener('selectionchange', this.selectionListener);
       this.bindInputEvents();
       this.bindBoxEvents();
@@ -354,11 +330,6 @@ export class Core {
   public remove(): void {
     this.container.remove();
     if (!this.readonly) {
-      const records = this.mutationObserver.takeRecords();
-      for (const record of records) {
-        this.event.emit('mutation', record);
-      }
-      this.mutationObserver.disconnect();
       document.removeEventListener('selectionchange', this.selectionListener);
     }
     document.removeEventListener('click', this.clickListener);

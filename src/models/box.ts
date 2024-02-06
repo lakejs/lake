@@ -1,4 +1,5 @@
 import { Base64 } from 'js-base64';
+import type { Editor } from '..';
 import { NativeNode } from '../types/native';
 import { BoxType, BoxValue } from '../types/box';
 import { boxes } from '../storage/boxes';
@@ -6,6 +7,7 @@ import { encode } from '../utils/encode';
 import { query } from '../utils/query';
 import { morph } from '../utils/morph';
 import { Nodes } from './nodes';
+import { editors } from '../storage/editors';
 
 const structure = `
   <span class="lake-box-strip"><br /></span>
@@ -86,9 +88,10 @@ export class Box {
     this.node.attr('value', Base64.encode(JSON.stringify(value)));
   }
 
-  // Sets an attribute that triggers saving history method.
-  public save() {
-    this.node.attr('method', 'save');
+  // Returns the editor instance of the box.
+  public getEditor(): Editor | undefined {
+    const container = this.node.closestContainer();
+    return container.length > 0 ? editors.get(container.id) : undefined;
   }
 
   // Returns the container node of the box.
