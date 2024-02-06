@@ -179,7 +179,7 @@ export default (editor: Editor) => {
       const content = dataTransfer.getData('text/plain');
       const textParser = new TextParser(content);
       const fragment = textParser.getFragment();
-      editor.event.emit('paste:before', fragment);
+      editor.event.emit('beforepaste', fragment);
       pasteFragment(editor, fragment);
       return;
     }
@@ -187,7 +187,7 @@ export default (editor: Editor) => {
     const rules = getPasteElementRules();
     const htmlParser = new HTMLParser(content, rules);
     const fragment = htmlParser.getFragment();
-    editor.event.emit('paste:before', fragment);
+    editor.event.emit('beforepaste', fragment);
     fixClipboardData(fragment);
     pasteFragment(editor, fragment);
     editor.box.renderAll(editor);

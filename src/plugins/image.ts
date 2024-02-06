@@ -11,7 +11,7 @@ export const imageBox: BoxComponent = {
 };
 
 export default (editor: Editor) => {
-  editor.event.on('paste:before', (nativeFragment: DocumentFragment) => {
+  editor.event.on('beforepaste', (nativeFragment: DocumentFragment) => {
     const fragment = new Fragment(nativeFragment);
     fragment.find('img').each(nativeNode => {
       const node = query(nativeNode);

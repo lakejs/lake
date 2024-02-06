@@ -26,7 +26,7 @@ export class Command {
     if (handler === undefined) {
       throw new Error(`Command '${name}' doesn't exist.`);
     }
-    this.event.emit('execute:before', name);
+    this.event.emit('beforeexecute', name);
     handler.apply(this, data);
     this.event.emit('execute', name);
     debug(`executed command '${name}'`);

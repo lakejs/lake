@@ -113,11 +113,7 @@ export class Core {
     };
     this.clickListener = event => {
       const targetNode = new Nodes(event.target as Element);
-      if (targetNode.isOutside) {
-        this.event.emit('click:outside');
-        return;
-      }
-      this.event.emit('click:inside', targetNode);
+      this.event.emit('click', targetNode);
     };
     this.mouseoverListener = event => {
       const targetNode = new Nodes(event.target as Element);
@@ -180,12 +176,11 @@ export class Core {
     this.container.on('compositionend', () => {
       this.isComposing = false;
     });
-    this.container.on('beforeinput', event => {
+    this.container.on('beforeinput', () => {
       const range = this.selection.range;
       if (range.isBoxLeft || range.isBoxRight) {
         this.commitUnsavedInputData();
       }
-      this.event.emit('input:before', event);
     });
     this.container.on('input', event => {
       const inputEvent = event as InputEvent;
@@ -219,14 +214,15 @@ export class Core {
         this.event.emit('input', inputEvent);
       }, 0);
     });
-    this.command.event.on('execute:before', () => this.commitUnsavedInputData());
+    this.command.event.on('beforeexecute', () => this.commitUnsavedInputData());
   }
 
   private bindBoxEvents(): void {
-    this.event.on('click:inside', (target: Nodes) => {
-      const targetBoxNode = target.closest('lake-box');
+    this.container.on('click', event => {
+      const targetNode = new Nodes(event.target as Element);
+      const targetBoxNode = targetNode.closest('lake-box');
       if (targetBoxNode.length > 0) {
-        if (target.closest('.lake-box-no-focus').length > 0) {
+        if (targetNode.closest('.lake-box-no-focus').length > 0) {
           return;
         }
         const range = this.selection.range;
@@ -323,7 +319,6 @@ export class Core {
     }
     document.addEventListener('click', this.clickListener);
     document.addEventListener('mouseover', this.mouseoverListener);
-    this.event.emit('create');
   }
 
   // Removes the editor.
@@ -334,6 +329,5 @@ export class Core {
     }
     document.removeEventListener('click', this.clickListener);
     document.removeEventListener('mouseover', this.mouseoverListener);
-    this.event.emit('remove');
   }
 }

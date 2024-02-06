@@ -11,7 +11,7 @@ export const hrBox: BoxComponent = {
 };
 
 export default (editor: Editor) => {
-  editor.event.on('paste:before', (nativeFragment: DocumentFragment) => {
+  editor.event.on('beforepaste', (nativeFragment: DocumentFragment) => {
     const fragment = new Fragment(nativeFragment);
     fragment.find('hr').each(nativeNode => {
       const node = query(nativeNode);

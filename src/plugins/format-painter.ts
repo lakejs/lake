@@ -24,7 +24,9 @@ export default (editor: Editor) => {
     markList = [];
     editor.container.removeClass(formatPainterClassName);
   });
-  editor.event.on('click:outside', () => {
-    editor.container.removeClass(formatPainterClassName);
+  editor.event.on('click', tagetNode => {
+    if (tagetNode.isOutside) {
+      editor.container.removeClass(formatPainterClassName);
+    }
   });
 };
