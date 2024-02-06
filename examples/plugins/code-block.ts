@@ -21,13 +21,6 @@ export const codeBlockBox: BoxComponent = {
       mode: 'javascript',
       lineNumbers: true,
     });
-    codeEditor.addKeyMap({
-      Backspace: (cm: any) => {
-        if (cm.doc.getValue() === '') {
-          box.remove();
-        }
-      },
-    });
     codeEditor.on('change', (cm: any) => {
       box.value = {
         code: cm.doc.getValue(),

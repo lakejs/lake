@@ -51,6 +51,8 @@ export class Core {
 
   public container: Nodes;
 
+  public isComposing: boolean;
+
   public readonly: boolean;
 
   public event: EventEmitter;
@@ -69,6 +71,7 @@ export class Core {
     this.target = target;
     this.options = options;
     this.container = query('<div />');
+    this.isComposing = false;
 
     this.setDefaultOptions();
     this.readonly = this.options.readonly;
@@ -176,12 +179,11 @@ export class Core {
   }
 
   private bindInputEvents(): void {
-    let isComposing = false;
     this.container.on('compositionstart', () => {
-      isComposing = true;
+      this.isComposing = true;
     });
     this.container.on('compositionend', () => {
-      isComposing = false;
+      this.isComposing = false;
     });
     this.container.on('beforeinput', event => {
       const range = this.selection.range;
@@ -199,7 +201,7 @@ export class Core {
           return;
         }
         // isComposing is false after ending composition because compositionend event has been emitted.
-        if (isComposing) {
+        if (this.isComposing) {
           this.event.emit('input', inputEvent);
           return;
         }
