@@ -1,4 +1,4 @@
-import type { Core } from '../core';
+import type { Editor } from '../editor';
 import { BoxComponent } from '../types/box';
 import { boxes } from '../storage/boxes';
 import { Nodes } from '../models/nodes';
@@ -17,11 +17,11 @@ export class BoxManager {
     return Array.from(boxes.keys());
   }
 
-  public findAll(editor: Core): Nodes {
+  public findAll(editor: Editor): Nodes {
     return editor.container.find('lake-box');
   }
 
-  public renderAll(editor: Core) {
+  public renderAll(editor: Editor) {
     this.findAll(editor).each(boxNode => {
       new Box(boxNode).render();
     });

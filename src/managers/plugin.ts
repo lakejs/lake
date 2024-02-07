@@ -1,6 +1,6 @@
-import type { Core } from '../core';
+import type { Editor } from '../editor';
 
-type PluginFunction = (editor: Core) => void;
+type PluginFunction = (editor: Editor) => void;
 
 export class Plugin {
   private pluginList: PluginFunction[];
@@ -13,7 +13,7 @@ export class Plugin {
     this.pluginList.push(plugin);
   }
 
-  public loadAll(editor: Core) {
+  public loadAll(editor: Editor) {
     this.pluginList.forEach(plugin => {
       plugin(editor);
     });

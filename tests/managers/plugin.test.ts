@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Plugin } from '../../src/managers/plugin';
-import { Core } from '../../src/core';
+import { Editor } from '../../src/editor';
 
 describe('managers / plugin', () => {
 
@@ -20,10 +20,10 @@ describe('managers / plugin', () => {
   it('should load a plugin', () => {
     const plugin = new Plugin();
     let editorValue = '';
-    plugin.add((editor: Core) => {
+    plugin.add((editor: Editor) => {
       editorValue = editor.getValue();
     });
-    const editor = new Core(container.get(0), {
+    const editor = new Editor(container.get(0), {
       defaultValue: '<p>foo</p>',
     });
     editor.create();

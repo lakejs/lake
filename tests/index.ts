@@ -98,5 +98,5 @@ import './plugins/tab-key.test';
 import './plugins/arrow-keys.test';
 import './plugins/markdown.test';
 
-// Core
-import './core.test';
+// Editor
+import './editor.test';

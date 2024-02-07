@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { debug, query } from '../src/utils';
 import { Nodes } from '../src/models/nodes';
-import { Core } from '../src/core';
+import { Editor } from '../src/editor';
 
-function inputData(editor: Core, data: string) {
+function inputData(editor: Editor, data: string) {
   const event = new InputEvent('input', {
     data,
     inputType: 'insertText',
@@ -13,7 +13,7 @@ function inputData(editor: Core, data: string) {
   editor.container.emit('input', event);
 }
 
-function inputCompositionData(editor: Core, data: string) {
+function inputCompositionData(editor: Editor, data: string) {
   editor.container.emit('compositionstart');
   const event = new InputEvent('input', {
     data,
@@ -25,17 +25,17 @@ function inputCompositionData(editor: Core, data: string) {
   editor.container.emit('compositionend');
 }
 
-describe('core', () => {
+describe('editor', () => {
 
   let targetNode: Nodes;
 
   beforeEach(() => {
-    Core.box.add({
+    Editor.box.add({
       type: 'inline',
       name: 'inlineBox',
       render: () => '<img />',
     });
-    Core.box.add({
+    Editor.box.add({
       type: 'block',
       name: 'blockBox',
       render: () => '<hr />',
@@ -45,13 +45,13 @@ describe('core', () => {
   });
 
   afterEach(() => {
-    Core.box.remove('inlineBox');
-    Core.box.remove('blockBox');
+    Editor.box.remove('inlineBox');
+    Editor.box.remove('blockBox');
     targetNode.remove();
   });
 
   it('constructor: sets className', () => {
-    const editor = new Core(targetNode.get(0), {
+    const editor = new Editor(targetNode.get(0), {
       className: 'my-editor-container',
     });
     editor.create();
@@ -61,7 +61,7 @@ describe('core', () => {
   });
 
   it('constructor: sets spellcheck', () => {
-    const editor = new Core(targetNode.get(0), {
+    const editor = new Editor(targetNode.get(0), {
       spellcheck: true,
     });
     editor.create();
@@ -73,7 +73,7 @@ describe('core', () => {
   it('constructor: empty default value', () => {
     const input = '';
     const output = '';
-    const editor = new Core(targetNode.get(0), {
+    const editor = new Editor(targetNode.get(0), {
       className: 'my-editor-container',
       defaultValue: input,
     });
@@ -87,7 +87,7 @@ describe('core', () => {
   it('method: getValue', () => {
     const input = '<p><strong>\u200B# <focus />foo</strong></p>';
     const output = '<p><strong># <focus />foo</strong></p>';
-    const editor = new Core(targetNode.get(0), {
+    const editor = new Editor(targetNode.get(0), {
       defaultValue: input,
     });
     editor.create();
@@ -100,7 +100,7 @@ describe('core', () => {
   it('method: setValue', () => {
     const input = '<p><strong>\u200B# <focus />foo</strong></p>';
     const output = '<p><strong># <focus />foo</strong></p>';
-    const editor = new Core(targetNode.get(0), {
+    const editor = new Editor(targetNode.get(0), {
       className: 'my-editor-container',
     });
     editor.create();
@@ -114,7 +114,7 @@ describe('core', () => {
   it('input event: input text in the left strip of inline box', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
     const output = '<p>fooa<focus /><lake-box type="inline" name="inlineBox"></lake-box>bar</p>';
-    const editor = new Core(targetNode.get(0), {
+    const editor = new Editor(targetNode.get(0), {
       className: 'my-editor-container',
     });
     editor.create();
@@ -133,7 +133,7 @@ describe('core', () => {
   it('input event: input text in the right strip of inline box', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="right"></lake-box>bar</p>';
     const output = '<p>foo<lake-box type="inline" name="inlineBox"></lake-box>a<focus />bar</p>';
-    const editor = new Core(targetNode.get(0), {
+    const editor = new Editor(targetNode.get(0), {
       className: 'my-editor-container',
     });
     editor.create();
@@ -152,7 +152,7 @@ describe('core', () => {
   it('input event: input composition text in the left strip of inline box', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
     const output = '<p>foo你好<focus /><lake-box type="inline" name="inlineBox"></lake-box>bar</p>';
-    const editor = new Core(targetNode.get(0), {
+    const editor = new Editor(targetNode.get(0), {
       className: 'my-editor-container',
     });
     editor.create();
@@ -172,7 +172,7 @@ describe('core', () => {
   it('always keeps empty paragraph', () => {
     const input = '<p>foo</p>';
     const output = '<p><br /><focus /></p>';
-    const editor = new Core(targetNode.get(0), {
+    const editor = new Editor(targetNode.get(0), {
       className: 'my-editor-container',
     });
     editor.create();
@@ -190,7 +190,7 @@ describe('core', () => {
   it('readonly mode', () => {
     const input = '<p>foo<focus /></p>';
     const output = '<p>foo<focus /></p>';
-    const view = new Core(targetNode.get(0), {
+    const view = new Editor(targetNode.get(0), {
       readonly: true,
       defaultValue: input,
     });

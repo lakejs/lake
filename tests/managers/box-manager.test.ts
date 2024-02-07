@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { BoxManager } from '../../src/managers/box-manager';
-import { Core } from '../../src/core';
+import { Editor } from '../../src/editor';
 
 describe('managers / box-manager', () => {
 
@@ -25,7 +25,7 @@ describe('managers / box-manager', () => {
       render: () => 'bar',
     });
     expect(box.getNames().indexOf('managerTest') >= 0).to.equal(true);
-    const editor = new Core(targetNode.get(0), {
+    const editor = new Editor(targetNode.get(0), {
       defaultValue: '<lake-box type="block" name="managerTest"></lake-box>',
     });
     editor.create();

@@ -29,7 +29,7 @@ const defaultOptions: OptionsType = {
   minChangeSize: 5,
 };
 
-export class Core {
+export class Editor {
   public static version: string = pkg.version;
 
   public static box = new BoxManager();
@@ -81,7 +81,7 @@ export class Core {
     this.command = new Command();
     this.history = new History(this.selection);
     this.keystroke = new Keystroke(this.container);
-    this.box = Core.box;
+    this.box = Editor.box;
 
     this.unsavedInputData = '';
 
@@ -280,7 +280,7 @@ export class Core {
     const fragment = htmlParser.getFragment();
     this.container.empty();
     this.container.append(fragment);
-    Core.box.renderAll(this);
+    Editor.box.renderAll(this);
     this.selection.synByBookmark();
   }
 
@@ -309,8 +309,8 @@ export class Core {
       this.selection.synByBookmark();
       this.history.save();
     }
-    Core.plugin.loadAll(this);
-    Core.box.renderAll(this);
+    Editor.plugin.loadAll(this);
+    Editor.box.renderAll(this);
     if (!this.readonly) {
       document.addEventListener('selectionchange', this.selectionListener);
       this.bindInputEvents();

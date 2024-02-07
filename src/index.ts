@@ -1,4 +1,4 @@
-import './css/core.css';
+import './css/editor.css';
 import './css/mark.css';
 import './css/format-painter.css';
 import './css/heading.css';
@@ -15,7 +15,7 @@ import { Range } from './models/range';
 import { Box } from './models/box';
 import { HTMLParser } from './parsers/html-parser';
 import { TextParser } from './parsers/text-parser';
-import { Core } from './core';
+import { Editor } from './editor';
 import copy from './plugins/copy';
 import cut from './plugins/cut';
 import paste from './plugins/paste';
@@ -52,47 +52,47 @@ import tabKey from './plugins/tab-key';
 import arrowKeys from './plugins/arrow-keys';
 import markdown from './plugins/markdown';
 
-Core.box.add(hrBox);
-Core.box.add(imageBox);
+Editor.box.add(hrBox);
+Editor.box.add(imageBox);
 
-Core.plugin.add(copy);
-Core.plugin.add(cut);
-Core.plugin.add(paste);
-Core.plugin.add(undo);
-Core.plugin.add(redo);
-Core.plugin.add(selectAll);
-Core.plugin.add(heading);
-Core.plugin.add(blockquote);
-Core.plugin.add(list);
-Core.plugin.add(align);
-Core.plugin.add(indent);
-Core.plugin.add(bold);
-Core.plugin.add(italic);
-Core.plugin.add(underline);
-Core.plugin.add(strikethrough);
-Core.plugin.add(subscript);
-Core.plugin.add(superscript);
-Core.plugin.add(code);
-Core.plugin.add(fontFamily);
-Core.plugin.add(fontSize);
-Core.plugin.add(fontColor);
-Core.plugin.add(highlight);
-Core.plugin.add(removeFormat);
-Core.plugin.add(formatPainter);
-Core.plugin.add(link);
-Core.plugin.add(unlink);
-Core.plugin.add(hr);
-Core.plugin.add(image);
-Core.plugin.add(enterKey);
-Core.plugin.add(shiftEnterKey);
-Core.plugin.add(backspaceKey);
-Core.plugin.add(deleteKey);
-Core.plugin.add(tabKey);
-Core.plugin.add(arrowKeys);
-Core.plugin.add(markdown);
+Editor.plugin.add(copy);
+Editor.plugin.add(cut);
+Editor.plugin.add(paste);
+Editor.plugin.add(undo);
+Editor.plugin.add(redo);
+Editor.plugin.add(selectAll);
+Editor.plugin.add(heading);
+Editor.plugin.add(blockquote);
+Editor.plugin.add(list);
+Editor.plugin.add(align);
+Editor.plugin.add(indent);
+Editor.plugin.add(bold);
+Editor.plugin.add(italic);
+Editor.plugin.add(underline);
+Editor.plugin.add(strikethrough);
+Editor.plugin.add(subscript);
+Editor.plugin.add(superscript);
+Editor.plugin.add(code);
+Editor.plugin.add(fontFamily);
+Editor.plugin.add(fontSize);
+Editor.plugin.add(fontColor);
+Editor.plugin.add(highlight);
+Editor.plugin.add(removeFormat);
+Editor.plugin.add(formatPainter);
+Editor.plugin.add(link);
+Editor.plugin.add(unlink);
+Editor.plugin.add(hr);
+Editor.plugin.add(image);
+Editor.plugin.add(enterKey);
+Editor.plugin.add(shiftEnterKey);
+Editor.plugin.add(backspaceKey);
+Editor.plugin.add(deleteKey);
+Editor.plugin.add(tabKey);
+Editor.plugin.add(arrowKeys);
+Editor.plugin.add(markdown);
 
 export {
-  Core as Editor,
+  Editor,
   BoxComponent,
   Utils,
   Nodes,

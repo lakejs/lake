@@ -1,5 +1,5 @@
 import { Base64 } from 'js-base64';
-import type { Editor } from '..';
+import type { Editor } from '../editor';
 import { NativeNode } from '../types/native';
 import { BoxType, BoxValue } from '../types/box';
 import { boxes } from '../storage/boxes';
