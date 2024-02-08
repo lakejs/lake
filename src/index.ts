@@ -15,6 +15,20 @@ import { Range } from './models/range';
 import { Box } from './models/box';
 import { HTMLParser } from './parsers/html-parser';
 import { TextParser } from './parsers/text-parser';
+import { insertBookmark } from './operations/insert-bookmark';
+import { toBookmark } from './operations/to-bookmark';
+import { insertNode } from './operations/insert-node';
+import { insertFragment} from './operations/insert-fragment';
+import { insertContents} from './operations/insert-contents';
+import { deleteContents} from './operations/delete-contents';
+import { setBlocks} from './operations/set-blocks';
+import { splitBlock} from './operations/split-block';
+import { splitMarks} from './operations/split-marks';
+import { addMark} from './operations/add-mark';
+import { removeMark} from './operations/remove-mark';
+import { fixList} from './operations/fix-list';
+import { insertBox} from './operations/insert-box';
+import { removeBox} from './operations/remove-box';
 import { Editor } from './editor';
 import copy from './plugins/copy';
 import cut from './plugins/cut';
@@ -101,4 +115,18 @@ export {
   Box,
   HTMLParser,
   TextParser,
+  insertBookmark,
+  toBookmark,
+  insertNode,
+  insertFragment,
+  insertContents,
+  deleteContents,
+  setBlocks,
+  splitBlock,
+  splitMarks,
+  addMark,
+  removeMark,
+  fixList,
+  insertBox,
+  removeBox,
 };
