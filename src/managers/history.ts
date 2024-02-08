@@ -80,20 +80,33 @@ export class History {
           return false;
         }
       },
-      afterNodeAdded: (node: NativeNode) => {
-        if (new Nodes(node).name === 'lake-box') {
+      afterNodeAdded: (nativeNode: NativeNode) => {
+        const node = new Nodes(nativeNode);
+        if (node.name === 'lake-box') {
           new Box(node).render();
+          return;
+        }
+        if (node.isBlock) {
+          node.find('lake-box').each(boxNode => {
+            new Box(boxNode).render();
+          });
         }
       },
-      beforeNodeRemoved: (node: NativeNode) => {
-        if (new Nodes(node).name === 'lake-box') {
+      beforeNodeRemoved: (nativeNode: NativeNode) => {
+        const node = new Nodes(nativeNode);
+        if (node.name === 'lake-box') {
           new Box(node).remove();
           return false;
         }
+        if (node.isBlock) {
+          node.find('lake-box').each(boxNode => {
+            new Box(boxNode).remove();
+          });
+        }
       },
-      beforeAttributeUpdated: (attributeName: string, node: NativeNode) => {
-        if (attributeName === 'value' && new Nodes(node).name === 'lake-box') {
-          new Box(node).render();
+      beforeAttributeUpdated: (attributeName: string, nativeNode: NativeNode) => {
+        if (attributeName === 'value' && new Nodes(nativeNode).name === 'lake-box') {
+          new Box(nativeNode).render();
         }
       },
     };

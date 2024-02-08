@@ -54,7 +54,7 @@ export class Box {
       container.off('mouseleave');
     }
     container.on('mouseenter', () => {
-      if (container.hasClass('lake-box-selected')) {
+      if (container.hasClass('lake-box-selected') || container.hasClass('lake-box-activated')) {
         return;
       }
       container.addClass('lake-box-hovered');

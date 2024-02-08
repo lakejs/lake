@@ -95,6 +95,9 @@ export class Editor {
       this.box.findAll(this).each(boxNode => {
         const box = new Box(boxNode);
         const boxContainer = box.getContainer();
+        if (boxContainer.length === 0) {
+          return;
+        }
         if (range.compareBeforeNode(boxContainer) < 0 && range.compareAfterNode(boxContainer) > 0) {
           if (!(range.isCollapsed && range.startNode.get(0) === boxContainer.get(0) && range.startOffset === 0)) {
             boxContainer.removeClass('lake-box-selected');
