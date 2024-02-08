@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { debug, query } from '../src/utils';
 import { Nodes } from '../src/models/nodes';
+import { Box } from '../src/models/box';
 import { Editor } from '../src/editor';
 
 function inputData(editor: Editor, data: string) {
@@ -109,6 +110,70 @@ describe('editor', () => {
     debug(`output: ${value}`);
     editor.remove();
     expect(value).to.equal(output);
+  });
+
+  it('selection event: should not have any class', done => {
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
+    const editor = new Editor(targetNode.get(0), {
+      className: 'my-editor-container',
+    });
+    editor.create();
+    editor.setValue(input);
+    const boxNode = editor.container.find('lake-box');
+    const box = new Box(boxNode);
+    const boxContainer = box.getContainer();
+    window.setTimeout(() => {
+      const isActivated = boxContainer.hasClass('lake-box-activated');
+      const isSelected = boxContainer.hasClass('lake-box-selected');
+      editor.remove();
+      expect(isActivated).to.equal(false);
+      expect(isSelected).to.equal(false);
+      done();
+    }, 0);
+  });
+
+  it('selection event: should have activated class', done => {
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
+    const editor = new Editor(targetNode.get(0), {
+      className: 'my-editor-container',
+    });
+    editor.create();
+    editor.setValue(input);
+    const range = editor.selection.range;
+    const boxNode = editor.container.find('lake-box');
+    const box = new Box(boxNode);
+    const boxContainer = box.getContainer();
+    range.selectNodeContents(boxContainer);
+    window.setTimeout(() => {
+      const isActivated = boxContainer.hasClass('lake-box-activated');
+      const isSelected = boxContainer.hasClass('lake-box-selected');
+      editor.remove();
+      expect(isActivated).to.equal(true);
+      expect(isSelected).to.equal(false);
+      done();
+    }, 0);
+  });
+
+  it('selection event: should have selected class', done => {
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
+    const editor = new Editor(targetNode.get(0), {
+      className: 'my-editor-container',
+    });
+    editor.create();
+    editor.setValue(input);
+    const range = editor.selection.range;
+    const boxNode = editor.container.find('lake-box');
+    const box = new Box(boxNode);
+    const boxContainer = box.getContainer();
+    range.selectBox(boxNode);
+    window.setTimeout(() => {
+      const isActivated = boxContainer.hasClass('lake-box-activated');
+      const isSelected = boxContainer.hasClass('lake-box-selected');
+      editor.remove();
+      expect(isActivated).to.equal(false);
+      expect(isSelected).to.equal(true);
+      done();
+    }, 0);
   });
 
   it('input event: input text in the left strip of inline box', done => {
