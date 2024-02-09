@@ -9,7 +9,13 @@ import { morph } from '../utils/morph';
 import { Nodes } from './nodes';
 import { editors } from '../storage/editors';
 
-const structure = `
+type CleanupFunction = () => void;
+type SetupFunction = () => CleanupFunction | void;
+
+// Is a key-value object for storing all effects.
+const effectData: { [key: number]: { setup: SetupFunction[], cleanup: CleanupFunction[] } } = {};
+
+const framework = `
   <span class="lake-box-strip"><br /></span>
   <div class="lake-box-container" contenteditable="false"></div>
   <span class="lake-box-strip"><br /></span>
@@ -41,13 +47,19 @@ export class Box {
         this.value = component.value;
       }
     }
+    if (!effectData[this.node.id]) {
+      effectData[this.node.id] = {
+        setup: [],
+        cleanup: [],
+      };
+    }
   }
 
-  // Renders the structure of the box.
-  private renderStructure(): void {
+  // Adds the framework of the box.
+  private addFramework(): void {
     let container = this.getContainer();
     if (container.length === 0) {
-      this.node.html(structure);
+      this.node.html(framework);
       container = this.getContainer();
     } else {
       container.off('mouseenter');
@@ -99,14 +111,26 @@ export class Box {
     return this.node.find('.lake-box-container');
   }
 
+  public useEffect(setup: SetupFunction): void {
+    effectData[this.node.id].setup.push(setup);
+  }
+
   // Renders the contents of the box.
   public render(): void {
+    effectData[this.node.id].setup = [];
+    effectData[this.node.id].cleanup = [];
     const component = boxes.get(this.name);
     if (component === undefined) {
       return;
     }
-    this.renderStructure();
+    this.addFramework();
     const content = component.render(this);
+    for (const setup of effectData[this.node.id].setup) {
+      const result = setup();
+      if (result !== undefined) {
+        effectData[this.node.id].cleanup.push(result);
+      }
+    }
     if (content === undefined) {
       return;
     }
@@ -116,9 +140,12 @@ export class Box {
     morph(container, newContainer);
   }
 
-  // Removes the box.
-  public remove(): void {
-    this.node.remove();
+  // Destroys a rendered box.
+  public unmount(): void {
+    for (const cleanup of effectData[this.node.id].cleanup) {
+      cleanup();
+    }
+    this.node.empty();
   }
 
   // Returns a HTML string of the box.

@@ -95,12 +95,11 @@ export class History {
       beforeNodeRemoved: (nativeNode: NativeNode) => {
         const node = new Nodes(nativeNode);
         if (node.name === 'lake-box') {
-          new Box(node).remove();
-          return false;
+          new Box(node).unmount();
         }
         if (node.isBlock) {
           node.find('lake-box').each(boxNode => {
-            new Box(boxNode).remove();
+            new Box(boxNode).unmount();
           });
         }
       },

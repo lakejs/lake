@@ -8,6 +8,8 @@ describe('models / box', () => {
 
   let container: Nodes;
 
+  let effectCount = 0;
+
   beforeEach(() => {
     boxes.set('inlineBox', {
       type: 'inline',
@@ -23,6 +25,21 @@ describe('models / box', () => {
       render: () => '<hr />',
       html: () => '<hr />',
     });
+    boxes.set('effectBox', {
+      type: 'block',
+      name: 'blockBox',
+      render: box => {
+        box.useEffect(() => {
+          effectCount++;
+          box.node.addClass('effect-setup');
+          return () => {
+            effectCount--;
+            box.node.removeClass('effect-setup');
+          };
+        });
+        return '<hr />';
+      },
+    });
     container = query('<div contenteditable="true"></div>');
     query(document.body).append(container);
   });
@@ -30,6 +47,7 @@ describe('models / box', () => {
   afterEach(() => {
     boxes.delete('inlineBox');
     boxes.delete('blockBox');
+    boxes.delete('effectBox');
     container.remove();
   });
 
@@ -66,6 +84,24 @@ describe('models / box', () => {
     expect(box.value.foo).to.equal(1);
   });
 
+  it('method: useEffect', () => {
+    container.html('<lake-box type="block" name="effectBox"></lake-box>');
+    const box = new Box(container.find('lake-box'));
+    expect(effectCount).to.equal(0);
+    box.render();
+    expect(effectCount).to.equal(1);
+    expect(container.find('lake-box').hasClass('effect-setup')).to.equal(true);
+    box.unmount();
+    expect(effectCount).to.equal(0);
+    expect(container.find('lake-box').hasClass('effect-setup')).to.equal(false);
+    box.render();
+    expect(effectCount).to.equal(1);
+    expect(container.find('lake-box').hasClass('effect-setup')).to.equal(true);
+    new Box(container.find('lake-box')).unmount();
+    expect(effectCount).to.equal(0);
+    expect(container.find('lake-box').hasClass('effect-setup')).to.equal(false);
+  });
+
   it('method: render', () => {
     container.html('<lake-box type="block" name="blockBox"></lake-box>');
     const box = new Box(container.find('lake-box'));
@@ -73,12 +109,14 @@ describe('models / box', () => {
     expect(container.find('lake-box').children().length).to.equal(3);
   });
 
-  it('method: remove', () => {
-    container.html('<p>foo</p><lake-box type="block" name="blockBox"></lake-box>');
+  it('method: unmount', () => {
+    const content = '<p>foo</p><lake-box type="block" name="blockBox"></lake-box>';
+    container.html(content);
     const box = new Box(container.find('lake-box'));
     box.render();
-    box.remove();
-    expect(container.html()).to.equal('<p>foo</p>');
+    expect(container.html()).not.to.equal(content);
+    box.unmount();
+    expect(container.html()).to.equal(content);
   });
 
   it('method: getHTML', () => {

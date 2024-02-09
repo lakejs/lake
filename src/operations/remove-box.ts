@@ -15,10 +15,12 @@ export function removeBox(range: Range): void {
     const paragraph = query('<p><br /></p>');
     boxNode.before(paragraph);
     range.shrinkAfter(paragraph);
-    box.remove();
+    box.unmount();
+    boxNode.remove();
     return;
   }
   range.setStartBefore(boxNode);
   range.collapseToStart();
-  box.remove();
+  box.unmount();
+  boxNode.remove();
 }
