@@ -11,8 +11,11 @@ export const hrBox: BoxComponent = {
     if (!editor) {
       return;
     }
-    box.getContainer().on('click', () => {
-      editor.selection.range.selectBox(box.node);
+    box.useEffect(() => {
+      box.getContainer().on('click', () => {
+        editor.selection.range.selectBox(box.node);
+      });
+      return () => box.getContainer().off('click');
     });
     return '<hr />';
   },
