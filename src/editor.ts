@@ -220,20 +220,6 @@ export class Editor {
     this.command.event.on('beforeexecute', () => this.commitUnsavedInputData());
   }
 
-  private bindBoxEvents(): void {
-    this.container.on('click', event => {
-      const targetNode = new Nodes(event.target as Element);
-      const targetBoxNode = targetNode.closest('lake-box');
-      if (targetBoxNode.length > 0) {
-        if (targetNode.closest('.lake-box-no-focus').length > 0) {
-          return;
-        }
-        const range = this.selection.range;
-        range.selectBox(targetBoxNode);
-      }
-    });
-  }
-
   private bindHistoryEvents(): void {
     this.history.event.on('undo', value => {
       this.event.emit('change', value);
@@ -317,7 +303,6 @@ export class Editor {
     if (!this.readonly) {
       document.addEventListener('selectionchange', this.selectionListener);
       this.bindInputEvents();
-      this.bindBoxEvents();
       this.bindHistoryEvents();
     }
     document.addEventListener('click', this.clickListener);

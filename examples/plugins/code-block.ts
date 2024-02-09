@@ -16,7 +16,7 @@ export const codeBlockBox: BoxComponent = {
     if (!editor) {
       return;
     }
-    const root = query('<div class="lake-box-no-focus" />');
+    const root = query('<div />');
     const container = box.getContainer();
     container.empty();
     container.append(root);

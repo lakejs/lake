@@ -6,7 +6,16 @@ import { Box } from '../models/box';
 export const imageBox: BoxComponent = {
   type: 'inline',
   name: 'image',
-  render: box => `<img src="${box.value.url}" />`,
+  render: box => {
+    const editor = box.getEditor();
+    if (!editor) {
+      return;
+    }
+    box.getContainer().on('click', () => {
+      editor.selection.range.selectBox(box.node);
+    });
+    return `<img src="${box.value.url}" />`;
+  },
   html: box => `<img src="${box.value.url}" />`,
 };
 

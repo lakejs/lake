@@ -6,7 +6,16 @@ import { Box } from '../models/box';
 export const hrBox: BoxComponent = {
   type: 'block',
   name: 'hr',
-  render: () => '<hr />',
+  render: box => {
+    const editor = box.getEditor();
+    if (!editor) {
+      return;
+    }
+    box.getContainer().on('click', () => {
+      editor.selection.range.selectBox(box.node);
+    });
+    return '<hr />';
+  },
   html: () => '<hr />',
 };
 
