@@ -9,7 +9,7 @@ import { HTMLParser } from '../parsers/html-parser';
 import { insertBookmark } from '../operations/insert-bookmark';
 import { Selection } from './selection';
 
-// Saves and controls the editor value history.
+// Saves and controls the history of the value of the editor.
 // Example:
 // before initialization: value: 'a', list: [], index: 0, canUndo: false
 // after initialization: value: 'a', list: ['a'], index: 1, canUndo: false

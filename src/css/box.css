@@ -2,23 +2,27 @@
   margin: 0;
   padding: 0;
   text-indent: 0;
+  grid-template-columns: 1px 1fr 1px;
 }
 .lake-container lake-box[type="inline"] {
-  display: inline-flex;
+  display: inline grid;
 }
 .lake-container lake-box[type="block"] {
-  display: flex;
+  display: block grid;
 }
 .lake-container lake-box .lake-box-strip {
-  display: inline;
+  display: block;
   min-width: 1px;
-  vertical-align: baseline;
+}
+.lake-container lake-box[type="inline"] .lake-box-strip {
   align-self: flex-end;
+}
+.lake-container lake-box[type="block"] .lake-box-strip {
+  align-self: stretch;
 }
 .lake-container lake-box .lake-box-strip ::selection {
   background: transparent;
 }
 .lake-container lake-box .lake-box-container {
   display: block;
-  width: calc(100% - 2px);
 }
