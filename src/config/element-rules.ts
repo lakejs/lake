@@ -38,10 +38,12 @@ export function getElementRules(): any {
     ul: {
       ...blockAttributeRules,
       type: 'checklist',
+      indent: /^\d+$/,
     },
     ol: {
       ...blockAttributeRules,
       start: /^\d+$/,
+      indent: /^\d+$/,
     },
     li: {
       value: ['true', 'false'],

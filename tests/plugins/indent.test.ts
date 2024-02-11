@@ -112,4 +112,28 @@ describe('plugin / indent', () => {
     );
   });
 
+  it('list: should adjust start attributes when indent first item', () => {
+    const content = `
+    <p>one</p>
+    <ol start="1"><li><focus />two</li></ol>
+    <ol start="2"><li>three</li></ol>
+    <ol start="3"><li>four</li></ol>
+    <p>five</p>
+    `;
+    const output = `
+    <p>one</p>
+    <ol start="1" indent="1"><li><focus />two</li></ol>
+    <ol start="1"><li>three</li></ol>
+    <ol start="2"><li>four</li></ol>
+    <p>five</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.command.execute('indent', 'increase');
+      },
+    );
+  });
+
 });

@@ -31,6 +31,12 @@ export const defaultValue = `
 <p style="text-align:center;">align</p>
 <ol start="1"><li>numbered list</li></ol>
 <ol start="2"><li>numbered list</li></ol>
+<ol start="1" indent="1"><li>numbered list</li></ol>
+<ol start="2" indent="1"><li>numbered list</li></ol>
+<ol start="1" indent="2"><li>numbered list</li></ol>
+<ol start="2" indent="2"><li>numbered list</li></ol>
+<ol start="1"><li>numbered list</li></ol>
+<ol start="2"><li>numbered list</li></ol>
 <ul><li>bulleted list</li></ul>
 <ul><li>bulleted list</li></ul>
 <ul type="checklist"><li value="true">checklist</li></ul>

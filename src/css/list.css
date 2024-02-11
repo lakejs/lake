@@ -5,6 +5,36 @@
   margin-bottom: 4px;
   padding: 0;
 }
+.lake-container ol[indent="1"] {
+  margin-left: 40px;
+}
+.lake-container ol[indent="2"] {
+  margin-left: 80px;
+}
+.lake-container ol[indent="3"] {
+  margin-left: 120px;
+}
+.lake-container ol[indent="4"] {
+  margin-left: 160px;
+}
+.lake-container ol[indent="5"] {
+  margin-left: 200px;
+}
+.lake-container ol[indent="6"] {
+  margin-left: 240px;
+}
+.lake-container ol[indent="7"] {
+  margin-left: 280px;
+}
+.lake-container ol[indent="8"] {
+  margin-left: 320px;
+}
+.lake-container ol[indent="9"] {
+  margin-left: 360px;
+}
+.lake-container ol[indent="10"] {
+  margin-left: 400px;
+}
 .lake-container ol li,
 .lake-container ul li {
   margin-left: 20px;
