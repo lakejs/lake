@@ -63,7 +63,11 @@ export default (editor: Editor) => {
         editor.selection.setBlocks('<p />');
         block = range.getBlocks()[0];
       }
-      if(block.css('margin-left') !== '' || block.css('text-indent') !== '') {
+      if(
+        block.css('margin-left') !== '' ||
+        block.css('text-indent') !== '' ||
+        block.attr('indent') !== ''
+      ) {
         setBlockIndent(block, 'decrease');
         editor.history.save();
         return;

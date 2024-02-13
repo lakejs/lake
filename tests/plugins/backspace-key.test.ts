@@ -428,4 +428,22 @@ describe('plugin / backspace-key', () => {
     );
   });
 
+  it('list: decreases indent', () => {
+    const content = `
+    <ul indent="1"><li><focus />foo</li></ul>
+    <p>bar</p>
+    `;
+    const output = `
+    <ul><li><focus />foo</li></ul>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
 });

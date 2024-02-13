@@ -100,7 +100,7 @@ describe('plugin / indent', () => {
     <p>bar</p>
     `;
     const output = `
-    <ul style="margin-left: 40px;"><li><anchor />foo<focus /></li></ul>
+    <ul indent="1"><li><anchor />foo<focus /></li></ul>
     <p>bar</p>
     `;
     testPlugin(
@@ -108,6 +108,80 @@ describe('plugin / indent', () => {
       output,
       editor => {
         editor.command.execute('indent', 'increase');
+      },
+    );
+  });
+
+  it('list: increases indent twice', () => {
+    const content = `
+    <ul><li><anchor />foo<focus /></li></ul>
+    <p>bar</p>
+    `;
+    const output = `
+    <ul indent="2"><li><anchor />foo<focus /></li></ul>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.command.execute('indent', 'increase');
+        editor.command.execute('indent', 'increase');
+      },
+    );
+  });
+
+  it('list: indent limit', () => {
+    const content = `
+    <ul indent="10"><li><anchor />foo<focus /></li></ul>
+    <p>bar</p>
+    `;
+    const output = `
+    <ul indent="10"><li><anchor />foo<focus /></li></ul>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.command.execute('indent', 'increase');
+      },
+    );
+  });
+
+  it('list: decreases indent once', () => {
+    const content = `
+    <ul indent="1"><li><anchor />foo<focus /></li></ul>
+    <p>bar</p>
+    `;
+    const output = `
+    <ul><li><anchor />foo<focus /></li></ul>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.command.execute('indent', 'decrease');
+      },
+    );
+  });
+
+  it('list: decreases indent twice', () => {
+    const content = `
+    <ul indent="2"><li><anchor />foo<focus /></li></ul>
+    <p>bar</p>
+    `;
+    const output = `
+    <ul><li><anchor />foo<focus /></li></ul>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.command.execute('indent', 'decrease');
+        editor.command.execute('indent', 'decrease');
       },
     );
   });
