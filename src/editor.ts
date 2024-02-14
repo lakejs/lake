@@ -42,6 +42,8 @@ export class Editor {
 
   private unsavedInputData: string;
 
+  private beforeunloadListener: EventListener;
+
   private selectionListener: EventListener;
 
   private clickListener: EventListener;
@@ -87,6 +89,9 @@ export class Editor {
 
     editors.set(this.container.id, this);
 
+    this.beforeunloadListener = () => {
+      this.commitUnsavedInputData();
+    };
     this.selectionListener = () => {
       this.selection.syncByRange();
       const range = this.selection.range;
@@ -301,6 +306,7 @@ export class Editor {
     Editor.plugin.loadAll(this);
     Editor.box.renderAll(this);
     if (!this.readonly) {
+      window.addEventListener('beforeunload', this.beforeunloadListener);
       document.addEventListener('selectionchange', this.selectionListener);
       this.bindInputEvents();
       this.bindHistoryEvents();
@@ -313,6 +319,7 @@ export class Editor {
   public remove(): void {
     this.container.remove();
     if (!this.readonly) {
+      window.removeEventListener('beforeunload', this.beforeunloadListener);
       document.removeEventListener('selectionchange', this.selectionListener);
     }
     document.removeEventListener('click', this.clickListener);
