@@ -5,6 +5,17 @@
   margin-bottom: 4px;
   padding: 0;
 }
+.lake-container ol[indent="1"] li,
+.lake-container ol[indent="4"] li,
+.lake-container ol[indent="7"] li,
+.lake-container ol[indent="10"] li {
+  list-style-type: lower-alpha;
+}
+.lake-container ol[indent="2"] li,
+.lake-container ol[indent="5"] li,
+.lake-container ol[indent="8"] li {
+  list-style-type: lower-roman;
+}
 .lake-container ol[indent="1"] {
   padding-left: 2em;
 }

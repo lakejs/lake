@@ -21,4 +21,10 @@ describe('utils / fix-numbered-list', () => {
     expect(container.html()).to.equal('<h1>foo</h1><h2>bar</h2>');
   });
 
+  it('with indent attribute', () => {
+    const container = query('<div><ol><li>one</li></ol><ol><li>one</li></ol><ol indent="1"><li>two</li></ol><ol indent="1"><li>two</li></ol></div>');
+    fixNumberedList(container.children());
+    expect(container.html()).to.equal('<ol start="1"><li>one</li></ol><ol start="2"><li>one</li></ol><ol indent="1" start="1"><li>two</li></ol><ol indent="1" start="2"><li>two</li></ol>');
+  });
+
 });

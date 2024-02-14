@@ -35,6 +35,9 @@ export function fixNumberedList(blocks: Nodes[]): void {
       index = 1;
     }
     if (block.name === 'ol') {
+      if (prev.name === 'ol' && prev.attr('indent') !== block.attr('indent')) {
+        index = 1;
+      }
       const currentStart = block.attr('start');
       const expectedStart = index.toString(10);
       if (currentStart !== expectedStart) {

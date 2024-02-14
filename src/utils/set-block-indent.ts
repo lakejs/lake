@@ -1,4 +1,5 @@
 import type { Nodes } from '../models/nodes';
+import { fixNumberedList } from './fix-numbered-list';
 
 export function setBlockIndent(block: Nodes, type: 'increase' | 'decrease'): void {
   if (block.isList) {
@@ -16,8 +17,9 @@ export function setBlockIndent(block: Nodes, type: 'increase' | 'decrease'): voi
     if (indent === 0) {
       block.removeAttr('indent');
     } else {
-      block.attr('indent', `${indent}`);
+      block.attr('indent', indent.toString(10));
     }
+    fixNumberedList([ block ]);
     return;
   }
   let value = Number.parseInt(block.css('margin-left'), 10) || 0;
