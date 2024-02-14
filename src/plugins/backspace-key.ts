@@ -1,9 +1,8 @@
 import type { Editor } from '..';
-import { mergeNodes } from '../utils';
+import { mergeNodes, setBlockIndent } from '../utils';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
 import { removeBox } from '../operations/remove-box';
-import { setBlockIndent } from './indent';
 
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('backspace', event => {

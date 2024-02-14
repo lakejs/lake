@@ -25,6 +25,7 @@ export * from './remove-zws';
 export * from './change-tag-name';
 export * from './fix-numbered-list';
 export * from './remove-br';
+export * from './set-block-indent';
 export * from './morph';
 
 // Other

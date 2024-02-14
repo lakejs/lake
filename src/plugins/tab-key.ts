@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { setBlockIndent } from './indent';
+import { setBlockIndent } from '../utils';
 
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('tab', event => {

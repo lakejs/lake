@@ -25,6 +25,7 @@ import './utils/remove-zws.test';
 import './utils/change-tag-name.test';
 import './utils/fix-numbered-list.test';
 import './utils/remove-br.test';
+import './utils/set-block-indent.test';
 import './utils/morph.test';
 
 // Models
