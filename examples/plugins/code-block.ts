@@ -23,6 +23,7 @@ export const codeBlockBox: BoxComponent = {
     const codeEditor = window.CodeMirror(root.get(0), {
       value: box.value.code ?? '',
       mode: 'javascript',
+      tabSize: 2,
       lineNumbers: true,
     });
     codeEditor.on('change', (cm: any) => {
