@@ -2,6 +2,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
+import image from '@rollup/plugin-image';
 import css from 'rollup-plugin-import-css';
 
 export default [{
@@ -23,6 +24,9 @@ export default [{
     typescript(),
     commonjs(),
     json(),
+    image({
+      dom: true,
+    }),
     css(),
   ],
 }, {
@@ -50,6 +54,9 @@ export default [{
     typescript(),
     commonjs(),
     json(),
+    image({
+      dom: true,
+    }),
     css(),
   ],
 }];

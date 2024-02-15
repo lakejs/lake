@@ -1,6 +1,7 @@
 import { Editor, Utils } from '../src';
 import codeBlock, { codeBlockBox } from './plugins/code-block';
 import { defaultValue } from './data/default-value';
+import { icons } from '../src/icons';
 
 const { query } = Utils;
 
@@ -76,6 +77,18 @@ editor.event.on('change', value => {
 });
 
 editor.create();
+
+icons.forEach(iconItem => {
+  const iconNode = query(iconItem.node);
+  iconNode.addClass('lake-toolbar-icon');
+  iconNode.attr({
+    width: '20px',
+    height: '20px',
+    'data-type': iconItem.name,
+    title: iconItem.title,
+  });
+  query('.lake-toolbar-group').eq(0).append(iconNode);
+});
 
 query('.lake-toolbar-icon').on('click', event => {
   event.preventDefault();
