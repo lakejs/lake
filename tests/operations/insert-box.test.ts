@@ -22,12 +22,44 @@ describe('operations / insert-box', () => {
     boxes.delete('blockBox');
   });
 
-  it('inserts a inline box', () => {
+  it('inserts an inline box into the end of the paragraph', () => {
     const content = `
     <p>foo<focus /></p>
     `;
     const output = `
     <p>foo<lake-box type="inline" name="inlineBox" focus="right"></lake-box></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertBox(range, 'inlineBox');
+      },
+    );
+  });
+
+  it('inserts an inline box into the left strip of box', () => {
+    const content = `
+    <p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>
+    `;
+    const output = `
+    <p>foo<lake-box type="inline" name="inlineBox" focus="right"></lake-box><lake-box type="inline" name="inlineBox"></lake-box>bar</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertBox(range, 'inlineBox');
+      },
+    );
+  });
+
+  it('inserts an inline box into the right strip of box', () => {
+    const content = `
+    <p>foo<lake-box type="inline" name="inlineBox" focus="right"></lake-box>bar</p>
+    `;
+    const output = `
+    <p>foo<lake-box type="inline" name="inlineBox"></lake-box><lake-box type="inline" name="inlineBox" focus="right"></lake-box>bar</p>
     `;
     testOperation(
       content,
