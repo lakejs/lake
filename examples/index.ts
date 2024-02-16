@@ -1,5 +1,4 @@
 import { Editor, Utils } from '../src';
-import codeBlock, { codeBlockBox } from './plugins/code-block';
 import { defaultValue } from './data/default-value';
 import { icons } from '../src/icons';
 
@@ -10,9 +9,6 @@ declare global {
     editor: Editor;
   }
 }
-
-Editor.box.add(codeBlockBox);
-Editor.plugin.add(codeBlock);
 
 window.DEBUG = true;
 

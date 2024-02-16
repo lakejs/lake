@@ -91,6 +91,7 @@ import './plugins/link.test';
 import './plugins/unlink.test';
 import './plugins/hr.test';
 import './plugins/image.test';
+import './plugins/code-block.test';
 import './plugins/enter-key.test';
 import './plugins/shift-enter-key.test';
 import './plugins/backspace-key.test';

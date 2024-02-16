@@ -1,6 +1,5 @@
-import { Editor, BoxComponent, Utils } from '../../src';
-
-const { query } = Utils;
+import type { BoxComponent } from '..';
+import { query } from '../utils';
 
 declare global {
   interface Window {
@@ -39,11 +38,4 @@ export const codeBlockBox: BoxComponent = {
       }, 0);
     });
   },
-};
-
-export default (editor: Editor) => {
-  editor.command.add('codeBlock', () => {
-    editor.selection.insertBox('codeBlock');
-    editor.history.save();
-  });
 };

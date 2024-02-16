@@ -5,12 +5,20 @@
     <title>Lake Tests</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../assets/mocha/mocha.css" />
+    <link rel="stylesheet" href="../assets/codemirror/codemirror.css" />
     <link rel="stylesheet" href="../dist/tests/bundle.css" />
+    <script src="../assets/chai.js"></script>
+    <script src="../assets/mocha/mocha.js"></script>
+    <script src="../assets/codemirror/codemirror.js"></script>
+    <script src="../assets/codemirror/runmode.js"></script>
+    <script src="../assets/codemirror/colorize.js"></script>
+    <script src="../assets/codemirror/javascript.js"></script>
+    <script src="../assets/codemirror/xml.js"></script>
+    <script src="../assets/codemirror/css.js"></script>
+    <script src="../assets/codemirror/htmlmixed.js"></script>
   </head>
   <body>
     <div id="mocha"></div>
-    <script src="../assets/chai.js"></script>
-    <script src="../assets/mocha/mocha.js"></script>
     <script class="mocha-init">
       mocha.setup('bdd');
       mocha.checkLeaks();
