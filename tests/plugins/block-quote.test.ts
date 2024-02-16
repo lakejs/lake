@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('plugin / blockquote', () => {
+describe('plugin / blockQuote', () => {
 
   it('no text is selected: sets a block', () => {
     const content = `
@@ -15,7 +15,7 @@ describe('plugin / blockquote', () => {
       content,
       output,
       editor => {
-        editor.command.execute('blockquote');
+        editor.command.execute('blockQuote');
       },
     );
   });
@@ -33,7 +33,7 @@ describe('plugin / blockquote', () => {
       content,
       output,
       editor => {
-        editor.command.execute('blockquote');
+        editor.command.execute('blockQuote');
       },
     );
   });
@@ -53,7 +53,7 @@ describe('plugin / blockquote', () => {
       content,
       output,
       editor => {
-        editor.command.execute('blockquote');
+        editor.command.execute('blockQuote');
       },
     );
   });

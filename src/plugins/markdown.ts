@@ -98,7 +98,7 @@ const blockSpaceList = [
   {
     re: /^>$/,
     getParameters: () => [
-      'blockquote',
+      'blockQuote',
     ],
   },
 ];

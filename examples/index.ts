@@ -48,7 +48,7 @@ const noParameterCommandNames = [
   'undo',
   'redo',
   'selectAll',
-  'blockquote',
+  'blockQuote',
   'bold',
   'italic',
   'underline',
