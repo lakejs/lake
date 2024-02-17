@@ -51,9 +51,9 @@
   },
   "scripts": {
     "start": "npm-run-all --parallel --print-label watch serve",
-    "watch": "rollup --watch --config rollup.config.dev.mjs",
+    "watch": "rollup --watch --config rollup.config.ts --configPlugin typescript",
     "serve": "http-server . --port 8080",
-    "build": "rimraf ./lib/ && rollup --config rollup.config.build.mjs",
+    "build": "rimraf ./lib/ && rollup --config rollup.config.ts --configPlugin typescript",
     "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,mjs\""
   },
   "simple-git-hooks": {

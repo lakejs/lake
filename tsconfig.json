@@ -5,7 +5,6 @@
     "target": "es6",
     "allowJs": false,
     "removeComments": false,
-    "sourceMap": true,
     "strict": true,
     "noImplicitAny": true,
     "resolveJsonModule": true,
