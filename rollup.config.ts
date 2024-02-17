@@ -1,3 +1,4 @@
+import type { RollupOptions } from 'rollup';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
@@ -6,7 +7,7 @@ import svg from 'rollup-plugin-svg-import';
 import css from 'rollup-plugin-import-css';
 import terser from '@rollup/plugin-terser';
 
-function getWatchConfig(type: 'examples' | 'tests') {
+function getWatchConfig(type: 'examples' | 'tests'): RollupOptions {
   return {
     input: `./${type}/index.ts`,
     output: {
@@ -38,7 +39,7 @@ function getWatchConfig(type: 'examples' | 'tests') {
   };
 }
 
-function getBuildConfig(type: 'iife' | 'es') {
+function getBuildConfig(type: 'iife' | 'es'): RollupOptions {
   if (type === 'iife') {
     return {
       input: './src/index.ts',
