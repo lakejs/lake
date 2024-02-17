@@ -75,15 +75,13 @@ editor.event.on('change', value => {
 editor.create();
 
 icons.forEach(iconItem => {
-  const iconNode = query(iconItem.node);
-  iconNode.addClass('lake-toolbar-icon');
-  iconNode.attr({
-    width: '20px',
-    height: '20px',
+  const buttonNode = query('<button class="lake-toolbar-icon" />');
+  buttonNode.attr({
     'data-type': iconItem.name,
     title: iconItem.title,
   });
-  query('.lake-toolbar-group').eq(0).append(iconNode);
+  buttonNode.append(iconItem.node);
+  query('.lake-toolbar-group').eq(0).append(buttonNode);
 });
 
 query('.lake-toolbar-icon').on('click', event => {

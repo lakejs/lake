@@ -3,7 +3,7 @@ import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import terser from '@rollup/plugin-terser';
-import image from '@rollup/plugin-image';
+import svg from 'rollup-plugin-svg-import';
 import css from 'rollup-plugin-import-css';
 
 export default [{
@@ -27,9 +27,7 @@ export default [{
     typescript(),
     commonjs(),
     json(),
-    image({
-      dom: true,
-    }),
+    svg(),
     css(),
   ],
 }, {
@@ -44,9 +42,7 @@ export default [{
     typescript(),
     commonjs(),
     json(),
-    image({
-      dom: true,
-    }),
+    svg(),
     css(),
   ],
 }];
