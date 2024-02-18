@@ -24,7 +24,7 @@ import underline from './underline.svg';
 import strikethrough from './strikethrough.svg';
 import code from './code.svg';
 import removeFormat from './remove-format.svg';
-// insert item
+// items that can be inserted
 import hr from './hr.svg';
 import link from './link.svg';
 import image from './image.svg';

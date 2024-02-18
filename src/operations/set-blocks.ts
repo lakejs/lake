@@ -66,6 +66,9 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
         }
       } else {
         const block = valueNode.clone(true);
+        if (node.isList && node.attr('indent') !== '') {
+          block.attr('indent', node.attr('indent'));
+        }
         const deepestBlock = getDeepest(block);
         let child = node.first();
         while(child.length > 0) {

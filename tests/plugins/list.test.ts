@@ -188,6 +188,32 @@ describe('plugin / list', () => {
     );
   });
 
+  it('should change multi-bulleted-list to multi-numbered-list', () => {
+    const content = `
+    <p>one</p>
+    <ul><li><anchor />two</li></ul>
+    <ul indent="1"><li>three</li></ul>
+    <ul indent="1"><li>four</li></ul>
+    <ul><li>five<focus /></li></ul>
+    <p>six</p>
+    `;
+    const output = `
+    <p>one</p>
+    <ol start="1"><li><anchor />two</li></ol>
+    <ol indent="1" start="1"><li>three</li></ol>
+    <ol indent="1" start="2"><li>four</li></ol>
+    <ol start="1"><li>five<focus /></li></ol>
+    <p>six</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.command.execute('list', 'numbered');
+      },
+    );
+  });
+
   it('should adjust start attributes when remove first item', () => {
     const content = `
     <p>one</p>
