@@ -8,6 +8,8 @@ import './css/box.css';
 import './css/hr.css';
 import './css/image.css';
 import './css/code-block.css';
+import './elements/box';
+import './elements/bookmark';
 import { BoxComponent } from './types/box';
 import * as Utils from './utils';
 import { Nodes } from './models/nodes';
@@ -31,6 +33,7 @@ import { fixList} from './operations/fix-list';
 import { insertBox} from './operations/insert-box';
 import { removeBox} from './operations/remove-box';
 import { Editor } from './editor';
+import { Toolbar } from './appearance/toolbar';
 import { hrBox } from './boxes/hr';
 import { imageBox } from './boxes/image';
 import { codeBlockBox } from './boxes/code-block';
@@ -114,6 +117,7 @@ Editor.plugin.add(markdown);
 
 export {
   Editor,
+  Toolbar,
   BoxComponent,
   Utils,
   Nodes,

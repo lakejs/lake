@@ -1,7 +1,5 @@
 import EventEmitter from 'eventemitter3';
 import pkg from '../package.json';
-import './elements/bookmark';
-import './elements/box';
 import { NativeNode } from './types/native';
 import { editors } from './storage/editors';
 import { denormalizeValue, forEach, normalizeValue, query } from './utils';
@@ -14,8 +12,6 @@ import { History } from './managers/history';
 import { Keystroke } from './managers/keystroke';
 import { BoxManager } from './managers/box-manager';
 import { Plugin } from './managers/plugin';
-
-type TargetType = string | NativeNode;
 
 type OptionsType = {[key: string]: any};
 
@@ -35,8 +31,6 @@ export class Editor {
   public static box = new BoxManager();
 
   public static plugin = new Plugin();
-
-  private target: TargetType;
 
   private options: OptionsType;
 
@@ -68,8 +62,7 @@ export class Editor {
 
   public box: BoxManager;
 
-  constructor(target: string | NativeNode, options = defaultOptions) {
-    this.target = target;
+  constructor(options = defaultOptions) {
     this.options = options;
     this.container = query('<div />');
     this.isComposing = false;
@@ -287,10 +280,10 @@ export class Editor {
     return value;
   }
 
-  // Creates an editor area and set default value to it.
-  public create(): void {
+  // Renders an editor area and set default value to it.
+  public render(target: string | Nodes | NativeNode): void {
     const container = this.container;
-    const targetNode = query(this.target);
+    const targetNode = query(target);
     targetNode.hide();
     const value = normalizeValue(this.options.defaultValue);
     const htmlParser = new HTMLParser(value);
@@ -315,8 +308,8 @@ export class Editor {
     document.addEventListener('mouseover', this.mouseoverListener);
   }
 
-  // Removes the editor.
-  public remove(): void {
+  // Destroys a rendered editor.
+  public unmount(): void {
     this.container.remove();
     if (!this.readonly) {
       window.removeEventListener('beforeunload', this.beforeunloadListener);

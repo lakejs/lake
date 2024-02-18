@@ -77,14 +77,14 @@ export function testPlugin(
 ) {
   const targetNode = query('<div />');
   query(document.body).append(targetNode);
-  const editor = new Editor(targetNode.get(0), {
+  const editor = new Editor({
     className: 'my-editor-container',
     defaultValue: content,
   });
-  editor.create();
+  editor.render(targetNode.get(0));
   callback(editor);
   const html = editor.getValue();
-  editor.remove();
+  editor.unmount();
   targetNode.remove();
   debug(`output: ${html}`);
   expect(html).to.equal(formatHTML(output));

@@ -2,6 +2,7 @@
 ~*
 .DS_Store
 Thumbs.db
+desktop.ini
 /.vscode
 /node_modules
 /dist

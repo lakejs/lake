@@ -52,72 +52,72 @@ describe('editor', () => {
   });
 
   it('constructor: sets className', () => {
-    const editor = new Editor(targetNode.get(0), {
+    const editor = new Editor({
       className: 'my-editor-container',
     });
-    editor.create();
+    editor.render(targetNode.get(0));
     const hasClass = editor.container.hasClass('my-editor-container');
-    editor.remove();
+    editor.unmount();
     expect(hasClass).to.equal(true);
   });
 
   it('constructor: sets spellcheck', () => {
-    const editor = new Editor(targetNode.get(0), {
+    const editor = new Editor({
       spellcheck: true,
     });
-    editor.create();
+    editor.render(targetNode.get(0));
     const spellcheck = editor.container.attr('spellcheck');
-    editor.remove();
+    editor.unmount();
     expect(spellcheck).to.equal('true');
   });
 
   it('constructor: empty default value', () => {
     const input = '';
     const output = '';
-    const editor = new Editor(targetNode.get(0), {
+    const editor = new Editor({
       className: 'my-editor-container',
       defaultValue: input,
     });
-    editor.create();
+    editor.render(targetNode.get(0));
     const value = editor.getValue();
     debug(`output: ${value}`);
-    editor.remove();
+    editor.unmount();
     expect(value).to.equal(output);
   });
 
   it('method: getValue', () => {
     const input = '<p><strong>\u200B# <focus />foo</strong></p>';
     const output = '<p><strong># <focus />foo</strong></p>';
-    const editor = new Editor(targetNode.get(0), {
+    const editor = new Editor({
       defaultValue: input,
     });
-    editor.create();
+    editor.render(targetNode.get(0));
     const value = editor.getValue();
     debug(`output: ${value}`);
-    editor.remove();
+    editor.unmount();
     expect(value).to.equal(output);
   });
 
   it('method: setValue', () => {
     const input = '<p><strong>\u200B# <focus />foo</strong></p>';
     const output = '<p><strong># <focus />foo</strong></p>';
-    const editor = new Editor(targetNode.get(0), {
+    const editor = new Editor({
       className: 'my-editor-container',
     });
-    editor.create();
+    editor.render(targetNode.get(0));
     editor.setValue(input);
     const value = editor.getValue();
     debug(`output: ${value}`);
-    editor.remove();
+    editor.unmount();
     expect(value).to.equal(output);
   });
 
   it('selection event: should not have any class', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
-    const editor = new Editor(targetNode.get(0), {
+    const editor = new Editor({
       className: 'my-editor-container',
     });
-    editor.create();
+    editor.render(targetNode.get(0));
     editor.setValue(input);
     const boxNode = editor.container.find('lake-box');
     const box = new Box(boxNode);
@@ -125,7 +125,7 @@ describe('editor', () => {
     window.setTimeout(() => {
       const isActivated = boxContainer.hasClass('lake-box-activated');
       const isSelected = boxContainer.hasClass('lake-box-selected');
-      editor.remove();
+      editor.unmount();
       expect(isActivated).to.equal(false);
       expect(isSelected).to.equal(false);
       done();
@@ -134,10 +134,10 @@ describe('editor', () => {
 
   it('selection event: should have activated class', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
-    const editor = new Editor(targetNode.get(0), {
+    const editor = new Editor({
       className: 'my-editor-container',
     });
-    editor.create();
+    editor.render(targetNode.get(0));
     editor.setValue(input);
     const range = editor.selection.range;
     const boxNode = editor.container.find('lake-box');
@@ -147,7 +147,7 @@ describe('editor', () => {
     window.setTimeout(() => {
       const isActivated = boxContainer.hasClass('lake-box-activated');
       const isSelected = boxContainer.hasClass('lake-box-selected');
-      editor.remove();
+      editor.unmount();
       expect(isActivated).to.equal(true);
       expect(isSelected).to.equal(false);
       done();
@@ -156,10 +156,10 @@ describe('editor', () => {
 
   it('selection event: should have selected class', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
-    const editor = new Editor(targetNode.get(0), {
+    const editor = new Editor({
       className: 'my-editor-container',
     });
-    editor.create();
+    editor.render(targetNode.get(0));
     editor.setValue(input);
     const range = editor.selection.range;
     const boxNode = editor.container.find('lake-box');
@@ -169,7 +169,7 @@ describe('editor', () => {
     window.setTimeout(() => {
       const isActivated = boxContainer.hasClass('lake-box-activated');
       const isSelected = boxContainer.hasClass('lake-box-selected');
-      editor.remove();
+      editor.unmount();
       expect(isActivated).to.equal(false);
       expect(isSelected).to.equal(true);
       done();
@@ -179,15 +179,15 @@ describe('editor', () => {
   it('input event: input text in the left strip of inline box', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
     const output = '<p>fooa<focus /><lake-box type="inline" name="inlineBox"></lake-box>bar</p>';
-    const editor = new Editor(targetNode.get(0), {
+    const editor = new Editor({
       className: 'my-editor-container',
     });
-    editor.create();
+    editor.render(targetNode.get(0));
     editor.setValue(input);
     editor.event.on('input', () => {
       const value = editor.getValue();
       debug(`output: ${value}`);
-      editor.remove();
+      editor.unmount();
       expect(value).to.equal(output);
       done();
     });
@@ -198,15 +198,15 @@ describe('editor', () => {
   it('input event: input text in the right strip of inline box', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="right"></lake-box>bar</p>';
     const output = '<p>foo<lake-box type="inline" name="inlineBox"></lake-box>a<focus />bar</p>';
-    const editor = new Editor(targetNode.get(0), {
+    const editor = new Editor({
       className: 'my-editor-container',
     });
-    editor.create();
+    editor.render(targetNode.get(0));
     editor.setValue(input);
     editor.event.on('input', () => {
       const value = editor.getValue();
       debug(`output: ${value}`);
-      editor.remove();
+      editor.unmount();
       expect(value).to.equal(output);
       done();
     });
@@ -217,15 +217,15 @@ describe('editor', () => {
   it('input event: input composition text in the left strip of inline box', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
     const output = '<p>foo你好<focus /><lake-box type="inline" name="inlineBox"></lake-box>bar</p>';
-    const editor = new Editor(targetNode.get(0), {
+    const editor = new Editor({
       className: 'my-editor-container',
     });
-    editor.create();
+    editor.render(targetNode.get(0));
     editor.setValue(input);
     editor.event.on('input', () => {
       const value = editor.getValue();
       debug(`output: ${value}`);
-      editor.remove();
+      editor.unmount();
       expect(value).to.equal(output);
       done();
     });
@@ -237,17 +237,17 @@ describe('editor', () => {
   it('always keeps empty paragraph', () => {
     const input = '<p>foo</p>';
     const output = '<p><br /><focus /></p>';
-    const editor = new Editor(targetNode.get(0), {
+    const editor = new Editor({
       className: 'my-editor-container',
     });
-    editor.create();
+    editor.render(targetNode.get(0));
     editor.setValue(input);
     editor.command.execute('selectAll');
     editor.selection.deleteContents();
     editor.history.save();
     const value = editor.getValue();
     debug(`output: ${value}`);
-    editor.remove();
+    editor.unmount();
     expect(value).to.equal(output);
   });
   */
@@ -255,15 +255,15 @@ describe('editor', () => {
   it('readonly mode', () => {
     const input = '<p>foo<focus /></p>';
     const output = '<p>foo<focus /></p>';
-    const view = new Editor(targetNode.get(0), {
+    const view = new Editor({
       readonly: true,
       defaultValue: input,
     });
-    view.create();
+    view.render(targetNode.get(0));
     const readonly = view.readonly;
     const value = view.getValue();
     debug(`output: ${value}`);
-    view.remove();
+    view.unmount();
     expect(readonly).to.equal(true);
     expect(value).to.equal(output);
   });

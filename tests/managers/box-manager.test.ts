@@ -25,12 +25,12 @@ describe('managers / box-manager', () => {
       render: () => 'bar',
     });
     expect(box.getNames().indexOf('managerTest') >= 0).to.equal(true);
-    const editor = new Editor(targetNode.get(0), {
+    const editor = new Editor({
       defaultValue: '<lake-box type="block" name="managerTest"></lake-box>',
     });
-    editor.create();
+    editor.render(targetNode.get(0));
     box.renderAll(editor);
-    editor.remove();
+    editor.unmount();
     box.remove('managerTest');
     expect(box.findAll(editor).eq(0).children().length).to.equal(3);
   });

@@ -6,15 +6,15 @@ import { Editor } from '../../src/editor';
 
 describe('managers / plugin', () => {
 
-  let container: Nodes;
+  let targetNode: Nodes;
 
   beforeEach(() => {
-    container = query('<div contenteditable="true"></div>');
-    query(document.body).append(container);
+    targetNode = query('<div />');
+    query(document.body).append(targetNode);
   });
 
   afterEach(() => {
-    container.remove();
+    targetNode.remove();
   });
 
   it('should load a plugin', () => {
@@ -23,12 +23,12 @@ describe('managers / plugin', () => {
     plugin.add((editor: Editor) => {
       editorValue = editor.getValue();
     });
-    const editor = new Editor(container.get(0), {
+    const editor = new Editor({
       defaultValue: '<p>foo</p>',
     });
-    editor.create();
+    editor.render(targetNode.get(0));
     plugin.loadAll(editor);
-    editor.remove();
+    editor.unmount();
     expect(editorValue).to.equal('<p>foo</p>');
   });
 
