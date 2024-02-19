@@ -12,35 +12,12 @@
       .lake-editor {
         visibility: hidden;
       }
-      .lake-editor,
+      .lake-toolbar,
       .lake-container {
-        border: 1px solid #ccc;
-        width: 1024px;
-        height: 512px;
+        width: 600px;
       }
-      .lake-toolbar {
-        width: 1024px;
-        font-size: 0;
-        margin: 10px 0;
-      }
-      .lake-toolbar-group {
-        margin-top: 10px;
-      }
-      .lake-toolbar-icon {
-        display: inline-block;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        background: #fff;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 14px;
-        padding: 5px 10px;
-        margin-right: 5px;
-        cursor: pointer;
-        user-select: none;
-      }
-      .lake-toolbar-icon svg {
-        width: 16px;
-        height: 16px;
+      .lake-container {
+        height: 600px;
       }
     </style>
     <script src="../assets/codemirror/codemirror.js"></script>
@@ -52,25 +29,8 @@
     <script src="../assets/codemirror/htmlmixed.js"></script>
   </head>
   <body>
-    <h1>Lake Demo</h1>
-    <div class="lake-toolbar">
-      <div class="lake-toolbar-group">
-      </div>
-      <div class="lake-toolbar-group">
-        <button class="lake-toolbar-icon" data-type="h1">H1</button>
-        <button class="lake-toolbar-icon" data-type="h2">H2</button>
-        <button class="lake-toolbar-icon" data-type="h3">H3</button>
-        <button class="lake-toolbar-icon" data-type="p">Paragraph</button>
-      </div>
-      <div class="lake-toolbar-group">
-        <button class="lake-toolbar-icon" data-type="superscript">Superscript</button>
-        <button class="lake-toolbar-icon" data-type="subscript">Subscript</button>
-        <button class="lake-toolbar-icon" data-type="fontFamily">Font family</button>
-        <button class="lake-toolbar-icon" data-type="fontSize">Font size</button>
-        <button class="lake-toolbar-icon" data-type="fontColor">Font color</button>
-        <button class="lake-toolbar-icon" data-type="highlight">Highlight</button>
-      </div>
-    </div>
+    <h1>Lake Editor</h1>
+    <div class="lake-toolbar"></div>
     <div class="lake-editor"></div>
     <script src="../dist/examples/bundle.js"></script>
   </body>

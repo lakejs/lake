@@ -8,6 +8,7 @@ import './css/box.css';
 import './css/hr.css';
 import './css/image.css';
 import './css/code-block.css';
+import './css/toolbar.css';
 import './elements/box';
 import './elements/bookmark';
 import { BoxComponent } from './types/box';

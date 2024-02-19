@@ -51,31 +51,62 @@ const noParameterCommandNames = [
   'codeBlock',
 ];
 
+const defaultConfig: string[] = [
+  'undo',
+  'redo',
+  '|',
+  'formatPainter',
+  'removeFormat',
+  'bold',
+  'italic',
+  'underline',
+  '|',
+  'numberedList',
+  'alignLeft',
+  'increaseIndent',
+  '|',
+  'image',
+  'link',
+  'hr',
+];
+
 export class Toolbar {
   private editor: Editor;
 
-  constructor(editor: Editor) {
+  private config: string[];
+
+  constructor(editor: Editor, config?: string[]) {
     this.editor = editor;
+    this.config = config || defaultConfig;
   }
 
   public render(target: string | Nodes | NativeNode) {
     const targetNode = query(target);
     const editor = this.editor;
-    icons.forEach(iconItem => {
-      const buttonNode = query('<button class="lake-toolbar-icon" />');
-      buttonNode.attr({
+    this.config.forEach(name => {
+      if (name === '|') {
+        const separatorNode = query('<div class="lake-toolbar-separator" />');
+        targetNode.append(separatorNode);
+        return;
+      }
+      const iconItem = icons.get(name);
+      if (!iconItem) {
+        return;
+      }
+      const itemNode = query('<button class="lake-toolbar-item" />');
+      itemNode.attr({
         'data-type': iconItem.name,
         title: iconItem.title,
       });
-      buttonNode.append(iconItem.node);
-      targetNode.eq(0).append(buttonNode);
+      itemNode.append(iconItem.node);
+      targetNode.append(itemNode);
     });
 
     targetNode.on('click', event => {
       event.preventDefault();
       event.stopPropagation();
       editor.focus();
-      const targetButton = query(event.target as Element).closest('.lake-toolbar-icon');
+      const targetButton = query(event.target as Element).closest('.lake-toolbar-item');
       const type = targetButton.attr('data-type');
       if (headingTypes.has(type)) {
         editor.command.execute('heading', type);

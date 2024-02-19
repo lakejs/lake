@@ -37,7 +37,7 @@ type IconItem = {
   title: string,
 };
 
-export const icons: IconItem[] = [
+const iconList: IconItem[] = [
   {
     'name': 'undo',
     'node': undo(),
@@ -159,3 +159,11 @@ export const icons: IconItem[] = [
     'title': 'Table',
   },
 ];
+
+const iconMap: Map<string, IconItem> = new Map();
+
+iconList.forEach(item => {
+  iconMap.set(item.name, item);
+});
+
+export const icons = iconMap;
