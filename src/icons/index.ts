@@ -2,6 +2,9 @@
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
+// basic
+import plus from './plus.svg';
+import more from './more.svg';
 // history
 import undo from './undo.svg';
 import redo from './redo.svg';
@@ -38,6 +41,16 @@ type IconItem = {
 };
 
 const iconList: IconItem[] = [
+  {
+    'name': 'plus',
+    'node': plus(),
+    'title': 'Insert more items',
+  },
+  {
+    'name': 'more',
+    'node': more(),
+    'title': 'Show more items',
+  },
   {
     'name': 'undo',
     'node': undo(),

@@ -68,6 +68,8 @@ const defaultConfig: string[] = [
   'image',
   'link',
   'hr',
+  '|',
+  'more',
 ];
 
 export class Toolbar {
