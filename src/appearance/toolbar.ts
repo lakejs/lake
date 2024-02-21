@@ -55,6 +55,8 @@ const defaultConfig: string[] = [
   'undo',
   'redo',
   '|',
+  'heading',
+  '|',
   'formatPainter',
   'removeFormat',
   'bold',
@@ -67,7 +69,6 @@ const defaultConfig: string[] = [
   '|',
   'image',
   'link',
-  'hr',
   '|',
   'more',
 ];
@@ -145,6 +146,16 @@ export class Toolbar {
       if (name === '|') {
         const separatorNode = query('<div class="lake-toolbar-separator" />');
         this.root.append(separatorNode);
+        return;
+      }
+      if (name === 'heading') {
+        const dropdownNode = query('<div class="lake-dropdown"><div class="lake-dropdown-title"><div class="lake-dropdown-text">Heading 1</div><div class="lake-dropdown-icon"></div></div></div>');
+        const downIconItem = icons.get('down');
+        if (downIconItem) {
+          dropdownNode.find('.lake-dropdown-icon').append(downIconItem.node);
+        }
+        dropdownNode.append('<ul class="lake-dropdown-menu"><li>Heading 1</li><li>Heading 2</li><li>Heading 3</li><li>Paragraph</li></ul>');
+        this.root.append(dropdownNode);
         return;
       }
       const iconItem = icons.get(name);
