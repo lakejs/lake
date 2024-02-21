@@ -5,6 +5,7 @@
 // basic
 import plus from './plus.svg';
 import more from './more.svg';
+import down from './down.svg';
 // history
 import undo from './undo.svg';
 import redo from './redo.svg';
@@ -44,12 +45,17 @@ const iconList: IconItem[] = [
   {
     'name': 'plus',
     'node': plus(),
-    'title': 'Insert more items',
+    'title': 'Show more items',
   },
   {
     'name': 'more',
     'node': more(),
     'title': 'Show more items',
+  },
+  {
+    'name': 'down',
+    'node': down(),
+    'title': 'Show more options',
   },
   {
     'name': 'undo',

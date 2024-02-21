@@ -77,39 +77,22 @@ export class Toolbar {
 
   private config: string[];
 
+  private root: Nodes;
+
   constructor(editor: Editor, config?: string[]) {
     this.editor = editor;
     this.config = config || defaultConfig;
+    this.root = query('<div />');
   }
 
-  public render(target: string | Nodes | NativeNode) {
-    const targetNode = query(target);
+  private bindClickEvent() {
     const editor = this.editor;
-    this.config.forEach(name => {
-      if (name === '|') {
-        const separatorNode = query('<div class="lake-toolbar-separator" />');
-        targetNode.append(separatorNode);
-        return;
-      }
-      const iconItem = icons.get(name);
-      if (!iconItem) {
-        return;
-      }
-      const itemNode = query('<button class="lake-toolbar-item" />');
-      itemNode.attr({
-        'data-type': iconItem.name,
-        title: iconItem.title,
-      });
-      itemNode.append(iconItem.node);
-      targetNode.append(itemNode);
-    });
-
-    targetNode.on('click', event => {
+    this.root.on('click', event => {
       event.preventDefault();
       event.stopPropagation();
       editor.focus();
-      const targetButton = query(event.target as Element).closest('.lake-toolbar-item');
-      const type = targetButton.attr('data-type');
+      const targetItem = query(event.target as Element).closest('.lake-toolbar-item');
+      const type = targetItem.attr('data-type');
       if (headingTypes.has(type)) {
         editor.command.execute('heading', type);
         return;
@@ -154,5 +137,28 @@ export class Toolbar {
         editor.command.execute(type);
       }
     });
+  }
+
+  public render(target: string | Nodes | NativeNode) {
+    this.root = query(target);
+    this.config.forEach(name => {
+      if (name === '|') {
+        const separatorNode = query('<div class="lake-toolbar-separator" />');
+        this.root.append(separatorNode);
+        return;
+      }
+      const iconItem = icons.get(name);
+      if (!iconItem) {
+        return;
+      }
+      const itemNode = query('<button class="lake-toolbar-item" />');
+      itemNode.attr({
+        'data-type': iconItem.name,
+        title: iconItem.title,
+      });
+      itemNode.append(iconItem.node);
+      this.root.append(itemNode);
+    });
+    this.bindClickEvent();
   }
 }

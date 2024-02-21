@@ -13,7 +13,7 @@
   border: 0;
   background-color: #fff;
   padding: 6px;
-  margin: 2px 4px;
+  margin: 2px;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
@@ -30,7 +30,7 @@
   display: inline-block;
   width: 1px;
   height: 20px;
-  margin: 0 6px;
+  margin: 0 4px;
   border-left: 1px solid #d9d9d9;
   vertical-align: middle;
 }
