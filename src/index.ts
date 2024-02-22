@@ -1,4 +1,4 @@
-import './css/editor.css';
+import './css/core.css';
 import './css/mark.css';
 import './css/format-painter.css';
 import './css/heading.css';

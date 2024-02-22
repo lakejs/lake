@@ -7,7 +7,7 @@
   cursor: pointer;
 }
 .lake-container lake-box[name="hr"] .lake-box-hovered {
-  background-color: #0000000a;
+  background-color: var(--background-hover-color);
 }
 .lake-container lake-box[name="hr"] .lake-box-selected {
   background-color: var(--selection-background-color);
