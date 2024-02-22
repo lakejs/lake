@@ -9,6 +9,7 @@
 .lake-toolbar .lake-dropdown {
   position: relative;
   font-size: 14px;
+  user-select: none;
 }
 .lake-toolbar .lake-dropdown-title {
   display: flex;
@@ -16,7 +17,6 @@
   margin: 0 2px;
   border-radius: 5px;
   cursor: pointer;
-  user-select: none;
 }
 .lake-toolbar .lake-dropdown-title:hover {
   background-color: #0000000a;
@@ -42,6 +42,7 @@
   border: 1px solid #d9d9d9;
   border-radius: 5px;
   background-color: #fff;
+  display: none;
 }
 .lake-dropdown .lake-dropdown-menu li {
   padding: 6px 10px;

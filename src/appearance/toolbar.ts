@@ -4,16 +4,22 @@ import { icons } from '../icons';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 
-const headingTypes = new Set([
-  'h1',
-  'h2',
-  'h3',
-  'h4',
-  'h5',
-  'h6',
-  'p',
-]);
+type MenuItem = {
+  value: string,
+  text: string,
+};
 
+type ToolbarItem = {
+  name: string,
+  type: 'button' | 'dropdown',
+  text?: string,
+  icon?: NativeNode,
+  tooltip: string,
+  menu?: MenuItem[],
+  callback: (editor: Editor, value?: string) => void,
+};
+
+/*
 const listTypes = new Map([
   ['numberedList', 'numbered'],
   ['bulletedList', 'bulleted'],
@@ -33,22 +39,121 @@ const indentTypes = new Map([
 ]);
 
 const noParameterCommandNames = [
-  'undo',
-  'redo',
   'selectAll',
   'blockQuote',
-  'bold',
-  'italic',
-  'underline',
   'strikethrough',
   'subscript',
   'superscript',
   'code',
-  'removeFormat',
-  'formatPainter',
   'unlink',
   'hr',
   'codeBlock',
+];
+*/
+
+const toolbarItemList: ToolbarItem[] = [
+  {
+    name: 'undo',
+    type: 'button',
+    icon: icons.get('undo'),
+    tooltip: 'Undo',
+    callback: editor => {
+      editor.command.execute('undo');
+    },
+  },
+  {
+    name: 'redo',
+    type: 'button',
+    icon: icons.get('redo'),
+    tooltip: 'Redo',
+    callback: editor => {
+      editor.command.execute('redo');
+    },
+  },
+  {
+    name: 'formatPainter',
+    type: 'button',
+    icon: icons.get('formatPainter'),
+    tooltip: 'Format Painter',
+    callback: editor => {
+      editor.command.execute('formatPainter');
+    },
+  },
+  {
+    name: 'removeFormat',
+    type: 'button',
+    icon: icons.get('removeFormat'),
+    tooltip: 'Remove Format',
+    callback: editor => {
+      editor.command.execute('removeFormat');
+    },
+  },
+  {
+    name: 'bold',
+    type: 'button',
+    icon: icons.get('bold'),
+    tooltip: 'Bold',
+    callback: editor => {
+      editor.command.execute('bold');
+    },
+  },
+  {
+    name: 'italic',
+    type: 'button',
+    icon: icons.get('italic'),
+    tooltip: 'Italic',
+    callback: editor => {
+      editor.command.execute('italic');
+    },
+  },
+  {
+    name: 'underline',
+    type: 'button',
+    icon: icons.get('underline'),
+    tooltip: 'Underline',
+    callback: editor => {
+      editor.command.execute('underline');
+    },
+  },
+  {
+    name: 'heading',
+    type: 'dropdown',
+    text: 'Heading 1',
+    tooltip: 'Heading',
+    menu: [
+      {
+        value: 'h1',
+        text: 'Heading 1',
+      },
+      {
+        value: 'h2',
+        text: 'Heading 2',
+      },
+      {
+        value: 'h3',
+        text: 'Heading 3',
+      },
+      {
+        value: 'h4',
+        text: 'Heading 4',
+      },
+      {
+        value: 'h5',
+        text: 'Heading 5',
+      },
+      {
+        value: 'h6',
+        text: 'Heading 6',
+      },
+      {
+        value: 'p',
+        text: 'Paragraph',
+      },
+    ],
+    callback: (editor, value) => {
+      editor.command.execute('heading', value);
+    },
+  },
 ];
 
 const defaultConfig: string[] = [
@@ -62,16 +167,13 @@ const defaultConfig: string[] = [
   'bold',
   'italic',
   'underline',
-  '|',
-  'numberedList',
-  'alignLeft',
-  'increaseIndent',
-  '|',
-  'image',
-  'link',
-  '|',
-  'more',
 ];
+
+const toolbarItemMap: Map<string, ToolbarItem> = new Map();
+
+toolbarItemList.forEach(item => {
+  toolbarItemMap.set(item.name, item);
+});
 
 export class Toolbar {
   private editor: Editor;
@@ -86,6 +188,7 @@ export class Toolbar {
     this.root = query('<div />');
   }
 
+  /*
   private bindClickEvent() {
     const editor = this.editor;
     this.root.on('click', event => {
@@ -94,10 +197,6 @@ export class Toolbar {
       editor.focus();
       const targetItem = query(event.target as Element).closest('.lake-toolbar-item');
       const type = targetItem.attr('data-type');
-      if (headingTypes.has(type)) {
-        editor.command.execute('heading', type);
-        return;
-      }
       if (listTypes.has(type)) {
         editor.command.execute('list', listTypes.get(type));
         return;
@@ -139,37 +238,83 @@ export class Toolbar {
       }
     });
   }
+  */
+
+  private appendButton(item: ToolbarItem) {
+    const editor = this.editor;
+    const buttonNode = query('<button class="lake-toolbar-item" />');
+    buttonNode.attr({
+      title: item.tooltip,
+    });
+    if (item.icon) {
+      buttonNode.append(item.icon);
+    }
+    this.root.append(buttonNode);
+    buttonNode.on('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      editor.focus();
+      item.callback(editor);
+    });
+  }
+
+  private appendSeparator() {
+    this.root.append('<div class="lake-toolbar-separator" />');
+  }
+
+  private appendDropdown(item: ToolbarItem) {
+    const editor = this.editor;
+    const dropdownNode = query('<div class="lake-dropdown" />');
+    const titleNode = query(`<div class="lake-dropdown-title"><div class="lake-dropdown-text">${item.text}</div><div class="lake-dropdown-icon"></div></div>`);
+    const textNode = titleNode.find('.lake-dropdown-text');
+    const icon = icons.get('down');
+    if (icon) {
+      titleNode.find('.lake-dropdown-icon').append(icon);
+    }
+    const menuNode = query('<ul class="lake-dropdown-menu" />');
+    if (item.menu) {
+      for (const menuItem of item.menu) {
+        menuNode.append(`<li data-value="${menuItem.value}">${menuItem.text}</li>`);
+      }
+      dropdownNode.append(menuNode);
+    }
+    dropdownNode.append(titleNode);
+    dropdownNode.append(menuNode);
+    this.root.append(dropdownNode);
+    titleNode.on('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      menuNode.show();
+    });
+    menuNode.on('click', event => {
+      event.preventDefault();
+      editor.focus();
+      const listItem = query(event.target as NativeNode).closest('li');
+      const value = listItem.attr('data-value');
+      textNode.html(listItem.text());
+      item.callback(editor, value);
+    });
+    editor.event.on('click', () => menuNode.hide());
+  }
 
   public render(target: string | Nodes | NativeNode) {
     this.root = query(target);
     this.config.forEach(name => {
       if (name === '|') {
-        const separatorNode = query('<div class="lake-toolbar-separator" />');
-        this.root.append(separatorNode);
+        this.appendSeparator();
         return;
       }
-      if (name === 'heading') {
-        const dropdownNode = query('<div class="lake-dropdown"><div class="lake-dropdown-title"><div class="lake-dropdown-text">Heading 1</div><div class="lake-dropdown-icon"></div></div></div>');
-        const downIconItem = icons.get('down');
-        if (downIconItem) {
-          dropdownNode.find('.lake-dropdown-icon').append(downIconItem.node);
-        }
-        dropdownNode.append('<ul class="lake-dropdown-menu"><li>Heading 1</li><li>Heading 2</li><li>Heading 3</li><li>Paragraph</li></ul>');
-        this.root.append(dropdownNode);
+      const item = toolbarItemMap.get(name);
+      if (!item) {
         return;
       }
-      const iconItem = icons.get(name);
-      if (!iconItem) {
+      if (item.type === 'button') {
+        this.appendButton(item);
         return;
       }
-      const itemNode = query('<button class="lake-toolbar-item" />');
-      itemNode.attr({
-        'data-type': iconItem.name,
-        title: iconItem.title,
-      });
-      itemNode.append(iconItem.node);
-      this.root.append(itemNode);
+      if (item.type === 'dropdown') {
+        this.appendDropdown(item);
+      }
     });
-    this.bindClickEvent();
   }
 }

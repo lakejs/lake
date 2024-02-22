@@ -2,6 +2,7 @@
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
+import { NativeNode } from '../types/native';
 // basic
 import plus from './plus.svg';
 import more from './more.svg';
@@ -35,154 +36,32 @@ import image from './image.svg';
 import codeBlock from './code-block.svg';
 import table from './table.svg';
 
-type IconItem = {
-  name: string,
-  node: NativeNode,
-  title: string,
-};
-
-const iconList: IconItem[] = [
-  {
-    'name': 'plus',
-    'node': plus(),
-    'title': 'Show more items',
-  },
-  {
-    'name': 'more',
-    'node': more(),
-    'title': 'Show more items',
-  },
-  {
-    'name': 'down',
-    'node': down(),
-    'title': 'Show more options',
-  },
-  {
-    'name': 'undo',
-    'node': undo(),
-    'title': 'Undo',
-  },
-  {
-    'name': 'redo',
-    'node': redo(),
-    'title': 'Redo',
-  },
-  {
-    'name': 'blockQuote',
-    'node': blockQuote(),
-    'title': 'Block quote',
-  },
-  {
-    'name': 'numberedList',
-    'node': numberedList(),
-    'title': 'Numbered List',
-  },
-  {
-    'name': 'bulletedList',
-    'node': bulletedList(),
-    'title': 'Bulleted List',
-  },
-  {
-    'name': 'checklist',
-    'node': checklist(),
-    'title': 'Checklist',
-  },
-  {
-    'name': 'alignLeft',
-    'node': alignLeft(),
-    'title': 'Align Left',
-  },
-  {
-    'name': 'alignCenter',
-    'node': alignCenter(),
-    'title': 'Align Center',
-  },
-  {
-    'name': 'alignRight',
-    'node': alignRight(),
-    'title': 'Align Right',
-  },
-  {
-    'name': 'alignJustify',
-    'node': alignJustify(),
-    'title': 'Align Justify',
-  },
-  {
-    'name': 'increaseIndent',
-    'node': increaseIndent(),
-    'title': 'Increase Indent',
-  },
-  {
-    'name': 'decreaseIndent',
-    'node': decreaseIndent(),
-    'title': 'Decrease Indent',
-  },
-  {
-    'name': 'formatPainter',
-    'node': formatPainter(),
-    'title': 'Format Painter',
-  },
-  {
-    'name': 'bold',
-    'node': bold(),
-    'title': 'Bold',
-  },
-  {
-    'name': 'italic',
-    'node': italic(),
-    'title': 'Italic',
-  },
-  {
-    'name': 'underline',
-    'node': underline(),
-    'title': 'Underline',
-  },
-  {
-    'name': 'strikethrough',
-    'node': strikethrough(),
-    'title': 'Strikethrough',
-  },
-  {
-    'name': 'code',
-    'node': code(),
-    'title': 'Code',
-  },
-  {
-    'name': 'removeFormat',
-    'node': removeFormat(),
-    'title': 'Remove Format',
-  },
-  {
-    'name': 'hr',
-    'node': hr(),
-    'title': 'Horizontal Line',
-  },
-  {
-    'name': 'link',
-    'node': link(),
-    'title': 'Link',
-  },
-  {
-    'name': 'image',
-    'node': image(),
-    'title': 'Image',
-  },
-  {
-    'name': 'codeBlock',
-    'node': codeBlock(),
-    'title': 'Code Block',
-  },
-  {
-    'name': 'table',
-    'node': table(),
-    'title': 'Table',
-  },
-];
-
-const iconMap: Map<string, IconItem> = new Map();
-
-iconList.forEach(item => {
-  iconMap.set(item.name, item);
-});
-
-export const icons = iconMap;
+export const icons: Map<string, NativeNode> = new Map([
+  ['plus', plus()],
+  ['more', more()],
+  ['down', down()],
+  ['undo', undo()],
+  ['redo', redo()],
+  ['blockQuote', blockQuote()],
+  ['numberedList', numberedList()],
+  ['bulletedList', bulletedList()],
+  ['checklist', checklist()],
+  ['alignLeft', alignLeft()],
+  ['alignCenter', alignCenter()],
+  ['alignRight', alignRight()],
+  ['alignJustify', alignJustify()],
+  ['increaseIndent', increaseIndent()],
+  ['decreaseIndent', decreaseIndent()],
+  ['formatPainter', formatPainter()],
+  ['bold', bold()],
+  ['italic', italic()],
+  ['underline', underline()],
+  ['strikethrough', strikethrough()],
+  ['code', code()],
+  ['removeFormat', removeFormat()],
+  ['hr', hr()],
+  ['link', link()],
+  ['image', image()],
+  ['codeBlock', codeBlock()],
+  ['table', table()],
+]);

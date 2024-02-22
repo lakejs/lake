@@ -2,6 +2,19 @@ import type { Editor } from '..';
 import { Point } from '../types/object';
 import { Nodes } from '../models/nodes';
 
+type MarkItem = {
+  re: RegExp,
+  getParameters: () => string[],
+};
+
+type BlockItem = {
+  re: RegExp,
+  getParameters: () => (string | boolean)[],
+} | {
+  re: RegExp,
+  getParameters: (text: string) => (string | boolean)[],
+};
+
 const headingTypeMap = new Map([
   ['#', 'h1'],
   ['##', 'h2'],
@@ -11,7 +24,7 @@ const headingTypeMap = new Map([
   ['######', 'h6'],
 ]);
 
-const markSpaceList = [
+const markItemList: MarkItem[] = [
   {
     re: /\*\*(.+?)\*\*$/,
     getParameters: () => [
@@ -57,7 +70,7 @@ const markSpaceList = [
   },
 ];
 
-const blockSpaceList = [
+const blockItemList: BlockItem[] = [
   {
     re: /^#+$/,
     getParameters: (text: string) => [
@@ -144,7 +157,7 @@ function executeMarkCommand(editor: Editor, point: Point): boolean {
   const range = selection.range;
   const offset = point.offset;
   const text = point.node.text().slice(0, offset);
-  for (const item of markSpaceList) {
+  for (const item of markItemList) {
     const result = item.re.exec(text);
     if (result !== null) {
       // <p>foo**bold**<focus /></p>, offset = 11
@@ -175,7 +188,7 @@ function executeBlockCommand(editor: Editor, point: Point): boolean {
   const offset = point.offset;
   let text = point.node.text().slice(0, offset);
   text = text.replace(/[\u200B\u2060]/g, '');
-  for (const item of blockSpaceList) {
+  for (const item of blockItemList) {
     if (item.re.test(text)) {
       // <p>#<focus />foo</p>
       // to
