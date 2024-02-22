@@ -38,7 +38,7 @@ export class Editor {
 
   private beforeunloadListener: EventListener;
 
-  private selectionListener: EventListener;
+  private selectionchangeListener: EventListener;
 
   private clickListener: EventListener;
 
@@ -85,8 +85,9 @@ export class Editor {
     this.beforeunloadListener = () => {
       this.commitUnsavedInputData();
     };
-    this.selectionListener = () => {
+    this.selectionchangeListener = () => {
       this.selection.syncByRange();
+      this.selection.appliedNodes = this.selection.getAppliedNodes();
       const range = this.selection.range;
       const clonedRange = range.clone();
       clonedRange.adaptBox();
@@ -111,6 +112,7 @@ export class Editor {
         boxContainer.removeClass('lake-box-activated');
         boxContainer.removeClass('lake-box-selected');
       });
+      this.event.emit('selectionchange');
     };
     this.clickListener = event => {
       const targetNode = new Nodes(event.target as Element);
@@ -300,7 +302,7 @@ export class Editor {
     Editor.box.renderAll(this);
     if (!this.readonly) {
       window.addEventListener('beforeunload', this.beforeunloadListener);
-      document.addEventListener('selectionchange', this.selectionListener);
+      document.addEventListener('selectionchange', this.selectionchangeListener);
       this.bindInputEvents();
       this.bindHistoryEvents();
     }
@@ -313,7 +315,7 @@ export class Editor {
     this.container.remove();
     if (!this.readonly) {
       window.removeEventListener('beforeunload', this.beforeunloadListener);
-      document.removeEventListener('selectionchange', this.selectionListener);
+      document.removeEventListener('selectionchange', this.selectionchangeListener);
     }
     document.removeEventListener('click', this.clickListener);
     document.removeEventListener('mouseover', this.mouseoverListener);

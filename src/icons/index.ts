@@ -2,11 +2,11 @@
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import { NativeNode } from '../types/native';
 // basic
 import plus from './plus.svg';
 import more from './more.svg';
 import down from './down.svg';
+import check from './check.svg';
 // history
 import undo from './undo.svg';
 import redo from './redo.svg';
@@ -36,32 +36,33 @@ import image from './image.svg';
 import codeBlock from './code-block.svg';
 import table from './table.svg';
 
-export const icons: Map<string, NativeNode> = new Map([
-  ['plus', plus()],
-  ['more', more()],
-  ['down', down()],
-  ['undo', undo()],
-  ['redo', redo()],
-  ['blockQuote', blockQuote()],
-  ['numberedList', numberedList()],
-  ['bulletedList', bulletedList()],
-  ['checklist', checklist()],
-  ['alignLeft', alignLeft()],
-  ['alignCenter', alignCenter()],
-  ['alignRight', alignRight()],
-  ['alignJustify', alignJustify()],
-  ['increaseIndent', increaseIndent()],
-  ['decreaseIndent', decreaseIndent()],
-  ['formatPainter', formatPainter()],
-  ['bold', bold()],
-  ['italic', italic()],
-  ['underline', underline()],
-  ['strikethrough', strikethrough()],
-  ['code', code()],
-  ['removeFormat', removeFormat()],
-  ['hr', hr()],
-  ['link', link()],
-  ['image', image()],
-  ['codeBlock', codeBlock()],
-  ['table', table()],
+export const icons: Map<string, string> = new Map([
+  ['plus', plus],
+  ['more', more],
+  ['down', down],
+  ['check', check],
+  ['undo', undo],
+  ['redo', redo],
+  ['blockQuote', blockQuote],
+  ['numberedList', numberedList],
+  ['bulletedList', bulletedList],
+  ['checklist', checklist],
+  ['alignLeft', alignLeft],
+  ['alignCenter', alignCenter],
+  ['alignRight', alignRight],
+  ['alignJustify', alignJustify],
+  ['increaseIndent', increaseIndent],
+  ['decreaseIndent', decreaseIndent],
+  ['formatPainter', formatPainter],
+  ['bold', bold],
+  ['italic', italic],
+  ['underline', underline],
+  ['strikethrough', strikethrough],
+  ['code', code],
+  ['removeFormat', removeFormat],
+  ['hr', hr],
+  ['link', link],
+  ['image', image],
+  ['codeBlock', codeBlock],
+  ['table', table],
 ]);

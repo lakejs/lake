@@ -97,8 +97,11 @@ export class Selection {
   // Is the root element which has contenteditable="true" attribute.
   public container: Nodes;
 
-  // Is a saved range which is used to add it to the selection later.
+  // Is a saved range which is used to add it to the native selection later.
   public range: Range;
+
+  // Is a saved node list which is used to update state of the toolbar.
+  public appliedNodes: AppliedTagMapType[];
 
   constructor(container: Nodes) {
     const selection = window.getSelection();
@@ -110,6 +113,7 @@ export class Selection {
     this.selection = selection;
     this.container = container;
     this.range = this.getRangeFromNativeSelection();
+    this.appliedNodes = [];
   }
 
   // Returns the current selected range from the native selection.

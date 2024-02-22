@@ -12,8 +12,8 @@ type MenuItem = {
 type ToolbarItem = {
   name: string,
   type: 'button' | 'dropdown',
-  text?: string,
-  icon?: NativeNode,
+  defaultValue?: string,
+  icon?: string,
   tooltip: string,
   menu?: MenuItem[],
   callback: (editor: Editor, value?: string) => void,
@@ -118,7 +118,7 @@ const toolbarItemList: ToolbarItem[] = [
   {
     name: 'heading',
     type: 'dropdown',
-    text: 'Heading 1',
+    defaultValue: 'h1',
     tooltip: 'Heading',
     menu: [
       {
@@ -264,37 +264,51 @@ export class Toolbar {
 
   private appendDropdown(item: ToolbarItem) {
     const editor = this.editor;
-    const dropdownNode = query('<div class="lake-dropdown" />');
-    const titleNode = query(`<div class="lake-dropdown-title"><div class="lake-dropdown-text">${item.text}</div><div class="lake-dropdown-icon"></div></div>`);
+    const menuMap: Map<string, string> = new Map();
+    const dropdownNode = query(`<div class="lake-dropdown" value="${item.defaultValue}" />`);
+    const titleNode = query('<div class="lake-dropdown-title"><div class="lake-dropdown-text"></div><div class="lake-dropdown-icon"></div></div>');
     const textNode = titleNode.find('.lake-dropdown-text');
-    const icon = icons.get('down');
-    if (icon) {
-      titleNode.find('.lake-dropdown-icon').append(icon);
-    }
+    titleNode.find('.lake-dropdown-icon').append(icons.get('down') ?? '');
     const menuNode = query('<ul class="lake-dropdown-menu" />');
     if (item.menu) {
       for (const menuItem of item.menu) {
-        menuNode.append(`<li data-value="${menuItem.value}">${menuItem.text}</li>`);
+        const listNode = query(`<li value="${menuItem.value}"><div class="lake-dropdown-menu-text">${menuItem.text}</div></li>`);
+        menuNode.append(listNode);
+        listNode.prepend(icons.get('check') ?? '');
+        menuMap.set(menuItem.value, menuItem.text);
       }
       dropdownNode.append(menuNode);
     }
+    textNode.html(menuMap.get(item.defaultValue ?? '') ?? '');
     dropdownNode.append(titleNode);
     dropdownNode.append(menuNode);
     this.root.append(dropdownNode);
     titleNode.on('click', event => {
       event.preventDefault();
       event.stopPropagation();
+      const currentValue = dropdownNode.attr('value');
+      menuNode.find('svg').css('visibility', 'hidden');
+      if (currentValue) {
+        menuNode.find(`li[value="${currentValue}"]`).find('svg').css('visibility', 'visible');
+      }
       menuNode.show();
     });
     menuNode.on('click', event => {
       event.preventDefault();
       editor.focus();
       const listItem = query(event.target as NativeNode).closest('li');
-      const value = listItem.attr('data-value');
+      const value = listItem.attr('value');
       textNode.html(listItem.text());
       item.callback(editor, value);
     });
     editor.event.on('click', () => menuNode.hide());
+    editor.event.on('selectionchange', () => {
+      const appliedNodes = editor.selection.appliedNodes;
+      const currentItem = appliedNodes.find(appliedItem => appliedItem.node.isHeading || appliedItem.name === 'p');
+      const currentValue = currentItem ? currentItem.name : '';
+      dropdownNode.attr('value', currentValue);
+      textNode.html(menuMap.get(currentValue || 'p') ?? '');
+    });
   }
 
   public render(target: string | Nodes | NativeNode) {

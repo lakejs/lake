@@ -34,4 +34,8 @@ describe('utils / to-node-list', () => {
     document.body.removeChild(element);
   });
 
+  it('is an empty string', () => {
+    expect(toNodeList('').length).to.equal(0);
+  });
+
 });

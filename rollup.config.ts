@@ -33,7 +33,9 @@ function getWatchConfig(type: 'examples' | 'tests'): RollupOptions {
       typescript(),
       commonjs(),
       json(),
-      svg(),
+      svg({
+        stringify: true,
+      }),
       css(),
     ],
   };
@@ -62,7 +64,9 @@ function getBuildConfig(type: 'iife' | 'es'): RollupOptions {
         typescript(),
         commonjs(),
         json(),
-        svg(),
+        svg({
+          stringify: true,
+        }),
         css(),
       ],
     };
@@ -79,7 +83,9 @@ function getBuildConfig(type: 'iife' | 'es'): RollupOptions {
       typescript(),
       commonjs(),
       json(),
-      svg(),
+      svg({
+        stringify: true,
+      }),
       css(),
     ],
   };

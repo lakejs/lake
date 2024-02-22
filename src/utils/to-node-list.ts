@@ -7,6 +7,10 @@ export function toNodeList(content: string | NativeNode, valueType?: 'text' | 'h
     nodeList.push(content);
     return nodeList;
   }
+  // empty string
+  if (content === '') {
+    return nodeList;
+  }
   // text string
   if (valueType === 'text') {
     const textNode = document.createTextNode(content);
