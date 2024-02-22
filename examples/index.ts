@@ -20,7 +20,7 @@ const editor = new Editor({
 editor.event.on('change', value => {
   localStorage.setItem(localStorageKey, value);
 });
-editor.render('.lake-editor');
+editor.render('.lake-content');
 
 new Toolbar(editor).render('.lake-toolbar');
 
