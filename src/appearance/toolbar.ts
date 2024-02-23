@@ -129,6 +129,16 @@ const toolbarItemList: ToolbarItem[] = [
     },
   },
   {
+    name: 'moreStyle',
+    type: 'button',
+    icon: icons.get('more'),
+    tooltipText: 'More Styles',
+    onClick: editor => {
+      // TODO
+      editor.command.execute('underline');
+    },
+  },
+  {
     name: 'heading',
     type: 'dropdown',
     defaultValue: 'h1',
@@ -233,6 +243,9 @@ const defaultConfig: string[] = [
   'bold',
   'italic',
   'underline',
+  'moreStyle',
+  '|',
+  'bold',
 ];
 
 const toolbarItemMap: Map<string, ToolbarItem> = new Map();

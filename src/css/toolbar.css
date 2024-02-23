@@ -2,10 +2,9 @@
   --border-color: #d9d9d9;
   --background-hover-color: #0000000a;
   --box-shadow: 0 6px 16px 0 #00000014, 0 3px 6px -4px #0000001f, 0 9px 28px 8px #0000000d;
-  padding: 0 8px;
+  padding: 4px;
   border: 1px solid var(--border-color);
   border-bottom: 0;
-  height: 36px;
   display: flex;
   align-items: center;
 }
