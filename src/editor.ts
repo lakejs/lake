@@ -85,7 +85,7 @@ export class Editor {
     };
     this.selectionchangeListener = () => {
       this.selection.syncByRange();
-      this.selection.appliedNodes = this.selection.getAppliedNodes();
+      this.selection.appliedItems = this.selection.getAppliedItems();
       const range = this.selection.range;
       const clonedRange = range.clone();
       clonedRange.adaptBox();

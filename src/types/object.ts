@@ -15,3 +15,10 @@ export type Point = {
   node: Nodes;
   offset: number;
 };
+
+export type AppliedItem = {
+  node: Nodes,
+  name: string,
+  attributes: KeyValue,
+  styles: KeyValue,
+};

@@ -1,23 +1,34 @@
 import type { Editor } from '../editor';
 import { NativeNode } from '../types/native';
+import { AppliedItem } from '../types/object';
 import { icons } from '../icons';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 
-type MenuItem = {
+type ButtonItem = {
+  name: string,
+  type: 'button',
+  icon?: string,
+  tooltip: string,
+  onClick: (editor: Editor, value?: string) => void,
+};
+
+type DropdownMenuItem = {
   value: string,
   text: string,
 };
 
-type ToolbarItem = {
+type DropdownItem = {
   name: string,
-  type: 'button' | 'dropdown',
-  defaultValue?: string,
-  icon?: string,
+  type: 'dropdown',
+  defaultValue: string,
   tooltip: string,
-  menu?: MenuItem[],
-  callback: (editor: Editor, value?: string) => void,
+  menu: DropdownMenuItem[],
+  getValue: (appliedItems: AppliedItem[]) => string,
+  onSelect: (editor: Editor, value?: string) => void,
 };
+
+type ToolbarItem = ButtonItem | DropdownItem;
 
 /*
 const listTypes = new Map([
@@ -57,7 +68,7 @@ const toolbarItemList: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('undo'),
     tooltip: 'Undo',
-    callback: editor => {
+    onClick: editor => {
       editor.command.execute('undo');
     },
   },
@@ -66,7 +77,7 @@ const toolbarItemList: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('redo'),
     tooltip: 'Redo',
-    callback: editor => {
+    onClick: editor => {
       editor.command.execute('redo');
     },
   },
@@ -75,7 +86,7 @@ const toolbarItemList: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('formatPainter'),
     tooltip: 'Format Painter',
-    callback: editor => {
+    onClick: editor => {
       editor.command.execute('formatPainter');
     },
   },
@@ -84,7 +95,7 @@ const toolbarItemList: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('removeFormat'),
     tooltip: 'Remove Format',
-    callback: editor => {
+    onClick: editor => {
       editor.command.execute('removeFormat');
     },
   },
@@ -93,7 +104,7 @@ const toolbarItemList: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('bold'),
     tooltip: 'Bold',
-    callback: editor => {
+    onClick: editor => {
       editor.command.execute('bold');
     },
   },
@@ -102,7 +113,7 @@ const toolbarItemList: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('italic'),
     tooltip: 'Italic',
-    callback: editor => {
+    onClick: editor => {
       editor.command.execute('italic');
     },
   },
@@ -111,7 +122,7 @@ const toolbarItemList: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('underline'),
     tooltip: 'Underline',
-    callback: editor => {
+    onClick: editor => {
       editor.command.execute('underline');
     },
   },
@@ -150,7 +161,11 @@ const toolbarItemList: ToolbarItem[] = [
         text: 'Paragraph',
       },
     ],
-    callback: (editor, value) => {
+    getValue: appliedItems => {
+      const currentItem = appliedItems.find(item => item.node.isHeading || item.name === 'p');
+      return currentItem ? currentItem.name : '';
+    },
+    onSelect: (editor, value) => {
       editor.command.execute('heading', value);
     },
   },
@@ -240,7 +255,7 @@ export class Toolbar {
   }
   */
 
-  private appendButton(item: ToolbarItem) {
+  private appendButton(item: ButtonItem) {
     const editor = this.editor;
     const buttonNode = query('<button class="lake-toolbar-item" />');
     buttonNode.attr({
@@ -254,7 +269,7 @@ export class Toolbar {
       event.preventDefault();
       event.stopPropagation();
       editor.focus();
-      item.callback(editor);
+      item.onClick(editor);
     });
   }
 
@@ -262,7 +277,7 @@ export class Toolbar {
     this.root.append('<div class="lake-toolbar-separator" />');
   }
 
-  private appendDropdown(item: ToolbarItem) {
+  private appendDropdown(item: DropdownItem) {
     const editor = this.editor;
     const menuMap: Map<string, string> = new Map();
     const dropdownNode = query(`<div class="lake-dropdown" value="${item.defaultValue}" />`);
@@ -299,13 +314,11 @@ export class Toolbar {
       const listItem = query(event.target as NativeNode).closest('li');
       const value = listItem.attr('value');
       textNode.html(listItem.text());
-      item.callback(editor, value);
+      item.onSelect(editor, value);
     });
     editor.event.on('click', () => menuNode.hide());
     editor.event.on('selectionchange', () => {
-      const appliedNodes = editor.selection.appliedNodes;
-      const currentItem = appliedNodes.find(appliedItem => appliedItem.node.isHeading || appliedItem.name === 'p');
-      const currentValue = currentItem ? currentItem.name : '';
+      const currentValue = item.getValue(editor.selection.appliedItems);
       dropdownNode.attr('value', currentValue);
       textNode.html(menuMap.get(currentValue || 'p') ?? '');
     });

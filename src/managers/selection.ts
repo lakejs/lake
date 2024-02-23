@@ -1,5 +1,5 @@
 import { NativeSelection, NativeElement } from '../types/native';
-import { KeyValue } from '../types/object';
+import { KeyValue, AppliedItem } from '../types/object';
 import { parseStyle } from '../utils/parse-style';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
@@ -18,13 +18,6 @@ import { fixList } from '../operations/fix-list';
 import { insertBox } from '../operations/insert-box';
 import { removeBox } from '../operations/remove-box';
 
-type AppliedTagMapType = {
-  node: Nodes,
-  name: string,
-  attributes: KeyValue,
-  styles: KeyValue,
-};
-
 // Returns the attributes of the element as an key-value object.
 function getAttributes(node: Nodes): KeyValue {
   const nativeNode = node.get(0) as NativeElement;
@@ -37,7 +30,7 @@ function getAttributes(node: Nodes): KeyValue {
   return attributes;
 }
 
-function pushAncestralNodes(appliedNodes: AppliedTagMapType[], range: Range): void {
+function pushAncestralNodes(appliedItems: AppliedItem[], range: Range): void {
   let parentNode = range.startNode;
   if (parentNode.isText) {
     parentNode = parentNode.parent();
@@ -46,7 +39,7 @@ function pushAncestralNodes(appliedNodes: AppliedTagMapType[], range: Range): vo
     if (!parentNode.isInside) {
       break;
     }
-    appliedNodes.push({
+    appliedItems.push({
       node: parentNode,
       name: parentNode.name,
       attributes: getAttributes(parentNode),
@@ -56,7 +49,7 @@ function pushAncestralNodes(appliedNodes: AppliedTagMapType[], range: Range): vo
   }
 }
 
-function pushNextNestedNodes(appliedNodes: AppliedTagMapType[], range: Range): void {
+function pushNextNestedNodes(appliedItems: AppliedItem[], range: Range): void {
   const startNode = range.startNode;
   let nextNode;
   if (startNode.isText && startNode.text().length === range.startOffset) {
@@ -78,7 +71,7 @@ function pushNextNestedNodes(appliedNodes: AppliedTagMapType[], range: Range): v
     let child = nextNode;
     while (child.length > 0) {
       if (child.isElement) {
-        appliedNodes.push({
+        appliedItems.push({
           node: child,
           name: child.name,
           attributes: getAttributes(child),
@@ -101,7 +94,7 @@ export class Selection {
   public range: Range;
 
   // Is a saved node list which is used to update state of the toolbar.
-  public appliedNodes: AppliedTagMapType[];
+  public appliedItems: AppliedItem[];
 
   constructor(container: Nodes) {
     const selection = window.getSelection();
@@ -113,7 +106,7 @@ export class Selection {
     this.selection = selection;
     this.container = container;
     this.range = this.getRangeFromNativeSelection();
-    this.appliedNodes = [];
+    this.appliedItems = [];
   }
 
   // Returns the current selected range from the native selection.
@@ -162,11 +155,11 @@ export class Selection {
     this.addRangeToNativeSelection();
   }
 
-  public getAppliedNodes(): AppliedTagMapType[] {
-    const appliedNodes: AppliedTagMapType[] = [];
-    pushAncestralNodes(appliedNodes, this.range);
-    pushNextNestedNodes(appliedNodes, this.range);
-    return appliedNodes;
+  public getAppliedItems(): AppliedItem[] {
+    const appliedItems: AppliedItem[] = [];
+    pushAncestralNodes(appliedItems, this.range);
+    pushNextNestedNodes(appliedItems, this.range);
+    return appliedItems;
   }
 
   public insertBookmark(): ReturnType<typeof insertBookmark> {

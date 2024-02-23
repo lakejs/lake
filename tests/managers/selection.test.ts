@@ -83,61 +83,61 @@ describe('managers / selection', () => {
     expect(selection.range.isBoxRight).to.equal(true);
   });
 
-  it('getAppliedNodes method: is a collapsed range', () => {
+  it('getAppliedItems method: is a collapsed range', () => {
     const content = `
     <p><strong>one<i>tw<focus />o</i>three</strong></p>
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
     selection.synByBookmark();
-    const appliedNodes = selection.getAppliedNodes();
-    expect(appliedNodes.length).to.equal(3);
-    expect(appliedNodes[0].name).to.equal('i');
-    expect(appliedNodes[1].name).to.equal('strong');
-    expect(appliedNodes[2].name).to.equal('p');
+    const appliedItems = selection.getAppliedItems();
+    expect(appliedItems.length).to.equal(3);
+    expect(appliedItems[0].name).to.equal('i');
+    expect(appliedItems[1].name).to.equal('strong');
+    expect(appliedItems[2].name).to.equal('p');
   });
 
-  it('getAppliedNodes method: is an expanded range', () => {
+  it('getAppliedItems method: is an expanded range', () => {
     const content = `
     <p><strong>one<i>tw<anchor />o</i>three</strong><focus /></p>
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
     selection.synByBookmark();
-    const appliedNodes = selection.getAppliedNodes();
-    expect(appliedNodes.length).to.equal(3);
-    expect(appliedNodes[0].name).to.equal('i');
-    expect(appliedNodes[1].name).to.equal('strong');
-    expect(appliedNodes[2].name).to.equal('p');
+    const appliedItems = selection.getAppliedItems();
+    expect(appliedItems.length).to.equal(3);
+    expect(appliedItems[0].name).to.equal('i');
+    expect(appliedItems[1].name).to.equal('strong');
+    expect(appliedItems[2].name).to.equal('p');
   });
 
-  it('getAppliedNodes method: gets attributes', () => {
+  it('getAppliedItems method: gets attributes', () => {
     const content = `
     <p><span style="color: red;" class="foo">one<i>tw<focus />o</i>three</strong></p>
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
     selection.synByBookmark();
-    const appliedNodes = selection.getAppliedNodes();
-    expect(appliedNodes.length).to.equal(3);
-    expect(appliedNodes[0].name).to.equal('i');
-    expect(appliedNodes[1].name).to.equal('span');
-    expect(appliedNodes[1].attributes).to.deep.equal({style: 'color: red;', class: 'foo'});
-    expect(appliedNodes[2].name).to.deep.equal('p');
+    const appliedItems = selection.getAppliedItems();
+    expect(appliedItems.length).to.equal(3);
+    expect(appliedItems[0].name).to.equal('i');
+    expect(appliedItems[1].name).to.equal('span');
+    expect(appliedItems[1].attributes).to.deep.equal({style: 'color: red;', class: 'foo'});
+    expect(appliedItems[2].name).to.deep.equal('p');
   });
 
-  it('getAppliedNodes method: should get strong tag', () => {
+  it('getAppliedItems method: should get strong tag', () => {
     const content = `
     <p>one<anchor /><i><strong>two</strong></i><focus />three</p>
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
     selection.synByBookmark();
-    const appliedNodes = selection.getAppliedNodes();
-    expect(appliedNodes.length).to.equal(3);
-    expect(appliedNodes[0].name).to.equal('p');
-    expect(appliedNodes[1].name).to.equal('i');
-    expect(appliedNodes[2].name).to.equal('strong');
+    const appliedItems = selection.getAppliedItems();
+    expect(appliedItems.length).to.equal(3);
+    expect(appliedItems[0].name).to.equal('p');
+    expect(appliedItems[1].name).to.equal('i');
+    expect(appliedItems[2].name).to.equal('strong');
   });
 
 });

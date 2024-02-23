@@ -8,8 +8,8 @@ const formatPainterClassName = 'lake-format-painter';
 export default (editor: Editor) => {
   editor.command.add('formatPainter', () => {
     editor.container.addClass(formatPainterClassName);
-    const appliedNodes = editor.selection.getAppliedNodes();
-    for (const item of appliedNodes) {
+    const appliedItems = editor.selection.getAppliedItems();
+    for (const item of appliedItems) {
       const node = item.node.clone();
       if (node.isMark && node.name !== 'a') {
         markList.push(node);
