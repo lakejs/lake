@@ -68,7 +68,7 @@
   list-style: none;
   margin: 0;
   margin-bottom: 4px;
-  padding: 0;
+  padding: 6px 0;
   border: 1px solid var(--border-color);
   border-radius: 5px;
   background-color: #fff;
@@ -103,13 +103,13 @@
   font-weight: bold;
 }
 .lake-toolbar .lake-dropdown-menu li[value="h1"] {
-  font-size: 36px;
+  font-size: 26px;
 }
 .lake-toolbar .lake-dropdown-menu li[value="h2"] {
-  font-size: 30px;
+  font-size: 24px;
 }
 .lake-toolbar .lake-dropdown-menu li[value="h3"] {
-  font-size: 24px;
+  font-size: 22px;
 }
 .lake-toolbar .lake-dropdown-menu li[value="h4"] {
   font-size: 20px;

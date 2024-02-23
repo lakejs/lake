@@ -141,7 +141,7 @@ const toolbarItemList: ToolbarItem[] = [
   {
     name: 'heading',
     type: 'dropdown',
-    defaultValue: 'h1',
+    defaultValue: 'p',
     tooltipText: 'Heading',
     width: '100px',
     menu: [
@@ -340,7 +340,7 @@ export class Toolbar {
     const editor = this.editor;
     const menuMap: Map<string, string> = new Map();
     const content = template(`
-      <div name="${item.name}" class="lake-dropdown" value="${item.defaultValue}">
+      <div name="${item.name}" class="lake-dropdown">
         <button type="button" class="lake-dropdown-title">
           <div class="lake-dropdown-text"></div>
         </button>
@@ -399,7 +399,7 @@ export class Toolbar {
     editor.event.on('selectionchange', () => {
       const currentValue = item.getValue(editor.selection.appliedItems);
       dropdownNode.attr('value', currentValue);
-      textNode.html(menuMap.get(currentValue || 'p') ?? '');
+      textNode.html(menuMap.get(currentValue || item.defaultValue) ?? '');
     });
   }
 
