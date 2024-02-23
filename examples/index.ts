@@ -12,15 +12,14 @@ window.DEBUG = true;
 const localStorageKey = 'lake-example';
 const editorValue = localStorage.getItem(localStorageKey) ?? defaultValue;
 
-const editor = new Editor({
+const editor = new Editor('.lake-container', {
   readonly: false,
-  className: 'my-editor-container',
   defaultValue: editorValue,
 });
 editor.event.on('change', value => {
   localStorage.setItem(localStorageKey, value);
 });
-editor.render('.lake-content');
+editor.render();
 
 new Toolbar(editor).render('.lake-toolbar');
 

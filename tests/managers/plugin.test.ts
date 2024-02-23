@@ -9,7 +9,7 @@ describe('managers / plugin', () => {
   let targetNode: Nodes;
 
   beforeEach(() => {
-    targetNode = query('<div />');
+    targetNode = query('<div class="lake-container" />');
     query(document.body).append(targetNode);
   });
 
@@ -23,10 +23,10 @@ describe('managers / plugin', () => {
     plugin.add((editor: Editor) => {
       editorValue = editor.getValue();
     });
-    const editor = new Editor({
+    const editor = new Editor(targetNode, {
       defaultValue: '<p>foo</p>',
     });
-    editor.render(targetNode.get(0));
+    editor.render();
     plugin.loadAll(editor);
     editor.unmount();
     expect(editorValue).to.equal('<p>foo</p>');

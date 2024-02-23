@@ -9,7 +9,7 @@ describe('managers / box-manager', () => {
   let targetNode: Nodes;
 
   beforeEach(() => {
-    targetNode = query('<div></div>');
+    targetNode = query('<div class="lake-container" />');
     query(document.body).append(targetNode);
   });
 
@@ -25,14 +25,15 @@ describe('managers / box-manager', () => {
       render: () => 'bar',
     });
     expect(box.getNames().indexOf('managerTest') >= 0).to.equal(true);
-    const editor = new Editor({
+    const editor = new Editor(targetNode, {
       defaultValue: '<lake-box type="block" name="managerTest"></lake-box>',
     });
-    editor.render(targetNode.get(0));
+    editor.render();
     box.renderAll(editor);
+    const childrenLength = box.findAll(editor).eq(0).children().length;
     editor.unmount();
     box.remove('managerTest');
-    expect(box.findAll(editor).eq(0).children().length).to.equal(3);
+    expect(childrenLength).to.equal(3);
   });
 
 });

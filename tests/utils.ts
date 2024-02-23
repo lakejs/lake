@@ -75,13 +75,12 @@ export function testPlugin(
   output: string,
   callback: (editor: Editor) => void,
 ) {
-  const targetNode = query('<div />');
+  const targetNode = query('<div class="lake-container" />');
   query(document.body).append(targetNode);
-  const editor = new Editor({
-    className: 'my-editor-container',
+  const editor = new Editor(targetNode, {
     defaultValue: content,
   });
-  editor.render(targetNode.get(0));
+  editor.render();
   callback(editor);
   const html = editor.getValue();
   editor.unmount();

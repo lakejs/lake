@@ -15,8 +15,6 @@ import { Plugin } from './managers/plugin';
 
 type OptionsType = {[key: string]: any};
 
-const containerClassName = 'lake-container';
-
 const defaultOptions: OptionsType = {
   readonly: false,
   className: '',
@@ -62,9 +60,9 @@ export class Editor {
 
   public box: BoxManager;
 
-  constructor(options = defaultOptions) {
+  constructor(target: string | Nodes | NativeNode, options = defaultOptions) {
+    this.container = query(target);
     this.options = options;
-    this.container = query('<div />');
     this.isComposing = false;
 
     this.setDefaultOptions();
@@ -135,13 +133,9 @@ export class Editor {
   private setContainerAttributes(): void {
     const container = this.container;
     container.attr({
-      class: containerClassName,
       contenteditable: this.readonly ? 'false' : 'true',
       spellcheck: this.options.spellcheck ? 'true' : 'false',
     });
-    if (this.options.className !== '') {
-      container.addClass(this.options.className);
-    }
   }
 
   private inputInBoxStrip(): void {
@@ -283,16 +277,12 @@ export class Editor {
   }
 
   // Renders an editor area and set default value to it.
-  public render(target: string | Nodes | NativeNode): void {
-    const container = this.container;
-    const targetNode = query(target);
-    targetNode.hide();
+  public render(): void {
     const value = normalizeValue(this.options.defaultValue);
     const htmlParser = new HTMLParser(value);
     const fragment = htmlParser.getFragment();
     this.container.empty();
     this.container.append(fragment);
-    targetNode.after(container);
     if (!this.readonly) {
       this.focus();
       this.selection.synByBookmark();
@@ -312,7 +302,7 @@ export class Editor {
 
   // Destroys a rendered editor.
   public unmount(): void {
-    this.container.remove();
+    this.container.empty();
     if (!this.readonly) {
       window.removeEventListener('beforeunload', this.beforeunloadListener);
       document.removeEventListener('selectionchange', this.selectionchangeListener);
