@@ -3,6 +3,7 @@ import type { Editor } from '../editor';
 import { NativeNode } from '../types/native';
 import { BoxType, BoxValue } from '../types/box';
 import { boxes } from '../storage/boxes';
+import { template } from '../utils/template';
 import { encode } from '../utils/encode';
 import { query } from '../utils/query';
 import { morph } from '../utils/morph';
@@ -15,11 +16,11 @@ type SetupFunction = () => CleanupFunction | void;
 // Is a key-value object for storing all effects.
 const effectData: { [key: number]: { setup: SetupFunction[], cleanup: CleanupFunction[] } } = {};
 
-const framework = `
+const framework = template(`
   <span class="lake-box-strip"><br /></span>
   <div class="lake-box-container" contenteditable="false"></div>
   <span class="lake-box-strip"><br /></span>
-`.replace(/^\s+/gm, '').replace(/\n/g, '');
+`);
 
 export class Box {
   // <lake-box> element

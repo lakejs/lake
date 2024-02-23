@@ -9,6 +9,30 @@
   display: flex;
   align-items: center;
 }
+.lake-toolbar .lake-toolbar-item {
+  border-radius: 5px;
+  border: 0;
+  background-color: #fff;
+  padding: 0;
+  margin: 0 2px;
+  cursor: pointer;
+  user-select: none;
+}
+.lake-toolbar .lake-toolbar-item:hover {
+  background-color: var(--background-hover-color);
+}
+.lake-toolbar .lake-toolbar-item svg {
+  width: 16px;
+  height: 16px;
+  margin: 6px;
+  vertical-align: middle;
+}
+.lake-toolbar .lake-toolbar-separator {
+  width: 1px;
+  height: 20px;
+  margin: 0 4px;
+  border-left: 1px solid var(--border-color);
+}
 .lake-toolbar .lake-dropdown {
   position: relative;
   font-size: 14px;
@@ -16,28 +40,32 @@
 }
 .lake-toolbar .lake-dropdown-title {
   display: flex;
-  padding: 4px 6px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
   margin: 0 2px;
   border-radius: 5px;
+  border: 0;
+  background-color: #fff;
   cursor: pointer;
 }
 .lake-toolbar .lake-dropdown-title:hover {
   background-color: var(--background-hover-color);
 }
 .lake-dropdown .lake-dropdown-text {
-  width: 80px;
-  height: 20px;
+  height: 16px;
+  margin: 6px;
 }
-.lake-dropdown .lake-dropdown-icon svg {
+.lake-dropdown .lake-dropdown-title svg {
   width: 12px;
   height: 12px;
+  margin-right: 6px;
 }
 .lake-dropdown .lake-dropdown-menu {
   position: absolute;
   top: 30px;
   left: 0;
   z-index: 1;
-  width: 240px;
   list-style: none;
   margin: 0;
   margin-bottom: 4px;
@@ -52,15 +80,19 @@
   display: grid;
   grid-template-columns: 20px 1fr;
   align-items: center;
-  padding: 6px 10px;
   cursor: pointer;
 }
 .lake-dropdown .lake-dropdown-menu li:hover {
   background-color: var(--background-hover-color);
 }
+.lake-dropdown .lake-dropdown-menu li .lake-dropdown-menu-text {
+  margin: 6px 24px 6px 10px;
+  white-space: nowrap;
+}
 .lake-dropdown .lake-dropdown-menu li svg {
   width: 12px;
   height: 12px;
+  margin-left: 10px;
   visibility: hidden;
 }
 .lake-toolbar .lake-dropdown-menu li[value="h1"],
@@ -88,27 +120,4 @@
 }
 .lake-toolbar .lake-dropdown-menu li[value="h6"] {
   font-size: 16px;
-}
-.lake-toolbar .lake-toolbar-item {
-  border-radius: 5px;
-  border: 0;
-  background-color: #fff;
-  padding: 6px;
-  margin: 0 2px;
-  cursor: pointer;
-  user-select: none;
-}
-.lake-toolbar .lake-toolbar-item:hover {
-  background-color: var(--background-hover-color);
-}
-.lake-toolbar .lake-toolbar-item svg {
-  width: 16px;
-  height: 16px;
-  vertical-align: middle;
-}
-.lake-toolbar .lake-toolbar-separator {
-  width: 1px;
-  height: 20px;
-  margin: 0 4px;
-  border-left: 1px solid var(--border-color);
 }

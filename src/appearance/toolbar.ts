@@ -2,6 +2,7 @@ import type { Editor } from '../editor';
 import { NativeNode } from '../types/native';
 import { AppliedItem } from '../types/object';
 import { icons } from '../icons';
+import { template } from '../utils/template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 
@@ -9,7 +10,7 @@ type ButtonItem = {
   name: string,
   type: 'button',
   icon?: string,
-  tooltip: string,
+  tooltipText: string,
   onClick: (editor: Editor, value?: string) => void,
 };
 
@@ -22,7 +23,8 @@ type DropdownItem = {
   name: string,
   type: 'dropdown',
   defaultValue: string,
-  tooltip: string,
+  tooltipText: string,
+  width: string,
   menu: DropdownMenuItem[],
   getValue: (appliedItems: AppliedItem[]) => string,
   onSelect: (editor: Editor, value?: string) => void,
@@ -67,7 +69,7 @@ const toolbarItemList: ToolbarItem[] = [
     name: 'undo',
     type: 'button',
     icon: icons.get('undo'),
-    tooltip: 'Undo',
+    tooltipText: 'Undo',
     onClick: editor => {
       editor.command.execute('undo');
     },
@@ -76,7 +78,7 @@ const toolbarItemList: ToolbarItem[] = [
     name: 'redo',
     type: 'button',
     icon: icons.get('redo'),
-    tooltip: 'Redo',
+    tooltipText: 'Redo',
     onClick: editor => {
       editor.command.execute('redo');
     },
@@ -85,7 +87,7 @@ const toolbarItemList: ToolbarItem[] = [
     name: 'formatPainter',
     type: 'button',
     icon: icons.get('formatPainter'),
-    tooltip: 'Format Painter',
+    tooltipText: 'Format Painter',
     onClick: editor => {
       editor.command.execute('formatPainter');
     },
@@ -94,7 +96,7 @@ const toolbarItemList: ToolbarItem[] = [
     name: 'removeFormat',
     type: 'button',
     icon: icons.get('removeFormat'),
-    tooltip: 'Remove Format',
+    tooltipText: 'Remove Format',
     onClick: editor => {
       editor.command.execute('removeFormat');
     },
@@ -103,7 +105,7 @@ const toolbarItemList: ToolbarItem[] = [
     name: 'bold',
     type: 'button',
     icon: icons.get('bold'),
-    tooltip: 'Bold',
+    tooltipText: 'Bold',
     onClick: editor => {
       editor.command.execute('bold');
     },
@@ -112,7 +114,7 @@ const toolbarItemList: ToolbarItem[] = [
     name: 'italic',
     type: 'button',
     icon: icons.get('italic'),
-    tooltip: 'Italic',
+    tooltipText: 'Italic',
     onClick: editor => {
       editor.command.execute('italic');
     },
@@ -121,7 +123,7 @@ const toolbarItemList: ToolbarItem[] = [
     name: 'underline',
     type: 'button',
     icon: icons.get('underline'),
-    tooltip: 'Underline',
+    tooltipText: 'Underline',
     onClick: editor => {
       editor.command.execute('underline');
     },
@@ -130,7 +132,8 @@ const toolbarItemList: ToolbarItem[] = [
     name: 'heading',
     type: 'dropdown',
     defaultValue: 'h1',
-    tooltip: 'Heading',
+    tooltipText: 'Heading',
+    width: '100px',
     menu: [
       {
         value: 'h1',
@@ -169,6 +172,53 @@ const toolbarItemList: ToolbarItem[] = [
       editor.command.execute('heading', value);
     },
   },
+  {
+    name: 'fontSize',
+    type: 'dropdown',
+    defaultValue: '16px',
+    tooltipText: 'Font Size',
+    width: '65px',
+    menu: [
+      {
+        value: '12px',
+        text: '12px',
+      },
+      {
+        value: '14px',
+        text: '14px',
+      },
+      {
+        value: '16px',
+        text: '16px',
+      },
+      {
+        value: '18px',
+        text: '18px',
+      },
+      {
+        value: '22px',
+        text: '22px',
+      },
+      {
+        value: '24px',
+        text: '24px',
+      },
+      {
+        value: '32px',
+        text: '32px',
+      },
+    ],
+    getValue: appliedItems => {
+      if (appliedItems.length === 0) {
+        return '';
+      }
+      const currentValue = appliedItems[0].node.computedCSS('font-size');
+      return currentValue;
+    },
+    onSelect: (editor, value) => {
+      editor.command.execute('fontSize', value);
+    },
+  },
 ];
 
 const defaultConfig: string[] = [
@@ -176,6 +226,7 @@ const defaultConfig: string[] = [
   'redo',
   '|',
   'heading',
+  'fontSize',
   '|',
   'formatPainter',
   'removeFormat',
@@ -228,10 +279,6 @@ export class Toolbar {
         editor.command.execute('fontFamily', 'Segoe UI');
         return;
       }
-      if (type === 'fontSize') {
-        editor.command.execute('fontSize', '18px');
-        return;
-      }
       if (type === 'fontColor') {
         editor.command.execute('fontColor', '#ff0000');
         return;
@@ -257,9 +304,9 @@ export class Toolbar {
 
   private appendButton(item: ButtonItem) {
     const editor = this.editor;
-    const buttonNode = query('<button class="lake-toolbar-item" />');
+    const buttonNode = query(`<button name="${item.name}" type="button" class="lake-toolbar-item" />`);
     buttonNode.attr({
-      title: item.tooltip,
+      title: item.tooltipText,
     });
     if (item.icon) {
       buttonNode.append(item.icon);
@@ -267,7 +314,6 @@ export class Toolbar {
     this.root.append(buttonNode);
     buttonNode.on('click', event => {
       event.preventDefault();
-      event.stopPropagation();
       editor.focus();
       item.onClick(editor);
     });
@@ -280,14 +326,27 @@ export class Toolbar {
   private appendDropdown(item: DropdownItem) {
     const editor = this.editor;
     const menuMap: Map<string, string> = new Map();
-    const dropdownNode = query(`<div class="lake-dropdown" value="${item.defaultValue}" />`);
-    const titleNode = query('<div class="lake-dropdown-title"><div class="lake-dropdown-text"></div><div class="lake-dropdown-icon"></div></div>');
+    const content = template(`
+      <div name="${item.name}" class="lake-dropdown" value="${item.defaultValue}">
+        <button type="button" class="lake-dropdown-title">
+          <div class="lake-dropdown-text"></div>
+        </button>
+      </div>
+    `);
+    const dropdownNode = query(content);
+    const titleNode = dropdownNode.find('.lake-dropdown-title');
+    titleNode.css('width', item.width);
     const textNode = titleNode.find('.lake-dropdown-text');
-    titleNode.find('.lake-dropdown-icon').append(icons.get('down') ?? '');
+    titleNode.append(icons.get('down') ?? '');
     const menuNode = query('<ul class="lake-dropdown-menu" />');
     if (item.menu) {
       for (const menuItem of item.menu) {
-        const listNode = query(`<li value="${menuItem.value}"><div class="lake-dropdown-menu-text">${menuItem.text}</div></li>`);
+        const listContent = template(`
+          <li value="${menuItem.value}">
+            <div class="lake-dropdown-menu-text">${menuItem.text}</div>
+          </li>
+        `);
+        const listNode = query(listContent);
         menuNode.append(listNode);
         listNode.prepend(icons.get('check') ?? '');
         menuMap.set(menuItem.value, menuItem.text);
@@ -300,11 +359,13 @@ export class Toolbar {
     this.root.append(dropdownNode);
     titleNode.on('click', event => {
       event.preventDefault();
-      event.stopPropagation();
       const currentValue = dropdownNode.attr('value');
       menuNode.find('svg').css('visibility', 'hidden');
       if (currentValue) {
-        menuNode.find(`li[value="${currentValue}"]`).find('svg').css('visibility', 'visible');
+        const listNode = menuNode.find(`li[value="${currentValue}"]`);
+        if (listNode.length > 0) {
+          listNode.find('svg').css('visibility', 'visible');
+        }
       }
       menuNode.show();
     });
@@ -316,7 +377,12 @@ export class Toolbar {
       textNode.html(listItem.text());
       item.onSelect(editor, value);
     });
-    editor.event.on('click', () => menuNode.hide());
+    editor.event.on('click', target => {
+      if (target.closest('.lake-dropdown-title').get(0) === titleNode.get(0)) {
+        return;
+      }
+      menuNode.hide();
+    });
     editor.event.on('selectionchange', () => {
       const currentValue = item.getValue(editor.selection.appliedItems);
       dropdownNode.attr('value', currentValue);
