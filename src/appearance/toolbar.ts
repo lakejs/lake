@@ -366,7 +366,7 @@ export class Toolbar {
       }
       dropdownNode.append(menuNode);
     }
-    textNode.html(menuMap.get(item.defaultValue ?? '') ?? '');
+    textNode.html(menuMap.get(item.defaultValue) ?? item.defaultValue);
     dropdownNode.append(titleNode);
     dropdownNode.append(menuNode);
     this.root.append(dropdownNode);
@@ -399,7 +399,9 @@ export class Toolbar {
     editor.event.on('selectionchange', () => {
       const currentValue = item.getValue(editor.selection.appliedItems);
       dropdownNode.attr('value', currentValue);
-      textNode.html(menuMap.get(currentValue || item.defaultValue) ?? '');
+      const key = currentValue || item.defaultValue;
+      const text = menuMap.get(key) ?? key;
+      textNode.html(text);
     });
   }
 
