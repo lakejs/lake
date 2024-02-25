@@ -2,6 +2,7 @@ import type { Editor } from '../editor';
 import { NativeNode } from '../types/native';
 import { AppliedItem } from '../types/object';
 import { icons } from '../icons';
+import { headingMenuItems, fontSizeMenuItems } from '../config/menu-items';
 import { template } from '../utils/template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
@@ -14,18 +15,13 @@ type ButtonItem = {
   onClick: (editor: Editor, value?: string) => void,
 };
 
-type DropdownMenuItem = {
-  value: string,
-  text: string,
-};
-
 type DropdownItem = {
   name: string,
   type: 'dropdown',
   defaultValue: string,
   tooltipText: string,
   width: string,
-  menu: DropdownMenuItem[],
+  menuItems: typeof fontSizeMenuItems,
   getValue: (appliedItems: AppliedItem[]) => string,
   onSelect: (editor: Editor, value?: string) => void,
 };
@@ -144,36 +140,7 @@ const toolbarItemList: ToolbarItem[] = [
     defaultValue: 'p',
     tooltipText: 'Heading',
     width: '100px',
-    menu: [
-      {
-        value: 'h1',
-        text: 'Heading 1',
-      },
-      {
-        value: 'h2',
-        text: 'Heading 2',
-      },
-      {
-        value: 'h3',
-        text: 'Heading 3',
-      },
-      {
-        value: 'h4',
-        text: 'Heading 4',
-      },
-      {
-        value: 'h5',
-        text: 'Heading 5',
-      },
-      {
-        value: 'h6',
-        text: 'Heading 6',
-      },
-      {
-        value: 'p',
-        text: 'Paragraph',
-      },
-    ],
+    menuItems: headingMenuItems,
     getValue: appliedItems => {
       const currentItem = appliedItems.find(item => item.node.isHeading || item.name === 'p');
       return currentItem ? currentItem.name : '';
@@ -188,36 +155,7 @@ const toolbarItemList: ToolbarItem[] = [
     defaultValue: '16px',
     tooltipText: 'Font Size',
     width: '65px',
-    menu: [
-      {
-        value: '12px',
-        text: '12px',
-      },
-      {
-        value: '14px',
-        text: '14px',
-      },
-      {
-        value: '16px',
-        text: '16px',
-      },
-      {
-        value: '18px',
-        text: '18px',
-      },
-      {
-        value: '22px',
-        text: '22px',
-      },
-      {
-        value: '24px',
-        text: '24px',
-      },
-      {
-        value: '32px',
-        text: '32px',
-      },
-    ],
+    menuItems: fontSizeMenuItems,
     getValue: appliedItems => {
       if (appliedItems.length === 0) {
         return '';
@@ -308,19 +246,15 @@ export class Toolbar {
         editor.command.execute('image', './data/tianchi.png');
         return;
       }
-      if (noParameterCommandNames.indexOf(type) >= 0) {
-        editor.command.execute(type);
-      }
     });
   }
   */
 
   private appendButton(item: ButtonItem) {
     const editor = this.editor;
-    const buttonNode = query(`<button name="${item.name}" type="button" class="lake-toolbar-item" />`);
-    buttonNode.attr({
-      title: item.tooltipText,
-    });
+    const buttonNode = query('<button type="button" class="lake-toolbar-item" />');
+    buttonNode.attr('name', item.name);
+    buttonNode.attr('title', item.tooltipText);
     if (item.icon) {
       buttonNode.append(item.icon);
     }
@@ -340,20 +274,22 @@ export class Toolbar {
     const editor = this.editor;
     const menuMap: Map<string, string> = new Map();
     const content = template(`
-      <div name="${item.name}" class="lake-dropdown">
+      <div class="lake-dropdown">
         <button type="button" class="lake-dropdown-title">
           <div class="lake-dropdown-text"></div>
         </button>
       </div>
     `);
     const dropdownNode = query(content);
+    dropdownNode.attr('name', item.name);
     const titleNode = dropdownNode.find('.lake-dropdown-title');
     titleNode.css('width', item.width);
+    titleNode.attr('title', item.tooltipText);
     const textNode = titleNode.find('.lake-dropdown-text');
     titleNode.append(icons.get('down') ?? '');
     const menuNode = query('<ul class="lake-dropdown-menu" />');
-    if (item.menu) {
-      for (const menuItem of item.menu) {
+    if (item.menuItems) {
+      for (const menuItem of item.menuItems) {
         const listContent = template(`
           <li value="${menuItem.value}">
             <div class="lake-dropdown-menu-text">${menuItem.text}</div>
