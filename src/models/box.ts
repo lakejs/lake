@@ -16,11 +16,11 @@ type SetupFunction = () => CleanupFunction | void;
 // Is a key-value object for storing all effects.
 const effectData: { [key: number]: { setup: SetupFunction[], cleanup: CleanupFunction[] } } = {};
 
-const framework = template(`
+const framework = template`
   <span class="lake-box-strip"><br /></span>
   <div class="lake-box-container" contenteditable="false"></div>
   <span class="lake-box-strip"><br /></span>
-`);
+`;
 
 export class Box {
   // <lake-box> element

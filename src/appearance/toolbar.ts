@@ -273,13 +273,13 @@ export class Toolbar {
   private appendDropdown(item: DropdownItem) {
     const editor = this.editor;
     const menuMap: Map<string, string> = new Map();
-    const content = template(`
+    const content = template`
       <div class="lake-dropdown">
         <button type="button" class="lake-dropdown-title">
           <div class="lake-dropdown-text"></div>
         </button>
       </div>
-    `);
+    `;
     const dropdownNode = query(content);
     dropdownNode.attr('name', item.name);
     const titleNode = dropdownNode.find('.lake-dropdown-title');
@@ -290,11 +290,11 @@ export class Toolbar {
     const menuNode = query('<ul class="lake-dropdown-menu" />');
     if (item.menuItems) {
       for (const menuItem of item.menuItems) {
-        const listContent = template(`
+        const listContent = template`
           <li value="${menuItem.value}">
             <div class="lake-dropdown-menu-text">${menuItem.text}</div>
           </li>
-        `);
+        `;
         const listNode = query(listContent);
         menuNode.append(listNode);
         listNode.prepend(icons.get('check') ?? '');
