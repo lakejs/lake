@@ -198,7 +198,7 @@ const toolbarItemList: ToolbarItem[] = [
         return [];
       }
       const currentValue = appliedItems[0].node.computedCSS('font-size');
-      return [currentValue];
+      return [currentValue.replace(/\.\d+/, '')];
     },
     onSelect: (editor, value) => {
       editor.command.execute('fontSize', value);
