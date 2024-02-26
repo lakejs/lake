@@ -127,6 +127,24 @@ const toolbarItemList: ToolbarItem[] = [
     },
   },
   {
+    name: 'strikethrough',
+    type: 'button',
+    icon: icons.get('strikethrough'),
+    tooltipText: 'Strikethrough',
+    onClick: (editor, value) => {
+      editor.command.execute(value);
+    },
+  },
+  {
+    name: 'code',
+    type: 'button',
+    icon: icons.get('code'),
+    tooltipText: 'Code',
+    onClick: (editor, value) => {
+      editor.command.execute(value);
+    },
+  },
+  {
     name: 'moreStyle',
     type: 'dropdown',
     icon: icons.get('more'),
@@ -198,6 +216,8 @@ const defaultConfig: string[] = [
   'bold',
   'italic',
   'underline',
+  'strikethrough',
+  'code',
   'moreStyle',
   '|',
   'bold',

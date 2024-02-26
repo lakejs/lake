@@ -24,9 +24,14 @@ export default (editor: Editor) => {
     markList = [];
     editor.container.removeClass(formatPainterClassName);
   });
-  editor.event.on('click', tagetNode => {
-    if (tagetNode.isOutside) {
-      editor.container.removeClass(formatPainterClassName);
+  editor.event.on('click', (tagetNode: Nodes) => {
+    if (tagetNode.isInside) {
+      return;
     }
+    const buttonNode = tagetNode.closest('.lake-toolbar-button');
+    if (buttonNode.length > 0 && buttonNode.attr('name') === 'formatPainter') {
+      return;
+    }
+    editor.container.removeClass(formatPainterClassName);
   });
 };
