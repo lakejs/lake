@@ -70,6 +70,16 @@ export const fontSizeMenuItems: MenuItem[] = [
 
 export const moreStyleMenuItems: MenuItem[] = [
   {
+    icon: icons.get('italic'),
+    value: 'italic',
+    text: 'Italic',
+  },
+  {
+    icon: icons.get('underline'),
+    value: 'underline',
+    text: 'Underline',
+  },
+  {
     icon: icons.get('strikethrough'),
     value: 'strikethrough',
     text: 'Strikethrough',

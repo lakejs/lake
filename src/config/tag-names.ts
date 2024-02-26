@@ -14,14 +14,14 @@ export const blockTagNames: Set<string> = new Set([
 ]);
 
 export const markTagNames: Set<string> = new Set([
+  'span',
   'strong',
   'em',
   'i',
   'u',
   's',
-  'span',
-  'sub',
   'sup',
+  'sub',
   'code',
   'a',
 ]);

@@ -50,13 +50,22 @@ const indentTypes = new Map([
 ]);
 
 const noParameterCommandNames = [
-  'selectAll',
   'blockQuote',
-  'unlink',
   'hr',
   'codeBlock',
 ];
 */
+
+const tagPluginNameMap: Map<string, string> = new Map([
+  ['strong', 'bold'],
+  ['em', 'italic'],
+  ['i', 'italic'],
+  ['u', 'underline'],
+  ['s', 'strikethrough'],
+  ['sup', 'supscript'],
+  ['sub', 'subscript'],
+  ['code', 'code'],
+]);
 
 const toolbarItemList: ToolbarItem[] = [
   {
@@ -152,10 +161,7 @@ const toolbarItemList: ToolbarItem[] = [
       const currentValues = [];
       for (const item of appliedItems) {
         if (item.node.isMark) {
-          let name = item.name;
-          if (item.name === 's') {
-            name = 'strikethrough';
-          }
+          const name = tagPluginNameMap.get(item.name) ?? item.name;
           currentValues.push(name);
         }
       }
@@ -210,10 +216,6 @@ const defaultConfig: string[] = [
   'formatPainter',
   'removeFormat',
   'bold',
-  'italic',
-  'underline',
-  'strikethrough',
-  'code',
   'moreStyle',
   '|',
   'bold',
