@@ -52,10 +52,6 @@ const indentTypes = new Map([
 const noParameterCommandNames = [
   'selectAll',
   'blockQuote',
-  'strikethrough',
-  'subscript',
-  'superscript',
-  'code',
   'unlink',
   'hr',
   'codeBlock',

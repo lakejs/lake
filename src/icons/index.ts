@@ -1,4 +1,11 @@
-// These icons are from Phosphor Icons.
+// These icons are from open source projects.
+//
+// Microsoft Fluent Icons (https://fluenticons.co/).
+// - superscript
+// - subscript
+//
+// Phosphor Icons (https://phosphoricons.com/).
+// - other icons
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
@@ -27,6 +34,8 @@ import bold from './bold.svg';
 import italic from './italic.svg';
 import underline from './underline.svg';
 import strikethrough from './strikethrough.svg';
+import superscript from './superscript.svg';
+import subscript from './subscript.svg';
 import code from './code.svg';
 import removeFormat from './remove-format.svg';
 // items that can be inserted
@@ -58,6 +67,8 @@ export const icons: Map<string, string> = new Map([
   ['italic', italic],
   ['underline', underline],
   ['strikethrough', strikethrough],
+  ['superscript', superscript],
+  ['subscript', subscript],
   ['code', code],
   ['removeFormat', removeFormat],
   ['hr', hr],

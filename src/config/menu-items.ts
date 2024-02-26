@@ -75,6 +75,16 @@ export const moreStyleMenuItems: MenuItem[] = [
     text: 'Strikethrough',
   },
   {
+    icon: icons.get('superscript'),
+    value: 'superscript',
+    text: 'Superscript',
+  },
+  {
+    icon: icons.get('subscript'),
+    value: 'subscript',
+    text: 'Subscript',
+  },
+  {
     icon: icons.get('code'),
     value: 'code',
     text: 'Code',
