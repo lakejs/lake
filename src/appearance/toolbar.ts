@@ -62,7 +62,7 @@ const tagPluginNameMap: Map<string, string> = new Map([
   ['i', 'italic'],
   ['u', 'underline'],
   ['s', 'strikethrough'],
-  ['sup', 'supscript'],
+  ['sup', 'superscript'],
   ['sub', 'subscript'],
   ['code', 'code'],
 ]);
