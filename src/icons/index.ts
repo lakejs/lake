@@ -1,8 +1,9 @@
 // These icons are from open source projects.
 //
-// Microsoft Fluent Icons (https://fluenticons.co/).
-// - superscript
-// - subscript
+// Fluent Icons by Microsoft (https://fluenticons.co/).
+// - superscript.svg
+// - subscript.svg
+// - more-style.svg
 //
 // Phosphor Icons (https://phosphoricons.com/).
 // - other icons
@@ -38,6 +39,7 @@ import superscript from './superscript.svg';
 import subscript from './subscript.svg';
 import code from './code.svg';
 import removeFormat from './remove-format.svg';
+import moreStyle from './more-style.svg';
 // items that can be inserted
 import hr from './hr.svg';
 import link from './link.svg';
@@ -71,6 +73,7 @@ export const icons: Map<string, string> = new Map([
   ['subscript', subscript],
   ['code', code],
   ['removeFormat', removeFormat],
+  ['moreStyle', moreStyle],
   ['hr', hr],
   ['link', link],
   ['image', image],

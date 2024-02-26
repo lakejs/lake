@@ -48,12 +48,6 @@ const indentTypes = new Map([
   ['increaseIndent', 'increase'],
   ['decreaseIndent', 'decrease'],
 ]);
-
-const noParameterCommandNames = [
-  'blockQuote',
-  'hr',
-  'codeBlock',
-];
 */
 
 const tagPluginNameMap: Map<string, string> = new Map([
@@ -150,6 +144,33 @@ const toolbarItemList: ToolbarItem[] = [
     },
   },
   {
+    name: 'blockQuote',
+    type: 'button',
+    icon: icons.get('blockQuote'),
+    tooltipText: 'Block Quotation',
+    onClick: (editor, value) => {
+      editor.command.execute(value);
+    },
+  },
+  {
+    name: 'hr',
+    type: 'button',
+    icon: icons.get('hr'),
+    tooltipText: 'Horizontal Line',
+    onClick: (editor, value) => {
+      editor.command.execute(value);
+    },
+  },
+  {
+    name: 'codeBlock',
+    type: 'button',
+    icon: icons.get('codeBlock'),
+    tooltipText: 'Code Block',
+    onClick: (editor, value) => {
+      editor.command.execute(value);
+    },
+  },
+  {
     name: 'moreStyle',
     type: 'dropdown',
     icon: icons.get('more'),
@@ -211,7 +232,10 @@ const defaultConfig: string[] = [
   'redo',
   '|',
   'heading',
-  'fontSize',
+  // 'fontSize',
+  // 'blockQuote',
+  // 'hr',
+  'codeBlock',
   '|',
   'formatPainter',
   'removeFormat',

@@ -25,6 +25,7 @@ export const codeBlockBox: BoxComponent = {
       tabSize: 2,
       lineNumbers: true,
     });
+    box.setData('codeEditor', codeEditor);
     codeEditor.on('change', (cm: any) => {
       // Here setTimeout is necessary because isComposing is not false after ending composition.
       window.setTimeout(() => {

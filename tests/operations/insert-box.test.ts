@@ -1,3 +1,4 @@
+import { expect } from 'chai';
 import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
 import { insertBox } from '../../src/operations/insert-box';
@@ -65,7 +66,8 @@ describe('operations / insert-box', () => {
       content,
       output,
       range => {
-        insertBox(range, 'inlineBox');
+        const boxNode = insertBox(range, 'inlineBox');
+        expect(boxNode.name).to.equal('lake-box');
       },
     );
   });
@@ -118,7 +120,8 @@ describe('operations / insert-box', () => {
       content,
       output,
       range => {
-        insertBox(range, 'blockBox');
+        const boxNode = insertBox(range, 'blockBox');
+        expect(boxNode.name).to.equal('lake-box');
       },
     );
   });

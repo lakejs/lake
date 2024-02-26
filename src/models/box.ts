@@ -3,15 +3,18 @@ import type { Editor } from '../editor';
 import { NativeNode } from '../types/native';
 import { BoxType, BoxValue } from '../types/box';
 import { boxes } from '../storage/boxes';
+import { editors } from '../storage/editors';
 import { template } from '../utils/template';
 import { encode } from '../utils/encode';
 import { query } from '../utils/query';
 import { morph } from '../utils/morph';
 import { Nodes } from './nodes';
-import { editors } from '../storage/editors';
 
 type CleanupFunction = () => void;
 type SetupFunction = () => CleanupFunction | void;
+
+// Is a key-value object for storing data about box.
+const boxData: { [key: number]: { [key: string]: any } } = {};
 
 // Is a key-value object for storing all effects.
 const effectData: { [key: number]: { setup: SetupFunction[], cleanup: CleanupFunction[] } } = {};
@@ -47,6 +50,9 @@ export class Box {
       if (component.value && !this.node.hasAttr('value')) {
         this.value = component.value;
       }
+    }
+    if (!boxData[this.node.id]) {
+      boxData[this.node.id] = {};
     }
     if (!effectData[this.node.id]) {
       effectData[this.node.id] = {
@@ -99,6 +105,16 @@ export class Box {
   // Updates the value of the box.
   public set value(value: BoxValue) {
     this.node.attr('value', Base64.encode(JSON.stringify(value)));
+  }
+
+  // Returns data of the box.
+  public getData(key: string): any {
+    return boxData[this.node.id][key];
+  }
+
+  // Updates data of the box.
+  public setData(key: string, value: any): void {
+    boxData[this.node.id][key] = value;
   }
 
   // Returns the editor instance of the box.
