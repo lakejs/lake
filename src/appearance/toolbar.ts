@@ -232,17 +232,16 @@ const defaultConfig: string[] = [
   'redo',
   '|',
   'heading',
-  // 'fontSize',
-  // 'blockQuote',
-  // 'hr',
-  'codeBlock',
+  'fontSize',
   '|',
   'formatPainter',
   'removeFormat',
   'bold',
   'moreStyle',
   '|',
-  'bold',
+  'codeBlock',
+  'blockQuote',
+  'hr',
 ];
 
 const toolbarItemMap: Map<string, ToolbarItem> = new Map();
