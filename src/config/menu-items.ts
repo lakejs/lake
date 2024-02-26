@@ -1,5 +1,8 @@
+import { icons } from '../icons';
+
 type MenuItem = {
   value: string,
+  icon?: string,
   text: string,
 };
 
@@ -62,5 +65,18 @@ export const fontSizeMenuItems: MenuItem[] = [
   {
     value: '32px',
     text: '32px',
+  },
+];
+
+export const moreStyleMenuItems: MenuItem[] = [
+  {
+    icon: icons.get('strikethrough'),
+    value: 'strikethrough',
+    text: 'Strikethrough',
+  },
+  {
+    icon: icons.get('code'),
+    value: 'code',
+    text: 'Code',
   },
 ];

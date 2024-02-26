@@ -8,23 +8,23 @@
   display: flex;
   align-items: center;
 }
-.lake-toolbar .lake-toolbar-item {
+.lake-toolbar .lake-toolbar-button {
   border-radius: 5px;
   border: 0;
   background-color: #fff;
   padding: 0;
-  margin: 0 2px;
+  margin: 0;
+  line-height: 0;
   cursor: pointer;
   user-select: none;
 }
-.lake-toolbar .lake-toolbar-item:hover {
+.lake-toolbar .lake-toolbar-button:hover {
   background-color: var(--background-hover-color);
 }
-.lake-toolbar .lake-toolbar-item svg {
+.lake-toolbar .lake-toolbar-button svg {
   width: 16px;
   height: 16px;
   margin: 6px;
-  vertical-align: middle;
 }
 .lake-toolbar .lake-toolbar-separator {
   width: 1px;
@@ -42,7 +42,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0;
-  margin: 0 2px;
+  margin: 0;
   border-radius: 5px;
   border: 0;
   background-color: #fff;
@@ -51,16 +51,27 @@
 .lake-toolbar .lake-dropdown-title:hover {
   background-color: var(--background-hover-color);
 }
-.lake-dropdown .lake-dropdown-text {
+.lake-toolbar .lake-dropdown-text {
   height: 16px;
   margin: 6px;
 }
-.lake-dropdown .lake-dropdown-title svg {
+.lake-toolbar .lake-dropdown-icon {
+  line-height: 0;
+}
+.lake-toolbar .lake-dropdown-icon svg {
+  width: 16px;
+  height: 16px;
+  margin: 6px;
+}
+.lake-toolbar .lake-dropdown-down-icon {
+  line-height: 0;
+}
+.lake-toolbar .lake-dropdown-down-icon svg {
   width: 12px;
   height: 12px;
   margin-right: 6px;
 }
-.lake-dropdown .lake-dropdown-menu {
+.lake-toolbar .lake-dropdown-menu {
   position: absolute;
   top: 30px;
   left: 0;
@@ -75,24 +86,34 @@
   box-shadow: var(--box-shadow);
   display: none;
 }
-.lake-dropdown .lake-dropdown-menu li {
-  display: grid;
-  grid-template-columns: 20px 1fr;
+.lake-toolbar .lake-dropdown-menu li {
+  display: flex;
   align-items: center;
   cursor: pointer;
+  padding: 6px 24px 6px 10px;
 }
-.lake-dropdown .lake-dropdown-menu li:hover {
+.lake-toolbar .lake-dropdown-menu li:hover {
   background-color: var(--background-hover-color);
 }
-.lake-dropdown .lake-dropdown-menu li .lake-dropdown-menu-text {
-  margin: 6px 24px 6px 10px;
-  white-space: nowrap;
+.lake-toolbar .lake-dropdown-menu li .lake-dropdown-menu-check {
+  line-height: 0;
+  visibility: hidden;
 }
-.lake-dropdown .lake-dropdown-menu li svg {
+.lake-toolbar .lake-dropdown-menu li .lake-dropdown-menu-check svg {
   width: 12px;
   height: 12px;
+}
+.lake-toolbar .lake-dropdown-menu li .lake-dropdown-menu-icon {
+  line-height: 0;
   margin-left: 10px;
-  visibility: hidden;
+}
+.lake-toolbar .lake-dropdown-menu li .lake-dropdown-menu-icon svg {
+  width: 16px;
+  height: 16px;
+}
+.lake-toolbar .lake-dropdown-menu li .lake-dropdown-menu-text {
+  margin-left: 10px;
+  white-space: nowrap;
 }
 .lake-toolbar .lake-dropdown-menu li[value="h1"],
 .lake-toolbar .lake-dropdown-menu li[value="h2"],
