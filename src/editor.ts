@@ -17,7 +17,6 @@ type OptionsType = {[key: string]: any};
 
 const defaultOptions: OptionsType = {
   readonly: false,
-  className: '',
   defaultValue: '<p><br /><focus /></p>',
   spellcheck: false,
   minChangeSize: 5,

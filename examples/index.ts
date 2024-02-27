@@ -30,7 +30,7 @@ const menuItems: MenuItem[] = [
     text: 'Document editor',
   },
   {
-    key: 'miniature-toolbar',
+    key: 'miniature',
     url: './miniature-toolbar',
     text: 'Miniature toolbar',
   },
@@ -95,15 +95,38 @@ function renderTitle(key: string): void {
 function renderEditor(key: string): void {
   const localStorageKey = `lake-example-${key}`;
   const editorValue = localStorage.getItem(localStorageKey) ?? defaultValue;
-  const editor = new Editor('.lake-container', {
-    readonly: false,
-    defaultValue: editorValue,
-  });
+  let editor: Editor;
+  let toolbarConfig: string[] | undefined;
+  if (key === 'miniature') {
+    query('.lake-editor').addClass('lake-mini-editor');
+    editor = new Editor('.lake-container', {
+      defaultValue: editorValue,
+    });
+    toolbarConfig = [
+      'undo',
+      'redo',
+      '|',
+      'heading',
+      '|',
+      'bold',
+      'moreStyle',
+      '|',
+      'hr',
+    ];
+  } else {
+    editor = new Editor('.lake-container', {
+      defaultValue: editorValue,
+    });
+  }
   editor.event.on('change', value => {
     localStorage.setItem(localStorageKey, value);
   });
   editor.render();
-  new Toolbar(editor).render('.lake-toolbar');
+  if (key === 'headless') {
+    query('.lake-toolbar').remove();
+  } else {
+    new Toolbar(editor, toolbarConfig).render('.lake-toolbar');
+  }
   window.editor = editor;
 }
 
