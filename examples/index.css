@@ -20,6 +20,7 @@ body {
 }
 .header .menu {
   position: relative;
+  font-size: 0;
 }
 .menu button {
   border-radius: 5px;
@@ -65,5 +66,5 @@ body {
   margin: 0 8px;
 }
 .lake-container {
-  height: calc(100vh - 122px);
+  height: calc(100vh - 160px);
 }
