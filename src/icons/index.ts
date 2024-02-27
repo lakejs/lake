@@ -4,6 +4,7 @@
 // - superscript.svg
 // - subscript.svg
 // - more-style.svg
+// - block-quote.svg
 //
 // Phosphor Icons (https://phosphoricons.com/).
 // - other icons
