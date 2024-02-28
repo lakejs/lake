@@ -59,7 +59,7 @@ export function getElementRules(): any {
       style: {
         color: /^\S+$/,
         'background-color': /^\S+$/,
-        'font-family': /^\S+$/,
+        'font-family': /^[\s\S]+$/,
         'font-size': /^\S+$/,
       },
     },

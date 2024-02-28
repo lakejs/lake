@@ -5,6 +5,7 @@ import { ButtonItem, DropdownItem, ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
 import { toolbarItems } from '../config/toolbar-items';
 import { template } from '../utils/template';
+import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 
@@ -113,14 +114,14 @@ export class Toolbar {
   private appendDropdown(item: DropdownItem) {
     const editor = this.editor;
     const menuMap: Map<string, string> = new Map();
-    const dropdownNode = item.icon ? query(template`
+    const dropdownNode = item.icon ? query(safeTemplate`
       <div class="lake-dropdown">
         <button type="button" class="lake-dropdown-title">
           <div class="lake-dropdown-icon"></div>
           <div class="lake-dropdown-down-icon"></div>
         </button>
       </div>
-    `) : query(template`
+    `) : query(safeTemplate`
       <div class="lake-dropdown">
         <button type="button" class="lake-dropdown-title">
           <div class="lake-dropdown-text"></div>
@@ -164,7 +165,9 @@ export class Toolbar {
           checkNode.append(checkIcon);
           listNode.prepend(checkNode);
         }
-        menuMap.set(menuItem.value, menuItem.text);
+        // remove HTML tags
+        const text = menuItem.text.replace(/<[^>]*>/, '');
+        menuMap.set(menuItem.value, text);
       }
       dropdownNode.append(menuNode);
     }
@@ -203,7 +206,8 @@ export class Toolbar {
       menuNode.hide();
     });
     editor.event.on('selectionchange', () => {
-      const currentValues = item.getValues(editor.selection.appliedItems);
+      const appliedItems = editor.selection.appliedItems;
+      const currentValues = appliedItems.length > 0 ? item.getValues(appliedItems) : [];
       this.setValue(dropdownNode, currentValues);
       if (textNode.length > 0) {
         const key = currentValues[0] || item.defaultValue;

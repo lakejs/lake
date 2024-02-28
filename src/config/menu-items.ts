@@ -4,31 +4,82 @@ import { MenuItem } from '../types/toolbar';
 export const  headingMenuItems: MenuItem[] = [
   {
     value: 'h1',
-    text: 'Heading 1',
+    text: '<span style="font-weight: bold; font-size: 26px;">Heading 1</span>',
   },
   {
     value: 'h2',
-    text: 'Heading 2',
+    text: '<span style="font-weight: bold; font-size: 24px;">Heading 2</span>',
   },
   {
     value: 'h3',
-    text: 'Heading 3',
+    text: '<span style="font-weight: bold; font-size: 22px;">Heading 3</span>',
   },
   {
     value: 'h4',
-    text: 'Heading 4',
+    text: '<span style="font-weight: bold; font-size: 20px;">Heading 4</span>',
   },
   {
     value: 'h5',
-    text: 'Heading 5',
+    text: '<span style="font-weight: bold; font-size: 18px;">Heading 5</span>',
   },
   {
     value: 'h6',
-    text: 'Heading 6',
+    text: '<span style="font-weight: bold; font-size: 16px;">Heading 6</span>',
   },
   {
     value: 'p',
     text: 'Paragraph',
+  },
+];
+
+export const fontFamilyMenuItems: MenuItem[] = [
+  {
+    value: 'Arial',
+    text: '<span style="font-family: \'Arial\';">Arial</span>',
+  },
+  {
+    value: 'Arial Black',
+    text: '<span style="font-family: \'Arial Black\';">Arial Black</span>',
+  },
+  {
+    value: 'Comic Sans MS',
+    text: '<span style="font-family: \'Comic Sans MS\';">Comic Sans MS</span>',
+  },
+  {
+    value: 'Courier New',
+    text: '<span style="font-family: \'Courier New\';">Courier New</span>',
+  },
+  {
+    value: 'Georgia',
+    text: '<span style="font-family: \'Georgia\';">Georgia</span>',
+  },
+  {
+    value: 'Helvetica',
+    text: '<span style="font-family: \'Helvetica\';">Helvetica</span>',
+  },
+  {
+    value: 'Impact',
+    text: '<span style="font-family: \'Impact\';">Impact</span>',
+  },
+  {
+    value: 'Segoe UI',
+    text: '<span style="font-family: \'Segoe UI\';">Segoe UI</span>',
+  },
+  {
+    value: 'Tahoma',
+    text: '<span style="font-family: \'Tahoma\';">Tahoma</span>',
+  },
+  {
+    value: 'Times New Roman',
+    text: '<span style="font-family: \'Times New Roman\';">Times New Roman</span>',
+  },
+  {
+    value: 'Trebuchet MS',
+    text: '<span style="font-family: \'Trebuchet MS\';">Trebuchet MS</span>',
+  },
+  {
+    value: 'Verdana',
+    text: '<span style="font-family: \'Verdana\';">Verdana</span>',
   },
 ];
 

@@ -55,6 +55,8 @@
 .lake-toolbar .lake-dropdown-text {
   height: 16px;
   margin: 6px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .lake-toolbar .lake-dropdown-icon {
   line-height: 0;
@@ -114,30 +116,4 @@
 .lake-toolbar .lake-dropdown-menu li .lake-dropdown-menu-text {
   margin-left: 10px;
   white-space: nowrap;
-}
-.lake-toolbar .lake-dropdown-menu li[value="h1"],
-.lake-toolbar .lake-dropdown-menu li[value="h2"],
-.lake-toolbar .lake-dropdown-menu li[value="h3"],
-.lake-toolbar .lake-dropdown-menu li[value="h4"],
-.lake-toolbar .lake-dropdown-menu li[value="h5"],
-.lake-toolbar .lake-dropdown-menu li[value="h6"] {
-  font-weight: bold;
-}
-.lake-toolbar .lake-dropdown-menu li[value="h1"] {
-  font-size: 26px;
-}
-.lake-toolbar .lake-dropdown-menu li[value="h2"] {
-  font-size: 24px;
-}
-.lake-toolbar .lake-dropdown-menu li[value="h3"] {
-  font-size: 22px;
-}
-.lake-toolbar .lake-dropdown-menu li[value="h4"] {
-  font-size: 20px;
-}
-.lake-toolbar .lake-dropdown-menu li[value="h5"] {
-  font-size: 18px;
-}
-.lake-toolbar .lake-dropdown-menu li[value="h6"] {
-  font-size: 16px;
 }

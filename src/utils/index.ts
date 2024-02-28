@@ -1,5 +1,6 @@
 // String
 export * from './template';
+export * from './safe-template';
 export * from './camel-case';
 export * from './in-string';
 export * from './encode';

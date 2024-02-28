@@ -1,6 +1,6 @@
 import { ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
-import { headingMenuItems, fontSizeMenuItems, moreStyleMenuItems } from './menu-items';
+import { headingMenuItems, fontSizeMenuItems, moreStyleMenuItems, fontFamilyMenuItems } from './menu-items';
 
 const tagPluginNameMap: Map<string, string> = new Map([
   ['strong', 'bold'],
@@ -246,6 +246,21 @@ export const toolbarItems: ToolbarItem[] = [
     },
   },
   {
+    name: 'fontFamily',
+    type: 'dropdown',
+    defaultValue: 'Segoe UI',
+    tooltipText: 'Font family',
+    width: '100px',
+    menuItems: fontFamilyMenuItems,
+    getValues: appliedItems => {
+      const currentValue = appliedItems[0].node.css('font-family');
+      return [currentValue.replace(/['"]/g, '')];
+    },
+    onSelect: (editor, value) => {
+      editor.command.execute('fontFamily', value);
+    },
+  },
+  {
     name: 'fontSize',
     type: 'dropdown',
     defaultValue: '16px',
@@ -253,9 +268,6 @@ export const toolbarItems: ToolbarItem[] = [
     width: '65px',
     menuItems: fontSizeMenuItems,
     getValues: appliedItems => {
-      if (appliedItems.length === 0) {
-        return [];
-      }
       const currentValue = appliedItems[0].node.computedCSS('font-size');
       return [currentValue.replace(/\.\d+/, '')];
     },

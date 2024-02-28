@@ -1,5 +1,5 @@
 import type { BoxComponent } from '..';
-import { template } from '../utils/template';
+import { safeTemplate } from '../utils/safe-template';
 
 export const imageBox: BoxComponent = {
   type: 'inline',
@@ -15,7 +15,7 @@ export const imageBox: BoxComponent = {
       });
       return () => box.getContainer().off('click');
     });
-    return template`<img src="${box.value.url}" />`;
+    return safeTemplate`<img src="${box.value.url}" />`;
   },
-  html: box => template`<img src="${box.value.url}" />`,
+  html: box => safeTemplate`<img src="${box.value.url}" />`,
 };

@@ -3,11 +3,11 @@ import { template } from '../../src/utils';
 
 describe('utils / template', () => {
 
-  it('should escape special characters', () => {
-    const name = '<foo="bar">';
+  it('should not escape special characters', () => {
+    const name = '<span>foo</span>';
     const age = 40;
     const content = template`<p>${name}</p><p>${age}</p>`;
-    expect(content).to.equal('<p>&lt;foo=&quot;bar&quot;&gt;</p><p>40</p>');
+    expect(content).to.equal('<p><span>foo</span></p><p>40</p>');
   });
 
   it('should remove empty spaces', () => {

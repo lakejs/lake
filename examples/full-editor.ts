@@ -10,6 +10,7 @@ export default (value: string) => {
     'redo',
     '|',
     'heading',
+    'fontFamily',
     'fontSize',
     '|',
     'formatPainter',

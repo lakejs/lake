@@ -1,5 +1,6 @@
 // String Utils
 import './utils/template.test';
+import './utils/safe-template.test';
 import './utils/camel-case.test';
 import './utils/in-string.test';
 import './utils/encode.test';

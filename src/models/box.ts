@@ -4,7 +4,7 @@ import { NativeNode } from '../types/native';
 import { BoxType, BoxValue } from '../types/box';
 import { boxes } from '../storage/boxes';
 import { editors } from '../storage/editors';
-import { template } from '../utils/template';
+import { safeTemplate } from '../utils/safe-template';
 import { encode } from '../utils/encode';
 import { query } from '../utils/query';
 import { morph } from '../utils/morph';
@@ -19,7 +19,7 @@ const boxData: { [key: number]: { [key: string]: any } } = {};
 // Is a key-value object for storing all effects.
 const effectData: { [key: number]: { setup: SetupFunction[], cleanup: CleanupFunction[] } } = {};
 
-const framework = template`
+const framework = safeTemplate`
   <span class="lake-box-strip"><br /></span>
   <div class="lake-box-container" contenteditable="false"></div>
   <span class="lake-box-strip"><br /></span>
