@@ -69,8 +69,8 @@ body {
   height: calc(100vh - 160px);
 }
 .lake-mini-editor {
-  width: 600px;
+  max-width: 600px;
 }
 .lake-mini-editor .lake-container {
-  height: 300px;
+  height: 100px;
 }

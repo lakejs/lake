@@ -1,10 +1,5 @@
 import { icons } from '../icons';
-
-type MenuItem = {
-  value: string,
-  icon?: string,
-  text: string,
-};
+import { MenuItem } from '../types/toolbar';
 
 export const  headingMenuItems: MenuItem[] = [
   {

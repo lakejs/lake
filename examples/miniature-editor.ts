@@ -11,11 +11,14 @@ export default (value: string) => {
     'redo',
     '|',
     'heading',
+    'blockQuote',
     '|',
     'bold',
     'moreStyle',
     '|',
-    'hr',
+    'numberedList',
+    'bulletedList',
+    'checklist',
   ]).render('.lake-toolbar');
   return editor;
 };

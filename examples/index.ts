@@ -1,6 +1,7 @@
 import './index.css';
 import { Editor, Utils } from '../src';
 import { defaultValue } from './data/default-value';
+import { fullValue } from './data/full-value';
 import { miniatureValue } from './data/miniature-value';
 import { headlessValue } from './data/headless-value';
 import { hugeValue } from './data/huge-value';
@@ -36,7 +37,7 @@ const menuItems: MenuItem[] = [
   {
     url: './full-featured',
     text: 'Full-featured editor',
-    editorValue: defaultValue,
+    editorValue: fullValue,
     editor: fullEditor,
   },
   {
