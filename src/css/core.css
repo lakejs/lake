@@ -31,13 +31,13 @@
   padding: 0;
   margin-bottom: 8px;
 }
-.lake-container a {
+.lake-container a[href] {
   color: var(--link-color);
   text-decoration: none;
   outline: none;
   transition: color .3s;
 }
-.lake-container a:hover {
+.lake-container a[href]:hover {
   color: var(--link-hover-color);
   text-decoration: underline;
 }

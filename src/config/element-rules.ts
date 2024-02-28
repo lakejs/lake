@@ -73,6 +73,7 @@ export function getElementRules(): any {
     sup: {},
     code: {},
     a: {
+      name: /^[\w-]+$/,
       href: /^\S+$/,
       target: /^[\w-]+$/,
     },

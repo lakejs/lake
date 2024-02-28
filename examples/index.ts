@@ -3,6 +3,7 @@ import { Editor, Utils } from '../src';
 import { defaultValue } from './data/default-value';
 import { miniatureValue } from './data/miniature-value';
 import { headlessValue } from './data/headless-value';
+import { hugeValue } from './data/huge-value';
 import defaultEditor from './default-editor';
 import miniatureEditor from './miniature-editor';
 import headlessEditor from './headless-editor';
@@ -70,7 +71,7 @@ const menuItems: MenuItem[] = [
   {
     url: './huge-content',
     text: 'Huge Content',
-    editorValue: defaultValue,
+    editorValue: hugeValue,
     editor: defaultEditor,
   },
 ];
