@@ -5,6 +5,7 @@ import { miniatureValue } from './data/miniature-value';
 import { headlessValue } from './data/headless-value';
 import { hugeValue } from './data/huge-value';
 import defaultEditor from './default-editor';
+import fullEditor from './full-editor';
 import miniatureEditor from './miniature-editor';
 import headlessEditor from './headless-editor';
 
@@ -36,7 +37,7 @@ const menuItems: MenuItem[] = [
     url: './full-featured',
     text: 'Full-featured editor',
     editorValue: defaultValue,
-    editor: defaultEditor,
+    editor: fullEditor,
   },
   {
     url: './document',

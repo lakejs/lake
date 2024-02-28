@@ -30,26 +30,6 @@ type DropdownItem = {
 
 type ToolbarItem = ButtonItem | DropdownItem;
 
-/*
-const listTypes = new Map([
-  ['numberedList', 'numbered'],
-  ['bulletedList', 'bulleted'],
-  ['checklist', 'checklist'],
-]);
-
-const alignTypes = new Map([
-  ['alignLeft', 'left'],
-  ['alignCenter', 'center'],
-  ['alignRight', 'right'],
-  ['alignJustify', 'justify'],
-]);
-
-const indentTypes = new Map([
-  ['increaseIndent', 'increase'],
-  ['decreaseIndent', 'decrease'],
-]);
-*/
-
 const tagPluginNameMap: Map<string, string> = new Map([
   ['strong', 'bold'],
   ['em', 'italic'],
@@ -81,21 +61,102 @@ const toolbarItemList: ToolbarItem[] = [
     },
   },
   {
-    name: 'formatPainter',
+    name: 'selectAll',
     type: 'button',
-    icon: icons.get('formatPainter'),
-    tooltipText: 'Format Painter',
+    icon: icons.get('selectAll'),
+    tooltipText: 'Select all',
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
   },
   {
-    name: 'removeFormat',
+    name: 'blockQuote',
     type: 'button',
-    icon: icons.get('removeFormat'),
-    tooltipText: 'Remove Format',
+    icon: icons.get('blockQuote'),
+    tooltipText: 'Block quotation',
     onClick: (editor, value) => {
       editor.command.execute(value);
+    },
+  },
+  {
+    name: 'numberedList',
+    type: 'button',
+    icon: icons.get('numberedList'),
+    tooltipText: 'Numbered list',
+    onClick: editor => {
+      editor.command.execute('list', 'numbered');
+    },
+  },
+  {
+    name: 'bulletedList',
+    type: 'button',
+    icon: icons.get('bulletedList'),
+    tooltipText: 'Bulleted list',
+    onClick: editor => {
+      editor.command.execute('list', 'bulleted');
+    },
+  },
+  {
+    name: 'checklist',
+    type: 'button',
+    icon: icons.get('checklist'),
+    tooltipText: 'Checklist',
+    onClick: editor => {
+      editor.command.execute('list', 'checklist');
+    },
+  },
+  {
+    name: 'alignLeft',
+    type: 'button',
+    icon: icons.get('alignLeft'),
+    tooltipText: 'Align left',
+    onClick: editor => {
+      editor.command.execute('align', 'left');
+    },
+  },
+  {
+    name: 'alignCenter',
+    type: 'button',
+    icon: icons.get('alignCenter'),
+    tooltipText: 'Align center',
+    onClick: editor => {
+      editor.command.execute('align', 'center');
+    },
+  },
+  {
+    name: 'alignRight',
+    type: 'button',
+    icon: icons.get('alignRight'),
+    tooltipText: 'Align right',
+    onClick: editor => {
+      editor.command.execute('align', 'right');
+    },
+  },
+  {
+    name: 'alignJustify',
+    type: 'button',
+    icon: icons.get('alignJustify'),
+    tooltipText: 'Align justify',
+    onClick: editor => {
+      editor.command.execute('align', 'justify');
+    },
+  },
+  {
+    name: 'increaseIndent',
+    type: 'button',
+    icon: icons.get('increaseIndent'),
+    tooltipText: 'Increase indent',
+    onClick: editor => {
+      editor.command.execute('indent', 'increase');
+    },
+  },
+  {
+    name: 'decreaseIndent',
+    type: 'button',
+    icon: icons.get('decreaseIndent'),
+    tooltipText: 'Decrease indent',
+    onClick: editor => {
+      editor.command.execute('indent', 'decrease');
     },
   },
   {
@@ -135,6 +196,24 @@ const toolbarItemList: ToolbarItem[] = [
     },
   },
   {
+    name: 'superscript',
+    type: 'button',
+    icon: icons.get('superscript'),
+    tooltipText: 'Superscript',
+    onClick: (editor, value) => {
+      editor.command.execute(value);
+    },
+  },
+  {
+    name: 'subscript',
+    type: 'button',
+    icon: icons.get('subscript'),
+    tooltipText: 'Subscript',
+    onClick: (editor, value) => {
+      editor.command.execute(value);
+    },
+  },
+  {
     name: 'code',
     type: 'button',
     icon: icons.get('code'),
@@ -144,10 +223,19 @@ const toolbarItemList: ToolbarItem[] = [
     },
   },
   {
-    name: 'blockQuote',
+    name: 'removeFormat',
     type: 'button',
-    icon: icons.get('blockQuote'),
-    tooltipText: 'Block Quotation',
+    icon: icons.get('removeFormat'),
+    tooltipText: 'Remove format',
+    onClick: (editor, value) => {
+      editor.command.execute(value);
+    },
+  },
+  {
+    name: 'formatPainter',
+    type: 'button',
+    icon: icons.get('formatPainter'),
+    tooltipText: 'Format painter',
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -156,7 +244,7 @@ const toolbarItemList: ToolbarItem[] = [
     name: 'hr',
     type: 'button',
     icon: icons.get('hr'),
-    tooltipText: 'Horizontal Line',
+    tooltipText: 'Horizontal line',
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -165,30 +253,8 @@ const toolbarItemList: ToolbarItem[] = [
     name: 'codeBlock',
     type: 'button',
     icon: icons.get('codeBlock'),
-    tooltipText: 'Code Block',
+    tooltipText: 'Code block',
     onClick: (editor, value) => {
-      editor.command.execute(value);
-    },
-  },
-  {
-    name: 'moreStyle',
-    type: 'dropdown',
-    icon: icons.get('more'),
-    defaultValue: '',
-    tooltipText: 'More Style',
-    width: 'auto',
-    menuItems: moreStyleMenuItems,
-    getValues: appliedItems => {
-      const currentValues = [];
-      for (const item of appliedItems) {
-        if (item.node.isMark) {
-          const name = tagPluginNameMap.get(item.name) ?? item.name;
-          currentValues.push(name);
-        }
-      }
-      return currentValues;
-    },
-    onSelect: (editor, value) => {
       editor.command.execute(value);
     },
   },
@@ -223,6 +289,28 @@ const toolbarItemList: ToolbarItem[] = [
     },
     onSelect: (editor, value) => {
       editor.command.execute('fontSize', value);
+    },
+  },
+  {
+    name: 'moreStyle',
+    type: 'dropdown',
+    icon: icons.get('more'),
+    defaultValue: '',
+    tooltipText: 'More style',
+    width: 'auto',
+    menuItems: moreStyleMenuItems,
+    getValues: appliedItems => {
+      const currentValues = [];
+      for (const item of appliedItems) {
+        if (item.node.isMark) {
+          const name = tagPluginNameMap.get(item.name) ?? item.name;
+          currentValues.push(name);
+        }
+      }
+      return currentValues;
+    },
+    onSelect: (editor, value) => {
+      editor.command.execute(value);
     },
   },
 ];

@@ -16,7 +16,7 @@ import plus from './plus.svg';
 import more from './more.svg';
 import down from './down.svg';
 import check from './check.svg';
-// history
+import selectAll from './select-all.svg';
 import undo from './undo.svg';
 import redo from './redo.svg';
 // block format
@@ -53,6 +53,7 @@ export const icons: Map<string, string> = new Map([
   ['more', more],
   ['down', down],
   ['check', check],
+  ['selectAll', selectAll],
   ['undo', undo],
   ['redo', redo],
   ['blockQuote', blockQuote],

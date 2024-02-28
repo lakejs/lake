@@ -1,3 +1,7 @@
+// This content is from The Complete Stories of Sherlock Holmes.
+// A Study In Scarlet: https://sherlock-holm.es/stories/html/stud.html
+// The Sign of the Four: https://sherlock-holm.es/stories/html/sign.html
+
 export const hugeValue = `
 <h1>A Study In Scarlet</h1>
 <h2>Arthur Conan Doyle</h2>
