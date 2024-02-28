@@ -45,7 +45,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'blockQuote',
     type: 'button',
     icon: icons.get('blockQuote'),
-    tooltipText: 'Block quotation',
+    tooltipText: 'Block quote',
     onClick: (editor, value) => {
       editor.command.execute(value);
     },

@@ -54,10 +54,6 @@ export class Toolbar {
       editor.focus();
       const targetItem = query(event.target as Element).closest('.lake-toolbar-item');
       const type = targetItem.attr('data-type');
-      if (type === 'fontFamily') {
-        editor.command.execute('fontFamily', 'Segoe UI');
-        return;
-      }
       if (type === 'fontColor') {
         editor.command.execute('fontColor', '#ff0000');
         return;

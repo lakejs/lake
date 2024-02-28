@@ -17,7 +17,7 @@ export const hugeValue = `
 
 
 <h4 class="chapter-header">
-<a name="Chapter-1"/>Chapter I.</h4>
+Chapter I.</h4>
 <h4 class="chapter-subheader">Mr. Sherlock Holmes</h4>
 
 <p>
@@ -160,7 +160,7 @@ export const hugeValue = `
 <p>“Good-bye,” I answered, and strolled on to my hotel, considerably interested in my new acquaintance.</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-2"/>Chapter II.</h4>
+Chapter II.</h4>
 <h4 class="chapter-subheader">The Science Of Deduction</h4>
 
 <p>
@@ -278,7 +278,7 @@ export const hugeValue = `
 <p>He clicked his heels together, raised his hand in a salute, and was gone.</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-3"/>Chapter III.</h4>
+Chapter III.</h4>
 <h4 class="chapter-subheader">The Lauriston Garden Mystery</h4>
 
 <p>
@@ -490,7 +490,7 @@ export const hugeValue = `
 <p>With which Parthian shot he walked away, leaving the two rivals open-mouthed behind him. </p>
 
 <h4 class="chapter-header">
-<a name="Chapter-4"/>Chapter IV.</h4>
+Chapter IV.</h4>
 <h4 class="chapter-subheader">What John Rance Had To Tell</h4>
 
 <p>
@@ -609,7 +609,7 @@ export const hugeValue = `
 <p>Leaning back in the cab, this amateur bloodhound carolled away like a lark while I meditated upon the many-sidedness of the human mind.</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-5"/>Chapter V.</h4>
+Chapter V.</h4>
 <h4 class="chapter-subheader">Our Advertisement Brings A Visitor</h4>
 
 <p>
@@ -722,7 +722,7 @@ export const hugeValue = `
 <p>I was certainly feeling very weary, so I obeyed his injunction. I left Holmes seated in front of the smouldering fire, and long into the watches of the night I heard the low, melancholy wailings of his violin, and knew that he was still pondering over the strange problem which he had set himself to unravel.</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-6"/>Chapter VI.</h4>
+Chapter VI.</h4>
 <h4 class="chapter-subheader">Tobias Gregson Shows What He Can Do</h4>
 
 <p>
@@ -902,7 +902,7 @@ export const hugeValue = `
 <p>“The Secretary, Mr. Joseph Stangerson,” said Lestrade gravely, “was murdered at Halliday's Private Hotel about six o'clock this morning.” </p>
 
 <h4 class="chapter-header">
-<a name="Chapter-7"/>Chapter VII.</h4>
+Chapter VII.</h4>
 <h4 class="chapter-subheader">Light In The Darkness</h4>
 
 <p>
@@ -1029,7 +1029,7 @@ export const hugeValue = `
 
 
 <h4 class="chapter-header">
-<a name="Chapter-8"/>Chapter I.</h4>
+Chapter I.</h4>
 <h4 class="chapter-subheader">On The Great Alkali Plain</h4>
 
 <p>
@@ -1170,7 +1170,7 @@ export const hugeValue = `
 <p>“You shall remain here,” he said. “In a few days you will have recovered from your fatigues. In the meantime, remember that now and forever you are of our religion. Brigham Young has said it, and he has spoken with the voice of Joseph Smith, which is the voice of God.”</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-9"/>Chapter II.</h4>
+Chapter II.</h4>
 <h4 class="chapter-subheader">The Flower Of Utah</h4>
 
 <p>
@@ -1237,7 +1237,7 @@ export const hugeValue = `
 <p>He tore himself from her as he spoke, and, flinging himself upon his horse, galloped furiously away, never even looking round, as though afraid that his resolution might fail him if he took one glance at what he was leaving. She stood at the gate, gazing after him until he vanished from her sight. Then she walked back into the house, the happiest girl in all Utah.</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-10"/>Chapter III.</h4>
+Chapter III.</h4>
 <h4 class="chapter-subheader">John Ferrier Talks With The Prophet</h4>
 
 <p>
@@ -1273,9 +1273,9 @@ export const hugeValue = `
 
 <p>John Ferrier made no answer, but he played nervously with his riding-whip.</p>
 
-<p>“Upon this one point your whole faith shall be tested—so it has been decided in the Sacred Council of Four. The girl is young, and we would not have her wed grey hairs, neither would we deprive her of all choice. We Elders have many heifers<a href="#Footnote-1">
+<p>“Upon this one point your whole faith shall be tested—so it has been decided in the Sacred Council of Four. The girl is young, and we would not have her wed grey hairs, neither would we deprive her of all choice. We Elders have many heifers
 <sup>1</sup>
-</a>, but our children must also be provided. Stangerson has a son, and Drebber has a son, and either of them would gladly welcome your daughter to their house. Let her choose between them. They are young and rich, and of the true faith. What say you to that?”</p>
+, but our children must also be provided. Stangerson has a son, and Drebber has a son, and either of them would gladly welcome your daughter to their house. Let her choose between them. They are young and rich, and of the true faith. What say you to that?”</p>
 
 <p>Ferrier remained silent for some little time with his brows knitted.</p>
 
@@ -1320,9 +1320,9 @@ export const hugeValue = `
 <hr/>
 <div>
 <sup>
-<a name="Footnote-1"/>1</sup>Heber C Kemball, in one of his sermons, alludes to his hundred wives under this endearing epithet.</div>
+1</sup>Heber C Kemball, in one of his sermons, alludes to his hundred wives under this endearing epithet.</div>
 <h4 class="chapter-header">
-<a name="Chapter-11"/>Chapter IV.</h4>
+Chapter IV.</h4>
 <h4 class="chapter-subheader">A Flight For Life</h4>
 
 <p>
@@ -1455,7 +1455,7 @@ export const hugeValue = `
 <p>“Pass, and the Lord go with you,” said the voice from above. Beyond his post the path broadened out, and the horses were able to break into a trot. Looking back, they could see the solitary watcher leaning upon his gun, and knew that they had passed the outlying post of the chosen people, and that freedom lay before them.</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-12"/>Chapter V.</h4>
+Chapter V.</h4>
 <h4 class="chapter-subheader">The Avenging Angels</h4>
 
 <p>
@@ -1526,7 +1526,7 @@ Died August 4th, 1860.<br/>
 <p>Again the avenger had been foiled, and again his concentrated hatred urged him to continue the pursuit. Funds were wanting, however, and for some time he had to return to work, saving every dollar for his approaching journey. At last, having collected enough to keep life in him, he departed for Europe, and tracked his enemies from city to city, working his way in any menial capacity, but never overtaking the fugitives. When he reached St. Petersburg they had departed for Paris; and when he followed them there he learned that they had just set off for Copenhagen. At the Danish capital he was again a few days late, for they had journeyed on to London, where he at last succeeded in running them to earth. As to what occurred there, we cannot do better than quote the old hunter's own account, as duly recorded in Dr. Watson's Journal, to which we are already under such obligations.</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-13"/>Chapter VI.</h4>
+Chapter VI.</h4>
 <h4 class="chapter-subheader">A Continuation Of The Reminiscences Of John Watson, M.D.</h4>
 
 <p>
@@ -1643,7 +1643,7 @@ Died August 4th, 1860.<br/>
 <p>“Now, gentlemen,” the Inspector remarked gravely, “the forms of the law must be complied with. On Thursday the prisoner will be brought before the magistrates, and your attendance will be required. Until then I will be responsible for him.” He rang the bell as he spoke, and Jefferson Hope was led off by a couple of warders, while my friend and I made our way out of the Station and took a cab back to Baker Street.</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-14"/>Chapter VII.</h4>
+Chapter VII.</h4>
 <h4 class="chapter-subheader">The Conclusion</h4>
 
 <p>
@@ -1709,7 +1709,7 @@ Ipse domi simul ac nummos contemplar in arca.’”</span>
 <h3>First published in 1890</h3>
 
 <h4 class="chapter-header">
-<a name="Chapter-1"/>Chapter I.</h4>
+Chapter I.</h4>
 <h4 class="chapter-subheader">The Science of Deduction</h4>
 
 <p>
@@ -1824,7 +1824,7 @@ Ipse domi simul ac nummos contemplar in arca.’”</span>
 <p>“Miss Mary Morstan,” he read. “Hum! I have no recollection of the name. Ask the young lady to step up, Mrs. Hudson. Don't go, doctor. I should prefer that you remain.”</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-2"/>Chapter II.</h4>
+Chapter II.</h4>
 <h4 class="chapter-subheader">The Statement of the Case</h4>
 
 <p>
@@ -1909,7 +1909,7 @@ Ipse domi simul ac nummos contemplar in arca.’”</span>
 <p>I sat in the window with the volume in my hand, but my thoughts were far from the daring speculations of the writer. My mind ran upon our late visitor,—her smiles, the deep rich tones of her voice, the strange mystery which overhung her life. If she were seventeen at the time of her father's disappearance she must be seven-and-twenty now,—a sweet age, when youth has lost its self-consciousness and become a little sobered by experience. So I sat and mused, until such dangerous thoughts came into my head that I hurried away to my desk and plunged furiously into the latest treatise upon pathology. What was I, an army surgeon with a weak leg and a weaker banking-account, that I should dare to think of such things? She was a unit, a factor,—nothing more. If my future were black, it was better surely to face it like a man than to attempt to brighten it by mere will-o'-the-wisps of the imagination.</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-3"/>Chapter III.</h4>
+Chapter III.</h4>
 <h4 class="chapter-subheader">In Quest of a Solution</h4>
 
 <p>It was half-past five before Holmes returned. He was bright, eager, and in excellent spirits,—a mood which in his case alternated with fits of the blackest depression.</p>
@@ -1969,7 +1969,7 @@ Ipse domi simul ac nummos contemplar in arca.’”</span>
 <p>“The Sahib awaits you,” said he, and even as he spoke there came a high piping voice from some inner room. “Show them in to me, <span style="font-style:italic;">khitmutgar</span>,” it cried. “Show them straight in to me.”</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-4"/>Chapter IV.</h4>
+Chapter IV.</h4>
 <h4 class="chapter-subheader">The Story of the Bald-Headed Man</h4>
 
 <p>
@@ -2052,7 +2052,7 @@ Ipse domi simul ac nummos contemplar in arca.’”</span>
 <p>“This, Miss Morstan, is Pondicherry Lodge,” said Mr. Thaddeus Sholto, as he handed her out.</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-5"/>Chapter V.</h4>
+Chapter V.</h4>
 <h4 class="chapter-subheader">The Tragedy of Pondicherry Lodge</h4>
 
 <p>
@@ -2173,7 +2173,7 @@ Ipse domi simul ac nummos contemplar in arca.’”</span>
 <p>The little man obeyed in a half-stupefied fashion, and we heard him stumbling down the stairs in the dark.</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-6"/>Chapter VI.</h4>
+Chapter VI.</h4>
 <h4 class="chapter-subheader">Sherlock Holmes Gives a Demonstration</h4>
 
 <p>
@@ -2331,7 +2331,7 @@ Ipse domi simul ac nummos contemplar in arca.’”</span>
 <p>“And I,” said Holmes, “shall see what I can learn from Mrs. Bernstone, and from the Indian servant, who, Mr. Thaddeus tell me, sleeps in the next garret. Then I shall study the great Jones's methods and listen to his not too delicate sarcasms. <span style="font-style:italic;">‘Wir sind gewohnt, daß die Menschen verhöhnen was sie nicht verstehen.’</span> Goethe is always pithy.”</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-7"/>Chapter VII.</h4>
+Chapter VII.</h4>
 <h4 class="chapter-subheader">The Episode of the Barrel</h4>
 
 <p>
@@ -2494,7 +2494,7 @@ Ipse domi simul ac nummos contemplar in arca.’”</span>
 <p>Sherlock Holmes and I looked blankly at each other, and then burst simultaneously into an uncontrollable fit of laughter.</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-8"/>Chapter VIII.</h4>
+Chapter VIII.</h4>
 <h4 class="chapter-subheader">The Baker Street Irregulars</h4>
 
 <p>
@@ -2663,7 +2663,7 @@ Ipse domi simul ac nummos contemplar in arca.’”</span>
 <p>He took up his violin from the corner, and as I stretched myself out he began to play some low, dreamy, melodious air,—his own, no doubt, for he had a remarkable gift for improvisation. I have a vague remembrance of his gaunt limbs, his earnest face, and the rise and fall of his bow. Then I seemed to be floated peacefully away upon a soft sea of sound, until I found myself in dream-land, with the sweet face of Mary Morstan looking down upon me.</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-9"/>Chapter IX.</h4>
+Chapter IX.</h4>
 <h4 class="chapter-subheader">A Break in the Chain</h4>
 
 <p>
@@ -2868,7 +2868,7 @@ Ipse domi simul ac nummos contemplar in arca.’”</span>
 <p>“Only that I insist upon your dining with us. It will be ready in half an hour. I have oysters and a brace of grouse, with something a little choice in white wines.—Watson, you have never yet recognized my merits as a housekeeper.”</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-10"/>Chapter X.</h4>
+Chapter X.</h4>
 <h4 class="chapter-subheader">The End of the Islander</h4>
 
 <p>
@@ -2969,7 +2969,7 @@ Ipse domi simul ac nummos contemplar in arca.’”</span>
 <p>“See here,” said Holmes, pointing to the wooden hatchway. “We were hardly quick enough with our pistols.” There, sure enough, just behind where we had been standing, stuck one of those murderous darts which we knew so well. It must have whizzed between us at the instant that we fired. Holmes smiled at it and shrugged his shoulders in his easy fashion, but I confess that it turned me sick to think of the horrible death which had passed so close to us that night.</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-11"/>Chapter XI.</h4>
+Chapter XI.</h4>
 <h4 class="chapter-subheader">The Great Agra Treasure</h4>
 
 <p>
@@ -3056,7 +3056,7 @@ Ipse domi simul ac nummos contemplar in arca.’”</span>
 <p>“Then I say, ‘Thank God,’ too,” she whispered, as I drew her to my side. Whoever had lost a treasure, I knew that night that I had gained one.</p>
 
 <h4 class="chapter-header">
-<a name="Chapter-12"/>Chapter XII.</h4>
+Chapter XII.</h4>
 <h4 class="chapter-subheader">The Strange Story of Jonathan Small</h4>
 
 <p>
