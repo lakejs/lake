@@ -35,7 +35,7 @@ export const  headingMenuItems: MenuItem[] = [
 export const fontFamilyMenuItems: MenuItem[] = [
   {
     value: 'Arial',
-    text: '<span style="font-family: \'Arial\';">Arial</span>',
+    text: '<span style="font-family: Arial;">Arial</span>',
   },
   {
     value: 'Arial Black',
@@ -51,15 +51,15 @@ export const fontFamilyMenuItems: MenuItem[] = [
   },
   {
     value: 'Georgia',
-    text: '<span style="font-family: \'Georgia\';">Georgia</span>',
+    text: '<span style="font-family: Georgia;">Georgia</span>',
   },
   {
     value: 'Helvetica',
-    text: '<span style="font-family: \'Helvetica\';">Helvetica</span>',
+    text: '<span style="font-family: Helvetica;">Helvetica</span>',
   },
   {
     value: 'Impact',
-    text: '<span style="font-family: \'Impact\';">Impact</span>',
+    text: '<span style="font-family: Impact;">Impact</span>',
   },
   {
     value: 'Segoe UI',
@@ -67,7 +67,7 @@ export const fontFamilyMenuItems: MenuItem[] = [
   },
   {
     value: 'Tahoma',
-    text: '<span style="font-family: \'Tahoma\';">Tahoma</span>',
+    text: '<span style="font-family: Tahoma;">Tahoma</span>',
   },
   {
     value: 'Times New Roman',
@@ -79,7 +79,7 @@ export const fontFamilyMenuItems: MenuItem[] = [
   },
   {
     value: 'Verdana',
-    text: '<span style="font-family: \'Verdana\';">Verdana</span>',
+    text: '<span style="font-family: Verdana;">Verdana</span>',
   },
 ];
 

@@ -54,7 +54,7 @@ export class HTMLParser {
     if (!nativeNode.hasAttributes()) {
       return tagName;
     }
-    const attributeMap = new Map();
+    const attributeMap: Map<string, string | Map<string, string>> = new Map();
     for (const attr of nativeNode.attributes) {
       if (attributeRules[attr.name]) {
         if (attr.name !== 'style' && HTMLParser.matchRule(attributeRules[attr.name], attr.value)) {
@@ -62,7 +62,7 @@ export class HTMLParser {
         }
         if (attr.name === 'style') {
           const styleRules = attributeRules.style;
-          const styleMap = new Map();
+          const styleMap: Map<string, string> = new Map();
           forEach(parseStyle(attr.value), (key, value) => {
             if (styleRules[key] && HTMLParser.matchRule(styleRules[key], value)) {
               styleMap.set(key, value);
@@ -77,7 +77,7 @@ export class HTMLParser {
       if (attrName === 'style') {
         let styleString = '';
         for (const [styleName, styleValue] of attrValue) {
-          styleString += `${styleName}: ${styleValue}; `;
+          styleString += `${styleName}: ${styleValue.replace(/"/g, '&quot;')}; `;
         }
         if (styleString !== '') {
           openTag += ` style="${styleString.trim()}"`;

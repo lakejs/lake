@@ -865,7 +865,7 @@ describe('plugin / paste', () => {
     <p><br /><focus /></p>
     `;
     const output = `
-    <p><span style="color: #000000e0; font-size: 14px; background-color: #ffffff;">foo<focus /></span></p>
+    <p><span style="color: #000000e0; font-family: -apple-system, BlinkMacSystemFont, &quot;segoe ui&quot;, Roboto, &quot;helvetica neue&quot;, Arial, &quot;noto sans&quot;, sans-serif, &quot;apple color emoji&quot;, &quot;segoe ui emoji&quot;, &quot;segoe ui symbol&quot;, &quot;noto color emoji&quot;; font-size: 14px; background-color: #ffffff;">foo<focus /></span></p>
     `;
     const clipboardData = `
     <html>
