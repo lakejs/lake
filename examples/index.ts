@@ -1,6 +1,11 @@
 import './index.css';
-import { Editor, Toolbar, Utils } from '../src';
+import { Editor, Utils } from '../src';
 import { defaultValue } from './data/default-value';
+import { miniatureValue } from './data/miniature-value';
+import { headlessValue } from './data/headless-value';
+import defaultEditor from './default-editor';
+import miniatureEditor from './miniature-editor';
+import headlessEditor from './headless-editor';
 
 const { query } = Utils;
 
@@ -13,52 +18,74 @@ declare global {
 window.DEBUG = true;
 
 type MenuItem = {
-  key: string,
   url: string,
   text: string,
+  editorValue: string,
+  editor: (value: string) => Editor,
 };
 
 const menuItems: MenuItem[] = [
   {
-    key: 'default',
     url: './',
     text: 'Default configuration',
+    editorValue: defaultValue,
+    editor: defaultEditor,
   },
   {
-    key: 'document-editor',
-    url: './document-editor',
+    url: './full-featured',
+    text: 'Full-featured editor',
+    editorValue: defaultValue,
+    editor: defaultEditor,
+  },
+  {
+    url: './document',
     text: 'Document editor',
+    editorValue: defaultValue,
+    editor: defaultEditor,
   },
   {
-    key: 'miniature',
-    url: './miniature-toolbar',
+    url: './miniature',
     text: 'Miniature toolbar',
+    editorValue: miniatureValue,
+    editor: miniatureEditor,
   },
   {
-    key: 'headless',
-    url: './headless-editor',
+    url: './headless',
     text: 'Headless editor',
+    editorValue: headlessValue,
+    editor: headlessEditor,
   },
   {
-    key: 'mobile',
-    url: './mobile-editor',
+    url: './mobile',
     text: 'Mobile friendly editor',
+    editorValue: defaultValue,
+    editor: defaultEditor,
   },
   {
-    key: 'i18n',
     url: './i18n',
     text: 'Internationalization',
+    editorValue: defaultValue,
+    editor: defaultEditor,
   },
   {
-    key: 'huge-document',
-    url: './huge-document',
-    text: 'Huge Document',
+    url: './huge-content',
+    text: 'Huge Content',
+    editorValue: defaultValue,
+    editor: defaultEditor,
   },
 ];
 
+const menuItemMap: Map<string, MenuItem> = new Map();
+for (const item of menuItems) {
+  const type = item.url.substring(2) || 'default';
+  menuItemMap.set(type, item);
+}
+
 function renderMenu(): void {
   const menuNode = query('.menu');
-  const ul = menuNode.find('ul');
+  menuNode.append('<button type="button"><img src="../assets/list.svg" /></button>');
+  const ul = query('<ul />');
+  menuNode.append(ul);
   for (const item of menuItems) {
     ul.append(`<li><a href="${item.url}">${item.text}</a></li>`);
   }
@@ -79,12 +106,8 @@ function renderMenu(): void {
   });
 }
 
-function renderTitle(key: string): void {
-  const menuItemMap: Map<string, MenuItem> = new Map();
-  for (const item of menuItems) {
-    menuItemMap.set(item.key, item);
-  }
-  const currentItem = menuItemMap.get(key);
+function renderTitle(pageType: string): void {
+  const currentItem = menuItemMap.get(pageType);
   if (!currentItem) {
     return;
   }
@@ -92,56 +115,26 @@ function renderTitle(key: string): void {
   titleNode.html(currentItem.text);
 }
 
-function renderEditor(key: string): void {
-  const localStorageKey = `lake-example-${key}`;
-  const editorValue = localStorage.getItem(localStorageKey) ?? defaultValue;
-  let editor: Editor;
-  let toolbarConfig: string[] | undefined;
-  if (key === 'miniature') {
-    query('.lake-editor').addClass('lake-mini-editor');
-    editor = new Editor('.lake-container', {
-      defaultValue: editorValue,
-    });
-    toolbarConfig = [
-      'undo',
-      'redo',
-      '|',
-      'heading',
-      '|',
-      'bold',
-      'moreStyle',
-      '|',
-      'hr',
-    ];
-  } else {
-    editor = new Editor('.lake-container', {
-      defaultValue: editorValue,
-    });
+function renderEditor(pageType: string): void {
+  const currentItem = menuItemMap.get(pageType);
+  if (!currentItem) {
+    return;
   }
+  const localStorageKey = `lake-example-${pageType}`;
+  const editorValue = localStorage.getItem(localStorageKey) ?? currentItem.editorValue;
+  const editor = currentItem.editor(editorValue);
   editor.event.on('change', value => {
     localStorage.setItem(localStorageKey, value);
   });
-  editor.render();
-  if (key === 'headless') {
-    query('.lake-toolbar').remove();
-  } else {
-    new Toolbar(editor, toolbarConfig).render('.lake-toolbar');
-  }
   window.editor = editor;
 }
 
 function renderPage(): void {
   const url = window.location.href;
-  let key = menuItems[0].key;
-  for (const item of menuItems) {
-    if (url.indexOf(item.key) >= 0) {
-      key = item.key;
-      break;
-    }
-  }
-  renderTitle(key);
+  const pageType = url.split('/').pop() || 'default';
+  renderTitle(pageType);
   renderMenu();
-  renderEditor(key);
+  renderEditor(pageType);
 }
 
 renderPage();
