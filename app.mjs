@@ -20,7 +20,7 @@ app.get('/examples/*', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log('Starting up Express server');
+  console.log('Starting up an HTTP server');
   console.log(`Available on http://localhost:${port}`);
   console.log('Hit CTRL-C to stop the server');
 });

@@ -50,9 +50,9 @@
     "typescript": "^5.3.3"
   },
   "scripts": {
-    "start": "npm-run-all --parallel --print-label watch express",
-    "watch": "rollup --watch --config rollup.config.ts --configPlugin typescript",
+    "start": "npm-run-all --parallel --print-label express watch",
     "express": "node app.mjs",
+    "watch": "rollup --watch --config rollup.config.ts --configPlugin typescript",
     "build": "rimraf ./lib/ && rollup --config rollup.config.ts --configPlugin typescript",
     "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,mjs\""
   },
