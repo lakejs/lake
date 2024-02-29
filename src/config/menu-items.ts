@@ -32,6 +32,24 @@ export const  headingMenuItems: MenuItem[] = [
   },
 ];
 
+export const listMenuItems: MenuItem[] = [
+  {
+    icon: icons.get('numberedList'),
+    value: 'numbered',
+    text: 'Numbered list',
+  },
+  {
+    icon: icons.get('bulletedList'),
+    value: 'bulleted',
+    text: 'Bulleted list',
+  },
+  {
+    icon: icons.get('checklist'),
+    value: 'checklist',
+    text: 'Checklist',
+  },
+];
+
 export const fontFamilyMenuItems: MenuItem[] = [
   {
     value: 'Arial',

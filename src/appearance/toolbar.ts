@@ -21,6 +21,7 @@ const defaultConfig: string[] = [
   'bold',
   'moreStyle',
   '|',
+  'list',
   'codeBlock',
   'blockQuote',
   'hr',

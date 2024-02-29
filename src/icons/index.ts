@@ -15,12 +15,14 @@
 import plus from './plus.svg';
 import more from './more.svg';
 import down from './down.svg';
+import downFill from './down-fill.svg';
 import check from './check.svg';
 import selectAll from './select-all.svg';
 import undo from './undo.svg';
 import redo from './redo.svg';
 // block format
 import blockQuote from './block-quote.svg';
+import list from './list.svg';
 import numberedList from './numbered-list.svg';
 import bulletedList from './bulleted-list.svg';
 import checklist from './checklist.svg';
@@ -52,11 +54,13 @@ export const icons: Map<string, string> = new Map([
   ['plus', plus],
   ['more', more],
   ['down', down],
+  ['downFill', downFill],
   ['check', check],
   ['selectAll', selectAll],
   ['undo', undo],
   ['redo', redo],
   ['blockQuote', blockQuote],
+  ['list', list],
   ['numberedList', numberedList],
   ['bulletedList', bulletedList],
   ['checklist', checklist],

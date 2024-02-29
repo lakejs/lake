@@ -1,6 +1,12 @@
 import { ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
-import { headingMenuItems, fontSizeMenuItems, moreStyleMenuItems, fontFamilyMenuItems } from './menu-items';
+import {
+  headingMenuItems,
+  listMenuItems,
+  fontSizeMenuItems,
+  moreStyleMenuItems,
+  fontFamilyMenuItems,
+} from './menu-items';
 
 const tagPluginNameMap: Map<string, string> = new Map([
   ['strong', 'bold'],
@@ -243,6 +249,36 @@ export const toolbarItems: ToolbarItem[] = [
     },
     onSelect: (editor, value) => {
       editor.command.execute('heading', value);
+    },
+  },
+  {
+    name: 'list',
+    type: 'dropdown',
+    icon: icons.get('list'),
+    defaultValue: '',
+    tooltipText: 'List',
+    width: 'auto',
+    menuItems: listMenuItems,
+    getValues: appliedItems => {
+      let currentValue = '';
+      for (const item of appliedItems) {
+        if (item.name === 'ol') {
+          currentValue = 'numbered';
+          break;
+        }
+        if (item.name === 'ul' && !item.node.hasAttr('type')) {
+          currentValue = 'bulleted';
+          break;
+        }
+        if (item.name === 'ul' && item.node.attr('type') === 'checklist') {
+          currentValue = 'checklist';
+          break;
+        }
+      }
+      return [currentValue];
+    },
+    onSelect: (editor, value) => {
+      editor.command.execute('list', value);
     },
   },
   {
