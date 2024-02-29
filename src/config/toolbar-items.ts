@@ -4,6 +4,7 @@ import {
   headingMenuItems,
   listMenuItems,
   alignMenuItems,
+  indentMenuItems,
   fontSizeMenuItems,
   moreStyleMenuItems,
   fontFamilyMenuItems,
@@ -305,6 +306,20 @@ export const toolbarItems: ToolbarItem[] = [
     },
     onSelect: (editor, value) => {
       editor.command.execute('align', value);
+    },
+  },
+  {
+    name: 'indent',
+    type: 'dropdown',
+    downIcon: icons.get('down'),
+    icon: icons.get('increaseIndent'),
+    defaultValue: '',
+    tooltipText: 'Indent',
+    width: 'auto',
+    menuItems: indentMenuItems,
+    getValues: () => [],
+    onSelect: (editor, value) => {
+      editor.command.execute('indent', value);
     },
   },
   {

@@ -73,6 +73,19 @@ export const alignMenuItems: MenuItem[] = [
   },
 ];
 
+export const indentMenuItems: MenuItem[] = [
+  {
+    icon: icons.get('increaseIndent'),
+    value: 'increase',
+    text: 'Increase indent',
+  },
+  {
+    icon: icons.get('decreaseIndent'),
+    value: 'decrease',
+    text: 'Decrease indent',
+  },
+];
+
 export const fontFamilyMenuItems: MenuItem[] = [
   {
     value: 'Arial',
