@@ -1,4 +1,7 @@
 .lake-toolbar {
+  --text-color: #000000e0;
+  --secondary-text-color: #000000a6;
+  --disabled-text-color: #00000040;
   --border-color: #d9d9d9;
   --background-hover-color: #0000000a;
   --box-shadow: 0 6px 16px 0 #00000014, 0 3px 6px -4px #0000001f, 0 9px 28px 8px #0000000d;
@@ -12,6 +15,7 @@
 .lake-toolbar .lake-toolbar-button {
   border-radius: 5px;
   border: 0;
+  color: var(--text-color);
   background-color: #fff;
   padding: 0;
   margin: 0;
@@ -19,7 +23,7 @@
   cursor: pointer;
   user-select: none;
 }
-.lake-toolbar .lake-toolbar-button:hover {
+.lake-toolbar .lake-toolbar-button-hovered {
   background-color: var(--background-hover-color);
 }
 .lake-toolbar .lake-toolbar-button svg {
@@ -43,13 +47,13 @@
   align-items: center;
   justify-content: space-between;
   padding: 0;
-  margin: 0;
+  margin-right: 4px;
   border-radius: 5px;
   border: 0;
   background-color: #fff;
   cursor: pointer;
 }
-.lake-toolbar .lake-dropdown-title:hover {
+.lake-toolbar .lake-dropdown-title-hovered {
   background-color: var(--background-hover-color);
 }
 .lake-toolbar .lake-dropdown-text {
@@ -57,6 +61,7 @@
   margin: 6px;
   overflow: hidden;
   white-space: nowrap;
+  color: var(--text-color);
 }
 .lake-toolbar .lake-dropdown-icon {
   line-height: 0;
@@ -64,6 +69,9 @@
 .lake-toolbar .lake-dropdown-icon svg {
   width: 16px;
   height: 16px;
+  margin: 6px 4px;
+}
+.lake-toolbar .lake-dropdown-title-no-down .lake-dropdown-icon svg {
   margin: 6px;
 }
 .lake-toolbar .lake-dropdown-down-icon {
@@ -72,7 +80,8 @@
 .lake-toolbar .lake-dropdown-down-icon svg {
   width: 12px;
   height: 12px;
-  margin-right: 6px;
+  margin: 8px 4px;
+  fill: var(--secondary-text-color);
 }
 .lake-toolbar .lake-dropdown-menu {
   position: absolute;
@@ -84,6 +93,7 @@
   padding: 6px 0;
   border: 1px solid var(--border-color);
   border-radius: 5px;
+  color: var(--text-color);
   background-color: #fff;
   box-shadow: var(--box-shadow);
   display: none;

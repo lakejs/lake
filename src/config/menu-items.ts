@@ -50,6 +50,29 @@ export const listMenuItems: MenuItem[] = [
   },
 ];
 
+export const alignMenuItems: MenuItem[] = [
+  {
+    icon: icons.get('alignLeft'),
+    value: 'left',
+    text: 'Align left',
+  },
+  {
+    icon: icons.get('alignCenter'),
+    value: 'center',
+    text: 'Align center',
+  },
+  {
+    icon: icons.get('alignRight'),
+    value: 'right',
+    text: 'Align right',
+  },
+  {
+    icon: icons.get('alignJustify'),
+    value: 'justify',
+    text: 'Align justify',
+  },
+];
+
 export const fontFamilyMenuItems: MenuItem[] = [
   {
     value: 'Arial',

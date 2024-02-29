@@ -22,6 +22,7 @@ const defaultConfig: string[] = [
   'moreStyle',
   '|',
   'list',
+  'align',
   'codeBlock',
   'blockQuote',
   'hr',
@@ -97,6 +98,12 @@ export class Toolbar {
       buttonNode.append(item.icon);
     }
     this.root.append(buttonNode);
+    buttonNode.on('mouseenter', () => {
+      buttonNode.addClass('lake-toolbar-button-hovered');
+    });
+    buttonNode.on('mouseleave', () => {
+      buttonNode.removeClass('lake-toolbar-button-hovered');
+    });
     buttonNode.on('click', event => {
       event.preventDefault();
       editor.focus();
@@ -126,20 +133,22 @@ export class Toolbar {
         </button>
       </div>
     `);
+    dropdownNode.attr('type', item.icon ? 'icon' : 'text');
     dropdownNode.attr('name', item.name);
     const titleNode = dropdownNode.find('.lake-dropdown-title');
+    if (!item.downIcon) {
+      titleNode.addClass('lake-dropdown-title-no-down');
+    }
     titleNode.css('width', item.width);
     titleNode.attr('title', item.tooltipText);
     const textNode = titleNode.find('.lake-dropdown-text');
     if (item.icon) {
       const iconNode = titleNode.find('.lake-dropdown-icon');
       iconNode.append(item.icon);
-    } else {
-      const downIcon = icons.get('down');
-      if (downIcon) {
-        const downIconNode = titleNode.find('.lake-dropdown-down-icon');
-        downIconNode.append(downIcon);
-      }
+    }
+    if (item.downIcon) {
+      const downIconNode = titleNode.find('.lake-dropdown-down-icon');
+      downIconNode.append(item.downIcon);
     }
     const menuNode = query('<ul class="lake-dropdown-menu" />');
     if (item.menuItems) {
@@ -174,6 +183,12 @@ export class Toolbar {
     dropdownNode.append(titleNode);
     dropdownNode.append(menuNode);
     this.root.append(dropdownNode);
+    titleNode.on('mouseenter', () => {
+      titleNode.addClass('lake-dropdown-title-hovered');
+    });
+    titleNode.on('mouseleave', () => {
+      titleNode.removeClass('lake-dropdown-title-hovered');
+    });
     titleNode.on('click', event => {
       event.preventDefault();
       const currentValues = this.getValue(dropdownNode);

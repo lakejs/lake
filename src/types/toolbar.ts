@@ -19,6 +19,7 @@ export type DropdownItem = {
   name: string,
   type: 'dropdown',
   icon?: string,
+  downIcon?: string,
   defaultValue: string,
   tooltipText: string,
   width: string,

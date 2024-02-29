@@ -15,7 +15,6 @@
 import plus from './plus.svg';
 import more from './more.svg';
 import down from './down.svg';
-import downFill from './down-fill.svg';
 import check from './check.svg';
 import selectAll from './select-all.svg';
 import undo from './undo.svg';
@@ -54,7 +53,6 @@ export const icons: Map<string, string> = new Map([
   ['plus', plus],
   ['more', more],
   ['down', down],
-  ['downFill', downFill],
   ['check', check],
   ['selectAll', selectAll],
   ['undo', undo],

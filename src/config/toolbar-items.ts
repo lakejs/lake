@@ -3,6 +3,7 @@ import { icons } from '../icons';
 import {
   headingMenuItems,
   listMenuItems,
+  alignMenuItems,
   fontSizeMenuItems,
   moreStyleMenuItems,
   fontFamilyMenuItems,
@@ -239,6 +240,7 @@ export const toolbarItems: ToolbarItem[] = [
   {
     name: 'heading',
     type: 'dropdown',
+    downIcon: icons.get('down'),
     defaultValue: 'p',
     tooltipText: 'Heading',
     width: '100px',
@@ -254,6 +256,7 @@ export const toolbarItems: ToolbarItem[] = [
   {
     name: 'list',
     type: 'dropdown',
+    downIcon: icons.get('down'),
     icon: icons.get('list'),
     defaultValue: '',
     tooltipText: 'List',
@@ -282,8 +285,32 @@ export const toolbarItems: ToolbarItem[] = [
     },
   },
   {
+    name: 'align',
+    type: 'dropdown',
+    downIcon: icons.get('down'),
+    icon: icons.get('alignLeft'),
+    defaultValue: '',
+    tooltipText: 'Alignment',
+    width: 'auto',
+    menuItems: alignMenuItems,
+    getValues: appliedItems => {
+      let currentValue = '';
+      for (const item of appliedItems) {
+        if (item.node.isBlock) {
+          currentValue = item.node.computedCSS('text-align');
+          break;
+        }
+      }
+      return [currentValue];
+    },
+    onSelect: (editor, value) => {
+      editor.command.execute('align', value);
+    },
+  },
+  {
     name: 'fontFamily',
     type: 'dropdown',
+    downIcon: icons.get('down'),
     defaultValue: 'Segoe UI',
     tooltipText: 'Font family',
     width: '100px',
@@ -299,6 +326,7 @@ export const toolbarItems: ToolbarItem[] = [
   {
     name: 'fontSize',
     type: 'dropdown',
+    downIcon: icons.get('down'),
     defaultValue: '16px',
     tooltipText: 'Font Size',
     width: '65px',
