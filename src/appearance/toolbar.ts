@@ -27,7 +27,7 @@ const defaultConfig: string[] = [
   'align',
   'list',
   'indent',
-  'codeBlock',
+  'link',
   'blockQuote',
   'hr',
 ];
@@ -51,26 +51,6 @@ export class Toolbar {
     this.root = query('<div />');
   }
 
-  /*
-  private bindClickEvent() {
-    const editor = this.editor;
-    this.root.on('click', event => {
-      event.preventDefault();
-      event.stopPropagation();
-      editor.focus();
-      const targetItem = query(event.target as Element).closest('.lake-toolbar-item');
-      const type = targetItem.attr('data-type');
-      if (type === 'link') {
-        editor.command.execute('link', 'https://github.com/');
-        return;
-      }
-      if (type === 'image') {
-        editor.command.execute('image', './data/tianchi.png');
-        return;
-      }
-    });
-  }
-  */
   // Returns the value of the node.
   public getValue(node: Nodes): string[] {
     const value = node.attr('value');
@@ -147,9 +127,7 @@ export class Toolbar {
       downIconNode.append(item.downIcon);
     }
     const menuNode = query('<ul class="lake-dropdown-menu" />');
-    if (item.menuType === 'color') {
-      menuNode.addClass('lake-dropdown-color-menu');
-    }
+    menuNode.addClass(`lake-dropdown-${item.menuType}-menu`);
     if (item.menuItems) {
       for (const menuItem of item.menuItems) {
         const listContent = template`
@@ -228,6 +206,9 @@ export class Toolbar {
         const key = currentValues[0] || item.defaultValue;
         const text = menuMap.get(key) ?? key;
         textNode.html(text);
+      }
+      if (item.menuType === 'color' && currentValues[0]) {
+        titleNode.find('.lake-dropdown-icon svg path').css('fill', currentValues[0]);
       }
     });
   }

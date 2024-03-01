@@ -223,12 +223,30 @@ export const toolbarItems: ToolbarItem[] = [
     },
   },
   {
+    name: 'link',
+    type: 'button',
+    icon: icons.get('link'),
+    tooltip: 'Link',
+    onClick: (editor) => {
+      editor.command.execute('link', 'https://github.com/');
+    },
+  },
+  {
     name: 'hr',
     type: 'button',
     icon: icons.get('hr'),
     tooltip: 'Horizontal line',
     onClick: (editor, value) => {
       editor.command.execute(value);
+    },
+  },
+  {
+    name: 'image',
+    type: 'button',
+    icon: icons.get('image'),
+    tooltip: 'Image',
+    onClick: (editor) => {
+      editor.command.execute('image', './data/tianchi.png');
     },
   },
   {
