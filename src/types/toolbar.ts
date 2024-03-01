@@ -11,7 +11,7 @@ export type ButtonItem = {
   name: string,
   type: 'button',
   icon?: string,
-  tooltipText: string,
+  tooltip: string,
   onClick: (editor: Editor, value: string) => void,
 };
 
@@ -21,8 +21,9 @@ export type DropdownItem = {
   icon?: string,
   downIcon?: string,
   defaultValue: string,
-  tooltipText: string,
+  tooltip: string,
   width: string,
+  menuType: 'list' | 'color',
   menuItems: MenuItem[],
   getValues: (appliedItems: AppliedItem[]) => string[],
   onSelect: (editor: Editor, value: string) => void,

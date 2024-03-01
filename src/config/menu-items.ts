@@ -200,3 +200,22 @@ export const moreStyleMenuItems: MenuItem[] = [
     text: 'Code',
   },
 ];
+
+const colors: string[] = [
+  '#E53333', '#E56600', '#FF9900', '#64451D', '#DFC5A4', '#FFE500',
+  '#009900', '#006600', '#99BB00', '#B8D100', '#60D978', '#00D5FF',
+  '#337FE5', '#003399', '#4C33E5', '#9933E5', '#CC33E5', '#EE33EE',
+  '#FFFFFF', '#CCCCCC', '#999999', '#666666', '#333333', '#000000',
+];
+export const colorMenuItems: MenuItem[] = [
+  {
+    value: '',
+    text: 'Remove color',
+  },
+];
+for (const color of colors) {
+  colorMenuItems.push({
+    value: color.toLowerCase(),
+    text: color,
+  });
+}

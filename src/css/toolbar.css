@@ -31,7 +31,7 @@
   height: 16px;
   margin: 6px;
 }
-.lake-toolbar .lake-toolbar-separator {
+.lake-toolbar .lake-toolbar-divider {
   width: 1px;
   height: 20px;
   margin: 0 4px;
@@ -56,6 +56,9 @@
 .lake-toolbar .lake-dropdown-title-hovered {
   background-color: var(--background-hover-color);
 }
+.lake-toolbar .lake-dropdown-title.lake-dropdown-title-no-down {
+  margin-right: 0;
+}
 .lake-toolbar .lake-dropdown-text {
   height: 16px;
   margin: 6px;
@@ -69,7 +72,7 @@
 .lake-toolbar .lake-dropdown-icon svg {
   width: 16px;
   height: 16px;
-  margin: 6px 4px;
+  margin: 6px 2px 6px 4px;
 }
 .lake-toolbar .lake-dropdown-title-no-down .lake-dropdown-icon svg {
   margin: 6px;
@@ -80,7 +83,7 @@
 .lake-toolbar .lake-dropdown-down-icon svg {
   width: 12px;
   height: 12px;
-  margin: 8px 4px;
+  margin: 8px 2px;
   fill: var(--secondary-text-color);
 }
 .lake-toolbar .lake-dropdown-menu {
@@ -126,4 +129,51 @@
 .lake-toolbar .lake-dropdown-menu li .lake-dropdown-menu-text {
   margin-left: 10px;
   white-space: nowrap;
+}
+.lake-toolbar .lake-dropdown-menu.lake-dropdown-color-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 162px;
+}
+.lake-toolbar .lake-dropdown-menu.lake-dropdown-color-menu li {
+  position: relative;
+  padding: 0;
+}
+.lake-toolbar .lake-dropdown-menu.lake-dropdown-color-menu li:hover {
+  background-color: var(--background-hover-color);
+}
+.lake-toolbar .lake-dropdown-menu.lake-dropdown-color-menu li .lake-dropdown-menu-check {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  z-index: 1;
+  visibility: visible;
+}
+.lake-toolbar .lake-dropdown-menu.lake-dropdown-color-menu li .lake-dropdown-menu-check svg {
+  fill: #fff;
+}
+.lake-toolbar .lake-dropdown-menu.lake-dropdown-color-menu li[value="#FFFFFF"] .lake-dropdown-menu-check svg {
+  fill: #000;
+}
+.lake-toolbar .lake-dropdown-menu.lake-dropdown-color-menu li .lake-dropdown-menu-text {
+  font-size: 0;
+  border: 1px solid var(--background-hover-color);
+  border-radius: 2px;
+  width: 16px;
+  height: 16px;
+  margin: 4px;
+}
+.lake-toolbar .lake-dropdown-menu.lake-dropdown-color-menu li:first-child {
+  width: 94%;
+}
+.lake-toolbar .lake-dropdown-menu.lake-dropdown-color-menu li:first-child .lake-dropdown-menu-check {
+  display: none;
+}
+.lake-toolbar .lake-dropdown-menu.lake-dropdown-color-menu li:first-child .lake-dropdown-menu-text {
+  width: 100%;
+  font-size: 14px;
+  border: 1px solid transparent;
+  height: auto;
+  text-align: center;
 }

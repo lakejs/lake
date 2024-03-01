@@ -21,6 +21,9 @@ const defaultConfig: string[] = [
   'bold',
   'moreStyle',
   '|',
+  'fontColor',
+  'highlight',
+  '|',
   'align',
   'list',
   'indent',
@@ -57,14 +60,6 @@ export class Toolbar {
       editor.focus();
       const targetItem = query(event.target as Element).closest('.lake-toolbar-item');
       const type = targetItem.attr('data-type');
-      if (type === 'fontColor') {
-        editor.command.execute('fontColor', '#ff0000');
-        return;
-      }
-      if (type === 'highlight') {
-        editor.command.execute('highlight', '#0000ff');
-        return;
-      }
       if (type === 'link') {
         editor.command.execute('link', 'https://github.com/');
         return;
@@ -94,7 +89,7 @@ export class Toolbar {
     const editor = this.editor;
     const buttonNode = query('<button type="button" class="lake-toolbar-button" />');
     buttonNode.attr('name', item.name);
-    buttonNode.attr('title', item.tooltipText);
+    buttonNode.attr('title', item.tooltip);
     if (item.icon) {
       buttonNode.append(item.icon);
     }
@@ -112,8 +107,8 @@ export class Toolbar {
     });
   }
 
-  private appendSeparator() {
-    this.root.append('<div class="lake-toolbar-separator" />');
+  private appendDivider() {
+    this.root.append('<div class="lake-toolbar-divider" />');
   }
 
   private appendDropdown(item: DropdownItem) {
@@ -141,7 +136,7 @@ export class Toolbar {
       titleNode.addClass('lake-dropdown-title-no-down');
     }
     titleNode.css('width', item.width);
-    titleNode.attr('title', item.tooltipText);
+    titleNode.attr('title', item.tooltip);
     const textNode = titleNode.find('.lake-dropdown-text');
     if (item.icon) {
       const iconNode = titleNode.find('.lake-dropdown-icon');
@@ -152,6 +147,9 @@ export class Toolbar {
       downIconNode.append(item.downIcon);
     }
     const menuNode = query('<ul class="lake-dropdown-menu" />');
+    if (item.menuType === 'color') {
+      menuNode.addClass('lake-dropdown-color-menu');
+    }
     if (item.menuItems) {
       for (const menuItem of item.menuItems) {
         const listContent = template`
@@ -161,6 +159,10 @@ export class Toolbar {
         `;
         const listNode = query(listContent);
         menuNode.append(listNode);
+        if (item.menuType === 'color') {
+          listNode.attr('title', menuItem.text);
+          listNode.find('.lake-dropdown-menu-text').css('background-color', menuItem.value);
+        }
         if (menuItem.icon) {
           const iconNode = query('<div class="lake-dropdown-menu-icon"></div>');
           iconNode.append(menuItem.icon);
@@ -200,7 +202,7 @@ export class Toolbar {
           listNode.find('.lake-dropdown-menu-check').css('visibility', 'visible');
         }
       });
-      menuNode.show();
+      menuNode.show(item.menuType === 'color' ? 'flex' : 'block');
     });
     menuNode.on('click', event => {
       event.preventDefault();
@@ -234,7 +236,7 @@ export class Toolbar {
     this.root = query(target);
     this.config.forEach(name => {
       if (name === '|') {
-        this.appendSeparator();
+        this.appendDivider();
         return;
       }
       const item = toolbarItemMap.get(name);

@@ -42,6 +42,8 @@ import subscript from './subscript.svg';
 import code from './code.svg';
 import removeFormat from './remove-format.svg';
 import moreStyle from './more-style.svg';
+import fontColor from './font-color.svg';
+import highlight from './highlight.svg';
 // items that can be inserted
 import hr from './hr.svg';
 import link from './link.svg';
@@ -78,6 +80,8 @@ export const icons: Map<string, string> = new Map([
   ['code', code],
   ['removeFormat', removeFormat],
   ['moreStyle', moreStyle],
+  ['fontColor', fontColor],
+  ['highlight', highlight],
   ['hr', hr],
   ['link', link],
   ['image', image],
