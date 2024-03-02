@@ -19,6 +19,8 @@ export default (value: string) => {
     'numberedList',
     'bulletedList',
     'checklist',
+    '|',
+    'link',
   ]).render('.lake-toolbar');
   return editor;
 };

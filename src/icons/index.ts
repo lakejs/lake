@@ -3,8 +3,8 @@
 // Fluent Icons by Microsoft (https://fluenticons.co/).
 // - superscript.svg
 // - subscript.svg
-// - more-style.svg
-// - block-quote.svg
+// - highlight.svg
+// - highlight-accent.svg
 //
 // Phosphor Icons (https://phosphoricons.com/).
 // - other icons

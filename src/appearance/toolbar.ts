@@ -192,7 +192,7 @@ export class Toolbar {
       if (item.menuType === 'color') {
         dropdownNode.attr('color', value);
         const svgNode = titleNode.find('.lake-dropdown-icon svg').eq(1);
-        svgNode.find('path').css('fill', value);
+        svgNode.find('line').attr('stroke', item.defaultValue);
       }
       item.onSelect(editor, value);
     });
@@ -258,7 +258,7 @@ export class Toolbar {
     }
     if (item.menuType === 'color') {
       const svgNode = titleNode.find('.lake-dropdown-icon svg').eq(1);
-      svgNode.find('path').css('fill', item.defaultValue);
+      svgNode.find('line').attr('stroke', item.defaultValue);
     }
     this.addDropdownMenu(menuNode, item);
     dropdownNode.append(titleNode);
