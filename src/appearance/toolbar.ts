@@ -61,11 +61,11 @@ export class Toolbar {
   }
 
   // Updates the value of the node.
-  public setValue(node: Nodes, value: string[]) {
+  public setValue(node: Nodes, value: string[]): void {
     node.attr('value', Base64.encode(JSON.stringify(value)));
   }
 
-  private appendButton(item: ButtonItem) {
+  private appendButton(item: ButtonItem): void {
     const editor = this.editor;
     const buttonNode = query('<button type="button" class="lake-toolbar-button" />');
     buttonNode.attr('name', item.name);
@@ -87,7 +87,7 @@ export class Toolbar {
     });
   }
 
-  private appendDivider() {
+  private appendDivider(): void {
     this.root.append('<div class="lake-toolbar-divider" />');
   }
 
@@ -104,7 +104,7 @@ export class Toolbar {
     return menuMap;
   }
 
-  private addDropdownMenu(menuNode: Nodes, item: DropdownItem) {
+  private addDropdownMenu(menuNode: Nodes, item: DropdownItem): void {
     for (const menuItem of item.menuItems) {
       const listContent = template`
         <li value="${menuItem.value}">
@@ -131,8 +131,90 @@ export class Toolbar {
     }
   }
 
-  private appendDropdown(item: DropdownItem) {
+  private bindDropdownEvents(dropdownNode: Nodes, item: DropdownItem): void {
     const editor = this.editor;
+    const menuMap = this.getMenuMap(item);
+    const titleNode = dropdownNode.find('.lake-dropdown-title');
+    const textNode = titleNode.find('.lake-dropdown-text');
+    const iconNode = titleNode.find('.lake-dropdown-icon');
+    const downIconNode = titleNode.find('.lake-dropdown-down-icon');
+    const menuNode = dropdownNode.find('.lake-dropdown-menu');
+    if (item.menuType === 'color') {
+      iconNode.on('mouseenter', () => {
+        iconNode.addClass('lake-dropdown-icon-hovered');
+      });
+      iconNode.on('mouseleave', () => {
+        iconNode.removeClass('lake-dropdown-icon-hovered');
+      });
+      downIconNode.on('mouseenter', () => {
+        downIconNode.addClass('lake-dropdown-down-icon-hovered');
+      });
+      downIconNode.on('mouseleave', () => {
+        downIconNode.removeClass('lake-dropdown-down-icon-hovered');
+      });
+    } else {
+      titleNode.on('mouseenter', () => {
+        titleNode.addClass('lake-dropdown-title-hovered');
+      });
+      titleNode.on('mouseleave', () => {
+        titleNode.removeClass('lake-dropdown-title-hovered');
+      });
+    }
+    if (item.menuType === 'color') {
+      iconNode.on('click', event => {
+        event.preventDefault();
+        editor.focus();
+        const value = dropdownNode.attr('color') || item.defaultValue;
+        item.onSelect(editor, value);
+      });
+    }
+    const triggerNode = (item.menuType === 'color' && downIconNode) ? downIconNode : titleNode;
+    triggerNode.on('click', event => {
+      event.preventDefault();
+      const currentValues = this.getValue(dropdownNode);
+      menuNode.find('.lake-dropdown-menu-check').css('visibility', 'hidden');
+      menuNode.find('li').each(node => {
+        const listNode = query(node);
+        if (currentValues.indexOf(listNode.attr('value')) >= 0) {
+          listNode.find('.lake-dropdown-menu-check').css('visibility', 'visible');
+        }
+      });
+      menuNode.show(item.menuType === 'color' ? 'flex' : 'block');
+    });
+    menuNode.on('click', event => {
+      event.preventDefault();
+      editor.focus();
+      const listItem = query(event.target as NativeNode).closest('li');
+      const value = listItem.attr('value');
+      if (textNode.length > 0) {
+        textNode.html(listItem.text());
+      }
+      if (item.menuType === 'color') {
+        dropdownNode.attr('color', value);
+        const svgNode = titleNode.find('.lake-dropdown-icon svg').eq(1);
+        svgNode.find('path').css('fill', value);
+      }
+      item.onSelect(editor, value);
+    });
+    editor.event.on('click', target => {
+      if (target.closest('.lake-dropdown-title').get(0) === titleNode.get(0)) {
+        return;
+      }
+      menuNode.hide();
+    });
+    editor.event.on('selectionchange', () => {
+      const appliedItems = editor.selection.appliedItems;
+      const currentValues = appliedItems.length > 0 ? item.getValues(appliedItems) : [];
+      this.setValue(dropdownNode, currentValues);
+      if (textNode.length > 0) {
+        const key = currentValues[0] || item.defaultValue;
+        const text = menuMap.get(key) ?? key;
+        textNode.html(text);
+      }
+    });
+  }
+
+  private appendDropdown(item: DropdownItem) {
     const menuMap = this.getMenuMap(item);
     const dropdownNode = item.icon ? query(safeTemplate`
       <div class="lake-dropdown">
@@ -162,93 +244,27 @@ export class Toolbar {
     if (item.icon) {
       iconNode.append(item.icon);
     }
+    if (item.accentIcon) {
+      iconNode.append(item.accentIcon);
+    }
     const downIconNode = titleNode.find('.lake-dropdown-down-icon');
     if (item.downIcon) {
       downIconNode.append(item.downIcon);
     }
     const menuNode = query('<ul class="lake-dropdown-menu" />');
     menuNode.addClass(`lake-dropdown-${item.menuType}-menu`);
-    this.addDropdownMenu(menuNode, item);
-    dropdownNode.append(menuNode);
     if (textNode.length > 0) {
       textNode.html(menuMap.get(item.defaultValue) ?? item.defaultValue);
     }
     if (item.menuType === 'color') {
-      titleNode.find('.lake-dropdown-icon svg path').eq(0).css('fill', item.defaultValue);
+      const svgNode = titleNode.find('.lake-dropdown-icon svg').eq(1);
+      svgNode.find('path').css('fill', item.defaultValue);
     }
+    this.addDropdownMenu(menuNode, item);
     dropdownNode.append(titleNode);
     dropdownNode.append(menuNode);
     this.root.append(dropdownNode);
-    if (item.menuType === 'color') {
-      iconNode.on('mouseenter', () => {
-        iconNode.addClass('lake-dropdown-icon-hovered');
-      });
-      iconNode.on('mouseleave', () => {
-        iconNode.removeClass('lake-dropdown-icon-hovered');
-      });
-      downIconNode.on('mouseenter', () => {
-        downIconNode.addClass('lake-dropdown-down-icon-hovered');
-      });
-      downIconNode.on('mouseleave', () => {
-        downIconNode.removeClass('lake-dropdown-down-icon-hovered');
-      });
-    } else {
-      titleNode.on('mouseenter', () => {
-        titleNode.addClass('lake-dropdown-title-hovered');
-      });
-      titleNode.on('mouseleave', () => {
-        titleNode.removeClass('lake-dropdown-title-hovered');
-      });
-    }
-    if (item.menuType === 'color') {
-      iconNode.on('click', () => {
-        const value = dropdownNode.attr('color') || item.defaultValue;
-        item.onSelect(editor, value);
-      });
-    }
-    const triggerNode = (item.menuType === 'color' && downIconNode) ? downIconNode : titleNode;
-    triggerNode.on('click', event => {
-      event.preventDefault();
-      const currentValues = this.getValue(dropdownNode);
-      menuNode.find('.lake-dropdown-menu-check').css('visibility', 'hidden');
-      menuNode.find('li').each(node => {
-        const listNode = query(node);
-        if (currentValues.indexOf(listNode.attr('value')) >= 0) {
-          listNode.find('.lake-dropdown-menu-check').css('visibility', 'visible');
-        }
-      });
-      menuNode.show(item.menuType === 'color' ? 'flex' : 'block');
-    });
-    menuNode.on('click', event => {
-      event.preventDefault();
-      editor.focus();
-      const listItem = query(event.target as NativeNode).closest('li');
-      const value = listItem.attr('value');
-      if (textNode.length > 0) {
-        textNode.html(listItem.text());
-      }
-      if (item.menuType === 'color') {
-        dropdownNode.attr('color', value);
-        titleNode.find('.lake-dropdown-icon svg path').css('fill', value);
-      }
-      item.onSelect(editor, value);
-    });
-    editor.event.on('click', target => {
-      if (target.closest('.lake-dropdown-title').get(0) === titleNode.get(0)) {
-        return;
-      }
-      menuNode.hide();
-    });
-    editor.event.on('selectionchange', () => {
-      const appliedItems = editor.selection.appliedItems;
-      const currentValues = appliedItems.length > 0 ? item.getValues(appliedItems) : [];
-      this.setValue(dropdownNode, currentValues);
-      if (textNode.length > 0) {
-        const key = currentValues[0] || item.defaultValue;
-        const text = menuMap.get(key) ?? key;
-        textNode.html(text);
-      }
-    });
+    this.bindDropdownEvents(dropdownNode, item);
   }
 
   public render(target: string | Nodes | NativeNode) {

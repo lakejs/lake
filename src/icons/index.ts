@@ -43,7 +43,9 @@ import code from './code.svg';
 import removeFormat from './remove-format.svg';
 import moreStyle from './more-style.svg';
 import fontColor from './font-color.svg';
+import fontColorAccent from './font-color-accent.svg';
 import highlight from './highlight.svg';
+import highlightAccent from './highlight-accent.svg';
 // items that can be inserted
 import hr from './hr.svg';
 import link from './link.svg';
@@ -81,7 +83,9 @@ export const icons: Map<string, string> = new Map([
   ['removeFormat', removeFormat],
   ['moreStyle', moreStyle],
   ['fontColor', fontColor],
+  ['fontColorAccent', fontColorAccent],
   ['highlight', highlight],
+  ['highlightAccent', highlightAccent],
   ['hr', hr],
   ['link', link],
   ['image', image],
