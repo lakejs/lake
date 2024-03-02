@@ -53,7 +53,7 @@
   background-color: #fff;
   cursor: pointer;
 }
-.lake-toolbar .lake-dropdown-title-hovered {
+.lake-toolbar .lake-dropdown-list .lake-dropdown-title-hovered {
   background-color: var(--background-hover-color);
 }
 .lake-toolbar .lake-dropdown-title.lake-dropdown-title-no-down {
@@ -68,6 +68,10 @@
 }
 .lake-toolbar .lake-dropdown-icon {
   line-height: 0;
+  border-radius: 5px 0 0 5px;
+}
+.lake-toolbar .lake-dropdown-icon-hovered {
+  background-color: var(--background-hover-color);
 }
 .lake-toolbar .lake-dropdown-icon svg {
   width: 16px;
@@ -79,6 +83,10 @@
 }
 .lake-toolbar .lake-dropdown-down-icon {
   line-height: 0;
+  border-radius: 0 5px 5px 0;
+}
+.lake-toolbar .lake-dropdown-down-icon-hovered {
+  background-color: var(--background-hover-color);
 }
 .lake-toolbar .lake-dropdown-down-icon svg {
   width: 12px;

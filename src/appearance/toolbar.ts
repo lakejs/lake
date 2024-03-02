@@ -91,9 +91,49 @@ export class Toolbar {
     this.root.append('<div class="lake-toolbar-divider" />');
   }
 
+  private getMenuMap(item: DropdownItem): Map<string, string> {
+    const menuMap: Map<string, string> = new Map();
+    if (!item.menuItems) {
+      return menuMap;
+    }
+    for (const menuItem of item.menuItems) {
+      // remove HTML tags
+      const text = menuItem.text.replace(/<[^>]*>/, '');
+      menuMap.set(menuItem.value, text);
+    }
+    return menuMap;
+  }
+
+  private addDropdownMenu(menuNode: Nodes, item: DropdownItem) {
+    for (const menuItem of item.menuItems) {
+      const listContent = template`
+        <li value="${menuItem.value}">
+          <div class="lake-dropdown-menu-text">${menuItem.text}</div>
+        </li>
+      `;
+      const listNode = query(listContent);
+      menuNode.append(listNode);
+      if (item.menuType === 'color') {
+        listNode.attr('title', menuItem.text);
+        listNode.find('.lake-dropdown-menu-text').css('background-color', menuItem.value);
+      }
+      if (menuItem.icon) {
+        const menuIconNode = query('<div class="lake-dropdown-menu-icon"></div>');
+        menuIconNode.append(menuItem.icon);
+        listNode.prepend(menuIconNode);
+      }
+      const checkIcon = icons.get('check');
+      if (checkIcon) {
+        const checkNode = query('<div class="lake-dropdown-menu-check"></div>');
+        checkNode.append(checkIcon);
+        listNode.prepend(checkNode);
+      }
+    }
+  }
+
   private appendDropdown(item: DropdownItem) {
     const editor = this.editor;
-    const menuMap: Map<string, string> = new Map();
+    const menuMap = this.getMenuMap(item);
     const dropdownNode = item.icon ? query(safeTemplate`
       <div class="lake-dropdown">
         <button type="button" class="lake-dropdown-title">
@@ -109,8 +149,8 @@ export class Toolbar {
         </button>
       </div>
     `);
-    dropdownNode.attr('type', item.icon ? 'icon' : 'text');
     dropdownNode.attr('name', item.name);
+    dropdownNode.addClass(`lake-dropdown-${item.menuType}`);
     const titleNode = dropdownNode.find('.lake-dropdown-title');
     if (!item.downIcon) {
       titleNode.addClass('lake-dropdown-title-no-down');
@@ -118,59 +158,56 @@ export class Toolbar {
     titleNode.css('width', item.width);
     titleNode.attr('title', item.tooltip);
     const textNode = titleNode.find('.lake-dropdown-text');
+    const iconNode = titleNode.find('.lake-dropdown-icon');
     if (item.icon) {
-      const iconNode = titleNode.find('.lake-dropdown-icon');
       iconNode.append(item.icon);
     }
+    const downIconNode = titleNode.find('.lake-dropdown-down-icon');
     if (item.downIcon) {
-      const downIconNode = titleNode.find('.lake-dropdown-down-icon');
       downIconNode.append(item.downIcon);
     }
     const menuNode = query('<ul class="lake-dropdown-menu" />');
     menuNode.addClass(`lake-dropdown-${item.menuType}-menu`);
-    if (item.menuItems) {
-      for (const menuItem of item.menuItems) {
-        const listContent = template`
-          <li value="${menuItem.value}">
-            <div class="lake-dropdown-menu-text">${menuItem.text}</div>
-          </li>
-        `;
-        const listNode = query(listContent);
-        menuNode.append(listNode);
-        if (item.menuType === 'color') {
-          listNode.attr('title', menuItem.text);
-          listNode.find('.lake-dropdown-menu-text').css('background-color', menuItem.value);
-        }
-        if (menuItem.icon) {
-          const iconNode = query('<div class="lake-dropdown-menu-icon"></div>');
-          iconNode.append(menuItem.icon);
-          listNode.prepend(iconNode);
-        }
-        const checkIcon = icons.get('check');
-        if (checkIcon) {
-          const checkNode = query('<div class="lake-dropdown-menu-check"></div>');
-          checkNode.append(checkIcon);
-          listNode.prepend(checkNode);
-        }
-        // remove HTML tags
-        const text = menuItem.text.replace(/<[^>]*>/, '');
-        menuMap.set(menuItem.value, text);
-      }
-      dropdownNode.append(menuNode);
-    }
+    this.addDropdownMenu(menuNode, item);
+    dropdownNode.append(menuNode);
     if (textNode.length > 0) {
       textNode.html(menuMap.get(item.defaultValue) ?? item.defaultValue);
+    }
+    if (item.menuType === 'color') {
+      titleNode.find('.lake-dropdown-icon svg path').eq(0).css('fill', item.defaultValue);
     }
     dropdownNode.append(titleNode);
     dropdownNode.append(menuNode);
     this.root.append(dropdownNode);
-    titleNode.on('mouseenter', () => {
-      titleNode.addClass('lake-dropdown-title-hovered');
-    });
-    titleNode.on('mouseleave', () => {
-      titleNode.removeClass('lake-dropdown-title-hovered');
-    });
-    titleNode.on('click', event => {
+    if (item.menuType === 'color') {
+      iconNode.on('mouseenter', () => {
+        iconNode.addClass('lake-dropdown-icon-hovered');
+      });
+      iconNode.on('mouseleave', () => {
+        iconNode.removeClass('lake-dropdown-icon-hovered');
+      });
+      downIconNode.on('mouseenter', () => {
+        downIconNode.addClass('lake-dropdown-down-icon-hovered');
+      });
+      downIconNode.on('mouseleave', () => {
+        downIconNode.removeClass('lake-dropdown-down-icon-hovered');
+      });
+    } else {
+      titleNode.on('mouseenter', () => {
+        titleNode.addClass('lake-dropdown-title-hovered');
+      });
+      titleNode.on('mouseleave', () => {
+        titleNode.removeClass('lake-dropdown-title-hovered');
+      });
+    }
+    if (item.menuType === 'color') {
+      iconNode.on('click', () => {
+        const value = dropdownNode.attr('color') || item.defaultValue;
+        item.onSelect(editor, value);
+      });
+    }
+    const triggerNode = (item.menuType === 'color' && downIconNode) ? downIconNode : titleNode;
+    triggerNode.on('click', event => {
       event.preventDefault();
       const currentValues = this.getValue(dropdownNode);
       menuNode.find('.lake-dropdown-menu-check').css('visibility', 'hidden');
@@ -190,6 +227,10 @@ export class Toolbar {
       if (textNode.length > 0) {
         textNode.html(listItem.text());
       }
+      if (item.menuType === 'color') {
+        dropdownNode.attr('color', value);
+        titleNode.find('.lake-dropdown-icon svg path').css('fill', value);
+      }
       item.onSelect(editor, value);
     });
     editor.event.on('click', target => {
@@ -206,9 +247,6 @@ export class Toolbar {
         const key = currentValues[0] || item.defaultValue;
         const text = menuMap.get(key) ?? key;
         textNode.html(text);
-      }
-      if (item.menuType === 'color' && currentValues[0]) {
-        titleNode.find('.lake-dropdown-icon svg path').css('fill', currentValues[0]);
       }
     });
   }
