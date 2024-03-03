@@ -10,3 +10,4 @@ desktop.ini
 /coverage
 pnpm-lock.yaml
 .pnpm-debug.log
+rollup.config-*.mjs

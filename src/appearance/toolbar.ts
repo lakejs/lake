@@ -104,6 +104,16 @@ export class Toolbar {
     return menuMap;
   }
 
+  private updateColorAccent(titleNode: Nodes, value: string): void {
+    const svgNode = titleNode.find('.lake-dropdown-icon svg').eq(1);
+    const lineNode = svgNode.find('line');
+    if (lineNode.length > 0) {
+      lineNode.attr('stroke', value);
+    } else {
+      svgNode.find('path').attr('fill', value);
+    }
+  }
+
   private addDropdownMenu(menuNode: Nodes, item: DropdownItem): void {
     for (const menuItem of item.menuItems) {
       const listContent = template`
@@ -191,8 +201,7 @@ export class Toolbar {
       }
       if (item.menuType === 'color') {
         dropdownNode.attr('color', value);
-        const svgNode = titleNode.find('.lake-dropdown-icon svg').eq(1);
-        svgNode.find('line').attr('stroke', item.defaultValue);
+        this.updateColorAccent(titleNode, value);
       }
       item.onSelect(editor, value);
     });
@@ -257,8 +266,7 @@ export class Toolbar {
       textNode.html(menuMap.get(item.defaultValue) ?? item.defaultValue);
     }
     if (item.menuType === 'color') {
-      const svgNode = titleNode.find('.lake-dropdown-icon svg').eq(1);
-      svgNode.find('line').attr('stroke', item.defaultValue);
+      this.updateColorAccent(titleNode, item.defaultValue);
     }
     this.addDropdownMenu(menuNode, item);
     dropdownNode.append(titleNode);
