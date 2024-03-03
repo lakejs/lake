@@ -154,6 +154,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('bold'),
     tooltip: 'Bold',
+    isDisabled: appliedItems => !!appliedItems.find(item => item.node.isHeading),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'strong'),
     onClick: (editor, value) => {
       editor.command.execute(value);

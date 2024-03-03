@@ -314,16 +314,17 @@ export class Toolbar {
     editor.event.on('selectionchange', () => {
       const appliedItems = editor.selection.appliedItems;
       for (const item of buttonItemList) {
+        const selectedClass = 'lake-toolbar-button-selected';
         const buttonNode = this.root.find(`button[name="${item.name}"]`);
         const isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems, editor) : false;
         if (isDisabled) {
           buttonNode.attr('disabled', 'true');
+          buttonNode.removeClass(selectedClass);
         } else {
           buttonNode.removeAttr('disabled');
         }
         if (!isDisabled) {
           const isSelected = item.isSelected && appliedItems.length > 0 ? item.isSelected(appliedItems, editor) : false;
-          const selectedClass = 'lake-toolbar-button-selected';
           if (isSelected) {
             buttonNode.addClass(selectedClass);
           } else {
