@@ -29,7 +29,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('undo'),
     tooltip: 'Undo',
-    isDisabled: (AppliedItems, editor) => !editor.history.canUndo,
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -39,7 +38,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('redo'),
     tooltip: 'Redo',
-    isDisabled: (AppliedItems, editor) => !editor.history.canRedo,
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -388,6 +386,7 @@ export const toolbarItems: ToolbarItem[] = [
     width: '65px',
     menuType: 'list',
     menuItems: fontSizeMenuItems,
+    isDisabled: appliedItems => !!appliedItems.find(item => item.node.isHeading),
     selectedValues: appliedItems => {
       const currentValue = appliedItems[0].node.computedCSS('font-size');
       return [currentValue.replace(/\.\d+/, '')];
