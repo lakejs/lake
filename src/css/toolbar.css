@@ -4,6 +4,7 @@
   --disabled-text-color: #00000040;
   --border-color: #d9d9d9;
   --background-hover-color: #0000000a;
+  --background-selected-color: #0000000d;
   --box-shadow: 0 6px 16px 0 #00000014, 0 3px 6px -4px #0000001f, 0 9px 28px 8px #0000000d;
   padding: 4px;
   border: 1px solid var(--border-color);
@@ -18,13 +19,16 @@
   color: var(--text-color);
   background-color: #fff;
   padding: 0;
-  margin: 0;
+  margin: 0 1px;
   line-height: 0;
   cursor: pointer;
   user-select: none;
 }
 .lake-toolbar .lake-toolbar-button-hovered {
   background-color: var(--background-hover-color);
+}
+.lake-toolbar .lake-toolbar-button-selected {
+  background-color: var(--background-selected-color);
 }
 .lake-toolbar .lake-toolbar-button svg {
   width: 16px;

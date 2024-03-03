@@ -12,6 +12,8 @@ export type ButtonItem = {
   type: 'button',
   icon?: string,
   tooltip: string,
+  isSelected: (appliedItems: AppliedItem[], editor: Editor) => boolean,
+  isDisabled?: (AppliedItems: AppliedItem[], editor: Editor) => boolean,
   onClick: (editor: Editor, value: string) => void,
 };
 
@@ -26,7 +28,8 @@ export type DropdownItem = {
   width: string,
   menuType: 'list' | 'color',
   menuItems: MenuItem[],
-  getValues: (appliedItems: AppliedItem[]) => string[],
+  selectedValues: (appliedItems: AppliedItem[], editor: Editor) => string[],
+  isDisabled?: (AppliedItems: AppliedItem[], editor: Editor) => boolean,
   onSelect: (editor: Editor, value: string) => void,
 };
 

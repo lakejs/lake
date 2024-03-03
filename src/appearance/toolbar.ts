@@ -143,7 +143,6 @@ export class Toolbar {
 
   private bindDropdownEvents(dropdownNode: Nodes, item: DropdownItem): void {
     const editor = this.editor;
-    const menuMap = this.getMenuMap(item);
     const titleNode = dropdownNode.find('.lake-dropdown-title');
     const textNode = titleNode.find('.lake-dropdown-text');
     const iconNode = titleNode.find('.lake-dropdown-icon');
@@ -211,16 +210,6 @@ export class Toolbar {
       }
       menuNode.hide();
     });
-    editor.event.on('selectionchange', () => {
-      const appliedItems = editor.selection.appliedItems;
-      const currentValues = appliedItems.length > 0 ? item.getValues(appliedItems) : [];
-      this.setValue(dropdownNode, currentValues);
-      if (textNode.length > 0) {
-        const key = currentValues[0] || item.defaultValue;
-        const text = menuMap.get(key) ?? key;
-        textNode.html(text);
-      }
-    });
   }
 
   private appendDropdown(item: DropdownItem) {
@@ -276,7 +265,11 @@ export class Toolbar {
   }
 
   public render(target: string | Nodes | NativeNode) {
+    const editor = this.editor;
     this.root = query(target);
+    const allMenuMap: Map<string, Map<string, string>> = new Map();
+    const buttonItemList: ButtonItem[] = [];
+    const dropdownItemList: DropdownItem[] = [];
     this.config.forEach(name => {
       if (name === '|') {
         this.appendDivider();
@@ -287,11 +280,39 @@ export class Toolbar {
         return;
       }
       if (item.type === 'button') {
+        buttonItemList.push(item);
         this.appendButton(item);
         return;
       }
       if (item.type === 'dropdown') {
+        allMenuMap.set(item.name, this.getMenuMap(item));
+        dropdownItemList.push(item);
         this.appendDropdown(item);
+      }
+    });
+    editor.event.on('selectionchange', () => {
+      const appliedItems = editor.selection.appliedItems;
+      for (const item of buttonItemList) {
+        const isSelected = appliedItems.length > 0 ? item.isSelected(appliedItems, editor) : false;
+        const buttonNode = this.root.find(`button[name="${item.name}"]`);
+        const className = 'lake-toolbar-button-selected';
+        if (isSelected) {
+          buttonNode.addClass(className);
+        } else {
+          buttonNode.removeClass(className);
+        }
+      }
+      for (const item of dropdownItemList) {
+        const selectedValues = appliedItems.length > 0 ? item.selectedValues(appliedItems, editor) : [];
+        const dropdownNode = this.root.find(`div.lake-dropdown[name="${item.name}"]`);
+        this.setValue(dropdownNode, selectedValues);
+        const textNode = dropdownNode.find('.lake-dropdown-text');
+        if (textNode.length > 0) {
+          const key = selectedValues[0] || item.defaultValue;
+          const menuMap = allMenuMap.get(item.name);
+          const text = (menuMap && menuMap.get(key)) ?? key;
+          textNode.html(text);
+        }
       }
     });
   }
