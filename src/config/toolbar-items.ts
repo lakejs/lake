@@ -29,7 +29,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('undo'),
     tooltip: 'Undo',
-    isSelected: () => false,
+    isDisabled: (AppliedItems, editor) => !editor.history.canUndo,
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -39,7 +39,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('redo'),
     tooltip: 'Redo',
-    isSelected: () => false,
+    isDisabled: (AppliedItems, editor) => !editor.history.canRedo,
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -49,7 +49,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('selectAll'),
     tooltip: 'Select all',
-    isSelected: () => false,
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -139,7 +138,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('increaseIndent'),
     tooltip: 'Increase indent',
-    isSelected: () => false,
     onClick: editor => {
       editor.command.execute('indent', 'increase');
     },
@@ -149,7 +147,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('decreaseIndent'),
     tooltip: 'Decrease indent',
-    isSelected: () => false,
     onClick: editor => {
       editor.command.execute('indent', 'decrease');
     },
@@ -229,7 +226,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('removeFormat'),
     tooltip: 'Remove format',
-    isSelected: () => false,
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -239,7 +235,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('formatPainter'),
     tooltip: 'Format painter',
-    isSelected: () => false,
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -249,7 +244,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('link'),
     tooltip: 'Link',
-    isSelected: () => false,
     onClick: (editor) => {
       editor.command.execute('link', 'https://github.com/');
     },
@@ -259,7 +253,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('hr'),
     tooltip: 'Horizontal line',
-    isSelected: () => false,
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -269,7 +262,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('image'),
     tooltip: 'Image',
-    isSelected: () => false,
     onClick: (editor) => {
       editor.command.execute('image', './data/tianchi.png');
     },
@@ -279,7 +271,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('codeBlock'),
     tooltip: 'Code block',
-    isSelected: () => false,
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -367,7 +358,6 @@ export const toolbarItems: ToolbarItem[] = [
     width: 'auto',
     menuType: 'list',
     menuItems: indentMenuItems,
-    selectedValues: () => [],
     onSelect: (editor, value) => {
       editor.command.execute('indent', value);
     },
