@@ -54,7 +54,7 @@
     "express": "node app.mjs",
     "watch": "rollup --watch --config rollup.config.ts --configPlugin typescript",
     "build": "rimraf ./lib/ && rollup --config rollup.config.ts --configPlugin typescript",
-    "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,mjs\""
+    "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,.mjs\""
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint"
