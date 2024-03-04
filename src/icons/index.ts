@@ -20,6 +20,13 @@ import selectAll from './select-all.svg';
 import undo from './undo.svg';
 import redo from './redo.svg';
 // block format
+import heading from './heading.svg';
+import heading1 from './heading1.svg';
+import heading2 from './heading2.svg';
+import heading3 from './heading3.svg';
+import heading4 from './heading4.svg';
+import heading5 from './heading5.svg';
+import heading6 from './heading6.svg';
 import blockQuote from './block-quote.svg';
 import list from './list.svg';
 import numberedList from './numbered-list.svg';
@@ -61,6 +68,13 @@ export const icons: Map<string, string> = new Map([
   ['selectAll', selectAll],
   ['undo', undo],
   ['redo', redo],
+  ['heading', heading],
+  ['heading1', heading1],
+  ['heading2', heading2],
+  ['heading3', heading3],
+  ['heading4', heading4],
+  ['heading5', heading5],
+  ['heading6', heading6],
   ['blockQuote', blockQuote],
   ['list', list],
   ['numberedList', numberedList],

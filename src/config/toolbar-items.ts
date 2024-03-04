@@ -52,6 +52,16 @@ export const toolbarItems: ToolbarItem[] = [
     },
   },
   {
+    name: 'heading3',
+    type: 'button',
+    icon: icons.get('heading3'),
+    tooltip: 'Heading 3',
+    isSelected: appliedItems => !!appliedItems.find(item => item.name === 'h3'),
+    onClick: editor => {
+      editor.command.execute('heading', 'h3');
+    },
+  },
+  {
     name: 'blockQuote',
     type: 'button',
     icon: icons.get('blockQuote'),

@@ -12,6 +12,8 @@ import './css/toolbar.css';
 import './elements/box';
 import './elements/bookmark';
 import { BoxComponent } from './types/box';
+import { ToolbarItem } from './types/toolbar';
+import { icons } from './icons';
 import * as Utils from './utils';
 import { Nodes } from './models/nodes';
 import { Fragment } from './models/fragment';
@@ -119,7 +121,9 @@ Editor.plugin.add(markdown);
 export {
   Editor,
   Toolbar,
+  ToolbarItem,
   BoxComponent,
+  icons,
   Utils,
   Nodes,
   Fragment,

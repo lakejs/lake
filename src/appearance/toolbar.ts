@@ -41,11 +41,11 @@ toolbarItems.forEach(item => {
 export class Toolbar {
   private editor: Editor;
 
-  private config: string[];
+  private config: (string | ToolbarItem)[];
 
   private root: Nodes;
 
-  constructor(editor: Editor, config?: string[]) {
+  constructor(editor: Editor, config?: (string | ToolbarItem)[]) {
     this.editor = editor;
     this.config = config || defaultConfig;
     this.root = query('<div />');
@@ -296,9 +296,14 @@ export class Toolbar {
         this.appendDivider();
         return;
       }
-      const item = toolbarItemMap.get(name);
-      if (!item) {
-        return;
+      let item;
+      if (typeof name === 'string') {
+        item = toolbarItemMap.get(name);
+        if (!item) {
+          return;
+        }
+      } else {
+        item = name;
       }
       if (item.type === 'button') {
         buttonItemList.push(item);
