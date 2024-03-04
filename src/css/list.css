@@ -85,15 +85,12 @@
   padding-left: 24px;
   pointer-events: none;
 }
-.lake-container ul[type="checklist"] li[value="true"] {
-  color: #8c8c8c;
-  text-decoration: line-through;
-}
 .lake-container ul[type="checklist"] li::before {
   content: '';
   position: absolute;
-  top: 3px;
+  top: 50%;
   left: 0;
+  margin-top: -8px;
   width: 16px;
   height: 16px;
   border-radius: 4px;
@@ -111,7 +108,7 @@
 .lake-container ul[type="checklist"] li::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  top: 50%;
   left: 4px;
   width: 4px;
   height: 8px;
