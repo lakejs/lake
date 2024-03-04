@@ -23,6 +23,7 @@ window.DEBUG = true;
 type MenuItem = {
   url: string,
   text: string,
+  source: string,
   editorValue: string,
   editor: (value: string) => Editor,
 };
@@ -31,48 +32,56 @@ const menuItems: MenuItem[] = [
   {
     url: './',
     text: 'Default configuration',
+    source: 'https://github.com/lakejs/lake/blob/master/examples/default-editor.ts',
     editorValue: defaultValue,
     editor: defaultEditor,
   },
   {
     url: './full-featured',
     text: 'Full-featured editor',
+    source: 'https://github.com/lakejs/lake/blob/master/examples/full-editor.ts',
     editorValue: fullValue,
     editor: fullEditor,
   },
   {
     url: './document',
     text: 'Document editor',
+    source: 'https://github.com/lakejs/lake/blob/master/examples/default-editor.ts',
     editorValue: defaultValue,
     editor: defaultEditor,
   },
   {
     url: './miniature',
     text: 'Miniature toolbar',
+    source: 'https://github.com/lakejs/lake/blob/master/examples/miniature-editor.ts',
     editorValue: miniatureValue,
     editor: miniatureEditor,
   },
   {
     url: './headless',
     text: 'Headless editor',
+    source: 'https://github.com/lakejs/lake/blob/master/examples/headless-editor.ts',
     editorValue: headlessValue,
     editor: headlessEditor,
   },
   {
     url: './mobile',
     text: 'Mobile friendly editor',
+    source: 'https://github.com/lakejs/lake/blob/master/examples/default-editor.ts',
     editorValue: defaultValue,
     editor: defaultEditor,
   },
   {
     url: './i18n',
     text: 'Internationalization',
+    source: 'https://github.com/lakejs/lake/blob/master/examples/default-editor.ts',
     editorValue: defaultValue,
     editor: defaultEditor,
   },
   {
     url: './huge-content',
     text: 'Huge Content',
+    source: 'https://github.com/lakejs/lake/blob/master/examples/default-editor.ts',
     editorValue: hugeValue,
     editor: defaultEditor,
   },
@@ -84,8 +93,16 @@ for (const item of menuItems) {
   menuItemMap.set(type, item);
 }
 
-function renderMenu(): void {
-  const menuNode = query('.menu');
+function renderHeader(pageType: string): void {
+  const currentItem = menuItemMap.get(pageType);
+  if (!currentItem) {
+    return;
+  }
+  const titleNode = query('.header .title');
+  titleNode.html(currentItem.text);
+  const sourceNode = query('.header .source');
+  sourceNode.append(`<a href="${currentItem.source}" target="_blank" title="View Source"><img src="../assets/code.svg" /></a>`);
+  const menuNode = query('.header .menu');
   menuNode.append('<button type="button"><img src="../assets/list.svg" /></button>');
   const ul = query('<ul />');
   menuNode.append(ul);
@@ -109,15 +126,6 @@ function renderMenu(): void {
   });
 }
 
-function renderTitle(pageType: string): void {
-  const currentItem = menuItemMap.get(pageType);
-  if (!currentItem) {
-    return;
-  }
-  const titleNode = query('.header .title');
-  titleNode.html(currentItem.text);
-}
-
 function renderEditor(pageType: string): void {
   const currentItem = menuItemMap.get(pageType);
   if (!currentItem) {
@@ -135,8 +143,7 @@ function renderEditor(pageType: string): void {
 function renderPage(): void {
   const url = window.location.href;
   const pageType = url.split('/').pop() || 'default';
-  renderTitle(pageType);
-  renderMenu();
+  renderHeader(pageType);
   renderEditor(pageType);
 }
 
