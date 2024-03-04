@@ -1,4 +1,4 @@
-import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce';
 import EventEmitter from 'eventemitter3';
 import pkg from '../package.json';
 import { NativeNode } from './types/native';
@@ -83,7 +83,7 @@ export class Editor {
     this.beforeunloadListener = () => {
       this.commitUnsavedInputData();
     };
-    const updateBoxSelectionClass = throttle(() => {
+    const updateBoxSelectionStyleHandler = debounce(() => {
       const range = this.selection.range;
       const clonedRange = range.clone();
       clonedRange.adaptBox();
@@ -108,11 +108,15 @@ export class Editor {
         boxContainer.removeClass('lake-box-activated');
         boxContainer.removeClass('lake-box-selected');
       });
-    }, 50);
+    }, 50, {
+      leading: false,
+      trailing: true,
+      maxWait: 50,
+    });
     this.selectionchangeListener = () => {
       this.selection.syncByRange();
       this.selection.appliedItems = this.selection.getAppliedItems();
-      updateBoxSelectionClass();
+      updateBoxSelectionStyleHandler();
       this.event.emit('selectionchange');
     };
     this.clickListener = event => {

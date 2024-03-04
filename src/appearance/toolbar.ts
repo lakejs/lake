@@ -1,4 +1,4 @@
-import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce';
 import { Base64 } from 'js-base64';
 import type { Editor } from '../editor';
 import { NativeNode } from '../types/native';
@@ -317,7 +317,7 @@ export class Toolbar {
         this.appendDropdown(item);
       }
     });
-    const updateStateHandler = throttle(() => {
+    const updateStateHandler = debounce(() => {
       const appliedItems = editor.selection.appliedItems;
       for (const item of buttonItemList) {
         const selectedClass = 'lake-toolbar-button-selected';
@@ -358,7 +358,11 @@ export class Toolbar {
           }
         }
       }
-    }, 100);
+    }, 100, {
+      leading: false,
+      trailing: true,
+      maxWait: 100,
+    });
     editor.event.on('selectionchange', updateStateHandler);
     editor.event.on('change', updateStateHandler);
   }
