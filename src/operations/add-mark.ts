@@ -109,14 +109,16 @@ export function addMark(range: Range, value: string | Nodes): void {
   const nodeList = range.getMarks(true);
   const bookmark = insertBookmark(range);
   for (const node of nodeList) {
-    if (node.isText) {
-      const upperMark = getUpperMark(node, tagName);
-      if (upperMark.isMark && upperMark.name === tagName) {
-        upperMark.css(cssProperties);
-      } else {
-        const newValueNode = valueNode.clone();
-        upperMark.before(newValueNode);
-        newValueNode.append(upperMark);
+    if (!node.isEmpty) {
+      if (node.isText) {
+        const upperMark = getUpperMark(node, tagName);
+        if (upperMark.isMark && upperMark.name === tagName) {
+          upperMark.css(cssProperties);
+        } else {
+          const newValueNode = valueNode.clone();
+          upperMark.before(newValueNode);
+          newValueNode.append(upperMark);
+        }
       }
     }
   }

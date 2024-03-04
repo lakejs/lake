@@ -484,10 +484,10 @@ export class Range {
         break;
       }
       if (stratRange.compareAfterNode(node) > 0) {
-        if ((node.isMark || node.isText) && !node.isEmpty) {
-          if (node.isMark || hasText) {
-            marks.push(node);
-          }
+        if (node.isMark) {
+          marks.push(node);
+        } else if (node.isText && hasText) {
+          marks.push(node);
         }
       }
     }

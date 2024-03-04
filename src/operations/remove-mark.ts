@@ -1,4 +1,4 @@
-import { appendDeepest, query } from '../utils';
+import { appendDeepest, query, removeZWS } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertBookmark } from './insert-bookmark';
@@ -94,11 +94,12 @@ export function removeMark(range: Range, value?: string): void {
   for (const mark of marks) {
     if (!tagName || mark.name === tagName) {
       const parentNode = mark.parent();
-      mark.remove(true);
+      mark.remove(!mark.isEmpty);
       if (parentNode.length > 0) {
         parentNode.get(0).normalize();
       }
     }
   }
+  removeZWS(range.commonAncestor);
   toBookmark(range, bookmark);
 }

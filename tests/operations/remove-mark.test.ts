@@ -250,6 +250,22 @@ describe('operations / remove-mark', () => {
     );
   });
 
+  it('expanded range: with zeroWidthSpace', () => {
+    const content = `
+    <p><anchor />foo<strong>\u200B</strong>b\u200Bar<focus /></p>
+    `;
+    const output = `
+    <p><anchor />foobar<focus /></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        removeMark(range);
+      },
+    );
+  });
+
   it('the cursor is at the left of the inline box', () => {
     const content = `
     <p><lake-box type="inline" name="inlineBox" focus="left"></lake-box></p>
