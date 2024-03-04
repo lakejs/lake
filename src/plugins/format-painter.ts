@@ -17,12 +17,15 @@ export default (editor: Editor) => {
     }
   });
   editor.container.on('click', () => {
+    editor.container.removeClass(formatPainterClassName);
+    if (markList.length === 0) {
+      return;
+    }
     for (const mark of markList) {
       editor.selection.addMark(mark);
     }
-    editor.history.save();
     markList = [];
-    editor.container.removeClass(formatPainterClassName);
+    editor.history.save();
   });
   editor.event.on('click', (tagetNode: Nodes) => {
     if (tagetNode.isInside) {
@@ -33,5 +36,6 @@ export default (editor: Editor) => {
       return;
     }
     editor.container.removeClass(formatPainterClassName);
+    markList = [];
   });
 };
