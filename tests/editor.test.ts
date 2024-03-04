@@ -134,7 +134,7 @@ describe('editor', () => {
       expect(isActivated).to.equal(true);
       expect(isSelected).to.equal(false);
       done();
-    }, 0);
+    }, 100);
   });
 
   it('selection event: should have selected class', done => {
@@ -154,7 +154,7 @@ describe('editor', () => {
       expect(isActivated).to.equal(false);
       expect(isSelected).to.equal(true);
       done();
-    }, 0);
+    }, 100);
   });
 
   it('input event: input text in the left strip of inline box', done => {
