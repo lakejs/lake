@@ -11,27 +11,27 @@ const heading3: ToolbarItem = {
   },
 };
 
+const toolbarConfig = [
+  heading3,
+  'bold',
+  'italic',
+  'blockQuote',
+  'code',
+  'link',
+  '|',
+  'numberedList',
+  'bulletedList',
+  'checklist',
+  '|',
+  'image',
+];
+
 export default (value: string) => {
   Utils.query('.lake-editor').addClass('lake-mini-editor');
   const editor = new Editor('.lake-container', {
     defaultValue: value,
   });
   editor.render();
-  new Toolbar(editor, [
-    'undo',
-    'redo',
-    '|',
-    heading3,
-    'blockQuote',
-    '|',
-    'bold',
-    'moreStyle',
-    '|',
-    'numberedList',
-    'bulletedList',
-    'checklist',
-    '|',
-    'link',
-  ]).render('.lake-toolbar');
+  new Toolbar(editor, toolbarConfig).render('.lake-toolbar');
   return editor;
 };

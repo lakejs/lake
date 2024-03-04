@@ -52,13 +52,13 @@ export const toolbarItems: ToolbarItem[] = [
     },
   },
   {
-    name: 'heading3',
+    name: 'paragraph',
     type: 'button',
-    icon: icons.get('heading3'),
-    tooltip: 'Heading 3',
-    isSelected: appliedItems => !!appliedItems.find(item => item.name === 'h3'),
+    icon: icons.get('paragraph'),
+    tooltip: 'Paragraph',
+    isSelected: appliedItems => !!appliedItems.find(item => item.name === 'p'),
     onClick: editor => {
-      editor.command.execute('heading', 'h3');
+      editor.command.execute('heading', 'p');
     },
   },
   {

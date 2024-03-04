@@ -27,6 +27,7 @@ import heading3 from './heading3.svg';
 import heading4 from './heading4.svg';
 import heading5 from './heading5.svg';
 import heading6 from './heading6.svg';
+import paragraph from './paragraph.svg';
 import blockQuote from './block-quote.svg';
 import list from './list.svg';
 import numberedList from './numbered-list.svg';
@@ -75,6 +76,7 @@ export const icons: Map<string, string> = new Map([
   ['heading4', heading4],
   ['heading5', heading5],
   ['heading6', heading6],
+  ['paragraph', paragraph],
   ['blockQuote', blockQuote],
   ['list', list],
   ['numberedList', numberedList],
