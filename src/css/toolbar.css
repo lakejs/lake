@@ -162,7 +162,7 @@
 .lake-toolbar .lake-dropdown-color-menu {
   flex-wrap: wrap;
   justify-content: center;
-  width: 162px;
+  width: 296px;
 }
 .lake-toolbar .lake-dropdown-color-menu li {
   position: relative;
@@ -193,10 +193,12 @@
   border-radius: 2px;
   width: 16px;
   height: 16px;
-  margin: 4px;
+  margin: 3px;
 }
 .lake-toolbar .lake-dropdown-color-menu li:first-child {
-  width: 90%;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
   margin-bottom: 4px;
 }
 .lake-toolbar .lake-dropdown-color-menu li:first-child .lake-dropdown-menu-check {

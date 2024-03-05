@@ -94,6 +94,9 @@ body {
 .lake-mini-editor {
   max-width: 600px;
 }
+.lake-mini-editor .lake-toolbar .lake-dropdown-color-menu {
+  width: 156px;
+}
 .lake-mini-editor .lake-container {
   height: 100px;
 }
