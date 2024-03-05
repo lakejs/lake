@@ -1,3 +1,6 @@
+.lake-container-wrapper {
+  position: relative;
+}
 .lake-container {
   --text-color: #000000e0;
   --secondary-text-color: #000000a6;

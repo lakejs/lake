@@ -44,6 +44,8 @@ export class Editor {
 
   public root: Nodes;
 
+  public containerWrapper: Nodes;
+
   public container: Nodes;
 
   public overlayContainer: Nodes;
@@ -67,6 +69,7 @@ export class Editor {
   constructor(target: string | Nodes | NativeNode, options = defaultOptions) {
     this.root = query(target);
     this.options = options;
+    this.containerWrapper = query('<div class="lake-container-wrapper" />');
     this.container = query('<div class="lake-container" />');
     this.overlayContainer = query('<div class="lake-overlay" />');
     this.isComposing = false;
@@ -299,8 +302,9 @@ export class Editor {
     const htmlParser = new HTMLParser(value);
     const fragment = htmlParser.getFragment();
     this.root.empty();
-    this.root.append(this.container);
-    this.root.append(this.overlayContainer);
+    this.root.append(this.containerWrapper);
+    this.containerWrapper.append(this.container);
+    this.containerWrapper.append(this.overlayContainer);
     this.container.append(fragment);
     if (!this.readonly) {
       this.focus();
