@@ -103,7 +103,7 @@ function renderHeader(pageType: string): void {
   const sourceNode = query('.header .source');
   sourceNode.append(`<a href="${currentItem.source}" target="_blank" title="View Source"><img src="../assets/code.svg" /></a>`);
   const menuNode = query('.header .menu');
-  menuNode.append('<button type="button"><img src="../assets/list.svg" /></button>');
+  menuNode.append('<button type="button" name="list"><img src="../assets/list.svg" /></button>');
   const ul = query('<ul />');
   menuNode.append(ul);
   for (const item of menuItems) {

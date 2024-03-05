@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce';
 import { Base64 } from 'js-base64';
 import type { Editor } from '../editor';
-import { NativeNode } from '../types/native';
+import { NativeElement, NativeHTMLElement, NativeNode } from '../types/native';
 import { ButtonItem, DropdownItem, ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
 import { toolbarItems } from '../config/toolbar-items';
@@ -210,7 +210,19 @@ export class Toolbar {
           listNode.find('.lake-dropdown-menu-check').css('visibility', 'visible');
         }
       });
+      menuNode.css('visibility', 'hidden');
       menuNode.show(item.menuType === 'color' ? 'flex' : 'block');
+      const dropdownNativeNode = dropdownNode.get(0) as NativeHTMLElement;
+      const menuNativeNode = menuNode.get(0) as NativeElement;
+      const leftOffset = dropdownNativeNode.offsetLeft + menuNativeNode.clientWidth;
+      if (leftOffset > window.innerWidth) {
+        menuNode.css('left', 'auto');
+        menuNode.css('right', '0');
+      } else {
+        menuNode.css('left', '');
+        menuNode.css('right', '');
+      }
+      menuNode.css('visibility', '');
     });
     menuNode.on('click', event => {
       event.preventDefault();
