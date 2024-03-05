@@ -200,6 +200,7 @@ export const moreStyleMenuItems: ToolbarMenuItem[] = [
     text: 'Code',
   },
 ];
+
 // These colors are from Ant Design (https://ant.design/docs/spec/colors)
 const colors: string[] = [
   // Dust Red, Volcano, Sunset Orange, Calendula Gold, Sunrise Yellow, Lime, Polar Green, Cyan, Daybreak Blue, Geek Blue, Golden Purple, Magenta
@@ -218,6 +219,7 @@ const colors: string[] = [
 ];
 export const colorMenuItems: ToolbarMenuItem[] = [
   {
+    icon: icons.get('removeFormat'),
     value: '',
     text: 'Remove color',
   },

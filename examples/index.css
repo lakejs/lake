@@ -97,6 +97,9 @@ body {
 .lake-mini-editor .lake-toolbar .lake-dropdown-color-menu {
   width: 156px;
 }
+.lake-mini-editor .lake-toolbar .lake-dropdown-color-menu li:first-child .lake-dropdown-menu-text {
+  text-align: center;
+}
 .lake-mini-editor .lake-container {
   height: 100px;
 }

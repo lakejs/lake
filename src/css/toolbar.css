@@ -187,6 +187,14 @@
 .lake-toolbar .lake-dropdown-color-menu li[value="#ffffff"] .lake-dropdown-menu-check svg {
   fill: #000;
 }
+.lake-toolbar .lake-dropdown-color-menu li .lake-dropdown-menu-icon {
+  line-height: 0;
+}
+.lake-toolbar .lake-dropdown-color-menu li .lake-dropdown-menu-icon svg {
+  width: 16px;
+  height: 16px;
+  margin: 3px 4px;
+}
 .lake-toolbar .lake-dropdown-color-menu li .lake-dropdown-menu-text {
   font-size: 0;
   border: 1px solid var(--background-hover-color);
@@ -209,5 +217,4 @@
   font-size: 14px;
   border: 1px solid transparent;
   height: auto;
-  text-align: center;
 }
