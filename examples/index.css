@@ -88,8 +88,15 @@ body {
   margin: 0 8px;
   max-width: 1000px;
 }
-.lake-container {
+.lake-toolbar {
+  border: 1px solid #d9d9d9;
+  border-bottom: 0;
+}
+.lake-content {
   height: calc(100vh - 160px);
+  overflow: auto;
+  border: 1px solid #d9d9d9;
+  padding: 8px;
 }
 .lake-mini-editor {
   max-width: 600px;
@@ -100,6 +107,6 @@ body {
 .lake-mini-editor .lake-toolbar .lake-dropdown-color-menu li:first-child .lake-dropdown-menu-text {
   text-align: center;
 }
-.lake-mini-editor .lake-container {
+.lake-mini-editor .lake-content {
   height: 100px;
 }

@@ -42,7 +42,11 @@ export class Editor {
 
   private mouseoverListener: EventListener;
 
+  public root: Nodes;
+
   public container: Nodes;
+
+  public overlayContainer: Nodes;
 
   public isComposing: boolean;
 
@@ -61,8 +65,10 @@ export class Editor {
   public box: BoxManager;
 
   constructor(target: string | Nodes | NativeNode, options = defaultOptions) {
-    this.container = query(target);
+    this.root = query(target);
     this.options = options;
+    this.container = query('<div class="lake-container" />');
+    this.overlayContainer = query('<div class="lake-overlay" />');
     this.isComposing = false;
 
     this.setDefaultOptions();
@@ -84,6 +90,10 @@ export class Editor {
       this.commitUnsavedInputData();
     };
     const updateBoxSelectionStyleHandler = debounce(() => {
+      // The editor has been unmounted.
+      if (this.root.first().length === 0) {
+        return;
+      }
       const range = this.selection.range;
       const clonedRange = range.clone();
       clonedRange.adaptBox();
@@ -288,7 +298,9 @@ export class Editor {
     const value = normalizeValue(this.options.defaultValue);
     const htmlParser = new HTMLParser(value);
     const fragment = htmlParser.getFragment();
-    this.container.empty();
+    this.root.empty();
+    this.root.append(this.container);
+    this.root.append(this.overlayContainer);
     this.container.append(fragment);
     if (!this.readonly) {
       this.focus();
@@ -309,7 +321,7 @@ export class Editor {
 
   // Destroys a rendered editor.
   public unmount(): void {
-    this.container.empty();
+    this.root.empty();
     if (!this.readonly) {
       window.removeEventListener('beforeunload', this.beforeunloadListener);
       document.removeEventListener('selectionchange', this.selectionchangeListener);
