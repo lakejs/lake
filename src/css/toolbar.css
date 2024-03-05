@@ -184,7 +184,8 @@
   height: 12px;
   fill: #fff;
 }
-.lake-toolbar .lake-dropdown-color-menu li[value="#ffffff"] .lake-dropdown-menu-check svg {
+.lake-toolbar .lake-dropdown-color-menu li[value^="#f" i] .lake-dropdown-menu-check svg,
+.lake-toolbar .lake-dropdown-color-menu li[value^="#e6" i] .lake-dropdown-menu-check svg {
   fill: #000;
 }
 .lake-toolbar .lake-dropdown-color-menu li .lake-dropdown-menu-icon {
