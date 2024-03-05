@@ -232,7 +232,7 @@ export class Toolbar {
       if (textNode.length > 0) {
         textNode.html(listItem.text());
       }
-      if (item.menuType === 'color') {
+      if (item.menuType === 'color' && value !== '') {
         dropdownNode.attr('color', value);
         this.updateColorAccent(titleNode, value);
       }
