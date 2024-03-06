@@ -5,7 +5,14 @@ import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 
+type Config = {
+  target: Nodes,
+  onRemove: () => void,
+};
+
 export class LinkPopup {
+
+  public config: Config;
 
   public root: Nodes;
 
@@ -21,7 +28,8 @@ export class LinkPopup {
 
   private linkNode: Nodes | null = null;
 
-  constructor(target: Nodes) {
+  constructor(config: Config) {
+    this.config = config;
     this.root = query(safeTemplate`
       <div class="lake-link-popup">
         <div class="lake-row">URL</div>
@@ -35,7 +43,7 @@ export class LinkPopup {
           <input type="text" name="title" />
         </div>
         <div class="lake-row lake-unlink-row">
-          <div class="lake-unlink">
+          <div class="lake-unlink" data-role="remove">
             <button type="button" class="lake-button-unlink" title="Remove link"></button>
             <div class="lake-unlink-text">Remove link</div>
           </div>
@@ -59,7 +67,7 @@ export class LinkPopup {
     if (unlinkIcon) {
       this.unlinkButton.prepend(unlinkIcon);
     }
-    target.append(this.root);
+    config.target.append(this.root);
     this.bindEvents();
   }
 
@@ -75,6 +83,12 @@ export class LinkPopup {
         return;
       }
       this.linkNode.html(encode(this.getTitle()));
+    });
+    this.root.find('[data-role="remove"]').on('click', () => {
+      if (this.linkNode) {
+        this.linkNode.remove(true);
+      }
+      this.config.onRemove();
     });
   }
 
@@ -115,15 +129,13 @@ export class LinkPopup {
     });
   }
 
-  public show(linkNode?: Nodes): void {
-    if (linkNode) {
-      const url = linkNode.attr('href');
-      const title = linkNode.text();
-      this.setUrl(url);
-      this.setTitle(title);
-      this.updatePosition(linkNode);
-      this.linkNode = linkNode;
-    }
+  public show(linkNode: Nodes): void {
+    const url = linkNode.attr('href');
+    const title = linkNode.text();
+    this.setUrl(url);
+    this.setTitle(title);
+    this.updatePosition(linkNode);
+    this.linkNode = linkNode;
     this.root.show();
   }
 

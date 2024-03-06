@@ -17,6 +17,7 @@ import { removeMark } from '../operations/remove-mark';
 import { fixList } from '../operations/fix-list';
 import { insertBox } from '../operations/insert-box';
 import { removeBox } from '../operations/remove-box';
+import { insertLink } from '../operations/insert-link';
 
 // Returns the attributes of the element as an key-value object.
 function getAttributes(node: Nodes): KeyValue {
@@ -216,5 +217,9 @@ export class Selection {
 
   public removeBox(): ReturnType<typeof removeBox> {
     return removeBox(this.range);
+  }
+
+  public insertLink(value: Parameters<typeof insertLink>[1]): ReturnType<typeof insertLink> {
+    return insertLink(this.range, value);
   }
 }

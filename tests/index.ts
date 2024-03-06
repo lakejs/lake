@@ -55,6 +55,7 @@ import './operations/remove-mark.test';
 import './operations/fix-list.test';
 import './operations/insert-box.test';
 import './operations/remove-box.test';
+import './operations/insert-link.test';
 
 // Managers
 import './managers/selection.test';
@@ -89,7 +90,6 @@ import './plugins/font-color.test';
 import './plugins/highlight.test';
 import './plugins/remove-format.test';
 import './plugins/format-painter.test';
-import './plugins/link.test';
 import './plugins/hr.test';
 import './plugins/image.test';
 import './plugins/code-block.test';

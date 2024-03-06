@@ -36,6 +36,7 @@ import { removeMark} from './operations/remove-mark';
 import { fixList} from './operations/fix-list';
 import { insertBox} from './operations/insert-box';
 import { removeBox} from './operations/remove-box';
+import { insertLink } from './operations/insert-link';
 import { Editor } from './editor';
 import { Toolbar } from './appearance/toolbar';
 import { hrBox } from './boxes/hr';
@@ -145,4 +146,5 @@ export {
   fixList,
   insertBox,
   removeBox,
+  insertLink,
 };
