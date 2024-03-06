@@ -214,8 +214,8 @@ export class Toolbar {
       menuNode.show(item.menuType === 'color' ? 'flex' : 'block');
       const dropdownNativeNode = dropdownNode.get(0) as NativeHTMLElement;
       const menuNativeNode = menuNode.get(0) as NativeElement;
-      const leftOffset = dropdownNativeNode.offsetLeft + menuNativeNode.clientWidth;
-      if (leftOffset > window.innerWidth) {
+      const offsetLeft = dropdownNativeNode.offsetLeft + menuNativeNode.clientWidth;
+      if (offsetLeft > window.innerWidth) {
         menuNode.css('left', 'auto');
         menuNode.css('right', '0');
       } else {

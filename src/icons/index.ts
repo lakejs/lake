@@ -5,6 +5,7 @@
 // - subscript.svg
 // - highlight.svg
 // - highlight-accent.svg
+// - open.svg
 //
 // Phosphor Icons (https://phosphoricons.com/).
 // - other icons
@@ -16,6 +17,8 @@ import plus from './plus.svg';
 import more from './more.svg';
 import down from './down.svg';
 import check from './check.svg';
+import open from './open.svg';
+import copy from './copy.svg';
 import selectAll from './select-all.svg';
 import undo from './undo.svg';
 import redo from './redo.svg';
@@ -55,8 +58,9 @@ import fontColorAccent from './font-color-accent.svg';
 import highlight from './highlight.svg';
 import highlightAccent from './highlight-accent.svg';
 // items that can be inserted
-import hr from './hr.svg';
 import link from './link.svg';
+import unlink from './unlink.svg';
+import hr from './hr.svg';
 import image from './image.svg';
 import codeBlock from './code-block.svg';
 import table from './table.svg';
@@ -66,6 +70,8 @@ export const icons: Map<string, string> = new Map([
   ['more', more],
   ['down', down],
   ['check', check],
+  ['open', open],
+  ['copy', copy],
   ['selectAll', selectAll],
   ['undo', undo],
   ['redo', redo],
@@ -102,8 +108,9 @@ export const icons: Map<string, string> = new Map([
   ['fontColorAccent', fontColorAccent],
   ['highlight', highlight],
   ['highlightAccent', highlightAccent],
-  ['hr', hr],
   ['link', link],
+  ['unlink', unlink],
+  ['hr', hr],
   ['image', image],
   ['codeBlock', codeBlock],
   ['table', table],
