@@ -6,6 +6,9 @@
 // - highlight.svg
 // - highlight-accent.svg
 // - open.svg
+// - copy.svg
+// - copy-done.svg
+// - copy-error.svg
 //
 // Phosphor Icons (https://phosphoricons.com/).
 // - other icons
@@ -19,6 +22,8 @@ import down from './down.svg';
 import check from './check.svg';
 import open from './open.svg';
 import copy from './copy.svg';
+import copyDone from './copy-done.svg';
+import copyError from './copy-error.svg';
 import selectAll from './select-all.svg';
 import undo from './undo.svg';
 import redo from './redo.svg';
@@ -72,6 +77,8 @@ export const icons: Map<string, string> = new Map([
   ['check', check],
   ['open', open],
   ['copy', copy],
+  ['copyDone', copyDone],
+  ['copyError', copyError],
   ['selectAll', selectAll],
   ['undo', undo],
   ['redo', redo],

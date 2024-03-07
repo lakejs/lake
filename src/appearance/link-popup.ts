@@ -29,7 +29,7 @@ export class LinkPopup {
           <input type="text" name="title" />
         </div>
         <div class="lake-row lake-unlink-row">
-          <div class="lake-unlink" data-role="remove">
+          <div class="lake-unlink">
             <button type="button" class="lake-button-unlink" title="Remove link"></button>
             <div class="lake-unlink-text">Remove link</div>
           </div>
@@ -40,9 +40,18 @@ export class LinkPopup {
     if (openIcon) {
       this.root.find('.lake-button-open').append(openIcon);
     }
+    const copyButton = this.root.find('.lake-button-copy');
     const copyIcon = icons.get('copy');
     if (copyIcon) {
-      this.root.find('.lake-button-copy').append(copyIcon);
+      copyButton.append(copyIcon);
+    }
+    const copyDoneIcon = icons.get('copyDone');
+    if (copyDoneIcon) {
+      copyButton.append(copyDoneIcon);
+    }
+    const copyErrorIcon = icons.get('copyError');
+    if (copyErrorIcon) {
+      copyButton.append(copyErrorIcon);
     }
     const unlinkIcon = icons.get('unlink');
     if (unlinkIcon) {
@@ -50,6 +59,14 @@ export class LinkPopup {
     }
     target.append(this.root);
     this.bindEvents();
+  }
+
+  private async writeClipboardText(text: string, errorCallback: () => void) {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      errorCallback();
+    }
   }
 
   private bindEvents(): void {
@@ -65,7 +82,29 @@ export class LinkPopup {
       }
       this.linkNode.html(encode(this.getInputValue('title')));
     });
-    this.root.find('[data-role="remove"]').on('click', () => {
+    let timeoutId: number | null = null;
+    this.root.find('.lake-button-copy').on('click', () => {
+      if (!this.linkNode) {
+        return;
+      }
+      const url = this.getInputValue('url');
+      this.writeClipboardText(url, () => {
+        const svgNode = this.root.find('.lake-button-copy svg');
+        svgNode.hide();
+        svgNode.eq(2).show('inline');
+      });
+      const svgNode = this.root.find('.lake-button-copy svg');
+      svgNode.hide();
+      svgNode.eq(1).show('inline');
+      if (timeoutId) {
+        window.clearTimeout(timeoutId);
+      }
+      timeoutId = window.setTimeout(() => {
+        svgNode.hide();
+        svgNode.eq(0).show('inline');
+      }, 2000);
+    });
+    this.root.find('.lake-unlink').on('click', () => {
       if (!this.linkNode) {
         return;
       }

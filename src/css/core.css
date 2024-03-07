@@ -8,7 +8,9 @@
   --link-color: #1677ff;
   --link-hover-color: #69b1ff;
   --selection-background-color: #1ba2e333;
+  --success-color: #52c41a;
   --warning-color: #faad14;
+  --error-color: #ff4d4f;
   --box-shadow: 0 6px 16px 0 #00000014, 0 3px 6px -4px #0000001f, 0 9px 28px 8px #0000000d;
   --input-border-color: #d9d9d9;
   --input-border-hover-color: #69b1ff;
