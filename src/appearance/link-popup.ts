@@ -70,18 +70,21 @@ export class LinkPopup {
   }
 
   private bindEvents(): void {
+    // Update URL of current link
     this.root.find('input[name="url"]').on('input', () => {
       if (!this.linkNode) {
         return;
       }
       this.linkNode.attr('href', encode(this.getInputValue('url')));
     });
+    // Update title of current link
     this.root.find('input[name="title"]').on('input', () => {
       if (!this.linkNode) {
         return;
       }
       this.linkNode.html(encode(this.getInputValue('title')));
     });
+    // Copy link to clipboard
     let timeoutId: number | null = null;
     this.root.find('.lake-button-copy').on('click', () => {
       if (!this.linkNode) {
@@ -104,6 +107,15 @@ export class LinkPopup {
         svgNode.eq(0).show('inline');
       }, 2000);
     });
+    // Open link in new tab
+    this.root.find('.lake-button-open').on('click', () => {
+      if (!this.linkNode) {
+        return;
+      }
+      const url = this.getInputValue('url');
+      window.open(url);
+    });
+    // Remove link
     this.root.find('.lake-unlink').on('click', () => {
       if (!this.linkNode) {
         return;
