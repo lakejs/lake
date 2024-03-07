@@ -51,16 +51,16 @@ export function getElementRules(): any {
     'lake-box': {
       type: ['inline', 'block'],
       name: /^[\w-]+$/,
-      value: /^\S+$/,
+      value: /^[^"]+$/,
       focus: ['left', 'center', 'right'],
     },
     span: {
       class: /^[\w-]+$/,
       style: {
-        color: /^\S+$/,
-        'background-color': /^\S+$/,
+        color: /^[^"]+$/,
+        'background-color': /^[^"]+$/,
         'font-family': /^[^;]+$/,
-        'font-size': /^\S+$/,
+        'font-size': /^[^"]+$/,
       },
     },
     b: 'strong',
@@ -73,9 +73,12 @@ export function getElementRules(): any {
     sup: {},
     code: {},
     a: {
+      class: /^[\w-]+$/,
       name: /^[\w-]+$/,
-      href: /^\S+$/,
+      href: /^[^"]+$/,
       target: /^[\w-]+$/,
+      rel: /^[^"]+$/,
+      download: /^[^"]+$/,
     },
     br: {},
     'lake-bookmark': {

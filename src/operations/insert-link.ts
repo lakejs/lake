@@ -4,6 +4,8 @@ import { Range } from '../models/range';
 import { insertNode } from './insert-node';
 import { removeMark } from './remove-mark';
 import { splitMarks } from './split-marks';
+import { insertBookmark } from './insert-bookmark';
+import { toBookmark } from './to-bookmark';
 
 // Inserts a link element into the specified range.
 export function insertLink(range: Range, value: string | Nodes): Nodes | null {
@@ -25,13 +27,21 @@ export function insertLink(range: Range, value: string | Nodes): Nodes | null {
   }
   removeMark(range, '<a />');
   splitMarks(range);
-  const nodeList = range.getMarks(true);
-  if (nodeList.length === 0) {
-    return null;
-  }
-  const node = nodeList[0];
+  const bookmark = insertBookmark(range);
   const linkNode = valueNode.clone(false);
-  node.before(linkNode);
-  linkNode.append(node);
+  bookmark.anchor.after(linkNode);
+  let node = linkNode.next();
+  while(node.length > 0) {
+    const nextNode = node.next();
+    if (!node.isMark && !node.isText) {
+      break;
+    }
+    linkNode.append(node);
+    node = nextNode;
+  }
+  if (linkNode.first().length === 0) {
+    linkNode.remove();
+  }
+  toBookmark(range, bookmark);
   return linkNode;
 }

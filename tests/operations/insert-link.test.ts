@@ -1,5 +1,6 @@
 import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
+import { Box } from '../../src/models/box';
 import { insertLink } from '../../src/operations/insert-link';
 
 describe('operations / insert-link', () => {
@@ -38,7 +39,7 @@ describe('operations / insert-link', () => {
     );
   });
 
-  it('updates url when the cursor is on the link', () => {
+  it('updates url when the cursor is in the link', () => {
     const content = `
     <p>f<a href="http://foo.com/" target="_blank">o<focus />o</a>bar</p>
     `;
@@ -66,6 +67,68 @@ describe('operations / insert-link', () => {
       output,
       range => {
         insertLink(range, '<a href="http://bar.com/" target="_blank" />');
+      },
+    );
+  });
+
+  it('adds a link after selecting marks', () => {
+    const content = `
+    <p><anchor />one<strong>two</strong><u>three</u><i><s>four</s></i><focus /></p>
+    `;
+    const output = `
+    <p><anchor /><a href="http://foo.com/" download="true">one<strong>two</strong><u>three</u><i><s>four</s></i></a><focus /></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertLink(range, '<a href="http://foo.com/" download="true" />');
+      },
+    );
+  });
+
+  it('should add a link when the selection is astride a block', () => {
+    const content = `
+    <p><anchor /><i>foo</i></p>
+    <p>one<strong>two</strong>three</p>
+    <p>bar<focus /></p>
+    `;
+    const output = `
+    <p><anchor /><a href="http://foo.com/"><i>foo</i></a></p>
+    <p>one<strong>two</strong>three</p>
+    <p>bar<focus /></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertLink(range, '<a href="http://foo.com/" />');
+      },
+    );
+  });
+
+  it('should not add a link after selecting content with box', () => {
+    const content = `
+    <p><focus />foo</p>
+    <lake-box type="block" name="blockBox"></lake-box>
+    <p><lake-box type="inline" name="inlineBox"></lake-box>bar</p>
+    `;
+    const output = `
+    <p>foo</p>
+    <anchor /><lake-box type="block" name="blockBox"></lake-box>
+    <p><lake-box type="inline" name="inlineBox"></lake-box>bar<focus /></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        const container = range.startNode.closestContainer();
+        const boxNode = container.find('lake-box').eq(0);
+        const box = new Box(boxNode);
+        box.render();
+        range.selectBoxLeft(boxNode);
+        range.setEnd(container.find('p').eq(1), 2);
+        insertLink(range, '<a href="http://foo.com/" />');
       },
     );
   });
