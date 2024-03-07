@@ -74,9 +74,10 @@ export class Editor {
     this.containerWrapper = query('<div class="lake-container-wrapper" />');
     this.container = query('<div class="lake-container" />');
     this.overlayContainer = query('<div class="lake-overlay" />');
-    this.popupContainer = query('<div class="lake-popup" />');
+    this.popupContainer = query('<div class="lake-variables lake-popup" />');
     this.isComposing = false;
 
+    this.root.addClass('lake-variables');
     this.setDefaultOptions();
     this.readonly = this.options.readonly;
     this.setContainerAttributes();
@@ -309,7 +310,7 @@ export class Editor {
     this.containerWrapper.append(this.container);
     this.containerWrapper.append(this.overlayContainer);
     this.container.append(fragment);
-    this.root.after(this.popupContainer);
+    query(document.body).append(this.popupContainer);
     if (!this.readonly) {
       this.focus();
       this.selection.synByBookmark();
@@ -330,6 +331,7 @@ export class Editor {
   // Destroys a rendered editor.
   public unmount(): void {
     this.root.empty();
+    this.popupContainer.remove();
     if (!this.readonly) {
       window.removeEventListener('beforeunload', this.beforeunloadListener);
       document.removeEventListener('selectionchange', this.selectionchangeListener);
