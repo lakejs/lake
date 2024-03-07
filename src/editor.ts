@@ -50,6 +50,8 @@ export class Editor {
 
   public overlayContainer: Nodes;
 
+  public popupContainer: Nodes;
+
   public isComposing: boolean;
 
   public readonly: boolean;
@@ -72,6 +74,7 @@ export class Editor {
     this.containerWrapper = query('<div class="lake-container-wrapper" />');
     this.container = query('<div class="lake-container" />');
     this.overlayContainer = query('<div class="lake-overlay" />');
+    this.popupContainer = query('<div class="lake-popup" />');
     this.isComposing = false;
 
     this.setDefaultOptions();
@@ -306,6 +309,7 @@ export class Editor {
     this.containerWrapper.append(this.container);
     this.containerWrapper.append(this.overlayContainer);
     this.container.append(fragment);
+    this.root.after(this.popupContainer);
     if (!this.readonly) {
       this.focus();
       this.selection.synByBookmark();

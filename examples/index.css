@@ -92,7 +92,7 @@ body {
   border: 1px solid #d9d9d9;
   border-bottom: 0;
 }
-.lake-content {
+.lake-main {
   height: calc(100vh - 160px);
   overflow: auto;
   border: 1px solid #d9d9d9;
@@ -107,6 +107,6 @@ body {
 .lake-mini-editor .lake-toolbar .lake-dropdown-color-menu li:first-child .lake-dropdown-menu-text {
   text-align: center;
 }
-.lake-mini-editor .lake-content {
+.lake-mini-editor .lake-main {
   height: 100px;
 }

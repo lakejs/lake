@@ -37,10 +37,13 @@ function hidePopup(editor: Editor, popup: LinkPopup): void {
 }
 
 export default (editor: Editor) => {
-  const popup = new LinkPopup(editor.overlayContainer);
+  const popup = new LinkPopup(editor);
   popup.event.on('remove', () => {
     popup.hide();
     editor.history.save();
+  });
+  editor.root.on('scroll', () => {
+    popup.updatePosition();
   });
   editor.event.on('click', (targetNode: Nodes) => {
     if (targetNode.isOutside) {

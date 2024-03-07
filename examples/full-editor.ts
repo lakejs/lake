@@ -43,7 +43,7 @@ const toolbarConfig = [
 ];
 
 export default (value: string) => {
-  const editor = new Editor('.lake-content', {
+  const editor = new Editor('.lake-main', {
     defaultValue: value,
   });
   editor.render();

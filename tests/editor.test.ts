@@ -41,7 +41,7 @@ describe('editor', () => {
       name: 'blockBox',
       render: () => '<hr />',
     });
-    targetNode = query('<div class="lake-content" />');
+    targetNode = query('<div class="lake-main" />');
     query(document.body).append(targetNode);
   });
 

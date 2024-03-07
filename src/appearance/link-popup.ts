@@ -1,4 +1,5 @@
 import EventEmitter from 'eventemitter3';
+import type { Editor } from '../editor';
 import { NativeHTMLElement } from '../types/native';
 import { icons } from '../icons';
 import { encode } from '../utils/encode';
@@ -7,13 +8,16 @@ import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 
 export class LinkPopup {
+  private editor: Editor;
+
   private linkNode: Nodes | null;
 
   public root: Nodes;
 
   public event: EventEmitter;
 
-  constructor(target: Nodes) {
+  constructor(editor: Editor) {
+    this.editor = editor;
     this.linkNode = null;
     this.event = new EventEmitter();
     this.root = query(safeTemplate`
@@ -57,7 +61,7 @@ export class LinkPopup {
     if (unlinkIcon) {
       this.root.find('.lake-button-unlink').prepend(unlinkIcon);
     }
-    target.append(this.root);
+    editor.popupContainer.append(this.root);
     this.bindEvents();
   }
 
@@ -123,14 +127,22 @@ export class LinkPopup {
     nativeInputElement.value = value;
   }
 
-  public updatePosition(linkNode: Nodes): void {
-    const linkNativeNode = linkNode.get(0) as NativeHTMLElement;
+  public updatePosition(): void {
+    if (!this.linkNode) {
+      return;
+    }
+    const rootNativeNode = this.editor.root.get(0) as NativeHTMLElement;
+    const linkNativeNode = this.linkNode.get(0) as NativeHTMLElement;
     const rect = linkNativeNode.getBoundingClientRect();
-    const offsetLeft = linkNativeNode.offsetLeft;
-    const offsetTop = linkNativeNode.offsetTop + rect.height;
+    const offsetLeft = linkNativeNode.offsetLeft - rootNativeNode.scrollLeft;
+    const offsetTop = linkNativeNode.offsetTop - rootNativeNode.scrollTop;
+    if (offsetLeft < 0 || offsetTop < 0) {
+      this.hide();
+      return;
+    }
     this.root.css({
       left: `${offsetLeft}px`,
-      top: `${offsetTop}px`,
+      top: `${offsetTop + rect.height}px`,
     });
   }
 
@@ -140,7 +152,7 @@ export class LinkPopup {
     const title = linkNode.text();
     this.setInputValue('url', url);
     this.setInputValue('title', title);
-    this.updatePosition(linkNode);
+    this.updatePosition();
     this.root.show();
   }
 
