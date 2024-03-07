@@ -28,9 +28,13 @@ export class LinkPopup {
         <div class="lake-row">
           <input type="text" name="title" />
         </div>
-        <div class="lake-row lake-unlink-row">
+        <div class="lake-row">
+          <div class="lake-save">
+            <button type="button" class="lake-button-save"></button>
+            <div class="lake-save-text">Save</div>
+          </div>
           <div class="lake-unlink">
-            <button type="button" class="lake-button-unlink" title="Remove link"></button>
+            <button type="button" class="lake-button-unlink"></button>
             <div class="lake-unlink-text">Remove link</div>
           </div>
         </div>
@@ -52,6 +56,10 @@ export class LinkPopup {
     const copyErrorIcon = icons.get('copyError');
     if (copyErrorIcon) {
       copyButton.append(copyErrorIcon);
+    }
+    const saveIcon = icons.get('check');
+    if (saveIcon) {
+      this.root.find('.lake-button-save').prepend(saveIcon);
     }
     const unlinkIcon = icons.get('unlink');
     if (unlinkIcon) {
@@ -101,6 +109,14 @@ export class LinkPopup {
       const url = this.getInputValue('url');
       window.open(url);
     });
+    // Save link
+    this.root.find('.lake-save').on('click', () => {
+      if (!this.linkNode) {
+        return;
+      }
+      this.save();
+      this.event.emit('save');
+    });
     // Remove link
     this.root.find('.lake-unlink').on('click', () => {
       if (!this.linkNode) {
@@ -121,6 +137,19 @@ export class LinkPopup {
     const inputElement = this.root.find(`input[name="${name}"]`);
     const nativeInputElement = inputElement.get(0) as HTMLInputElement;
     nativeInputElement.value = value;
+  }
+
+  public save(): void {
+    if (!this.linkNode) {
+      return;
+    }
+    const url = this.getInputValue('url');
+    let title = this.getInputValue('title');
+    if (title === '') {
+      title = 'Link';
+    }
+    this.linkNode.attr('href', url);
+    this.linkNode.html(encode(title));
   }
 
   public updatePosition(): void {
@@ -159,15 +188,6 @@ export class LinkPopup {
   }
 
   public hide(): void {
-    if (this.linkNode) {
-      const url = this.getInputValue('url');
-      let title = this.getInputValue('title');
-      if (title === '') {
-        title = 'Link';
-      }
-      this.linkNode.attr('href', url);
-      this.linkNode.html(encode(title));
-    }
     this.linkNode = null;
     this.root.hide();
   }

@@ -37,27 +37,34 @@
 .lake-link-popup .lake-button-copy svg:last-child path {
   fill: var(--error-color);
 }
-.lake-link-popup .lake-unlink-row {
+.lake-link-popup .lake-row:last-child {
   padding-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+.lake-link-popup .lake-row:last-child button {
+  background-color: transparent;
+  margin-right: 6px;
+}
+.lake-link-popup .lake-row:last-child button svg {
+  margin: 0;
+}
+.lake-link-popup .lake-save,
 .lake-link-popup .lake-unlink {
   display: flex;
   align-items: center;
   border-radius: 5px;
   cursor: pointer;
   user-select: none;
-  padding: 5px;
+  border: 1px solid var(--border-color);
+  padding: 4px 16px;
 }
+.lake-link-popup .lake-save:hover,
 .lake-link-popup .lake-unlink:hover {
   background-color: var(--background-hover-color);
 }
-.lake-link-popup .lake-unlink button {
-  background-color: transparent;
-  margin-right: 6px;
-}
-.lake-link-popup .lake-unlink button svg {
-  margin: 0;
-}
+.lake-link-popup .lake-save-text,
 .lake-link-popup .lake-unlink-text {
   height: 20px;
 }
