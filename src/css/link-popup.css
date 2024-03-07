@@ -45,26 +45,22 @@
 }
 .lake-link-popup .lake-row:last-child button {
   background-color: transparent;
-  margin-right: 6px;
-}
-.lake-link-popup .lake-row:last-child button svg {
-  margin: 0;
-}
-.lake-link-popup .lake-save,
-.lake-link-popup .lake-unlink {
-  display: flex;
-  align-items: center;
   border-radius: 5px;
   cursor: pointer;
   user-select: none;
   border: 1px solid var(--border-color);
-  padding: 4px 16px;
+  padding: 8px 16px;
 }
-.lake-link-popup .lake-save:hover,
-.lake-link-popup .lake-unlink:hover {
+.lake-link-popup .lake-row:last-child button:hover {
   background-color: var(--background-hover-color);
 }
-.lake-link-popup .lake-save-text,
-.lake-link-popup .lake-unlink-text {
-  height: 20px;
+.lake-link-popup .lake-row:last-child button svg {
+  background-color: transparent;
+  margin: 0 6px 0 0;
+  vertical-align: middle;
+}
+.lake-link-popup .lake-row:last-child button span {
+  display: inline-block;
+  line-height: 16px;
+  vertical-align: middle;
 }

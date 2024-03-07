@@ -29,14 +29,8 @@ export class LinkPopup {
           <input type="text" name="title" />
         </div>
         <div class="lake-row">
-          <div class="lake-save">
-            <button type="button" class="lake-button-save"></button>
-            <div class="lake-save-text">Save</div>
-          </div>
-          <div class="lake-unlink">
-            <button type="button" class="lake-button-unlink"></button>
-            <div class="lake-unlink-text">Remove link</div>
-          </div>
+          <button type="button" class="lake-button-save"><span>Save</span></button>
+          <button type="button" class="lake-button-unlink"><span>Remove link</span></button>
         </div>
       </div>
     `);
@@ -110,7 +104,7 @@ export class LinkPopup {
       window.open(url);
     });
     // Save link
-    this.root.find('.lake-save').on('click', () => {
+    this.root.find('.lake-button-save').on('click', () => {
       if (!this.linkNode) {
         return;
       }
@@ -118,7 +112,7 @@ export class LinkPopup {
       this.event.emit('save');
     });
     // Remove link
-    this.root.find('.lake-unlink').on('click', () => {
+    this.root.find('.lake-button-unlink').on('click', () => {
       if (!this.linkNode) {
         return;
       }
