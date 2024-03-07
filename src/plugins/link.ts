@@ -52,12 +52,10 @@ function bindPopupEvents(editor: Editor, popup: LinkPopup): void {
 }
 
 export default (editor: Editor) => {
-  const popup = new LinkPopup({
-    target: editor.overlayContainer,
-    onRemove: () => {
-      popup.hide();
-      editor.history.save();
-    },
+  const popup = new LinkPopup(editor.overlayContainer);
+  popup.event.on('remove', () => {
+    popup.hide();
+    editor.history.save();
   });
   bindPopupEvents(editor, popup);
   editor.command.add('link', () => {

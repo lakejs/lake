@@ -1,3 +1,4 @@
+import EventEmitter from 'eventemitter3';
 import { NativeHTMLElement } from '../types/native';
 import { icons } from '../icons';
 import { encode } from '../utils/encode';
@@ -5,31 +6,16 @@ import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 
-type Config = {
-  target: Nodes,
-  onRemove: () => void,
-};
-
 export class LinkPopup {
-
-  public config: Config;
+  private linkNode: Nodes | null;
 
   public root: Nodes;
 
-  public urlInput: Nodes;
+  public event: EventEmitter;
 
-  public titleInput: Nodes;
-
-  public copyButton: Nodes;
-
-  public openButton: Nodes;
-
-  public unlinkButton: Nodes;
-
-  private linkNode: Nodes | null = null;
-
-  constructor(config: Config) {
-    this.config = config;
+  constructor(target: Nodes) {
+    this.linkNode = null;
+    this.event = new EventEmitter();
     this.root = query(safeTemplate`
       <div class="lake-link-popup">
         <div class="lake-row">URL</div>
@@ -50,72 +36,54 @@ export class LinkPopup {
         </div>
       </div>
     `);
-    this.urlInput = this.root.find('input[name="url"]');
-    this.titleInput = this.root.find('input[name="title"]');
-    this.openButton = this.root.find('.lake-button-open');
     const openIcon = icons.get('open');
     if (openIcon) {
-      this.openButton.append(openIcon);
+      this.root.find('.lake-button-open').append(openIcon);
     }
-    this.copyButton = this.root.find('.lake-button-copy');
     const copyIcon = icons.get('copy');
     if (copyIcon) {
-      this.copyButton.append(copyIcon);
+      this.root.find('.lake-button-copy').append(copyIcon);
     }
-    this.unlinkButton = this.root.find('.lake-button-unlink');
     const unlinkIcon = icons.get('unlink');
     if (unlinkIcon) {
-      this.unlinkButton.prepend(unlinkIcon);
+      this.root.find('.lake-button-unlink').prepend(unlinkIcon);
     }
-    config.target.append(this.root);
+    target.append(this.root);
     this.bindEvents();
   }
 
   private bindEvents(): void {
-    this.urlInput.on('input', () => {
+    this.root.find('input[name="url"]').on('input', () => {
       if (!this.linkNode) {
         return;
       }
-      this.linkNode.attr('href', encode(this.getUrl()));
+      this.linkNode.attr('href', encode(this.getInputValue('url')));
     });
-    this.titleInput.on('input', () => {
+    this.root.find('input[name="title"]').on('input', () => {
       if (!this.linkNode) {
         return;
       }
-      this.linkNode.html(encode(this.getTitle()));
+      this.linkNode.html(encode(this.getInputValue('title')));
     });
     this.root.find('[data-role="remove"]').on('click', () => {
-      if (this.linkNode) {
-        this.linkNode.remove(true);
+      if (!this.linkNode) {
+        return;
       }
-      this.config.onRemove();
+      this.linkNode.remove(true);
+      this.event.emit('remove');
     });
   }
 
-  private getInputValue(inputElement: Nodes): string {
+  private getInputValue(name: string): string {
+    const inputElement = this.root.find(`input[name="${name}"]`);
     const nativeInputElement = inputElement.get(0) as HTMLInputElement;
     return nativeInputElement.value;
   }
 
-  private setInputValue(inputElement: Nodes, value: string): void {
+  private setInputValue(name: string, value: string): void {
+    const inputElement = this.root.find(`input[name="${name}"]`);
     const nativeInputElement = inputElement.get(0) as HTMLInputElement;
     nativeInputElement.value = value;
-  }
-
-  public getUrl(): string {
-    return this.getInputValue(this.urlInput);
-  }
-
-  public getTitle(): string {
-    return this.getInputValue(this.titleInput);
-  }
-
-  public setUrl(value: string): void {
-    this.setInputValue(this.urlInput, value);
-  }
-
-  public setTitle(value: string): void {
-    this.setInputValue(this.titleInput, value);
   }
 
   public updatePosition(linkNode: Nodes): void {
@@ -130,16 +98,17 @@ export class LinkPopup {
   }
 
   public show(linkNode: Nodes): void {
+    this.linkNode = linkNode;
     const url = linkNode.attr('href');
     const title = linkNode.text();
-    this.setUrl(url);
-    this.setTitle(title);
+    this.setInputValue('url', url);
+    this.setInputValue('title', title);
     this.updatePosition(linkNode);
-    this.linkNode = linkNode;
     this.root.show();
   }
 
   public hide(): void {
+    this.linkNode = null;
     this.root.hide();
   }
 }
