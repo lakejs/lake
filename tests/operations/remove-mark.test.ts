@@ -304,4 +304,20 @@ describe('operations / remove-mark', () => {
     );
   });
 
+  it('should not remove link', () => {
+    const content = `
+    <p>foo<anchor /><a href="#">foo<i>bar</i></a><focus /></p>
+    `;
+    const output = `
+    <p>foo<anchor /><a href="#">foobar</a><focus /></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        removeMark(range);
+      },
+    );
+  });
+
 });

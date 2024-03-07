@@ -215,6 +215,26 @@ describe('operations / add-mark', () => {
     );
   });
 
+  it('expanded range: astride a block', () => {
+    const content = `
+    <p><anchor />foo</p>
+    <p>one<strong>two</strong>three</p>
+    <p>bar<focus /></p>
+    `;
+    const output = `
+    <p><anchor /><i>foo</i></p>
+    <p><i>one</i><i><strong>two</strong></i><i>three</i></p>
+    <p><i>bar</i><focus /></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        addMark(range, '<i />');
+      },
+    );
+  });
+
   it('should add a strong to an em', () => {
     const content = `
     <p>one<anchor /><i>two</i><focus />three</p>

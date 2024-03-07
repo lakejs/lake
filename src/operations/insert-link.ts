@@ -2,7 +2,6 @@ import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertNode } from './insert-node';
-import { removeMark } from './remove-mark';
 import { splitMarks } from './split-marks';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
@@ -25,9 +24,13 @@ export function insertLink(range: Range, value: string | Nodes): Nodes | null {
     });
     return linkNode;
   }
-  removeMark(range, '<a />');
   splitMarks(range);
   const bookmark = insertBookmark(range);
+  for (const child of range.commonAncestor.getWalker()) {
+    if (child.name === 'a' && range.intersectsNode(child)) {
+      child.remove(true);
+    }
+  }
   const linkNode = valueNode.clone(false);
   bookmark.anchor.after(linkNode);
   let node = linkNode.next();

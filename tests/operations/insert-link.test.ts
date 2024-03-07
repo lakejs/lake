@@ -87,6 +87,22 @@ describe('operations / insert-link', () => {
     );
   });
 
+  it('should add a link when the selection is astride a link', () => {
+    const content = `
+    <p><anchor />foo<a href="http://foo.com/">ba<focus />r</a></p>
+    `;
+    const output = `
+    <p><anchor /><a href="http://bar.com/">fooba</a><focus /><a href="http://foo.com/">r</a></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertLink(range, '<a href="http://bar.com/" />');
+      },
+    );
+  });
+
   it('should add a link when the selection is astride a block', () => {
     const content = `
     <p><anchor /><i>foo</i></p>

@@ -23,7 +23,6 @@ export const markTagNames: Set<string> = new Set([
   'sup',
   'sub',
   'code',
-  'a',
 ]);
 
 // https://developer.mozilla.org/en-US/docs/Glossary/Void_element
