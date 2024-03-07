@@ -16,7 +16,6 @@
   --input-border-color: #d9d9d9;
   --input-border-hover-color: #69b1ff;
   --input-border-active-color: #1677ff;
-  position: relative;
 }
 .lake-container {
   font-family: var(--font-family);

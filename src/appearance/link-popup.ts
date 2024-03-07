@@ -1,5 +1,4 @@
 import EventEmitter from 'eventemitter3';
-import type { Editor } from '../editor';
 import { NativeHTMLElement } from '../types/native';
 import { icons } from '../icons';
 import { encode } from '../utils/encode';
@@ -8,16 +7,13 @@ import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 
 export class LinkPopup {
-  private editor: Editor;
-
   private linkNode: Nodes | null;
 
   public root: Nodes;
 
   public event: EventEmitter;
 
-  constructor(editor: Editor) {
-    this.editor = editor;
+  constructor(target: Nodes) {
     this.linkNode = null;
     this.event = new EventEmitter();
     this.root = query(safeTemplate`
@@ -61,7 +57,7 @@ export class LinkPopup {
     if (unlinkIcon) {
       this.root.find('.lake-button-unlink').prepend(unlinkIcon);
     }
-    editor.popupContainer.append(this.root);
+    target.append(this.root);
     this.bindEvents();
   }
 
@@ -131,19 +127,23 @@ export class LinkPopup {
     if (!this.linkNode) {
       return;
     }
-    const rootNativeNode = this.editor.root.get(0) as NativeHTMLElement;
+    const rootNativeNode = this.root.get(0) as NativeHTMLElement;
     const linkNativeNode = this.linkNode.get(0) as NativeHTMLElement;
     const rect = linkNativeNode.getBoundingClientRect();
-    const offsetLeft = linkNativeNode.offsetLeft - rootNativeNode.scrollLeft;
-    const offsetTop = linkNativeNode.offsetTop - rootNativeNode.scrollTop;
-    if (offsetLeft < 0 || offsetTop < 0) {
+    if (rect.left < 0 || rect.top < 0) {
       this.hide();
       return;
     }
-    this.root.css({
-      left: `${offsetLeft}px`,
-      top: `${offsetTop + rect.height}px`,
-    });
+    if (rect.left + rootNativeNode.clientWidth > window.innerWidth) {
+      this.root.css('left', `${rect.left - rootNativeNode.clientWidth + rect.width}px`);
+    } else {
+      this.root.css('left', `${rect.left}px`);
+    }
+    if (rect.top + rect.height + rootNativeNode.clientHeight > window.innerHeight) {
+      this.root.css('top', `${rect.top - rootNativeNode.clientHeight}px`);
+    } else {
+      this.root.css('top', `${rect.top + rect.height}px`);
+    }
   }
 
   public show(linkNode: Nodes): void {
@@ -152,8 +152,10 @@ export class LinkPopup {
     const title = linkNode.text();
     this.setInputValue('url', url);
     this.setInputValue('title', title);
-    this.updatePosition();
+    this.root.css('visibility', 'hidden');
     this.root.show();
+    this.updatePosition();
+    this.root.css('visibility', '');
   }
 
   public hide(): void {

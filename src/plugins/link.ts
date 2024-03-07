@@ -37,7 +37,7 @@ function hidePopup(editor: Editor, popup: LinkPopup): void {
 }
 
 export default (editor: Editor) => {
-  const popup = new LinkPopup(editor);
+  const popup = new LinkPopup(editor.popupContainer);
   popup.event.on('remove', () => {
     popup.hide();
     editor.history.save();
