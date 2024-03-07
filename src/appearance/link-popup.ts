@@ -70,25 +70,6 @@ export class LinkPopup {
   }
 
   private bindEvents(): void {
-    // Update URL of current link
-    this.root.find('input[name="url"]').on('input', () => {
-      if (!this.linkNode) {
-        return;
-      }
-      const url = this.getInputValue('url');
-      this.linkNode.attr('href', url);
-    });
-    // Update title of current link
-    this.root.find('input[name="title"]').on('input', () => {
-      if (!this.linkNode) {
-        return;
-      }
-      let title = this.getInputValue('title');
-      if (title === '') {
-        title = 'Link';
-      }
-      this.linkNode.html(encode(title));
-    });
     // Copy link to clipboard
     let timeoutId: number | null = null;
     this.root.find('.lake-button-copy').on('click', () => {
@@ -164,6 +145,15 @@ export class LinkPopup {
   }
 
   public hide(): void {
+    if (this.linkNode) {
+      const url = this.getInputValue('url');
+      let title = this.getInputValue('title');
+      if (title === '') {
+        title = 'Link';
+      }
+      this.linkNode.attr('href', url);
+      this.linkNode.html(encode(title));
+    }
     this.linkNode = null;
     this.root.hide();
   }
