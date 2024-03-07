@@ -19,9 +19,12 @@ export function insertLink(range: Range, value: string | Nodes): Nodes | null {
       insertNode(range, linkNode);
       return linkNode;
     }
-    linkNode.attr({
-      href: valueNode.attr('href'),
-    });
+    const url = valueNode.attr('href');
+    if (url !== '') {
+      linkNode.attr({
+        href: valueNode.attr('href'),
+      });
+    }
     return linkNode;
   }
   splitMarks(range);

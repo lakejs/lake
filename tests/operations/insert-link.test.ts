@@ -55,6 +55,22 @@ describe('operations / insert-link', () => {
     );
   });
 
+  it('should not update url with empty href', () => {
+    const content = `
+    <p>f<a href="http://foo.com/" target="_blank">o<focus />o</a>bar</p>
+    `;
+    const output = `
+    <p>f<a href="http://foo.com/" target="_blank">o<focus />o</a>bar</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertLink(range, '<a href="">New link</a>');
+      },
+    );
+  });
+
   it('adds a link when selecting another link with text', () => {
     const content = `
     <p><anchor /><a href="http://foo.com/" target="_blank">foo</a>bar<focus /></p>
