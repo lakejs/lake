@@ -75,14 +75,19 @@ export class LinkPopup {
       if (!this.linkNode) {
         return;
       }
-      this.linkNode.attr('href', encode(this.getInputValue('url')));
+      const url = this.getInputValue('url');
+      this.linkNode.attr('href', url);
     });
     // Update title of current link
     this.root.find('input[name="title"]').on('input', () => {
       if (!this.linkNode) {
         return;
       }
-      this.linkNode.html(encode(this.getInputValue('title')));
+      let title = this.getInputValue('title');
+      if (title === '') {
+        title = 'Link';
+      }
+      this.linkNode.html(encode(title));
     });
     // Copy link to clipboard
     let timeoutId: number | null = null;
