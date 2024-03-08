@@ -79,10 +79,13 @@ export default (editor: Editor) => {
     editor.history.save();
   });
   editor.container.on('click', event => {
+    const mouseEvent = event as MouseEvent;
     if (editor.readonly) {
       return;
     }
-    const mouseEvent = event as MouseEvent;
+    if (!mouseEvent.target) {
+      return;
+    }
     const target = query(mouseEvent.target as NativeElement);
     if (target.name === 'li' && target.attr('value') !== '' && mouseEvent.offsetX <= 18) {
       target.attr('value', (target.attr('value') !== 'true').toString());
