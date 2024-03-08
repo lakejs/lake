@@ -4,8 +4,8 @@ import { camelCase } from '../utils/camel-case';
 import { Nodes } from '../models/nodes';
 
 type EventItem = {
-  type: string,
-  listener: EventListener,
+  type: string;
+  listener: EventListener;
 };
 
 const shortenedTypeMap = new Map([

@@ -20,8 +20,8 @@ type EachCallback = (element: NativeNode, index: number) => boolean | void;
 type EachElementCallback = (element: NativeElement, index: number) => boolean | void;
 
 type EventItem = {
-  type: string,
-  listener: EventListener,
+  type: string;
+  listener: EventListener;
 };
 
 // Is a key-value object for storing all events.

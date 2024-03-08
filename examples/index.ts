@@ -21,11 +21,11 @@ declare global {
 window.DEBUG = true;
 
 type MenuItem = {
-  url: string,
-  text: string,
-  source: string,
-  editorValue: string,
-  editor: (value: string) => Editor,
+  url: string;
+  text: string;
+  source: string;
+  editorValue: string;
+  editor: (value: string) => Editor;
 };
 
 const menuItems: MenuItem[] = [

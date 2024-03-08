@@ -17,8 +17,8 @@ export type Point = {
 };
 
 export type AppliedItem = {
-  node: Nodes,
-  name: string,
-  attributes: KeyValue,
-  styles: KeyValue,
+  node: Nodes;
+  name: string;
+  attributes: KeyValue;
+  styles: KeyValue;
 };

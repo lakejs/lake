@@ -3,16 +3,16 @@ import { Point } from '../types/object';
 import { Nodes } from '../models/nodes';
 
 type MarkItem = {
-  re: RegExp,
-  getParameters: () => string[],
+  re: RegExp;
+  getParameters: () => string[];
 };
 
 type BlockItem = {
-  re: RegExp,
-  getParameters: () => (string | boolean)[],
+  re: RegExp;
+  getParameters: () => (string | boolean)[];
 } | {
-  re: RegExp,
-  getParameters: (text: string) => (string | boolean)[],
+  re: RegExp;
+  getParameters: (text: string) => (string | boolean)[];
 };
 
 const headingTypeMap = new Map([
