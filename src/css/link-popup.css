@@ -27,14 +27,10 @@
 }
 .lake-link-popup .lake-button-copy svg:nth-child(2) {
   display: none;
-}
-.lake-link-popup .lake-button-copy svg:nth-child(2) path {
   fill: var(--success-color);
 }
 .lake-link-popup .lake-button-copy svg:last-child {
   display: none;
-}
-.lake-link-popup .lake-button-copy svg:last-child path {
   fill: var(--error-color);
 }
 .lake-link-popup .lake-row:last-child {

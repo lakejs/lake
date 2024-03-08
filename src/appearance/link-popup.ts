@@ -43,11 +43,11 @@ export class LinkPopup {
     if (copyIcon) {
       copyButton.append(copyIcon);
     }
-    const copyDoneIcon = icons.get('copyDone');
+    const copyDoneIcon = icons.get('checkCircle');
     if (copyDoneIcon) {
       copyButton.append(copyDoneIcon);
     }
-    const copyErrorIcon = icons.get('copyError');
+    const copyErrorIcon = icons.get('warningCircle');
     if (copyErrorIcon) {
       copyButton.append(copyErrorIcon);
     }
