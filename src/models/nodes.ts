@@ -630,7 +630,7 @@ export class Nodes {
     }
     const element = node as NativeHTMLElement;
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText
-    return element.innerText;
+    return element.innerText.replace(/^\n+|\n+$/, '');
   }
 
   public outerHTML(): string {

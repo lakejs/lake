@@ -655,7 +655,7 @@ describe('models / nodes', () => {
 
   it('method: text', () => {
     const node = new Nodes([element, elementTwo]);
-    node.html('<p>foo<br />bar</p>');
+    node.html('<p>foo<br />bar<br /></p>');
     expect(node.text()).to.equal('foo\nbar');
     expect(node.find('p').first().text()).to.equal('foo');
   });
