@@ -1,5 +1,6 @@
 import type { Editor } from '..';
-import { Nodes } from '../models/nodes';
+import { NativeElement } from '../types/native';
+import { query } from '../utils/query';
 
 function setParagraph(editor: Editor) {
   editor.selection.setBlocks('<p />');
@@ -81,8 +82,9 @@ export default (editor: Editor) => {
     if (editor.readonly) {
       return;
     }
-    const target = new Nodes(event.target as Element);
-    if (target.name === 'li' && target.attr('value') !== '') {
+    const mouseEvent = event as MouseEvent;
+    const target = query(mouseEvent.target as NativeElement);
+    if (target.name === 'li' && target.attr('value') !== '' && mouseEvent.offsetX <= 18) {
       target.attr('value', (target.attr('value') !== 'true').toString());
       editor.history.save();
     }
