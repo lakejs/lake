@@ -1,5 +1,6 @@
 /* eslint no-console: "off" */
 
+import { networkInterfaces } from 'os';
 import path from 'path';
 import express from 'express';
 
@@ -21,6 +22,15 @@ app.get('/examples/*', (req, res) => {
 
 app.listen(port, () => {
   console.log('Starting up an HTTP server');
-  console.log(`Available on http://localhost:${port}`);
+  console.log('Available on:');
+  const nets = networkInterfaces();
+  for (const name of Object.keys(nets)) {
+    for (const net of nets[name]) {
+      const familyV4Value = typeof net.family === 'string' ? 'IPv4' : 4;
+      if (net.family === familyV4Value) {
+        console.log(`- ${net.internal ? 'Local' : 'Network'}: http://${net.address}:${port}`);
+      }
+    }
+  }
   console.log('Hit CTRL-C to stop the server');
 });
