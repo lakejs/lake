@@ -144,9 +144,33 @@ describe('parsers / html-parser', () => {
     expect(htmlParser.getHTML()).to.equal(output);
   });
 
-  it('getHTML method: should trim text in a block element', () => {
+  it('getHTML method: should not trim text around inline element', () => {
+    const input = '<p>foo <strong> bold </strong> <a href="#">link</a> bar</p>';
+    const output = '<p>foo <strong> bold </strong> <a href="#">link</a> bar</p>';
+    container.html(input);
+    const htmlParser = new HTMLParser(container);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
+  it('getHTML method: should not trim text around inline box', () => {
+    const input = '<p>foo  <lake-box type="inline" name="image"></lake-box>  bar</p>';
+    const output = '<p>foo  <lake-box type="inline" name="image"></lake-box>  bar</p>';
+    container.html(input);
+    const htmlParser = new HTMLParser(container);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
+  it('getHTML method: should trim text around block element', () => {
     const input = '<h1>\r\n\theading1</h1>\n\t<h2>heading2\r\n\t</h2>\ntext1<h3>\r\n\theading3\r\n\t</h3>text2\n<p> foo <strong> bar </strong></p>';
     const output = '<h1>heading1</h1><h2>heading2</h2>text1<h3>heading3</h3>text2<p>foo <strong> bar </strong></p>';
+    container.html(input);
+    const htmlParser = new HTMLParser(container);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
+  it('getHTML method: should trim text around block box', () => {
+    const input = '<h2>heading2</h2>\n\t<lake-box type="block" name="hr"></lake-box>\n\t<h2>heading2</h2>';
+    const output = '<h2>heading2</h2><lake-box type="block" name="hr"></lake-box><h2>heading2</h2>';
     container.html(input);
     const htmlParser = new HTMLParser(container);
     expect(htmlParser.getHTML()).to.equal(output);
