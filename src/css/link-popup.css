@@ -8,7 +8,7 @@
   font-size: 14px;
   color: var(--text-color);
   background-color: #fff;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--popup-shadow);
   display: none;
 }
 .lake-link-popup input {
@@ -38,7 +38,7 @@
   fill: var(--error-color);
 }
 .lake-link-popup .lake-row:last-child {
-  padding-top: 8px;
+  padding-top: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;

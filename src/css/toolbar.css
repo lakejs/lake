@@ -116,7 +116,7 @@
   border-radius: 5px;
   color: var(--text-color);
   background-color: #fff;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--popup-shadow);
   display: none;
 }
 .lake-toolbar .lake-dropdown-menu li {
