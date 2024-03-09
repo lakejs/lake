@@ -116,17 +116,17 @@ export class HTMLParser {
       (nextSibling.isBlock || nextSibling.isBlockBox) ||
       prevSibling.length === 0 && nextSibling.length === 0 && parentNode.isBlock
     ) {
-      nodeValue = nodeValue.trim();
+      nodeValue = nodeValue.replace(/^[\u0020\t\r\n]+|[\u0020\t\r\n]+$/g, '');
     } else if (
       (prevSibling.isBlock || prevSibling.isBlockBox) ||
       prevSibling.length === 0 && parentNode.isBlock)
     {
-      nodeValue = nodeValue.replace(/^[\s\r\n]+/, '');
+      nodeValue = nodeValue.replace(/^[\u0020\t\r\n]+/, '');
     } else if (
       (nextSibling.isBlock || nextSibling.isBlockBox) ||
       nextSibling.length === 0 && parentNode.isBlock
     ) {
-      nodeValue = nodeValue.replace(/[\s\r\n]+$/, '');
+      nodeValue = nodeValue.replace(/[\u0020\t\r\n]+$/, '');
     }
     return nodeValue;
   }
