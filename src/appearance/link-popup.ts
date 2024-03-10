@@ -152,20 +152,27 @@ export class LinkPopup {
     }
     const rootNativeNode = this.root.get(0) as NativeHTMLElement;
     const linkNativeNode = this.linkNode.get(0) as NativeHTMLElement;
-    const rect = linkNativeNode.getBoundingClientRect();
-    if (rect.left < 0 || rect.top < 0) {
+    const linkRect = linkNativeNode.getBoundingClientRect();
+    const linkX = linkRect.x + window.scrollX;
+    const linkY = linkRect.y + window.scrollY;
+    if (linkX < 0 || linkY < 0) {
       this.hide();
       return;
     }
-    if (rect.left + rootNativeNode.clientWidth > window.innerWidth) {
-      this.root.css('left', `${rect.left - rootNativeNode.clientWidth + rect.width}px`);
+    // link.x + popup.width > window.width
+    if (linkRect.x + rootNativeNode.clientWidth > window.innerWidth) {
+      // link.x - (popup.width - link.width)
+      this.root.css('left', `${linkX - rootNativeNode.clientWidth + linkRect.width}px`);
     } else {
-      this.root.css('left', `${rect.left}px`);
+      this.root.css('left', `${linkX}px`);
     }
-    if (rect.top + rect.height + rootNativeNode.clientHeight > window.innerHeight) {
-      this.root.css('top', `${rect.top - rootNativeNode.clientHeight}px`);
+    // link.y + link.height + popup.height > window.height
+    if (linkRect.y + linkRect.height + rootNativeNode.clientHeight > window.innerHeight) {
+      // link.y - popup.height
+      this.root.css('top', `${linkY - rootNativeNode.clientHeight}px`);
     } else {
-      this.root.css('top', `${rect.top + rect.height}px`);
+      // link.y + link.height
+      this.root.css('top', `${linkY + linkRect.height}px`);
     }
   }
 

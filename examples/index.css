@@ -97,6 +97,10 @@ body {
   overflow: auto;
   border: 1px solid #d9d9d9;
 }
+.lake-document-editor .lake-main {
+  height: auto;
+  overflow: visible;
+}
 .lake-mini-editor {
   max-width: 600px;
 }

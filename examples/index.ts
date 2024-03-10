@@ -7,6 +7,7 @@ import { headlessValue } from './data/headless-value';
 import { hugeValue } from './data/huge-value';
 import defaultEditor from './default-editor';
 import fullEditor from './full-editor';
+import documentEditor from './document-editor';
 import miniatureEditor from './miniature-editor';
 import headlessEditor from './headless-editor';
 
@@ -48,7 +49,7 @@ const menuItems: MenuItem[] = [
     text: 'Document editor',
     source: 'https://github.com/lakejs/lake/blob/master/examples/default-editor.ts',
     editorValue: defaultValue,
-    editor: defaultEditor,
+    editor: documentEditor,
   },
   {
     url: './miniature',
