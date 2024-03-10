@@ -152,6 +152,7 @@ export class LinkPopup {
     }
     const rootNativeNode = this.root.get(0) as NativeHTMLElement;
     const linkNativeNode = this.linkNode.get(0) as NativeHTMLElement;
+    // Returns a DOMRect object providing information about the size of an element and its position relative to the viewport.
     const linkRect = linkNativeNode.getBoundingClientRect();
     const linkX = linkRect.x + window.scrollX;
     const linkY = linkRect.y + window.scrollY;
@@ -161,17 +162,16 @@ export class LinkPopup {
     }
     // link.x + popup.width > window.width
     if (linkRect.x + rootNativeNode.clientWidth > window.innerWidth) {
-      // link.x - (popup.width - link.width)
+      // link.x + window.scrollX - (popup.width - link.width)
       this.root.css('left', `${linkX - rootNativeNode.clientWidth + linkRect.width}px`);
     } else {
       this.root.css('left', `${linkX}px`);
     }
     // link.y + link.height + popup.height > window.height
     if (linkRect.y + linkRect.height + rootNativeNode.clientHeight > window.innerHeight) {
-      // link.y - popup.height
+      // link.y + window.scrollY - popup.height
       this.root.css('top', `${linkY - rootNativeNode.clientHeight}px`);
     } else {
-      // link.y + link.height
       this.root.css('top', `${linkY + linkRect.height}px`);
     }
   }
