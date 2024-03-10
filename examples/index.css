@@ -96,7 +96,6 @@ body {
   height: calc(100vh - 160px);
   overflow: auto;
   border: 1px solid #d9d9d9;
-  padding: 8px;
 }
 .lake-mini-editor {
   max-width: 600px;
