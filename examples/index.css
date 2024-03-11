@@ -145,3 +145,6 @@ body {
 .lake-mini-editor .lake-main {
   height: 100px;
 }
+.lake-mini-editor .lake-container {
+  padding: 8px 12px;
+}
