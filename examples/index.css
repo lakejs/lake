@@ -5,10 +5,12 @@ body {
   color: #000000e0;
 }
 .header {
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: 44px 1fr 36px;
   align-items: center;
-  margin: 8px 8px 16px 8px;
+  padding: 8px 8px 16px 8px;
+  background-color: #fff;
 }
 .header .logo {
   font-size: 0;
@@ -85,22 +87,52 @@ body {
   text-decoration: underline;
 }
 .lake-editor {
-  margin: 0 8px;
+  box-sizing: border-box;
+  padding: 0 8px;
+  margin: 0 auto;
+  min-width: 300px;
   max-width: 1000px;
 }
 .lake-toolbar {
   border: 1px solid #d9d9d9;
   border-bottom: 0;
+  background-color: #fff;
 }
 .lake-main {
   height: calc(100vh - 160px);
   overflow: auto;
   border: 1px solid #d9d9d9;
 }
+/* document editor */
+.document {
+  background-color: #0000000d;
+}
+.document .header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+.lake-document-editor {
+  max-width: none;
+  padding: 0;
+}
+.lake-document-editor .lake-toolbar {
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #d9d9d9;
+}
 .lake-document-editor .lake-main {
   height: auto;
   overflow: visible;
+  margin: 110px auto;
+  max-width: 1000px;
+  background-color: #fff;
 }
+/* miniature editor */
 .lake-mini-editor {
   max-width: 600px;
 }

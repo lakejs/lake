@@ -132,6 +132,9 @@ function renderEditor(pageType: string): void {
   if (!currentItem) {
     return;
   }
+  if (pageType === 'document') {
+    query(document.body).addClass('document');
+  }
   const localStorageKey = `lake-example-${pageType}`;
   const editorValue = localStorage.getItem(localStorageKey) ?? currentItem.editorValue;
   const editor = currentItem.editor(editorValue);
