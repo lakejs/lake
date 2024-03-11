@@ -33,4 +33,14 @@ export type DropdownItem = {
   onSelect: (editor: Editor, value: string) => void;
 };
 
-export type ToolbarItem = ButtonItem | DropdownItem;
+export type UploadItem = {
+  name: string;
+  type: 'upload';
+  icon?: string;
+  tooltip: string;
+  accept?: string;
+  multiple?: boolean;
+  onClick: (editor: Editor, value: string) => void;
+};
+
+export type ToolbarItem = ButtonItem | DropdownItem | UploadItem;

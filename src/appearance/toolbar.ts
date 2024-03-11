@@ -2,7 +2,7 @@ import debounce from 'lodash/debounce';
 import { Base64 } from 'js-base64';
 import type { Editor } from '../editor';
 import { NativeElement, NativeHTMLElement, NativeNode } from '../types/native';
-import { ButtonItem, DropdownItem, ToolbarItem } from '../types/toolbar';
+import { ButtonItem, DropdownItem, UploadItem, ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
 import { toolbarItems } from '../config/toolbar-items';
 import { template } from '../utils/template';
@@ -66,6 +66,10 @@ export class Toolbar {
     node.attr('value', Base64.encode(JSON.stringify(value)));
   }
 
+  private appendDivider(): void {
+    this.root.append('<div class="lake-toolbar-divider" />');
+  }
+
   private appendButton(item: ButtonItem): void {
     const editor = this.editor;
     const buttonNode = query('<button type="button" class="lake-toolbar-button" />');
@@ -92,10 +96,6 @@ export class Toolbar {
       editor.focus();
       item.onClick(editor, item.name);
     });
-  }
-
-  private appendDivider(): void {
-    this.root.append('<div class="lake-toolbar-divider" />');
   }
 
   private getMenuMap(item: DropdownItem): Map<string, string> {
@@ -298,6 +298,48 @@ export class Toolbar {
     this.bindDropdownEvents(dropdownNode, item);
   }
 
+  private appendUpload(item: UploadItem): void {
+    const editor = this.editor;
+    const uploadNode = query(safeTemplate`
+      <div class="lake-upload">
+        <input type="file" />
+        <button type="button" class="lake-toolbar-button" />
+      </div>
+    `);
+    const fileNode = uploadNode.find('input[type="file"]');
+    const fileNativeNode = fileNode.get(0) as HTMLInputElement;
+    if (item.accept) {
+      fileNode.attr('accept', item.accept);
+    }
+    if (item.multiple === true) {
+      fileNode.attr('multiple', 'true');
+    }
+    const buttonNode = uploadNode.find('button');
+    buttonNode.attr('name', item.name);
+    buttonNode.attr('title', item.tooltip);
+    if (item.icon) {
+      buttonNode.append(item.icon);
+    }
+    this.root.append(uploadNode);
+    buttonNode.on('mouseenter', () => {
+      buttonNode.addClass('lake-toolbar-button-hovered');
+    });
+    buttonNode.on('mouseleave', () => {
+      buttonNode.removeClass('lake-toolbar-button-hovered');
+    });
+    buttonNode.on('click', event => {
+      event.preventDefault();
+      fileNativeNode.click();
+    });
+    fileNode.on('click', event => event.stopPropagation());
+    fileNode.on('change', () => {
+      const files = fileNativeNode.files || [];
+      for (const file of files) {
+        editor.command.execute('image', URL.createObjectURL(file));
+      }
+    });
+  }
+
   public render(target: string | Nodes | NativeNode) {
     const editor = this.editor;
     this.root = query(target);
@@ -328,6 +370,10 @@ export class Toolbar {
         allMenuMap.set(item.name, this.getMenuMap(item));
         dropdownItemList.push(item);
         this.appendDropdown(item);
+        return;
+      }
+      if (item.type === 'upload') {
+        this.appendUpload(item);
       }
     });
     const updateStateHandler = debounce(() => {

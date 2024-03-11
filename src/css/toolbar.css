@@ -210,3 +210,9 @@
   border: 1px solid transparent;
   height: auto;
 }
+.lake-toolbar .lake-upload {
+  line-height: 0;
+}
+.lake-toolbar .lake-upload input[type="file"] {
+  display: none;
+}

@@ -253,8 +253,8 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('link'),
     tooltip: 'Link',
-    onClick: (editor) => {
-      editor.command.execute('link', 'https://github.com/');
+    onClick: (editor, value) => {
+      editor.command.execute(value);
     },
   },
   {
@@ -264,15 +264,6 @@ export const toolbarItems: ToolbarItem[] = [
     tooltip: 'Horizontal line',
     onClick: (editor, value) => {
       editor.command.execute(value);
-    },
-  },
-  {
-    name: 'image',
-    type: 'button',
-    icon: icons.get('image'),
-    tooltip: 'Image',
-    onClick: (editor) => {
-      editor.command.execute('image', './data/tianchi.png');
     },
   },
   {
@@ -465,6 +456,17 @@ export const toolbarItems: ToolbarItem[] = [
     },
     onSelect: (editor, value) => {
       editor.command.execute('highlight', value);
+    },
+  },
+  {
+    name: 'image',
+    type: 'upload',
+    icon: icons.get('image'),
+    tooltip: 'Image',
+    accept: 'image/*',
+    multiple: true,
+    onClick: () => {
+      // TODO
     },
   },
 ];
