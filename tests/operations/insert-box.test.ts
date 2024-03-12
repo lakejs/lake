@@ -66,8 +66,8 @@ describe('operations / insert-box', () => {
       content,
       output,
       range => {
-        const boxNode = insertBox(range, 'inlineBox');
-        expect(boxNode.name).to.equal('lake-box');
+        const box = insertBox(range, 'inlineBox');
+        expect(box.node.name).to.equal('lake-box');
       },
     );
   });
@@ -120,8 +120,8 @@ describe('operations / insert-box', () => {
       content,
       output,
       range => {
-        const boxNode = insertBox(range, 'blockBox');
-        expect(boxNode.name).to.equal('lake-box');
+        const box = insertBox(range, 'blockBox');
+        expect(box.node.name).to.equal('lake-box');
       },
     );
   });

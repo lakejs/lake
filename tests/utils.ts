@@ -1,7 +1,9 @@
 import { expect } from 'chai';
+import { BoxValue } from '../src/types/box';
 import { query, normalizeValue, denormalizeValue, debug } from '../src/utils';
 import { Nodes } from '../src/models/nodes';
 import { Range } from '../src/models/range';
+import { Box } from '../src/models/box';
 import { HTMLParser } from '../src/parsers/html-parser';
 import { insertBookmark } from '../src/operations/insert-bookmark';
 import { toBookmark } from '../src/operations/to-bookmark';
@@ -68,6 +70,23 @@ export function testOperation(
   container.remove();
   debug(`output: ${html}`);
   expect(html).to.equal(formatHTML(output));
+}
+
+export function testBox(
+  name: string,
+  value?: BoxValue,
+  callback?: (box: Box, editor?: Editor) => void,
+) {
+  const targetNode = query('<div class="lake-container" />');
+  query(document.body).append(targetNode);
+  const editor = new Editor(targetNode, {
+    defaultValue: '<p><br /><focus /></p>',
+  });
+  editor.render();
+  const box = editor.selection.insertBox(name, value);
+  if (callback) {
+    callback(box, editor);
+  }
 }
 
 export function testPlugin(

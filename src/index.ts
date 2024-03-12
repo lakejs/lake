@@ -1,17 +1,4 @@
-import './css/variables.css';
-import './css/core.css';
-import './css/mark.css';
-import './css/format-painter.css';
-import './css/heading.css';
-import './css/list.css';
-import './css/block-quote.css';
-import './css/box.css';
-import './css/hr.css';
-import './css/image.css';
-import './css/code-block.css';
-import './css/popup.css';
-import './css/link-popup.css';
-import './css/toolbar.css';
+import './css';
 import './elements/box';
 import './elements/bookmark';
 import { BoxComponent } from './types/box';

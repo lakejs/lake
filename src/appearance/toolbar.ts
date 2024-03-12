@@ -335,7 +335,10 @@ export class Toolbar {
     fileNode.on('change', () => {
       const files = fileNativeNode.files || [];
       for (const file of files) {
-        editor.command.execute('image', URL.createObjectURL(file));
+        editor.command.execute('image', {
+          url: URL.createObjectURL(file),
+          status: 'uploading',
+        });
       }
     });
   }

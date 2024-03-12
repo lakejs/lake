@@ -16,7 +16,9 @@ describe('plugin / image', () => {
       content,
       output,
       editor => {
-        editor.command.execute('image', imageUrl);
+        editor.command.execute('image', {
+          url: imageUrl,
+        });
       },
     );
   });

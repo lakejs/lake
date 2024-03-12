@@ -6,9 +6,9 @@ import { insertFragment } from './insert-fragment';
 import { splitBlock } from './split-block';
 
 // Inserts a box into the specified range.
-export function insertBox(range: Range, boxName: string, boxValue?: BoxValue): Nodes {
+export function insertBox(range: Range, boxName: string, boxValue?: BoxValue): Box {
   if (range.commonAncestor.isOutside) {
-    return new Nodes();
+    return new Box(new Nodes());
   }
   const box = new Box(boxName);
   if (boxValue) {
@@ -21,7 +21,7 @@ export function insertBox(range: Range, boxName: string, boxValue?: BoxValue): N
     insertFragment(range, fragment);
     box.render();
     range.selectBoxRight(box.node);
-    return box.node;
+    return box;
   }
   // block box
   const parts = splitBlock(range);
@@ -38,5 +38,5 @@ export function insertBox(range: Range, boxName: string, boxValue?: BoxValue): N
   if (parts.left && parts.left.isEmpty) {
     parts.left.remove();
   }
-  return box.node;
+  return box;
 }

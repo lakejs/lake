@@ -65,6 +65,11 @@ import './managers/keystroke.test';
 import './managers/box-manager.test';
 import './managers/plugin.test';
 
+// Boxes
+import './boxes/hr.test';
+import './boxes/image.test';
+import './boxes/code-block.test';
+
 // Plugins
 import './plugins/copy.test';
 import './plugins/cut.test';

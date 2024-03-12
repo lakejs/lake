@@ -1,7 +1,9 @@
 import type { Editor } from '..';
+import { BoxValue } from '../types/box';
 import { query } from '../utils';
 import { Fragment } from '../models/fragment';
 import { Box } from '../models/box';
+
 
 export default (editor: Editor) => {
   editor.event.on('beforepaste', (nativeFragment: DocumentFragment) => {
@@ -15,10 +17,8 @@ export default (editor: Editor) => {
       node.replaceWith(box.node);
     });
   });
-  editor.command.add('image', url => {
-    editor.selection.insertBox('image', {
-      url,
-    });
+  editor.command.add('image', (value: BoxValue) => {
+    editor.selection.insertBox('image', value);
     editor.history.save();
   });
 };

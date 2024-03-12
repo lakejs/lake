@@ -59,18 +59,18 @@ const menuItems: MenuItem[] = [
     editor: miniatureEditor,
   },
   {
-    url: './headless',
-    text: 'Headless editor',
-    source: 'https://github.com/lakejs/lake/blob/master/examples/headless-editor.ts',
-    editorValue: headlessValue,
-    editor: headlessEditor,
-  },
-  {
     url: './mobile',
     text: 'Mobile friendly editor',
     source: 'https://github.com/lakejs/lake/blob/master/examples/default-editor.ts',
     editorValue: defaultValue,
     editor: defaultEditor,
+  },
+  {
+    url: './headless',
+    text: 'Headless editor',
+    source: 'https://github.com/lakejs/lake/blob/master/examples/headless-editor.ts',
+    editorValue: headlessValue,
+    editor: headlessEditor,
   },
   {
     url: './i18n',

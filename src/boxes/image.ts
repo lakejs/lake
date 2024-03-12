@@ -1,4 +1,5 @@
 import type { BoxComponent } from '..';
+import { query } from '../utils';
 import { safeTemplate } from '../utils/safe-template';
 
 export const imageBox: BoxComponent = {
@@ -15,7 +16,15 @@ export const imageBox: BoxComponent = {
       });
       return () => box.getContainer().off('click');
     });
-    return safeTemplate`<img src="${box.value.url}" />`;
+    const root = query('<div />');
+    const container = box.getContainer();
+    container.empty();
+    container.append(root);
+    root.html(box.value.status);
+    root.append(safeTemplate`<img src="${box.value.url}" />`);
   },
-  html: box => safeTemplate`<img src="${box.value.url}" />`,
+  html: box => {
+    const value = box.value;
+    return safeTemplate`<img src="${value.url}" />`;
+  },
 };
