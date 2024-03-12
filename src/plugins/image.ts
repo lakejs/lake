@@ -13,6 +13,7 @@ export default (editor: Editor) => {
       const box = new Box('image');
       box.value = {
         url: node.attr('src'),
+        status: 'done',
       };
       node.replaceWith(box.node);
     });
