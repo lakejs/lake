@@ -1,7 +1,6 @@
 import './index.css';
 import { Editor, Utils } from '../src';
 import { defaultValue } from './data/default-value';
-import { fullValue } from './data/full-value';
 import { miniatureValue } from './data/miniature-value';
 import { headlessValue } from './data/headless-value';
 import { hugeValue } from './data/huge-value';
@@ -41,7 +40,7 @@ const menuItems: MenuItem[] = [
     url: './full-featured',
     text: 'Full-featured editor',
     source: 'https://github.com/lakejs/lake/blob/master/examples/full-editor.ts',
-    editorValue: fullValue,
+    editorValue: defaultValue,
     editor: fullEditor,
   },
   {
@@ -102,9 +101,9 @@ function renderHeader(pageType: string): void {
   const titleNode = query('.header .title');
   titleNode.html(currentItem.text);
   const sourceNode = query('.header .source');
-  sourceNode.append(`<a href="${currentItem.source}" target="_blank" title="View Source"><img src="../assets/code.svg" /></a>`);
+  sourceNode.append(`<a href="${currentItem.source}" target="_blank" title="View Source"><img src="../assets/icons/code.svg" /></a>`);
   const menuNode = query('.header .menu');
-  menuNode.append('<button type="button" name="list"><img src="../assets/list.svg" /></button>');
+  menuNode.append('<button type="button" name="list"><img src="../assets/icons/list.svg" /></button>');
   const ul = query('<ul />');
   menuNode.append(ul);
   for (const item of menuItems) {

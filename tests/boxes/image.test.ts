@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { testBox } from '../utils';
 
-const imageUrl = './data/cow.jpg';
+const imageUrl = '../assets/images/heaven-lake-256.png';
 
 describe('boxes / image', () => {
 
