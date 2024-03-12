@@ -224,7 +224,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'code',
     type: 'button',
     icon: icons.get('code'),
-    tooltip: 'Code',
+    tooltip: 'Inline code',
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'code'),
     onClick: (editor, value) => {
       editor.command.execute(value);
@@ -384,7 +384,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'dropdown',
     downIcon: icons.get('down'),
     defaultValue: '16px',
-    tooltip: 'Font Size',
+    tooltip: 'Font size',
     width: '65px',
     menuType: 'list',
     menuItems: fontSizeMenuItems,
