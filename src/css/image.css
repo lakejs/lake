@@ -17,6 +17,40 @@
 lake-box[name="image"] .lake-box-selected .lake-image-img {
   border-color: var(--link-color);
 }
+.lake-image .lake-button-group {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .4);
+  line-height: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  display: block;
+}
+lake-box[name="image"] .lake-box-hovered .lake-button-group,
+lake-box[name="image"] .lake-box-selected .lake-button-group {
+  display: block;
+}
+.lake-image .lake-button-group button {
+  border-radius: 5px;
+  border: 0;
+  color: var(--text-color);
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+  cursor: pointer;
+  user-select: none;
+}
+.lake-image .lake-button-group button svg {
+  fill: #fff;
+  width: 16px;
+  height: 16px;
+  margin: 6px;
+}
 /* uploading status */
 .lake-image-uploading .lake-image-img {
   opacity: 0.5;
@@ -34,9 +68,9 @@ lake-box[name="image"] .lake-box-selected .lake-image-img {
   padding: 0 6px;
 }
 .lake-image .lake-progress svg {
+  fill: #fff;
   width: 16px;
   height: 16px;
-  fill: #fff;
   margin: 6px;
   animation: lakeRotate 1s linear 0s infinite normal none;
 }
@@ -50,6 +84,9 @@ lake-box[name="image"] .lake-box-selected .lake-image-img {
   padding: 16px;
   border: 1px solid var(--border-color);
   border-radius: 4px;
+}
+lake-box[name="image"] .lake-box-selected .lake-error {
+  border-color: var(--link-color);
 }
 .lake-image .lake-error-icon {
   line-height: 0;

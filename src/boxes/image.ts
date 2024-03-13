@@ -37,9 +37,9 @@ function loadImage(
 // Displays an image with uplaoding progress.
 function renderUploading(root: Nodes, value: BoxValue): void {
   const progressNode = query('<div class="lake-progress"><div class="lake-percent">0 %</div></div>');
-  const circleNotch = icons.get('circleNotch');
-  if (circleNotch) {
-    progressNode.prepend(circleNotch);
+  const circleNotchIcon = icons.get('circleNotch');
+  if (circleNotchIcon) {
+    progressNode.prepend(circleNotchIcon);
   }
   root.append(progressNode);
   loadImage(value.url, (imgNode, width, height) => {
@@ -59,6 +59,17 @@ function renderUploading(root: Nodes, value: BoxValue): void {
 
 // Displays error message.
 function renderError(root: Nodes, value: BoxValue): void {
+  const buttonGroupNode = query(safeTemplate`
+    <div class="lake-button-group">
+      <button type="button" class="lake-button-remove" title="Delete"></button>
+    </div>
+  `);
+  const removeButton = buttonGroupNode.find('.lake-button-remove');
+  const removeIcon = icons.get('remove');
+  if (removeIcon) {
+    removeButton.append(removeIcon);
+  }
+  root.append(buttonGroupNode);
   const errorNode = query(safeTemplate`
     <div class="lake-error">
       <div class="lake-error-icon"></div>
@@ -74,9 +85,25 @@ function renderError(root: Nodes, value: BoxValue): void {
 
 // Displays an image that can be previewed.
 function renderDone(root: Nodes, value: BoxValue): void {
+  const buttonGroupNode = query(safeTemplate`
+    <div class="lake-button-group">
+      <button type="button" class="lake-button-view" title="Full screen"></button>
+      <button type="button" class="lake-button-remove" title="Delete"></button>
+    </div>
+  `);
+  const viewButton = buttonGroupNode.find('.lake-button-view');
+  const maximizeIcon = icons.get('maximize');
+  if (maximizeIcon) {
+    viewButton.append(maximizeIcon);
+  }
+  const removeButton = buttonGroupNode.find('.lake-button-remove');
+  const removeIcon = icons.get('remove');
+  if (removeIcon) {
+    removeButton.append(removeIcon);
+  }
+  root.append(buttonGroupNode);
   loadImage(value.url, (imgNode, width, height) => {
-    const aNode = query('<a target="_blank" />');
-    aNode.attr({
+    viewButton.attr({
       href: value.url,
       'data-pswp-width': width.toString(10),
       'data-pswp-height': height.toString(10),
@@ -89,8 +116,7 @@ function renderDone(root: Nodes, value: BoxValue): void {
       width: width.toString(10),
       height: height.toString(10),
     });
-    aNode.append(imgNode);
-    root.append(aNode);
+    root.append(imgNode);
   }, () => {
     // aNode.append(imgNode);
   });
@@ -123,6 +149,13 @@ export const imageBox: BoxComponent = {
     }
     container.empty();
     container.append(root);
+    container.find('.lake-button-remove').on('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      editor.selection.range.selectBox(box.node);
+      editor.selection.removeBox();
+      editor.history.save();
+    });
   },
   html: box => {
     const value = box.value;
