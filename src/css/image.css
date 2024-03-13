@@ -6,20 +6,16 @@
     transform: rotate(360deg);
   }
 }
-.lake-container lake-box[name="image"] .lake-box-container {
-  border: 1px solid transparent;
-}
-.lake-container lake-box[name="image"] .lake-box-selected {
-  border-color: var(--link-color);
-}
-.lake-container lake-box[name="image"] .lake-box-container {
-  position: relative;
-}
 .lake-image {
+  position: relative;
   line-height: 0;
 }
 .lake-image .lake-image-img {
+  border: 1px solid transparent;
   border-radius: 4px;
+}
+lake-box[name="image"] .lake-box-selected .lake-image-img {
+  border-color: var(--link-color);
 }
 /* uploading status */
 .lake-image-uploading .lake-image-img {

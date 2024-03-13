@@ -1,4 +1,4 @@
-import './variables.css';
+import './custom-properties.css';
 import './core.css';
 import './mark.css';
 import './format-painter.css';

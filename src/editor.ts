@@ -79,10 +79,10 @@ export class Editor {
     this.containerWrapper = query('<div class="lake-container-wrapper" />');
     this.container = query('<div class="lake-container" />');
     this.overlayContainer = query('<div class="lake-overlay" />');
-    this.popupContainer = query('<div class="lake-variables lake-popup" />');
+    this.popupContainer = query('<div class="lake-popup lake-custom-properties" />');
     this.isComposing = false;
 
-    this.root.addClass('lake-variables');
+    this.root.addClass('lake-custom-properties');
     this.setDefaultOptions();
     this.readonly = this.options.readonly;
     this.setContainerAttributes();

@@ -1,18 +1,18 @@
-.lake-container lake-box[name="hr"] {
+lake-box[name="hr"] {
   margin-bottom: 8px;
 }
-.lake-container lake-box[name="hr"] .lake-box-container {
+lake-box[name="hr"] .lake-box-container {
   margin: 0;
   padding: 10px 0;
   cursor: pointer;
 }
-.lake-container lake-box[name="hr"] .lake-box-hovered {
+lake-box[name="hr"] .lake-box-hovered {
   background-color: var(--background-hover-color);
 }
-.lake-container lake-box[name="hr"] .lake-box-selected {
+lake-box[name="hr"] .lake-box-selected {
   background-color: var(--selection-background-color);
 }
-.lake-container lake-box[name="hr"] .lake-box-container hr {
+lake-box[name="hr"] .lake-box-container hr {
   margin: 0;
   padding: 0;
   border: 0;

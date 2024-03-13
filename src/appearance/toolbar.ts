@@ -350,7 +350,7 @@ export class Toolbar {
   public render(target: string | Nodes | NativeNode) {
     const editor = this.editor;
     this.root = query(target);
-    this.root.addClass('lake-variables');
+    this.root.addClass('lake-custom-properties');
     const allMenuMap: Map<string, Map<string, string>> = new Map();
     const buttonItemList: ButtonItem[] = [];
     const dropdownItemList: DropdownItem[] = [];

@@ -1,28 +1,28 @@
-.lake-container lake-box {
+lake-box {
   margin: 0;
   padding: 0;
   text-indent: 0;
   grid-template-columns: 1px 1fr 1px;
 }
-.lake-container lake-box[type="inline"] {
+lake-box[type="inline"] {
   display: inline grid;
 }
-.lake-container lake-box[type="block"] {
+lake-box[type="block"] {
   display: block grid;
 }
-.lake-container lake-box .lake-box-strip {
+lake-box .lake-box-strip {
   display: block;
   min-width: 1px;
 }
-.lake-container lake-box[type="inline"] .lake-box-strip {
+lake-box[type="inline"] .lake-box-strip {
   align-self: flex-end;
 }
-.lake-container lake-box[type="block"] .lake-box-strip {
+lake-box[type="block"] .lake-box-strip {
   align-self: stretch;
 }
-.lake-container lake-box .lake-box-strip ::selection {
+lake-box .lake-box-strip ::selection {
   background: transparent;
 }
-.lake-container lake-box .lake-box-container {
+lake-box .lake-box-container {
   display: block;
 }

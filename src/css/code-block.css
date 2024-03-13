@@ -1,23 +1,23 @@
-.lake-container lake-box[name="codeBlock"] {
+lake-box[name="codeBlock"] {
   margin-bottom: 8px;
 }
-.lake-container lake-box[name="codeBlock"] .lake-box-container {
+lake-box[name="codeBlock"] .lake-box-container {
   border: 1px solid var(--border-color);
 }
-.lake-container lake-box[name="codeBlock"] .lake-box-selected {
+lake-box[name="codeBlock"] .lake-box-selected {
   border-color: var(--link-color);
 }
-.lake-container lake-box[name="codeBlock"] .lake-box-activated {
+lake-box[name="codeBlock"] .lake-box-activated {
   border-color: var(--warning-color);
 }
-.lake-container lake-box[name="codeBlock"] .CodeMirror {
+lake-box[name="codeBlock"] .CodeMirror {
   height: auto;
   outline: none;
   border: 1px solid transparent;
 }
-.lake-container lake-box[name="codeBlock"] .CodeMirror-scroll {
+lake-box[name="codeBlock"] .CodeMirror-scroll {
   max-height: 200px;
 }
-.lake-container lake-box[name="codeBlock"] .CodeMirror pre {
+lake-box[name="codeBlock"] .CodeMirror pre {
   padding-left: 7px; line-height: 1.25;
 }
