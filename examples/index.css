@@ -12,34 +12,9 @@ body {
   padding: 8px 8px 16px 8px;
   background-color: #fff;
 }
-.header .logo {
-  font-size: 0;
-}
-.header .logo img {
-  width: 24px;
-  height: 24px;
-}
-.header .title {
-  font-size: 18px;
-}
-.header .source {
-  font-size: 0;
-}
-.header .source a {
-  display: block;
-  border-radius: 5px;
-}
-.header .source a:hover {
-  background-color: #0000000a;
-}
-.header .source img {
-  width: 24px;
-  height: 24px;
-  margin: 6px;
-}
 .header .menu {
   position: relative;
-  font-size: 0;
+  line-height: 0;
 }
 .header .menu img {
   width: 24px;
@@ -77,6 +52,7 @@ body {
   padding: 4px 24px;
   white-space: nowrap;
   font-size: 14px;
+  line-height: normal;
 }
 .header .menu ul li a {
   color: #000000e0;
@@ -85,6 +61,24 @@ body {
 }
 .header .menu ul li a:hover {
   text-decoration: underline;
+}
+.header .title {
+  font-size: 18px;
+}
+.header .source {
+  line-height: 0;
+}
+.header .source a {
+  display: block;
+  border-radius: 5px;
+}
+.header .source a:hover {
+  background-color: #0000000a;
+}
+.header .source img {
+  width: 24px;
+  height: 24px;
+  margin: 6px;
 }
 .lake-editor {
   box-sizing: border-box;

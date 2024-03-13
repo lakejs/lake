@@ -1,6 +1,71 @@
+@keyframes lakeRotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .lake-container lake-box[name="image"] .lake-box-container {
   border: 1px solid transparent;
 }
 .lake-container lake-box[name="image"] .lake-box-selected {
   border-color: var(--link-color);
+}
+.lake-container lake-box[name="image"] .lake-box-container {
+  position: relative;
+}
+.lake-image {
+  line-height: 0;
+}
+.lake-image .lake-image-img {
+  border-radius: 4px;
+}
+/* uploading status */
+.lake-image-uploading .lake-image-img {
+  opacity: 0.5;
+}
+.lake-image .lake-progress {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .4);
+  line-height: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+}
+.lake-image .lake-progress svg {
+  width: 16px;
+  height: 16px;
+  fill: #fff;
+  margin: 6px;
+  animation: lakeRotate 1s linear 0s infinite normal none;
+}
+.lake-image .lake-progress .lake-percent {
+  font-size: 14px;
+  color: #fff;
+  margin: 6px;
+}
+/* error status */
+.lake-image .lake-error {
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+.lake-image .lake-error-icon {
+  line-height: 0;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.lake-image .lake-error-icon svg {
+  fill: var(--error-color);
+  width: 64px;
+  height: 64px;
+}
+.lake-image .lake-error-name {
+  color: var(--error-color);
+  line-height: normal;
 }

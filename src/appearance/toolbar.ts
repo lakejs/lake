@@ -338,6 +338,10 @@ export class Toolbar {
         editor.command.execute('image', {
           url: URL.createObjectURL(file),
           status: 'uploading',
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          lastModified: file.lastModified,
         });
       }
     });

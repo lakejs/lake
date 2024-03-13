@@ -21,6 +21,7 @@ import checkCircle from './check-circle.svg';
 import warningCircle from './warning-circle.svg';
 import open from './open.svg';
 import copy from './copy.svg';
+import circleNotch from './circle-notch.svg';
 import selectAll from './select-all.svg';
 import undo from './undo.svg';
 import redo from './redo.svg';
@@ -76,6 +77,7 @@ export const icons: Map<string, string> = new Map([
   ['warningCircle', warningCircle],
   ['open', open],
   ['copy', copy],
+  ['circleNotch', circleNotch],
   ['selectAll', selectAll],
   ['undo', undo],
   ['redo', redo],
