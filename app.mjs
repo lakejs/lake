@@ -26,8 +26,7 @@ app.listen(port, () => {
   const nets = networkInterfaces();
   for (const name of Object.keys(nets)) {
     for (const net of nets[name]) {
-      const familyV4Value = typeof net.family === 'string' ? 'IPv4' : 4;
-      if (net.family === familyV4Value) {
+      if (net.family === 'IPv4') {
         console.log(`- ${net.internal ? 'Local' : 'Network'}: http://${net.address}:${port}`);
       }
     }
