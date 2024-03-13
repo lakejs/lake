@@ -1,8 +1,8 @@
 export const defaultValue = `
 <h3>Selection</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>Using <code>&lt;focus /&gt;</code> tag to represent the current position of the caret.</p>
-<p><anchor />Using <code>&lt;anchor /&gt;</code> and <code>&lt;focus /&gt;</code> tags to represent the range of text selected by the user.<focus /></p>
+<p>The <code>&lt;focus /&gt;</code> tag represents the current position of the caret.</p>
+<p>The <anchor /><code>&lt;anchor /&gt;</code> and <code>&lt;focus /&gt;</code> tags represent the range of text selected by the user.<focus /></p>
 <p><br /></p>
 
 <h3>Inline styles</h3>
@@ -22,7 +22,7 @@ export const defaultValue = `
 
 <h3>Headings</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>Using <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> tags to set six levels of section headings. <code>&lt;h1&gt;</code> is the highest section level and <code>&lt;h6&gt;</code> is the lowest.</p>
+<p>The <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> tags represent six levels of section headings. <code>&lt;h1&gt;</code> is the highest section level and <code>&lt;h6&gt;</code> is the lowest.</p>
 <h1>Heading level 1</h1>
 <h2>Heading level 2</h2>
 <h3>Heading level 3</h3>
@@ -33,7 +33,7 @@ export const defaultValue = `
 
 <h3>Block quotation</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>Using <code>&lt;blockquote&gt;</code> tag to render a block quotation.</p>
+<p>The <code>&lt;blockquote&gt;</code> tag represents a block quotation.</p>
 <blockquote>Normal quote</blockquote>
 <blockquote type="success">Success</blockquote>
 <blockquote type="info">Info</blockquote>
@@ -43,9 +43,9 @@ export const defaultValue = `
 
 <h3>Block Properties</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p style="text-indent: 2em;">Using <code>text-indent</code> property to set the length of empty space (indentation) that is put before lines of text in a block.</p>
-<p style="margin-left: 40px;">Using <code>margin-left</code> property to set the margin area on the left side of a block.</p>
-<p style="text-align:center;">Using <code>text-align</code> property to set the horizontal alignment of the inline-level content inside a block.</p>
+<p style="text-indent: 2em;">Text indent: The <code>text-indent</code> property represents the length of empty space (indentation) that is put before lines of text in a block.</p>
+<p style="margin-left: 40px;">Indent: The <code>margin-left</code> property represents the margin area on the left side of a block.</p>
+<p style="text-align:center;">Alignment: The <code>text-align</code> property represents the horizontal alignment of the inline-level content inside a block.</p>
 <p><br /></p>
 
 <h3>Numbered list</h3>
@@ -56,7 +56,7 @@ export const defaultValue = `
 <ol start="4"><li>Fill muffin tray 3/4 full.</li></ol>
 <ol start="5"><li>Bake for 20 minutes.</li></ol>
 <p><br /></p>
-<p>Using <code>indent</code> attribute to indent the list.</p>
+<p>The <code>indent</code> attribute represents the indentation of the list.</p>
 <p><br /></p>
 <ol start="1"><li>first item</li></ol>
 <ol start="2"><li>second item</li></ol>
@@ -82,7 +82,7 @@ export const defaultValue = `
 
 <h3>Link</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>Using <code>&lt;a&gt;</code> tag with its href attribute to create a hyperlink.</p>
+<p>The <code>&lt;a&gt;</code> tag with its href attribute represents a hyperlink.</p>
 <ul><li><a href="https://developer.mozilla.org/en-US/docs/Web" target="_blank">Documentation for Web developers</a></li></ul>
 <ul><li><a href="https://github.com/" target="_blank">Github</a></li></ul>
 <ul><li><a href="https://www.google.com/" target="_blank">Google</a></li></ul>
