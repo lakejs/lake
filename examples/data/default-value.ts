@@ -2,7 +2,7 @@ export const defaultValue = `
 <h3>Selection</h3>
 <lake-box type="block" name="hr"></lake-box>
 <p>The <code>&lt;focus /&gt;</code> tag represents the current position of the caret.</p>
-<p>The <anchor /><code>&lt;anchor /&gt;</code> and <code>&lt;focus /&gt;</code> tags represent the range of text selected by the user.<focus /></p>
+<p><anchor />The <code>&lt;anchor /&gt;</code> and <code>&lt;focus /&gt;</code> tags represent the range of text selected by the user.<focus /></p>
 <p><br /></p>
 
 <h3>Inline styles</h3>

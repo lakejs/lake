@@ -24,6 +24,7 @@
     "eventemitter3": "^4.0.7",
     "js-base64": "^3.7.6",
     "lodash": "^4.17.21",
+    "photoswipe": "^5.4.3",
     "tinykeys": "^2.1.0"
   },
   "devDependencies": {

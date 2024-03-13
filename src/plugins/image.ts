@@ -1,9 +1,8 @@
 import type { Editor } from '..';
 import { BoxValue } from '../types/box';
 import { query } from '../utils';
-import { Fragment } from '../models/fragment';
 import { Box } from '../models/box';
-
+import { Fragment } from '../models/fragment';
 
 export default (editor: Editor) => {
   editor.event.on('beforepaste', (nativeFragment: DocumentFragment) => {

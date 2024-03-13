@@ -19,6 +19,9 @@ export default (editor: Editor) => {
     if (targetNode.isOutside) {
       return;
     }
+    if (targetNode.closest('lake-box').length > 0) {
+      return;
+    }
     const linkNode = targetNode.closest('a');
     if (linkNode.length === 0) {
       popup.hide();

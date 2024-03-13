@@ -1,4 +1,4 @@
-import type { BoxComponent } from '..';
+import type { BoxComponent } from '../types/box';
 import { query } from '../utils';
 import { safeTemplate } from '../utils/safe-template';
 
@@ -21,7 +21,30 @@ export const imageBox: BoxComponent = {
     container.empty();
     container.append(root);
     root.html(box.value.status);
-    root.append(safeTemplate`<img src="${box.value.url}" />`);
+    const aNode = query('<a href="#" target="_blank" />');
+    const imgNode = query('<img />');
+    imgNode.css({
+      position: 'absolute',
+      top: '0',
+      left: '-8888px',
+      'z-index': '-1',
+      visibility: 'hidden',
+    });
+    imgNode.on('load', () => {
+      const imgNativeNode = imgNode.get(0) as HTMLImageElement;
+      const width = imgNativeNode.width;
+      const height = imgNativeNode.height;
+      aNode.attr({
+        href: box.value.url,
+        'data-pswp-width': width.toString(10),
+        'data-pswp-height': height.toString(10),
+      });
+      imgNode.removeAttr('style');
+      aNode.append(imgNode);
+    });
+    imgNode.attr('src', box.value.url);
+    query(document.body).append(imgNode);
+    root.append(aNode);
   },
   html: box => {
     const value = box.value;
