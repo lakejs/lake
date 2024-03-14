@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce';
 import EventEmitter from 'eventemitter3';
 import pkg from '../package.json';
-import { NativeElement, NativeNode } from './types/native';
+import { NativeElement, NativeHTMLElement, NativeNode } from './types/native';
 import { editors } from './storage/editors';
 import { denormalizeValue, forEach, normalizeValue, query } from './utils';
 import { Nodes } from './models/nodes';
@@ -283,7 +283,7 @@ export class Editor {
   }
 
   // Sets the specified HTML string to the editor area.
-  public setValue(value: string) {
+  public setValue(value: string): void {
     value = normalizeValue(value);
     const htmlParser = new HTMLParser(value);
     const fragment = htmlParser.getFragment();
@@ -293,13 +293,21 @@ export class Editor {
     this.selection.synByBookmark();
   }
 
-  // Gets the contents from the editor.
-  public getValue() {
+  // Returns the contents from the editor.
+  public getValue(): string {
     const bookmark = this.selection.insertBookmark();
     let value = new HTMLParser(this.container).getHTML();
     value = denormalizeValue(value);
     this.selection.toBookmark(bookmark);
     return value;
+  }
+
+  // Returns the width of the editor area.
+  public getWidth() {
+    const nativeContainer = this.container.get(0) as NativeHTMLElement;
+    const paddingLeft = parseInt(this.container.computedCSS('padding-left'), 10) || 0;
+    const paddingRight = parseInt(this.container.computedCSS('padding-right'), 10) || 0;
+    return nativeContainer.clientWidth - paddingLeft - paddingRight;
   }
 
   // Renders an editor area and set default value to it.

@@ -49,6 +49,7 @@ async function getImageInfo(url: string): Promise<ImageInfo> {
   });
 }
 
+// Opens full screen view.
 function openFullScreen(box: Box): void {
   const editor = box.getEditor();
   if (!editor) {
@@ -93,7 +94,7 @@ function openFullScreen(box: Box): void {
   lightbox.loadAndOpen(currentIndex);
 }
 
-// Displays error message.
+// Displays error icon and filename.
 function renderError(root: Nodes, box: Box): void {
   const value = box.value;
   const buttonGroupNode = query(safeTemplate`
@@ -149,7 +150,7 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
   root.append(imgNode);
 }
 
-// Displays an image that can be previewed.
+// Displays an image that can be previewed or removed.
 async function renderDone(root: Nodes, box: Box): Promise<void> {
   const value = box.value;
   const imageInfo = await getImageInfo(value.url);

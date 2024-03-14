@@ -99,6 +99,16 @@ describe('editor', () => {
     expect(value).to.equal(output);
   });
 
+  it('method: getWidth', () => {
+    const editor = new Editor(targetNode);
+    editor.render();
+    editor.container.css('width', '600px');
+    const width = editor.getWidth();
+    editor.unmount();
+    expect(width > 580).to.equal(true);
+    expect(width < 590).to.equal(true);
+  });
+
   it('selection event: should not have any class', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
     const editor = new Editor(targetNode);
