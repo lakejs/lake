@@ -42,6 +42,8 @@ export class Editor {
 
   private mouseoverListener: EventListener;
 
+  private resizeListener: EventListener;
+
   public root: Nodes;
 
   public containerWrapper: Nodes;
@@ -49,8 +51,6 @@ export class Editor {
   public container: Nodes;
 
   public overlayContainer: Nodes;
-
-  public popupContainer: Nodes;
 
   public isComposing: boolean;
 
@@ -74,7 +74,6 @@ export class Editor {
     this.containerWrapper = query('<div class="lake-container-wrapper" />');
     this.container = query('<div class="lake-container" />');
     this.overlayContainer = query('<div class="lake-overlay" />');
-    this.popupContainer = query('<div class="lake-popup lake-custom-properties" />');
     this.isComposing = false;
 
     this.root.addClass('lake-custom-properties');
@@ -143,6 +142,9 @@ export class Editor {
     this.mouseoverListener = event => {
       const targetNode = new Nodes(event.target as NativeElement);
       this.event.emit('mouseover', targetNode);
+    };
+    this.resizeListener = () => {
+      this.event.emit('resize');
     };
   }
 
@@ -310,7 +312,6 @@ export class Editor {
     this.containerWrapper.append(this.container);
     this.containerWrapper.append(this.overlayContainer);
     this.container.append(fragment);
-    query(document.body).append(this.popupContainer);
     if (!this.readonly) {
       this.focus();
       this.selection.synByBookmark();
@@ -326,11 +327,11 @@ export class Editor {
     }
     document.addEventListener('click', this.clickListener);
     document.addEventListener('mouseover', this.mouseoverListener);
+    window.addEventListener('resize', this.resizeListener);
   }
 
   // Destroys a rendered editor.
   public unmount(): void {
-    this.popupContainer.remove();
     this.root.empty();
     if (!this.readonly) {
       window.removeEventListener('beforeunload', this.beforeunloadListener);
@@ -338,5 +339,6 @@ export class Editor {
     }
     document.removeEventListener('click', this.clickListener);
     document.removeEventListener('mouseover', this.mouseoverListener);
+    window.removeEventListener('resize', this.resizeListener);
   }
 }

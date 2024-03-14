@@ -76,9 +76,9 @@ function openFullScreen(box: Box): void {
     pswpModule: PhotoSwipe,
   });
   lightbox.addFilter('thumbEl', (thumbnail, itemData) => {
-    const imgNativeNode = allImageBox.eq(itemData.id).find('.lake-image-img').get(0) as NativeHTMLElement;
-    if (imgNativeNode) {
-      return imgNativeNode;
+    const imgNode = allImageBox.eq(itemData.id).find('.lake-image-img');
+    if (imgNode.length > 0) {
+      return imgNode.get(0) as NativeHTMLElement;
     }
     return thumbnail as NativeHTMLElement;
   });
@@ -88,9 +88,6 @@ function openFullScreen(box: Box): void {
       return imgNode.attr('src');
     }
     return placeholderSrc;
-  });
-  lightbox.on('close', () => {
-    lightbox.destroy();
   });
   lightbox.init();
   lightbox.loadAndOpen(currentIndex);

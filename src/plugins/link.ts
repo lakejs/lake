@@ -1,18 +1,44 @@
 import { type Editor } from '..';
+import { query } from '../utils';
 import { Nodes } from '../models/nodes';
 import { LinkPopup } from '../appearance/link-popup';
 
 export default (editor: Editor) => {
-  const popup = new LinkPopup(editor.popupContainer);
-  popup.event.on('save', () => {
+  let popup: LinkPopup | null = null;
+  const hidePopup = (): void => {
+    if (!popup) {
+      return;
+    }
     popup.hide();
-    editor.history.save();
-  });
-  popup.event.on('remove', () => {
-    popup.hide();
-    editor.history.save();
-  });
+  };
+  const showPopup = (lineNode: Nodes): void => {
+    if (popup) {
+      popup.show(lineNode);
+      return;
+    }
+    const popupContainer = query('<div class="lake-popup lake-custom-properties" />');
+    query(document.body).append(popupContainer);
+    popup = new LinkPopup(popupContainer);
+    popup.event.on('save', () => {
+      hidePopup();
+      editor.history.save();
+    });
+    popup.event.on('remove', () => {
+      hidePopup();
+      editor.history.save();
+    });
+    popup.show(lineNode);
+  };
   editor.root.on('scroll', () => {
+    if (!popup) {
+      return;
+    }
+    popup.updatePosition();
+  });
+  editor.event.on('resize', () => {
+    if (!popup) {
+      return;
+    }
     popup.updatePosition();
   });
   editor.event.on('click', (targetNode: Nodes) => {
@@ -24,10 +50,10 @@ export default (editor: Editor) => {
     }
     const linkNode = targetNode.closest('a');
     if (linkNode.length === 0) {
-      popup.hide();
+      hidePopup();
       return;
     }
-    popup.show(linkNode);
+    showPopup(linkNode);
   });
   editor.command.add('link', () => {
     const linkNode = editor.selection.insertLink('<a href="">New link</a>');
@@ -35,6 +61,6 @@ export default (editor: Editor) => {
       return;
     }
     editor.history.save();
-    popup.show(linkNode);
+    showPopup(linkNode);
   });
 };
