@@ -1,10 +1,7 @@
-import 'photoswipe/style.css';
-import PhotoSwipeLightbox from 'photoswipe/lightbox';
-import PhotoSwipe from 'photoswipe';
 import debounce from 'lodash/debounce';
 import EventEmitter from 'eventemitter3';
 import pkg from '../package.json';
-import { NativeElement, NativeHTMLElement, NativeNode } from './types/native';
+import { NativeElement, NativeNode } from './types/native';
 import { editors } from './storage/editors';
 import { denormalizeValue, forEach, normalizeValue, query } from './utils';
 import { Nodes } from './models/nodes';
@@ -71,8 +68,6 @@ export class Editor {
 
   public box: BoxManager;
 
-  public lightbox: PhotoSwipeLightbox;
-
   constructor(target: string | Nodes | NativeNode, options = defaultOptions) {
     this.root = query(target);
     this.options = options;
@@ -93,12 +88,6 @@ export class Editor {
     this.history = new History(this.selection);
     this.keystroke = new Keystroke(this.container);
     this.box = Editor.box;
-
-    this.lightbox = new PhotoSwipeLightbox({
-      gallery: this.container.get(0) as NativeHTMLElement,
-      children: 'lake-box[name="image"] a',
-      pswpModule: PhotoSwipe,
-    });
 
     this.unsavedInputData = '';
 
@@ -329,7 +318,6 @@ export class Editor {
     }
     Editor.plugin.loadAll(this);
     Editor.box.renderAll(this);
-    this.lightbox.init();
     if (!this.readonly) {
       window.addEventListener('beforeunload', this.beforeunloadListener);
       document.addEventListener('selectionchange', this.selectionchangeListener);
@@ -342,7 +330,6 @@ export class Editor {
 
   // Destroys a rendered editor.
   public unmount(): void {
-    this.lightbox.destroy();
     this.popupContainer.remove();
     this.root.empty();
     if (!this.readonly) {

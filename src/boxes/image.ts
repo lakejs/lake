@@ -1,9 +1,13 @@
-import { NativeElement } from '../types/native';
-import { BoxComponent, BoxValue } from '../types/box';
+import 'photoswipe/style.css';
+import PhotoSwipeLightbox, { DataSource } from 'photoswipe/lightbox';
+import PhotoSwipe from 'photoswipe';
+import { NativeElement, NativeHTMLElement } from '../types/native';
+import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
 import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
 import { Nodes } from '../models/nodes';
+import { Box } from '../models/box';
 
 type ImageInfo = {
   node: Nodes;
@@ -45,8 +49,56 @@ async function getImageInfo(url: string): Promise<ImageInfo> {
   });
 }
 
+function openFullScreen(box: Box): void {
+  const editor = box.getEditor();
+  if (!editor) {
+    return;
+  }
+  const dataSource: DataSource = [];
+  let currentIndex = 0;
+  const allImageBox = editor.container.find('lake-box[name="image"]');
+  allImageBox.each((node, index) => {
+    const imageBox = new Box(node);
+    const imageValue = imageBox.value;
+    dataSource.push({
+      id: index,
+      src: imageValue.url,
+      width: imageValue.width,
+      height: imageValue.height,
+      alt: imageValue.name,
+    });
+    if (box.node.id === imageBox.node.id) {
+      currentIndex = index;
+    }
+  });
+  const lightbox = new PhotoSwipeLightbox({
+    dataSource,
+    pswpModule: PhotoSwipe,
+  });
+  lightbox.addFilter('thumbEl', (thumbnail, itemData) => {
+    const imgNativeNode = allImageBox.eq(itemData.id).find('.lake-image-img').get(0) as NativeHTMLElement;
+    if (imgNativeNode) {
+      return imgNativeNode;
+    }
+    return thumbnail as NativeHTMLElement;
+  });
+  lightbox.addFilter('placeholderSrc', (placeholderSrc, slide) => {
+    const imgNode = allImageBox.eq(slide.data.id).find('.lake-image-img');
+    if (imgNode) {
+      return imgNode.attr('src');
+    }
+    return placeholderSrc;
+  });
+  lightbox.on('close', () => {
+    lightbox.destroy();
+  });
+  lightbox.init();
+  lightbox.loadAndOpen(currentIndex);
+}
+
 // Displays error message.
-function renderError(root: Nodes, value: BoxValue): void {
+function renderError(root: Nodes, box: Box): void {
+  const value = box.value;
   const buttonGroupNode = query(safeTemplate`
     <div class="lake-button-group">
       <button type="button" class="lake-button-remove" title="Delete"></button>
@@ -72,12 +124,16 @@ function renderError(root: Nodes, value: BoxValue): void {
 }
 
 // Displays an image with uplaoding progress.
-async function renderUploading(root: Nodes, value: BoxValue): Promise<void> {
+async function renderUploading(root: Nodes, box: Box): Promise<void> {
+  const value = box.value;
   const imageInfo = await getImageInfo(value.url);
   if (!imageInfo.width || !imageInfo.height) {
-    renderError(root, value);
+    renderError(root, box);
     return;
   }
+  value.width = imageInfo.width;
+  value.height = imageInfo.height;
+  box.value = value;
   const progressNode = query('<div class="lake-progress"><div class="lake-percent">0 %</div></div>');
   const circleNotchIcon = icons.get('circleNotch');
   if (circleNotchIcon) {
@@ -97,12 +153,16 @@ async function renderUploading(root: Nodes, value: BoxValue): Promise<void> {
 }
 
 // Displays an image that can be previewed.
-async function renderDone(root: Nodes, value: BoxValue): Promise<void> {
+async function renderDone(root: Nodes, box: Box): Promise<void> {
+  const value = box.value;
   const imageInfo = await getImageInfo(value.url);
   if (!imageInfo.width || !imageInfo.height) {
-    renderError(root, value);
+    renderError(root, box);
     return;
   }
+  value.width = imageInfo.width;
+  value.height = imageInfo.height;
+  box.value = value;
   const buttonGroupNode = query(safeTemplate`
     <div class="lake-button-group">
       <button type="button" class="lake-button-view" title="Full screen"></button>
@@ -121,11 +181,6 @@ async function renderDone(root: Nodes, value: BoxValue): Promise<void> {
   }
   root.append(buttonGroupNode);
   const imgNode = imageInfo.node;
-  viewButton.attr({
-    href: value.url,
-    'data-pswp-width': imageInfo.width.toString(10),
-    'data-pswp-height': imageInfo.height.toString(10),
-  });
   imgNode.addClass('lake-image-img');
   imgNode.attr({
     alt: value.name,
@@ -135,6 +190,7 @@ async function renderDone(root: Nodes, value: BoxValue): Promise<void> {
     height: `${imageInfo.height}px`,
   });
   root.append(imgNode);
+  viewButton.on('click', () => openFullScreen(box));
 }
 
 export const imageBox: BoxComponent = {
@@ -156,11 +212,11 @@ export const imageBox: BoxComponent = {
     root.addClass(`lake-image-${value.status}`);
     const container = box.getContainer();
     if (value.status === 'uploading') {
-      renderUploading(root, box.value);
+      renderUploading(root, box);
     } else if (value.status === 'error') {
-      renderError(root, box.value);
+      renderError(root, box);
     } else {
-      renderDone(root, box.value);
+      renderDone(root, box);
     }
     container.empty();
     container.append(root);
