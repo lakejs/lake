@@ -1,59 +1,47 @@
-import type { BoxComponent, BoxValue } from '../types/box';
+import { NativeElement } from '../types/native';
+import { BoxComponent, BoxValue } from '../types/box';
 import { icons } from '../icons';
 import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
 import { Nodes } from '../models/nodes';
 
+type ImageInfo = {
+  node: Nodes;
+  width?: number;
+  height?: number;
+};
+
 // Loads an image and get its width and height.
-function loadImage(
-  url: string,
-  onLoad: (node: Nodes, width: number, height: number) => void,
-  onError: (node: Nodes) => void,
-): void {
-  const imgNode = query('<img />');
-  imgNode.css({
+async function getImageInfo(url: string): Promise<ImageInfo> {
+  const node = query('<img />');
+  node.css({
     position: 'absolute',
     top: '0',
     left: '-8888px',
     'z-index': '-1',
     visibility: 'hidden',
   });
-  imgNode.on('load', () => {
-    const imgNativeNode = imgNode.get(0) as HTMLImageElement;
-    const width = imgNativeNode.width;
-    const height = imgNativeNode.height;
-    imgNode.remove();
-    imgNode.removeAttr('style');
-    onLoad(imgNode, width, height);
-  });
-  imgNode.on('error', () => {
-    imgNode.remove();
-    onError(imgNode);
-  });
-  imgNode.attr('src', url);
-  query(document.body).append(imgNode);
-}
-
-// Displays an image with uplaoding progress.
-function renderUploading(root: Nodes, value: BoxValue): void {
-  const progressNode = query('<div class="lake-progress"><div class="lake-percent">0 %</div></div>');
-  const circleNotchIcon = icons.get('circleNotch');
-  if (circleNotchIcon) {
-    progressNode.prepend(circleNotchIcon);
-  }
-  root.append(progressNode);
-  loadImage(value.url, (imgNode, width, height) => {
-    imgNode.addClass('lake-image-img');
-    imgNode.attr({
-      alt: value.name,
+  return new Promise(resolve => {
+    node.on('load', () => {
+      const imgNativeNode = node.get(0) as HTMLImageElement;
+      const width = imgNativeNode.width;
+      const height = imgNativeNode.height;
+      node.remove();
+      node.removeAttr('style');
+      resolve({
+        node,
+        width,
+        height,
+      });
     });
-    imgNode.css({
-      width: width.toString(10),
-      height: height.toString(10),
+    node.on('error', () => {
+      node.remove();
+      resolve({
+        node,
+      });
     });
-    root.append(imgNode);
-  }, () => {
-    // aNode.append(imgNode);
+    node.attr('src', url);
+    query(document.body).append(node);
   });
 }
 
@@ -83,8 +71,38 @@ function renderError(root: Nodes, value: BoxValue): void {
   root.append(errorNode);
 }
 
+// Displays an image with uplaoding progress.
+async function renderUploading(root: Nodes, value: BoxValue): Promise<void> {
+  const imageInfo = await getImageInfo(value.url);
+  if (!imageInfo.width || !imageInfo.height) {
+    renderError(root, value);
+    return;
+  }
+  const progressNode = query('<div class="lake-progress"><div class="lake-percent">0 %</div></div>');
+  const circleNotchIcon = icons.get('circleNotch');
+  if (circleNotchIcon) {
+    progressNode.prepend(circleNotchIcon);
+  }
+  root.append(progressNode);
+  const imgNode = imageInfo.node;
+  imageInfo.node.addClass('lake-image-img');
+  imgNode.attr({
+    alt: value.name,
+  });
+  imgNode.css({
+    width: `${imageInfo.width}px`,
+    height: `${imageInfo.height}px`,
+  });
+  root.append(imgNode);
+}
+
 // Displays an image that can be previewed.
-function renderDone(root: Nodes, value: BoxValue): void {
+async function renderDone(root: Nodes, value: BoxValue): Promise<void> {
+  const imageInfo = await getImageInfo(value.url);
+  if (!imageInfo.width || !imageInfo.height) {
+    renderError(root, value);
+    return;
+  }
   const buttonGroupNode = query(safeTemplate`
     <div class="lake-button-group">
       <button type="button" class="lake-button-view" title="Full screen"></button>
@@ -102,24 +120,21 @@ function renderDone(root: Nodes, value: BoxValue): void {
     removeButton.append(removeIcon);
   }
   root.append(buttonGroupNode);
-  loadImage(value.url, (imgNode, width, height) => {
-    viewButton.attr({
-      href: value.url,
-      'data-pswp-width': width.toString(10),
-      'data-pswp-height': height.toString(10),
-    });
-    imgNode.addClass('lake-image-img');
-    imgNode.attr({
-      alt: value.name,
-    });
-    imgNode.css({
-      width: width.toString(10),
-      height: height.toString(10),
-    });
-    root.append(imgNode);
-  }, () => {
-    // aNode.append(imgNode);
+  const imgNode = imageInfo.node;
+  viewButton.attr({
+    href: value.url,
+    'data-pswp-width': imageInfo.width.toString(10),
+    'data-pswp-height': imageInfo.height.toString(10),
   });
+  imgNode.addClass('lake-image-img');
+  imgNode.attr({
+    alt: value.name,
+  });
+  imgNode.css({
+    width: `${imageInfo.width}px`,
+    height: `${imageInfo.height}px`,
+  });
+  root.append(imgNode);
 }
 
 export const imageBox: BoxComponent = {
@@ -149,7 +164,11 @@ export const imageBox: BoxComponent = {
     }
     container.empty();
     container.append(root);
-    container.find('.lake-button-remove').on('click', event => {
+    container.on('click', event => {
+      const targetNode = new Nodes(event.target as NativeElement);
+      if (targetNode.closest('.lake-button-remove').length === 0) {
+        return;
+      }
       event.preventDefault();
       event.stopPropagation();
       editor.selection.range.selectBox(box.node);
