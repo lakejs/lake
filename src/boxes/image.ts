@@ -123,12 +123,19 @@ function renderError(root: Nodes, box: Box): void {
 
 // Displays an image with uplaoding progress.
 async function renderUploading(root: Nodes, box: Box): Promise<void> {
+  const editor = box.getEditor();
+  if (!editor) {
+    return;
+  }
   const value = box.value;
   const imageInfo = await getImageInfo(value.url);
   if (!imageInfo.width || !imageInfo.height) {
     renderError(root, box);
     return;
   }
+  const maxWidth = editor.getWidth() - 2;
+  const imageWidth = imageInfo.width < maxWidth ? imageInfo.width : maxWidth;
+  const imageHeight = Math.round(imageWidth * imageInfo.height / imageInfo.width);
   value.width = imageInfo.width;
   value.height = imageInfo.height;
   box.value = value;
@@ -144,20 +151,27 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
     alt: value.name,
   });
   imgNode.css({
-    width: `${imageInfo.width}px`,
-    height: `${imageInfo.height}px`,
+    width: `${imageWidth}px`,
+    height: `${imageHeight}px`,
   });
   root.append(imgNode);
 }
 
 // Displays an image that can be previewed or removed.
 async function renderDone(root: Nodes, box: Box): Promise<void> {
+  const editor = box.getEditor();
+  if (!editor) {
+    return;
+  }
   const value = box.value;
   const imageInfo = await getImageInfo(value.url);
   if (!imageInfo.width || !imageInfo.height) {
     renderError(root, box);
     return;
   }
+  const maxWidth = editor.getWidth() - 2;
+  const imageWidth = imageInfo.width < maxWidth ? imageInfo.width : maxWidth;
+  const imageHeight = Math.round(imageWidth * imageInfo.height / imageInfo.width);
   value.width = imageInfo.width;
   value.height = imageInfo.height;
   box.value = value;
@@ -184,8 +198,8 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
     alt: value.name,
   });
   imgNode.css({
-    width: `${imageInfo.width}px`,
-    height: `${imageInfo.height}px`,
+    width: `${imageWidth}px`,
+    height: `${imageHeight}px`,
   });
   root.append(imgNode);
   viewButton.on('click', () => openFullScreen(box));

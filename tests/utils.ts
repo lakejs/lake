@@ -77,7 +77,7 @@ export function testBox(
   value?: BoxValue,
   callback?: (box: Box, editor?: Editor) => void,
 ) {
-  const targetNode = query('<div class="lake-container" />');
+  const targetNode = query('<div class="lake-main" />');
   query(document.body).append(targetNode);
   const editor = new Editor(targetNode, {
     defaultValue: '<p><br /><focus /></p>',
@@ -94,7 +94,7 @@ export function testPlugin(
   output: string,
   callback: (editor: Editor) => void,
 ) {
-  const targetNode = query('<div class="lake-container" />');
+  const targetNode = query('<div class="lake-main" />');
   query(document.body).append(targetNode);
   const editor = new Editor(targetNode, {
     defaultValue: content,
