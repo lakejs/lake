@@ -3,11 +3,13 @@ import { Base64 } from 'js-base64';
 import type { Editor } from '../editor';
 import { NativeElement, NativeHTMLElement, NativeNode } from '../types/native';
 import { ButtonItem, DropdownItem, UploadItem, ToolbarItem } from '../types/toolbar';
+import { UploadRequestOption } from '../types/upload';
 import { icons } from '../icons';
 import { toolbarItems } from '../config/toolbar-items';
 import { template } from '../utils/template';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
+import { upload } from '../utils/upload';
 import { Nodes } from '../models/nodes';
 
 const defaultConfig: string[] = [
@@ -335,7 +337,7 @@ export class Toolbar {
     fileNode.on('change', () => {
       const files = fileNativeNode.files || [];
       for (const file of files) {
-        editor.command.execute('image', {
+        const imageBox = editor.selection.insertBox('image', {
           url: URL.createObjectURL(file),
           status: 'uploading',
           name: file.name,
@@ -343,6 +345,33 @@ export class Toolbar {
           type: file.type,
           lastModified: file.lastModified,
         });
+        editor.history.save();
+        const percentNode = imageBox.node.find('.lake-percent');
+        const uploadOption: UploadRequestOption<{ [ key: string ]: string}> = {
+          onProgress: event => {
+            const progressValue = Math.round(event.loaded / event.total * 100);
+            percentNode.html(`${progressValue} %`);
+          },
+          onError: () => {
+            const boxValue = imageBox.value;
+            boxValue.status = 'error';
+            imageBox.value = boxValue;
+            imageBox.render();
+            editor.history.save();
+          },
+          onSuccess: body => {
+            const boxValue = imageBox.value;
+            boxValue.status = 'done';
+            boxValue.url = body.url;
+            imageBox.value = boxValue;
+            imageBox.render();
+            editor.history.save();
+          },
+          file,
+          action: '/upload',
+          method: 'POST',
+        };
+        upload(uploadOption);
       }
     });
   }

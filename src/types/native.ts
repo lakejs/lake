@@ -12,6 +12,14 @@ declare global {
   interface Node {
     lakeId: number;
   }
+
+  interface File {
+    uid: string;
+  }
+
+  interface ProgressEvent {
+    percent: number;
+  }
 }
 
 export type NativeEvent = Event;
