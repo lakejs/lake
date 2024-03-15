@@ -24,7 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 Repository: https://github.com/react-component/upload
 */
 
-import { UploadRequestError, UploadRequestOption } from '../types/upload';
+import { UploadRequestError, UploadRequestOption } from '../types/request';
 
 function getError(option: UploadRequestOption, xhr: XMLHttpRequest) {
   const msg = `cannot ${option.method} ${option.action} ${xhr.status}'`;
@@ -48,7 +48,7 @@ function getBody(xhr: XMLHttpRequest) {
   }
 }
 
-export function upload(option: UploadRequestOption) {
+export function request(option: UploadRequestOption) {
   const xhr = new XMLHttpRequest();
 
   if (option.onProgress && xhr.upload) {
@@ -56,7 +56,9 @@ export function upload(option: UploadRequestOption) {
       if (e.total > 0) {
         e.percent = (e.loaded / e.total) * 100;
       }
-      option.onProgress(e);
+      if (option.onProgress) {
+        option.onProgress(e);
+      }
     };
   }
 
@@ -86,16 +88,23 @@ export function upload(option: UploadRequestOption) {
   }
 
   xhr.onerror = (e) => {
-    option.onError(e);
+    if (option.onError) {
+      option.onError(e);
+    }
   };
 
   xhr.onload = () => {
     // allow success when 2xx status
     // see https://github.com/react-component/upload/issues/34
     if (xhr.status < 200 || xhr.status >= 300) {
+      if (!option.onError) {
+        return;
+      }
       return option.onError(getError(option, xhr), getBody(xhr));
     }
-
+    if (!option.onSuccess) {
+      return;
+    }
     return option.onSuccess(getBody(xhr), xhr);
   };
 

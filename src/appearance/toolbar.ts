@@ -3,13 +3,13 @@ import { Base64 } from 'js-base64';
 import type { Editor } from '../editor';
 import { NativeElement, NativeHTMLElement, NativeNode } from '../types/native';
 import { ButtonItem, DropdownItem, UploadItem, ToolbarItem } from '../types/toolbar';
-import { UploadRequestOption } from '../types/upload';
+import { UploadRequestOption } from '../types/request';
 import { icons } from '../icons';
 import { toolbarItems } from '../config/toolbar-items';
 import { template } from '../utils/template';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
-import { upload } from '../utils/upload';
+import { request } from '../utils/request';
 import { Nodes } from '../models/nodes';
 
 const defaultConfig: string[] = [
@@ -345,10 +345,11 @@ export class Toolbar {
           type: file.type,
           lastModified: file.lastModified,
         });
+        file.uid = imageBox.node.id.toString(10);
         editor.history.save();
-        const percentNode = imageBox.node.find('.lake-percent');
-        const uploadOption: UploadRequestOption<{ [ key: string ]: string}> = {
+        const requestOption: UploadRequestOption<{ [ key: string ]: string}> = {
           onProgress: event => {
+            const percentNode = imageBox.node.find('.lake-percent');
             const progressValue = Math.round(event.loaded / event.total * 100);
             percentNode.html(`${progressValue} %`);
           },
@@ -371,7 +372,7 @@ export class Toolbar {
           action: '/upload',
           method: 'POST',
         };
-        upload(uploadOption);
+        request(requestOption);
       }
     });
   }

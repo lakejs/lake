@@ -30,6 +30,9 @@ import './utils/remove-br.test';
 import './utils/set-block-indent.test';
 import './utils/morph.test';
 
+// Network Utils
+import './utils/request.test';
+
 // Models
 import './models/nodes.test';
 import './models/fragment.test';
