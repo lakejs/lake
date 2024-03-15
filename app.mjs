@@ -22,8 +22,7 @@ app.get('/examples/*', (req, res) => {
 
 app.post('/upload', (req, res) => {
   const result = {
-    url: '../assets/images/heaven-lake-512.png',
-    original: '../assets/images/heaven-lake-1280.png',
+    url: '../assets/images/heaven-lake-1280.png',
   };
   res.json(result);
 });

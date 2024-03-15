@@ -66,9 +66,9 @@ function openFullScreen(box: Box): void {
     }
     dataSource.push({
       id: index,
-      src: imageValue.url,
-      width: imageValue.width,
-      height: imageValue.height,
+      src: imageValue.originalUrl || imageValue.url,
+      width: imageValue.originalWidth || imageValue.width,
+      height: imageValue.originalHeight || imageValue.height,
       alt: imageValue.name,
     });
     if (box.node.id === imageBox.node.id) {
@@ -100,6 +100,10 @@ function openFullScreen(box: Box): void {
 // Displays error icon and filename.
 function renderError(root: Nodes, box: Box): void {
   const value = box.value;
+  box.getContainer().css({
+    width: '',
+    height: '',
+  });
   const buttonGroupNode = query(safeTemplate`
     <div class="lake-button-group">
       <button type="button" class="lake-button-remove" title="Delete"></button>
@@ -137,11 +141,17 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
     return;
   }
   const maxWidth = editor.getWidth() - 2;
-  const imageWidth = imageInfo.width < maxWidth ? imageInfo.width : maxWidth;
-  const imageHeight = Math.round(imageWidth * imageInfo.height / imageInfo.width);
-  value.width = imageInfo.width;
-  value.height = imageInfo.height;
+  const width = imageInfo.width < maxWidth ? imageInfo.width : maxWidth;
+  const height = Math.round(width * imageInfo.height / imageInfo.width);
+  value.width = width;
+  value.height = height;
+  value.originalWidth = imageInfo.width;
+  value.originalHeight = imageInfo.height;
   box.value = value;
+  box.getContainer().css({
+    width: `${width}px`,
+    height: `${height}px`,
+  });
   const progressNode = query('<div class="lake-progress"><div class="lake-percent">0 %</div></div>');
   const circleNotchIcon = icons.get('circleNotch');
   if (circleNotchIcon) {
@@ -152,10 +162,6 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
   imageInfo.node.addClass('lake-image-img');
   imgNode.attr({
     alt: value.name,
-  });
-  imgNode.css({
-    width: `${imageWidth}px`,
-    height: `${imageHeight}px`,
   });
   root.append(imgNode);
 }
@@ -172,12 +178,20 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
     renderError(root, box);
     return;
   }
-  const maxWidth = editor.getWidth() - 2;
-  const imageWidth = imageInfo.width < maxWidth ? imageInfo.width : maxWidth;
-  const imageHeight = Math.round(imageWidth * imageInfo.height / imageInfo.width);
-  value.width = imageInfo.width;
-  value.height = imageInfo.height;
-  box.value = value;
+  let width = value.width;
+  let height = value.height;
+  if (!width || !height) {
+    const maxWidth = editor.getWidth() - 2;
+    width = imageInfo.width < maxWidth ? imageInfo.width : maxWidth;
+    height = Math.round(width * imageInfo.height / imageInfo.width);
+    value.width = width;
+    value.height = height;
+    box.value = value;
+  }
+  box.getContainer().css({
+    width: `${width}px`,
+    height: `${height}px`,
+  });
   const buttonGroupNode = query(safeTemplate`
     <div class="lake-button-group">
       <button type="button" class="lake-button-view" title="Full screen"></button>
@@ -200,10 +214,6 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
   imgNode.attr({
     alt: value.name,
   });
-  imgNode.css({
-    width: `${imageWidth}px`,
-    height: `${imageHeight}px`,
-  });
   root.append(imgNode);
   viewButton.on('click', () => openFullScreen(box));
 }
@@ -225,7 +235,6 @@ export const imageBox: BoxComponent = {
     const value = box.value;
     const root = query('<div class="lake-image" />');
     root.addClass(`lake-image-${value.status}`);
-    const container = box.getContainer();
     if (value.status === 'uploading') {
       renderUploading(root, box);
     } else if (value.status === 'error') {
@@ -233,6 +242,7 @@ export const imageBox: BoxComponent = {
     } else {
       renderDone(root, box);
     }
+    const container = box.getContainer();
     container.empty();
     container.append(root);
     container.on('click', event => {

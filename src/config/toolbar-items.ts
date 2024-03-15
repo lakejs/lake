@@ -461,6 +461,10 @@ export const toolbarItems: ToolbarItem[] = [
   {
     name: 'image',
     type: 'upload',
+    request: {
+      method: 'POST',
+      action: '/upload',
+    },
     icon: icons.get('image'),
     tooltip: 'Image',
     accept: 'image/*',

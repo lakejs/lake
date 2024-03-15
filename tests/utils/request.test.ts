@@ -65,7 +65,7 @@ describe('utils / request', () => {
     requests[0].respond(204, {});
   });
 
-  it('get headers', () => {
+  it('gets headers', () => {
     request(option);
     expect(requests[0].requestHeaders).to.deep.equal({
       'X-Requested-With': 'XMLHttpRequest',
@@ -73,7 +73,7 @@ describe('utils / request', () => {
     });
   });
 
-  it('can empty X-Requested-With', () => {
+  it('should empty X-Requested-With', () => {
     option.headers['X-Requested-With'] = null;
     request(option);
     expect(requests[0].requestHeaders).to.deep.equal({ from: 'hello' });

@@ -346,7 +346,6 @@ export class Toolbar {
           lastModified: file.lastModified,
         });
         file.uid = imageBox.node.id.toString(10);
-        editor.history.save();
         const requestOption: UploadRequestOption<{ [ key: string ]: string}> = {
           onProgress: event => {
             const percentNode = imageBox.node.find('.lake-percent');
@@ -358,7 +357,6 @@ export class Toolbar {
             boxValue.status = 'error';
             imageBox.value = boxValue;
             imageBox.render();
-            editor.history.save();
           },
           onSuccess: body => {
             const boxValue = imageBox.value;
@@ -369,10 +367,12 @@ export class Toolbar {
             editor.history.save();
           },
           file,
-          action: '/upload',
-          method: 'POST',
+          action: item.request.action,
+          method: item.request.method,
         };
-        request(requestOption);
+        setTimeout(() => {
+          request(requestOption);
+        }, 2000);
       }
     });
   }
