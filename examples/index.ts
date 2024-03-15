@@ -10,7 +10,7 @@ import documentEditor from './document-editor';
 import miniatureEditor from './miniature-editor';
 import headlessEditor from './headless-editor';
 
-const { query } = Utils;
+const { query, safeTemplate } = Utils;
 
 declare global {
   interface Window {
@@ -99,7 +99,7 @@ function renderHeader(pageType: string): void {
     return;
   }
   const titleNode = query('.header .title');
-  titleNode.html(currentItem.text);
+  titleNode.text(currentItem.text);
   const sourceNode = query('.header .source');
   sourceNode.append(`<a href="${currentItem.source}" target="_blank" title="View Source"><img src="../assets/icons/code.svg" /></a>`);
   const menuNode = query('.header .menu');
@@ -107,7 +107,7 @@ function renderHeader(pageType: string): void {
   const ul = query('<ul />');
   menuNode.append(ul);
   for (const item of menuItems) {
-    ul.append(`<li><a href="${item.url}">${item.text}</a></li>`);
+    ul.append(safeTemplate`<li><a href="${item.url}">${item.text}</a></li>`);
   }
   let timeoutId: number | null = null;
   menuNode.on('mouseenter', () => {

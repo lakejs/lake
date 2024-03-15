@@ -107,7 +107,7 @@ export class Toolbar {
     }
     for (const menuItem of item.menuItems) {
       // remove HTML tags
-      const text = menuItem.text.replace(/<[^>]*>/, '');
+      const text = menuItem.text.replace(/<[^>]*>/g, '');
       menuMap.set(menuItem.value, text);
     }
     return menuMap;
@@ -232,7 +232,7 @@ export class Toolbar {
       const listItem = query(event.target as NativeNode).closest('li');
       const value = listItem.attr('value');
       if (textNode.length > 0) {
-        textNode.html(listItem.text());
+        textNode.text(listItem.text());
       }
       if (item.menuType === 'color' && value !== '') {
         dropdownNode.attr('color', value);
@@ -288,7 +288,7 @@ export class Toolbar {
     const menuNode = query('<ul class="lake-dropdown-menu" />');
     menuNode.addClass(`lake-dropdown-${item.menuType}-menu`);
     if (textNode.length > 0) {
-      textNode.html(menuMap.get(item.defaultValue) ?? item.defaultValue);
+      textNode.text(menuMap.get(item.defaultValue) ?? item.defaultValue);
     }
     if (item.menuType === 'color') {
       this.updateColorAccent(titleNode, item.defaultValue);
@@ -349,7 +349,7 @@ export class Toolbar {
           onProgress: event => {
             const percentNode = imageBox.node.find('.lake-percent');
             const percent = Math.round(event.percent);
-            percentNode.html(`${percent} %`);
+            percentNode.text(`${percent} %`);
           },
           onError: () => {
             const boxValue = imageBox.value;
@@ -447,7 +447,7 @@ export class Toolbar {
             const key = selectedValues[0] || item.defaultValue;
             const menuMap = allMenuMap.get(item.name);
             const text = (menuMap && menuMap.get(key)) ?? key;
-            textNode.html(text);
+            textNode.text(text);
           }
         }
       }

@@ -1,7 +1,6 @@
 import EventEmitter from 'eventemitter3';
 import { NativeHTMLElement } from '../types/native';
 import { icons } from '../icons';
-import { encode } from '../utils/encode';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
@@ -143,7 +142,7 @@ export class LinkPopup {
       title = 'Link';
     }
     this.linkNode.attr('href', url);
-    this.linkNode.html(encode(title));
+    this.linkNode.text(title);
   }
 
   public updatePosition(): void {

@@ -623,14 +623,23 @@ export class Nodes {
     });
   }
 
-  public text(): string {
-    const node = this.get(0);
-    if (this.isText) {
-      return node.nodeValue ?? '';
+  public text(): string;
+
+  public text(value: string): this;
+
+  public text(value?: string): any {
+    if (value === undefined) {
+      const node = this.get(0);
+      if (this.isText) {
+        return node.nodeValue ?? '';
+      }
+      const element = node as NativeHTMLElement;
+      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText
+      return element.innerText.replace(/^\n+|\n+$/, '');
     }
-    const element = node as NativeHTMLElement;
-    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText
-    return element.innerText.replace(/^\n+|\n+$/, '');
+    return this.eachElement(element => {
+      (element as NativeHTMLElement).innerText = value;
+    });
   }
 
   public outerHTML(): string {

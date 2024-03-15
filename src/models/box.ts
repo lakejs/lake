@@ -37,7 +37,7 @@ export class Box {
       }
       const type = encode(component.type);
       const name = encode(component.name);
-      this.node = query(`<lake-box type="${type}" name="${name}"></lake-box>`);
+      this.node = query(safeTemplate`<lake-box type="${type}" name="${name}"></lake-box>`);
       if (component.value) {
         this.value = component.value;
       }

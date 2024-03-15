@@ -180,7 +180,7 @@ describe('editor', () => {
       expect(value).to.equal(output);
       done();
     });
-    editor.container.find('.lake-box-strip').eq(0).html('a');
+    editor.container.find('.lake-box-strip').eq(0).text('a');
     inputData(editor, 'a');
   });
 
@@ -197,7 +197,7 @@ describe('editor', () => {
       expect(value).to.equal(output);
       done();
     });
-    editor.container.find('.lake-box-strip').eq(1).html('a');
+    editor.container.find('.lake-box-strip').eq(1).text('a');
     inputData(editor, 'a');
   });
 
@@ -214,7 +214,7 @@ describe('editor', () => {
       expect(value).to.equal(output);
       done();
     });
-    editor.container.find('.lake-box-strip').eq(0).html('你好');
+    editor.container.find('.lake-box-strip').eq(0).text('你好');
     inputCompositionData(editor, '你好');
   });
 
