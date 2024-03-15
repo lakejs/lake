@@ -31,6 +31,7 @@ describe('boxes / image', () => {
       size: 60008,
       type: 'image/jpeg',
       lastModified: 1710229517198,
+      percent: 50.49,
     }, box => {
       expect(box.value.status).to.equal('uploading');
     });
@@ -44,6 +45,7 @@ describe('boxes / image', () => {
       size: 1437727,
       type: 'image/jpeg',
       lastModified: 1710229517198,
+      percent: 100,
     }, box => {
       expect(box.value.status).to.equal('uploading');
     });

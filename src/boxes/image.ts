@@ -152,7 +152,12 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
     width: `${width}px`,
     height: `${height}px`,
   });
-  const progressNode = query('<div class="lake-progress"><div class="lake-percent">0 %</div></div>');
+  const percent = Math.round(value.percent || 0);
+  const progressNode = query(safeTemplate`
+    <div class="lake-progress">
+      <div class="lake-percent">${percent} %</div>
+    </div>
+  `);
   const circleNotchIcon = icons.get('circleNotch');
   if (circleNotchIcon) {
     progressNode.prepend(circleNotchIcon);
