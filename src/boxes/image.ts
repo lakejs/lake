@@ -61,6 +61,9 @@ function openFullScreen(box: Box): void {
   allImageBox.each((node, index) => {
     const imageBox = new Box(node);
     const imageValue = imageBox.value;
+    if (imageValue.status !== 'done') {
+      return;
+    }
     dataSource.push({
       id: index,
       src: imageValue.url,
