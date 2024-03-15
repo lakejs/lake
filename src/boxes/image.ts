@@ -126,6 +126,9 @@ function renderError(root: Nodes, box: Box): void {
     errorNode.find('.lake-error-icon').append(imageIcon);
   }
   root.append(errorNode);
+  const container = box.getContainer();
+  container.empty();
+  container.append(root);
 }
 
 // Displays an image with uplaoding progress.
@@ -169,6 +172,9 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
     alt: value.name,
   });
   root.append(imgNode);
+  const container = box.getContainer();
+  container.empty();
+  container.append(root);
 }
 
 // Displays an image that can be previewed or removed.
@@ -220,6 +226,9 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
     alt: value.name,
   });
   root.append(imgNode);
+  const container = box.getContainer();
+  container.empty();
+  container.append(root);
   viewButton.on('click', () => openFullScreen(box));
 }
 
@@ -248,8 +257,6 @@ export const imageBox: BoxComponent = {
       renderDone(root, box);
     }
     const container = box.getContainer();
-    container.empty();
-    container.append(root);
     container.on('click', event => {
       const targetNode = new Nodes(event.target as NativeElement);
       if (targetNode.closest('.lake-button-remove').length === 0) {

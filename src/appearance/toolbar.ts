@@ -349,7 +349,7 @@ export class Toolbar {
           onProgress: event => {
             const percentNode = imageBox.node.find('.lake-percent');
             const percent = Math.round(event.percent);
-            percentNode.text(`${percent} %`);
+            percentNode.text(`${percent < 100 ? percent : 99} %`);
           },
           onError: () => {
             const boxValue = imageBox.value;
