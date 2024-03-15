@@ -13,10 +13,6 @@ declare global {
     lakeId: number;
   }
 
-  interface File {
-    uid: string;
-  }
-
   interface ProgressEvent {
     percent: number;
   }

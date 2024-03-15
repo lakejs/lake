@@ -44,6 +44,7 @@
     "eslint-config-prettier": "^8.10.0",
     "express": "^4.18.2",
     "mocha": "^10.3.0",
+    "multer": "1.4.5-lts.1",
     "npm-run-all": "^4.1.5",
     "rimraf": "^5.0.5",
     "rollup": "^3.29.4",
@@ -58,8 +59,9 @@
     "start": "npm-run-all --parallel --print-label express watch",
     "express": "node app.mjs",
     "watch": "rollup --watch --config rollup.config.ts --configPlugin typescript",
-    "build": "rimraf ./lib/ && rollup --config rollup.config.ts --configPlugin typescript",
-    "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,.mjs\""
+    "build": "rimraf ./lib && rollup --config rollup.config.ts --configPlugin typescript",
+    "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,.mjs\"",
+    "clean": "rimraf ./lib ./dist ./temp ./coverage"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint"

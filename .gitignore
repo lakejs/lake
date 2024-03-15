@@ -5,6 +5,7 @@ Thumbs.db
 desktop.ini
 /.vscode
 /node_modules
+/temp
 /dist
 /lib
 /coverage

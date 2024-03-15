@@ -3,6 +3,14 @@
 import { networkInterfaces } from 'os';
 import path from 'path';
 import express from 'express';
+import multer from 'multer';
+
+const upload = multer({
+  dest: 'temp/',
+  limits: {
+    fileSize: 10 * 1024 * 1024,
+  },
+}).single('file');
 
 const app = express();
 
@@ -21,17 +29,26 @@ app.get('/examples/*', (req, res) => {
 });
 
 app.post('/upload', (req, res) => {
-  const result = {
-    url: '../assets/images/heaven-lake-1280.png',
-  };
-  res.json(result);
-});
-
-app.post('/upload-error', (req, res) => {
-  const result = {
-    error: 'Upload failed.',
-  };
-  res.status(500).json(result);
+  upload(req, res, error => {
+    // A Multer error occurred when uploading.
+    if (error instanceof multer.MulterError) {
+      res.status(500).json({
+        error: error.code,
+      });
+      return;
+    }
+    // An unknown error occurred when uploading.
+    if (error) {
+      res.status(500).json({
+        error: 'Upload failed.',
+      });
+      return;
+    }
+    // Everything went fine.
+    res.json({
+      url: `/temp/${req.file.filename}`,
+    });
+  });
 });
 
 app.listen(port, () => {

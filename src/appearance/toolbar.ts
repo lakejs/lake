@@ -345,12 +345,11 @@ export class Toolbar {
           type: file.type,
           lastModified: file.lastModified,
         });
-        file.uid = imageBox.node.id.toString(10);
         const requestOption: UploadRequestOption<{ [ key: string ]: string}> = {
           onProgress: event => {
             const percentNode = imageBox.node.find('.lake-percent');
-            const progressValue = Math.round(event.loaded / event.total * 100);
-            percentNode.html(`${progressValue} %`);
+            const percent = Math.round(event.percent);
+            percentNode.html(`${percent} %`);
           },
           onError: () => {
             const boxValue = imageBox.value;
@@ -370,9 +369,7 @@ export class Toolbar {
           action: item.request.action,
           method: item.request.method,
         };
-        setTimeout(() => {
-          request(requestOption);
-        }, 2000);
+        request(requestOption);
       }
     });
   }
