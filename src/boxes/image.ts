@@ -169,6 +169,9 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
       <div class="lake-percent">${percent} %</div>
     </div>
   `);
+  if (width < 80) {
+    progressNode.find('.lake-percent').hide();
+  }
   const circleNotchIcon = icons.get('circleNotch');
   if (circleNotchIcon) {
     progressNode.prepend(circleNotchIcon);
@@ -220,6 +223,9 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
   const maximizeIcon = icons.get('maximize');
   if (maximizeIcon) {
     viewButton.append(maximizeIcon);
+  }
+  if (width < 80) {
+    viewButton.hide();
   }
   const removeButton = buttonGroupNode.find('.lake-button-remove');
   const removeIcon = icons.get('remove');
