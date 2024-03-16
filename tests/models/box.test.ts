@@ -84,6 +84,24 @@ describe('models / box', () => {
     expect(box.value.foo).to.equal(1);
   });
 
+  it('method: updateValue', () => {
+    container.html('<lake-box type="block" name="blockBox"></lake-box>');
+    const box = new Box(container.find('lake-box'));
+    box.value = {
+      a: 1,
+      b: 2,
+    };
+    box.updateValue({
+      b: 'updated',
+    });
+    box.updateValue('c', 'added');
+    expect(box.value).to.deep.equal({
+      a: 1,
+      b: 'updated',
+      c: 'added',
+    });
+  });
+
   it('method: useEffect', () => {
     container.html('<lake-box type="block" name="effectBox"></lake-box>');
     const box = new Box(container.find('lake-box'));

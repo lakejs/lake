@@ -4,6 +4,7 @@ import { NativeNode } from '../types/native';
 import { BoxType, BoxValue } from '../types/box';
 import { boxes } from '../storage/boxes';
 import { editors } from '../storage/editors';
+import { forEach } from '../utils/for-each';
 import { safeTemplate } from '../utils/safe-template';
 import { encode } from '../utils/encode';
 import { query } from '../utils/query';
@@ -102,9 +103,26 @@ export class Box {
     return JSON.parse(Base64.decode(value));
   }
 
-  // Updates the value of the box.
+  // Sets the value of the box.
   public set value(value: BoxValue) {
     this.node.attr('value', Base64.encode(JSON.stringify(value)));
+  }
+
+  // Updates part of the value of the box.
+  public updateValue(valueKey: string, valueValue: string): void;
+
+  public updateValue(valueKey: BoxValue): void;
+
+  public updateValue(valueKey: any, valueValue?: any): void {
+    const value = this.value;
+    if (typeof valueKey === 'string') {
+      value[valueKey] = valueValue;
+    } else {
+      forEach(valueKey, (key, val) => {
+        value[key] = val;
+      });
+    }
+    this.value = value;
   }
 
   // Returns data of the box.

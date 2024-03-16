@@ -143,11 +143,12 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
   const maxWidth = editor.getWidth() - 2;
   const width = imageInfo.width < maxWidth ? imageInfo.width : maxWidth;
   const height = Math.round(width * imageInfo.height / imageInfo.width);
-  value.width = width;
-  value.height = height;
-  value.originalWidth = imageInfo.width;
-  value.originalHeight = imageInfo.height;
-  box.value = value;
+  box.updateValue({
+    width,
+    height,
+    originalWidth: imageInfo.width,
+    originalHeight: imageInfo.height,
+  });
   box.getContainer().css({
     width: `${width}px`,
     height: `${height}px`,
@@ -200,9 +201,10 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
     const maxWidth = editor.getWidth() - 2;
     width = imageInfo.width < maxWidth ? imageInfo.width : maxWidth;
     height = Math.round(width * imageInfo.height / imageInfo.width);
-    value.width = width;
-    value.height = height;
-    box.value = value;
+    box.updateValue({
+      width,
+      height,
+    });
   }
   box.getContainer().css({
     width: `${width}px`,

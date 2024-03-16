@@ -32,9 +32,7 @@ export const codeBlockBox: BoxComponent = {
         if (editor.isComposing) {
           return;
         }
-        box.value = {
-          code: cm.doc.getValue(),
-        };
+        box.updateValue('code', cm.doc.getValue());
         editor.history.save();
       }, 0);
     });

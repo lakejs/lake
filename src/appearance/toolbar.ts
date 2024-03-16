@@ -353,17 +353,15 @@ export class Toolbar {
             },
             onError: () => {
               fileNativeNode.value = '';
-              const boxValue = imageBox.value;
-              boxValue.status = 'error';
-              imageBox.value = boxValue;
+              imageBox.updateValue('status', 'error');
               imageBox.render();
             },
             onSuccess: body => {
               fileNativeNode.value = '';
-              const boxValue = imageBox.value;
-              boxValue.status = 'done';
-              boxValue.url = body.url;
-              imageBox.value = boxValue;
+              imageBox.updateValue({
+                status: 'done',
+                url: body.url,
+              });
               imageBox.render();
               editor.history.save();
             },
