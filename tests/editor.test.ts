@@ -99,11 +99,11 @@ describe('editor', () => {
     expect(value).to.equal(output);
   });
 
-  it('method: getWidth', () => {
+  it('method: innerWidth', () => {
     const editor = new Editor(targetNode);
     editor.render();
     editor.container.css('width', '600px');
-    const width = editor.getWidth();
+    const width = editor.innerWidth();
     editor.unmount();
     expect(width > 580).to.equal(true);
     expect(width < 590).to.equal(true);

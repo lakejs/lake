@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce';
 import EventEmitter from 'eventemitter3';
 import pkg from '../package.json';
-import { NativeElement, NativeHTMLElement, NativeNode } from './types/native';
+import { NativeElement, NativeNode } from './types/native';
 import { editors } from './storage/editors';
 import { denormalizeValue, forEach, normalizeValue, query } from './utils';
 import { Nodes } from './models/nodes';
@@ -302,12 +302,11 @@ export class Editor {
     return value;
   }
 
-  // Returns the width of the editor area.
-  public getWidth() {
-    const nativeContainer = this.container.get(0) as NativeHTMLElement;
+  // Returns the interior width of the editor area, which does not include padding.
+  public innerWidth() {
     const paddingLeft = parseInt(this.container.computedCSS('padding-left'), 10) || 0;
     const paddingRight = parseInt(this.container.computedCSS('padding-right'), 10) || 0;
-    return nativeContainer.clientWidth - paddingLeft - paddingRight;
+    return this.container.width() - paddingLeft - paddingRight;
   }
 
   // Renders an editor area and set default value to it.

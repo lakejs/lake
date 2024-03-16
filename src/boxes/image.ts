@@ -140,7 +140,7 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
     await renderError(root, box);
     return;
   }
-  const maxWidth = editor.getWidth() - 2;
+  const maxWidth = editor.innerWidth() - 2;
   const width = imageInfo.width < maxWidth ? imageInfo.width : maxWidth;
   const height = Math.round(width * imageInfo.height / imageInfo.width);
   box.updateValue({
@@ -201,7 +201,7 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
   let width = value.width;
   let height = value.height;
   if (!width || !height) {
-    const maxWidth = editor.getWidth() - 2;
+    const maxWidth = editor.innerWidth() - 2;
     width = imageInfo.width < maxWidth ? imageInfo.width : maxWidth;
     height = Math.round(width * imageInfo.height / imageInfo.width);
     box.updateValue({

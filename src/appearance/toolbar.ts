@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce';
 import { Base64 } from 'js-base64';
 import type { Editor } from '../editor';
-import { NativeElement, NativeHTMLElement, NativeNode } from '../types/native';
+import { NativeHTMLElement, NativeNode } from '../types/native';
 import { ButtonItem, DropdownItem, UploadItem, ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
 import { toolbarItems } from '../config/toolbar-items';
@@ -215,8 +215,7 @@ export class Toolbar {
       menuNode.show(item.menuType === 'color' ? 'flex' : 'block');
       const dropdownNativeNode = dropdownNode.get(0) as NativeHTMLElement;
       const dropdownRect = dropdownNativeNode.getBoundingClientRect();
-      const menuNativeNode = menuNode.get(0) as NativeElement;
-      if (dropdownRect.x + menuNativeNode.clientWidth > window.innerWidth) {
+      if (dropdownRect.x + menuNode.width() > window.innerWidth) {
         menuNode.css('left', 'auto');
         menuNode.css('right', '0');
       } else {
