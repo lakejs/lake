@@ -1,7 +1,7 @@
 import 'photoswipe/style.css';
 import PhotoSwipeLightbox, { DataSource } from 'photoswipe/lightbox';
 import PhotoSwipe from 'photoswipe';
-import { NativeElement, NativeHTMLElement } from '../types/native';
+import { NativeHTMLElement } from '../types/native';
 import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
 import { query } from '../utils/query';
@@ -98,7 +98,7 @@ function openFullScreen(box: Box): void {
 }
 
 // Displays error icon and filename.
-function renderError(root: Nodes, box: Box): void {
+async function renderError(root: Nodes, box: Box): Promise<void> {
   const value = box.value;
   box.getContainer().css({
     width: '',
@@ -124,9 +124,6 @@ function renderError(root: Nodes, box: Box): void {
   if (imageIcon) {
     errorNode.find('.lake-error-icon').append(imageIcon);
   }
-  const container = box.getContainer();
-  container.empty();
-  container.append(root);
   root.append(buttonGroupNode);
   root.append(errorNode);
 }
@@ -140,7 +137,7 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
   const value = box.value;
   const imageInfo = await getImageInfo(value.url);
   if (!imageInfo.width || !imageInfo.height) {
-    renderError(root, box);
+    await renderError(root, box);
     return;
   }
   const maxWidth = editor.getWidth() - 2;
@@ -180,9 +177,6 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
   imgNode.attr({
     alt: value.name,
   });
-  const container = box.getContainer();
-  container.empty();
-  container.append(root);
   root.append(buttonGroupNode);
   root.append(progressNode);
   root.append(imgNode);
@@ -197,7 +191,7 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
   const value = box.value;
   const imageInfo = await getImageInfo(value.url);
   if (!imageInfo.width || !imageInfo.height) {
-    renderError(root, box);
+    await renderError(root, box);
     return;
   }
   let width = value.width;
@@ -225,7 +219,6 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
   if (maximizeIcon) {
     viewButton.append(maximizeIcon);
   }
-  viewButton.on('click', () => openFullScreen(box));
   const removeButton = buttonGroupNode.find('.lake-button-remove');
   const removeIcon = icons.get('remove');
   if (removeIcon) {
@@ -236,9 +229,6 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
   imgNode.attr({
     alt: value.name,
   });
-  const container = box.getContainer();
-  container.empty();
-  container.append(root);
   root.append(buttonGroupNode);
   root.append(imgNode);
 }
@@ -254,29 +244,35 @@ export const imageBox: BoxComponent = {
     const value = box.value;
     const container = box.getContainer();
     if (container.first().length === 0) {
-      // for unit test
+      // The code below is for unit testing because some test cases need to
+      // select the content of the box before it is completely loaded.
+      // Example:
+      // range.setStart(box.getContainer(), 1);
       container.append('<div />');
     }
     const root = query('<div class="lake-image" />');
     root.addClass(`lake-image-${value.status}`);
+    let promise: Promise<void>;
     if (value.status === 'uploading') {
-      renderUploading(root, box);
+      promise = renderUploading(root, box);
     } else if (value.status === 'error') {
-      renderError(root, box);
+      promise = renderError(root, box);
     } else {
-      renderDone(root, box);
+      promise = renderDone(root, box);
     }
-    root.on('click', event => {
+    promise.then(() => {
+      container.empty();
+      container.append(root);
+      root.find('.lake-button-view').on('click', () => openFullScreen(box));
+      root.find('.lake-button-remove').on('click', event => {
+        event.stopPropagation();
+        editor.selection.range.selectBox(box.node);
+        editor.selection.removeBox();
+        editor.history.save();
+      });
+    });
+    root.on('click', () => {
       editor.selection.range.selectBox(box.node);
-      const targetNode = new Nodes(event.target as NativeElement);
-      if (targetNode.closest('.lake-button-remove').length === 0) {
-        return;
-      }
-      event.preventDefault();
-      event.stopPropagation();
-      editor.selection.range.selectBox(box.node);
-      editor.selection.removeBox();
-      editor.history.save();
     });
   },
   html: box => {
