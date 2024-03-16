@@ -266,6 +266,10 @@ export const imageBox: BoxComponent = {
       root.find('.lake-button-view').on('click', () => openFullScreen(box));
       root.find('.lake-button-remove').on('click', event => {
         event.stopPropagation();
+        const xhr = box.getData('xhr');
+        if (xhr) {
+          xhr.abort();
+        }
         editor.selection.range.selectBox(box.node);
         editor.selection.removeBox();
         editor.history.save();

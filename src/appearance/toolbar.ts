@@ -345,7 +345,7 @@ export class Toolbar {
           lastModified: file.lastModified,
         });
         if (imageBox) {
-          request({
+          const xhr = request({
             onProgress: event => {
               const percentNode = imageBox.node.find('.lake-percent');
               const percent = Math.round(event.percent);
@@ -369,6 +369,7 @@ export class Toolbar {
             action: item.request.action,
             method: item.request.method,
           });
+          imageBox.setData('xhr', xhr);
         }
       }
     });

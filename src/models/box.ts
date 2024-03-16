@@ -162,6 +162,9 @@ export class Box {
     for (const cleanup of effectData[this.node.id].cleanup) {
       cleanup();
     }
+    boxData[this.node.id] = {};
+    effectData[this.node.id].setup = [];
+    effectData[this.node.id].cleanup = [];
     this.node.empty();
   }
 

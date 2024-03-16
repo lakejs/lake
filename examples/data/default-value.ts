@@ -7,17 +7,17 @@ export const defaultValue = `
 
 <h3>Inline styles</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p><strong>Bold</strong>: Using <code>&lt;strong&gt;</code> tag to render text that have strong importance, seriousness, or urgency.</p>
-<p><i>Italic</i>: Using <code>&lt;i&gt;</code> tag to render text with italicized style.</p>
-<p><u>Underline</u>: Using <code>&lt;u&gt;</code> tag to render text with a simple solid underline.</p>
-<p><s>Strikethrough</s>: Using <code>&lt;s&gt;</code> tag to render text with a strikethrough, or a line through it.</p>
-<p><span style="font-family: 'Arial Black';">Font family</span>: Using <code>font-family</code> property to set a font family name for the selected text.</p>
-<p><span style="font-size: 24px;">Font size</span>: Using <code>font-size</code> property to set the size of the font.</p>
-<p><span style="color: #F5222D;">Font color</span>: Using <code>color</code> property to set the foreground color for the selected text.</p>
-<p><span style="background-color: #FADB14;">Highlight</span>: Using <code>background-color</code> property to set the background color.</p>
-<p><sup>Superscript</sup>: Using <code>&lt;sup&gt;</code> tag to render text with a raised baseline using smaller text.</p>
-<p><sub>Subscript</sub>: Using <code>&lt;sub&gt;</code> tag to render text with a lowered baseline using smaller text.</p>
-<p><code>Inline code</code>: Using <code>&lt;code&gt;</code> tag to display a short fragment of computer code.</p>
+<p>The <code>&lt;strong&gt;</code> tag represents <strong>Bold</strong>, which renders text that have strong importance, seriousness, or urgency.</p>
+<p>The <code>&lt;i&gt;</code> tag represents <i>Italic</i>, which renders text with italicized style.</p>
+<p>The <code>&lt;u&gt;</code> tag represents <u>Underline</u>, which renders text with a simple solid underline.</p>
+<p>The <code>&lt;s&gt;</code> tag represents <s>Strikethrough</s>, which renders text with a strikethrough, or a line through it.</p>
+<p>The <code>font-family</code> property represents <span style="font-family: 'Arial Black';">Font family</span>, which sets a font family name for the selected text.</p>
+<p>The <code>font-size</code> property represents <span style="font-size: 24px;">Font size</span>.</p>
+<p>The <code>color</code> property represents <span style="color: #F5222D;">Font color</span>, which sets the foreground color for the selected text.</p>
+<p>Using <code>background-color</code> property to represents <span style="background-color: #FADB14;">Highlight</span>.</p>
+<p>Using <code>&lt;sup&gt;</code> tag to represents <sup>Superscript</sup>, which renders text with a raised baseline using smaller text.</p>
+<p>Using <code>&lt;sub&gt;</code> tag to represents <sub>Subscript</sub>, which renders text with a lowered baseline using smaller text.</p>
+<p>The <code>&lt;code&gt;</code> tag represents <code>Inline code</code>, which displays a short fragment of computer code.</p>
 <p><br /></p>
 
 <h3>Headings</h3>
@@ -43,9 +43,9 @@ export const defaultValue = `
 
 <h3>Block Properties</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p style="text-indent: 2em;">Text indent: The <code>text-indent</code> property represents the length of empty space (indentation) that is put before lines of text in a block.</p>
-<p style="margin-left: 40px;">Indent: The <code>margin-left</code> property represents the margin area on the left side of a block.</p>
-<p style="text-align:center;">Alignment: The <code>text-align</code> property represents the horizontal alignment of the inline-level content inside a block.</p>
+<p style="text-indent: 2em;">The <code>text-indent</code> property represents the length of empty space (indentation) that is put before lines of text in a block.</p>
+<p style="margin-left: 40px;">The <code>margin-left</code> property represents the indentation of a block.</p>
+<p style="text-align:center;">The <code>text-align</code> property represents the horizontal alignment of the inline-level content inside a block.</p>
 <p><br /></p>
 
 <h3>Numbered list</h3>
@@ -56,7 +56,7 @@ export const defaultValue = `
 <ol start="4"><li>Fill muffin tray 3/4 full.</li></ol>
 <ol start="5"><li>Bake for 20 minutes.</li></ol>
 <p><br /></p>
-<p>The <code>indent</code> attribute represents the indentation of the list.</p>
+<blockquote>The <code>indent</code> attribute represents the indentation of the list.</blockquote>
 <p><br /></p>
 <ol start="1"><li>first item</li></ol>
 <ol start="2"><li>second item</li></ol>

@@ -48,7 +48,7 @@ function getBody(xhr: XMLHttpRequest) {
   }
 }
 
-export function request(option: UploadRequestOption) {
+export function request(option: UploadRequestOption): XMLHttpRequest {
   const xhr = new XMLHttpRequest();
 
   if (option.onProgress && xhr.upload) {
@@ -131,9 +131,5 @@ export function request(option: UploadRequestOption) {
 
   xhr.send(formData);
 
-  return {
-    abort() {
-      xhr.abort();
-    },
-  };
+  return xhr;
 }
