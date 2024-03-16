@@ -114,7 +114,6 @@ function renderError(root: Nodes, box: Box): void {
   if (removeIcon) {
     removeButton.append(removeIcon);
   }
-  root.append(buttonGroupNode);
   const errorNode = query(safeTemplate`
     <div class="lake-error">
       <div class="lake-error-icon"></div>
@@ -125,10 +124,11 @@ function renderError(root: Nodes, box: Box): void {
   if (imageIcon) {
     errorNode.find('.lake-error-icon').append(imageIcon);
   }
-  root.append(errorNode);
   const container = box.getContainer();
   container.empty();
   container.append(root);
+  root.append(buttonGroupNode);
+  root.append(errorNode);
 }
 
 // Displays an image with uplaoding progress.
@@ -165,7 +165,6 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
   if (removeIcon) {
     removeButton.append(removeIcon);
   }
-  root.append(buttonGroupNode);
   const percent = Math.round(value.percent || 0);
   const progressNode = query(safeTemplate`
     <div class="lake-progress">
@@ -176,16 +175,17 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
   if (circleNotchIcon) {
     progressNode.prepend(circleNotchIcon);
   }
-  root.append(progressNode);
   const imgNode = imageInfo.node;
   imageInfo.node.addClass('lake-image-img');
   imgNode.attr({
     alt: value.name,
   });
-  root.append(imgNode);
   const container = box.getContainer();
   container.empty();
   container.append(root);
+  root.append(buttonGroupNode);
+  root.append(progressNode);
+  root.append(imgNode);
 }
 
 // Displays an image that can be previewed or removed.
@@ -225,22 +225,22 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
   if (maximizeIcon) {
     viewButton.append(maximizeIcon);
   }
+  viewButton.on('click', () => openFullScreen(box));
   const removeButton = buttonGroupNode.find('.lake-button-remove');
   const removeIcon = icons.get('remove');
   if (removeIcon) {
     removeButton.append(removeIcon);
   }
-  root.append(buttonGroupNode);
   const imgNode = imageInfo.node;
   imgNode.addClass('lake-image-img');
   imgNode.attr({
     alt: value.name,
   });
-  root.append(imgNode);
   const container = box.getContainer();
   container.empty();
   container.append(root);
-  viewButton.on('click', () => openFullScreen(box));
+  root.append(buttonGroupNode);
+  root.append(imgNode);
 }
 
 export const imageBox: BoxComponent = {
@@ -251,13 +251,12 @@ export const imageBox: BoxComponent = {
     if (!editor) {
       return;
     }
-    box.useEffect(() => {
-      box.getContainer().on('click', () => {
-        editor.selection.range.selectBox(box.node);
-      });
-      return () => box.getContainer().off('click');
-    });
     const value = box.value;
+    const container = box.getContainer();
+    if (container.first().length === 0) {
+      // for unit test
+      container.append('<div />');
+    }
     const root = query('<div class="lake-image" />');
     root.addClass(`lake-image-${value.status}`);
     if (value.status === 'uploading') {
@@ -267,8 +266,8 @@ export const imageBox: BoxComponent = {
     } else {
       renderDone(root, box);
     }
-    const container = box.getContainer();
-    container.on('click', event => {
+    root.on('click', event => {
+      editor.selection.range.selectBox(box.node);
       const targetNode = new Nodes(event.target as NativeElement);
       if (targetNode.closest('.lake-button-remove').length === 0) {
         return;

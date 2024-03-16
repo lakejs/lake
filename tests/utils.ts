@@ -84,7 +84,7 @@ export function testBox(
   });
   editor.render();
   const box = editor.selection.insertBox(name, value);
-  if (callback) {
+  if (callback && box) {
     callback(box, editor);
   }
 }

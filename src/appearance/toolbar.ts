@@ -3,7 +3,6 @@ import { Base64 } from 'js-base64';
 import type { Editor } from '../editor';
 import { NativeElement, NativeHTMLElement, NativeNode } from '../types/native';
 import { ButtonItem, DropdownItem, UploadItem, ToolbarItem } from '../types/toolbar';
-import { UploadRequestOption } from '../types/request';
 import { icons } from '../icons';
 import { toolbarItems } from '../config/toolbar-items';
 import { template } from '../utils/template';
@@ -345,31 +344,32 @@ export class Toolbar {
           type: file.type,
           lastModified: file.lastModified,
         });
-        const requestOption: UploadRequestOption<{ [ key: string ]: string}> = {
-          onProgress: event => {
-            const percentNode = imageBox.node.find('.lake-percent');
-            const percent = Math.round(event.percent);
-            percentNode.text(`${percent < 100 ? percent : 99} %`);
-          },
-          onError: () => {
-            const boxValue = imageBox.value;
-            boxValue.status = 'error';
-            imageBox.value = boxValue;
-            imageBox.render();
-          },
-          onSuccess: body => {
-            const boxValue = imageBox.value;
-            boxValue.status = 'done';
-            boxValue.url = body.url;
-            imageBox.value = boxValue;
-            imageBox.render();
-            editor.history.save();
-          },
-          file,
-          action: item.request.action,
-          method: item.request.method,
-        };
-        request(requestOption);
+        if (imageBox) {
+          request({
+            onProgress: event => {
+              const percentNode = imageBox.node.find('.lake-percent');
+              const percent = Math.round(event.percent);
+              percentNode.text(`${percent < 100 ? percent : 99} %`);
+            },
+            onError: () => {
+              const boxValue = imageBox.value;
+              boxValue.status = 'error';
+              imageBox.value = boxValue;
+              imageBox.render();
+            },
+            onSuccess: body => {
+              const boxValue = imageBox.value;
+              boxValue.status = 'done';
+              boxValue.url = body.url;
+              imageBox.value = boxValue;
+              imageBox.render();
+              editor.history.save();
+            },
+            file,
+            action: item.request.action,
+            method: item.request.method,
+          });
+        }
       }
     });
   }
