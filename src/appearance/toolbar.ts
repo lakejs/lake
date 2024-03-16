@@ -352,12 +352,14 @@ export class Toolbar {
               percentNode.text(`${percent < 100 ? percent : 99} %`);
             },
             onError: () => {
+              fileNativeNode.value = '';
               const boxValue = imageBox.value;
               boxValue.status = 'error';
               imageBox.value = boxValue;
               imageBox.render();
             },
             onSuccess: body => {
+              fileNativeNode.value = '';
               const boxValue = imageBox.value;
               boxValue.status = 'done';
               boxValue.url = body.url;
