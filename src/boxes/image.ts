@@ -155,6 +155,17 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
     width: `${width}px`,
     height: `${height}px`,
   });
+  const buttonGroupNode = query(safeTemplate`
+    <div class="lake-button-group">
+      <button type="button" class="lake-button-remove" title="Delete"></button>
+    </div>
+  `);
+  const removeButton = buttonGroupNode.find('.lake-button-remove');
+  const removeIcon = icons.get('remove');
+  if (removeIcon) {
+    removeButton.append(removeIcon);
+  }
+  root.append(buttonGroupNode);
   const percent = Math.round(value.percent || 0);
   const progressNode = query(safeTemplate`
     <div class="lake-progress">

@@ -599,6 +599,18 @@ export class Nodes {
     });
   }
 
+  // Returns the width of of the first element.
+  public width(): number {
+    const element = this.get(0) as NativeHTMLElement;
+    return element.offsetWidth;
+  }
+
+  // Returns the height of of the first element.
+  public height(): number {
+    const element = this.get(0) as NativeHTMLElement;
+    return element.offsetHeight;
+  }
+
   public show(displayType: string = 'block'): this {
     this.css('display', displayType);
     return this;

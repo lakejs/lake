@@ -629,6 +629,24 @@ describe('models / nodes', () => {
     expect(nodes.hasAttr('style')).to.equal(false);
   });
 
+  it('method: width', () => {
+    const nodes = new Nodes(element);
+    // nodes.css('border', '1px solid #000');
+    nodes.css('margin', '10px');
+    nodes.css('padding', '20px');
+    nodes.css('width', '200px');
+    expect(nodes.width()).to.equal(240);
+  });
+
+  it('method: height', () => {
+    const nodes = new Nodes(element);
+    // nodes.css('border', '1px solid #000');
+    nodes.css('margin', '10px');
+    nodes.css('padding', '20px');
+    nodes.css('height', '100px');
+    expect(nodes.height()).to.equal(140);
+  });
+
   it('method: show', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.show();
