@@ -6,6 +6,20 @@
     transform: rotate(360deg);
   }
 }
+.lake-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  background-color: #fafafa;
+  border-radius: 4px;
+  margin: 1px;
+}
+.lake-image-placeholder svg {
+  fill: #d9d9d9;
+  width: 64px;
+  height: 64px;
+}
 .lake-image {
   position: relative;
   line-height: 0;

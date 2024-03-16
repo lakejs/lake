@@ -252,11 +252,24 @@ export const imageBox: BoxComponent = {
     const value = box.value;
     const container = box.getContainer();
     if (container.first().length === 0) {
-      // The code below is for unit testing because some test cases need to
-      // select the content of the box before it is completely loaded.
-      // Example:
-      // range.setStart(box.getContainer(), 1);
-      container.append('<div />');
+      if (value.width && value.height) {
+        const placeholderNode = query('<div class="lake-image-placeholder" />');
+        container.append(placeholderNode);
+        const imageIcon = icons.get('image');
+        if (imageIcon) {
+          placeholderNode.append(imageIcon);
+        }
+        placeholderNode.css({
+          width: `${value.width}px`,
+          height: `${value.height}px`,
+        });
+      } else {
+        // The code below is for unit testing because some test cases need to
+        // select the content of the box before it is completely loaded.
+        // Example:
+        // range.setStart(box.getContainer(), 1);
+        container.append('<div />');
+      }
     }
     const root = query('<div class="lake-image" />');
     root.addClass(`lake-image-${value.status}`);
