@@ -5,8 +5,19 @@ import path from 'path';
 import express from 'express';
 import multer from 'multer';
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.resolve('./temp/'));
+  },
+  filename: (req, file, cb) => {
+    const name = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
+    const extension = path.extname(file.originalname);
+    cb(null, `${name}${extension}`);
+  },
+});
+
 const upload = multer({
-  dest: 'temp/',
+  storage,
   limits: {
     fileSize: 10 * 1024 * 1024,
   },

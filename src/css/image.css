@@ -126,6 +126,7 @@ lake-box[name="image"] .lake-box-selected .lake-error {
   width: 24px;
   height: 24px;
 }
+.lake-pswp .pswp__img,
 .lake-pswp.pswp--click-to-zoom.pswp--zoom-allowed .pswp__img,
 .lake-pswp.pswp--click-to-zoom.pswp--zoomed-in .pswp__img:active {
   cursor: pointer;
