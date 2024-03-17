@@ -41,9 +41,6 @@
 }
 .lake-link-popup .lake-row:last-child button {
   background-color: transparent;
-  border-radius: 5px;
-  cursor: pointer;
-  user-select: none;
   border: 1px solid var(--border-color);
   padding: 8px 16px;
 }

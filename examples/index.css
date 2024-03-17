@@ -30,6 +30,7 @@ body {
   line-height: 0;
   cursor: pointer;
   user-select: none;
+  outline: none;
 }
 .header .menu .hovered {
   background-color: #0000000a;
@@ -71,6 +72,7 @@ body {
 .header .source a {
   display: block;
   border-radius: 5px;
+  outline: none;
 }
 .header .source a:hover {
   background-color: #0000000a;

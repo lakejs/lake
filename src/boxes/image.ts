@@ -79,24 +79,41 @@ function openFullScreen(box: Box): void {
     pswpModule: PhotoSwipe,
     dataSource,
     mainClass: 'lake-pswp',
+    zoom: false,
     arrowPrevSVG: icons.get('left'),
     arrowNextSVG: icons.get('right'),
     closeSVG: icons.get('close'),
-    zoomSVG: icons.get('zoomIn'),
-    closeTitle: 'Close',
-    zoomTitle: 'Zoom',
     arrowPrevTitle: 'Previous',
     arrowNextTitle: 'Next',
+    closeTitle: 'Close (Esc)',
     errorMsg: 'The image cannot be loaded',
   });
   lightbox.on('uiRegister', () => {
-    lightbox?.pswp?.ui?.registerElement({
-      name: 'zoom-in-button',
+    const pswp: any = lightbox.pswp;
+    pswp.ui.registerElement({
+      name: 'zoom-out-button',
       order: 8,
       isButton: true,
+      title: 'Zoom out',
+      html: icons.get('zoomOut'),
+      onClick: () => {
+        const currSlide = pswp.currSlide;
+        const step = (currSlide.zoomLevels.max - currSlide.zoomLevels.min) / 5;
+        const destZoomLevel = currSlide.currZoomLevel - step;
+        currSlide.zoomTo(destZoomLevel, undefined, 333);
+      },
+    });
+    pswp.ui.registerElement({
+      name: 'zoom-in-button',
+      order: 9,
+      isButton: true,
+      title: 'Zoom in',
       html: icons.get('zoomIn'),
-      onInit: () => {
-        // pswp.zoomTo();
+      onClick: () => {
+        const currSlide = pswp.currSlide;
+        const step = (currSlide.zoomLevels.max - currSlide.zoomLevels.min) / 5;
+        const destZoomLevel = currSlide.currZoomLevel + step;
+        currSlide.zoomTo(destZoomLevel, undefined, 333);
       },
     });
   });

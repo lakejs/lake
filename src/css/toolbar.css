@@ -14,6 +14,7 @@
   line-height: 0;
   cursor: pointer;
   user-select: none;
+  outline: none;
 }
 .lake-toolbar .lake-toolbar-button[disabled] {
   opacity: 0.25;
@@ -52,6 +53,7 @@
   border: 0;
   background-color: #fff;
   cursor: pointer;
+  outline: none;
 }
 .lake-toolbar .lake-dropdown[disabled] .lake-dropdown-title {
   opacity: 0.25;

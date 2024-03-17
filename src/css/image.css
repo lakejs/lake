@@ -60,6 +60,7 @@ lake-box[name="image"] .lake-box-selected .lake-button-group {
   line-height: 0;
   cursor: pointer;
   user-select: none;
+  outline: none;
 }
 .lake-image .lake-button-group button svg {
   fill: #fff;
