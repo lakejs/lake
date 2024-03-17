@@ -90,15 +90,13 @@ function openFullScreen(box: Box): void {
     errorMsg: 'The image cannot be loaded',
   });
   lightbox.on('uiRegister', () => {
-    return;
-    lightbox.pswp.ui.registerElement({
+    lightbox?.pswp?.ui?.registerElement({
       name: 'zoom-in-button',
       order: 8,
       isButton: true,
       html: icons.get('zoomIn'),
-      onInit: (el, pswp) => {
+      onInit: () => {
         // pswp.zoomTo();
-        console.log(el, pswp);
       },
     });
   });
