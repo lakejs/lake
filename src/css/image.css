@@ -119,3 +119,13 @@ lake-box[name="image"] .lake-box-selected .lake-error {
   color: var(--error-color);
   line-height: normal;
 }
+/* full screen */
+.lake-pswp .pswp__button svg {
+  fill: #fff;
+  width: 24px;
+  height: 24px;
+}
+.lake-pswp.pswp--click-to-zoom.pswp--zoom-allowed .pswp__img,
+.lake-pswp.pswp--click-to-zoom.pswp--zoomed-in .pswp__img:active {
+  cursor: pointer;
+}

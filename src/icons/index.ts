@@ -15,6 +15,8 @@
 // basic
 import plus from './plus.svg';
 import more from './more.svg';
+import left from './left.svg';
+import right from './right.svg';
 import down from './down.svg';
 import check from './check.svg';
 import checkCircle from './check-circle.svg';
@@ -23,6 +25,9 @@ import open from './open.svg';
 import copy from './copy.svg';
 import remove from './remove.svg';
 import maximize from './maximize.svg';
+import close from './close.svg';
+import zoomIn from './zoom-in.svg';
+import zoomOut from './zoom-out.svg';
 import circleNotch from './circle-notch.svg';
 import selectAll from './select-all.svg';
 import undo from './undo.svg';
@@ -73,6 +78,8 @@ import table from './table.svg';
 export const icons: Map<string, string> = new Map([
   ['plus', plus],
   ['more', more],
+  ['left', left],
+  ['right', right],
   ['down', down],
   ['check', check],
   ['checkCircle', checkCircle],
@@ -81,6 +88,9 @@ export const icons: Map<string, string> = new Map([
   ['copy', copy],
   ['remove', remove],
   ['maximize', maximize],
+  ['close', close],
+  ['zoomIn', zoomIn],
+  ['zoomOut', zoomOut],
   ['circleNotch', circleNotch],
   ['selectAll', selectAll],
   ['undo', undo],

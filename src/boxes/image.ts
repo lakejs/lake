@@ -76,8 +76,31 @@ function openFullScreen(box: Box): void {
     }
   });
   const lightbox = new PhotoSwipeLightbox({
-    dataSource,
     pswpModule: PhotoSwipe,
+    dataSource,
+    mainClass: 'lake-pswp',
+    arrowPrevSVG: icons.get('left'),
+    arrowNextSVG: icons.get('right'),
+    closeSVG: icons.get('close'),
+    zoomSVG: icons.get('zoomIn'),
+    closeTitle: 'Close',
+    zoomTitle: 'Zoom',
+    arrowPrevTitle: 'Previous',
+    arrowNextTitle: 'Next',
+    errorMsg: 'The image cannot be loaded',
+  });
+  lightbox.on('uiRegister', () => {
+    return;
+    lightbox.pswp.ui.registerElement({
+      name: 'zoom-in-button',
+      order: 8,
+      isButton: true,
+      html: icons.get('zoomIn'),
+      onInit: (el, pswp) => {
+        // pswp.zoomTo();
+        console.log(el, pswp);
+      },
+    });
   });
   lightbox.addFilter('thumbEl', (thumbnail, itemData) => {
     const imgNode = allImageBox.eq(itemData.id).find('.lake-image-img');
