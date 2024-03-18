@@ -48,9 +48,13 @@ export function splitBlock(range: Range): TwoParts {
   }
   if (right) {
     if (right.isEmpty) {
-      appendDeepest(right, query('<br />'));
+      const br = query('<br />');
+      appendDeepest(right, br);
+      range.setStartAfter(br);
+      range.collapseToStart();
+    } else {
+      range.shrinkBefore(right);
     }
-    range.shrinkBefore(right);
   }
   fixList(range);
   return {

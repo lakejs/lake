@@ -1,5 +1,7 @@
 import { testPlugin } from '../utils';
 
+const imageBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTI1Ni5wbmciLCJzdGF0dXMiOiJkb25lIn0=';
+
 describe('plugin / enter-key', () => {
 
   it('paragraph: empty content', () => {
@@ -8,7 +10,7 @@ describe('plugin / enter-key', () => {
     `;
     const output = `
     <p><br /></p>
-    <p><focus /><br /></p>
+    <p><br /><focus /></p>
     `;
     testPlugin(
       content,
@@ -59,7 +61,7 @@ describe('plugin / enter-key', () => {
     `;
     const output = `
     <p>foo</p>
-    <p><focus /><br /></p>
+    <p><br /><focus /></p>
     `;
     testPlugin(
       content,
@@ -93,7 +95,7 @@ describe('plugin / enter-key', () => {
     `;
     const output = `
     <h1>foo</h1>
-    <p><focus /><br /></p>
+    <p><br /><focus /></p>
     `;
     testPlugin(
       content,
@@ -126,7 +128,8 @@ describe('plugin / enter-key', () => {
     <anchor /><h1>foo</h1><focus />
     `;
     const output = `
-    <h1><br /></h1><p><focus /><br /></p>
+    <h1><br /></h1>
+    <p><br /><focus /></p>
     `;
     testPlugin(
       content,
@@ -144,7 +147,7 @@ describe('plugin / enter-key', () => {
     `;
     const output = `
     <h1><br /></h1>
-    <p><focus /><br /></p>
+    <p><br /><focus /></p>
     <h2>bar</h2>
     `;
     testPlugin(
@@ -163,7 +166,7 @@ describe('plugin / enter-key', () => {
     `;
     const output = `
     <h1><br /></h1>
-    <p><focus /><br /></p>
+    <p><br /><focus /></p>
     <h2>bar</h2>
     `;
     testPlugin(
@@ -233,7 +236,7 @@ describe('plugin / enter-key', () => {
     `;
     const output = `
     <ul type="checklist"><li value="true">foo</li></ul>
-    <ul type="checklist"><li value="false"><focus /><br /></li></ul>
+    <ul type="checklist"><li value="false"><br /><focus /></li></ul>
     `;
     testPlugin(
       content,
@@ -244,7 +247,7 @@ describe('plugin / enter-key', () => {
     );
   });
 
-  it('box: the focus is at the beginning of the box', () => {
+  it('box: the focus is at the beginning of block box', () => {
     const content = `
     <lake-box type="block" name="hr" focus="left"></lake-box>
     `;
@@ -261,7 +264,7 @@ describe('plugin / enter-key', () => {
     );
   });
 
-  it('box: the focus is at the end of the box', () => {
+  it('box: the focus is at the end of block box', () => {
     const content = `
     <lake-box type="block" name="hr" focus="right"></lake-box>
     `;
@@ -278,7 +281,7 @@ describe('plugin / enter-key', () => {
     );
   });
 
-  it('box: the focus is outside the beginning of the box', () => {
+  it('box: the focus is outside the beginning of block box', () => {
     const content = `
     <focus /><lake-box type="block" name="hr"></lake-box>
     <p>foo</p>
@@ -297,7 +300,7 @@ describe('plugin / enter-key', () => {
     );
   });
 
-  it('box: the focus is outside the end of the box', () => {
+  it('box: the focus is outside the end of block box', () => {
     const content = `
     <lake-box type="block" name="hr"></lake-box><focus />
     <p>foo</p>
@@ -316,7 +319,7 @@ describe('plugin / enter-key', () => {
     );
   });
 
-  it('box: the focus is at the center of the box', () => {
+  it('box: the focus is at the center of block box', () => {
     const content = `
     <lake-box type="block" name="hr" focus="center"></lake-box>
     <p>foo</p>
@@ -334,13 +337,123 @@ describe('plugin / enter-key', () => {
     );
   });
 
-  it('box: the focus is in the box', () => {
+  it('box: the focus is in the block box', () => {
     const content = `
     <lake-box type="block" name="hr" focus="center"></lake-box>
     <p>foo</p>
     `;
     const output = `
     <lake-box type="block" name="hr" focus="center"></lake-box>
+    <p>foo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        const range = editor.selection.range;
+        range.setStart(range.startNode, 1);
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('box: the focus is at the beginning of inline box', () => {
+    const content = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box></p>
+    `;
+    const output = `
+    <p><br /></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('box: the focus is at the end of inline box', () => {
+    const content = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box></p>
+    `;
+    const output = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('box: the focus is outside the beginning of inline box', () => {
+    const content = `
+    <p><focus /><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
+    <p>foo</p>
+    `;
+    const output = `
+    <p><br /></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box></p>
+    <p>foo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('box: the focus is outside the end of inline box', () => {
+    const content = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus /></p>
+    <p>foo</p>
+    `;
+    const output = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
+    <p><br /><focus /></p>
+    <p>foo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('box: the focus is at the center of inline box', () => {
+    const content = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box></p>
+    <p>foo</p>
+    `;
+    const output = `
+    <p><br /><focus /></p>
+    <p>foo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('box: the focus is in the inline box', () => {
+    const content = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box></p>
+    <p>foo</p>
+    `;
+    const output = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box></p>
     <p>foo</p>
     `;
     testPlugin(

@@ -48,7 +48,7 @@ export default (editor: Editor) => {
       const prevNode = boxNode.prev();
       if (prevNode.length === 0) {
         const block = boxNode.closestBlock();
-        if (!block.isContainer) {
+        if (block.length > 0 && !block.isContainer) {
           event.preventDefault();
           mergeWithPreviousBlock(editor, block);
           editor.history.save();
