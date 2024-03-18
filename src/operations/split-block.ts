@@ -48,10 +48,8 @@ export function splitBlock(range: Range): TwoParts {
   }
   if (right) {
     if (right.isEmpty) {
-      const br = query('<br />');
-      appendDeepest(right, br);
-      range.setStartAfter(br);
-      range.collapseToStart();
+      appendDeepest(right, query('<br />'));
+      range.shrinkAfter(right);
     } else {
       range.shrinkBefore(right);
     }

@@ -23,10 +23,8 @@ export function deleteContents(range: Range): void {
   if (noMerge) {
     const block = range.getBlocks()[0];
     if (block && block.isEmpty) {
-      const br = query('<br />');
-      appendDeepest(block, br);
-      range.setEndAfter(br);
-      range.collapseToEnd();
+      appendDeepest(block, query('<br />'));
+      range.shrinkAfter(block);
     }
     return;
   }

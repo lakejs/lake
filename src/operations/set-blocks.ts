@@ -93,9 +93,7 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
   toBookmark(range, bookmark);
   fixList(range);
   if (block.isEmpty) {
-    const br = query('<br />');
-    appendDeepest(block, br);
-    range.setEndAfter(br);
-    range.collapseToEnd();
+    appendDeepest(block, query('<br />'));
+    range.shrinkAfter(block);
   }
 }

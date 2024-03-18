@@ -25,9 +25,7 @@ export function removeBox(range: Range): void {
   box.unmount();
   boxNode.remove();
   if (parentNode.isEmpty) {
-    const br = query('<br />');
-    appendDeepest(parentNode, br);
-    range.setStartAfter(br);
-    range.collapseToStart();
+    appendDeepest(parentNode, query('<br />'));
+    range.shrinkAfter(parentNode);
   }
 }
