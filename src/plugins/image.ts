@@ -10,10 +10,15 @@ export default (editor: Editor) => {
     fragment.find('img').each(nativeNode => {
       const node = query(nativeNode);
       const box = new Box('image');
-      box.value = {
-        url: node.attr('src'),
-        status: 'done',
-      };
+      const value = node.attr('data-lake-value');
+      if (value === '') {
+        box.value = {
+          url: node.attr('src'),
+          status: 'done',
+        };
+      } else {
+        box.node.attr('value', value);
+      }
       node.replaceWith(box.node);
     });
   });

@@ -13,7 +13,8 @@ function getPasteElementRules(): any {
   const rules = getElementRules();
   rules.div = rules.p;
   rules.img = {
-    src: /^\S+$/,
+    src: /^[^"]+$/,
+    'data-lake-value': /^[^"]+$/,
   };
   rules.hr = {};
   forEach(rules, (key, attributeRules) => {

@@ -339,7 +339,7 @@ export const imageBox: BoxComponent = {
     });
   },
   html: box => {
-    const value = box.value;
-    return safeTemplate`<img src="${value.url}" />`;
+    const value = box.node.attr('value');
+    return safeTemplate`<img src="${box.value.url}" data-lake-value="${value}" />`;
   },
 };
