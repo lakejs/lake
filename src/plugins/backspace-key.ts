@@ -63,6 +63,7 @@ export default (editor: Editor) => {
           editor.history.save();
           return;
         }
+        event.preventDefault();
         range.shrinkAfter(prevNode);
         return;
       }

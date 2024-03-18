@@ -412,6 +412,24 @@ describe('plugin / backspace-key', () => {
     );
   });
 
+  it('should remove inline box', () => {
+    const content = `
+    <p>foo</p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box></p>
+    `;
+    const output = `
+    <p>foo</p>
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
   it('should keep empty paragraph after removing all content', () => {
     const content = `
     <anchor /><p>foo</p><focus />

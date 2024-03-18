@@ -1,4 +1,4 @@
-import { query } from '../utils';
+import { appendDeepest, query } from '../utils';
 import { Range } from '../models/range';
 import { Box } from '../models/box';
 
@@ -21,6 +21,13 @@ export function removeBox(range: Range): void {
   }
   range.setStartBefore(boxNode);
   range.collapseToStart();
+  const parentNode = boxNode.parent();
   box.unmount();
   boxNode.remove();
+  if (parentNode.isEmpty) {
+    const br = query('<br />');
+    appendDeepest(parentNode, br);
+    range.setStartAfter(br);
+    range.collapseToStart();
+  }
 }
