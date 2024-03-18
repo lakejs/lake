@@ -72,9 +72,11 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
     const box = new Box(boxNode);
     if (box.type === 'inline') {
       if (range.isBoxLeft) {
-        range.selectBoxLeft(boxNode);
+        range.setStartBefore(boxNode);
+        range.collapseToStart();
       } else if (range.isBoxRight) {
-        range.selectBoxRight(boxNode);
+        range.setStartAfter(boxNode);
+        range.collapseToStart();
       } else {
         editor.selection.removeBox();
       }

@@ -676,6 +676,54 @@ describe('plugin / paste', () => {
     );
   });
 
+  it('pastes image box when the cursor is at the beginning of image box', () => {
+    const content = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box></p>
+    `;
+    const output = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus /><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', `<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>`);
+      },
+    );
+  });
+
+  it('pastes image box when the cursor is at the end of image box', () => {
+    const content = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box></p>
+    `;
+    const output = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', `<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>`);
+      },
+    );
+  });
+
+  it('pastes image box when the cursor is at the center of image box', () => {
+    const content = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box></p>
+    `;
+    const output = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', `<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>`);
+      },
+    );
+  });
+
   it('pastes image element into a paragraph', () => {
     const content = `
     <p>f<focus />oo</p>
