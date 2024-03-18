@@ -63,6 +63,7 @@ export function mergeNodes(node: Nodes, otherNode: Nodes): { node: Nodes, offset
     nextNode.length > 0 &&
     nextOtherNode.length > 0 &&
     nextNode.isElement &&
+    !nextNode.isBox &&
     nextNode.clone(false).get(0).isEqualNode(nextOtherNode.clone(false).get(0))
   ) {
     return mergeNodes(nextNode, nextOtherNode);

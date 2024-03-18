@@ -230,7 +230,7 @@ describe('plugin / backspace-key', () => {
     );
   });
 
-  it('should move cursor with box before paragraph', () => {
+  it('should move cursor into a box in the previous paragraph', () => {
     const content = `
     <lake-box type="block" name="hr"></lake-box>
     <p><focus />foo</p>
@@ -248,7 +248,7 @@ describe('plugin / backspace-key', () => {
     );
   });
 
-  it('should remove empty paragraph with box before empty paragraph', () => {
+  it('should remove empty paragraph when the previous block is a box', () => {
     const content = `
     <lake-box type="block" name="hr"></lake-box>
     <p><br /><focus /></p>
@@ -265,7 +265,7 @@ describe('plugin / backspace-key', () => {
     );
   });
 
-  it('should remove empty paragraph before box', () => {
+  it('should remove empty previous paragraph before box', () => {
     const content = `
     <p><br /></p>
     <lake-box type="block" name="hr" focus="left"></lake-box>
@@ -282,13 +282,31 @@ describe('plugin / backspace-key', () => {
     );
   });
 
-  it('should move cursor with paragraph before box', () => {
+  it('should move cursor into the previous paragraph before box', () => {
     const content = `
     <p>foo</p>
     <lake-box type="block" name="hr" focus="left"></lake-box>
     `;
     const output = `
     <p>foo<focus /></p>
+    <lake-box type="block" name="hr"></lake-box>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should move cursor into a box in the previous paragraph before box', () => {
+    const content = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
+    <lake-box type="block" name="hr" focus="left"></lake-box>
+    `;
+    const output = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box></p>
     <lake-box type="block" name="hr"></lake-box>
     `;
     testPlugin(
@@ -356,12 +374,34 @@ describe('plugin / backspace-key', () => {
     );
   });
 
-  it('should remove inline box', () => {
+  it('should merge two blocks that include only inline boxes (1)', () => {
     const content = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus />bar</p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box></p>
     `;
     const output = `
-    <p>foo<focus />bar</p>
+    <p>
+      <lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box>
+    </p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should merge two blocks that include only inline boxes (2)', () => {
+    const content = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
+    <p><focus /><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
+    `;
+    const output = `
+    <p>
+      <lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus /><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>
+    </p>
     `;
     testPlugin(
       content,

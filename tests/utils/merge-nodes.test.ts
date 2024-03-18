@@ -91,6 +91,14 @@ describe('utils / merge-nodes', () => {
     expect(points.offset).to.equal(1);
   });
 
+  it('merges two paragraphs (p-box, p-box) into one paragraph', () => {
+    const container = query('<div><p><lake-box type="inline" name="inlineBox"></lake-box></p><p><lake-box type="inline" name="inlineBox"></lake-box></p></div>');
+    const points = mergeNodes(container.first(), container.last());
+    expect(container.html()).to.equal('<p><lake-box type="inline" name="inlineBox"></lake-box><lake-box type="inline" name="inlineBox"></lake-box></p>');
+    expect(points.node.name).to.equal('p');
+    expect(points.offset).to.equal(1);
+  });
+
   it('merges two list (ul-li, checklist) into one bulleted list', () => {
     const container = query('<div><ul><li>foo</li></ul><ul type="checklist"><li value="true">bar</li></ul></div>');
     const points = mergeNodes(container.first(), container.last());

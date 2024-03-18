@@ -25,6 +25,7 @@
   line-height: 0;
 }
 .lake-image .lake-image-img {
+  box-sizing: border-box;
   border: 1px solid transparent;
   border-radius: 4px;
   width: 100%;

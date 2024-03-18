@@ -8,6 +8,9 @@ export function appendDeepest(element: Nodes, node: Nodes): void {
     while (firstChild.isText && firstChild.isEmpty) {
       firstChild = firstChild.next();
     }
+    if (child.isText || child.isBox) {
+      break;
+    }
     if (child.isElement && child.children().length === 1 && firstChild.isBookmark) {
       child.prepend(node);
       break;
