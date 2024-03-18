@@ -28,7 +28,7 @@ describe('plugin / cut', () => {
       output,
       editor => {
         editor.container.emit('cut', event);
-        expect(dataTransfer.getData('text/html')).to.equal(`<img src="${imageUrl}" />`);
+        expect(dataTransfer.getData('text/html')).to.equal(`<img src="${imageUrl}" data-lake-value="${imageBoxValue}" />`);
       },
     );
   });
