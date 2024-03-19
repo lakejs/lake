@@ -80,34 +80,6 @@ export class History {
           return false;
         }
       },
-      afterNodeAdded: (nativeNode: NativeNode) => {
-        const node = new Nodes(nativeNode);
-        if (node.name === 'lake-box') {
-          new Box(node).render();
-          return;
-        }
-        if (node.isBlock) {
-          node.find('lake-box').each(boxNode => {
-            new Box(boxNode).render();
-          });
-        }
-      },
-      beforeNodeRemoved: (nativeNode: NativeNode) => {
-        const node = new Nodes(nativeNode);
-        if (node.name === 'lake-box') {
-          new Box(node).unmount();
-        }
-        if (node.isBlock) {
-          node.find('lake-box').each(boxNode => {
-            new Box(boxNode).unmount();
-          });
-        }
-      },
-      beforeAttributeUpdated: (attributeName: string, nativeNode: NativeNode) => {
-        if (attributeName === 'value' && new Nodes(nativeNode).name === 'lake-box') {
-          new Box(nativeNode).render();
-        }
-      },
     };
     const container = this.container;
     const otherContainer = sourceItem.clone(true);
@@ -118,6 +90,9 @@ export class History {
     });
     this.removeIdfromBoxes(container);
     this.removeIdfromBoxes(otherContainer);
+    container.find('lake-box').each(boxNode => {
+      new Box(boxNode).render();
+    });
   }
 
   private cloneContainer(): Nodes {
