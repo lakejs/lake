@@ -1,8 +1,36 @@
 import type { Editor } from '..';
 import { mergeNodes } from '../utils';
+import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
 import { removeBox } from '../operations/remove-box';
+
+function mergeWithNextBlock(editor: Editor, block: Nodes): void {
+  const range = editor.selection.range;
+  let nextBlock = block.next();
+  if (nextBlock.length === 0) {
+    editor.history.save();
+    return;
+  }
+  if (nextBlock.isBox) {
+    if (block.isEmpty) {
+      block.remove();
+    }
+    range.selectBoxLeft(nextBlock);
+    editor.history.save();
+    return;
+  }
+  if (!nextBlock.isBlock) {
+    const nextRange = new Range();
+    nextRange.selectNodeContents(nextBlock);
+    setBlocks(nextRange, '<p />');
+    nextBlock = nextBlock.closestBlock();
+  }
+  const bookmark = editor.selection.insertBookmark();
+  mergeNodes(block, nextBlock);
+  editor.selection.toBookmark(bookmark);
+  editor.selection.fixList();
+}
 
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('delete', event => {
@@ -14,6 +42,12 @@ export default (editor: Editor) => {
       const boxNode = range.startNode.closest('lake-box');
       const nextNode = boxNode.next();
       if (nextNode.length === 0) {
+        const block = boxNode.closestBlock();
+        if (block.length > 0 && !block.isContainer) {
+          event.preventDefault();
+          mergeWithNextBlock(editor, block);
+          editor.history.save();
+        }
         return;
       }
       if (nextNode.isBlock) {
@@ -24,6 +58,7 @@ export default (editor: Editor) => {
           editor.history.save();
           return;
         }
+        event.preventDefault();
         range.shrinkBefore(nextNode);
         return;
       }
@@ -62,29 +97,7 @@ export default (editor: Editor) => {
         editor.selection.setBlocks('<p />');
         block = range.getBlocks()[0];
       }
-      let nextBlock = block.next();
-      if (nextBlock.length === 0) {
-        editor.history.save();
-        return;
-      }
-      if (nextBlock.isBox) {
-        if (block.isEmpty) {
-          block.remove();
-        }
-        range.selectBoxLeft(nextBlock);
-        editor.history.save();
-        return;
-      }
-      if (!nextBlock.isBlock) {
-        const nextRange = new Range();
-        nextRange.selectNodeContents(nextBlock);
-        setBlocks(nextRange, '<p />');
-        nextBlock = nextBlock.closestBlock();
-      }
-      const bookmark = editor.selection.insertBookmark();
-      mergeNodes(block, nextBlock);
-      editor.selection.toBookmark(bookmark);
-      editor.selection.fixList();
+      mergeWithNextBlock(editor, block);
       editor.history.save();
     }
   });

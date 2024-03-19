@@ -311,8 +311,8 @@ export class Editor {
   public insertBox(boxName: Parameters<typeof insertBox>[1], boxValue?: Parameters<typeof insertBox>[2]): ReturnType<typeof insertBox> {
     const box = insertBox(this.selection.range, boxName, boxValue);
     if (box) {
-      const map = this.box.getInstances(this);
-      map.set(box.node.id, box);
+      const instanceMap = this.box.getInstances(this);
+      instanceMap.set(box.node.id, box);
     }
     return box;
   }
@@ -321,8 +321,8 @@ export class Editor {
   public removeBox(): ReturnType<typeof removeBox> {
     const box = removeBox(this.selection.range);
     if (box) {
-      const map = this.box.getInstances(this);
-      map.delete(box.node.id);
+      const instanceMap = this.box.getInstances(this);
+      instanceMap.delete(box.node.id);
     }
     return box;
   }
