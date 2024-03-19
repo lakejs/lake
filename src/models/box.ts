@@ -4,6 +4,7 @@ import { NativeNode } from '../types/native';
 import { BoxType, BoxValue } from '../types/box';
 import { boxes } from '../storage/boxes';
 import { editors } from '../storage/editors';
+import { debug } from '../utils/debug';
 import { forEach } from '../utils/for-each';
 import { safeTemplate } from '../utils/safe-template';
 import { encode } from '../utils/encode';
@@ -166,6 +167,7 @@ export class Box {
         effectData[this.node.id].cleanup.push(result);
       }
     }
+    debug(`render box '${this.name}' (id = ${this.node.id})`);
     if (content === undefined) {
       return;
     }

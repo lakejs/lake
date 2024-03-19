@@ -191,6 +191,6 @@ export class History {
       this.index = this.list.length;
     }
     this.event.emit('save', value);
-    debug(`saved history (index = ${this.index})`);
+    debug(`save history (index = ${this.index})`);
   }
 }
