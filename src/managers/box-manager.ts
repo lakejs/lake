@@ -1,16 +1,11 @@
 import type { Editor } from '../editor';
 import { BoxComponent } from '../types/box';
 import { boxes } from '../storage/boxes';
+import { boxInstances } from '../storage/box-instances';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 
 export class BoxManager {
-  private instances: Map<number, Map<number, Box>>;
-
-  constructor() {
-    this.instances = new Map();
-  }
-
   public add(component: BoxComponent) {
     boxes.set(component.name, component);
   }
@@ -24,21 +19,21 @@ export class BoxManager {
   }
 
   public getInstances(editor: Editor): Map<number, Box> {
-    let map = this.instances.get(editor.container.id);
-    if (!map) {
-      map = new Map();
-      this.instances.set(editor.container.id, map);
-      return map;
+    let instanceMap = boxInstances.get(editor.container.id);
+    if (!instanceMap) {
+      instanceMap = new Map();
+      boxInstances.set(editor.container.id, instanceMap);
+      return instanceMap;
     }
-    return map;
+    return instanceMap;
   }
 
   public rectifyInstances(editor: Editor) {
-    const map = this.getInstances(editor);
-    for (const box of map.values()) {
+    const instanceMap = this.getInstances(editor);
+    for (const box of instanceMap.values()) {
       if (!box.node.get(0).isConnected) {
         box.unmount();
-        map.delete(box.node.id);
+        instanceMap.delete(box.node.id);
       }
     }
   }
@@ -48,11 +43,16 @@ export class BoxManager {
   }
 
   public renderAll(editor: Editor): void {
-    const map = this.getInstances(editor);
+    this.rectifyInstances(editor);
+    const instanceMap = this.getInstances(editor);
     this.findAll(editor).each(boxNativeNode => {
-      const box = new Box(boxNativeNode);
+      const boxNode = new Nodes(boxNativeNode);
+      if (instanceMap.get(boxNode.id)) {
+        return;
+      }
+      const box = new Box(boxNode);
       box.render();
-      map.set(box.node.id, box);
+      instanceMap.set(box.node.id, box);
     });
   }
 }

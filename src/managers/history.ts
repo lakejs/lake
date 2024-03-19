@@ -1,6 +1,7 @@
 import md5 from 'blueimp-md5';
 import EventEmitter from 'eventemitter3';
 import { NativeNode } from '../types/native';
+import { boxInstances } from '../storage/box-instances';
 import { debug } from '../utils/debug';
 import { morph } from '../utils/morph';
 import { Nodes } from '../models/nodes';
@@ -73,14 +74,24 @@ export class History {
   }
 
   private morphContainer(sourceItem: Nodes): void {
+    const container = this.container;
     const callbacks = {
       beforeChildrenUpdated: (oldNode: NativeNode) => {
         if (new Nodes(oldNode).name === 'lake-box') {
           return false;
         }
       },
+      afterAttributeUpdated: (attributeName: string, nativeNode: NativeNode) => {
+        const node = new Nodes(nativeNode);
+        if (attributeName === 'value' && node.name === 'lake-box') {
+          const instanceMap = boxInstances.get(container.id);
+          if (!instanceMap) {
+            return;
+          }
+          instanceMap.delete(node.id);
+        }
+      },
     };
-    const container = this.container;
     const otherContainer = sourceItem.clone(true);
     this.addIdToBoxes(container);
     this.addIdToBoxes(otherContainer);

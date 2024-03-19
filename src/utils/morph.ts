@@ -55,6 +55,7 @@ declare type configType = {
     beforeNodeRemoved?: (node: Node) => void | boolean;
     afterNodeRemoved?: (node: Node) => void;
     beforeAttributeUpdated?: (attributeName: string, node: Node, mutationType: string) => void | boolean;
+    afterAttributeUpdated?: (attributeName: string, node: Node, mutationType: string) => void;
     beforeChildrenUpdated?: (oldNode: Node, newNode: Node) => void | boolean;
   };
 };
@@ -76,6 +77,7 @@ const defaults = {
     beforeNodeRemoved: noOp,
     afterNodeRemoved: noOp,
     beforeAttributeUpdated: noOp,
+    afterAttributeUpdated: noOp,
     beforeChildrenUpdated: noOp,
 
   },
@@ -619,6 +621,7 @@ function syncNodeFrom(from: Element, to: Element, ctx: KeyValue) {
       }
       if (to.getAttribute(fromAttribute.name) !== fromAttribute.value) {
         to.setAttribute(fromAttribute.name, fromAttribute.value);
+        ctx.callbacks.afterAttributeUpdated(fromAttribute.name, to, 'update');
       }
     }
     // iterate backwards to avoid skipping over items when a delete occurs
@@ -629,6 +632,7 @@ function syncNodeFrom(from: Element, to: Element, ctx: KeyValue) {
       }
       if (!from.hasAttribute(toAttribute.name)) {
         to.removeAttribute(toAttribute.name);
+        ctx.callbacks.afterAttributeUpdated(toAttribute.name, to, 'remove');
       }
     }
   }
