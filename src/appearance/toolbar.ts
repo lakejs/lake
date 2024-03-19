@@ -335,7 +335,7 @@ export class Toolbar {
     fileNode.on('change', () => {
       const files = fileNativeNode.files || [];
       for (const file of files) {
-        const imageBox = editor.selection.insertBox('image', {
+        const imageBox = editor.insertBox('image', {
           url: URL.createObjectURL(file),
           status: 'uploading',
           name: file.name,

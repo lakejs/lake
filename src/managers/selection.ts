@@ -15,8 +15,6 @@ import { splitMarks } from '../operations/split-marks';
 import { addMark } from '../operations/add-mark';
 import { removeMark } from '../operations/remove-mark';
 import { fixList } from '../operations/fix-list';
-import { insertBox } from '../operations/insert-box';
-import { removeBox } from '../operations/remove-box';
 import { insertLink } from '../operations/insert-link';
 
 // Returns the attributes of the element as an key-value object.
@@ -209,14 +207,6 @@ export class Selection {
 
   public fixList(): ReturnType<typeof fixList> {
     return fixList(this.range);
-  }
-
-  public insertBox(boxName: Parameters<typeof insertBox>[1], boxValue?: Parameters<typeof insertBox>[2]): ReturnType<typeof insertBox> {
-    return insertBox(this.range, boxName, boxValue);
-  }
-
-  public removeBox(): ReturnType<typeof removeBox> {
-    return removeBox(this.range);
   }
 
   public insertLink(value: Parameters<typeof insertLink>[1]): ReturnType<typeof insertLink> {

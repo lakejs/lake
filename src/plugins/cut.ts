@@ -22,7 +22,7 @@ export default (editor: Editor) => {
     const box = new Box(boxNode);
     const content = box.getHTML();
     dataTransfer.setData('text/html', content);
-    editor.selection.removeBox();
+    editor.removeBox();
     editor.history.save();
   });
 };

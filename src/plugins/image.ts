@@ -23,7 +23,7 @@ export default (editor: Editor) => {
     });
   });
   editor.command.add('image', (value: BoxValue) => {
-    editor.selection.insertBox('image', value);
+    editor.insertBox('image', value);
     editor.history.save();
   });
 };

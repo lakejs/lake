@@ -2,7 +2,7 @@ import { type Editor } from '..';
 
 export default (editor: Editor) => {
   editor.command.add('codeBlock', () => {
-    const box = editor.selection.insertBox('codeBlock');
+    const box = editor.insertBox('codeBlock');
     if (!box) {
       return;
     }

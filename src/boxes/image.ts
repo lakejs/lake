@@ -330,7 +330,7 @@ export const imageBox: BoxComponent = {
           xhr.abort();
         }
         editor.selection.range.selectBox(box.node);
-        editor.selection.removeBox();
+        editor.removeBox();
         editor.history.save();
       });
     });

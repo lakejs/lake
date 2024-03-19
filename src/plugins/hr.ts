@@ -13,7 +13,7 @@ export default (editor: Editor) => {
     });
   });
   editor.command.add('hr', () => {
-    editor.selection.insertBox('hr');
+    editor.insertBox('hr');
     editor.history.save();
   });
 };

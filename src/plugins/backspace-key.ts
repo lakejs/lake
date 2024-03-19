@@ -72,7 +72,7 @@ export default (editor: Editor) => {
     }
     if (range.isBox) {
       event.preventDefault();
-      editor.selection.removeBox();
+      editor.removeBox();
       editor.history.save();
       return;
     }

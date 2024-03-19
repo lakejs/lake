@@ -35,7 +35,7 @@ function addBlockOrSplitBlockForBox(editor: Editor): void {
       range.collapseToStart();
       splitBlock(editor, block);
     } else {
-      editor.selection.removeBox();
+      editor.removeBox();
     }
     return;
   }
@@ -46,7 +46,7 @@ function addBlockOrSplitBlockForBox(editor: Editor): void {
     boxNode.after(newBlock);
     range.shrinkAfter(newBlock);
   } else {
-    editor.selection.removeBox();
+    editor.removeBox();
   }
 }
 

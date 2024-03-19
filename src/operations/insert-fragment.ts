@@ -1,3 +1,4 @@
+import { removeBr } from '../utils/remove-br';
 import { Range } from '../models/range';
 import { deleteContents } from './delete-contents';
 import { insertBookmark } from './insert-bookmark';
@@ -13,6 +14,8 @@ export function insertFragment(range: Range, fragment: DocumentFragment): void {
   } else {
     deleteContents(range);
   }
+  const block = range.startNode.closestBlock();
+  removeBr(block);
   const bookmark = insertBookmark(range);
   bookmark.focus.before(fragment);
   toBookmark(range, bookmark);

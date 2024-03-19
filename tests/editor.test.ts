@@ -99,6 +99,34 @@ describe('editor', () => {
     expect(value).to.equal(output);
   });
 
+  it('method: insertBox', () => {
+    const output = '<p><lake-box type="inline" name="inlineBox" focus="right"></lake-box></p>';
+    const editor = new Editor(targetNode);
+    editor.render();
+    expect(editor.box.getInstances(editor).size).to.equal(0);
+    editor.insertBox('inlineBox');
+    expect(editor.box.getInstances(editor).size).to.equal(1);
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+  });
+
+  it('method: removeBox', () => {
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
+    const output = '<p>foo<focus />bar</p>';
+    const editor = new Editor(targetNode);
+    editor.render();
+    editor.setValue(input);
+    expect(editor.box.getInstances(editor).size).to.equal(1);
+    editor.removeBox();
+    expect(editor.box.getInstances(editor).size).to.equal(0);
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+  });
+
   it('method: innerWidth', () => {
     const editor = new Editor(targetNode);
     editor.render();

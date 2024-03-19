@@ -83,7 +83,7 @@ export function testBox(
     defaultValue: '<p><br /><focus /></p>',
   });
   editor.render();
-  const box = editor.selection.insertBox(name, value);
+  const box = editor.insertBox(name, value);
   if (callback && box) {
     callback(box, editor);
   }

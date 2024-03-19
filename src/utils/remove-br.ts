@@ -2,6 +2,9 @@ import type { Nodes } from '../models/nodes';
 
 // Removes The <br /> element in the specified block which is empty.
 export function removeBr(block: Nodes): void {
+  if (block.length === 0) {
+    return;
+  }
   const nodeList: Nodes[] = [];
   let child = block.first();
   while (child.length > 0) {

@@ -2,13 +2,13 @@ import { appendDeepest, query } from '../utils';
 import { Range } from '../models/range';
 import { Box } from '../models/box';
 
-export function removeBox(range: Range): void {
+export function removeBox(range: Range): Box | null {
   if (range.commonAncestor.isOutside) {
-    return;
+    return null;
   }
   const boxNode = range.commonAncestor.closest('lake-box');
   if (boxNode.length === 0) {
-    return;
+    return null;
   }
   const box = new Box(boxNode);
   if (box.type === 'block') {
@@ -17,7 +17,7 @@ export function removeBox(range: Range): void {
     range.shrinkAfter(paragraph);
     box.unmount();
     boxNode.remove();
-    return;
+    return box;
   }
   range.setStartBefore(boxNode);
   range.collapseToStart();
@@ -28,4 +28,5 @@ export function removeBox(range: Range): void {
     appendDeepest(parentNode, query('<br />'));
     range.shrinkAfter(parentNode);
   }
+  return box;
 }

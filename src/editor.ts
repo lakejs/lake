@@ -7,6 +7,8 @@ import { denormalizeValue, forEach, normalizeValue, query } from './utils';
 import { Nodes } from './models/nodes';
 import { Box } from './models/box';
 import { HTMLParser } from './parsers/html-parser';
+import { insertBox } from './operations/insert-box';
+import { removeBox } from './operations/remove-box';
 import { Selection } from './managers/selection';
 import { Command } from './managers/command';
 import { History } from './managers/history';
@@ -242,9 +244,11 @@ export class Editor {
 
   private bindHistoryEvents(): void {
     this.history.event.on('undo', value => {
+      this.box.renderAll(this);
       this.event.emit('change', value);
     });
     this.history.event.on('redo', value => {
+      this.box.renderAll(this);
       this.event.emit('change', value);
     });
     this.history.event.on('save', value => {
@@ -300,6 +304,26 @@ export class Editor {
     value = denormalizeValue(value);
     this.selection.toBookmark(bookmark);
     return value;
+  }
+
+  // Inserts a box into the position of the selection.
+  public insertBox(boxName: Parameters<typeof insertBox>[1], boxValue?: Parameters<typeof insertBox>[2]): ReturnType<typeof insertBox> {
+    const box = insertBox(this.selection.range, boxName, boxValue);
+    if (box) {
+      const map = this.box.getInstances(this);
+      map.set(box.node.id, box);
+    }
+    return box;
+  }
+
+  // Removes the selected box.
+  public removeBox(): ReturnType<typeof removeBox> {
+    const box = removeBox(this.selection.range);
+    if (box) {
+      const map = this.box.getInstances(this);
+      map.delete(box.node.id);
+    }
+    return box;
   }
 
   // Returns the interior width of the editor area, which does not include padding.

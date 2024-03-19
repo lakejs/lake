@@ -11,7 +11,7 @@ function addBlockForBox(editor: Editor) {
     boxNode.after(newBlock);
     range.shrinkAfter(newBlock);
   } else {
-    editor.selection.removeBox();
+    editor.removeBox();
   }
 }
 

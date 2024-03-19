@@ -79,7 +79,7 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
         range.setStartAfter(boxNode);
         range.collapseToStart();
       } else {
-        editor.selection.removeBox();
+        editor.removeBox();
       }
     } else {
       const paragraph = query('<p />');
@@ -90,7 +90,7 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
         boxNode.after(paragraph);
         range.shrinkAfter(paragraph);
       } else {
-        editor.selection.removeBox();
+        editor.removeBox();
       }
     }
   }
@@ -98,7 +98,7 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
   if (otherNode.isBlockBox) {
     const box = new Box(otherNode);
     const value = otherNode.attr('value') !== '' ? box.value : undefined;
-    editor.selection.insertBox(box.name, value);
+    editor.insertBox(box.name, value);
     otherNode.remove();
     return;
   }

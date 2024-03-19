@@ -4,7 +4,6 @@ import { NativeNode } from '../types/native';
 import { debug } from '../utils/debug';
 import { morph } from '../utils/morph';
 import { Nodes } from '../models/nodes';
-import { Box } from '../models/box';
 import { HTMLParser } from '../parsers/html-parser';
 import { insertBookmark } from '../operations/insert-bookmark';
 import { Selection } from './selection';
@@ -90,9 +89,6 @@ export class History {
     });
     this.removeIdfromBoxes(container);
     this.removeIdfromBoxes(otherContainer);
-    container.find('lake-box').each(boxNode => {
-      new Box(boxNode).render();
-    });
   }
 
   private cloneContainer(): Nodes {
