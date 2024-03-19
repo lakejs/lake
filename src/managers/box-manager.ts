@@ -54,6 +54,5 @@ export class BoxManager {
       box.render();
       map.set(box.node.id, box);
     });
-    this.rectifyInstances(editor);
   }
 }

@@ -245,13 +245,16 @@ export class Editor {
   private bindHistoryEvents(): void {
     this.history.event.on('undo', value => {
       this.box.renderAll(this);
+      this.box.rectifyInstances(this);
       this.event.emit('change', value);
     });
     this.history.event.on('redo', value => {
       this.box.renderAll(this);
+      this.box.rectifyInstances(this);
       this.event.emit('change', value);
     });
     this.history.event.on('save', value => {
+      this.box.rectifyInstances(this);
       this.event.emit('change', value);
     });
   }
