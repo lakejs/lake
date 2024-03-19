@@ -31,7 +31,8 @@
   width: 100%;
   height: 100%;
 }
-lake-box[name="image"] .lake-box-selected .lake-image-img {
+lake-box[name="image"] .lake-box-selected .lake-image-img,
+lake-box[name="image"] .lake-box-focused .lake-image-img {
   border-color: var(--link-color);
 }
 .lake-image .lake-button-group {
@@ -48,7 +49,7 @@ lake-box[name="image"] .lake-box-selected .lake-image-img {
   display: none;
 }
 lake-box[name="image"] .lake-box-hovered .lake-button-group,
-lake-box[name="image"] .lake-box-selected .lake-button-group {
+lake-box[name="image"] .lake-box-focused .lake-button-group {
   display: flex;
 }
 .lake-image .lake-button-group button {
@@ -104,7 +105,8 @@ lake-box[name="image"] .lake-box-selected .lake-button-group {
   border: 1px solid var(--border-color);
   border-radius: 4px;
 }
-lake-box[name="image"] .lake-box-selected .lake-error {
+lake-box[name="image"] .lake-box-selected .lake-error,
+lake-box[name="image"] .lake-box-focused .lake-error {
   border-color: var(--link-color);
 }
 .lake-image .lake-error-icon {

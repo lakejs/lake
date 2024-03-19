@@ -147,9 +147,11 @@ describe('editor', () => {
     const boxContainer = box.getContainer();
     window.setTimeout(() => {
       const isActivated = boxContainer.hasClass('lake-box-activated');
+      const isFocused = boxContainer.hasClass('lake-box-focused');
       const isSelected = boxContainer.hasClass('lake-box-selected');
       editor.unmount();
       expect(isActivated).to.equal(false);
+      expect(isFocused).to.equal(false);
       expect(isSelected).to.equal(false);
       done();
     }, 0);
@@ -167,9 +169,33 @@ describe('editor', () => {
     range.selectNodeContents(boxContainer);
     window.setTimeout(() => {
       const isActivated = boxContainer.hasClass('lake-box-activated');
+      const isFocused = boxContainer.hasClass('lake-box-focused');
       const isSelected = boxContainer.hasClass('lake-box-selected');
       editor.unmount();
       expect(isActivated).to.equal(true);
+      expect(isFocused).to.equal(false);
+      expect(isSelected).to.equal(false);
+      done();
+    }, 100);
+  });
+
+  it('selection event: should have focused class', done => {
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
+    const editor = new Editor(targetNode);
+    editor.render();
+    editor.setValue(input);
+    const range = editor.selection.range;
+    const boxNode = editor.container.find('lake-box');
+    const box = new Box(boxNode);
+    const boxContainer = box.getContainer();
+    range.selectBox(boxNode);
+    window.setTimeout(() => {
+      const isActivated = boxContainer.hasClass('lake-box-activated');
+      const isFocused = boxContainer.hasClass('lake-box-focused');
+      const isSelected = boxContainer.hasClass('lake-box-selected');
+      editor.unmount();
+      expect(isActivated).to.equal(false);
+      expect(isFocused).to.equal(true);
       expect(isSelected).to.equal(false);
       done();
     }, 100);
@@ -184,12 +210,14 @@ describe('editor', () => {
     const boxNode = editor.container.find('lake-box');
     const box = new Box(boxNode);
     const boxContainer = box.getContainer();
-    range.selectBox(boxNode);
+    range.selectNodeContents(editor.container);
     window.setTimeout(() => {
       const isActivated = boxContainer.hasClass('lake-box-activated');
+      const isFocused = boxContainer.hasClass('lake-box-focused');
       const isSelected = boxContainer.hasClass('lake-box-selected');
       editor.unmount();
       expect(isActivated).to.equal(false);
+      expect(isFocused).to.equal(false);
       expect(isSelected).to.equal(true);
       done();
     }, 100);

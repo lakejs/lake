@@ -9,7 +9,8 @@ lake-box[name="hr"] .lake-box-container {
 lake-box[name="hr"] .lake-box-hovered {
   background-color: var(--background-hover-color);
 }
-lake-box[name="hr"] .lake-box-selected {
+lake-box[name="hr"] .lake-box-selected,
+lake-box[name="hr"] .lake-box-focused {
   background-color: var(--selection-background-color);
 }
 lake-box[name="hr"] .lake-box-container hr {

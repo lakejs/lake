@@ -114,16 +114,24 @@ export class Editor {
         if (range.compareBeforeNode(boxContainer) < 0 && range.compareAfterNode(boxContainer) > 0) {
           if (!(range.isCollapsed && range.startNode.get(0) === boxContainer.get(0) && range.startOffset === 0)) {
             boxContainer.removeClass('lake-box-selected');
+            boxContainer.removeClass('lake-box-focused');
             boxContainer.addClass('lake-box-activated');
             return;
           }
         }
         if (clonedRange.intersectsNode(box.node)) {
           boxContainer.removeClass('lake-box-activated');
-          boxContainer.addClass('lake-box-selected');
+          if (range.isCollapsed) {
+            boxContainer.removeClass('lake-box-selected');
+            boxContainer.addClass('lake-box-focused');
+          } else {
+            boxContainer.removeClass('lake-box-focused');
+            boxContainer.addClass('lake-box-selected');
+          }
           return;
         }
         boxContainer.removeClass('lake-box-activated');
+        boxContainer.removeClass('lake-box-focused');
         boxContainer.removeClass('lake-box-selected');
       });
     }, 50, {

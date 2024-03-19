@@ -4,7 +4,8 @@ lake-box[name="codeBlock"] {
 lake-box[name="codeBlock"] .lake-box-container {
   border: 1px solid var(--border-color);
 }
-lake-box[name="codeBlock"] .lake-box-selected {
+lake-box[name="codeBlock"] .lake-box-selected,
+lake-box[name="codeBlock"] .lake-box-focused {
   border-color: var(--link-color);
 }
 lake-box[name="codeBlock"] .lake-box-activated {
