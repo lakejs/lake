@@ -724,6 +724,22 @@ describe('plugin / paste', () => {
     );
   });
 
+  it('pastes content with image box which was rendered', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <p>foo</p><p><lake-box type="block" name="image" value="${imageBoxValue}"></lake-box></p><p>bar<focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', `<p>foo</p><p><lake-box type="block" name="image" value="${imageBoxValue}"><span></span><div class="lake-box-container"><div>box</div></div><span></span></lake-box></p><p>bar</p>`);
+      },
+    );
+  });
+
   it('pastes image element into a paragraph', () => {
     const content = `
     <p>f<focus />oo</p>

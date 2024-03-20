@@ -1,7 +1,7 @@
 import type { Editor } from '..';
 import { blockTagNames } from '../config/tag-names';
 import { getElementRules } from '../config/element-rules';
-import { forEach, wrapNodeList, changeTagName, fixNumberedList, removeBr, query } from '../utils';
+import { forEach, wrapNodeList, changeTagName, fixNumberedList, removeBr, query, normalizeValue } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { HTMLParser } from '../parsers/html-parser';
@@ -186,7 +186,7 @@ export default (editor: Editor) => {
       pasteFragment(editor, fragment);
       return;
     }
-    const content = dataTransfer.getData('text/html');
+    const content = normalizeValue(dataTransfer.getData('text/html'));
     const rules = getPasteElementRules();
     const htmlParser = new HTMLParser(content, rules);
     const fragment = htmlParser.getFragment();
