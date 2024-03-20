@@ -7,7 +7,7 @@ describe('plugin / shift-enter-key', () => {
     <p>f<focus />oo</p>
     `;
     const output = `
-    <p>f<br />\u200B<focus />oo</p>
+    <p>f<br /><focus />oo</p>
     `;
     testPlugin(
       content,
@@ -18,12 +18,28 @@ describe('plugin / shift-enter-key', () => {
     );
   });
 
-  it('the focus is at the end of the text', () => {
+  it('the focus is at the end of the text (1)', () => {
     const content = `
     <p>foo<focus /></p>
     `;
     const output = `
-    <p>foo<br />\u200B<focus /></p>
+    <p>foo<br /><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('shift+enter');
+      },
+    );
+  });
+
+  it('the focus is at the end of the text (2)', () => {
+    const content = `
+    <p>foo<br /><br /><focus /></p>
+    `;
+    const output = `
+    <p>foo<br /><br /><br /><focus /></p>
     `;
     testPlugin(
       content,
@@ -75,7 +91,7 @@ describe('plugin / shift-enter-key', () => {
     `;
     const output = `
     <lake-box type="block" name="hr"></lake-box>
-    <p><br />\u200B<focus />foo</p>
+    <p><br /><focus />foo</p>
     `;
     testPlugin(
       content,

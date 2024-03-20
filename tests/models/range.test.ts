@@ -598,7 +598,7 @@ describe('models / range', () => {
     const range = new Range();
     range.setStart(container.find('strong').next(), 1);
     const prevNode = range.getPrevNode();
-    expect(prevNode.length).to.equal(0);
+    expect(prevNode.text()).to.equal('bar');
   });
 
   it('getPrevNode method: startNode is an element', () => {
@@ -622,7 +622,7 @@ describe('models / range', () => {
     const range = new Range();
     range.setEnd(container.find('strong').prev(), 1);
     const nextNode = range.getNextNode();
-    expect(nextNode.length).to.equal(0);
+    expect(nextNode.text()).to.equal('foo');
   });
 
   it('getNextNode method: endNode is an element', () => {

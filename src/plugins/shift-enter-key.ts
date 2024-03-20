@@ -33,7 +33,17 @@ export default (editor: Editor) => {
       editor.history.save();
       return;
     }
-    editor.selection.insertContents('<br />\u200B');
+    const block = range.startNode.closestBlock();
+    if (block.length > 0 && !block.isContainer) {
+      const prevNode = range.getPrevNode();
+      const nextNode = range.getNextNode();
+      if (prevNode.name !== 'br' && nextNode.length === 0) {
+        editor.selection.insertContents('<br /><br />');
+        editor.history.save();
+        return;
+      }
+    }
+    editor.selection.insertContents('<br />');
     editor.history.save();
   });
 };

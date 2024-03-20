@@ -383,6 +383,8 @@ export class Range {
     if (this.startNode.isText) {
       if (this.startOffset === 0) {
         prevNode = this.startNode.prev();
+      } else {
+        prevNode = this.startNode;
       }
     } else {
       prevNode = this.startNode.children()[this.startOffset - 1];
@@ -396,6 +398,8 @@ export class Range {
     if (this.endNode.isText) {
       if (this.endOffset === this.endNode.text().length) {
         nextNode = this.endNode.next();
+      } else {
+        nextNode = this.endNode;
       }
     } else {
       nextNode = this.endNode.children()[this.endOffset];
