@@ -116,6 +116,14 @@ export default (editor: Editor) => {
       }
       mergeWithPreviousBlock(editor, block);
       editor.history.save();
+      return;
+    }
+    if (prevNode.name === 'br') {
+      event.preventDefault();
+      range.setStartBefore(prevNode);
+      range.collapseToStart();
+      prevNode.remove();
+      editor.history.save();
     }
   });
 };

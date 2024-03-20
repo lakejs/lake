@@ -448,6 +448,24 @@ describe('plugin / backspace-key', () => {
     );
   });
 
+  it('should remove br', () => {
+    const content = `
+    <p>foo</p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><br /><focus /></p>
+    `;
+    const output = `
+    <p>foo</p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
   it('should remove the previous inline box when focus is at the beginning of an inline box', () => {
     const content = `
     <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box></p>

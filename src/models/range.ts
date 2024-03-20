@@ -512,6 +512,9 @@ export class Range {
     const container = query('<div />');
     container.append(leftRange.cloneContents());
     const text = container.text();
+    if (text === '' && container.find('lake-box').length > 0) {
+      return '\u200B';
+    }
     return text;
   }
 
@@ -533,6 +536,9 @@ export class Range {
     const container = query('<div />');
     container.append(rightRange.cloneContents());
     const text = container.text();
+    if (text === '' && container.find('lake-box').length > 0) {
+      return '\u200B';
+    }
     return text;
   }
 

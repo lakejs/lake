@@ -304,6 +304,24 @@ describe('plugin / delete-key', () => {
     );
   });
 
+  it('should remove br', () => {
+    const content = `
+    <p>foo</p>
+    <p><focus /><br /><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
+    `;
+    const output = `
+    <p>foo</p>
+    <p><focus /><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('delete');
+      },
+    );
+  });
+
   it('should remove the next inline box when focus is at the end of an inline box', () => {
     const content = `
     <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>

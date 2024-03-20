@@ -97,6 +97,14 @@ export default (editor: Editor) => {
       }
       mergeWithNextBlock(editor, block);
       editor.history.save();
+      return;
+    }
+    if (nextNode.name === 'br') {
+      event.preventDefault();
+      range.setStartBefore(nextNode);
+      range.collapseToStart();
+      nextNode.remove();
+      editor.history.save();
     }
   });
 };
