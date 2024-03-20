@@ -31,6 +31,22 @@ export const defaultValue = `
 <h6>Heading level 6</h6>
 <p><br /></p>
 
+<h3>Line break</h3>
+<lake-box type="block" name="hr"></lake-box>
+<p>The <code>&lt;br /&gt;</code> tag represents a line break in text.</p>
+<p><br /></p>
+<p>
+  O’er all the hilltops<br />
+  Is quiet now,<br />
+  In all the treetops<br />
+  Hearest thou<br />
+  Hardly a breath;<br />
+  The birds are asleep in the trees:<br />
+  Wait, soon like these<br />
+  Thou too shalt rest.
+</p>
+<p><br /></p>
+
 <h3>Block quotation</h3>
 <lake-box type="block" name="hr"></lake-box>
 <p>The <code>&lt;blockquote&gt;</code> tag represents a block quotation.</p>
