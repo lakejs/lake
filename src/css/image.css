@@ -71,6 +71,7 @@ lake-box[name="image"] .lake-box-focused .lake-button-group {
   margin: 6px;
 }
 .lake-image .lake-resizer {
+  user-select: none;
   display: none;
 }
 lake-box[name="image"] .lake-box-focused .lake-resizer {

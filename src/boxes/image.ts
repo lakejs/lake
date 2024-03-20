@@ -1,7 +1,7 @@
 import 'photoswipe/style.css';
 import PhotoSwipeLightbox, { DataSource } from 'photoswipe/lightbox';
 import PhotoSwipe from 'photoswipe';
-import { NativeHTMLElement } from '../types/native';
+import { NativeElement, NativeHTMLElement } from '../types/native';
 import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
 import { query } from '../utils/query';
@@ -14,6 +14,60 @@ type ImageInfo = {
   width?: number;
   height?: number;
 };
+
+function bindResizerEvents(pointerNode: Nodes, box: Box): void {
+  const editor = box.getEditor();
+  if (!editor) {
+    return;
+  }
+  const boxContainer = box.getContainer();
+  const isPlus = pointerNode.attr('class').indexOf('-right') >= 0;
+  const initialWidth = boxContainer.width();
+  const initialHeight = boxContainer.height();
+  const rate = initialHeight / initialWidth;
+  let clientX = 0;
+  let width = 0;
+  // resizing box
+  const pointermoveListener = (event: Event) => {
+    const pointerEvent = event as PointerEvent;
+    const diffX = pointerEvent.clientX - clientX;
+    const newWidth = isPlus ? width + diffX : width - diffX;
+    const newHeight = rate * newWidth;
+    boxContainer.css({
+      width: `${newWidth}px`,
+      height: `${newHeight}px`,
+    });
+  };
+  // start resizing
+  const pointerdownListener = (event: Event) => {
+    const pointerEvent = event as PointerEvent;
+    const pointerNativeNode = pointerNode.get(0) as NativeElement;
+    // The capture will be implicitly released after a pointerup or pointercancel event.
+    // https://developer.mozilla.org/en-US/docs/Web/API/Element/setPointerCapture
+    pointerNativeNode.setPointerCapture(pointerEvent.pointerId);
+    clientX = pointerEvent.clientX;
+    width = boxContainer.width();
+    pointerNode.on('pointermove', pointermoveListener);
+  };
+  // stop resizing
+  const pointerupListner = () => {
+    pointerNode.off('pointermove');
+    width = box.getContainer().width();
+    const height = rate * width;
+    box.updateValue({
+      width,
+      height,
+    });
+    editor.history.save();
+  };
+  // cancel resizing
+  const pointercancelListner = () => {
+    pointerNode.off('pointermove');
+  };
+  pointerNode.on('pointerdown', pointerdownListener);
+  pointerNode.on('pointerup', pointerupListner);
+  pointerNode.on('pointercancel', pointercancelListner);
+}
 
 // Loads an image and get its width and height.
 async function getImageInfo(url: string): Promise<ImageInfo> {
@@ -217,6 +271,7 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
   const imgNode = imageInfo.node;
   imageInfo.node.addClass('lake-image-img');
   imgNode.attr({
+    draggable: 'false',
     alt: value.name,
   });
   root.append(buttonGroupNode);
@@ -281,8 +336,13 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
   const imgNode = imageInfo.node;
   imgNode.addClass('lake-image-img');
   imgNode.attr({
+    draggable: 'false',
     alt: value.name,
   });
+  bindResizerEvents(resizerNode.find('.lake-resizer-top-left'), box);
+  bindResizerEvents(resizerNode.find('.lake-resizer-top-right'), box);
+  bindResizerEvents(resizerNode.find('.lake-resizer-bottom-left'), box);
+  bindResizerEvents(resizerNode.find('.lake-resizer-bottom-right'), box);
   root.append(buttonGroupNode);
   root.append(resizerNode);
   root.append(imgNode);
