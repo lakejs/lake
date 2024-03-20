@@ -1,9 +1,39 @@
 import type { Editor } from '..';
 import { query } from '../utils';
 
-function addBlockForBox(editor: Editor) {
+function addLineBreak(editor: Editor): void {
+  const range = editor.selection.range;
+  const block = range.startNode.closestBlock();
+  if (block.length > 0 && !block.isContainer) {
+    const prevNode = range.getPrevNode();
+    const nextNode = range.getNextNode();
+    if (prevNode.name !== 'br' && nextNode.length === 0) {
+      editor.selection.insertContents('<br /><br />');
+      editor.history.save();
+      return;
+    }
+  }
+  editor.selection.insertContents('<br />');
+}
+
+function addBlockOrLineBreakForBox(editor: Editor): void {
   const range = editor.selection.range;
   const boxNode = range.startNode.closest('lake-box');
+  const block = boxNode.closestBlock();
+  if (block.length > 0 && !block.isContainer) {
+    if (range.isBoxLeft) {
+      range.setStartBefore(boxNode);
+      range.collapseToStart();
+      addLineBreak(editor);
+    } else if (range.isBoxRight) {
+      range.setStartAfter(boxNode);
+      range.collapseToStart();
+      addLineBreak(editor);
+    } else {
+      editor.removeBox();
+    }
+    return;
+  }
   const newBlock = query('<p><br /></p>');
   if (range.isBoxLeft) {
     boxNode.before(newBlock);
@@ -23,27 +53,17 @@ export default (editor: Editor) => {
     }
     event.preventDefault();
     if (range.isBox) {
-      addBlockForBox(editor);
+      addBlockOrLineBreakForBox(editor);
       editor.history.save();
       return;
     }
     range.adapt();
     if (range.isBox) {
-      addBlockForBox(editor);
+      addBlockOrLineBreakForBox(editor);
       editor.history.save();
       return;
     }
-    const block = range.startNode.closestBlock();
-    if (block.length > 0 && !block.isContainer) {
-      const prevNode = range.getPrevNode();
-      const nextNode = range.getNextNode();
-      if (prevNode.name !== 'br' && nextNode.length === 0) {
-        editor.selection.insertContents('<br /><br />');
-        editor.history.save();
-        return;
-      }
-    }
-    editor.selection.insertContents('<br />');
+    addLineBreak(editor);
     editor.history.save();
   });
 };
