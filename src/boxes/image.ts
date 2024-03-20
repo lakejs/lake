@@ -21,6 +21,8 @@ function bindResizerEvents(pointerNode: Nodes, box: Box): void {
     return;
   }
   const boxContainer = box.getContainer();
+  const resizerNode = pointerNode.closest('.lake-resizer');
+  const infoNode = resizerNode.find('.lake-resizer-info');
   const isPlus = pointerNode.attr('class').indexOf('-right') >= 0;
   const initialWidth = boxContainer.width();
   const initialHeight = boxContainer.height();
@@ -31,12 +33,13 @@ function bindResizerEvents(pointerNode: Nodes, box: Box): void {
   const pointermoveListener = (event: Event) => {
     const pointerEvent = event as PointerEvent;
     const diffX = pointerEvent.clientX - clientX;
-    const newWidth = isPlus ? width + diffX : width - diffX;
-    const newHeight = rate * newWidth;
+    const newWidth = Math.round(isPlus ? width + diffX : width - diffX);
+    const newHeight = Math.round(rate * newWidth);
     boxContainer.css({
       width: `${newWidth}px`,
       height: `${newHeight}px`,
     });
+    infoNode.text(`${newWidth} x ${newHeight}`);
   };
   // start resizing
   const pointerdownListener = (event: Event) => {
@@ -47,13 +50,15 @@ function bindResizerEvents(pointerNode: Nodes, box: Box): void {
     pointerNativeNode.setPointerCapture(pointerEvent.pointerId);
     clientX = pointerEvent.clientX;
     width = boxContainer.width();
+    infoNode.show();
     pointerNode.on('pointermove', pointermoveListener);
   };
   // stop resizing
   const pointerupListner = () => {
     pointerNode.off('pointermove');
+    infoNode.hide();
     width = box.getContainer().width();
-    const height = rate * width;
+    const height = Math.round(rate * width);
     box.updateValue({
       width,
       height,
@@ -63,6 +68,7 @@ function bindResizerEvents(pointerNode: Nodes, box: Box): void {
   // cancel resizing
   const pointercancelListner = () => {
     pointerNode.off('pointermove');
+    infoNode.hide();
   };
   pointerNode.on('pointerdown', pointerdownListener);
   pointerNode.on('pointerup', pointerupListner);
@@ -295,7 +301,7 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
   let height = value.height;
   if (!width || !height) {
     const maxWidth = editor.innerWidth() - 2;
-    width = imageInfo.width < maxWidth ? imageInfo.width : maxWidth;
+    width = Math.round(imageInfo.width < maxWidth ? imageInfo.width : maxWidth);
     height = Math.round(width * imageInfo.height / imageInfo.width);
     box.updateValue({
       width,
@@ -331,6 +337,7 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
       <div class="lake-resizer-top-right"></div>
       <div class="lake-resizer-bottom-left"></div>
       <div class="lake-resizer-bottom-right"></div>
+      <div class="lake-resizer-info">${width} x ${height}</div>
     </div>
   `);
   const imgNode = imageInfo.node;

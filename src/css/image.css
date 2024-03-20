@@ -111,6 +111,20 @@ lake-box[name="image"] .lake-box-focused .lake-resizer {
   right: -5px;
   cursor: nwse-resize;
 }
+.lake-image .lake-resizer-info {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  z-index: 1;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .4);
+  padding: 2px 8px;
+  font-size: 14px;
+  line-height: normal;
+  color: #fff;
+  white-space: nowrap;
+  display: none;
+}
 /* uploading status */
 .lake-image-uploading .lake-image-img {
   opacity: 0.5;
