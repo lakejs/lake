@@ -270,12 +270,21 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
   if (removeIcon) {
     removeButton.append(removeIcon);
   }
+  const resizerNode = query(safeTemplate`
+    <div class="lake-resizer">
+      <div class="lake-resizer-top-left"></div>
+      <div class="lake-resizer-top-right"></div>
+      <div class="lake-resizer-bottom-left"></div>
+      <div class="lake-resizer-bottom-right"></div>
+    </div>
+  `);
   const imgNode = imageInfo.node;
   imgNode.addClass('lake-image-img');
   imgNode.attr({
     alt: value.name,
   });
   root.append(buttonGroupNode);
+  root.append(resizerNode);
   root.append(imgNode);
 }
 
