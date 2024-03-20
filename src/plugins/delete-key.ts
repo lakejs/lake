@@ -3,7 +3,6 @@ import { mergeNodes } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
-import { removeBox } from '../operations/remove-box';
 
 function mergeWithNextBlock(editor: Editor, block: Nodes): void {
   const range = editor.selection.range;
@@ -63,7 +62,6 @@ export default (editor: Editor) => {
         return;
       }
       range.adaptBox();
-      return;
     }
     if (range.isBox) {
       event.preventDefault();
@@ -84,8 +82,8 @@ export default (editor: Editor) => {
     const nextNode = range.getNextNode();
     if (nextNode.isBox) {
       event.preventDefault();
-      range.selectBoxRight(nextNode);
-      removeBox(range);
+      range.selectBox(nextNode);
+      editor.removeBox();
       editor.history.save();
       return;
     }

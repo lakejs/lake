@@ -304,6 +304,22 @@ describe('plugin / delete-key', () => {
     );
   });
 
+  it('should remove the next inline box when focus is at the end of an inline box', () => {
+    const content = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
+    `;
+    const output = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('delete');
+      },
+    );
+  });
+
   it('should keep empty paragraph after removing all content', () => {
     const content = `
     <anchor /><p>foo</p><focus />

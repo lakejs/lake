@@ -23,8 +23,6 @@ import { splitMarks} from './operations/split-marks';
 import { addMark} from './operations/add-mark';
 import { removeMark} from './operations/remove-mark';
 import { fixList} from './operations/fix-list';
-import { insertBox} from './operations/insert-box';
-import { removeBox} from './operations/remove-box';
 import { insertLink } from './operations/insert-link';
 import { Editor } from './editor';
 import { Toolbar } from './appearance/toolbar';
@@ -133,7 +131,5 @@ export {
   addMark,
   removeMark,
   fixList,
-  insertBox,
-  removeBox,
   insertLink,
 };

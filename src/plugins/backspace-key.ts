@@ -3,7 +3,6 @@ import { mergeNodes, setBlockIndent } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
-import { removeBox } from '../operations/remove-box';
 
 function mergeWithPreviousBlock(editor: Editor, block: Nodes): void {
   const range = editor.selection.range;
@@ -68,7 +67,6 @@ export default (editor: Editor) => {
         return;
       }
       range.adaptBox();
-      return;
     }
     if (range.isBox) {
       event.preventDefault();
@@ -89,8 +87,8 @@ export default (editor: Editor) => {
     const prevNode = range.getPrevNode();
     if (prevNode.isBox) {
       event.preventDefault();
-      range.selectBoxRight(prevNode);
-      removeBox(range);
+      range.selectBox(prevNode);
+      editor.removeBox();
       editor.history.save();
       return;
     }
