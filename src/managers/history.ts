@@ -148,6 +148,9 @@ export class History {
         this.event.emit('undo', prevValue);
         break;
       }
+      if (this.index === 1) {
+        break;
+      }
       this.index--;
     }
     this.selection.synByBookmark();
