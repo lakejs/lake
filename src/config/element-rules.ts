@@ -8,6 +8,17 @@ const blockAttributeRules: any = {
   },
 };
 
+const tdAttributeRules: any = {
+  style: {
+    width: /^-?\d+(px|%)$/i,
+    height: /^-?\d+(px|%)$/i,
+    'border-width': /^-?\d+px$/i,
+    'background-color': /^[^"]+$/,
+    'border-color': /^[^"]+$/,
+    'border-style': /^[\w-]+$/,
+  },
+};
+
 export function getElementRules(): any {
   return {
     h1: {
@@ -48,11 +59,45 @@ export function getElementRules(): any {
     li: {
       value: ['true', 'false'],
     },
+    table: {
+      border: /^\d+$/,
+      style: {
+        width: /^-?\d+(px|%)$/i,
+        height: /^-?\d+(px|%)$/i,
+        'border-collapse': ['collapse', 'separate'],
+        'border-width': /^-?\d+px$/i,
+        'border-color': /^[^"]+$/,
+        'border-style': /^[\w-]+$/,
+        'background-color': /^[^"]+$/,
+      },
+    },
+    thead: {},
+    tbody: {},
+    tr: {
+      style: {
+        height: /^-?\d+(px|%)$/i,
+      },
+    },
+    th: tdAttributeRules,
+    td: tdAttributeRules,
     'lake-box': {
       type: ['inline', 'block'],
       name: /^[\w-]+$/,
       value: /^[^"]+$/,
       focus: ['left', 'center', 'right'],
+    },
+    br: {},
+    hr: {},
+    img : {
+      src: /^[^"]+$/,
+      width: /^-?\d+px$/i,
+      height: /^-?\d+px$/i,
+      'data-lake-value': /^[^"]+$/,
+      alt: /^[^"]+$/,
+      style: {
+        width: /^-?\d+px$/i,
+        height: /^-?\d+px$/i,
+      },
     },
     span: {
       class: /^[\w-]+$/,
@@ -80,7 +125,6 @@ export function getElementRules(): any {
       rel: /^[^"]+$/,
       download: /^[^"]+$/,
     },
-    br: {},
     'lake-bookmark': {
       type: ['anchor', 'focus'],
     },

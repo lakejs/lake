@@ -12,11 +12,6 @@ const blockSelector = Array.from(blockTagNames).join(',');
 function getPasteElementRules(): any {
   const rules = getElementRules();
   rules.div = rules.p;
-  rules.img = {
-    src: /^[^"]+$/,
-    'data-lake-value': /^[^"]+$/,
-  };
-  rules.hr = {};
   forEach(rules, (key, attributeRules) => {
     delete attributeRules.id;
     delete attributeRules.class;

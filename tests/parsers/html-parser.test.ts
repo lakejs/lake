@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { query } from '../../src/utils';
+import { query, safeTemplate } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { HTMLParser } from '../../src/parsers/html-parser';
 
@@ -117,6 +117,35 @@ describe('parsers / html-parser', () => {
   it('getHTML method: should remove <embed />', () => {
     const input = '<p>bar<br /><embed /></p>';
     const output = '<p>bar<br /></p>';
+    const htmlParser = new HTMLParser(input);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
+  it('getHTML method: should keep table attributes', () => {
+    const input = safeTemplate`
+      <table border="1" style="border-collapse: collapse; width: 100%; border-width: 1px; border-color: red; border-style: solid; background-color: #eee;">
+        <thead>
+          <tr style="height: 20px;">
+          <th style="border-color: blue; height: 25px;">a</th>
+          <th style="border-color: green; background-color: #ddd; border-style: dotted; border-width: 2px; width: 100px; height: 25px;">b</th>
+          <th style="border-color: green; height: 25px;">c</th>
+        </tr>
+      </thead>
+        <tbody>
+          <tr style="height: 30px;">
+            <td style="border-color: blue; height: 46px;">a1</td>
+            <td style="border-color: blue; height: 46px; width: 188px;">b1</td>
+            <td style="border-color: blue; height: 46px;">c1</td>
+          </tr>
+          <tr style="height: 40px;">
+          <td style="border-color: blue; height: 46px;">a2</td>
+          <td style="border-color: blue; height: 46px; width: 188px;">b2</td>
+          <td style="border-color: blue; height: 46px;">c2</td>
+          </tr>
+        </tbody>
+      </table>
+    `;
+    const output = input;
     const htmlParser = new HTMLParser(input);
     expect(htmlParser.getHTML()).to.equal(output);
   });
