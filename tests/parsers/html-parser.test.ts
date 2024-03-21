@@ -123,7 +123,7 @@ describe('parsers / html-parser', () => {
 
   it('getHTML method: should keep table attributes', () => {
     const input = safeTemplate`
-      <table style="border-collapse: collapse; width: 100%; border-width: 1px; border-color: red; border-style: solid; background-color: #eee;">
+      <table style="width: 100%; border-width: 1px; border-color: red; border-style: solid; background-color: #eee;">
         <thead>
           <tr style="height: 20px;">
           <th style="border-color: blue; height: 25px;">a</th>

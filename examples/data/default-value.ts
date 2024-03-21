@@ -117,7 +117,7 @@ export const defaultValue = `
 
 <h3>Table</h3>
 <lake-box type="block" name="hr"></lake-box>
-<table style="border-collapse: collapse; border: 2px solid rgb(140 140 140);">
+<table style="border: 2px solid rgb(140 140 140);">
   <caption style="caption-side: bottom; padding: 10px;">
     Front-end web developer course 2021
   </caption>
