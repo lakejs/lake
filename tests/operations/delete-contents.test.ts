@@ -74,9 +74,81 @@ describe('operations / delete-contents', () => {
     );
   });
 
-  it('deletes part of two blocks', () => {
+  it('should delete part of two blocks', () => {
     const content = `
     <p>foo1<anchor />bar1</p>
+    <p>foo2<focus />bar2</p>
+    `;
+    const output = `
+    <p>foo1<focus />bar2</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        deleteContents(range);
+      },
+    );
+  });
+
+  it('should delete text in a table', () => {
+    const content = `
+    <p>foo</p>
+    <table><tr><td><anchor />b<focus />ar</td></tr></table>
+    `;
+    const output = `
+    <p>foo</p>
+    <table><tr><td><focus />ar</td></tr></table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        deleteContents(range);
+      },
+    );
+  });
+
+  it('should delete content before table', () => {
+    const content = `
+    <p>fo<anchor />o</p>
+    <table><tr><td>b<focus />ar</td></tr></table>
+    `;
+    const output = `
+    <p>fo<focus /></p>
+    <table><tr><td>bar</td></tr></table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        deleteContents(range);
+      },
+    );
+  });
+
+  it('should delete content after table', () => {
+    const content = `
+    <table><tr><td>f<anchor />oo</td></tr></table>
+    <p>ba<focus />r</p>
+    `;
+    const output = `
+    <table><tr><td>foo</td></tr></table>
+    <p><focus />r</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        deleteContents(range);
+      },
+    );
+  });
+
+  it('should delete table', () => {
+    const content = `
+    <p>foo1<anchor />bar1</p>
+    <table><tr><td>foo</td></tr></table>
     <p>foo2<focus />bar2</p>
     `;
     const output = `
