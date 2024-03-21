@@ -142,13 +142,13 @@ export class History {
       if (!prevItem) {
         break;
       }
-      this.index--;
       const prevValue = this.getValue(prevItem);
       if (this.removeBookmark(prevValue) !== this.removeBookmark(value)) {
         this.morphContainer(prevItem);
         this.event.emit('undo', prevValue);
         break;
       }
+      this.index--;
     }
     this.selection.synByBookmark();
     debug(`History undone, the last index is ${this.index}`);
@@ -192,8 +192,8 @@ export class History {
     const item = this.cloneContainer();
     const value = this.getValue(item);
     if (
-      this.list.length > 0 &&
-      this.removeBookmark(this.getValue(this.list[this.list.length - 1])) === this.removeBookmark(value)
+      this.list[this.index - 1] &&
+      this.removeBookmark(this.getValue(this.list[this.index - 1])) === this.removeBookmark(value)
     ) {
       return;
     }

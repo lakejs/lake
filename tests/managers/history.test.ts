@@ -310,4 +310,19 @@ describe('managers / history', () => {
     expect(redoValue).to.equal('abc');
   });
 
+  it('can undo when the index is 0', () => {
+    const selection = new Selection(container);
+    const history = new History(selection);
+    container.html('ab');
+    history.save(); // index: 1
+    container.html('a');
+    history.save(); // index: 2
+    history.undo(); // index: 1
+    expect(container.html()).to.equal('ab');
+    container.html('a');
+    history.save(); // index: 2
+    history.undo(); // index: 1
+    expect(container.html()).to.equal('ab');
+  });
+
 });
