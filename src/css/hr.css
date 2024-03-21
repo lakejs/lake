@@ -2,8 +2,9 @@ lake-box[name="hr"] {
   margin-bottom: 8px;
 }
 lake-box[name="hr"] .lake-box-container {
-  margin: 0;
-  padding: 10px 0;
+  height: 20px;
+  display: flex;
+  align-items: center;
   cursor: pointer;
 }
 lake-box[name="hr"] .lake-box-hovered {
@@ -14,6 +15,7 @@ lake-box[name="hr"] .lake-box-focused {
   background-color: var(--selection-background-color);
 }
 lake-box[name="hr"] .lake-box-container hr {
+  width: 100%;
   margin: 0;
   padding: 0;
   border: 0;
