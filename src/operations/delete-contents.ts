@@ -15,16 +15,7 @@ export function deleteContents(range: Range): void {
     return;
   }
   range.adaptBox();
-  // Relocates the beginning or end position of the range for table.
-  const startTable = range.startNode.closest('table');
-  const endTable = range.endNode.closest('table');
-  if (startTable.length === 0 && endTable.length > 0 && endTable.isInside) {
-    range.setEndBefore(endTable);
-    range.shrink();
-  } else if (endTable.length === 0 && startTable.length > 0 && startTable.isInside) {
-    range.setStartAfter(startTable);
-    range.shrink();
-  }
+  range.adaptTable();
   const startBlock = range.startNode.closestBlock();
   const endBlock = range.endNode.closestBlock();
   const noMerge = startBlock.get(0) === endBlock.get(0);

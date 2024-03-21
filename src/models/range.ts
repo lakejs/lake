@@ -336,6 +336,21 @@ export class Range {
     }
   }
 
+  // Relocates the beginning or end position of the range for table.
+  public adaptTable(): void {
+    const startTable = this.startNode.closest('table');
+    const endTable = this.endNode.closest('table');
+    if (startTable.length === 0 && endTable.length > 0 && endTable.isInside) {
+      this.setEndBefore(endTable);
+      this.shrink();
+      return;
+    }
+    if (endTable.length === 0 && startTable.length > 0 && startTable.isInside) {
+      this.setStartAfter(startTable);
+      this.shrink();
+    }
+  }
+
   // Relocates the start point of the range for the block.
   // case 1:
   // <p>foo</p>|<p>bar</p>

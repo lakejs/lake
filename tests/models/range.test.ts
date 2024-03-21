@@ -524,6 +524,34 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(false);
   });
 
+  it('adaptBox method: should move out to the left side of the table', () => {
+    container.prepend('<p>bar</p>');
+    container.append('<table><tr><td>foo</td></tr></table>');
+    const range = new Range();
+    range.setStart(container.find('p'), 0);
+    range.setEnd(container.find('td'), 1);
+    range.adaptTable();
+    expect(range.startNode.name).to.equal('p');
+    expect(range.endNode.name).to.equal('p');
+    expect(range.startOffset).to.equal(0);
+    expect(range.endOffset).to.equal(1);
+    expect(range.isCollapsed).to.equal(false);
+  });
+
+  it('adaptBox method: should move out to the right side of the table', () => {
+    container.prepend('<table><tr><td>foo</td></tr></table>');
+    container.append('<p>bar</p>');
+    const range = new Range();
+    range.setStart(container.find('td'), 1);
+    range.setEnd(container.find('p'), 1);
+    range.adaptTable();
+    expect(range.startNode.name).to.equal('p');
+    expect(range.endNode.name).to.equal('p');
+    expect(range.startOffset).to.equal(0);
+    expect(range.endOffset).to.equal(1);
+    expect(range.isCollapsed).to.equal(false);
+  });
+
   it('adaptBlock method: should move into next paragraph', () => {
     container.prepend('<p>foo</p>');
     container.append('<p>bar</p>');
