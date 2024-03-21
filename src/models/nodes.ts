@@ -6,7 +6,7 @@ import {
 import { NodePath } from '../types/node';
 import {
   blockTagNames, markTagNames, voidTagNames,
-  headingTagNames, listTagNames,
+  headingTagNames, listTagNames, tableTagNames,
 } from '../config/tag-names';
 import { forEach } from '../utils/for-each';
 import { inString } from '../utils/in-string';
@@ -121,6 +121,14 @@ export class Nodes {
       return false;
     }
     return listTagNames.has(this.name);
+  }
+
+  // Returns a boolean value indicating whether the node is a table element.
+  public get isTable(): boolean {
+    if (this.length === 0) {
+      return false;
+    }
+    return tableTagNames.has(this.name);
   }
 
   // Returns a boolean value indicating whether the node is a bookmark element.

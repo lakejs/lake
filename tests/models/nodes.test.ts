@@ -84,6 +84,14 @@ describe('models / nodes', () => {
     expect(container.find('p').isList).to.equal(false);
   });
 
+  it('property: isTable', () => {
+    const container = query('<div contenteditable="true"><table><tr><td>foo</td></tr></table><p>bar</p></div>');
+    expect(container.find('table').isTable).to.equal(true);
+    expect(container.find('tr').isTable).to.equal(true);
+    expect(container.find('td').isTable).to.equal(true);
+    expect(container.find('p').isTable).to.equal(false);
+  });
+
   it('property: isBookmark', () => {
     const container = query('<div contenteditable="true"><strong>foo</strong>bar<lake-bookmark /></div>');
     expect(container.find('lake-bookmark').isBookmark).to.equal(true);

@@ -66,3 +66,14 @@ export const listTagNames: Set<string> = new Set([
   'ul',
   'li',
 ]);
+
+export const tableTagNames: Set<string> = new Set([
+  'table',
+  'caption',
+  'thead',
+  'tbody',
+  'tfoot',
+  'tr',
+  'th',
+  'td',
+]);
