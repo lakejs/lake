@@ -164,6 +164,16 @@ describe('models / nodes', () => {
     expect(container.parent().isContentEditable).to.equal(false);
   });
 
+  it('property: isIndivisible', () => {
+    const container = query('<div contenteditable="true"><table><tr><td>foo</td></tr></table><p>bar</p></div>');
+    expect(container.isIndivisible).to.equal(true);
+    expect(container.find('table').isIndivisible).to.equal(true);
+    expect(container.find('tr').first().isIndivisible).to.equal(true);
+    expect(container.find('td').isIndivisible).to.equal(true);
+    expect(container.find('td').first().isIndivisible).to.equal(false);
+    expect(container.find('p').isIndivisible).to.equal(false);
+  });
+
   it('property: isEmpty', () => {
     const container = query('<div contenteditable="true"><strong></strong><i>\u200B</i><u>\u2060</u><lake-box><div class="lake-box-container"><hr /></div></lake-box><p><lake-box></lake-box></p></div>');
     expect(container.find('strong').isEmpty).to.equal(true);

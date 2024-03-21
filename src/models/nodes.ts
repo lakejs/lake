@@ -201,6 +201,11 @@ export class Nodes {
     return element.isContentEditable;
   }
 
+  // Returns a boolean value indicating whether the node is indivisible.
+  public get isIndivisible(): boolean {
+    return this.isContainer || this.isTable;
+  }
+
   // Returns a boolean value indicating whether the node is empty.
   public get isEmpty(): boolean {
     if (this.isBox) {
