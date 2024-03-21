@@ -9,13 +9,17 @@ const blockAttributeRules: any = {
 };
 
 const tdAttributeRules: any = {
+  colspan: /^\d+$/,
+  rowspan: /^\d+$/,
   style: {
     width: /^-?\d+(px|%)$/i,
     height: /^-?\d+(px|%)$/i,
+    border: /^[^"]+$/,
     'border-width': /^-?\d+px$/i,
     'background-color': /^[^"]+$/,
     'border-color': /^[^"]+$/,
     'border-style': /^[\w-]+$/,
+    padding: /^[\s\w-]+$/,
   },
 };
 
@@ -60,10 +64,10 @@ export function getElementRules(): any {
       value: ['true', 'false'],
     },
     table: {
-      border: /^\d+$/,
       style: {
         width: /^-?\d+(px|%)$/i,
         height: /^-?\d+(px|%)$/i,
+        border: /^[^"]+$/,
         'border-collapse': ['collapse', 'separate'],
         'border-width': /^-?\d+px$/i,
         'border-color': /^[^"]+$/,
@@ -71,8 +75,27 @@ export function getElementRules(): any {
         'background-color': /^[^"]+$/,
       },
     },
-    thead: {},
-    tbody: {},
+    caption: {
+      style: {
+        'caption-side': /^[\w-]+$/,
+        padding: /^[\s\w-]+$/,
+      },
+    },
+    thead: {
+      style: {
+        'background-color': /^[^"]+$/,
+      },
+    },
+    tbody: {
+      style: {
+        'background-color': /^[^"]+$/,
+      },
+    },
+    tfoot: {
+      style: {
+        'background-color': /^[^"]+$/,
+      },
+    },
     tr: {
       style: {
         height: /^-?\d+(px|%)$/i,

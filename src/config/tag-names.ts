@@ -11,6 +11,14 @@ export const blockTagNames: Set<string> = new Set([
   'ul',
   'ol',
   'li',
+  'table',
+  'caption',
+  'thead',
+  'tbody',
+  'tfoot',
+  'tr',
+  'th',
+  'td',
 ]);
 
 export const markTagNames: Set<string> = new Set([

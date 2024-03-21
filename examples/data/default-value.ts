@@ -111,6 +111,51 @@ export const defaultValue = `
 <p><br /></p>
 
 <h3>Code block</h3>
+<lake-box type="block" name="hr"></lake-box>
 <lake-box type="block" name="codeBlock" value="eyJjb2RlIjoiZnVuY3Rpb24gbXlGdW5jKHRoZU9iamVjdCkge1xuICB0aGVPYmplY3QubWFrZSA9IFwiVG95b3RhXCI7XG59XG5cbmNvbnN0IG15Y2FyID0ge1xuICBtYWtlOiBcIkhvbmRhXCIsXG4gIG1vZGVsOiBcIkFjY29yZFwiLFxuICB5ZWFyOiAxOTk4LFxufTtcblxuY29uc29sZS5sb2cobXljYXIubWFrZSk7IC8vIFwiSG9uZGFcIlxubXlGdW5jKG15Y2FyKTtcbmNvbnNvbGUubG9nKG15Y2FyLm1ha2UpOyAvLyBcIlRveW90YVwiIn0="></lake-box>
 <p><br /></p>
+
+<h3>Table</h3>
+<lake-box type="block" name="hr"></lake-box>
+<table style="border-collapse: collapse; border: 2px solid rgb(140 140 140);">
+  <caption style="caption-side: bottom; padding: 10px;">
+    Front-end web developer course 2021
+  </caption>
+  <thead style="background-color: rgb(228 240 245);">
+    <tr>
+      <th scope="col" style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Person</th>
+      <th scope="col" style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Most interest in</th>
+      <th scope="col" style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row" style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Chris</th>
+      <td style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">HTML tables</td>
+      <td style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">22</td>
+    </tr>
+    <tr>
+      <th scope="row" style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Dennis</th>
+      <td style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Web accessibility</td>
+      <td style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">45</td>
+    </tr>
+    <tr>
+      <th scope="row" style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Sarah</th>
+      <td style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">JavaScript frameworks</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <th scope="row" style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Karen</th>
+      <td style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Web performance</td>
+      <td style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">36</td>
+    </tr>
+  </tbody>
+  <tfoot style="background-color: rgb(228 240 245);">
+    <tr>
+      <th scope="row" colspan="2" style="border: 1px solid rgb(160 160 160); padding: 8px 10px;text-align: right;">Average age</th>
+      <td style="border: 1px solid rgb(160 160 160); padding: 8px 10px;font-weight: bold;">33</td>
+    </tr>
+  </tfoot>
+</table>
+
 `;
