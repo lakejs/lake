@@ -29,6 +29,6 @@ export class Command {
     this.event.emit('beforeexecute', name);
     handler.apply(this, data);
     this.event.emit('execute', name);
-    debug(`execute command '${name}'`);
+    debug(`Command '${name}' executed`);
   }
 }

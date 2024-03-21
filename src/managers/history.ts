@@ -151,6 +151,7 @@ export class History {
       }
     }
     this.selection.synByBookmark();
+    debug(`History undone, the last index is ${this.index}`);
   }
 
   public redo(): void {
@@ -173,6 +174,7 @@ export class History {
       }
     }
     this.selection.synByBookmark();
+    debug(`History redone, the last index is ${this.index}`);
   }
 
   public continue(): void {
@@ -202,6 +204,6 @@ export class History {
       this.index = this.list.length;
     }
     this.event.emit('save', value);
-    debug(`save history (index = ${this.index})`);
+    debug(`History saved, the last index is ${this.index}`);
   }
 }

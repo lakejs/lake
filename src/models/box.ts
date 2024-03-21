@@ -167,7 +167,7 @@ export class Box {
         effectData[this.node.id].cleanup.push(result);
       }
     }
-    debug(`render box '${this.name}' (id = ${this.node.id})`);
+    debug(`Box '${this.name}' (id = ${this.node.id}) rendered`);
     if (content === undefined) {
       return;
     }
@@ -186,6 +186,7 @@ export class Box {
     effectData[this.node.id].setup = [];
     effectData[this.node.id].cleanup = [];
     this.node.empty();
+    debug(`Box '${this.name}' (id = ${this.node.id}) unmounted`);
   }
 
   // Returns a HTML string of the box.
