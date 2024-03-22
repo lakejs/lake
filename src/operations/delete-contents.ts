@@ -11,8 +11,7 @@ export function deleteContents(range: Range): void {
   if (range.isCollapsed) {
     return;
   }
-  range.adaptBox();
-  range.adaptTable();
+  range.adapt();
   if (range.isInoperative) {
     return;
   }
@@ -21,6 +20,7 @@ export function deleteContents(range: Range): void {
   const noMerge = startBlock.get(0) === endBlock.get(0);
   const nativeRange = range.get();
   nativeRange.deleteContents();
+  range.adaptBlock();
   if (noMerge) {
     const block = range.getBlocks()[0];
     if (block && block.isEmpty) {
@@ -29,7 +29,6 @@ export function deleteContents(range: Range): void {
     }
     return;
   }
-  range.adaptBlock();
   const block = range.getBlocks()[0];
   if (!block) {
     return;

@@ -91,7 +91,7 @@ describe('operations / delete-contents', () => {
     );
   });
 
-  it('should delete text in a table', () => {
+  it('should delete text in a table (1)', () => {
     const content = `
     <p>foo</p>
     <table><tr><td><anchor />b<focus />ar</td></tr></table>
@@ -99,6 +99,24 @@ describe('operations / delete-contents', () => {
     const output = `
     <p>foo</p>
     <table><tr><td><focus />ar</td></tr></table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        deleteContents(range);
+      },
+    );
+  });
+
+  it('should delete text in a table (2)', () => {
+    const content = `
+    <p>foo</p>
+    <table><tr><td><anchor />one</td><td><focus />two</td></tr></table>
+    `;
+    const output = `
+    <p>foo</p>
+    <table><tr><td><focus /></td><td>two</td></tr></table>
     `;
     testOperation(
       content,

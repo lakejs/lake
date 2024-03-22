@@ -406,6 +406,7 @@ export class Range {
   // Relocates the start and end points of the range.
   public adapt(): void {
     this.adaptBox();
+    this.adaptTable();
     this.adaptBlock();
   }
 
