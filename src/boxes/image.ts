@@ -186,7 +186,7 @@ function openFullScreen(box: Box): void {
   });
   lightbox.addFilter('placeholderSrc', (placeholderSrc, slide) => {
     const imgNode = allImageBox.eq(slide.data.id).find('.lake-image-img');
-    if (imgNode) {
+    if (imgNode.length > 0) {
       return imgNode.attr('src');
     }
     return placeholderSrc;
@@ -365,25 +365,29 @@ export const imageBox: BoxComponent = {
     }
     const value = box.value;
     const container = box.getContainer();
-    if (container.first().length === 0) {
-      if (value.width && value.height) {
-        const placeholderNode = query('<div class="lake-image-placeholder" />');
-        container.append(placeholderNode);
-        const imageIcon = icons.get('image');
-        if (imageIcon) {
-          placeholderNode.append(imageIcon);
-        }
-        placeholderNode.css({
-          width: `${value.width}px`,
-          height: `${value.height}px`,
-        });
-      } else {
-        // The code below is for unit testing because some test cases need to
-        // select the content of the box before it is completely loaded.
-        // Example:
-        // range.setStart(box.getContainer(), 1);
-        container.append('<div />');
+    if (value.width && value.height && container.find('.lake-progress').length === 0) {
+      container.css({
+        width: `${value.width}px`,
+        height: `${value.height}px`,
+      });
+      container.empty();
+      const placeholderNode = query('<div class="lake-image-placeholder" />');
+      container.append(placeholderNode);
+      const imageIcon = icons.get('image');
+      if (imageIcon) {
+        placeholderNode.append(imageIcon);
       }
+    }
+    if (container.first().length === 0) {
+      // The code below is for unit testing because some test cases need to
+      // select the content of the box before it is completely loaded.
+      // Example:
+      // range.setStart(box.getContainer(), 1);
+      container.append('<div />');
+    }
+    // for test
+    if (value.status === 'loading') {
+      return;
     }
     const root = query('<div class="lake-image" />');
     root.addClass(`lake-image-${value.status}`);

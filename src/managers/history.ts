@@ -5,6 +5,7 @@ import { boxInstances } from '../storage/box-instances';
 import { debug } from '../utils/debug';
 import { morph } from '../utils/morph';
 import { Nodes } from '../models/nodes';
+import { Box } from '../models/box';
 import { HTMLParser } from '../parsers/html-parser';
 import { insertBookmark } from '../operations/insert-bookmark';
 import { Selection } from './selection';
@@ -59,17 +60,17 @@ export class History {
   }
 
   private addIdToBoxes(node: Nodes): void {
-    node.find('lake-box').each(nativeChild => {
-      const child = new Nodes(nativeChild);
-      const id = md5(`${child.attr('type')}-${child.attr('name')}-${child.attr('value')}`);
-      child.attr('id', id);
+    node.find('lake-box').each(nativeNode => {
+      const boxNode = new Nodes(nativeNode);
+      const id = md5(`${boxNode.attr('type')}-${boxNode.attr('name')}-${boxNode.attr('value')}`);
+      boxNode.attr('id', id);
     });
   }
 
   private removeIdfromBoxes(node: Nodes): void {
-    node.find('lake-box').each(nativeChild => {
-      const child = new Nodes(nativeChild);
-      child.removeAttr('id');
+    node.find('lake-box').each(nativeNode => {
+      const boxNode = new Nodes(nativeNode);
+      boxNode.removeAttr('id');
     });
   }
 
@@ -105,6 +106,10 @@ export class History {
   private cloneContainer(): Nodes {
     const range = this.selection.range;
     const newContainer = this.container.clone(true);
+    newContainer.find('lake-box').each(nativeNode => {
+      const box = new Box(nativeNode);
+      box.getContainer().empty();
+    });
     if (range.commonAncestor.isOutside) {
       return newContainer;
     }

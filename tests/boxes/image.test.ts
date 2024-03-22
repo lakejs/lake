@@ -51,6 +51,39 @@ describe('boxes / image', () => {
     });
   });
 
+  it('loading: small size', () => {
+    testBox('image', {
+      url: smallUrl,
+      width: 64,
+      height: 46,
+      status: 'loading',
+    }, box => {
+      expect(box.value.status).to.equal('loading');
+    });
+  });
+
+  it('loading: medium size', () => {
+    testBox('image', {
+      url: smallUrl,
+      width: 512,
+      height: 366,
+      status: 'loading',
+    }, box => {
+      expect(box.value.status).to.equal('loading');
+    });
+  });
+
+  it('loading: large size', () => {
+    testBox('image', {
+      url: smallUrl,
+      width: 1024,
+      height: 670,
+      status: 'loading',
+    }, box => {
+      expect(box.value.status).to.equal('loading');
+    });
+  });
+
   it('done: small size', () => {
     testBox('image', {
       url: smallUrl,
