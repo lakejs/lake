@@ -184,6 +184,32 @@ describe('operations / set-blocks', () => {
     );
   });
 
+  it('creates a new block in the table', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>foo<focus /></td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>
+          <p>foo<focus /></p>
+        </td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, '<p />');
+      },
+    );
+  });
+
   it('sets a nested block when no text is selected', () => {
     const content = `
     <p>outer start</p>

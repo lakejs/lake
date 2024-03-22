@@ -443,6 +443,9 @@ export class Range {
   public getBlocks(): Nodes[] {
     if (this.isCollapsed) {
       const startBlock = this.startNode.closestOperableBlock();
+      if (startBlock.isTable) {
+        return [];
+      }
       return startBlock.isInside ? [ startBlock ] : [];
     }
     const startBlock = this.startNode.closestOperableBlock();
@@ -452,13 +455,13 @@ export class Range {
       startBlock.get(0) &&
       startBlock.get(0) === endBlock.get(0)
     ) {
-      return [ startBlock ];
+      return startBlock.isTable ? [] : [ startBlock ];
     }
     const blocks: Nodes[] = [];
     const clonedRange = this.clone();
     clonedRange.collapseToEnd();
     for (const child of this.commonAncestor.getWalker()) {
-      if (child.isBlock && child.isTopInside &&
+      if (child.isBlock && !child.isTable && child.isTopInside &&
         // the range doesn't end at the start of a block
         clonedRange.comparePoint(child, 0) !== 0 &&
         this.intersectsNode(child)
@@ -470,7 +473,7 @@ export class Range {
       return blocks;
     }
     for (const child of this.commonAncestor.getWalker()) {
-      if (child.isBlock &&
+      if (child.isBlock && !child.isTable &&
         (startBlock.isSibling(child) || endBlock.isSibling(child)) &&
         this.intersectsNode(child)) {
         blocks.push(child);

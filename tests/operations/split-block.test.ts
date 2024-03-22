@@ -39,6 +39,24 @@ describe('operations / split-block', () => {
     );
   });
 
+  it('collapsed range: should not split a td', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>one<focus />two</td>
+      </tr>
+    </table>
+    `;
+    const output = content;
+    testOperation(
+      content,
+      output,
+      range => {
+        splitBlock(range);
+      },
+    );
+  });
+
   it('collapsed range: splits a block with a mark', () => {
     const content = `
     <p><strong>one<focus />two</strong></p>
@@ -99,6 +117,25 @@ describe('operations / split-block', () => {
     <p>foo1</p>
     <p><focus />bar2</p>
     `;
+    testOperation(
+      content,
+      output,
+      range => {
+        splitBlock(range);
+      },
+    );
+  });
+
+  it('expanded range: should not split multi-td', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>foo1<anchor />bar1</td>
+        <td>foo2<focus />bar2</td>
+      </tr>
+    </table>
+    `;
+    const output = content;
     testOperation(
       content,
       output,

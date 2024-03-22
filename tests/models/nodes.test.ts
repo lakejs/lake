@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { NativeElement, NativeEvent } from '../../src/types/native';
-import { query } from '../../src/utils';
+import { query, safeTemplate } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 
 describe('models / nodes', () => {
@@ -299,10 +299,24 @@ describe('models / nodes', () => {
   });
 
   it('method: closestOperableBlock', () => {
-    const container = query('<div contenteditable="true"><ul><li>foo</li></ul><p>bar</p><h1><lake-box><div class="lake-box-container">box</div></lake-box></h1>');
+    const container = query(safeTemplate`
+    <div contenteditable="true">
+      <ul><li>foo</li></ul>
+      <p>bar</p>
+      <h1><lake-box><div class="lake-box-container">box</div></lake-box></h1>
+      <table>
+        <tr>
+          <td>foo1</td>
+          <td><h2>bar1</h2></td>
+        </tr>
+      </table>
+    </div>
+    `);
     expect(container.find('li').first().closestOperableBlock().html()).to.equal('<li>foo</li>');
     expect(container.find('p').first().closestOperableBlock().html()).to.equal('bar');
     expect(container.find('.lake-box-container').first().closestOperableBlock().name).to.equal('h1');
+    expect(container.find('td').first().closestOperableBlock().length).to.equal(0);
+    expect(container.find('h2').first().closestOperableBlock().html()).to.equal('bar1');
   });
 
   it('method: closestContainer', () => {

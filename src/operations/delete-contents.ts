@@ -18,6 +18,13 @@ export function deleteContents(range: Range): void {
   range.adaptTable();
   const startBlock = range.startNode.closestBlock();
   const endBlock = range.endNode.closestBlock();
+  if (
+    startBlock.name === 'td' &&
+    endBlock.name === 'td' &&
+    startBlock.get(0) !== endBlock.get(0)
+  ) {
+    return;
+  }
   const noMerge = startBlock.get(0) === endBlock.get(0);
   const nativeRange = range.get();
   nativeRange.deleteContents();

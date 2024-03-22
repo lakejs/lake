@@ -743,7 +743,7 @@ describe('models / range', () => {
     expect(blocks[2].html()).to.equal('<i>itelic</i>bar');
   });
 
-  it('getBlocks method: no block', () => {
+  it('getBlocks method: returns no block', () => {
     const content = `
     foo<strong>bar<focus /></strong>
     `;
@@ -753,11 +753,25 @@ describe('models / range', () => {
     expect(blocks.length).to.equal(0);
   });
 
-  it('getBlocks method: no block among other blocks', () => {
+  it('getBlocks method: returns no block among other blocks', () => {
     const content = `
     <p>outer start</p>
     foo<strong>bar<focus /></strong>end
     <p>outer end</p>
+    `;
+    const result = createContainer(content);
+    const blocks = result.range.getBlocks();
+    result.container.remove();
+    expect(blocks.length).to.equal(0);
+  });
+
+  it('getBlocks method: returns no block in the table', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>foo<focus /></td>
+      </tr>
+    </table>
     `;
     const result = createContainer(content);
     const blocks = result.range.getBlocks();

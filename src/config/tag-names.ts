@@ -12,10 +12,6 @@ export const blockTagNames: Set<string> = new Set([
   'ol',
   'li',
   'table',
-  'caption',
-  'thead',
-  'tbody',
-  'tfoot',
   'tr',
   'th',
   'td',
@@ -69,11 +65,6 @@ export const listTagNames: Set<string> = new Set([
 
 export const tableTagNames: Set<string> = new Set([
   'table',
-  'caption',
-  'thead',
-  'tbody',
-  'tfoot',
   'tr',
-  'th',
   'td',
 ]);

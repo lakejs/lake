@@ -23,6 +23,12 @@ export function splitBlock(range: Range): TwoParts {
   }
   const node = range.startNode;
   const closestBlock = node.closestOperableBlock();
+  if (closestBlock.length === 0) {
+    return {
+      left: null,
+      right: null,
+    };
+  }
   let limitBlock = closestBlock.parent();
   if (limitBlock.isOutside) {
     limitBlock = node.closestContainer();

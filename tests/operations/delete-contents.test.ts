@@ -109,6 +109,25 @@ describe('operations / delete-contents', () => {
     );
   });
 
+  it('should not delete content across multi-td', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>foo1<anchor />bar1</td>
+        <td>foo2<focus />bar2</td>
+      </tr>
+    </table>
+    `;
+    const output = content;
+    testOperation(
+      content,
+      output,
+      range => {
+        deleteContents(range);
+      },
+    );
+  });
+
   it('should delete content before table', () => {
     const content = `
     <p>fo<anchor />o</p>

@@ -8,7 +8,7 @@ import { toBookmark } from './to-bookmark';
 import { fixList } from './fix-list';
 
 function getTopNonBlockNodes(range: Range): Nodes[] {
-  const container = range.commonAncestor.closestContainer();
+  const container = range.commonAncestor.closest('div[contenteditable="true"],td');
   let nodeList: Nodes[] = [];
   if (container.length === 0) {
     return nodeList;

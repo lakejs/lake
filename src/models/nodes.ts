@@ -339,6 +339,9 @@ export class Nodes {
     if (block.length === 0) {
       return block;
     }
+    if (block.isTable) {
+      return new Nodes();
+    }
     const parentBlock = block.parent();
     if (block.name === 'li' && parentBlock.isList) {
       return parentBlock;
