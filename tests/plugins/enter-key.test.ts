@@ -178,6 +178,40 @@ describe('plugin / enter-key', () => {
     );
   });
 
+  it('blockquote: should become paragraph when the focus is at the end of the blockquote', () => {
+    const content = `
+    <blockquote>foo<focus /></blockquote>
+    `;
+    const output = `
+    <blockquote>foo</blockquote>
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('blockquote: should not become paragraph when the focus is at the beginning of the blockquote', () => {
+    const content = `
+    <blockquote><focus />foo</blockquote>
+    `;
+    const output = `
+    <blockquote><br /></blockquote>
+    <blockquote><focus />foo</blockquote>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
   it('list: the focus is between the characters of the text', () => {
     const content = `
     <ul><li>f<focus />oo</li></ul>

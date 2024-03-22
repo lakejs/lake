@@ -11,7 +11,7 @@ function splitBlock(editor: Editor, block: Nodes): void {
     editor.history.save();
     return;
   }
-  if (rightText === '' && block.isHeading) {
+  if (rightText === '' && (block.isHeading || block.name === 'blockquote')) {
     editor.selection.setBlocks('<p />');
     editor.history.save();
     return;
