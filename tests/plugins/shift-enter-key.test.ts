@@ -52,6 +52,25 @@ describe('plugin / shift-enter-key', () => {
     );
   });
 
+  it('table: should not split td', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>foo1<anchor />bar1</td>
+        <td>foo2<focus />bar2</td>
+      </tr>
+    </table>
+    `;
+    const output = content;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('shift+enter');
+      },
+    );
+  });
+
   it('box: the focus is at the beginning of the block box', () => {
     const content = `
     <lake-box type="block" name="hr" focus="left"></lake-box>

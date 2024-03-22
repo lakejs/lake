@@ -6,8 +6,8 @@ function addLineBreak(editor: Editor): void {
   const block = range.startNode.closestBlock();
   if (block.length > 0 && !block.isContainer) {
     const prevNode = range.getPrevNode();
-    const nextNode = range.getNextNode();
-    if (prevNode.name !== 'br' && nextNode.length === 0) {
+    const rightText = range.getRightText();
+    if (prevNode.name !== 'br' && rightText === '') {
       editor.selection.insertContents('<br /><br />');
       editor.history.save();
       return;
@@ -48,6 +48,10 @@ function addBlockOrLineBreakForBox(editor: Editor): void {
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('shift+enter', event => {
     const range = editor.selection.range;
+    if (range.isInoperative) {
+      event.preventDefault();
+      return;
+    }
     if (range.isInsideBox) {
       return;
     }
