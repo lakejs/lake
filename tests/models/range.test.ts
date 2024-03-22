@@ -142,7 +142,7 @@ describe('models / range', () => {
     expect(range.isInsideBox).to.equal(false);
   });
 
-  it('property: isOperative', () => {
+  it('property: isInoperative', () => {
     container.html(safeTemplate`
     <table>
       <tr>
@@ -153,14 +153,14 @@ describe('models / range', () => {
     `);
     const range = new Range();
     range.selectNodeContents(container.find('td').eq(0));
-    expect(range.isOperative).to.equal(true);
+    expect(range.isInoperative).to.equal(false);
     range.setStart(container.find('td').eq(0), 0);
     range.setEnd(container.find('td').eq(1), 1);
     range.debug();
-    expect(range.isOperative).to.equal(false);
+    expect(range.isInoperative).to.equal(true);
     range.setStart(container.parent(), 0);
     range.collapseToStart();
-    expect(range.isOperative).to.equal(false);
+    expect(range.isInoperative).to.equal(true);
   });
 
   it('method: get', () => {

@@ -13,7 +13,7 @@ export function deleteContents(range: Range): void {
   }
   range.adaptBox();
   range.adaptTable();
-  if (!range.isOperative) {
+  if (range.isInoperative) {
     return;
   }
   const startBlock = range.startNode.closestBlock();

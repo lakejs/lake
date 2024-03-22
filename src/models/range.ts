@@ -109,10 +109,10 @@ export class Range {
     return this.compareBeforeNode(boxContainer) < 0 && this.compareAfterNode(boxContainer) > 0;
   }
 
-  // Returns a boolean value indicating whether the range is operative.
-  public get isOperative(): boolean {
+  // Returns a boolean value indicating whether the range is inoperative.
+  public get isInoperative(): boolean {
     if (this.commonAncestor.isOutside) {
-      return false;
+      return true;
     }
     const startBlock = this.startNode.closest('td');
     const endBlock = this.endNode.closest('td');
@@ -121,9 +121,9 @@ export class Range {
       endBlock.length > 0 &&
       startBlock.get(0) !== endBlock.get(0)
     ) {
-      return false;
+      return true;
     }
-    return true;
+    return false;
   }
 
   // Gets a native range.

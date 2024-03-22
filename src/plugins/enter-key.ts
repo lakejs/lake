@@ -53,7 +53,7 @@ function addBlockOrSplitBlockForBox(editor: Editor): void {
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('enter', event => {
     const range = editor.selection.range;
-    if (!range.isOperative) {
+    if (range.isInoperative) {
       event.preventDefault();
       return;
     }
