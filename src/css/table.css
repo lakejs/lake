@@ -1,3 +1,8 @@
 .lake-container table {
   border-collapse: collapse;
+  border: 1px solid var(--border-color);
+  margin-bottom: 8px;
+}
+.lake-container table td {
+  padding: 4px 8px;
 }

@@ -126,11 +126,11 @@ describe('parsers / html-parser', () => {
       <table style="width: 100%; border-width: 1px; border-color: red; border-style: solid; background-color: #eee;">
         <thead>
           <tr style="height: 20px;">
-          <th style="border-color: blue; height: 25px;">a</th>
-          <th style="border-color: green; background-color: #ddd; border-style: dotted; border-width: 2px; width: 100px; height: 25px;">b</th>
-          <th style="border-color: green; height: 25px;">c</th>
-        </tr>
-      </thead>
+            <th style="border-color: blue; height: 25px;">a</th>
+            <th style="border-color: green; background-color: #ddd; border-style: dotted; border-width: 2px; width: 100px; height: 25px;">b</th>
+            <th style="border-color: green; height: 25px;">c</th>
+          </tr>
+        </thead>
         <tbody>
           <tr style="height: 30px;">
             <td style="border-color: blue; height: 46px;">a1</td>
@@ -138,14 +138,32 @@ describe('parsers / html-parser', () => {
             <td style="border-color: blue; height: 46px;">c1</td>
           </tr>
           <tr style="height: 40px;">
-          <td style="border-color: blue; height: 46px;">a2</td>
-          <td style="border-color: blue; height: 46px; width: 188px;">b2</td>
-          <td style="border-color: blue; height: 46px;">c2</td>
+            <td style="border-color: blue; height: 46px;">a2</td>
+            <td style="border-color: blue; height: 46px; width: 188px;">b2</td>
+            <td style="border-color: blue; height: 46px;">c2</td>
           </tr>
         </tbody>
       </table>
     `;
-    const output = input;
+    const output = safeTemplate`
+      <table style="width: 100%; border-width: 1px; border-color: red; border-style: solid; background-color: #eee;">
+        <tr style="height: 20px;">
+          <td style="border-color: blue; height: 25px;">a</td>
+          <td style="border-color: green; background-color: #ddd; border-style: dotted; border-width: 2px; width: 100px; height: 25px;">b</td>
+          <td style="border-color: green; height: 25px;">c</td>
+        </tr>
+        <tr style="height: 30px;">
+          <td style="border-color: blue; height: 46px;">a1</td>
+          <td style="border-color: blue; height: 46px; width: 188px;">b1</td>
+          <td style="border-color: blue; height: 46px;">c1</td>
+        </tr>
+        <tr style="height: 40px;">
+          <td style="border-color: blue; height: 46px;">a2</td>
+          <td style="border-color: blue; height: 46px; width: 188px;">b2</td>
+          <td style="border-color: blue; height: 46px;">c2</td>
+        </tr>
+      </table>
+    `;
     const htmlParser = new HTMLParser(input);
     expect(htmlParser.getHTML()).to.equal(output);
   });

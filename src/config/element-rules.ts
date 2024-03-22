@@ -8,21 +8,6 @@ const blockAttributeRules: any = {
   },
 };
 
-const tdAttributeRules: any = {
-  colspan: /^\d+$/,
-  rowspan: /^\d+$/,
-  style: {
-    width: /^-?\d+(px|%)$/i,
-    height: /^-?\d+(px|%)$/i,
-    border: /^[^"]+$/,
-    'border-width': /^-?\d+px$/i,
-    'border-style': /^[\w-]+$/,
-    'border-color': /^[^"]+$/,
-    'background-color': /^[^"]+$/,
-    padding: /^[\s\w-]+$/,
-  },
-};
-
 export function getElementRules(): any {
   return {
     h1: {
@@ -74,34 +59,26 @@ export function getElementRules(): any {
         'background-color': /^[^"]+$/,
       },
     },
-    caption: {
-      style: {
-        'caption-side': /^[\w-]+$/,
-        padding: /^[\s\w-]+$/,
-      },
-    },
-    thead: {
-      style: {
-        'background-color': /^[^"]+$/,
-      },
-    },
-    tbody: {
-      style: {
-        'background-color': /^[^"]+$/,
-      },
-    },
-    tfoot: {
-      style: {
-        'background-color': /^[^"]+$/,
-      },
-    },
     tr: {
       style: {
         height: /^-?\d+(px|%)$/i,
       },
     },
-    th: tdAttributeRules,
-    td: tdAttributeRules,
+    th: 'td',
+    td: {
+      colspan: /^\d+$/,
+      rowspan: /^\d+$/,
+      style: {
+        width: /^-?\d+(px|%)$/i,
+        height: /^-?\d+(px|%)$/i,
+        border: /^[^"]+$/,
+        'border-width': /^-?\d+px$/i,
+        'border-style': /^[\w-]+$/,
+        'border-color': /^[^"]+$/,
+        'background-color': /^[^"]+$/,
+        'text-align': ['left', 'center', 'right', 'justify'],
+      },
+    },
     'lake-box': {
       type: ['inline', 'block'],
       name: /^[\w-]+$/,

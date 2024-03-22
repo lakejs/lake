@@ -117,45 +117,19 @@ export const defaultValue = `
 
 <h3>Table</h3>
 <lake-box type="block" name="hr"></lake-box>
-<table style="border: 2px solid rgb(140 140 140);">
-  <caption style="caption-side: bottom; padding: 10px;">
-    Front-end web developer course 2021
-  </caption>
-  <thead style="background-color: rgb(228 240 245);">
-    <tr>
-      <th scope="col" style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Person</th>
-      <th scope="col" style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Most interest in</th>
-      <th scope="col" style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row" style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Chris</th>
-      <td style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">HTML tables</td>
-      <td style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">22</td>
-    </tr>
-    <tr>
-      <th scope="row" style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Dennis</th>
-      <td style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Web accessibility</td>
-      <td style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">45</td>
-    </tr>
-    <tr>
-      <th scope="row" style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Sarah</th>
-      <td style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">JavaScript frameworks</td>
-      <td>29</td>
-    </tr>
-    <tr>
-      <th scope="row" style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Karen</th>
-      <td style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">Web performance</td>
-      <td style="border: 1px solid rgb(160 160 160); padding: 8px 10px;">36</td>
-    </tr>
-  </tbody>
-  <tfoot style="background-color: rgb(228 240 245);">
-    <tr>
-      <th scope="row" colspan="2" style="border: 1px solid rgb(160 160 160); padding: 8px 10px;text-align: right;">Average age</th>
-      <td style="border: 1px solid rgb(160 160 160); padding: 8px 10px;font-weight: bold;">33</td>
-    </tr>
-  </tfoot>
+<p>The editor uses <code>&lt;table&gt;</code> tag to represent table tabular data — that is, information presented in a two-dimensional table comprised of rows and columns of cells containing data.</p>
+<table>
+  <tr>
+    <td style="width: 100px; border: 1px solid rgb(160 160 160); text-align: center;"><strong>Tag name</strong></td>
+    <td style="border: 1px solid rgb(160 160 160); text-align: center;"><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <th style="border: 1px solid rgb(160 160 160);"><code>&lt;tr&gt;</code></th>
+    <td style="border: 1px solid rgb(160 160 160);">The tag represents a row of cells in a table.</td>
+  </tr>
+  <tr>
+    <th style="border: 1px solid rgb(160 160 160);"><code>&lt;td&gt;</code></th>
+    <td style="border: 1px solid rgb(160 160 160);">The tag represents a cell of a table that contains data.</td>
+  </tr>
 </table>
-
 `;
