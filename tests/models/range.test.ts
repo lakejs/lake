@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { boxes } from '../../src/storage/boxes';
 import { createContainer } from '../utils';
-import { query } from '../../src/utils';
+import { query, safeTemplate } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
 import { Box } from '../../src/models/box';
@@ -140,6 +140,27 @@ describe('models / range', () => {
     expect(range.isInsideBox).to.equal(false);
     range.selectBoxRight(boxNode);
     expect(range.isInsideBox).to.equal(false);
+  });
+
+  it('property: isOperative', () => {
+    container.html(safeTemplate`
+    <table>
+      <tr>
+        <td>foo</td>
+        <td>bar</td>
+      </tr>
+    </table>
+    `);
+    const range = new Range();
+    range.selectNodeContents(container.find('td').eq(0));
+    expect(range.isOperative).to.equal(true);
+    range.setStart(container.find('td').eq(0), 0);
+    range.setEnd(container.find('td').eq(1), 1);
+    range.debug();
+    expect(range.isOperative).to.equal(false);
+    range.setStart(container.parent(), 0);
+    range.collapseToStart();
+    expect(range.isOperative).to.equal(false);
   });
 
   it('method: get', () => {

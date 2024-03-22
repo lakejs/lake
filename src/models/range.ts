@@ -109,6 +109,23 @@ export class Range {
     return this.compareBeforeNode(boxContainer) < 0 && this.compareAfterNode(boxContainer) > 0;
   }
 
+  // Returns a boolean value indicating whether the range is operative.
+  public get isOperative(): boolean {
+    if (this.commonAncestor.isOutside) {
+      return false;
+    }
+    const startBlock = this.startNode.closest('td');
+    const endBlock = this.endNode.closest('td');
+    if (
+      startBlock.length > 0 &&
+      endBlock.length > 0 &&
+      startBlock.get(0) !== endBlock.get(0)
+    ) {
+      return false;
+    }
+    return true;
+  }
+
   // Gets a native range.
   public get(): NativeRange {
     return this.range;

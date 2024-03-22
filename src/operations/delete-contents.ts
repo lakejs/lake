@@ -8,23 +8,16 @@ import { toBookmark } from './to-bookmark';
 
 // Removes the contents of the specified range.
 export function deleteContents(range: Range): void {
-  if (range.commonAncestor.isOutside) {
-    return;
-  }
   if (range.isCollapsed) {
     return;
   }
   range.adaptBox();
   range.adaptTable();
-  const startBlock = range.startNode.closestBlock();
-  const endBlock = range.endNode.closestBlock();
-  if (
-    startBlock.name === 'td' &&
-    endBlock.name === 'td' &&
-    startBlock.get(0) !== endBlock.get(0)
-  ) {
+  if (!range.isOperative) {
     return;
   }
+  const startBlock = range.startNode.closestBlock();
+  const endBlock = range.endNode.closestBlock();
   const noMerge = startBlock.get(0) === endBlock.get(0);
   const nativeRange = range.get();
   nativeRange.deleteContents();
