@@ -8,6 +8,7 @@ import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
+import { debug } from '../utils';
 
 type ImageInfo = {
   node: Nodes;
@@ -215,7 +216,7 @@ async function renderError(root: Nodes, box: Box): Promise<void> {
   const errorNode = query(safeTemplate`
     <div class="lake-error">
       <div class="lake-error-icon"></div>
-      <div class="lake-error-name">${value.name}</div>
+      <div class="lake-error-name">${value.name || ''}</div>
     </div>
   `);
   const imageIcon = icons.get('image');
@@ -416,6 +417,8 @@ export const imageBox: BoxComponent = {
     });
     root.on('click', () => {
       editor.selection.range.selectBox(box.node);
+      debug(`Box '${box.name}' (id = ${box.node.id}) value:`);
+      debug(box.value);
     });
   },
   html: box => {
