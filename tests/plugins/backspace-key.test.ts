@@ -230,6 +230,54 @@ describe('plugin / backspace-key', () => {
     );
   });
 
+  it('table: should delete br', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>foo<br /><p><focus />bar</p></td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>foo<p><focus />bar</p></td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('table: should merge with text', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>foo<p><focus />bar</p></td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><p>foo<focus />bar</p></td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
   it('should move cursor into a box in the previous paragraph', () => {
     const content = `
     <lake-box type="block" name="hr"></lake-box>

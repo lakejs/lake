@@ -20,11 +20,15 @@ function mergeWithPreviousBlock(editor: Editor, block: Nodes): void {
     range.selectBoxRight(prevBlock);
     return;
   }
+  if (prevBlock.name ===  'br') {
+    prevBlock.remove();
+    return;
+  }
   if (!prevBlock.isBlock) {
     const prevRange = new Range();
     prevRange.selectNodeContents(prevBlock);
     setBlocks(prevRange, '<p />');
-    prevBlock = prevBlock.closestBlock();
+    prevBlock = prevRange.startNode.closestBlock();
   }
   if (prevBlock.isEmpty) {
     prevBlock.remove();
