@@ -16,11 +16,15 @@ function getWatchConfig(type: 'examples' | 'tests'): RollupOptions {
       sourcemap: true,
       globals: {
         chai: 'chai',
+        photoswipe: 'PhotoSwipe',
+        'photoswipe/lightbox': 'PhotoSwipeLightbox',
       },
       assetFileNames: 'bundle.css',
     },
     external: [
       'chai',
+      'photoswipe',
+      'photoswipe/lightbox',
     ],
     watch: {
       include: [
