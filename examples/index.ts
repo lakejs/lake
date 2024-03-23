@@ -1,9 +1,5 @@
 import './index.css';
 import { Editor, Utils } from '../src';
-import { defaultValue } from './data/default-value';
-import { miniatureValue } from './data/miniature-value';
-import { headlessValue } from './data/headless-value';
-import { hugeValue } from './data/huge-value';
 import defaultEditor from './default-editor';
 import fullEditor from './full-editor';
 import documentEditor from './document-editor';
@@ -15,6 +11,10 @@ const { query, safeTemplate } = Utils;
 declare global {
   interface Window {
     editor: Editor;
+    defaultValue: string;
+    miniatureValue: string;
+    headlessValue: string;
+    hugeValue: string;
   }
 }
 
@@ -33,56 +33,56 @@ const menuItems: MenuItem[] = [
     url: './',
     text: 'Default configuration',
     source: 'https://github.com/lakejs/lake/blob/master/examples/default-editor.ts',
-    editorValue: defaultValue,
+    editorValue: window.defaultValue,
     editor: defaultEditor,
   },
   {
     url: './full-featured',
     text: 'Full-featured editor',
     source: 'https://github.com/lakejs/lake/blob/master/examples/full-editor.ts',
-    editorValue: defaultValue,
+    editorValue: window.defaultValue,
     editor: fullEditor,
   },
   {
     url: './document',
     text: 'Document editor',
     source: 'https://github.com/lakejs/lake/blob/master/examples/default-editor.ts',
-    editorValue: defaultValue,
+    editorValue: window.defaultValue,
     editor: documentEditor,
   },
   {
     url: './miniature',
     text: 'Miniature toolbar',
     source: 'https://github.com/lakejs/lake/blob/master/examples/miniature-editor.ts',
-    editorValue: miniatureValue,
+    editorValue: window.miniatureValue,
     editor: miniatureEditor,
   },
   {
     url: './mobile',
     text: 'Mobile friendly editor',
     source: 'https://github.com/lakejs/lake/blob/master/examples/default-editor.ts',
-    editorValue: defaultValue,
+    editorValue: window.defaultValue,
     editor: defaultEditor,
   },
   {
     url: './headless',
     text: 'Headless editor',
     source: 'https://github.com/lakejs/lake/blob/master/examples/headless-editor.ts',
-    editorValue: headlessValue,
+    editorValue: window.headlessValue,
     editor: headlessEditor,
   },
   {
     url: './i18n',
     text: 'Internationalization',
     source: 'https://github.com/lakejs/lake/blob/master/examples/default-editor.ts',
-    editorValue: defaultValue,
+    editorValue: window.defaultValue,
     editor: defaultEditor,
   },
   {
     url: './huge-content',
     text: 'Huge Content',
     source: 'https://github.com/lakejs/lake/blob/master/examples/default-editor.ts',
-    editorValue: hugeValue,
+    editorValue: window.hugeValue,
     editor: defaultEditor,
   },
 ];
