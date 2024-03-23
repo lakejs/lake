@@ -1,15 +1,31 @@
 lake-box[name="codeBlock"] {
   margin-bottom: 8px;
 }
-lake-box[name="codeBlock"] .lake-box-container {
+.lake-code-block {
   border: 1px solid var(--border-color);
 }
-lake-box[name="codeBlock"] .lake-box-selected,
-lake-box[name="codeBlock"] .lake-box-focused {
-  border-color: var(--link-color);
+lake-box[name="codeBlock"] .lake-box-selected .lake-code-block {
+  background-color: var(--selection-background-color);
 }
-lake-box[name="codeBlock"] .lake-box-activated {
-  border-color: var(--warning-color);
+lake-box[name="codeBlock"] .lake-box-focused .lake-code-block {
+  border-color: var(--box-border-focus-color);
+}
+lake-box[name="codeBlock"] .lake-box-activated .lake-code-block {
+  border-color: var(--box-border-active-color);
+}
+.lake-code-block .cm-focused {
+  outline: none;
+}
+.lake-code-block .cm-gutters {
+  color: var(--disabled-text-color);
+  border-right: 1px solid var(--border-color);
+}
+.lake-code-block .cm-activeLineGutter {
+  color: var(--text-color);
+  background-color: transparent;
+}
+.lake-code-block .cm-activeLine {
+  background-color: transparent;
 }
 lake-box[name="codeBlock"] .CodeMirror {
   height: auto;

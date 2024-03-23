@@ -1,4 +1,5 @@
 .lake-custom-properties {
+  /* common */
   --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
   --text-color: #000000e0;
   --secondary-text-color: #000000a6;
@@ -7,14 +8,23 @@
   --background-color: #0000000a;
   --background-hover-color: #0000000a;
   --background-active-color: #0000000d;
-  --link-color: #1677ff;
-  --link-hover-color: #69b1ff;
-  --selection-background-color: #1ba2e333;
   --success-color: #52c41a;
   --warning-color: #faad14;
   --error-color: #ff4d4f;
+  /* selection */
+  --selection-background-color: #1ba2e333;
+  /* link */
+  --link-color: #1677ff;
+  --link-hover-color: #69b1ff;
+  /* box */
+  --box-border-color: #d9d9d9;
+  --box-border-focus-color: #1677ff;
+  --box-border-active-color: #faad14;
+  /* button */
   --button-shadow: 0 2px 0 #00000005;
+  /* popup */
   --popup-shadow: 0 6px 16px 0 #00000014, 0 3px 6px -4px #0000001f, 0 9px 28px 8px #0000000d;
+  /* input form */
   --input-border-color: #d9d9d9;
   --input-border-hover-color: #69b1ff;
   --input-border-active-color: #1677ff;
