@@ -16,6 +16,7 @@ function getWatchConfig(type: 'examples' | 'tests'): RollupOptions {
       sourcemap: true,
       globals: {
         chai: 'chai',
+        sinon: 'sinon',
         photoswipe: 'PhotoSwipe',
         'photoswipe/lightbox': 'PhotoSwipeLightbox',
       },
@@ -23,6 +24,7 @@ function getWatchConfig(type: 'examples' | 'tests'): RollupOptions {
     },
     external: [
       'chai',
+      'sinon',
       'photoswipe',
       'photoswipe/lightbox',
     ],
