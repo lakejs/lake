@@ -1,4 +1,8 @@
+import { basicSetup } from 'codemirror';
+import { EditorView, ViewUpdate } from '@codemirror/view';
+import { javascript } from '@codemirror/lang-javascript';
 import type { BoxComponent } from '..';
+import { NativeElement } from '../types/native';
 import { query } from '../utils';
 
 declare global {
@@ -15,26 +19,36 @@ export const codeBlockBox: BoxComponent = {
     if (!editor) {
       return;
     }
-    const root = query('<div />');
+    const root = query('<div class="lake-code-block" />');
     const container = box.getContainer();
     container.empty();
     container.append(root);
-    const codeEditor = window.CodeMirror(root.get(0), {
-      value: box.value.code ?? '',
-      mode: 'javascript',
-      tabSize: 2,
-      lineNumbers: true,
-    });
-    box.setData('codeEditor', codeEditor);
-    codeEditor.on('change', (cm: any) => {
+    const parent = root.get(0);
+    if (!parent) {
+      return;
+    }
+    const updateListener = (v: ViewUpdate) => {
+      if (!v.docChanged) {
+        return;
+      }
       // Here setTimeout is necessary because isComposing is not false after ending composition.
       window.setTimeout(() => {
         if (editor.isComposing) {
           return;
         }
-        box.updateValue('code', cm.doc.getValue());
+        box.updateValue('code', v.state.doc.toString());
         editor.history.save();
       }, 0);
+    };
+    const codeEditor = new EditorView({
+      doc: box.value.code ?? '',
+      extensions: [
+        basicSetup,
+        javascript(),
+        EditorView.updateListener.of(updateListener),
+      ],
+      parent: root.get(0) as NativeElement,
     });
+    box.setData('codeEditor', codeEditor);
   },
 };

@@ -18,9 +18,12 @@
     "url": "https://github.com/lakejs/lake/issues"
   },
   "dependencies": {
+    "@codemirror/lang-javascript": "^6.2.2",
+    "@codemirror/view": "^6.26.0",
     "@types/blueimp-md5": "^2.18.2",
     "@types/lodash": "^4.14.202",
     "blueimp-md5": "^2.19.0",
+    "codemirror": "^6.0.1",
     "eventemitter3": "^4.0.7",
     "js-base64": "^3.7.6",
     "lodash": "^4.17.21",
@@ -61,7 +64,8 @@
     "watch": "rollup --watch --config rollup.config.ts --configPlugin typescript",
     "build": "rimraf ./lib && rollup --config rollup.config.ts --configPlugin typescript",
     "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,.mjs\"",
-    "clean": "rimraf ./lib ./dist ./temp ./coverage"
+    "clean": "rimraf ./lib ./dist ./temp ./coverage",
+    "codemirror": "node_modules/.bin/rollup editor.mjs -f iife -o editor.bundle.js -p @rollup/plugin-node-resolve"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint"

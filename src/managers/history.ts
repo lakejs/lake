@@ -113,6 +113,9 @@ export class History {
     if (range.commonAncestor.isOutside) {
       return newContainer;
     }
+    if (range.isInsideBox) {
+      return newContainer;
+    }
     const startNodePath = range.startNode.path();
     const endNodePath = range.endNode.path();
     const newStartNode = newContainer.find(startNodePath);
