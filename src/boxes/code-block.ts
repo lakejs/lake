@@ -1,15 +1,6 @@
-import { basicSetup } from 'codemirror';
-import { EditorView, ViewUpdate } from '@codemirror/view';
-import { javascript } from '@codemirror/lang-javascript';
+import CodeMirror from '../codemirror';
 import type { BoxComponent } from '..';
-import { NativeElement } from '../types/native';
 import { query } from '../utils';
-
-declare global {
-  interface Window {
-    CodeMirror: any;
-  }
-}
 
 export const codeBlockBox: BoxComponent = {
   type: 'block',
@@ -27,27 +18,20 @@ export const codeBlockBox: BoxComponent = {
     if (!parent) {
       return;
     }
-    const updateListener = (v: ViewUpdate) => {
-      if (!v.docChanged) {
-        return;
-      }
+    const onChangeHandler = (value: string) => {
       // Here setTimeout is necessary because isComposing is not false after ending composition.
       window.setTimeout(() => {
         if (editor.isComposing) {
           return;
         }
-        box.updateValue('code', v.state.doc.toString());
+        box.updateValue('code', value);
         editor.history.save();
       }, 0);
     };
-    const codeEditor = new EditorView({
-      doc: box.value.code ?? '',
-      extensions: [
-        basicSetup,
-        javascript(),
-        EditorView.updateListener.of(updateListener),
-      ],
-      parent: root.get(0) as NativeElement,
+    const codeEditor = CodeMirror({
+      parent: root.get(0) as Element,
+      defaultValue: box.value.code ?? '',
+      onChange: onChangeHandler,
     });
     box.setData('codeEditor', codeEditor);
   },

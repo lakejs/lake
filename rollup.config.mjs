@@ -1,4 +1,4 @@
-import type { RollupOptions } from 'rollup';
+import path from 'path';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
@@ -7,7 +7,9 @@ import svg from 'rollup-plugin-svg-import';
 import css from 'rollup-plugin-import-css';
 import terser from '@rollup/plugin-terser';
 
-function getWatchConfig(type: 'examples' | 'tests'): RollupOptions {
+const codeMirrorPath = path.resolve('./src/codemirror.ts');
+
+function getWatchConfig(type) {
   return {
     input: `./${type}/index.ts`,
     output: {
@@ -19,14 +21,17 @@ function getWatchConfig(type: 'examples' | 'tests'): RollupOptions {
         sinon: 'sinon',
         photoswipe: 'PhotoSwipe',
         'photoswipe/lightbox': 'PhotoSwipeLightbox',
+        [codeMirrorPath]: 'CodeMirror',
       },
       assetFileNames: 'bundle.css',
     },
     external: [
       'chai',
       'sinon',
+      'photoswipe/style.css',
       'photoswipe',
       'photoswipe/lightbox',
+      codeMirrorPath,
     ],
     watch: {
       include: [
@@ -47,24 +52,29 @@ function getWatchConfig(type: 'examples' | 'tests'): RollupOptions {
   };
 }
 
-function getBuildConfig(type: 'iife' | 'es'): RollupOptions {
+function getBuildConfig(type) {
   if (type === 'iife') {
     return {
       input: './src/index.ts',
-      output: [{
-        file: './dist/lake.js',
-        format: 'iife',
-        name: 'Lake',
-        sourcemap: true,
-        assetFileNames: 'lake.css',
-      }, {
+      output: {
         file: './dist/lake.min.js',
         format: 'iife',
         name: 'Lake',
         sourcemap: true,
+        globals: {
+          photoswipe: 'PhotoSwipe',
+          'photoswipe/lightbox': 'PhotoSwipeLightbox',
+          [codeMirrorPath]: 'CodeMirror',
+        },
         plugins: [terser()],
         assetFileNames: 'lake.css',
-      }],
+      },
+      external: [
+        'photoswipe/style.css',
+        'photoswipe',
+        'photoswipe/lightbox',
+        codeMirrorPath,
+      ],
       plugins: [
         nodeResolve(),
         typescript(),
@@ -97,9 +107,26 @@ function getBuildConfig(type: 'iife' | 'es'): RollupOptions {
   };
 }
 
-export default (commandLineArgs: { watch: boolean }) => {
+function getCodeMirrorBuildConfig() {
+  return {
+    input: './src/codemirror.ts',
+    output: {
+      file: './dist/codemirror.min.js',
+      format: 'iife',
+      name: 'CodeMirror',
+      sourcemap: true,
+      plugins: [terser()],
+    },
+    plugins: [
+      nodeResolve(),
+      typescript(),
+    ],
+  };
+}
+
+export default (commandLineArgs) => {
   if (commandLineArgs.watch === true) {
     return [getWatchConfig('examples'), getWatchConfig('tests')];
   }
-  return [getBuildConfig('iife'), getBuildConfig('es')];
+  return [getBuildConfig('iife'), getBuildConfig('es'), getCodeMirrorBuildConfig()];
 };

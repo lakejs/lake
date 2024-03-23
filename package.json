@@ -61,11 +61,10 @@
   "scripts": {
     "start": "npm-run-all --parallel --print-label express watch",
     "express": "node app.mjs",
-    "watch": "rollup --watch --config rollup.config.ts --configPlugin typescript",
-    "build": "rimraf ./lib && rollup --config rollup.config.ts --configPlugin typescript",
+    "watch": "rollup --watch --config rollup.config.mjs",
+    "build": "rollup --config rollup.config.mjs",
     "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,.mjs\"",
-    "clean": "rimraf ./lib ./dist ./temp ./coverage",
-    "codemirror": "node_modules/.bin/rollup editor.mjs -f iife -o editor.bundle.js -p @rollup/plugin-node-resolve"
+    "clean": "rimraf ./lib ./dist ./temp ./coverage"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint"
