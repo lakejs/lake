@@ -8,7 +8,6 @@ import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
-import { debug } from '../utils';
 
 type ImageInfo = {
   node: Nodes;
@@ -417,8 +416,6 @@ export const imageBox: BoxComponent = {
     });
     root.on('click', () => {
       editor.selection.range.selectBox(box.node);
-      debug(`Box '${box.name}' (id = ${box.node.id}) value:`);
-      debug(box.value);
     });
   },
   html: box => {

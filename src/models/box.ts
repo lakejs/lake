@@ -73,6 +73,7 @@ export class Box {
     } else {
       container.off('mouseenter');
       container.off('mouseleave');
+      container.off('click');
     }
     container.on('mouseenter', () => {
       if (container.hasClass('lake-box-selected') || container.hasClass('lake-box-activated')) {
@@ -82,6 +83,10 @@ export class Box {
     });
     container.on('mouseleave', () => {
       container.removeClass('lake-box-hovered');
+    });
+    container.on('click', () => {
+      debug(`Box '${this.name}' (id = ${this.node.id}) value:`);
+      debug(this.value);
     });
   }
 
@@ -161,6 +166,12 @@ export class Box {
     }
     this.addFramework();
     const content = component.render(this);
+    if (content !== undefined) {
+      const container = this.getContainer();
+      const newContainer = container.clone(false);
+      newContainer.append(content);
+      morph(container, newContainer);
+    }
     for (const setup of effectData[this.node.id].setup) {
       const result = setup();
       if (result !== undefined) {
@@ -168,13 +179,6 @@ export class Box {
       }
     }
     debug(`Box '${this.name}' (id = ${this.node.id}) rendered`);
-    if (content === undefined) {
-      return;
-    }
-    const container = this.getContainer();
-    const newContainer = container.clone(false);
-    newContainer.append(content);
-    morph(container, newContainer);
   }
 
   // Destroys a rendered box.

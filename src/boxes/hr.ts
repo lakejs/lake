@@ -9,12 +9,12 @@ export const hrBox: BoxComponent = {
       return;
     }
     box.useEffect(() => {
-      box.getContainer().on('click', () => {
+      const root = box.getContainer().find('.lake-hr');
+      root.on('click', () => {
         editor.selection.range.selectBox(box.node);
       });
-      return () => box.getContainer().off('click');
     });
-    return '<hr />';
+    return '<div class="lake-hr"><hr /></div>';
   },
   html: () => '<hr />',
 };
