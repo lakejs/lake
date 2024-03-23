@@ -76,7 +76,11 @@ export class Box {
       container.off('click');
     }
     container.on('mouseenter', () => {
-      if (container.hasClass('lake-box-selected') || container.hasClass('lake-box-activated')) {
+      if (
+        container.hasClass('lake-box-selected') ||
+        container.hasClass('lake-box-focused') ||
+        container.hasClass('lake-box-activated')
+      ) {
         return;
       }
       container.addClass('lake-box-hovered');
