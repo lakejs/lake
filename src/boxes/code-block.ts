@@ -10,7 +10,9 @@ export const codeBlockBox: BoxComponent = {
     if (!editor) {
       return;
     }
+    const width = editor.innerWidth() - 2;
     const root = query('<div class="lake-code-block" />');
+    root.css('width', `${width}px`);
     const container = box.getContainer();
     container.empty();
     container.append(root);

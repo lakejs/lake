@@ -28,6 +28,7 @@ lake-box[name="codeBlock"] {
   margin-bottom: 8px;
 }
 .lake-code-block {
+  box-sizing: border-box;
   border: 1px solid var(--border-color);
 }
 lake-box[name="codeBlock"] .lake-box-selected .lake-code-block {
