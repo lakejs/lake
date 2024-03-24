@@ -52,7 +52,8 @@ describe('editor', () => {
   });
 
   it('constructor: sets spellcheck', () => {
-    const editor = new Editor(targetNode, {
+    const editor = new Editor({
+      root: targetNode,
       spellcheck: true,
     });
     editor.render();
@@ -64,7 +65,8 @@ describe('editor', () => {
   it('constructor: empty default value', () => {
     const input = '';
     const output = '';
-    const editor = new Editor(targetNode, {
+    const editor = new Editor({
+      root: targetNode,
       defaultValue: input,
     });
     editor.render();
@@ -77,7 +79,8 @@ describe('editor', () => {
   it('method: getValue', () => {
     const input = '<p><strong>\u200B# <focus />foo</strong></p>';
     const output = '<p><strong># <focus />foo</strong></p>';
-    const editor = new Editor(targetNode, {
+    const editor = new Editor({
+      root: targetNode,
       defaultValue: input,
     });
     editor.render();
@@ -90,7 +93,9 @@ describe('editor', () => {
   it('method: setValue', () => {
     const input = '<p><strong>\u200B# <focus />foo</strong></p>';
     const output = '<p><strong># <focus />foo</strong></p>';
-    const editor = new Editor(targetNode);
+    const editor = new Editor({
+      root: targetNode,
+    });
     editor.render();
     editor.setValue(input);
     const value = editor.getValue();
@@ -101,7 +106,9 @@ describe('editor', () => {
 
   it('method: insertBox', () => {
     const output = '<p><lake-box type="inline" name="inlineBox" focus="right"></lake-box></p>';
-    const editor = new Editor(targetNode);
+    const editor = new Editor({
+      root: targetNode,
+    });
     editor.render();
     expect(editor.box.getInstances(editor).size).to.equal(0);
     editor.insertBox('inlineBox');
@@ -115,7 +122,9 @@ describe('editor', () => {
   it('method: removeBox', () => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
     const output = '<p>foo<focus />bar</p>';
-    const editor = new Editor(targetNode);
+    const editor = new Editor({
+      root: targetNode,
+    });
     editor.render();
     editor.setValue(input);
     expect(editor.box.getInstances(editor).size).to.equal(1);
@@ -128,7 +137,9 @@ describe('editor', () => {
   });
 
   it('method: innerWidth', () => {
-    const editor = new Editor(targetNode);
+    const editor = new Editor({
+      root: targetNode,
+    });
     editor.render();
     editor.container.css('width', '600px');
     const width = editor.innerWidth();
@@ -139,7 +150,9 @@ describe('editor', () => {
 
   it('selection event: should not have any class', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
-    const editor = new Editor(targetNode);
+    const editor = new Editor({
+      root: targetNode,
+    });
     editor.render();
     editor.setValue(input);
     const boxNode = editor.container.find('lake-box');
@@ -159,7 +172,9 @@ describe('editor', () => {
 
   it('selection event: should have activated class', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
-    const editor = new Editor(targetNode);
+    const editor = new Editor({
+      root: targetNode,
+    });
     editor.render();
     editor.setValue(input);
     const range = editor.selection.range;
@@ -181,7 +196,9 @@ describe('editor', () => {
 
   it('selection event: should have focused class', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
-    const editor = new Editor(targetNode);
+    const editor = new Editor({
+      root: targetNode,
+    });
     editor.render();
     editor.setValue(input);
     const range = editor.selection.range;
@@ -203,7 +220,9 @@ describe('editor', () => {
 
   it('selection event: should have selected class', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
-    const editor = new Editor(targetNode);
+    const editor = new Editor({
+      root: targetNode,
+    });
     editor.render();
     editor.setValue(input);
     const range = editor.selection.range;
@@ -226,7 +245,9 @@ describe('editor', () => {
   it('input event: input text in the left strip of inline box', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
     const output = '<p>fooa<focus /><lake-box type="inline" name="inlineBox"></lake-box>bar</p>';
-    const editor = new Editor(targetNode);
+    const editor = new Editor({
+      root: targetNode,
+    });
     editor.render();
     editor.setValue(input);
     editor.event.on('input', () => {
@@ -243,7 +264,9 @@ describe('editor', () => {
   it('input event: input text in the right strip of inline box', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="right"></lake-box>bar</p>';
     const output = '<p>foo<lake-box type="inline" name="inlineBox"></lake-box>a<focus />bar</p>';
-    const editor = new Editor(targetNode);
+    const editor = new Editor({
+      root: targetNode,
+    });
     editor.render();
     editor.setValue(input);
     editor.event.on('input', () => {
@@ -260,7 +283,9 @@ describe('editor', () => {
   it('input event: input composition text in the left strip of inline box', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
     const output = '<p>foo你好<focus /><lake-box type="inline" name="inlineBox"></lake-box>bar</p>';
-    const editor = new Editor(targetNode);
+    const editor = new Editor({
+      root: targetNode,
+    });
     editor.render();
     editor.setValue(input);
     editor.event.on('input', () => {
@@ -278,7 +303,9 @@ describe('editor', () => {
   it('always keeps empty paragraph', () => {
     const input = '<p>foo</p>';
     const output = '<p><br /><focus /></p>';
-    const editor = new Editor(targetNode);
+    const editor = new Editor({
+      root: targetNode,
+    });
     editor.render();
     editor.setValue(input);
     editor.command.execute('selectAll');
@@ -294,7 +321,8 @@ describe('editor', () => {
   it('readonly mode', () => {
     const input = '<p>foo<focus /></p>';
     const output = '<p>foo<focus /></p>';
-    const view = new Editor(targetNode, {
+    const view = new Editor({
+      root: targetNode,
       readonly: true,
       defaultValue: input,
     });

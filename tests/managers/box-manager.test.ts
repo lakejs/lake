@@ -25,7 +25,8 @@ describe('managers / box-manager', () => {
       render: () => '<div>bar</div>',
     });
     expect(box.getNames().indexOf('managerTest') >= 0).to.equal(true);
-    const editor = new Editor(targetNode, {
+    const editor = new Editor({
+      root: targetNode,
       defaultValue: '<lake-box type="block" name="managerTest"></lake-box>',
     });
     editor.render();
@@ -43,7 +44,8 @@ describe('managers / box-manager', () => {
       render: () => '<div>bar</div>',
     });
     expect(box.getNames().indexOf('managerTest') >= 0).to.equal(true);
-    const editor = new Editor(targetNode, {
+    const editor = new Editor({
+      root: targetNode,
       defaultValue: '<lake-box type="block" name="managerTest" focus="right"></lake-box><lake-box type="block" name="managerTest"></lake-box>',
     });
     editor.render();

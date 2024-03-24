@@ -23,7 +23,8 @@ describe('managers / plugin', () => {
     plugin.add((editor: Editor) => {
       editorValue = editor.getValue();
     });
-    const editor = new Editor(targetNode, {
+    const editor = new Editor({
+      root: targetNode,
       defaultValue: '<p>foo</p>',
     });
     editor.render();

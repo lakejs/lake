@@ -79,7 +79,8 @@ export function testBox(
 ) {
   const targetNode = query('<div class="lake-main" />');
   query(document.body).append(targetNode);
-  const editor = new Editor(targetNode, {
+  const editor = new Editor({
+    root: targetNode,
     defaultValue: '<p><br /><focus /></p>',
   });
   editor.render();
@@ -96,7 +97,8 @@ export function testPlugin(
 ) {
   const targetNode = query('<div class="lake-main" />');
   query(document.body).append(targetNode);
-  const editor = new Editor(targetNode, {
+  const editor = new Editor({
+    root: targetNode,
     defaultValue: content,
   });
   editor.render();

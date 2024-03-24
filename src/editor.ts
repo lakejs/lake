@@ -3,7 +3,7 @@ import EventEmitter from 'eventemitter3';
 import pkg from '../package.json';
 import { NativeElement, NativeNode } from './types/native';
 import { editors } from './storage/editors';
-import { denormalizeValue, forEach, normalizeValue, query } from './utils';
+import { denormalizeValue, normalizeValue, query } from './utils';
 import { Nodes } from './models/nodes';
 import { Box } from './models/box';
 import { HTMLParser } from './parsers/html-parser';
@@ -16,9 +16,24 @@ import { Keystroke } from './managers/keystroke';
 import { BoxManager } from './managers/box-manager';
 import { Plugin } from './managers/plugin';
 
-type OptionsType = {[key: string]: any};
+type Config = {
+  root: string | Nodes | NativeNode | null;
+  readonly: boolean;
+  defaultValue: string;
+  spellcheck: boolean;
+  minChangeSize: number;
+};
 
-const defaultOptions: OptionsType = {
+type ArgumentConfig = {
+  root: string | Nodes | NativeNode | null;
+  readonly?: boolean;
+  defaultValue?: string;
+  spellcheck?: boolean;
+  minChangeSize?: number;
+};
+
+const defaultConfig: Config = {
+  root: null,
   readonly: false,
   defaultValue: '<p><br /><focus /></p>',
   spellcheck: false,
@@ -32,7 +47,7 @@ export class Editor {
 
   public static plugin = new Plugin();
 
-  private options: OptionsType;
+  private config: Config;
 
   private unsavedInputData: string;
 
@@ -70,17 +85,19 @@ export class Editor {
 
   public box: BoxManager;
 
-  constructor(target: string | Nodes | NativeNode, options = defaultOptions) {
-    this.root = query(target);
-    this.options = options;
+  constructor(config: ArgumentConfig) {
+    if (!config.root) {
+      throw new Error('The root of the config must be specified.');
+    }
+    this.root = query(config.root);
+    this.config = {...defaultConfig, ...config};
     this.containerWrapper = query('<div class="lake-container-wrapper" />');
     this.container = query('<div class="lake-container" />');
     this.overlayContainer = query('<div class="lake-overlay" />');
     this.isComposing = false;
 
     this.root.addClass('lake-custom-properties');
-    this.setDefaultOptions();
-    this.readonly = this.options.readonly;
+    this.readonly = this.config.readonly;
     this.setContainerAttributes();
 
     this.event = new EventEmitter();
@@ -158,19 +175,11 @@ export class Editor {
     };
   }
 
-  private setDefaultOptions(): void {
-    forEach(defaultOptions, (key, value) => {
-      if (this.options[key] === undefined) {
-        this.options[key] = value;
-      }
-    });
-  }
-
   private setContainerAttributes(): void {
     const container = this.container;
     container.attr({
       contenteditable: this.readonly ? 'false' : 'true',
-      spellcheck: this.options.spellcheck ? 'true' : 'false',
+      spellcheck: this.config.spellcheck ? 'true' : 'false',
     });
   }
 
@@ -236,7 +245,7 @@ export class Editor {
             this.inputInBoxStrip();
           } else {
             this.unsavedInputData += inputEvent.data ?? '';
-            if (this.unsavedInputData.length < this.options.minChangeSize) {
+            if (this.unsavedInputData.length < this.config.minChangeSize) {
               this.event.emit('input', inputEvent);
               return;
             }
@@ -344,7 +353,7 @@ export class Editor {
 
   // Renders an editor area and set default value to it.
   public render(): void {
-    const value = normalizeValue(this.options.defaultValue);
+    const value = normalizeValue(this.config.defaultValue);
     const htmlParser = new HTMLParser(value);
     const fragment = htmlParser.getFragment();
     this.root.empty();

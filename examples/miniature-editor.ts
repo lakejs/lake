@@ -89,7 +89,8 @@ const toolbarConfig = [
 
 export default (value: string) => {
   Utils.query('.lake-editor').addClass('lake-mini-editor');
-  const editor = new Editor('.lake-main', {
+  const editor = new Editor({
+    root: '.lake-main',
     defaultValue: value,
   });
   editor.render();
