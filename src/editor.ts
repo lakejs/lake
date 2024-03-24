@@ -17,7 +17,6 @@ import { BoxManager } from './managers/box-manager';
 import { Plugin } from './managers/plugin';
 
 type Config = {
-  root: string | Nodes | NativeNode | null;
   readonly: boolean;
   defaultValue: string;
   spellcheck: boolean;
@@ -25,7 +24,7 @@ type Config = {
 };
 
 type ArgumentConfig = {
-  root: string | Nodes | NativeNode | null;
+  root: string | Nodes | NativeNode;
   readonly?: boolean;
   defaultValue?: string;
   spellcheck?: boolean;
@@ -33,7 +32,6 @@ type ArgumentConfig = {
 };
 
 const defaultConfig: Config = {
-  root: null,
   readonly: false,
   defaultValue: '<p><br /><focus /></p>',
   spellcheck: false,
