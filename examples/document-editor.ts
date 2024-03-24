@@ -7,6 +7,9 @@ export default (value: string) => {
     value,
   });
   editor.render();
-  new Toolbar(editor).render('.lake-toolbar');
+  new Toolbar({
+    editor,
+    root: '.lake-toolbar',
+  }).render();
   return editor;
 };

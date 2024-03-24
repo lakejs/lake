@@ -70,7 +70,7 @@ const highlight: ToolbarItem = {
   },
 };
 
-const toolbarConfig = [
+const toolbarItems = [
   heading,
   'blockQuote',
   'bold',
@@ -94,6 +94,10 @@ export default (value: string) => {
     value,
   });
   editor.render();
-  new Toolbar(editor, toolbarConfig).render('.lake-toolbar');
+  new Toolbar({
+    editor,
+    root: '.lake-toolbar',
+    items: toolbarItems,
+  }).render();
   return editor;
 };

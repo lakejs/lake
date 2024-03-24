@@ -11,7 +11,7 @@ import { query } from '../utils/query';
 import { request } from '../utils/request';
 import { Nodes } from '../models/nodes';
 
-const defaultConfig: string[] = [
+const defaultItems: string[] = [
   'undo',
   'redo',
   '|',
@@ -34,6 +34,12 @@ const defaultConfig: string[] = [
   'hr',
 ];
 
+type Config = {
+  editor: Editor;
+  root: string | Nodes | NativeNode;
+  items?: (string | ToolbarItem)[];
+};
+
 const toolbarItemMap: Map<string, ToolbarItem> = new Map();
 
 toolbarItems.forEach(item => {
@@ -43,14 +49,14 @@ toolbarItems.forEach(item => {
 export class Toolbar {
   private editor: Editor;
 
-  private config: (string | ToolbarItem)[];
+  private items: (string | ToolbarItem)[];
 
   private root: Nodes;
 
-  constructor(editor: Editor, config?: (string | ToolbarItem)[]) {
-    this.editor = editor;
-    this.config = config || defaultConfig;
-    this.root = query('<div />');
+  constructor(config: Config) {
+    this.editor = config.editor;
+    this.root = query(config.root);
+    this.items = config.items || defaultItems;
   }
 
   // Returns the value of the node.
@@ -374,14 +380,13 @@ export class Toolbar {
     });
   }
 
-  public render(target: string | Nodes | NativeNode) {
+  public render() {
     const editor = this.editor;
-    this.root = query(target);
     this.root.addClass('lake-custom-properties');
     const allMenuMap: Map<string, Map<string, string>> = new Map();
     const buttonItemList: ButtonItem[] = [];
     const dropdownItemList: DropdownItem[] = [];
-    this.config.forEach(name => {
+    this.items.forEach(name => {
       if (name === '|') {
         this.appendDivider();
         return;

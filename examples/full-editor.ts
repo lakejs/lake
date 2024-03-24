@@ -1,6 +1,6 @@
 import { Editor, Toolbar } from '../src';
 
-const toolbarConfig = [
+const toolbarItems = [
   'undo',
   'redo',
   '|',
@@ -48,6 +48,10 @@ export default (value: string) => {
     value,
   });
   editor.render();
-  new Toolbar(editor, toolbarConfig).render('.lake-toolbar');
+  new Toolbar({
+    editor,
+    root: '.lake-toolbar',
+    items: toolbarItems,
+  }).render();
   return editor;
 };
