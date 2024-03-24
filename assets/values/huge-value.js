@@ -2,7 +2,6 @@
 // A Study In Scarlet: https://sherlock-holm.es/stories/html/stud.html
 // The Sign of the Four: https://sherlock-holm.es/stories/html/sign.html
 
-// eslint-disable-next-line no-undef
 window.hugeValue = `
 <h1>A Study In Scarlet</h1>
 <h2>Arthur Conan Doyle</h2>

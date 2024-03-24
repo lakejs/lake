@@ -25,7 +25,7 @@ import { removeMark} from './operations/remove-mark';
 import { fixList} from './operations/fix-list';
 import { insertLink } from './operations/insert-link';
 import { Editor } from './editor';
-import { Toolbar } from './appearance/toolbar';
+import { Toolbar } from './ui/toolbar';
 import { hrBox } from './boxes/hr';
 import { imageBox } from './boxes/image';
 import { codeBlockBox } from './boxes/code-block';

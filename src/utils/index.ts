@@ -30,5 +30,8 @@ export * from './remove-br';
 export * from './set-block-indent';
 export * from './morph';
 
+// Network
+export * from './request';
+
 // Other
 export * from './debug';

@@ -1,7 +1,7 @@
 import { type Editor } from '..';
 import { query } from '../utils';
 import { Nodes } from '../models/nodes';
-import { LinkPopup } from '../appearance/link-popup';
+import { LinkPopup } from '../ui/link-popup';
 
 export default (editor: Editor) => {
   let popup: LinkPopup | null = null;

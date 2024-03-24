@@ -1,7 +1,11 @@
 import type { Editor } from '..';
 import { blockTagNames } from '../config/tag-names';
 import { getElementRules } from '../config/element-rules';
-import { forEach, wrapNodeList, changeTagName, fixNumberedList, removeBr, query, normalizeValue } from '../utils';
+import {
+  forEach, wrapNodeList, changeTagName,
+  fixNumberedList, removeBr, query,
+  normalizeValue, request,
+} from '../utils';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { HTMLParser } from '../parsers/html-parser';
@@ -171,6 +175,45 @@ export default (editor: Editor) => {
       return;
     }
     editor.selection.deleteContents();
+    // upload
+    if (dataTransfer.files.length > 0) {
+      for (const file of dataTransfer.files) {
+        const imageBox = editor.insertBox('image', {
+          url: URL.createObjectURL(file),
+          status: 'uploading',
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          lastModified: file.lastModified,
+        });
+        if (imageBox) {
+          const xhr = request({
+            onProgress: e => {
+              const percentNode = imageBox.node.find('.lake-percent');
+              const percent = Math.round(e.percent);
+              percentNode.text(`${percent < 100 ? percent : 99} %`);
+            },
+            onError: () => {
+              imageBox.updateValue('status', 'error');
+              imageBox.render();
+            },
+            onSuccess: body => {
+              imageBox.updateValue({
+                status: 'done',
+                url: body.url,
+              });
+              imageBox.render();
+              editor.history.save();
+            },
+            file,
+            action: '/upload',
+            method: 'POST',
+          });
+          imageBox.setData('xhr', xhr);
+        }
+      }
+      return;
+    }
     const types = dataTransfer.types;
     const isPlainText = (types.length === 1 && types[0] === 'text/plain');
     if (isPlainText) {

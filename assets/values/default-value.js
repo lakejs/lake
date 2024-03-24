@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-undef
 window.defaultValue = `
 <h3>Selection</h3>
 <lake-box type="block" name="hr"></lake-box>
