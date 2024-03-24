@@ -1,3 +1,29 @@
+/* CodeMirror */
+.cm-editor.cm-focused {
+  outline: none;
+}
+.cm-editor .cm-content {
+  font-family: Consolas, Courier, monospace;
+}
+.cm-editor .cm-gutters {
+  color: var(--disabled-text-color);
+  border-right: 1px solid var(--border-color);
+}
+.cm-editor .cm-activeLineGutter {
+  color: var(--text-color);
+  background-color: transparent;
+}
+.cm-editor .cm-activeLine {
+  background-color: transparent;
+}
+.cm-editor .cm-selectionBackground {
+  background-color: transparent;
+}
+.cm-editor.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground {
+  background-color: var(--selection-background-color);
+}
+
+/* code block */
 lake-box[name="codeBlock"] {
   margin-bottom: 8px;
 }
@@ -12,29 +38,4 @@ lake-box[name="codeBlock"] .lake-box-focused .lake-code-block {
 }
 lake-box[name="codeBlock"] .lake-box-activated .lake-code-block {
   border-color: var(--box-border-active-color);
-}
-.lake-code-block .cm-focused {
-  outline: none;
-}
-.lake-code-block .cm-gutters {
-  color: var(--disabled-text-color);
-  border-right: 1px solid var(--border-color);
-}
-.lake-code-block .cm-activeLineGutter {
-  color: var(--text-color);
-  background-color: transparent;
-}
-.lake-code-block .cm-activeLine {
-  background-color: transparent;
-}
-lake-box[name="codeBlock"] .CodeMirror {
-  height: auto;
-  outline: none;
-  border: 1px solid transparent;
-}
-lake-box[name="codeBlock"] .CodeMirror-scroll {
-  max-height: 200px;
-}
-lake-box[name="codeBlock"] .CodeMirror pre {
-  padding-left: 7px; line-height: 1.25;
 }

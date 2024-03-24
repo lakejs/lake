@@ -1,5 +1,6 @@
 import { basicSetup } from 'codemirror';
-import { EditorView, ViewUpdate } from '@codemirror/view';
+import { EditorView, ViewUpdate, keymap } from '@codemirror/view';
+import { indentWithTab } from '@codemirror/commands';
 import { javascript } from '@codemirror/lang-javascript';
 
 type Config = {
@@ -19,6 +20,7 @@ export default function(config: Config): EditorView {
     doc: config.defaultValue,
     extensions: [
       basicSetup,
+      keymap.of([indentWithTab]),
       javascript(),
       EditorView.updateListener.of(updateListener),
     ],
