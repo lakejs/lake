@@ -32,7 +32,7 @@ export const codeBlockBox: BoxComponent = {
     };
     const codeEditor = CodeMirror({
       parent: root.get(0) as Element,
-      defaultValue: box.value.code ?? '',
+      value: box.value.code ?? '',
       onChange: onChangeHandler,
     });
     box.setData('codeEditor', codeEditor);

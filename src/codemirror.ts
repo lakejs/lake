@@ -5,7 +5,7 @@ import { javascript } from '@codemirror/lang-javascript';
 
 type Config = {
   parent:  Element;
-  defaultValue: string;
+  value: string;
   onChange: (value: string) => void;
 };
 
@@ -17,7 +17,7 @@ export default function(config: Config): EditorView {
     config.onChange(update.state.doc.toString());
   };
   return new EditorView({
-    doc: config.defaultValue,
+    doc: config.value,
     extensions: [
       basicSetup,
       keymap.of([indentWithTab]),

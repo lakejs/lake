@@ -67,7 +67,7 @@ describe('editor', () => {
     const output = '';
     const editor = new Editor({
       root: targetNode,
-      defaultValue: input,
+      value: input,
     });
     editor.render();
     const value = editor.getValue();
@@ -81,7 +81,7 @@ describe('editor', () => {
     const output = '<p><strong># <focus />foo</strong></p>';
     const editor = new Editor({
       root: targetNode,
-      defaultValue: input,
+      value: input,
     });
     editor.render();
     const value = editor.getValue();
@@ -324,7 +324,7 @@ describe('editor', () => {
     const view = new Editor({
       root: targetNode,
       readonly: true,
-      defaultValue: input,
+      value: input,
     });
     view.render();
     const readonly = view.readonly;

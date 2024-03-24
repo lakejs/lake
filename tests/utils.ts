@@ -81,7 +81,7 @@ export function testBox(
   query(document.body).append(targetNode);
   const editor = new Editor({
     root: targetNode,
-    defaultValue: '<p><br /><focus /></p>',
+    value: '<p><br /><focus /></p>',
   });
   editor.render();
   const box = editor.insertBox(name, value);
@@ -99,7 +99,7 @@ export function testPlugin(
   query(document.body).append(targetNode);
   const editor = new Editor({
     root: targetNode,
-    defaultValue: content,
+    value: content,
   });
   editor.render();
   callback(editor);

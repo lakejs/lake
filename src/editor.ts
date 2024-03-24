@@ -17,23 +17,23 @@ import { BoxManager } from './managers/box-manager';
 import { Plugin } from './managers/plugin';
 
 type Config = {
+  value: string;
   readonly: boolean;
-  defaultValue: string;
   spellcheck: boolean;
   minChangeSize: number;
 };
 
 type ArgumentConfig = {
   root: string | Nodes | NativeNode;
+  value?: string;
   readonly?: boolean;
-  defaultValue?: string;
   spellcheck?: boolean;
   minChangeSize?: number;
 };
 
 const defaultConfig: Config = {
   readonly: false,
-  defaultValue: '<p><br /><focus /></p>',
+  value: '<p><br /><focus /></p>',
   spellcheck: false,
   minChangeSize: 5,
 };
@@ -351,7 +351,7 @@ export class Editor {
 
   // Renders an editor area and set default value to it.
   public render(): void {
-    const value = normalizeValue(this.config.defaultValue);
+    const value = normalizeValue(this.config.value);
     const htmlParser = new HTMLParser(value);
     const fragment = htmlParser.getFragment();
     this.root.empty();

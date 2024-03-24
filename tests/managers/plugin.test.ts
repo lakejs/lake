@@ -25,7 +25,7 @@ describe('managers / plugin', () => {
     });
     const editor = new Editor({
       root: targetNode,
-      defaultValue: '<p>foo</p>',
+      value: '<p>foo</p>',
     });
     editor.render();
     plugin.loadAll(editor);
