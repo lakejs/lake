@@ -59,7 +59,7 @@ export class Editor {
 
   public root: Nodes;
 
-  public config = defaultConfig;
+  public config: typeof defaultConfig;
 
   public containerWrapper: Nodes;
 
@@ -88,15 +88,18 @@ export class Editor {
       throw new Error('The root of the config must be specified.');
     }
     this.root = query(config.root);
-    this.config = {...this.config, ...config};
+    this.config = {...defaultConfig, ...config};
     this.containerWrapper = query('<div class="lake-container-wrapper" />');
     this.container = query('<div class="lake-container" />');
     this.overlayContainer = query('<div class="lake-overlay" />');
     this.isComposing = false;
+    this.readonly = this.config.readonly;
 
     this.root.addClass('lake-custom-properties');
-    this.readonly = this.config.readonly;
-    this.setContainerAttributes();
+    this.container.attr({
+      contenteditable: this.readonly ? 'false' : 'true',
+      spellcheck: this.config.spellcheck ? 'true' : 'false',
+    });
 
     this.event = new EventEmitter();
     this.selection = new Selection(this.container);
@@ -171,14 +174,6 @@ export class Editor {
     this.resizeListener = () => {
       this.event.emit('resize');
     };
-  }
-
-  private setContainerAttributes(): void {
-    const container = this.container;
-    container.attr({
-      contenteditable: this.readonly ? 'false' : 'true',
-      spellcheck: this.config.spellcheck ? 'true' : 'false',
-    });
   }
 
   private inputInBoxStrip(): void {
