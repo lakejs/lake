@@ -46,6 +46,7 @@ export default (value: string) => {
   const editor = new Editor({
     root: '.lake-main',
     value,
+    imageRequestAction: '/upload',
   });
   editor.render();
   new Toolbar({

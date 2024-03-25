@@ -1,6 +1,5 @@
 import type { Editor } from '../editor';
 import { AppliedItem } from './object';
-import { UploadRequestMethod } from './request';
 
 export type ToolbarMenuItem = {
   value: string;
@@ -37,10 +36,6 @@ export type DropdownItem = {
 export type UploadItem = {
   name: string;
   type: 'upload';
-  request: {
-    method: UploadRequestMethod;
-    action: string;
-  },
   icon?: string;
   tooltip: string;
   accept?: string;

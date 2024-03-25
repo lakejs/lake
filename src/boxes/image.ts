@@ -195,6 +195,21 @@ function openFullScreen(box: Box): void {
   lightbox.loadAndOpen(currentIndex);
 }
 
+// Removes current box.
+function removeImageBox(box: Box): void {
+  const editor = box.getEditor();
+  if (!editor) {
+    return;
+  }
+  const xhr = box.getData('xhr');
+  if (xhr) {
+    xhr.abort();
+  }
+  editor.selection.range.selectBox(box.node);
+  editor.removeBox();
+  editor.history.save();
+}
+
 // Displays error icon and filename.
 async function renderError(root: Nodes, box: Box): Promise<void> {
   const value = box.value;
@@ -405,13 +420,7 @@ export const imageBox: BoxComponent = {
       root.find('.lake-button-view').on('click', () => openFullScreen(box));
       root.find('.lake-button-remove').on('click', event => {
         event.stopPropagation();
-        const xhr = box.getData('xhr');
-        if (xhr) {
-          xhr.abort();
-        }
-        editor.selection.range.selectBox(box.node);
-        editor.removeBox();
-        editor.history.save();
+        removeImageBox(box);
       });
     });
     root.on('click', () => {

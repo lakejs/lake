@@ -2,6 +2,7 @@ import debounce from 'lodash/debounce';
 import EventEmitter from 'eventemitter3';
 import pkg from '../package.json';
 import { NativeElement, NativeNode } from './types/native';
+import { UploadRequestMethod } from './types/request';
 import { editors } from './storage/editors';
 import { denormalizeValue, normalizeValue, query } from './utils';
 import { Nodes } from './models/nodes';
@@ -16,26 +17,25 @@ import { Keystroke } from './managers/keystroke';
 import { BoxManager } from './managers/box-manager';
 import { Plugin } from './managers/plugin';
 
-type Config = {
-  value: string;
-  readonly: boolean;
-  spellcheck: boolean;
-  minChangeSize: number;
-};
-
-type ArgumentConfig = {
+type EditorConfig = {
   root: string | Nodes | NativeNode;
   value?: string;
   readonly?: boolean;
   spellcheck?: boolean;
   minChangeSize?: number;
+  imageRequestMethod?: UploadRequestMethod;
+  imageRequestAction?: string;
+  imageRequestTypes?: string[];
 };
 
-const defaultConfig: Config = {
-  readonly: false,
+const defaultConfig = {
   value: '<p><br /><focus /></p>',
+  readonly: false,
   spellcheck: false,
   minChangeSize: 5,
+  imageRequestMethod: 'POST' as UploadRequestMethod,
+  imageRequestAction: '/upload',
+  imageRequestTypes: ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'],
 };
 
 export class Editor {
@@ -44,8 +44,6 @@ export class Editor {
   public static box = new BoxManager();
 
   public static plugin = new Plugin();
-
-  private config: Config;
 
   private unsavedInputData: string;
 
@@ -60,6 +58,8 @@ export class Editor {
   private resizeListener: EventListener;
 
   public root: Nodes;
+
+  public config = defaultConfig;
 
   public containerWrapper: Nodes;
 
@@ -83,12 +83,12 @@ export class Editor {
 
   public box: BoxManager;
 
-  constructor(config: ArgumentConfig) {
+  constructor(config: EditorConfig) {
     if (!config.root) {
       throw new Error('The root of the config must be specified.');
     }
     this.root = query(config.root);
-    this.config = {...defaultConfig, ...config};
+    this.config = {...this.config, ...config};
     this.containerWrapper = query('<div class="lake-container-wrapper" />');
     this.container = query('<div class="lake-container" />');
     this.overlayContainer = query('<div class="lake-overlay" />');
@@ -323,12 +323,16 @@ export class Editor {
   }
 
   // Inserts a box into the position of the selection.
-  public insertBox(boxName: Parameters<typeof insertBox>[1], boxValue?: Parameters<typeof insertBox>[2]): ReturnType<typeof insertBox> {
+  public insertBox(
+    boxName: Parameters<typeof insertBox>[1],
+    boxValue?: Parameters<typeof insertBox>[2],
+  ): ReturnType<typeof insertBox> {
     const box = insertBox(this.selection.range, boxName, boxValue);
-    if (box) {
-      const instanceMap = this.box.getInstances(this);
-      instanceMap.set(box.node.id, box);
+    if (!box) {
+      return box;
     }
+    const instanceMap = this.box.getInstances(this);
+    instanceMap.set(box.node.id, box);
     return box;
   }
 

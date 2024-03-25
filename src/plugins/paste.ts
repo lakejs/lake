@@ -3,13 +3,13 @@ import { blockTagNames } from '../config/tag-names';
 import { getElementRules } from '../config/element-rules';
 import {
   forEach, wrapNodeList, changeTagName,
-  fixNumberedList, removeBr, query,
-  normalizeValue, request,
+  fixNumberedList, removeBr, query, normalizeValue,
 } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { HTMLParser } from '../parsers/html-parser';
 import { TextParser } from '../parsers/text-parser';
+import { uploadImage } from '../ui/upload';
 
 const blockSelector = Array.from(blockTagNames).join(',');
 
@@ -164,6 +164,7 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
 }
 
 export default (editor: Editor) => {
+  const { imageRequestTypes } = editor.config;
   editor.container.on('paste', event => {
     const range = editor.selection.range;
     if (range.isInsideBox) {
@@ -175,41 +176,11 @@ export default (editor: Editor) => {
       return;
     }
     editor.selection.deleteContents();
-    // upload
+    // upload file
     if (dataTransfer.files.length > 0) {
       for (const file of dataTransfer.files) {
-        const imageBox = editor.insertBox('image', {
-          url: URL.createObjectURL(file),
-          status: 'uploading',
-          name: file.name,
-          size: file.size,
-          type: file.type,
-          lastModified: file.lastModified,
-        });
-        if (imageBox) {
-          const xhr = request({
-            onProgress: e => {
-              const percentNode = imageBox.node.find('.lake-percent');
-              const percent = Math.round(e.percent);
-              percentNode.text(`${percent < 100 ? percent : 99} %`);
-            },
-            onError: () => {
-              imageBox.updateValue('status', 'error');
-              imageBox.render();
-            },
-            onSuccess: body => {
-              imageBox.updateValue({
-                status: 'done',
-                url: body.url,
-              });
-              imageBox.render();
-              editor.history.save();
-            },
-            file,
-            action: '/upload',
-            method: 'POST',
-          });
-          imageBox.setData('xhr', xhr);
+        if (imageRequestTypes.indexOf(file.type) >= 0) {
+          uploadImage(editor, file);
         }
       }
       return;

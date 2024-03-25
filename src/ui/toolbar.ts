@@ -8,8 +8,8 @@ import { toolbarItems } from '../config/toolbar-items';
 import { template } from '../utils/template';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
-import { request } from '../utils/request';
 import { Nodes } from '../models/nodes';
+import { uploadImage } from './upload';
 
 const defaultItems: string[] = [
   'undo',
@@ -34,7 +34,7 @@ const defaultItems: string[] = [
   'hr',
 ];
 
-type Config = {
+type ToolbarConfig = {
   editor: Editor;
   root: string | Nodes | NativeNode;
   items?: (string | ToolbarItem)[];
@@ -49,11 +49,11 @@ toolbarItems.forEach(item => {
 export class Toolbar {
   private editor: Editor;
 
-  private items: (string | ToolbarItem)[];
-
   private root: Nodes;
 
-  constructor(config: Config) {
+  private items: (string | ToolbarItem)[];
+
+  constructor(config: ToolbarConfig) {
     this.editor = config.editor;
     this.root = query(config.root);
     this.items = config.items || defaultItems;
@@ -341,41 +341,7 @@ export class Toolbar {
     fileNode.on('change', () => {
       const files = fileNativeNode.files || [];
       for (const file of files) {
-        const imageBox = editor.insertBox('image', {
-          url: URL.createObjectURL(file),
-          status: 'uploading',
-          name: file.name,
-          size: file.size,
-          type: file.type,
-          lastModified: file.lastModified,
-        });
-        if (imageBox) {
-          const xhr = request({
-            onProgress: event => {
-              const percentNode = imageBox.node.find('.lake-percent');
-              const percent = Math.round(event.percent);
-              percentNode.text(`${percent < 100 ? percent : 99} %`);
-            },
-            onError: () => {
-              fileNativeNode.value = '';
-              imageBox.updateValue('status', 'error');
-              imageBox.render();
-            },
-            onSuccess: body => {
-              fileNativeNode.value = '';
-              imageBox.updateValue({
-                status: 'done',
-                url: body.url,
-              });
-              imageBox.render();
-              editor.history.save();
-            },
-            file,
-            action: item.request.action,
-            method: item.request.method,
-          });
-          imageBox.setData('xhr', xhr);
-        }
+        uploadImage(editor, file);
       }
     });
   }
