@@ -17,7 +17,6 @@ function getWatchConfig(type) {
       format: 'iife',
       sourcemap: true,
       globals: {
-        chai: 'chai',
         sinon: 'sinon',
         photoswipe: 'PhotoSwipe',
         'photoswipe/lightbox': 'PhotoSwipeLightbox',
@@ -26,7 +25,6 @@ function getWatchConfig(type) {
       assetFileNames: 'bundle.css',
     },
     external: [
-      'chai',
       'sinon',
       'photoswipe/style.css',
       'photoswipe',

@@ -8,6 +8,10 @@ import { insertBookmark } from '../src/operations/insert-bookmark';
 import { toBookmark } from '../src/operations/to-bookmark';
 import { Editor } from '../src';
 
+window.DEBUG = true;
+
+window.expect = chai.expect;
+
 export function formatHTML(value: string) {
   value = normalizeValue(value);
   value = new HTMLParser(value).getHTML();
