@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { query, removeZWS } from '../../src/utils';
 
 describe('utils / remove-zws', () => {

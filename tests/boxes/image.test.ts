@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { testBox } from '../utils';
 
 const smallUrl = '../assets/images/heaven-lake-64.png';

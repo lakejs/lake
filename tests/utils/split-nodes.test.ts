@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { query, splitNodes } from '../../src/utils';
 
 describe('utils / split-nodes', () => {

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { NativeElement, NativeEvent } from '../../src/types/native';
 import { query, safeTemplate } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';

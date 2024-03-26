@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { query, mergeNodes } from '../../src/utils';
 
 describe('utils / merge-nodes', () => {

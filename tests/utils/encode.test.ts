@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { encode } from '../../src/utils';
 
 describe('utils / encode', () => {

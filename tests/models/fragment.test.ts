@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { query } from '../../src/utils';
 import { Fragment } from '../../src/models/fragment';
 

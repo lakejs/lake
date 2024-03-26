@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { query, changeTagName } from '../../src/utils';
 
 describe('utils / change-tag-name', () => {

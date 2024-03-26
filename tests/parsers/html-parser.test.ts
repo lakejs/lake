@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { query, safeTemplate } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { HTMLParser } from '../../src/parsers/html-parser';

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { camelCase } from '../../src/utils';
 
 describe('utils / camel-case', () => {

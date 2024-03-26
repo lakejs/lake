@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { Command } from '../../src/managers/command';
 
 describe('managers / command', () => {

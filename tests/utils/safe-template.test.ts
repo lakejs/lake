@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { safeTemplate } from '../../src/utils';
 
 describe('utils / safe-template', () => {

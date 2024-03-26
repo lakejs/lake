@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
 import { insertBox } from '../../src/operations/insert-box';

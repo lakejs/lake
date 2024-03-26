@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { testBox } from '../utils';
 
 describe('boxes / hr', () => {

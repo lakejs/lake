@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { template } from '../../src/utils';
 
 describe('utils / template', () => {

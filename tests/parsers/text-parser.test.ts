@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { TextParser } from '../../src/parsers/text-parser';
 
 describe('parsers / text-parser', () => {

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { query, fixNumberedList } from '../../src/utils';
 
 describe('utils / fix-numbered-list', () => {

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { appendDeepest, query } from '../../src/utils';
 
 describe('utils / append-deepest', () => {

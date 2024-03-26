@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { forEach } from '../../src/utils';
 
 describe('utils / for-each', () => {

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { boxes } from '../../src/storage/boxes';
 import { createContainer } from '../utils';
 import { query, safeTemplate } from '../../src/utils';

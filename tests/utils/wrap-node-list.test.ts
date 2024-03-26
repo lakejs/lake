@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { query, wrapNodeList } from '../../src/utils';
 
 describe('utils / wrap-node-list', () => {

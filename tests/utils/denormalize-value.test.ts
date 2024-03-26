@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { denormalizeValue } from '../../src/utils';
 
 describe('utils / denormalize-value', () => {

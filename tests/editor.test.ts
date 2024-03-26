@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { debug, query } from '../src/utils';
 import { Nodes } from '../src/models/nodes';
 import { Box } from '../src/models/box';

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { removeBr, query } from '../../src/utils';
 
 describe('utils / remove-br', () => {

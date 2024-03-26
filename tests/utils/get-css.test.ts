@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { getCSS } from '../../src/utils';
 
 describe('utils / get-css', () => {

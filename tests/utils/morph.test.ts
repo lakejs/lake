@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { NativeNode } from '../../src/types/native';
 import { query, morph, debug } from '../../src/utils';
 

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { BoxValue } from '../src/types/box';
 import { query, normalizeValue, denormalizeValue, debug } from '../src/utils';
 import { Nodes } from '../src/models/nodes';

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { query, setBlockIndent } from '../../src/utils';
 
 describe('utils / set-block-indent', () => {

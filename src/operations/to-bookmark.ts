@@ -28,7 +28,7 @@ function removeAndNormalizeNode(node: Nodes, range?: Range) {
 export function toBookmark(range: Range, bookmark: { anchor: Nodes, focus: Nodes }): void {
   const anchor = bookmark.anchor;
   const focus = bookmark.focus;
-  // Only the anchor is removed because the focus doesn't exist, which is not correct case.
+  // Only the anchor is removed because the focus does not exist, which is not correct case.
   if (anchor.length > 0 && focus.length === 0) {
     removeAndNormalizeNode(anchor);
     return;

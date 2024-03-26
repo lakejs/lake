@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { inString } from '../../src/utils';
 
 describe('utils / in-string', () => {

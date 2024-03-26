@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { normalizeValue } from '../../src/utils';
 
 describe('utils / normalize-value', () => {

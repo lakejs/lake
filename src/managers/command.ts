@@ -24,7 +24,7 @@ export class Command {
   public execute(name: string, ...data: any[]) {
     const handler = this.commandMap.get(name);
     if (handler === undefined) {
-      throw new Error(`Command '${name}' doesn't exist.`);
+      throw new Error(`Command '${name}' does not exist.`);
     }
     this.event.emit('beforeexecute', name);
     handler.apply(this, data);

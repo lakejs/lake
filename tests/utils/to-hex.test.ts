@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { toHex } from '../../src/utils';
 
 describe('utils / to-hex', () => {

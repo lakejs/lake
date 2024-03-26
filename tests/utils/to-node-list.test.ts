@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { toNodeList } from '../../src/utils';
 import { NativeElement } from '../../src/types/native';
 

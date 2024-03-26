@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import type { Editor } from '../../src';
 import { testPlugin } from '../utils';
 

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { parseStyle } from '../../src/utils';
 
 describe('utils / parse-style', () => {

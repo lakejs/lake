@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { testPlugin } from '../utils';
 
 describe('plugin / copy', () => {

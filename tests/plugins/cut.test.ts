@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { testPlugin } from '../utils';
 
 const imageUrl = '../assets/images/heaven-lake-256.png';

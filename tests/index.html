@@ -35,6 +35,7 @@
   <body>
     <div id="mocha"></div>
     <script class="mocha-init">
+      window.expect = chai.expect;
       mocha.setup('bdd');
       window.DEBUG = true;
     </script>

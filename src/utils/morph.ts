@@ -163,7 +163,7 @@ function populateIdMapForNode(node: Element, idMap: Map<Node, Set<string>>) {
     // of element to the parent's id set
     while (current !== nodeParent && current != null) {
       let idSet = idMap.get(current);
-      // if the id set doesn't exist, create it and insert it in the  map
+      // if the id set does not exist, create it and insert it in the  map
       if (idSet == null) {
         idSet = new Set();
         idMap.set(current, idSet);
