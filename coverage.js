@@ -1,4 +1,6 @@
-(async () => {
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable global-require */
+(async() => {
   // const fs = require('fs');
   const pti = require('puppeteer-to-istanbul');
   const puppeteer = require('puppeteer');
@@ -8,7 +10,7 @@
   // Enable both JavaScript and CSS coverage
   await Promise.all([
     page.coverage.startJSCoverage(),
-    page.coverage.startCSSCoverage()
+    page.coverage.startCSSCoverage(),
   ]);
   // Navigate to page
   await page.goto('http://localhost:8080/tests/');
