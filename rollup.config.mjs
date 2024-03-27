@@ -6,6 +6,7 @@ import json from '@rollup/plugin-json';
 import svg from 'rollup-plugin-svg-import';
 import css from 'rollup-plugin-import-css';
 import terser from '@rollup/plugin-terser';
+import istanbul from 'rollup-plugin-istanbul';
 
 const codeMirrorPath = path.resolve('./src/codemirror.ts');
 
@@ -46,6 +47,11 @@ function getWatchConfig(type) {
         stringify: true,
       }),
       css(),
+      type === 'tests' ? istanbul({
+        include: [
+          'src/**/*.ts',
+        ],
+      }) : undefined,
     ],
   };
 }
