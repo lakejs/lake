@@ -9,14 +9,18 @@ const url = 'http://localhost:8080/tests/index.html';
 (async() => {
   // Launches a browser and runs test cases
   console.log('Launching a browser instance');
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: true,
+  });
   const page = await browser.newPage();
   await page.coverage.startJSCoverage();
   console.log(`Navigating to ${url}`);
   await page.goto(url);
   console.log('Running test cases');
+  console.time('Duration');
   await page.waitForFunction('window.mocha.status === "done"');
   console.log('All tests are finished');
+  console.timeEnd('Duration');
   const jsCoverage = await page.coverage.stopJSCoverage();
   await browser.close();
 

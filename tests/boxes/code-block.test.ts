@@ -1,6 +1,6 @@
 import { testBox } from '../utils';
 
-describe('boxes / code-block', () => {
+describe('ui: boxes / code-block', () => {
 
   it('renders box', () => {
     testBox('codeBlock', {

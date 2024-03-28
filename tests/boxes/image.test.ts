@@ -7,7 +7,7 @@ const mediumOriginalUrl = '../assets/images/song-hye-kyo-1024.jpg';
 const largeUrl = '../assets/images/lac-gentau-1024.jpg';
 const largeOriginalUrl = '../assets/images/lac-gentau-4096.jpg';
 
-describe('boxes / image', () => {
+describe('ui: boxes / image', () => {
 
   it('uploading: small size', () => {
     testBox('image', {
