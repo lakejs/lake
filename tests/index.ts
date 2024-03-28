@@ -109,5 +109,8 @@ import './plugins/tab-key.test';
 import './plugins/arrow-keys.test';
 import './plugins/markdown.test';
 
+// UI
+import './ui/toolbar.test';
+
 // Editor
 import './editor.test';

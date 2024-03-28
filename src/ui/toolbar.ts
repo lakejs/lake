@@ -382,7 +382,13 @@ export class Toolbar {
       }
     });
     const updateStateHandler = debounce(() => {
-      const appliedItems = editor.selection.appliedItems;
+      let appliedItems = editor.selection.appliedItems;
+      if (
+        appliedItems.length > 0 &&
+        appliedItems[0].node.closestContainer().get(0) !== editor.container.get(0)
+      ) {
+        appliedItems = [];
+      }
       for (const item of buttonItemList) {
         const selectedClass = 'lake-toolbar-button-selected';
         const buttonNode = this.root.find(`button[name="${item.name}"]`);
