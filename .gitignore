@@ -8,8 +8,6 @@ desktop.ini
 /temp
 /dist
 /lib
-/.nyc_output
-/coverage
 pnpm-lock.yaml
 .pnpm-debug.log
 rollup.config-*.mjs

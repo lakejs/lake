@@ -3,7 +3,6 @@
 /* eslint no-console: "off" */
 
 import puppeteer from 'puppeteer';
-import pti from 'puppeteer-to-istanbul';
 
 const url = 'http://localhost:8080/tests/index.html';
 
@@ -24,7 +23,6 @@ const url = 'http://localhost:8080/tests/index.html';
   // Calculates used bytes
   let totalBytes = 0;
   let usedBytes = 0;
-  pti.write([...jsCoverage], { includeHostname: true , storagePath: './.nyc_output' });
   for (const entry of jsCoverage) {
     if (entry.url.indexOf('bundle.js') >=0 ) {
       totalBytes += entry.text.length;
