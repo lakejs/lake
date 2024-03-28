@@ -3,5 +3,6 @@
 // All magic come from var. Replace var with let or const won't work.
 // See more in https://stackoverflow.com/questions/38906359/create-a-global-variable-in-typescript
 
-// eslint-disable-next-line no-var
+/* eslint-disable no-var */
+
 declare var expect: typeof chai.expect;

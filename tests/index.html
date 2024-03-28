@@ -35,7 +35,15 @@
   <body>
     <div id="mocha"></div>
     <script class="mocha-init">
-      mocha.setup('bdd');
+      window.mocha.status = 'running';
+      mocha.setup({
+        ui: 'bdd',
+        rootHooks: {
+          afterAll: () => {
+            window.mocha.status = 'done';
+          },
+        },
+      });
     </script>
     <script src="../dist/tests/bundle.js"></script>
     <script class="mocha-exec">
