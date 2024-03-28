@@ -414,97 +414,10 @@ function findBestNodeMatch(newContent: Node, oldNode: Node, ctx: KeyValue) {
 }
 
 // =============================================================================
-// the HEAD tag can be handled specially, either w/ a 'merge' or 'append' style
-// =============================================================================
-function handleHeadElement(newHeadTag: Element, currentHead: Element, ctx: KeyValue) {
-
-  const added = [];
-  const removed = [];
-  const preserved = [];
-  const nodesToAppend = [];
-
-  const headMergeStyle = ctx.head.style;
-
-  // put all new head elements into a Map, by their outerHTML
-  const srcToNewHeadNodes = new Map();
-  for (const newHeadChild of newHeadTag.children) {
-    srcToNewHeadNodes.set(newHeadChild.outerHTML, newHeadChild);
-  }
-
-  // for each elt in the current head
-  for (const currentHeadElt of currentHead.children) {
-
-    // If the current head element is in the map
-    const inNewContent = srcToNewHeadNodes.has(currentHeadElt.outerHTML);
-    const isReAppended = ctx.head.shouldReAppend(currentHeadElt);
-    const isPreserved = ctx.head.shouldPreserve(currentHeadElt);
-    if (inNewContent || isPreserved) {
-      if (isReAppended) {
-        // remove the current version and let the new version replace it and re-execute
-        removed.push(currentHeadElt);
-      } else {
-        // this element already exists and should not be re-appended, so remove it from
-        // the new content map, preserving it in the DOM
-        srcToNewHeadNodes.delete(currentHeadElt.outerHTML);
-        preserved.push(currentHeadElt);
-      }
-    } else if (headMergeStyle === 'append') {
-      // we are appending and this existing element is not new content
-      // so if and only if it is marked for re-append do we do anything
-      if (isReAppended) {
-        removed.push(currentHeadElt);
-        nodesToAppend.push(currentHeadElt);
-      }
-    // if this is a merge, we remove this content since it is not in the new head
-    } else if (ctx.head.shouldRemove(currentHeadElt) !== false) {
-      removed.push(currentHeadElt);
-    }
-  }
-
-  // Push the remaining new head elements in the Map into the
-  // nodes to append to the head tag
-  nodesToAppend.push(...srcToNewHeadNodes.values());
-
-  const promises = [];
-  for (const newNode of nodesToAppend) {
-    const newElt = document.createRange().createContextualFragment(newNode.outerHTML).firstChild as any;
-    if (ctx.callbacks.beforeNodeAdded(newElt) !== false) {
-      if (newElt && (newElt.href || newElt.src)) {
-        let resolve: ((value?: unknown) => void) | null = null;
-        const promise = new Promise(_resolve => {
-          resolve = _resolve;
-        });
-        newElt.addEventListener('load', () => {
-          if (resolve) {
-            resolve();
-          }
-        });
-        promises.push(promise);
-      }
-      currentHead.appendChild(newElt);
-      ctx.callbacks.afterNodeAdded(newElt);
-      added.push(newElt);
-    }
-  }
-
-  // remove all removed elements, after we have appended the new elements to avoid
-  // additional network requests for things like style sheets
-  for (const removedElement of removed) {
-    if (ctx.callbacks.beforeNodeRemoved(removedElement) !== false) {
-      currentHead.removeChild(removedElement);
-      ctx.callbacks.afterNodeRemoved(removedElement);
-    }
-  }
-
-  ctx.head.afterHeadMorphed(currentHead, { added, kept: preserved, removed });
-  return promises;
-}
-
-// =============================================================================
 // Attribute Syncing Code
 // =============================================================================
 
-/**
+/*
  * @param attr {String} the attribute to be mutated
  * @param to {Element} the element that is going to be updated
  * @param updateType {("update"|"remove")}
@@ -516,78 +429,6 @@ function ignoreAttribute(attr: string, to: Element, updateType: string, ctx: Key
     return true;
   }
   return ctx.callbacks.beforeAttributeUpdated(attr, to, updateType) === false;
-}
-
-/**
- * @param from {Element} element to sync the value from
- * @param to {Element} element to sync the value to
- * @param attributeName {String} the attribute name
- * @param ctx the merge context
- */
-function syncBooleanAttribute(from: any, to: any, attributeName: string, ctx: KeyValue) {
-  if (from[attributeName] !== to[attributeName]) {
-    const ignoreUpdate = ignoreAttribute(attributeName, to, 'update', ctx);
-    if (!ignoreUpdate) {
-      to[attributeName] = from[attributeName];
-    }
-    if (from[attributeName]) {
-      if (!ignoreUpdate) {
-        to.setAttribute(attributeName, from[attributeName]);
-      }
-    } else if (!ignoreAttribute(attributeName, to, 'remove', ctx)) {
-      to.removeAttribute(attributeName);
-    }
-  }
-}
-
-/**
- * NB: many bothans died to bring us information:
- *
- *  https://github.com/patrick-steele-idem/morphdom/blob/master/src/specialElHandlers.js
- *  https://github.com/choojs/nanomorph/blob/master/lib/morph.jsL113
- *
- * @param from {Element} the element to sync the input value from
- * @param to {Element} the element to sync the input value to
- * @param ctx the merge context
- */
-function syncInputValue(from: any, to: any, ctx: KeyValue) {
-  if (from instanceof HTMLInputElement &&
-    to instanceof HTMLInputElement &&
-    from.type !== 'file') {
-
-    const fromValue = from.value;
-    const toValue = to.value;
-
-    // sync boolean attributes
-    syncBooleanAttribute(from, to, 'checked', ctx);
-    syncBooleanAttribute(from, to, 'disabled', ctx);
-
-    if (!from.hasAttribute('value')) {
-      if (!ignoreAttribute('value', to, 'remove', ctx)) {
-        to.value = '';
-        to.removeAttribute('value');
-      }
-    } else if (fromValue !== toValue) {
-      if (!ignoreAttribute('value', to, 'update', ctx)) {
-        to.setAttribute('value', fromValue);
-        to.value = fromValue;
-      }
-    }
-  } else if (from instanceof HTMLOptionElement) {
-    syncBooleanAttribute(from, to, 'selected', ctx);
-  } else if (from instanceof HTMLTextAreaElement && to instanceof HTMLTextAreaElement) {
-    const fromValue = from.value;
-    const toValue = to.value;
-    if (ignoreAttribute('value', to, 'update', ctx)) {
-      return;
-    }
-    if (fromValue !== toValue) {
-      to.value = fromValue;
-    }
-    if (to.firstChild && to.firstChild.nodeValue !== fromValue) {
-      to.firstChild.nodeValue = fromValue;
-    }
-  }
 }
 
 /**
@@ -636,17 +477,11 @@ function syncNodeFrom(from: Element, to: Element, ctx: KeyValue) {
       }
     }
   }
-
   // sync text nodes
   if (type === 8 /* comment */ || type === 3 /* text */) {
     if (to.nodeValue !== from.nodeValue) {
       to.nodeValue = from.nodeValue;
     }
-  }
-
-  if (!ignoreValueOfActiveElement(to, ctx)) {
-    // sync input values
-    syncInputValue(from, to, ctx);
   }
 }
 
@@ -675,16 +510,9 @@ function morphOldNodeTo(oldNode: Node, newContent: Node, ctx: KeyValue) {
     return newContent;
   } else {
     if (ctx.callbacks.beforeNodeMorphed(oldNode, newContent) === false) return oldNode;
-
-    if (oldNode instanceof HTMLHeadElement && ctx.head.ignore) {
-      // ignore the head element
-    } else if (oldNode instanceof HTMLHeadElement && ctx.head.style !== 'morph') {
-      handleHeadElement(newContent as Element, oldNode, ctx);
-    } else {
-      syncNodeFrom(newContent as Element, oldNode as Element, ctx);
-      if (ctx.callbacks.beforeChildrenUpdated(oldNode, newContent) !== false && !ignoreValueOfActiveElement(oldNode, ctx)) {
-        morphChildren(newContent, oldNode, ctx);
-      }
+    syncNodeFrom(newContent as Element, oldNode as Element, ctx);
+    if (ctx.callbacks.beforeChildrenUpdated(oldNode, newContent) !== false && !ignoreValueOfActiveElement(oldNode, ctx)) {
+      morphChildren(newContent, oldNode, ctx);
     }
     ctx.callbacks.afterNodeMorphed(oldNode, newContent);
     return oldNode;
@@ -784,24 +612,6 @@ function morphChildren(newParent: Node, oldParent: Node, ctx: KeyValue) {
 }
 
 function morphNormalizedContent(oldNode: Element, normalizedNewContent: Element, ctx: KeyValue) {
-  if (ctx.head.block) {
-    const oldHead = oldNode.querySelector('head');
-    const newHead = normalizedNewContent.querySelector('head');
-    if (oldHead && newHead) {
-      const promises = handleHeadElement(newHead, oldHead, ctx);
-      // when head promises resolve, call morph again, ignoring the head tag
-      Promise.all(promises).then(() => {
-        morphNormalizedContent(oldNode, normalizedNewContent, Object.assign(ctx, {
-          head: {
-            block: false,
-            ignore: true,
-          },
-        }));
-      });
-      return;
-    }
-  }
-
   if (ctx.morphStyle === 'innerHTML') {
 
     // innerHTML, so we are only updating the children
