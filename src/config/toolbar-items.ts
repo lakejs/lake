@@ -372,8 +372,13 @@ export const toolbarItems: ToolbarItem[] = [
     menuType: 'list',
     menuItems: fontFamilyMenuItems,
     selectedValues: appliedItems => {
-      const currentValue = appliedItems[0].node.css('font-family');
-      return [currentValue.replace(/['"]/g, '')];
+      for (const item of appliedItems) {
+        if (item.name === 'span') {
+          const currentValue = item.node.css('font-family');
+          return [currentValue.replace(/['"]/g, '')];
+        }
+      }
+      return [];
     },
     onSelect: (editor, value) => {
       editor.command.execute('fontFamily', value);
@@ -390,8 +395,13 @@ export const toolbarItems: ToolbarItem[] = [
     menuItems: fontSizeMenuItems,
     isDisabled: appliedItems => !!appliedItems.find(item => item.node.isHeading),
     selectedValues: appliedItems => {
-      const currentValue = appliedItems[0].node.computedCSS('font-size');
-      return [currentValue.replace(/\.\d+/, '')];
+      for (const item of appliedItems) {
+        if (item.name === 'span') {
+          const currentValue = item.node.css('font-size');
+          return [currentValue.replace(/\.\d+/, '')];
+        }
+      }
+      return [];
     },
     onSelect: (editor, value) => {
       editor.command.execute('fontSize', value);
@@ -432,8 +442,13 @@ export const toolbarItems: ToolbarItem[] = [
     menuType: 'color',
     menuItems: colorMenuItems,
     selectedValues: appliedItems => {
-      const currentValue = appliedItems[0].node.computedCSS('color');
-      return [toHex(currentValue)];
+      for (const item of appliedItems) {
+        if (item.name === 'span') {
+          const currentValue = item.node.computedCSS('color');
+          return [toHex(currentValue)];
+        }
+      }
+      return [];
     },
     onSelect: (editor, value) => {
       editor.command.execute('fontColor', value);
@@ -451,8 +466,13 @@ export const toolbarItems: ToolbarItem[] = [
     menuType: 'color',
     menuItems: colorMenuItems,
     selectedValues: appliedItems => {
-      const currentValue = appliedItems[0].node.computedCSS('background-color');
-      return [toHex(currentValue)];
+      for (const item of appliedItems) {
+        if (item.name === 'span') {
+          const currentValue = item.node.computedCSS('background-color');
+          return [toHex(currentValue)];
+        }
+      }
+      return [];
     },
     onSelect: (editor, value) => {
       editor.command.execute('highlight', value);
@@ -465,8 +485,5 @@ export const toolbarItems: ToolbarItem[] = [
     tooltip: 'Image',
     accept: 'image/*',
     multiple: true,
-    onClick: () => {
-      // TODO
-    },
   },
 ];

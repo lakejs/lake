@@ -40,7 +40,6 @@ export type UploadItem = {
   tooltip: string;
   accept?: string;
   multiple?: boolean;
-  onClick: (editor: Editor, value: string) => void;
 };
 
 export type ToolbarItem = ButtonItem | DropdownItem | UploadItem;
