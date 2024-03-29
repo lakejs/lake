@@ -1,4 +1,5 @@
 import { Base64 } from 'js-base64';
+import EventEmitter from 'eventemitter3';
 import type { Editor } from '../editor';
 import { NativeNode } from '../types/native';
 import { BoxType, BoxValue } from '../types/box';
@@ -31,7 +32,10 @@ export class Box {
   // <lake-box> element
   public node: Nodes;
 
+  public event: EventEmitter;
+
   constructor(node: string | Nodes | NativeNode) {
+    this.event = new EventEmitter();
     if (typeof node === 'string') {
       const component = boxes.get(node);
       if (component === undefined) {

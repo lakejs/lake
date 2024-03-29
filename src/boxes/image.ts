@@ -191,6 +191,9 @@ function openFullScreen(box: Box): void {
     }
     return placeholderSrc;
   });
+  lightbox.on('openingAnimationEnd', () => {
+    box.event.emit('openfullscreen');
+  });
   lightbox.init();
   lightbox.loadAndOpen(currentIndex);
 }
@@ -422,6 +425,7 @@ export const imageBox: BoxComponent = {
         event.stopPropagation();
         removeImageBox(box);
       });
+      box.event.emit('render');
     });
     root.on('click', () => {
       editor.selection.range.selectBox(box.node);
