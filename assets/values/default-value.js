@@ -11,12 +11,12 @@ window.defaultValue = `
 <p>The <code>&lt;i&gt;</code> tag represents <i>Italic</i>, which renders text with italicized style.</p>
 <p>The <code>&lt;u&gt;</code> tag represents <u>Underline</u>, which renders text with a simple solid underline.</p>
 <p>The <code>&lt;s&gt;</code> tag represents <s>Strikethrough</s>, which renders text with a strikethrough, or a line through it.</p>
-<p>The <code>font-family</code> property represents <span style="font-family: 'Arial Black';">Font family</span>, which sets a font family name for the selected text.</p>
-<p>The <code>font-size</code> property represents <span style="font-size: 24px;">Font size</span>.</p>
-<p>The <code>color</code> property represents <span style="color: #F5222D;">Font color</span>, which sets the foreground color for the selected text.</p>
-<p>Using <code>background-color</code> property to represents <span style="background-color: #FADB14;">Highlight</span>.</p>
-<p>Using <code>&lt;sup&gt;</code> tag to represents <sup>Superscript</sup>, which renders text with a raised baseline using smaller text.</p>
-<p>Using <code>&lt;sub&gt;</code> tag to represents <sub>Subscript</sub>, which renders text with a lowered baseline using smaller text.</p>
+<p>The <code>&lt;span&gt;</code> tag with its <code>font-family</code> property represents <span style="font-family: 'Arial Black';">Font family</span>, which sets a font family name for the selected text.</p>
+<p>The <code>&lt;span&gt;</code> tag with its <code>font-size</code> property represents <span style="font-size: 24px;">Font size</span>.</p>
+<p>The <code>&lt;span&gt;</code> tag with its <code>color</code> property represents <span style="color: #F5222D;">Font color</span>, which sets the foreground color for the selected text.</p>
+<p>The <code>&lt;span&gt;</code> tag with its <code>background-color</code> property represents <span style="background-color: #FADB14;">Highlight</span>.</p>
+<p>The <code>&lt;sup&gt;</code> tag represents <sup>Superscript</sup>, which renders text with a raised baseline using smaller text.</p>
+<p>The <code>&lt;sub&gt;</code> tag represents <sub>Subscript</sub>, which renders text with a lowered baseline using smaller text.</p>
 <p>The <code>&lt;code&gt;</code> tag represents <code>Inline code</code>, which displays a short fragment of computer code.</p>
 <p><br /></p>
 
@@ -59,9 +59,9 @@ window.defaultValue = `
 
 <h3>Block Properties</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p style="text-indent: 2em;">The <code>text-indent</code> property represents the length of empty space (indentation) that is put before lines of text in a block.</p>
-<p style="margin-left: 40px;">The <code>margin-left</code> property represents the indentation of a block.</p>
-<p style="text-align:center;">The <code>text-align</code> property represents the horizontal alignment of the inline-level content inside a block.</p>
+<p style="text-indent: 2em;">The block tag with its <code>text-indent</code> property represents the length of empty space (indentation) that is put before lines of text in a block.</p>
+<p style="margin-left: 40px;">The block tag with its <code>margin-left</code> property represents the indentation of a block.</p>
+<p style="text-align:center;">The block tag with its <code>text-align</code> property represents the horizontal alignment of the inline-level content inside a block.</p>
 <p><br /></p>
 
 <h3>Numbered list</h3>
@@ -72,7 +72,7 @@ window.defaultValue = `
 <ol start="4"><li>Fill muffin tray 3/4 full.</li></ol>
 <ol start="5"><li>Bake for 20 minutes.</li></ol>
 <p><br /></p>
-<blockquote>The <code>indent</code> attribute represents the indentation of the list.</blockquote>
+<blockquote>The list tag (<code>&lt;ol&gt;</code> or <code>&lt;ul&gt;</code>) with its <code>indent</code> attribute represents the indentation of the list.</blockquote>
 <p><br /></p>
 <ol start="1"><li>first item</li></ol>
 <ol start="2"><li>second item</li></ol>
