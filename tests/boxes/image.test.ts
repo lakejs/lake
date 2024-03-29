@@ -37,7 +37,7 @@ describe('boxes / image', () => {
   });
 
   afterEach(() => {
-    // targetNode.remove();
+    targetNode.remove();
   });
 
   it('should open full screen', done => {

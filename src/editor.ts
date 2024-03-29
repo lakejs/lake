@@ -67,6 +67,8 @@ export class Editor {
 
   public overlayContainer: Nodes;
 
+  public popupContainer: Nodes;
+
   public isComposing: boolean;
 
   public readonly: boolean;
@@ -92,6 +94,7 @@ export class Editor {
     this.containerWrapper = query('<div class="lake-container-wrapper" />');
     this.container = query('<div class="lake-container" />');
     this.overlayContainer = query('<div class="lake-overlay" />');
+    this.popupContainer = query('<div class="lake-popup lake-custom-properties" />');
     this.isComposing = false;
     this.readonly = this.config.readonly;
 
@@ -357,6 +360,7 @@ export class Editor {
     this.root.append(this.containerWrapper);
     this.containerWrapper.append(this.container);
     this.containerWrapper.append(this.overlayContainer);
+    query(document.body).append(this.popupContainer);
     this.container.append(fragment);
     if (!this.readonly) {
       this.focus();
@@ -379,6 +383,7 @@ export class Editor {
   // Destroys a rendered editor.
   public unmount(): void {
     this.root.empty();
+    this.popupContainer.remove();
     if (!this.readonly) {
       window.removeEventListener('beforeunload', this.beforeunloadListener);
       document.removeEventListener('selectionchange', this.selectionchangeListener);

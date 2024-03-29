@@ -1,5 +1,4 @@
 import { type Editor } from '..';
-import { query } from '../utils';
 import { Nodes } from '../models/nodes';
 import { LinkPopup } from '../ui/link-popup';
 
@@ -16,9 +15,7 @@ export default (editor: Editor) => {
       popup.show(lineNode);
       return;
     }
-    const popupContainer = query('<div class="lake-popup lake-custom-properties" />');
-    query(document.body).append(popupContainer);
-    popup = new LinkPopup(popupContainer);
+    popup = new LinkPopup(editor.popupContainer);
     popup.event.on('save', () => {
       hidePopup();
       editor.history.save();

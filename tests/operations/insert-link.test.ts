@@ -23,6 +23,22 @@ describe('operations / insert-link', () => {
     boxes.delete('blockBox');
   });
 
+  it('should remove br tag', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <p><a href="http://foo.com/">foo</a><focus /></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertLink(range, '<a href="http://foo.com/">foo</a>');
+      },
+    );
+  });
+
   it('adds a link after selecting text', () => {
     const content = `
     <p>f<anchor />oo<focus />bar</p>

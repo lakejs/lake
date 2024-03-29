@@ -1,4 +1,5 @@
 import { query } from '../utils/query';
+import { removeBr } from '../utils/remove-br';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertNode } from './insert-node';
@@ -16,6 +17,8 @@ export function insertLink(range: Range, value: string | Nodes): Nodes | null {
     let linkNode = range.commonAncestor.closest('a');
     if (linkNode.length === 0) {
       linkNode = valueNode.clone(true);
+      const block = range.startNode.closestBlock();
+      removeBr(block);
       insertNode(range, linkNode);
       return linkNode;
     }

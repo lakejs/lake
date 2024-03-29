@@ -98,6 +98,7 @@ import './plugins/font-color.test';
 import './plugins/highlight.test';
 import './plugins/remove-format.test';
 import './plugins/format-painter.test';
+import './plugins/link.test';
 import './plugins/hr.test';
 import './plugins/image.test';
 import './plugins/code-block.test';
