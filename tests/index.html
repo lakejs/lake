@@ -35,9 +35,19 @@
   <body>
     <div id="mocha"></div>
     <script class="mocha-init">
+      window.expect = chai.expect;
+      let reporter;
+      if (location.search.indexOf('console=true') >= 0) {
+        reporter = 'tap';
+        window.DEBUG = false;
+      } else {
+        reporter = 'html';
+        window.DEBUG = true;
+      }
       window.mocha.status = 'running';
       mocha.setup({
         ui: 'bdd',
+        reporter,
         rootHooks: {
           afterAll: () => {
             window.mocha.status = 'done';

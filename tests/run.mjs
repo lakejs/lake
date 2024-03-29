@@ -4,7 +4,7 @@
 
 import puppeteer from 'puppeteer';
 
-const url = 'http://localhost:8080/tests/index.html';
+const url = 'http://localhost:8080/tests/index.html?console=true';
 
 (async() => {
   // Launches a browser and runs test cases
@@ -13,15 +13,16 @@ const url = 'http://localhost:8080/tests/index.html';
     headless: true,
   });
   const page = await browser.newPage();
-  await page.coverage.startJSCoverage();
+  page.on('console', message => {
+    console.log(message.text().trim());
+  });
   console.log(`Navigating to ${url}`);
-  await page.goto(url);
-  console.log('Running test cases');
   console.time('Duration');
+  await page.coverage.startJSCoverage();
+  await page.goto(url);
   await page.waitForFunction('window.mocha.status === "done"');
-  console.log('All tests are finished');
-  console.timeEnd('Duration');
   const jsCoverage = await page.coverage.stopJSCoverage();
+  console.timeEnd('Duration');
   await browser.close();
 
   // Calculates used bytes

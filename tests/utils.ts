@@ -8,10 +8,6 @@ import { insertBookmark } from '../src/operations/insert-bookmark';
 import { toBookmark } from '../src/operations/to-bookmark';
 import { Editor } from '../src';
 
-window.DEBUG = true;
-
-window.expect = chai.expect;
-
 export function click(node: Nodes): void {
   (node.get(0) as HTMLElement).click();
 }
