@@ -2,8 +2,8 @@ import { testBox } from '../utils';
 
 const smallUrl = '../assets/images/heaven-lake-64.png';
 const smallOriginalUrl = '../assets/images/heaven-lake-1280.png';
-const mediumUrl = '../assets/images/song-hye-kyo-512.jpg';
-const mediumOriginalUrl = '../assets/images/song-hye-kyo-1024.jpg';
+const mediumUrl = '../assets/images/heaven-lake-512.png';
+const mediumOriginalUrl = '../assets/images/heaven-lake-1280.png';
 const largeUrl = '../assets/images/lac-gentau-1024.jpg';
 const largeOriginalUrl = '../assets/images/lac-gentau-4096.jpg';
 
@@ -26,7 +26,7 @@ describe('ui: boxes / image', () => {
     testBox('image', {
       url: mediumUrl,
       status: 'uploading',
-      name: 'song-hye-kyo-512.jpg',
+      name: 'heaven-lake-512.png',
       size: 60008,
       type: 'image/jpeg',
       lastModified: 1710229517198,
@@ -106,7 +106,7 @@ describe('ui: boxes / image', () => {
       originalWidth: 1024,
       originalHeight: 731,
       status: 'done',
-      name: 'song-hye-kyo-512.jpg',
+      name: 'heaven-lake-512.png',
       size: 60008,
       type: 'image/jpeg',
       lastModified: 1710229517198,
