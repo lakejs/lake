@@ -12,7 +12,11 @@ window.DEBUG = true;
 
 window.expect = chai.expect;
 
-export function formatHTML(value: string) {
+export function click(node: Nodes): void {
+  (node.get(0) as HTMLElement).click();
+}
+
+export function formatHTML(value: string): string {
   value = normalizeValue(value);
   value = new HTMLParser(value).getHTML();
   value = denormalizeValue(value);
@@ -64,7 +68,7 @@ export function testOperation(
   content: string,
   output: string,
   callback: (range: Range) => void,
-) {
+): void {
   const { container, range } = createContainer(content);
   callback(range);
   insertBookmark(range);
@@ -79,7 +83,7 @@ export function testBox(
   name: string,
   value?: BoxValue,
   callback?: (box: Box, editor?: Editor) => void,
-) {
+): void {
   const targetNode = query('<div class="lake-main" />');
   query(document.body).append(targetNode);
   const editor = new Editor({
@@ -97,7 +101,7 @@ export function testPlugin(
   content: string,
   output: string,
   callback: (editor: Editor) => void,
-) {
+): void {
   const targetNode = query('<div class="lake-main" />');
   query(document.body).append(targetNode);
   const editor = new Editor({

@@ -1,5 +1,6 @@
 import debounce from 'lodash/debounce';
 import { Base64 } from 'js-base64';
+import EventEmitter from 'eventemitter3';
 import type { Editor } from '../editor';
 import { NativeHTMLElement, NativeNode } from '../types/native';
 import { ButtonItem, DropdownItem, UploadItem, ToolbarItem } from '../types/toolbar';
@@ -47,16 +48,20 @@ toolbarItems.forEach(item => {
 });
 
 export class Toolbar {
-  private editor: Editor;
-
-  private root: Nodes;
 
   private items: (string | ToolbarItem)[];
 
+  public editor: Editor;
+
+  public root: Nodes;
+
+  public event: EventEmitter;
+
   constructor(config: ToolbarConfig) {
+    this.items = config.items || defaultItems;
     this.editor = config.editor;
     this.root = query(config.root);
-    this.items = config.items || defaultItems;
+    this.event = new EventEmitter();
   }
 
   // Returns the value of the node.
@@ -428,6 +433,7 @@ export class Toolbar {
           }
         }
       }
+      this.event.emit('updatestate');
     }, 100, {
       leading: false,
       trailing: true,
