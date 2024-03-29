@@ -108,6 +108,7 @@ export class LinkPopup {
         return;
       }
       this.save();
+      this.hide();
       this.event.emit('save');
     });
     // Remove link
@@ -116,6 +117,7 @@ export class LinkPopup {
         return;
       }
       this.linkNode.remove(true);
+      this.hide();
       this.event.emit('remove');
     });
   }

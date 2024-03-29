@@ -3,13 +3,7 @@ import { Nodes } from '../models/nodes';
 import { LinkPopup } from '../ui/link-popup';
 
 export default (editor: Editor) => {
-  let popup: LinkPopup | null = null;
-  const hidePopup = (): void => {
-    if (!popup) {
-      return;
-    }
-    popup.hide();
-  };
+  let popup: LinkPopup;
   const showPopup = (lineNode: Nodes): void => {
     if (popup) {
       popup.show(lineNode);
@@ -17,11 +11,9 @@ export default (editor: Editor) => {
     }
     popup = new LinkPopup(editor.popupContainer);
     popup.event.on('save', () => {
-      hidePopup();
       editor.history.save();
     });
     popup.event.on('remove', () => {
-      hidePopup();
       editor.history.save();
     });
     popup.show(lineNode);
@@ -47,7 +39,9 @@ export default (editor: Editor) => {
     }
     const linkNode = targetNode.closest('a');
     if (linkNode.length === 0) {
-      hidePopup();
+      if (popup) {
+        popup.hide();
+      }
       return;
     }
     showPopup(linkNode);

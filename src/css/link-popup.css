@@ -4,6 +4,7 @@
   border: 1px solid var(--border-color);
   border-radius: 5px;
   padding: 16px;
+  width: fit-content;
   font-family: var(--font-family);
   font-size: 14px;
   color: var(--text-color);

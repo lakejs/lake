@@ -111,6 +111,7 @@ import './plugins/arrow-keys.test';
 import './plugins/markdown.test';
 
 // UI
+import './ui/link-popup.test';
 import './ui/toolbar.test';
 
 // Editor
