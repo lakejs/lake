@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('plugin / highlight', () => {
+describe('plugins / highlight', () => {
 
   it('should add a background color to the selected text', () => {
     const content = `

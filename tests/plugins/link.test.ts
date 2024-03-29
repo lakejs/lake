@@ -2,7 +2,7 @@ import { click } from '../utils';
 import { query } from '../../src/utils';
 import { Editor, Nodes } from '../../src';
 
-describe('plugin / link', () => {
+describe('plugins / link', () => {
 
   let targetNode: Nodes;
   let editor: Editor;
@@ -48,6 +48,15 @@ describe('plugin / link', () => {
     const value = editor.getValue();
     editor.unmount();
     expect(value).to.equal('<p>foo<focus /></p>');
+  });
+
+  it('should copy a link to clipboard', async() => {
+    editor.setValue('<p><a href="http://foo.com">foo<focus /></a></p>');
+    editor.command.execute('link');
+    click(editor.popupContainer.find('.lake-link-popup .lake-button-copy'));
+    editor.unmount();
+    expect(editor.popupContainer.find('.lake-link-popup .lake-button-copy svg').eq(0).computedCSS('display')).to.equal('none');
+    expect(editor.popupContainer.find('.lake-link-popup .lake-button-copy svg').eq(1).computedCSS('display')).to.equal('inline');
   });
 
 });

@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('plugin / bold', () => {
+describe('plugins / bold', () => {
 
   it('the focus is between the characters of the text', () => {
     const content = `

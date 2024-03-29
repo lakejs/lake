@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('plugin / font-color', () => {
+describe('plugins / font-color', () => {
 
   it('should add a color to the selected text', () => {
     const content = `

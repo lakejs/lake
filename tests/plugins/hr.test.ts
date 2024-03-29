@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('plugin / hr', () => {
+describe('plugins / hr', () => {
 
   it('inserts into the end of the paragraph', () => {
     const content = `

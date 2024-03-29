@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('plugin / code', () => {
+describe('plugins / code', () => {
 
   it('should add a code to the selected text', () => {
     const content = `

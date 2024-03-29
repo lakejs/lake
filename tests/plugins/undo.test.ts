@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('plugin / undo', () => {
+describe('plugins / undo', () => {
 
   it('undoes the last executed command', () => {
     const content = `

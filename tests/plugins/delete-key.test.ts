@@ -2,7 +2,7 @@ import { testPlugin } from '../utils';
 
 const imageBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTI1Ni5wbmciLCJzdGF0dXMiOiJkb25lIn0=';
 
-describe('plugin / delete-key', () => {
+describe('plugins / delete-key', () => {
 
   it('no content', () => {
     const content = `

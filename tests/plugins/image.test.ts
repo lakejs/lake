@@ -3,7 +3,7 @@ import { testPlugin } from '../utils';
 const imageUrl = '../assets/images/heaven-lake-256.png';
 const imageBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTI1Ni5wbmciLCJzdGF0dXMiOiJkb25lIn0=';
 
-describe('plugin / image', () => {
+describe('plugins / image', () => {
 
   it('inserts an image box', () => {
     const content = `

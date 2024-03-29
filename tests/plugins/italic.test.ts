@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('plugin / italic', () => {
+describe('plugins / italic', () => {
 
   it('should get correct result after executing bold and italic', () => {
     const content = `

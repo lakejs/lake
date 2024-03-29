@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('plugin / copy', () => {
+describe('plugins / copy', () => {
 
   let dataTransfer: DataTransfer;
   let event: ClipboardEvent;

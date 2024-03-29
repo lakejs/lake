@@ -12,7 +12,7 @@ function pasteData(editor: Editor, format: string, data: string) {
   editor.container.emit('paste', event);
 }
 
-describe('plugin / paste', () => {
+describe('plugins / paste', () => {
 
   it('pastes plain text into empty content', () => {
     const content = `

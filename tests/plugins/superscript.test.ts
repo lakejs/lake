@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('plugin / superscript', () => {
+describe('plugins / superscript', () => {
 
   it('should add a sup to the selected text', () => {
     const content = `

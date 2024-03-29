@@ -1,6 +1,6 @@
 import { testPlugin } from '../utils';
 
-describe('plugin / font-size', () => {
+describe('plugins / font-size', () => {
 
   it('should add a font size to the selected text', () => {
     const content = `
