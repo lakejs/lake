@@ -6,7 +6,7 @@ Lake is a browser-based editor that enables writing rich text directly inside of
 
 ### Getting Started
 
-First, you need to clone the repository and install all necessary dependencies. Then, start a combined server that includes both HTTP serving and real-time compilation. You can do this by running the following command in your terminal.
+First, you need to clone the repository and install all necessary dependencies. Then, start a composite server that contains an HTTP service and real-time bundling. You can do this by running the following command in your terminal.
 
 ``` bash
 # clone the repository
@@ -19,11 +19,11 @@ pnpm install
 pnpm start
 ```
 
-Now you can view all demos by opening `http://localhost:8080/examples/` URL.
+You can now view all demos by opening `http://localhost:8080/examples/` URL.
 
 ### Running tests
 
-Lake uses a lot of browser APIs and therefore it requires a real browser environment to run the tests. You can open `http://localhost:8080/tests/` to run all test cases visibly, or run `pnpm test` in your console to run the tests in headless mode. Both modes require starting the local server before running tests.
+Lake uses a lot of browser APIs and therefore it requires a real browser environment to run the tests. You can open `http://localhost:8080/tests/` to run all test cases visibly, or execute `pnpm test` command in your console to run the tests in headless mode. Both modes require starting the local server before running tests.
 
 ### License
 
