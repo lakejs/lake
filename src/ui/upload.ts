@@ -2,7 +2,15 @@ import  type { Editor } from '../editor';
 import { request } from '../utils/request';
 import { Box } from '../models/box';
 
-export function uploadImage(editor: Editor, file: File): Box | null {
+type Config = {
+  editor: Editor;
+  file: File;
+  onError?: ()=> void;
+  onSuccess?: ()=> void;
+};
+
+export function uploadImage(config: Config): Box {
+  const { editor, file, onError, onSuccess} = config;
   const { imageRequestMethod, imageRequestAction, imageRequestTypes } = editor.config;
   if (imageRequestTypes.indexOf(file.type) < 0) {
     throw new Error(`Cannot upload file because its type '${file.type}' is not found in ['${imageRequestTypes.join('\', \'')}'].`);
@@ -16,7 +24,7 @@ export function uploadImage(editor: Editor, file: File): Box | null {
     lastModified: file.lastModified,
   });
   if (!box) {
-    return box;
+    throw new Error('The image box cannot be inserted outside the editor.');
   }
   const xhr = request({
     onProgress: e => {
@@ -27,6 +35,9 @@ export function uploadImage(editor: Editor, file: File): Box | null {
     onError: () => {
       box.updateValue('status', 'error');
       box.render();
+      if (onError) {
+        onError();
+      }
     },
     onSuccess: body => {
       box.updateValue({
@@ -35,6 +46,9 @@ export function uploadImage(editor: Editor, file: File): Box | null {
       });
       box.render();
       editor.history.save();
+      if (onSuccess) {
+        onSuccess();
+      }
     },
     file,
     action: imageRequestAction,

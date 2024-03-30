@@ -17,19 +17,17 @@ const option: any = {
 };
 
 describe('utils / request', () => {
+
   beforeEach(() => {
     xhr = sinon.useFakeXMLHttpRequest();
     requests = [];
     xhr.onCreate = req => requests.push(req);
+    option.onError = empty;
+    option.onSuccess = empty;
   });
 
   afterEach(() => {
     xhr.restore();
-  });
-
-  beforeEach(() => {
-    option.onError = empty;
-    option.onSuccess = empty;
   });
 
   it('upload request success', done => {

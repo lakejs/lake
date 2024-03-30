@@ -132,4 +132,5 @@ window.defaultValue = `
     <td style="border: 1px solid rgb(160 160 160);">The tag represents a cell of a table that contains data.</td>
   </tr>
 </table>
+<p><br /></p>
 `;

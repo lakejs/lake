@@ -180,7 +180,10 @@ export default (editor: Editor) => {
     if (dataTransfer.files.length > 0) {
       for (const file of dataTransfer.files) {
         if (imageRequestTypes.indexOf(file.type) >= 0) {
-          uploadImage(editor, file);
+          uploadImage({
+            editor,
+            file,
+          });
         }
       }
       return;

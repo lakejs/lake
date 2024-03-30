@@ -346,7 +346,10 @@ export class Toolbar {
     fileNode.on('change', () => {
       const files = fileNativeNode.files || [];
       for (const file of files) {
-        uploadImage(editor, file);
+        uploadImage({
+          editor,
+          file,
+        });
       }
     });
   }
