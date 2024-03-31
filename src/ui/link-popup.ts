@@ -1,5 +1,4 @@
 import EventEmitter from 'eventemitter3';
-import { NativeHTMLElement } from '../types/native';
 import { icons } from '../icons';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
@@ -151,7 +150,7 @@ export class LinkPopup {
     if (!this.linkNode) {
       return;
     }
-    const linkNativeNode = this.linkNode.get(0) as NativeHTMLElement;
+    const linkNativeNode = this.linkNode.get(0) as HTMLElement;
     // Returns a DOMRect object providing information about the size of an element and its position relative to the viewport.
     const linkRect = linkNativeNode.getBoundingClientRect();
     const linkX = linkRect.x + window.scrollX;

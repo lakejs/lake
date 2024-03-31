@@ -1,7 +1,6 @@
 import 'photoswipe/style.css';
 import PhotoSwipeLightbox, { DataSource } from 'photoswipe/lightbox';
 import PhotoSwipe from 'photoswipe';
-import { NativeHTMLElement } from '../types/native';
 import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
 import { query } from '../utils/query';
@@ -180,9 +179,9 @@ function openFullScreen(box: Box): void {
   lightbox.addFilter('thumbEl', (thumbnail, itemData) => {
     const imgNode = allImageBox.eq(itemData.id).find('.lake-image-img');
     if (imgNode.length > 0) {
-      return imgNode.get(0) as NativeHTMLElement;
+      return imgNode.get(0) as HTMLElement;
     }
-    return thumbnail as NativeHTMLElement;
+    return thumbnail as HTMLElement;
   });
   lightbox.addFilter('placeholderSrc', (placeholderSrc, slide) => {
     const imgNode = allImageBox.eq(slide.data.id).find('.lake-image-img');

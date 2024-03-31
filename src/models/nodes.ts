@@ -1,6 +1,5 @@
 import { KeyValue } from '../types/object';
 import {
-  NativeHTMLElement,
   NativeNode, NativeText, NativeEvent,
 } from '../types/native';
 import { NodePath } from '../types/node';
@@ -156,7 +155,7 @@ export class Nodes {
     if (this.length === 0) {
       return false;
     }
-    const node = this.get(0) as NativeHTMLElement;
+    const node = this.get(0) as HTMLElement;
     return this.isElement && node.getAttribute('contenteditable') === 'true';
   }
 
@@ -188,7 +187,7 @@ export class Nodes {
       return false;
     }
     if (this.isText) {
-      const element = this.get(0).parentNode as NativeHTMLElement;
+      const element = this.get(0).parentNode as HTMLElement;
       if (!element) {
         return false;
       }
@@ -197,7 +196,7 @@ export class Nodes {
     if (!this.isElement) {
       return false;
     }
-    const element = this.get(0) as NativeHTMLElement;
+    const element = this.get(0) as HTMLElement;
     return element.isContentEditable;
   }
 
@@ -224,7 +223,7 @@ export class Nodes {
     if (this.length === 0) {
       return false;
     }
-    const parent = this.get(0).parentNode as NativeHTMLElement;
+    const parent = this.get(0).parentNode as HTMLElement;
     return parent && parent === target.parent().get(0);
   }
 
@@ -500,14 +499,14 @@ export class Nodes {
 
   // Sets focus on the specified element, if it can be focused.
   public focus(): this {
-    const element = this.get(0) as NativeHTMLElement;
+    const element = this.get(0) as HTMLElement;
     element.focus();
     return this;
   }
 
   // Removes focus from the specified element.
   public blur(): this {
-    const element = this.get(0) as NativeHTMLElement;
+    const element = this.get(0) as HTMLElement;
     element.blur();
     return this;
   }
@@ -621,13 +620,13 @@ export class Nodes {
 
   // Returns the width of of the first element.
   public width(): number {
-    const element = this.get(0) as NativeHTMLElement;
+    const element = this.get(0) as HTMLElement;
     return element.offsetWidth;
   }
 
   // Returns the height of of the first element.
   public height(): number {
-    const element = this.get(0) as NativeHTMLElement;
+    const element = this.get(0) as HTMLElement;
     return element.offsetHeight;
   }
 
@@ -665,12 +664,12 @@ export class Nodes {
       if (this.isText) {
         return node.nodeValue ?? '';
       }
-      const element = node as NativeHTMLElement;
+      const element = node as HTMLElement;
       // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText
       return element.innerText.replace(/^\n+|\n+$/, '');
     }
     return this.eachElement(element => {
-      (element as NativeHTMLElement).innerText = value;
+      (element as HTMLElement).innerText = value;
     });
   }
 
