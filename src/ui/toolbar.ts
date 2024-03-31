@@ -343,8 +343,9 @@ export class Toolbar {
       fileNativeNode.click();
     });
     fileNode.on('click', event => event.stopPropagation());
-    fileNode.on('change', () => {
-      const files = fileNativeNode.files || [];
+    fileNode.on('change', event => {
+      const target = event.target as HTMLInputElement;
+      const files = target.files || [];
       for (const file of files) {
         uploadImage({
           editor,
@@ -354,42 +355,14 @@ export class Toolbar {
     });
   }
 
-  public render() {
-    const editor = this.editor;
-    this.root.addClass('lake-custom-properties');
-    const allMenuMap: Map<string, Map<string, string>> = new Map();
-    const buttonItemList: ButtonItem[] = [];
-    const dropdownItemList: DropdownItem[] = [];
-    this.items.forEach(name => {
-      if (name === '|') {
-        this.appendDivider();
-        return;
-      }
-      let item;
-      if (typeof name === 'string') {
-        item = toolbarItemMap.get(name);
-        if (!item) {
-          return;
-        }
-      } else {
-        item = name;
-      }
-      if (item.type === 'button') {
-        buttonItemList.push(item);
-        this.appendButton(item);
-        return;
-      }
-      if (item.type === 'dropdown') {
-        allMenuMap.set(item.name, this.getMenuMap(item));
-        dropdownItemList.push(item);
-        this.appendDropdown(item);
-        return;
-      }
-      if (item.type === 'upload') {
-        this.appendUpload(item);
-      }
-    });
-    const updateStateHandler = debounce(() => {
+  private getUpdateStateHandler(config: {
+    editor: Editor;
+    allMenuMap: Map<string, Map<string, string>>;
+    buttonItemList: ButtonItem[];
+    dropdownItemList: DropdownItem[];
+  }): () => void {
+    const { editor, allMenuMap, buttonItemList, dropdownItemList } = config;
+    return debounce(() => {
       let appliedItems = editor.selection.appliedItems;
       if (
         appliedItems.length > 0 &&
@@ -441,6 +414,49 @@ export class Toolbar {
       leading: false,
       trailing: true,
       maxWait: 100,
+    });
+  }
+
+  public render() {
+    const editor = this.editor;
+    this.root.addClass('lake-custom-properties');
+    const allMenuMap: Map<string, Map<string, string>> = new Map();
+    const buttonItemList: ButtonItem[] = [];
+    const dropdownItemList: DropdownItem[] = [];
+    this.items.forEach(name => {
+      if (name === '|') {
+        this.appendDivider();
+        return;
+      }
+      let item;
+      if (typeof name === 'string') {
+        item = toolbarItemMap.get(name);
+        if (!item) {
+          return;
+        }
+      } else {
+        item = name;
+      }
+      if (item.type === 'button') {
+        buttonItemList.push(item);
+        this.appendButton(item);
+        return;
+      }
+      if (item.type === 'dropdown') {
+        allMenuMap.set(item.name, this.getMenuMap(item));
+        dropdownItemList.push(item);
+        this.appendDropdown(item);
+        return;
+      }
+      if (item.type === 'upload') {
+        this.appendUpload(item);
+      }
+    });
+    const updateStateHandler = this.getUpdateStateHandler({
+      editor,
+      allMenuMap,
+      buttonItemList,
+      dropdownItemList,
     });
     editor.event.on('selectionchange', updateStateHandler);
     editor.event.on('change', updateStateHandler);

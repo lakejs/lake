@@ -4,7 +4,7 @@ import { Editor, Nodes } from '../../src';
 import { uploadImage } from '../../src/ui/upload';
 
 let xhr: sinon.SinonFakeXMLHttpRequestStatic;
-let requests: any[];
+let requests: sinon.SinonFakeXMLHttpRequest[];
 let targetNode: Nodes;
 let editor: Editor;
 

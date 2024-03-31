@@ -1,6 +1,8 @@
-import { click } from '../utils';
+import sinon from 'sinon';
+import { click, removeBoxValue } from '../utils';
 import { query, debug } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
+import { Box } from '../../src/models/box';
 import { Toolbar } from '../../src/ui/toolbar';
 import { Editor } from '../../src';
 
@@ -490,6 +492,46 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p><anchor />foo<focus /></p>');
+    editor.unmount();
+  });
+
+  it('image: upload file', () => {
+    const xhr = sinon.useFakeXMLHttpRequest();
+    const requests: sinon.SinonFakeXMLHttpRequest[] = [];
+    xhr.onCreate = req => requests.push(req);
+    const files = [
+      new File(['foo'], 'heaven-lake-512.png', {
+        type: 'image/png',
+      }),
+      new File(['foo'], 'lac-gentau-256.jpg', {
+        type: 'image/png',
+      }),
+    ];
+    const event = {
+      ...new Event('change'),
+      target: {
+        ...new EventTarget(),
+        files,
+      },
+    };
+    editor.setValue('<p>foo<focus /></p>');
+    toolbar.root.find('.lake-upload input[type="file"]').emit('change', event as Event);
+    requests[0].respond(200, {}, JSON.stringify({
+      url: '../assets/images/heaven-lake-512.png',
+    }));
+    requests[1].respond(200, {}, JSON.stringify({
+      url: '../assets/images/lac-gentau-256.jpg',
+    }));
+    const value = removeBoxValue(editor.getValue());
+    debug(`output: ${value}`);
+    expect(value).to.equal('<p>foo<lake-box type="inline" name="image"></lake-box><lake-box type="inline" name="image" focus="right"></lake-box></p>');
+    const box1 = new Box(editor.container.find('lake-box').eq(0));
+    const box2 = new Box(editor.container.find('lake-box').eq(1));
+    expect(box1.value.status).to.equal('done');
+    expect(box1.value.url).to.equal('../assets/images/heaven-lake-512.png');
+    expect(box2.value.status).to.equal('done');
+    expect(box2.value.url).to.equal('../assets/images/lac-gentau-256.jpg');
+    xhr.restore();
     editor.unmount();
   });
 

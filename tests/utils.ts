@@ -12,6 +12,10 @@ export function click(node: Nodes): void {
   (node.get(0) as HTMLElement).click();
 }
 
+export function removeBoxValue(value: string): string {
+  return value.replace(/(<lake-box[^>]+)\s+value="[^"]+"([^>]*>)/g, '$1$2');
+}
+
 export function formatHTML(value: string): string {
   value = normalizeValue(value);
   value = new HTMLParser(value).getHTML();
