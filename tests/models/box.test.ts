@@ -3,6 +3,8 @@ import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Box } from '../../src/models/box';
 
+const imageUrl = '../assets/images/heaven-lake-256.png';
+
 describe('models / box', () => {
 
   let container: Nodes;
@@ -14,7 +16,7 @@ describe('models / box', () => {
       type: 'inline',
       name: 'inlineBox',
       value: {
-        url: 'http://foo.com',
+        url: imageUrl,
       },
       render: box => `<img src="${box.value.url}" />`,
     });
@@ -168,14 +170,14 @@ describe('models / box', () => {
     const box = new Box(container.find('lake-box'));
     box.render();
     const oldBoxContainer = box.getContainer();
-    expect(container.find('lake-box img').attr('src')).to.equal('http://foo.com');
+    expect(container.find('lake-box img').attr('src')).to.equal(imageUrl);
     box.updateValue({
-      url: 'http://bar.com',
+      url: '../assets/images/lac-gentau-256.jpg',
     });
     box.render();
     const newBoxContainer = box.getContainer();
     expect(oldBoxContainer.get(0) === newBoxContainer.get(0)).to.equal(true);
-    expect(container.find('lake-box img').attr('src')).to.equal('http://bar.com');
+    expect(container.find('lake-box img').attr('src')).to.equal('../assets/images/lac-gentau-256.jpg');
   });
 
 });
