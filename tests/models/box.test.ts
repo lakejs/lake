@@ -143,4 +143,39 @@ describe('models / box', () => {
     expect(box.getHTML()).to.equal('<hr />');
   });
 
+  it('mouse effect', () => {
+    container.html('<lake-box type="block" name="blockBox"></lake-box>');
+    const box = new Box(container.find('lake-box'));
+    box.render();
+    const boxContainer = box.getContainer();
+    boxContainer.emit('mouseenter');
+    expect(boxContainer.hasClass('lake-box-hovered')).to.equal(true);
+    boxContainer.emit('mouseleave');
+    expect(boxContainer.hasClass('lake-box-hovered')).to.equal(false);
+    boxContainer.addClass('lake-box-selected');
+    boxContainer.emit('mouseenter');
+    expect(boxContainer.hasClass('lake-box-hovered')).to.equal(false);
+    boxContainer.addClass('lake-box-focused');
+    boxContainer.emit('mouseenter');
+    expect(boxContainer.hasClass('lake-box-hovered')).to.equal(false);
+    boxContainer.addClass('lake-box-activated');
+    boxContainer.emit('mouseenter');
+    expect(boxContainer.hasClass('lake-box-hovered')).to.equal(false);
+  });
+
+  it('update (re-render) box', () => {
+    container.html('<p><lake-box type="inline" name="inlineBox"></lake-box></p>');
+    const box = new Box(container.find('lake-box'));
+    box.render();
+    const oldBoxContainer = box.getContainer();
+    expect(container.find('lake-box img').attr('src')).to.equal('http://foo.com');
+    box.updateValue({
+      url: 'http://bar.com',
+    });
+    box.render();
+    const newBoxContainer = box.getContainer();
+    expect(oldBoxContainer.get(0) === newBoxContainer.get(0)).to.equal(true);
+    expect(container.find('lake-box img').attr('src')).to.equal('http://bar.com');
+  });
+
 });

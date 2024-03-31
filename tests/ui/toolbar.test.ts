@@ -83,7 +83,12 @@ describe('ui / toolbar', () => {
   it('undo: clicks button', () => {
     editor.command.execute('heading', 'h2');
     expect(editor.getValue()).to.equal('<h2><br /><focus /></h2>');
-    click(toolbar.root.find('button[name="undo"]'));
+    const buttonNode = toolbar.root.find('button[name="undo"]');
+    buttonNode.emit('mouseenter');
+    expect(buttonNode.hasClass('lake-toolbar-button-hovered')).to.equal(true);
+    buttonNode.emit('mouseleave');
+    expect(buttonNode.hasClass('lake-toolbar-button-hovered')).to.equal(false);
+    click(buttonNode);
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p><br /><focus /></p>');
@@ -111,7 +116,12 @@ describe('ui / toolbar', () => {
       expect(titleText).to.equal('Heading 3');
       done();
     });
-    click(toolbar.root.find('div[name="heading"] .lake-dropdown-title'));
+    const titleNode = toolbar.root.find('div[name="heading"] .lake-dropdown-title');
+    titleNode.emit('mouseenter');
+    expect(titleNode.hasClass('lake-dropdown-title-hovered')).to.equal(true);
+    titleNode.emit('mouseleave');
+    expect(titleNode.hasClass('lake-dropdown-title-hovered')).to.equal(false);
+    click(titleNode);
     click(toolbar.root.find('div[name="heading"] li[value="h3"]'));
     const value = editor.getValue();
     debug(`output: ${value}`);
@@ -272,36 +282,74 @@ describe('ui / toolbar', () => {
     expect(value).to.equal('<p><anchor /><u>bar</u><focus /></p>');
   });
 
+  it('fontColor: clicks button', () => {
+    editor.setValue('<p><anchor />foo<focus /></p>');
+    click(toolbar.root.find('div[name="fontColor"] .lake-dropdown-icon'));
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    expect(value).to.equal('<p><anchor /><span style="color: #f5222d;">foo</span><focus /></p>');
+    editor.unmount();
+  });
+
   it('fontColor: selects a color and updates state', done => {
     editor.setValue('<p><anchor />foo<focus /></p>');
     toolbar.event.on('updatestate', () => {
       click(toolbar.root.find('div[name="fontColor"] .lake-dropdown-down-icon'));
-      const visibility = toolbar.root.find('div[name="fontColor"] li[value="#f5222d"] .lake-dropdown-menu-check').computedCSS('visibility');
+      const visibility = toolbar.root.find('div[name="fontColor"] li[value="#fa541c"] .lake-dropdown-menu-check').computedCSS('visibility');
       editor.unmount();
       expect(visibility).to.equal('visible');
       done();
     });
+    const iconNode = toolbar.root.find('div[name="fontColor"] .lake-dropdown-icon');
+    const downIconNode = toolbar.root.find('div[name="fontColor"] .lake-dropdown-down-icon');
+    iconNode.emit('mouseenter');
+    expect(iconNode.hasClass('lake-dropdown-icon-hovered')).to.equal(true);
+    iconNode.emit('mouseleave');
+    expect(iconNode.hasClass('lake-dropdown-icon-hovered')).to.equal(false);
+    downIconNode.emit('mouseenter');
+    expect(downIconNode.hasClass('lake-dropdown-down-icon-hovered')).to.equal(true);
+    downIconNode.emit('mouseleave');
+    expect(downIconNode.hasClass('lake-dropdown-down-icon-hovered')).to.equal(false);
     click(toolbar.root.find('div[name="fontColor"] .lake-dropdown-down-icon'));
-    click(toolbar.root.find('div[name="fontColor"] li[value="#f5222d"]'));
+    click(toolbar.root.find('div[name="fontColor"] li[value="#fa541c"]'));
     const value = editor.getValue();
     debug(`output: ${value}`);
-    expect(value).to.equal('<p><anchor /><span style="color: #f5222d;">foo</span><focus /></p>');
+    expect(value).to.equal('<p><anchor /><span style="color: #fa541c;">foo</span><focus /></p>');
+    editor.setValue('<p><anchor />foo<focus /></p>');
+    click(iconNode);
+    const value2 = editor.getValue();
+    debug(`output: ${value2}`);
+    expect(value2).to.equal('<p><anchor /><span style="color: #fa541c;">foo</span><focus /></p>');
+  });
+
+  it('highlight: clicks button', () => {
+    editor.setValue('<p><anchor />foo<focus /></p>');
+    click(toolbar.root.find('div[name="highlight"] .lake-dropdown-icon'));
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    expect(value).to.equal('<p><anchor /><span style="background-color: #fadb14;">foo</span><focus /></p>');
+    editor.unmount();
   });
 
   it('highlight: selects a color and updates state', done => {
     editor.setValue('<p><anchor />foo<focus /></p>');
     toolbar.event.on('updatestate', () => {
       click(toolbar.root.find('div[name="highlight"] .lake-dropdown-down-icon'));
-      const visibility = toolbar.root.find('div[name="highlight"] li[value="#f5222d"] .lake-dropdown-menu-check').computedCSS('visibility');
+      const visibility = toolbar.root.find('div[name="highlight"] li[value="#a0d911"] .lake-dropdown-menu-check').computedCSS('visibility');
       editor.unmount();
       expect(visibility).to.equal('visible');
       done();
     });
     click(toolbar.root.find('div[name="highlight"] .lake-dropdown-down-icon'));
-    click(toolbar.root.find('div[name="highlight"] li[value="#f5222d"]'));
+    click(toolbar.root.find('div[name="highlight"] li[value="#a0d911"]'));
     const value = editor.getValue();
     debug(`output: ${value}`);
-    expect(value).to.equal('<p><anchor /><span style="background-color: #f5222d;">foo</span><focus /></p>');
+    expect(value).to.equal('<p><anchor /><span style="background-color: #a0d911;">foo</span><focus /></p>');
+    editor.setValue('<p><anchor />foo<focus /></p>');
+    click(toolbar.root.find('div[name="highlight"] .lake-dropdown-icon'));
+    const value2 = editor.getValue();
+    debug(`output: ${value2}`);
+    expect(value2).to.equal('<p><anchor /><span style="background-color: #a0d911;">foo</span><focus /></p>');
   });
 
   it('list: selects numbered list and updates state', done => {
@@ -515,6 +563,11 @@ describe('ui / toolbar', () => {
       },
     };
     editor.setValue('<p>foo<focus /></p>');
+    const buttonNode = toolbar.root.find('button[name="image"]');
+    buttonNode.emit('mouseenter');
+    expect(buttonNode.hasClass('lake-toolbar-button-hovered')).to.equal(true);
+    buttonNode.emit('mouseleave');
+    expect(buttonNode.hasClass('lake-toolbar-button-hovered')).to.equal(false);
     toolbar.root.find('.lake-upload input[type="file"]').emit('change', event as Event);
     requests[0].respond(200, {}, JSON.stringify({
       url: '../assets/images/heaven-lake-512.png',
