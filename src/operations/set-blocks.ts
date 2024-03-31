@@ -1,5 +1,4 @@
 import { KeyValue } from '../types/object';
-import { NativeElement } from '../types/native';
 import { query, getDeepest, wrapNodeList, appendDeepest } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
@@ -53,7 +52,7 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
   // adds or replace blocks
   const valueNode = query(value);
   const tagName = valueNode.name;
-  const nativeValueNode = valueNode.get(0) as NativeElement;
+  const nativeValueNode = valueNode.get(0) as Element;
   const attributes = nativeValueNode.attributes;
   const blockList = range.getBlocks();
   // has blocks

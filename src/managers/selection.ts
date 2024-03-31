@@ -1,4 +1,4 @@
-import { NativeSelection, NativeElement } from '../types/native';
+import { NativeSelection } from '../types/native';
 import { KeyValue, AppliedItem } from '../types/object';
 import { parseStyle } from '../utils/parse-style';
 import { Nodes } from '../models/nodes';
@@ -19,7 +19,7 @@ import { insertLink } from '../operations/insert-link';
 
 // Returns the attributes of the element as an key-value object.
 function getAttributes(node: Nodes): KeyValue {
-  const nativeNode = node.get(0) as NativeElement;
+  const nativeNode = node.get(0) as Element;
   const attributes: KeyValue = {};
   if (nativeNode.hasAttributes()) {
     for (const attr of nativeNode.attributes) {

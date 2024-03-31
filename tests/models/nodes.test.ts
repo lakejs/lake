@@ -1,4 +1,4 @@
-import { NativeElement, NativeEvent } from '../../src/types/native';
+import { NativeEvent } from '../../src/types/native';
 import { query, safeTemplate } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 
@@ -197,7 +197,7 @@ describe('models / nodes', () => {
   it('method: getAll', () => {
     const nodes = new Nodes([element, elementTwo, document.body]);
     expect(nodes.getAll().length).to.equal(3);
-    expect((nodes.getAll()[1] as NativeElement).innerHTML).to.equal('two');
+    expect((nodes.getAll()[1] as Element).innerHTML).to.equal('two');
   });
 
   it('method: eq', () => {

@@ -1,5 +1,4 @@
 import { getElementRules } from '../config/element-rules';
-import { NativeElement } from '../types/native';
 import { forEach, parseStyle, encode } from '../utils';
 import { Nodes } from '../models/nodes';
 
@@ -50,7 +49,7 @@ export class HTMLParser {
       tagName = attributeRules;
       attributeRules = rules[tagName];
     }
-    const nativeNode = element.get(0) as NativeElement;
+    const nativeNode = element.get(0) as Element;
     if (!nativeNode.hasAttributes()) {
       return tagName;
     }

@@ -1,5 +1,4 @@
 import { toNodeList } from '../../src/utils';
-import { NativeElement } from '../../src/types/native';
 
 describe('utils / to-node-list', () => {
 
@@ -13,15 +12,15 @@ describe('utils / to-node-list', () => {
   });
 
   it('is a HTML string', () => {
-    expect((toNodeList('<p>foo</p>')[0] as NativeElement).outerHTML).to.equal('<p>foo</p>');
+    expect((toNodeList('<p>foo</p>')[0] as Element).outerHTML).to.equal('<p>foo</p>');
   });
 
   it('is a selector string: class', () => {
     const element = document.createElement('div');
     element.innerHTML = '<p class="class-p">foo</p><p class="class-p">bar</p>';
     document.body.appendChild(element);
-    expect((toNodeList('.class-p')[0] as NativeElement).outerHTML).to.equal('<p class="class-p">foo</p>');
-    expect((toNodeList('.class-p')[1] as NativeElement).outerHTML).to.equal('<p class="class-p">bar</p>');
+    expect((toNodeList('.class-p')[0] as Element).outerHTML).to.equal('<p class="class-p">foo</p>');
+    expect((toNodeList('.class-p')[1] as Element).outerHTML).to.equal('<p class="class-p">bar</p>');
     document.body.removeChild(element);
   });
 
@@ -29,7 +28,7 @@ describe('utils / to-node-list', () => {
     const element = document.createElement('div');
     element.innerHTML = '<p id="id-p">foo</p><p class="class-p">bar</p>';
     document.body.appendChild(element);
-    expect((toNodeList('#id-p')[0] as NativeElement).outerHTML).to.equal('<p id="id-p">foo</p>');
+    expect((toNodeList('#id-p')[0] as Element).outerHTML).to.equal('<p id="id-p">foo</p>');
     document.body.removeChild(element);
   });
 

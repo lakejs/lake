@@ -1,5 +1,4 @@
 import type { Editor } from '..';
-import { NativeElement } from '../types/native';
 import { query } from '../utils/query';
 
 function setParagraph(editor: Editor) {
@@ -86,7 +85,7 @@ export default (editor: Editor) => {
     if (!mouseEvent.target) {
       return;
     }
-    const target = query(mouseEvent.target as NativeElement);
+    const target = query(mouseEvent.target as Element);
     if (target.name === 'li' && target.attr('value') !== '' && mouseEvent.offsetX <= 18) {
       target.attr('value', (target.attr('value') !== 'true').toString());
       editor.history.save();

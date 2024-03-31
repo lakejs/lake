@@ -1,6 +1,6 @@
 import { KeyValue } from '../types/object';
 import {
-  NativeHTMLElement, NativeElement,
+  NativeHTMLElement,
   NativeNode, NativeText, NativeEvent,
 } from '../types/native';
 import { NodePath } from '../types/node';
@@ -17,7 +17,7 @@ import { toNodeList } from '../utils/to-node-list';
 import { debug } from '../utils/debug';
 
 type EachCallback = (element: NativeNode, index: number) => boolean | void;
-type EachElementCallback = (element: NativeElement, index: number) => boolean | void;
+type EachElementCallback = (element: Element, index: number) => boolean | void;
 
 type EventItem = {
   type: string;
@@ -260,7 +260,7 @@ export class Nodes {
     const nodes = this.getAll();
     for (let i = 0; i < nodes.length; i++) {
       if (nodes[i].nodeType === NativeNode.ELEMENT_NODE) {
-        if (callback(nodes[i] as NativeElement, i) === false) {
+        if (callback(nodes[i] as Element, i) === false) {
           return this;
         }
       }
@@ -279,14 +279,14 @@ export class Nodes {
     if (!this.isElement) {
       return false;
     }
-    const element = this.get(0) as NativeElement;
+    const element = this.get(0) as Element;
     return element.matches(selector);
   }
 
   // Returns the descendants of the first element which are selected by the specified CSS selector.
   public find(selector: string | NodePath): Nodes {
     if (typeof selector === 'string') {
-      const element = this.get(0) as NativeElement;
+      const element = this.get(0) as Element;
       const nodeList = element.querySelectorAll(selector);
       return new Nodes(Array.from(nodeList));
     }
@@ -308,12 +308,12 @@ export class Nodes {
       if (!element) {
         return new Nodes();
       }
-      return new Nodes((element as NativeElement).closest(selector));
+      return new Nodes((element as Element).closest(selector));
     }
     if (!this.isElement) {
       return new Nodes();
     }
-    const element = this.get(0) as NativeElement;
+    const element = this.get(0) as Element;
     return new Nodes(element.closest(selector));
   }
 
@@ -519,7 +519,7 @@ export class Nodes {
   }
 
   public hasAttr(attributeName: string): boolean {
-    const element = this.get(0) as NativeElement;
+    const element = this.get(0) as Element;
     return element.hasAttribute(attributeName);
   }
 
@@ -537,7 +537,7 @@ export class Nodes {
       return this;
     }
     if (value === undefined) {
-      const element = this.get(0) as NativeElement;
+      const element = this.get(0) as Element;
       return element.getAttribute(attributeName) ?? '';
     }
     return this.eachElement(element => {
@@ -552,7 +552,7 @@ export class Nodes {
   }
 
   public hasClass(className: string): boolean {
-    const element = this.get(0) as NativeElement;
+    const element = this.get(0) as Element;
     return inString(element.className, className, ' ');
   }
 
@@ -590,7 +590,7 @@ export class Nodes {
   }
 
   public computedCSS(propertyName: string): string {
-    const element = this.get(0) as NativeElement;
+    const element = this.get(0) as Element;
     return getCSS(element, propertyName);
   }
 
@@ -608,7 +608,7 @@ export class Nodes {
       return this;
     }
     if (value === undefined) {
-      const element = this.get(0) as NativeElement;
+      const element = this.get(0) as Element;
       return toHex(element.style[camelCase(propertyName)]);
     }
     return this.eachElement(element => {
@@ -647,7 +647,7 @@ export class Nodes {
 
   public html(value?: any): any {
     if (value === undefined) {
-      const element = this.get(0) as NativeElement;
+      const element = this.get(0) as Element;
       return element.innerHTML;
     }
     return this.eachElement(element => {
@@ -675,7 +675,7 @@ export class Nodes {
   }
 
   public outerHTML(): string {
-    const element = this.get(0) as NativeElement;
+    const element = this.get(0) as Element;
     return element.outerHTML;
   }
 

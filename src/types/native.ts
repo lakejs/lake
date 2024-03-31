@@ -3,8 +3,6 @@ export const NativeEvent = Event;
 
 export type NativeHTMLElement = HTMLElement;
 
-export type NativeElement = Element;
-
 export type NativeNode = Node;
 export const NativeNode = Node;
 

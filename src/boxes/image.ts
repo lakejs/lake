@@ -1,7 +1,7 @@
 import 'photoswipe/style.css';
 import PhotoSwipeLightbox, { DataSource } from 'photoswipe/lightbox';
 import PhotoSwipe from 'photoswipe';
-import { NativeElement, NativeHTMLElement } from '../types/native';
+import { NativeHTMLElement } from '../types/native';
 import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
 import { query } from '../utils/query';
@@ -44,7 +44,7 @@ function bindResizerEvents(pointerNode: Nodes, box: Box): void {
   // start resizing
   const pointerdownListener = (event: Event) => {
     const pointerEvent = event as PointerEvent;
-    const pointerNativeNode = pointerNode.get(0) as NativeElement;
+    const pointerNativeNode = pointerNode.get(0) as Element;
     // The capture will be implicitly released after a pointerup or pointercancel event.
     // https://developer.mozilla.org/en-US/docs/Web/API/Element/setPointerCapture
     pointerNativeNode.setPointerCapture(pointerEvent.pointerId);

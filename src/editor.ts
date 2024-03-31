@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce';
 import EventEmitter from 'eventemitter3';
 import pkg from '../package.json';
-import { NativeElement, NativeNode } from './types/native';
+import { NativeNode } from './types/native';
 import { UploadRequestMethod } from './types/request';
 import { editors } from './storage/editors';
 import { denormalizeValue, normalizeValue, query } from './utils';
@@ -167,11 +167,11 @@ export class Editor {
       this.event.emit('selectionchange');
     };
     this.clickListener = event => {
-      const targetNode = new Nodes(event.target as NativeElement);
+      const targetNode = new Nodes(event.target as Element);
       this.event.emit('click', targetNode);
     };
     this.mouseoverListener = event => {
-      const targetNode = new Nodes(event.target as NativeElement);
+      const targetNode = new Nodes(event.target as Element);
       this.event.emit('mouseover', targetNode);
     };
     this.resizeListener = () => {
