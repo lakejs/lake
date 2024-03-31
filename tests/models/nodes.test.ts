@@ -1,4 +1,3 @@
-import { NativeEvent } from '../../src/types/native';
 import { query, safeTemplate } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 
@@ -504,13 +503,13 @@ describe('models / nodes', () => {
 
   it('event methods: emit has event parameter', () => {
     const nodesOne = new Nodes(element);
-    const clickListenerOne = (event: NativeEvent) => {
+    const clickListenerOne = (event: Event) => {
       element.innerHTML = `click event one: ${event.type}`;
     };
     const nodesTwo = new Nodes(element);
     // bind events
     nodesOne.on('click', clickListenerOne);
-    const event = new NativeEvent('click');
+    const event = new Event('click');
     nodesTwo.emit('click', event);
     expect(element.innerHTML).to.equal('click event one: click');
   });

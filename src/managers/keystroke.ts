@@ -1,5 +1,4 @@
 import { createKeybindingsHandler } from 'tinykeys';
-import { NativeEvent } from '../types/native';
 import { camelCase } from '../utils/camel-case';
 import { Nodes } from '../models/nodes';
 
@@ -66,7 +65,7 @@ export class Keystroke {
     type = this.normalizeType(type);
     for (const item of this.keydownEventList) {
       if (item.type === type) {
-        item.listener(new NativeEvent(type));
+        item.listener(new Event(type));
       }
     }
   }
@@ -76,7 +75,7 @@ export class Keystroke {
     type = this.normalizeType(type);
     for (const item of this.keyupEventList) {
       if (item.type === type) {
-        item.listener(new NativeEvent(type));
+        item.listener(new Event(type));
       }
     }
   }

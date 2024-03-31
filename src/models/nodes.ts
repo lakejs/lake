@@ -1,6 +1,6 @@
 import { KeyValue } from '../types/object';
 import {
-  NativeNode, NativeText, NativeEvent,
+  NativeNode,
 } from '../types/native';
 import { NodePath } from '../types/node';
 import {
@@ -479,13 +479,13 @@ export class Nodes {
   }
 
   // Executes all event listeners attached to the Nodes object for the given event type.
-  public emit(type: string, event?: NativeEvent): this {
+  public emit(type: string, event?: Event): this {
     return this.eachElement(element => {
       const elementId = element.lakeId;
       const eventItems = eventData[elementId];
       eventItems.forEach(item => {
         if (item.type === type) {
-          item.listener(event ?? new NativeEvent(type));
+          item.listener(event ?? new Event(type));
         }
       });
     });
@@ -826,7 +826,7 @@ export class Nodes {
     if (!this.isText) {
       return new Nodes();
     }
-    const node = this.get(0) as NativeText;
+    const node = this.get(0) as Text;
     const newNode = node.splitText(offset);
     return new Nodes(newNode);
   }
