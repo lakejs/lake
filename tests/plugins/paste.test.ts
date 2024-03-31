@@ -1,4 +1,6 @@
-import type { Editor } from '../../src';
+import sinon from 'sinon';
+import { Box } from '../../src/models/box';
+import { Editor } from '../../src';
 import { testPlugin } from '../utils';
 
 const imageUrl = '../assets/images/heaven-lake-256.png';
@@ -1014,6 +1016,46 @@ describe('plugins / paste', () => {
       editor => {
         pasteData(editor, 'text/html', '<i>one</i><p>two</p>');
       },
+    );
+  });
+
+  it('pastes image from clipboard', () => {
+    const xhr = sinon.useFakeXMLHttpRequest();
+    const requests: sinon.SinonFakeXMLHttpRequest[] = [];
+    xhr.onCreate = req => requests.push(req);
+    const files = [
+      new File(['foo'], 'heaven-lake-512.png', {
+        type: 'image/png',
+      }),
+    ];
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <p><lake-box type="inline" name="image" focus="right"></lake-box></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        const event = {
+          ...new Event('paste'),
+          clipboardData: {
+            ...new EventTarget(),
+            files,
+          },
+          preventDefault: ()=> {},
+        };
+        editor.container.emit('paste', event as Event);
+        requests[0].respond(200, {}, JSON.stringify({
+          url: '../assets/images/heaven-lake-512.png',
+        }));
+        const box = new Box(editor.container.find('lake-box'));
+        expect(box.value.status).to.equal('done');
+        expect(box.value.url).to.equal('../assets/images/heaven-lake-512.png');
+        xhr.restore();
+      },
+      true,
     );
   });
 

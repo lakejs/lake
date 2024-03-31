@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { click, removeBoxValue } from '../utils';
+import { click, removeBoxValueFromHTML } from '../utils';
 import { query, debug } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Box } from '../../src/models/box';
@@ -522,7 +522,7 @@ describe('ui / toolbar', () => {
     requests[1].respond(200, {}, JSON.stringify({
       url: '../assets/images/lac-gentau-256.jpg',
     }));
-    const value = removeBoxValue(editor.getValue());
+    const value = removeBoxValueFromHTML(editor.getValue());
     debug(`output: ${value}`);
     expect(value).to.equal('<p>foo<lake-box type="inline" name="image"></lake-box><lake-box type="inline" name="image" focus="right"></lake-box></p>');
     const box1 = new Box(editor.container.find('lake-box').eq(0));

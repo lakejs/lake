@@ -12,7 +12,7 @@ export function click(node: Nodes): void {
   (node.get(0) as HTMLElement).click();
 }
 
-export function removeBoxValue(value: string): string {
+export function removeBoxValueFromHTML(value: string): string {
   return value.replace(/(<lake-box[^>]+)\s+value="[^"]+"([^>]*>)/g, '$1$2');
 }
 
@@ -101,6 +101,7 @@ export function testPlugin(
   content: string,
   output: string,
   callback: (editor: Editor) => void,
+  removeBoxValue: boolean = false,
 ): void {
   const targetNode = query('<div class="lake-main" />');
   query(document.body).append(targetNode);
@@ -110,7 +111,12 @@ export function testPlugin(
   });
   editor.render();
   callback(editor);
-  const html = editor.getValue();
+  let html: string;
+  if (removeBoxValue) {
+    html = removeBoxValueFromHTML(editor.getValue());
+  } else {
+    html = editor.getValue();
+  }
   editor.unmount();
   targetNode.remove();
   debug(`output: ${html}`);
