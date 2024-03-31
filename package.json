@@ -62,11 +62,11 @@
   },
   "scripts": {
     "start": "npm-run-all --parallel --print-label express watch",
-    "express": "node server.mjs",
+    "express": "node ./scripts/start-server.mjs",
     "watch": "rollup --watch --config rollup.config.mjs",
     "build": "rollup --config rollup.config.mjs",
     "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,.mjs\"",
-    "test": "node ./tests/run.mjs",
+    "test": "node ./scripts/run-tests.mjs",
     "clean": "rimraf ./lib ./dist ./temp"
   },
   "simple-git-hooks": {

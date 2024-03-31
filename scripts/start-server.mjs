@@ -1,13 +1,17 @@
 /* eslint no-console: "off" */
 
 import { networkInterfaces } from 'os';
+import { fileURLToPath } from 'url';
 import path from 'path';
 import express from 'express';
 import multer from 'multer';
 
+const scriptsPath = path.dirname(fileURLToPath(import.meta.url));
+const rootPath = path.resolve(scriptsPath, '../');
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.resolve('./temp/'));
+    cb(null, path.resolve(rootPath, './temp/'));
   },
   filename: (req, file, cb) => {
     const name = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
@@ -33,10 +37,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static(path.resolve('./')));
+app.use(express.static(rootPath));
 
 app.get('/examples/*', (req, res) => {
-  res.sendFile(path.resolve('./examples/index.html'));
+  res.sendFile(path.resolve(rootPath, './examples/index.html'));
 });
 
 app.post('/upload', (req, res) => {
