@@ -1,17 +1,21 @@
 /* eslint no-console: "off" */
 
+import path from 'path';
 import { networkInterfaces } from 'os';
 import { fileURLToPath } from 'url';
-import path from 'path';
 import express from 'express';
 import multer from 'multer';
 
+const port = 8080;
+const maxFileSize = 10 * 1024 * 1024;
+
 const scriptsPath = path.dirname(fileURLToPath(import.meta.url));
 const rootPath = path.resolve(scriptsPath, '../');
+const uploadPath = path.resolve(rootPath, './temp/');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.resolve(rootPath, './temp/'));
+    cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
     const name = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
@@ -23,13 +27,11 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   limits: {
-    fileSize: 10 * 1024 * 1024,
+    fileSize: maxFileSize,
   },
 }).single('file');
 
 const app = express();
-
-const port = 8080;
 
 app.use((req, res, next) => {
   const date = new Date().toUTCString();
