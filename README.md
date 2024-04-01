@@ -15,6 +15,8 @@ git clone https://github.com/lakejs/lake.git
 cd lake
 # install all dependencies
 pnpm install
+# build dependencies
+pnpm build
 # start a local server
 pnpm start
 ```
