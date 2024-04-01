@@ -1,7 +1,7 @@
 {
   "name": "lake-lib",
   "description": "Rich text editor based on the browser",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Luo Longhao <luolonghao@gmail.com>",
   "license": "MIT",
   "homepage": "http://lakejs.com",
@@ -9,6 +9,11 @@
     "type": "git",
     "url": "git+https://github.com/lakejs/lake.git"
   },
+  "main": "./lib/lake",
+  "files": [
+    "dist",
+    "lib"
+  ],
   "keywords": [
     "rich text",
     "wysiwyg",
@@ -64,10 +69,10 @@
     "start": "npm-run-all --parallel --print-label express watch",
     "express": "node ./scripts/start-server.mjs",
     "watch": "rollup --watch --config rollup.config.mjs",
-    "build": "rollup --config rollup.config.mjs",
+    "build": "rimraf ./dist ./lib & rollup --config rollup.config.mjs",
     "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,.mjs\"",
     "test": "node ./scripts/run-tests.mjs",
-    "clean": "rimraf ./lib ./dist ./temp"
+    "clean": "rimraf ./dist ./lib ./temp"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint"

@@ -25,7 +25,7 @@ function getWatchConfig(type) {
   return {
     input: `./${type}/index.ts`,
     output: {
-      file: `./dist/${type}/bundle.js`,
+      file: `./temp/${type}/bundle.js`,
       format: 'iife',
       sourcemap: true,
       globals: {
@@ -80,7 +80,7 @@ function getBuildConfig(type, extractExternal) {
         file: `./dist/${jsFileName}`,
         format: 'iife',
         name: 'Lake',
-        sourcemap: true,
+        sourcemap: false,
         globals,
         plugins: [terser()],
         assetFileNames: cssFileName,
@@ -103,11 +103,17 @@ function getBuildConfig(type, extractExternal) {
     output: {
       file: './lib/lake.js',
       format: 'es',
-      sourcemap: true,
+      sourcemap: false,
       assetFileNames: 'lake.css',
     },
     plugins: [
-      typescript(),
+      typescript({
+        compilerOptions: {
+          rootDir: './src',
+          declaration: true,
+          declarationDir: './types',
+        },
+      }),
       commonjs(),
       json(),
       svg({
@@ -125,7 +131,7 @@ function getCodeMirrorBuildConfig() {
       file: './dist/codemirror.min.js',
       format: 'iife',
       name: 'CodeMirror',
-      sourcemap: true,
+      sourcemap: false,
       plugins: [terser()],
     },
     plugins: [

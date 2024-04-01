@@ -1,7 +1,6 @@
 assets
-coverage
+temp
 dist
-docs
 lib
 node_modules
 LICENSE

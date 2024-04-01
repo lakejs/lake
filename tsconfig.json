@@ -1,4 +1,9 @@
 {
+  "include": [
+    "src/**/*",
+    "examples/**/*",
+    "tests/**/*",
+  ],
   "compilerOptions": {
     "outDir": "temp",
     "moduleResolution": "node",
@@ -9,6 +14,6 @@
     "noImplicitAny": true,
     "resolveJsonModule": true,
     "noUnusedLocals": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
   }
 }
