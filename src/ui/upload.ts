@@ -1,4 +1,5 @@
 import  type { Editor } from '../editor';
+import { debug } from '../utils/debug';
 import { request } from '../utils/request';
 import { Box } from '../models/box';
 
@@ -32,7 +33,8 @@ export function uploadImage(config: Config): Box {
       const percent = Math.round(e.percent);
       percentNode.text(`${percent < 100 ? percent : 99} %`);
     },
-    onError: () => {
+    onError: (error, body) => {
+      debug(error.toString(), body);
       box.updateValue('status', 'error');
       box.render();
       if (onError) {

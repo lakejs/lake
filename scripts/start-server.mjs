@@ -27,6 +27,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   limits: {
+    files: 1,
     fileSize: maxFileSize,
   },
 }).single('file');
@@ -49,14 +50,14 @@ app.post('/upload', (req, res) => {
   upload(req, res, error => {
     // A Multer error occurred when uploading.
     if (error instanceof multer.MulterError) {
-      res.json({
+      res.status(500).json({
         error: error.code,
       });
       return;
     }
     // An unknown error occurred when uploading.
     if (error) {
-      res.json({
+      res.status(500).json({
         error: 'Upload failed.',
       });
       return;
