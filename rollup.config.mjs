@@ -9,6 +9,18 @@ import terser from '@rollup/plugin-terser';
 
 const codeMirrorPath = path.resolve('./src/codemirror.ts');
 
+const globalVariables = {
+  photoswipe: 'PhotoSwipe',
+  'photoswipe/lightbox': 'PhotoSwipeLightbox',
+  [codeMirrorPath]: 'CodeMirror',
+};
+const externalModules = [
+  'photoswipe/style.css',
+  'photoswipe',
+  'photoswipe/lightbox',
+  codeMirrorPath,
+];
+
 function getWatchConfig(type) {
   return {
     input: `./${type}/index.ts`,
@@ -17,19 +29,14 @@ function getWatchConfig(type) {
       format: 'iife',
       sourcemap: true,
       globals: {
+        ...globalVariables,
         sinon: 'sinon',
-        photoswipe: 'PhotoSwipe',
-        'photoswipe/lightbox': 'PhotoSwipeLightbox',
-        [codeMirrorPath]: 'CodeMirror',
       },
       assetFileNames: 'bundle.css',
     },
     external: [
+      ...externalModules,
       'sinon',
-      'photoswipe/style.css',
-      'photoswipe',
-      'photoswipe/lightbox',
-      codeMirrorPath,
     ],
     watch: {
       include: [
@@ -50,29 +57,35 @@ function getWatchConfig(type) {
   };
 }
 
-function getBuildConfig(type) {
+function getBuildConfig(type, extractExternal) {
+  let jsFileName;
+  let cssFileName;
+  let globals;
+  let external;
+  if (extractExternal) {
+    jsFileName = 'lake.min.js';
+    cssFileName = 'lake.css';
+    globals = globalVariables;
+    external = externalModules;
+  } else {
+    jsFileName = 'lake-all.min.js';
+    cssFileName = 'lake-all.css';
+    globals = {};
+    external = [];
+  }
   if (type === 'iife') {
     return {
       input: './src/index.ts',
       output: {
-        file: './dist/lake.min.js',
+        file: `./dist/${jsFileName}`,
         format: 'iife',
         name: 'Lake',
         sourcemap: true,
-        globals: {
-          photoswipe: 'PhotoSwipe',
-          'photoswipe/lightbox': 'PhotoSwipeLightbox',
-          [codeMirrorPath]: 'CodeMirror',
-        },
+        globals,
         plugins: [terser()],
-        assetFileNames: 'lake.css',
+        assetFileNames: cssFileName,
       },
-      external: [
-        'photoswipe/style.css',
-        'photoswipe',
-        'photoswipe/lightbox',
-        codeMirrorPath,
-      ],
+      external,
       plugins: [
         nodeResolve(),
         typescript(),
@@ -124,7 +137,15 @@ function getCodeMirrorBuildConfig() {
 
 export default (commandLineArgs) => {
   if (commandLineArgs.watch === true) {
-    return [getWatchConfig('examples'), getWatchConfig('tests')];
+    return [
+      getWatchConfig('examples'),
+      getWatchConfig('tests'),
+    ];
   }
-  return [getBuildConfig('iife'), getBuildConfig('es'), getCodeMirrorBuildConfig()];
+  return [
+    getBuildConfig('iife', true),
+    getBuildConfig('iife', false),
+    getBuildConfig('es'),
+    getCodeMirrorBuildConfig(),
+  ];
 };
