@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Lake Examples (IIFE)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../dist/lake-all.css" />
+    <style>
+      .lake-editor {
+        box-sizing: border-box;
+        padding: 0 8px;
+        margin: 0 auto;
+        min-width: 300px;
+        max-width: 1000px;
+      }
+      .lake-toolbar {
+        border: 1px solid #d9d9d9;
+        border-bottom: 0;
+        background-color: #fff;
+      }
+      .lake-main {
+        height: calc(100vh - 160px);
+        overflow: auto;
+        border: 1px solid #d9d9d9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="lake-editor">
+      <div class="lake-toolbar"></div>
+      <div class="lake-main"></div>
+    </div>
+    <script src="../dist/lake-all.min.js"></script>
+    <script>
+      const editor = new Lake.Editor({
+        root: '.lake-main',
+        value: '<p><br /><focus /></p>',
+      });
+      editor.render();
+      new Lake.Toolbar({
+        editor,
+        root: '.lake-toolbar',
+      }).render();
+    </script>
+  </body>
+</html>
