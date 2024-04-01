@@ -49,14 +49,14 @@ app.post('/upload', (req, res) => {
   upload(req, res, error => {
     // A Multer error occurred when uploading.
     if (error instanceof multer.MulterError) {
-      res.status(500).json({
+      res.json({
         error: error.code,
       });
       return;
     }
     // An unknown error occurred when uploading.
     if (error) {
-      res.status(500).json({
+      res.json({
         error: 'Upload failed.',
       });
       return;

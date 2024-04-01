@@ -40,6 +40,14 @@ export function uploadImage(config: Config): Box {
       }
     },
     onSuccess: body => {
+      if (!body.url) {
+        box.updateValue('status', 'error');
+        box.render();
+        if (onError) {
+          onError();
+        }
+        return;
+      }
       box.updateValue({
         status: 'done',
         url: body.url,

@@ -63,7 +63,7 @@ describe('ui / upload', () => {
     expect(editor.container.find('lake-box').length).to.equal(0);
   });
 
-  it('uploadImage: server error', done => {
+  it('uploadImage: server error with status 500', done => {
     const file = new File(['foo'], 'foo.png', {
       type: 'image/png',
     });
@@ -76,6 +76,25 @@ describe('ui / upload', () => {
       },
     });
     requests[0].respond(500, {}, JSON.stringify({
+      error: 'Upload failed.',
+    }));
+    expect(box.value.status).to.equal('uploading');
+    expect(editor.container.find('lake-box').length).to.equal(1);
+  });
+
+  it('uploadImage: server error with status 200', done => {
+    const file = new File(['foo'], 'foo.png', {
+      type: 'image/png',
+    });
+    const box = uploadImage({
+      editor,
+      file,
+      onError: ()=> {
+        expect(box.value.status).to.equal('error');
+        done();
+      },
+    });
+    requests[0].respond(200, {}, JSON.stringify({
       error: 'Upload failed.',
     }));
     expect(box.value.status).to.equal('uploading');
