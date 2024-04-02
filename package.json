@@ -1,7 +1,7 @@
 {
   "name": "lakelib",
   "description": "Rich text editor based on the browser",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Luo Longhao <luolonghao@gmail.com>",
   "license": "MIT",
   "homepage": "http://lakejs.com",
