@@ -55,13 +55,18 @@ export class Toolbar {
 
   public root: Nodes;
 
+  public container: Nodes;
+
   public event: EventEmitter;
 
   constructor(config: ToolbarConfig) {
     this.items = config.items || defaultItems;
     this.editor = config.editor;
     this.root = query(config.root);
+    this.container = query('<div class="lake-toolbar" />');
     this.event = new EventEmitter();
+
+    this.root.addClass('lake-custom-properties');
   }
 
   // Returns the value of the node.
@@ -79,7 +84,7 @@ export class Toolbar {
   }
 
   private appendDivider(): void {
-    this.root.append('<div class="lake-toolbar-divider" />');
+    this.container.append('<div class="lake-toolbar-divider" />');
   }
 
   private appendButton(item: ButtonItem): void {
@@ -90,7 +95,7 @@ export class Toolbar {
     if (item.icon) {
       buttonNode.append(item.icon);
     }
-    this.root.append(buttonNode);
+    this.container.append(buttonNode);
     buttonNode.on('mouseenter', () => {
       if (buttonNode.attr('disabled')) {
         return;
@@ -305,7 +310,7 @@ export class Toolbar {
     this.addDropdownMenu(menuNode, item);
     dropdownNode.append(titleNode);
     dropdownNode.append(menuNode);
-    this.root.append(dropdownNode);
+    this.container.append(dropdownNode);
     this.bindDropdownEvents(dropdownNode, item);
   }
 
@@ -331,7 +336,7 @@ export class Toolbar {
     if (item.icon) {
       buttonNode.append(item.icon);
     }
-    this.root.append(uploadNode);
+    this.container.append(uploadNode);
     buttonNode.on('mouseenter', () => {
       buttonNode.addClass('lake-toolbar-button-hovered');
     });
@@ -372,7 +377,7 @@ export class Toolbar {
       }
       for (const item of buttonItemList) {
         const selectedClass = 'lake-toolbar-button-selected';
-        const buttonNode = this.root.find(`button[name="${item.name}"]`);
+        const buttonNode = this.container.find(`button[name="${item.name}"]`);
         const isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems, editor) : false;
         if (isDisabled) {
           buttonNode.attr('disabled', 'true');
@@ -391,7 +396,7 @@ export class Toolbar {
       }
       for (const item of dropdownItemList) {
         const selectedValues = item.selectedValues && appliedItems.length > 0 ? item.selectedValues(appliedItems, editor) : [];
-        const dropdownNode = this.root.find(`div.lake-dropdown[name="${item.name}"]`);
+        const dropdownNode = this.container.find(`div.lake-dropdown[name="${item.name}"]`);
         const isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems, editor) : false;
         if (isDisabled) {
           dropdownNode.attr('disabled', 'true');
@@ -417,9 +422,11 @@ export class Toolbar {
     });
   }
 
+  // Renders a toolbar for the specified editor.
   public render() {
     const editor = this.editor;
-    this.root.addClass('lake-custom-properties');
+    this.root.empty();
+    this.root.append(this.container);
     const allMenuMap: Map<string, Map<string, string>> = new Map();
     const buttonItemList: ButtonItem[] = [];
     const dropdownItemList: DropdownItem[] = [];

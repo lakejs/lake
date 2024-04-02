@@ -11,15 +11,15 @@ const largeOriginalUrl = '../assets/images/lac-gentau-4096.jpg';
 
 describe('boxes / image', () => {
 
-  let targetNode: Nodes;
+  let rootNode: Nodes;
   let editor: Editor;
   let box: Box | null;
 
   beforeEach(()=> {
-    targetNode = query('<div class="lake-main" />');
-    query(document.body).append(targetNode);
+    rootNode = query('<div class="lake-root" />');
+    query(document.body).append(rootNode);
     editor = new Editor({
-      root: targetNode,
+      root: rootNode,
       value: '<p><br /><focus /></p>',
     });
     editor.render();
@@ -37,7 +37,7 @@ describe('boxes / image', () => {
   });
 
   afterEach(() => {
-    targetNode.remove();
+    rootNode.remove();
   });
 
   it('should open full screen', done => {

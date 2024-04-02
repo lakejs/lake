@@ -90,13 +90,13 @@ const toolbarItems = [
 export default (value: string) => {
   Utils.query('.lake-editor').addClass('lake-mini-editor');
   const editor = new Editor({
-    root: '.lake-main',
+    root: '.lake-root',
     value,
   });
   editor.render();
   new Toolbar({
     editor,
-    root: '.lake-toolbar',
+    root: '.lake-toolbar-root',
     items: toolbarItems,
   }).render();
   return editor;

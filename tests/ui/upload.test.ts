@@ -5,7 +5,7 @@ import { uploadImage } from '../../src/ui/upload';
 
 let xhr: sinon.SinonFakeXMLHttpRequestStatic;
 let requests: sinon.SinonFakeXMLHttpRequest[];
-let targetNode: Nodes;
+let rootNode: Nodes;
 let editor: Editor;
 
 describe('ui / upload', () => {
@@ -14,10 +14,10 @@ describe('ui / upload', () => {
     xhr = sinon.useFakeXMLHttpRequest();
     requests = [];
     xhr.onCreate = req => requests.push(req);
-    targetNode = query('<div class="lake-main"></div>');
-    query(document.body).append(targetNode);
+    rootNode = query('<div class="lake-root"></div>');
+    query(document.body).append(rootNode);
     editor = new Editor({
-      root: targetNode,
+      root: rootNode,
       value: '<p><br /><focus /></p>',
     });
     editor.render();
@@ -26,7 +26,7 @@ describe('ui / upload', () => {
   afterEach(() => {
     xhr.restore();
     editor.unmount();
-    targetNode.remove();
+    rootNode.remove();
   });
 
   it('uploadImage: upload succeeded', done => {

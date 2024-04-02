@@ -84,10 +84,10 @@ export function testBox(
   value?: BoxValue,
   callback?: (box: Box, editor?: Editor) => void,
 ): void {
-  const targetNode = query('<div class="lake-main" />');
-  query(document.body).append(targetNode);
+  const rootNode = query('<div class="lake-root" />');
+  query(document.body).append(rootNode);
   const editor = new Editor({
-    root: targetNode,
+    root: rootNode,
     value: '<p><br /><focus /></p>',
   });
   editor.render();
@@ -103,10 +103,10 @@ export function testPlugin(
   callback: (editor: Editor) => void,
   removeBoxValue: boolean = false,
 ): void {
-  const targetNode = query('<div class="lake-main" />');
-  query(document.body).append(targetNode);
+  const rootNode = query('<div class="lake-root" />');
+  query(document.body).append(rootNode);
   const editor = new Editor({
-    root: targetNode,
+    root: rootNode,
     value: content,
   });
   editor.render();
@@ -118,7 +118,7 @@ export function testPlugin(
     html = editor.getValue();
   }
   editor.unmount();
-  targetNode.remove();
+  rootNode.remove();
   debug(`output: ${html}`);
   expect(html).to.equal(formatHTML(output));
 }

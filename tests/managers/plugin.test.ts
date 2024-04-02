@@ -5,15 +5,15 @@ import { Editor } from '../../src/editor';
 
 describe('managers / plugin', () => {
 
-  let targetNode: Nodes;
+  let rootNode: Nodes;
 
   beforeEach(() => {
-    targetNode = query('<div class="lake-container" />');
-    query(document.body).append(targetNode);
+    rootNode = query('<div class="lake-root" />');
+    query(document.body).append(rootNode);
   });
 
   afterEach(() => {
-    targetNode.remove();
+    rootNode.remove();
   });
 
   it('should load a plugin', () => {
@@ -23,7 +23,7 @@ describe('managers / plugin', () => {
       editorValue = editor.getValue();
     });
     const editor = new Editor({
-      root: targetNode,
+      root: rootNode,
       value: '<p>foo</p>',
     });
     editor.render();

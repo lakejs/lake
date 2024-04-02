@@ -36,8 +36,8 @@ Then, in the HTML page add the following HTML code that will serve as a placehol
 
 ```html
 <div class="lake-editor">
-  <div class="lake-toolbar"></div>
-  <div class="lake-main"></div>
+  <div class="lake-toolbar-root"></div>
+  <div class="lake-root"></div>
 </div>
 ```
 
@@ -45,13 +45,13 @@ Finally, call the following JavaScript code to render the editor.
 
 ```js
 const editor = new Lake.Editor({
-  root: '.lake-main',
+  root: '.lake-root',
   value: '<p><br /><focus /></p>',
 });
 editor.render();
 new Lake.Toolbar({
   editor,
-  root: '.lake-toolbar',
+  root: '.lake-toolbar-root',
 }).render();
 ```
 

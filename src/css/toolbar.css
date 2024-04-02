@@ -1,6 +1,7 @@
 .lake-toolbar {
   font-family: var(--font-family);
   color: var(--text-color);
+  background-color: #fff;
   padding: 4px;
   display: flex;
   flex-wrap: wrap;

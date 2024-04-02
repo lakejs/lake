@@ -5,15 +5,15 @@ import { Editor } from '../../src/editor';
 
 describe('managers / box-manager', () => {
 
-  let targetNode: Nodes;
+  let rootNode: Nodes;
 
   beforeEach(() => {
-    targetNode = query('<div class="lake-main" />');
-    query(document.body).append(targetNode);
+    rootNode = query('<div class="lake-root" />');
+    query(document.body).append(rootNode);
   });
 
   afterEach(() => {
-    // targetNode.remove();
+    rootNode.remove();
   });
 
   it('should render a box', () => {
@@ -25,7 +25,7 @@ describe('managers / box-manager', () => {
     });
     expect(box.getNames().indexOf('managerTest') >= 0).to.equal(true);
     const editor = new Editor({
-      root: targetNode,
+      root: rootNode,
       value: '<lake-box type="block" name="managerTest"></lake-box>',
     });
     editor.render();
@@ -44,7 +44,7 @@ describe('managers / box-manager', () => {
     });
     expect(box.getNames().indexOf('managerTest') >= 0).to.equal(true);
     const editor = new Editor({
-      root: targetNode,
+      root: rootNode,
       value: '<lake-box type="block" name="managerTest" focus="right"></lake-box><lake-box type="block" name="managerTest"></lake-box>',
     });
     editor.render();

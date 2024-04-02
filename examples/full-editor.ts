@@ -49,14 +49,14 @@ const toolbarItems = [
 
 export default (value: string) => {
   const editor = new Editor({
-    root: '.lake-main',
+    root: '.lake-root',
     value,
     imageRequestAction: '/upload',
   });
   editor.render();
   new Toolbar({
     editor,
-    root: '.lake-toolbar',
+    root: '.lake-toolbar-root',
     items: toolbarItems,
   }).render();
   return editor;

@@ -60,14 +60,14 @@ describe('ui / toolbar', () => {
   let toolbar: Toolbar;
 
   beforeEach(() => {
-    editorNode = query('<div class="lake-editor"><div class="lake-toolbar"></div><div class="lake-main"></div></div>');
+    editorNode = query('<div class="lake-editor"><div class="lake-toolbar-root"></div><div class="lake-root"></div></div>');
     query(document.body).append(editorNode);
     editor = new Editor({
-      root: editorNode.find('.lake-main'),
+      root: editorNode.find('.lake-root'),
       value: '<p><br /><focus /></p>',
     });
     editor.render();
-    const toolbarNode = editorNode.find('.lake-toolbar');
+    const toolbarNode = editorNode.find('.lake-toolbar-root');
     toolbar = new Toolbar({
       editor,
       root: toolbarNode,

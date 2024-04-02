@@ -4,21 +4,21 @@ import { Editor, Nodes } from '../../src';
 
 describe('plugins / link', () => {
 
-  let targetNode: Nodes;
+  let rootNode: Nodes;
   let editor: Editor;
 
   beforeEach(()=> {
-    targetNode = query('<div class="lake-main" />');
-    query(document.body).append(targetNode);
+    rootNode = query('<div class="lake-root" />');
+    query(document.body).append(rootNode);
     editor = new Editor({
-      root: targetNode,
+      root: rootNode,
       value: '<p><br /><focus /></p>',
     });
     editor.render();
   });
 
   afterEach(() => {
-    // targetNode.remove();
+    rootNode.remove();
   });
 
   it('should insert new link', () => {
