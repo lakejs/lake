@@ -1,6 +1,38 @@
-import CodeMirror from '../codemirror';
+import {
+  basicSetup,
+  EditorView,
+  ViewUpdate,
+  keymap,
+  indentWithTab,
+  javascript,
+} from '../codemirror';
 import type { BoxComponent } from '..';
 import { query } from '../utils';
+
+type CodeMirrorConfig = {
+  parent:  Element;
+  value: string;
+  onChange: (value: string) => void;
+};
+
+function CodeMirror(config: CodeMirrorConfig): EditorView {
+  const updateListener = (update: ViewUpdate) => {
+    if (!update.docChanged) {
+      return;
+    }
+    config.onChange(update.state.doc.toString());
+  };
+  return new EditorView({
+    doc: config.value,
+    extensions: [
+      basicSetup,
+      keymap.of([indentWithTab]),
+      javascript(),
+      EditorView.updateListener.of(updateListener),
+    ],
+    parent: config.parent,
+  });
+}
 
 export const codeBlockBox: BoxComponent = {
   type: 'block',

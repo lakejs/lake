@@ -1,29 +1,13 @@
 import { basicSetup } from 'codemirror';
-import { EditorView, ViewUpdate, keymap } from '@codemirror/view';
+import { EditorView, type ViewUpdate, keymap } from '@codemirror/view';
 import { indentWithTab } from '@codemirror/commands';
 import { javascript } from '@codemirror/lang-javascript';
 
-type Config = {
-  parent:  Element;
-  value: string;
-  onChange: (value: string) => void;
+export {
+  basicSetup,
+  EditorView,
+  ViewUpdate,
+  keymap,
+  indentWithTab,
+  javascript,
 };
-
-export default function(config: Config): EditorView {
-  const updateListener = (update: ViewUpdate) => {
-    if (!update.docChanged) {
-      return;
-    }
-    config.onChange(update.state.doc.toString());
-  };
-  return new EditorView({
-    doc: config.value,
-    extensions: [
-      basicSetup,
-      keymap.of([indentWithTab]),
-      javascript(),
-      EditorView.updateListener.of(updateListener),
-    ],
-    parent: config.parent,
-  });
-}
