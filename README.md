@@ -13,7 +13,7 @@ Compressed copies of Lake files are available, you can download them from jsDeli
 * jsDelivr: https://www.jsdelivr.com/package/npm/lakelib?path=dist&tab=files
 * UNPKG: https://unpkg.com/browse/lakelib@latest/dist/
 
-`lake-all.css` and `lake-all.min.js` are built with CodeMirror and PhotoSwipe, so they are very convenient to use. But if you have already imported these libraries in your page, then it is not the best approach, you had better use `lake.css` and `lake.min.js`, which are without large third-party libraries. To find out more to see [Rollup configuration](https://github.com/lakejs/lake/blob/master/rollup.config.mjs).
+Note: `lake-all.css` and `lake-all.min.js` are built with CodeMirror and PhotoSwipe, so they are very convenient to use. But if you have already imported these libraries in your page, then it is not the best approach, you had better use `lake.css` and `lake.min.js`, which are without large third-party libraries. To find out more, see the [IIFE example](https://github.com/lakejs/lake/blob/master/examples/iife.html) and [Rollup configuration](https://github.com/lakejs/lake/blob/master/rollup.config.mjs).
 
 #### Downloading Lake using npm
 
