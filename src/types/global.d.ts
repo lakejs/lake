@@ -1,5 +1,5 @@
 import { KeyValue } from './object';
-import { Locales } from '../i18n/i18n-types';
+import { Locales } from '../i18n/types';
 
 declare global {
   interface Window {

@@ -1,7 +1,7 @@
 import { ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
 import { toHex } from '../utils';
-import { L } from '../i18n';
+import { locale } from '../i18n';
 import {
   headingMenuItems,
   listMenuItems,
@@ -29,7 +29,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'undo',
     type: 'button',
     icon: icons.get('undo'),
-    tooltip: L.tooltip.bold(),
+    tooltip: locale.tooltip.undo(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -164,7 +164,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'bold',
     type: 'button',
     icon: icons.get('bold'),
-    tooltip: 'Bold',
+    tooltip: locale.tooltip.bold(),
     isDisabled: appliedItems => !!appliedItems.find(item => item.node.isHeading),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'strong'),
     onClick: (editor, value) => {
@@ -175,7 +175,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'italic',
     type: 'button',
     icon: icons.get('italic'),
-    tooltip: 'Italic',
+    tooltip: locale.tooltip.italic(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'i'),
     onClick: (editor, value) => {
       editor.command.execute(value);
@@ -185,7 +185,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'underline',
     type: 'button',
     icon: icons.get('underline'),
-    tooltip: 'Underline',
+    tooltip: locale.tooltip.underline(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'u'),
     onClick: (editor, value) => {
       editor.command.execute(value);
@@ -195,7 +195,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'strikethrough',
     type: 'button',
     icon: icons.get('strikethrough'),
-    tooltip: 'Strikethrough',
+    tooltip: locale.tooltip.strikethrough(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 's'),
     onClick: (editor, value) => {
       editor.command.execute(value);
