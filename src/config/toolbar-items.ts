@@ -29,7 +29,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'undo',
     type: 'button',
     icon: icons.get('undo'),
-    tooltip: locale.tooltip.undo(),
+    tooltip: locale.toolbar.undo(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -38,7 +38,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'redo',
     type: 'button',
     icon: icons.get('redo'),
-    tooltip: 'Redo',
+    tooltip: locale.toolbar.redo(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -47,7 +47,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'selectAll',
     type: 'button',
     icon: icons.get('selectAll'),
-    tooltip: 'Select all',
+    tooltip: locale.toolbar.selectAll(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -56,7 +56,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'paragraph',
     type: 'button',
     icon: icons.get('paragraph'),
-    tooltip: 'Paragraph',
+    tooltip: locale.toolbar.paragraph(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'p'),
     onClick: editor => {
       editor.command.execute('heading', 'p');
@@ -66,7 +66,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'blockQuote',
     type: 'button',
     icon: icons.get('blockQuote'),
-    tooltip: 'Block quotation',
+    tooltip: locale.toolbar.blockQuote(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'blockquote'),
     onClick: (editor, value) => {
       editor.command.execute(value);
@@ -76,7 +76,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'numberedList',
     type: 'button',
     icon: icons.get('numberedList'),
-    tooltip: 'Numbered list',
+    tooltip: locale.toolbar.numberedList(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'ol'),
     onClick: editor => {
       editor.command.execute('list', 'numbered');
@@ -86,7 +86,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'bulletedList',
     type: 'button',
     icon: icons.get('bulletedList'),
-    tooltip: 'Bulleted list',
+    tooltip: locale.toolbar.bulletedList(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'ul' && !item.node.hasAttr('type')),
     onClick: editor => {
       editor.command.execute('list', 'bulleted');
@@ -96,7 +96,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'checklist',
     type: 'button',
     icon: icons.get('checklist'),
-    tooltip: 'Checklist',
+    tooltip: locale.toolbar.checklist(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'ul' && item.node.attr('type') === 'checklist'),
     onClick: editor => {
       editor.command.execute('list', 'checklist');
@@ -106,7 +106,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'alignLeft',
     type: 'button',
     icon: icons.get('alignLeft'),
-    tooltip: 'Align left',
+    tooltip: locale.toolbar.alignLeft(),
     isSelected: appliedItems => !!appliedItems.find(item => item.node.isBlock && item.node.css('text-align') === 'left'),
     onClick: editor => {
       editor.command.execute('align', 'left');
@@ -116,7 +116,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'alignCenter',
     type: 'button',
     icon: icons.get('alignCenter'),
-    tooltip: 'Align center',
+    tooltip: locale.toolbar.alignCenter(),
     isSelected: appliedItems => !!appliedItems.find(item => item.node.isBlock && item.node.css('text-align') === 'center'),
     onClick: editor => {
       editor.command.execute('align', 'center');
@@ -126,7 +126,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'alignRight',
     type: 'button',
     icon: icons.get('alignRight'),
-    tooltip: 'Align right',
+    tooltip: locale.toolbar.alignRight(),
     isSelected: appliedItems => !!appliedItems.find(item => item.node.isBlock && item.node.css('text-align') === 'right'),
     onClick: editor => {
       editor.command.execute('align', 'right');
@@ -136,7 +136,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'alignJustify',
     type: 'button',
     icon: icons.get('alignJustify'),
-    tooltip: 'Align justify',
+    tooltip: locale.toolbar.alignJustify(),
     isSelected: appliedItems => !!appliedItems.find(item => item.node.isBlock && item.node.css('text-align') === 'justify'),
     onClick: editor => {
       editor.command.execute('align', 'justify');
@@ -146,7 +146,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'increaseIndent',
     type: 'button',
     icon: icons.get('increaseIndent'),
-    tooltip: 'Increase indent',
+    tooltip: locale.toolbar.increaseIndent(),
     onClick: editor => {
       editor.command.execute('indent', 'increase');
     },
@@ -155,7 +155,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'decreaseIndent',
     type: 'button',
     icon: icons.get('decreaseIndent'),
-    tooltip: 'Decrease indent',
+    tooltip: locale.toolbar.decreaseIndent(),
     onClick: editor => {
       editor.command.execute('indent', 'decrease');
     },
@@ -164,7 +164,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'bold',
     type: 'button',
     icon: icons.get('bold'),
-    tooltip: locale.tooltip.bold(),
+    tooltip: locale.toolbar.bold(),
     isDisabled: appliedItems => !!appliedItems.find(item => item.node.isHeading),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'strong'),
     onClick: (editor, value) => {
@@ -175,7 +175,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'italic',
     type: 'button',
     icon: icons.get('italic'),
-    tooltip: locale.tooltip.italic(),
+    tooltip: locale.toolbar.italic(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'i'),
     onClick: (editor, value) => {
       editor.command.execute(value);
@@ -185,7 +185,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'underline',
     type: 'button',
     icon: icons.get('underline'),
-    tooltip: locale.tooltip.underline(),
+    tooltip: locale.toolbar.underline(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'u'),
     onClick: (editor, value) => {
       editor.command.execute(value);
@@ -195,7 +195,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'strikethrough',
     type: 'button',
     icon: icons.get('strikethrough'),
-    tooltip: locale.tooltip.strikethrough(),
+    tooltip: locale.toolbar.strikethrough(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 's'),
     onClick: (editor, value) => {
       editor.command.execute(value);
@@ -205,7 +205,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'superscript',
     type: 'button',
     icon: icons.get('superscript'),
-    tooltip: 'Superscript',
+    tooltip: locale.toolbar.superscript(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'sup'),
     onClick: (editor, value) => {
       editor.command.execute(value);
@@ -215,7 +215,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'subscript',
     type: 'button',
     icon: icons.get('subscript'),
-    tooltip: 'Subscript',
+    tooltip: locale.toolbar.subscript(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'sub'),
     onClick: (editor, value) => {
       editor.command.execute(value);
@@ -225,7 +225,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'code',
     type: 'button',
     icon: icons.get('code'),
-    tooltip: 'Inline code',
+    tooltip: locale.toolbar.code(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'code'),
     onClick: (editor, value) => {
       editor.command.execute(value);
@@ -235,7 +235,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'removeFormat',
     type: 'button',
     icon: icons.get('removeFormat'),
-    tooltip: 'Remove format',
+    tooltip: locale.toolbar.removeFormat(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -244,7 +244,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'formatPainter',
     type: 'button',
     icon: icons.get('formatPainter'),
-    tooltip: 'Format painter',
+    tooltip: locale.toolbar.formatPainter(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -253,7 +253,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'link',
     type: 'button',
     icon: icons.get('link'),
-    tooltip: 'Link',
+    tooltip: locale.toolbar.link(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -262,7 +262,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'hr',
     type: 'button',
     icon: icons.get('hr'),
-    tooltip: 'Horizontal line',
+    tooltip: locale.toolbar.hr(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -271,7 +271,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'codeBlock',
     type: 'button',
     icon: icons.get('codeBlock'),
-    tooltip: 'Code block',
+    tooltip: locale.toolbar.codeBlock(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -281,7 +281,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'dropdown',
     downIcon: icons.get('down'),
     defaultValue: 'p',
-    tooltip: 'Heading',
+    tooltip: locale.toolbar.heading(),
     width: '100px',
     menuType: 'list',
     menuItems: headingMenuItems,
@@ -299,7 +299,7 @@ export const toolbarItems: ToolbarItem[] = [
     downIcon: icons.get('down'),
     icon: icons.get('list'),
     defaultValue: '',
-    tooltip: 'List',
+    tooltip: locale.toolbar.list(),
     width: 'auto',
     menuType: 'list',
     menuItems: listMenuItems,
@@ -331,7 +331,7 @@ export const toolbarItems: ToolbarItem[] = [
     downIcon: icons.get('down'),
     icon: icons.get('alignLeft'),
     defaultValue: '',
-    tooltip: 'Alignment',
+    tooltip: locale.toolbar.align(),
     width: 'auto',
     menuType: 'list',
     menuItems: alignMenuItems,
@@ -355,7 +355,7 @@ export const toolbarItems: ToolbarItem[] = [
     downIcon: icons.get('down'),
     icon: icons.get('increaseIndent'),
     defaultValue: '',
-    tooltip: 'Indent',
+    tooltip: locale.toolbar.indent(),
     width: 'auto',
     menuType: 'list',
     menuItems: indentMenuItems,
@@ -368,7 +368,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'dropdown',
     downIcon: icons.get('down'),
     defaultValue: 'Segoe UI',
-    tooltip: 'Font family',
+    tooltip: locale.toolbar.fontFamily(),
     width: '100px',
     menuType: 'list',
     menuItems: fontFamilyMenuItems,
@@ -390,7 +390,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'dropdown',
     downIcon: icons.get('down'),
     defaultValue: '16px',
-    tooltip: 'Font size',
+    tooltip: locale.toolbar.fontSize(),
     width: '65px',
     menuType: 'list',
     menuItems: fontSizeMenuItems,
@@ -413,7 +413,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'dropdown',
     icon: icons.get('more'),
     defaultValue: '',
-    tooltip: 'More style',
+    tooltip: locale.toolbar.moreStyle(),
     width: 'auto',
     menuType: 'list',
     menuItems: moreStyleMenuItems,
@@ -438,7 +438,7 @@ export const toolbarItems: ToolbarItem[] = [
     icon: icons.get('fontColor'),
     accentIcon: icons.get('fontColorAccent'),
     defaultValue: '#f5222d',
-    tooltip: 'Font color',
+    tooltip: locale.toolbar.fontColor(),
     width: 'auto',
     menuType: 'color',
     menuItems: colorMenuItems,
@@ -462,7 +462,7 @@ export const toolbarItems: ToolbarItem[] = [
     icon: icons.get('highlight'),
     accentIcon: icons.get('highlightAccent'),
     defaultValue: '#fadb14',
-    tooltip: 'Highlight',
+    tooltip: locale.toolbar.highlight(),
     width: 'auto',
     menuType: 'color',
     menuItems: colorMenuItems,
@@ -483,7 +483,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'image',
     type: 'upload',
     icon: icons.get('image'),
-    tooltip: 'Image',
+    tooltip: locale.toolbar.image(),
     accept: 'image/*',
     multiple: true,
   },

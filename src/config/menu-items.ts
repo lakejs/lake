@@ -1,34 +1,35 @@
 import { icons } from '../icons';
 import { ToolbarMenuItem } from '../types/toolbar';
+import { locale } from '../i18n';
 
 export const  headingMenuItems: ToolbarMenuItem[] = [
   {
     value: 'h1',
-    text: '<span style="font-weight: bold; font-size: 26px;">Heading 1</span>',
+    text: `<span style="font-weight: bold; font-size: 26px;">${locale.toolbar.heading1()}</span>`,
   },
   {
     value: 'h2',
-    text: '<span style="font-weight: bold; font-size: 24px;">Heading 2</span>',
+    text: `<span style="font-weight: bold; font-size: 24px;">${locale.toolbar.heading2()}</span>`,
   },
   {
     value: 'h3',
-    text: '<span style="font-weight: bold; font-size: 22px;">Heading 3</span>',
+    text: `<span style="font-weight: bold; font-size: 22px;">${locale.toolbar.heading3()}</span>`,
   },
   {
     value: 'h4',
-    text: '<span style="font-weight: bold; font-size: 20px;">Heading 4</span>',
+    text: `<span style="font-weight: bold; font-size: 20px;">${locale.toolbar.heading4()}</span>`,
   },
   {
     value: 'h5',
-    text: '<span style="font-weight: bold; font-size: 18px;">Heading 5</span>',
+    text: `<span style="font-weight: bold; font-size: 18px;">${locale.toolbar.heading5()}</span>`,
   },
   {
     value: 'h6',
-    text: '<span style="font-weight: bold; font-size: 16px;">Heading 6</span>',
+    text: `<span style="font-weight: bold; font-size: 16px;">${locale.toolbar.heading6()}</span>`,
   },
   {
     value: 'p',
-    text: 'Paragraph',
+    text: locale.toolbar.paragraph(),
   },
 ];
 
@@ -36,17 +37,17 @@ export const listMenuItems: ToolbarMenuItem[] = [
   {
     icon: icons.get('numberedList'),
     value: 'numbered',
-    text: 'Numbered list',
+    text: locale.toolbar.numberedList(),
   },
   {
     icon: icons.get('bulletedList'),
     value: 'bulleted',
-    text: 'Bulleted list',
+    text: locale.toolbar.bulletedList(),
   },
   {
     icon: icons.get('checklist'),
     value: 'checklist',
-    text: 'Checklist',
+    text: locale.toolbar.checklist(),
   },
 ];
 
@@ -54,22 +55,22 @@ export const alignMenuItems: ToolbarMenuItem[] = [
   {
     icon: icons.get('alignLeft'),
     value: 'left',
-    text: 'Align left',
+    text: locale.toolbar.alignLeft(),
   },
   {
     icon: icons.get('alignCenter'),
     value: 'center',
-    text: 'Align center',
+    text: locale.toolbar.alignCenter(),
   },
   {
     icon: icons.get('alignRight'),
     value: 'right',
-    text: 'Align right',
+    text: locale.toolbar.alignRight(),
   },
   {
     icon: icons.get('alignJustify'),
     value: 'justify',
-    text: 'Align justify',
+    text: locale.toolbar.alignJustify(),
   },
 ];
 
@@ -77,12 +78,12 @@ export const indentMenuItems: ToolbarMenuItem[] = [
   {
     icon: icons.get('increaseIndent'),
     value: 'increase',
-    text: 'Increase indent',
+    text: locale.toolbar.increaseIndent(),
   },
   {
     icon: icons.get('decreaseIndent'),
     value: 'decrease',
-    text: 'Decrease indent',
+    text: locale.toolbar.decreaseIndent(),
   },
 ];
 
@@ -172,32 +173,32 @@ export const moreStyleMenuItems: ToolbarMenuItem[] = [
   {
     icon: icons.get('italic'),
     value: 'italic',
-    text: 'Italic',
+    text: locale.toolbar.italic(),
   },
   {
     icon: icons.get('underline'),
     value: 'underline',
-    text: 'Underline',
+    text: locale.toolbar.underline(),
   },
   {
     icon: icons.get('strikethrough'),
     value: 'strikethrough',
-    text: 'Strikethrough',
+    text: locale.toolbar.strikethrough(),
   },
   {
     icon: icons.get('superscript'),
     value: 'superscript',
-    text: 'Superscript',
+    text: locale.toolbar.superscript(),
   },
   {
     icon: icons.get('subscript'),
     value: 'subscript',
-    text: 'Subscript',
+    text: locale.toolbar.subscript(),
   },
   {
     icon: icons.get('code'),
     value: 'code',
-    text: 'Code',
+    text: locale.toolbar.code(),
   },
 ];
 
@@ -221,7 +222,7 @@ export const colorMenuItems: ToolbarMenuItem[] = [
   {
     icon: icons.get('removeFormat'),
     value: '',
-    text: 'Remove color',
+    text: locale.toolbar.removeColor(),
   },
 ];
 for (const color of colors) {

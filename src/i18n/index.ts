@@ -9,10 +9,7 @@ const localeTranslations = {
   'zh-CN': zhCN,
 };
 
-const locales: Locales[] = [
-  'en-US',
-  'zh-CN',
-];
+const locales: Locales[] = Object.keys(localeTranslations) as Locales[];
 
 const loadedLocales: Record<Locales, Translations> = {} as Record<Locales, Translations>;
 const loadedFormatters: Record<Locales, Formatters> = {} as Record<Locales, Formatters>;
