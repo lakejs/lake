@@ -3,6 +3,7 @@ import { icons } from '../icons';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
+import { locale } from '../i18n';
 
 export class LinkPopup {
   private linkNode: Nodes | null;
@@ -16,19 +17,19 @@ export class LinkPopup {
     this.event = new EventEmitter();
     this.root = query(safeTemplate`
       <div class="lake-link-popup">
-        <div class="lake-row">URL</div>
+        <div class="lake-row">${locale.link.url()}</div>
         <div class="lake-row lake-url-row">
           <input type="text" name="url" />
-          <button type="button" class="lake-button-copy" title="Copy link to clipboard"></button>
-          <button type="button" class="lake-button-open" title="Open link in new tab"></button>
+          <button type="button" class="lake-button-copy" title="${locale.link.copy()}"></button>
+          <button type="button" class="lake-button-open" title="${locale.link.open()}"></button>
         </div>
-        <div class="lake-row">Link title</div>
+        <div class="lake-row">${locale.link.title()}</div>
         <div class="lake-row">
           <input type="text" name="title" />
         </div>
         <div class="lake-row">
-          <button type="button" class="lake-button-save"><span>Save</span></button>
-          <button type="button" class="lake-button-unlink"><span>Remove link</span></button>
+          <button type="button" class="lake-button-save"><span>${locale.link.save()}</span></button>
+          <button type="button" class="lake-button-unlink"><span>${locale.link.unlink()}</span></button>
         </div>
       </div>
     `);

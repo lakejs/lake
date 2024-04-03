@@ -1,6 +1,7 @@
 import { type Editor } from '..';
 import { Nodes } from '../models/nodes';
 import { LinkPopup } from '../ui/link-popup';
+import { locale } from '../i18n';
 
 export default (editor: Editor) => {
   let popup: LinkPopup;
@@ -47,7 +48,7 @@ export default (editor: Editor) => {
     showPopup(linkNode);
   });
   editor.command.add('link', () => {
-    const linkNode = editor.selection.insertLink('<a href="">New link</a>');
+    const linkNode = editor.selection.insertLink(`<a href="">${locale.link.newLink()}</a>`);
     if (!linkNode) {
       return;
     }

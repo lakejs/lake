@@ -46,4 +46,13 @@ export default {
     image: 'Image',
     removeColor: 'Remove color',
   },
+  link: {
+    newLink: 'New link',
+    url: 'URL',
+    title: 'Link title',
+    copy: 'Copy link to clipboard',
+    open: 'Open link in new tab',
+    save: 'Save',
+    unlink: 'Remove link',
+  },
 } satisfies BaseTranslation;

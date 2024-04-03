@@ -188,6 +188,36 @@ type RootTranslation = {
 		 */
 		removeColor: string
 	}
+	link: {
+		/**
+		 * N​e​w​ ​l​i​n​k
+		 */
+		newLink: string
+		/**
+		 * U​R​L
+		 */
+		url: string
+		/**
+		 * L​i​n​k​ ​t​i​t​l​e
+		 */
+		title: string
+		/**
+		 * C​o​p​y​ ​l​i​n​k​ ​t​o​ ​c​l​i​p​b​o​a​r​d
+		 */
+		copy: string
+		/**
+		 * O​p​e​n​ ​l​i​n​k​ ​i​n​ ​n​e​w​ ​t​a​b
+		 */
+		open: string
+		/**
+		 * S​a​v​e
+		 */
+		save: string
+		/**
+		 * R​e​m​o​v​e​ ​l​i​n​k
+		 */
+		unlink: string
+	}
 }
 
 export type TranslationFunctions = {
@@ -364,6 +394,36 @@ export type TranslationFunctions = {
 		 * Remove color
 		 */
 		removeColor: () => LocalizedString
+	}
+	link: {
+		/**
+		 * New link
+		 */
+		newLink: () => LocalizedString
+		/**
+		 * URL
+		 */
+		url: () => LocalizedString
+		/**
+		 * Link title
+		 */
+		title: () => LocalizedString
+		/**
+		 * Copy link to clipboard
+		 */
+		copy: () => LocalizedString
+		/**
+		 * Open link in new tab
+		 */
+		open: () => LocalizedString
+		/**
+		 * Save
+		 */
+		save: () => LocalizedString
+		/**
+		 * Remove link
+		 */
+		unlink: () => LocalizedString
 	}
 }
 

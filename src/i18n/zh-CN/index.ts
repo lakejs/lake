@@ -46,4 +46,13 @@ export default {
     image: '图片',
     removeColor: '默认',
   },
+  link: {
+    newLink: '新链接',
+    url: '链接',
+    title: '文本',
+    copy: '复制链接',
+    open: '访问链接',
+    save: '确定',
+    unlink: '取消链接',
+  },
 } satisfies Translation;
