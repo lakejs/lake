@@ -55,4 +55,14 @@ export default {
     save: '确定',
     unlink: '取消链接',
   },
+  image: {
+    view: '查看大图',
+    remove: '删除',
+    previous: '上一张',
+    next: '下一张',
+    close: '关闭 (Esc)',
+    loadingError: '图片加载失败',
+    zoomOut: '缩小',
+    zoomIn: '放大',
+  },
 } satisfies Translation;

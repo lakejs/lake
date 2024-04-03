@@ -218,6 +218,40 @@ type RootTranslation = {
 		 */
 		unlink: string
 	}
+	image: {
+		/**
+		 * F​u​l​l​ ​s​c​r​e​e​n
+		 */
+		view: string
+		/**
+		 * D​e​l​e​t​e
+		 */
+		remove: string
+		/**
+		 * P​r​e​v​i​o​u​s
+		 */
+		previous: string
+		/**
+		 * N​e​x​t
+		 */
+		next: string
+		/**
+		 * C​l​o​s​e​ ​(​E​s​c​)
+		 */
+		close: string
+		/**
+		 * T​h​e​ ​i​m​a​g​e​ ​c​a​n​n​o​t​ ​b​e​ ​l​o​a​d​e​d
+		 */
+		loadingError: string
+		/**
+		 * Z​o​o​m​ ​o​u​t
+		 */
+		zoomOut: string
+		/**
+		 * Z​o​o​m​ ​i​n
+		 */
+		zoomIn: string
+	}
 }
 
 export type TranslationFunctions = {
@@ -424,6 +458,40 @@ export type TranslationFunctions = {
 		 * Remove link
 		 */
 		unlink: () => LocalizedString
+	}
+	image: {
+		/**
+		 * Full screen
+		 */
+		view: () => LocalizedString
+		/**
+		 * Delete
+		 */
+		remove: () => LocalizedString
+		/**
+		 * Previous
+		 */
+		previous: () => LocalizedString
+		/**
+		 * Next
+		 */
+		next: () => LocalizedString
+		/**
+		 * Close (Esc)
+		 */
+		close: () => LocalizedString
+		/**
+		 * The image cannot be loaded
+		 */
+		loadingError: () => LocalizedString
+		/**
+		 * Zoom out
+		 */
+		zoomOut: () => LocalizedString
+		/**
+		 * Zoom in
+		 */
+		zoomIn: () => LocalizedString
 	}
 }
 

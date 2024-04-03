@@ -55,4 +55,14 @@ export default {
     save: 'Save',
     unlink: 'Remove link',
   },
+  image: {
+    view: 'Full screen',
+    remove: 'Delete',
+    previous: 'Previous',
+    next: 'Next',
+    close: 'Close (Esc)',
+    loadingError: 'The image cannot be loaded',
+    zoomOut: 'Zoom out',
+    zoomIn: 'Zoom in',
+  },
 } satisfies BaseTranslation;

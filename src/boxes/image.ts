@@ -7,6 +7,7 @@ import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
+import { locale } from '../i18n';
 
 type ImageInfo = {
   node: Nodes;
@@ -142,10 +143,10 @@ function openFullScreen(box: Box): void {
     arrowPrevSVG: icons.get('left'),
     arrowNextSVG: icons.get('right'),
     closeSVG: icons.get('close'),
-    arrowPrevTitle: 'Previous',
-    arrowNextTitle: 'Next',
-    closeTitle: 'Close (Esc)',
-    errorMsg: 'The image cannot be loaded',
+    arrowPrevTitle: locale.image.previous(),
+    arrowNextTitle: locale.image.next(),
+    closeTitle: locale.image.close(),
+    errorMsg: locale.image.loadingError(),
   });
   lightbox.on('uiRegister', () => {
     const pswp: any = lightbox.pswp;
@@ -153,7 +154,7 @@ function openFullScreen(box: Box): void {
       name: 'zoom-out-button',
       order: 8,
       isButton: true,
-      title: 'Zoom out',
+      title: locale.image.zoomOut(),
       html: icons.get('zoomOut'),
       onClick: () => {
         const currSlide = pswp.currSlide;
@@ -166,7 +167,7 @@ function openFullScreen(box: Box): void {
       name: 'zoom-in-button',
       order: 9,
       isButton: true,
-      title: 'Zoom in',
+      title: locale.image.zoomIn(),
       html: icons.get('zoomIn'),
       onClick: () => {
         const currSlide = pswp.currSlide;
@@ -221,7 +222,7 @@ async function renderError(root: Nodes, box: Box): Promise<void> {
   });
   const buttonGroupNode = query(safeTemplate`
     <div class="lake-button-group">
-      <button type="button" class="lake-button-remove" title="Delete"></button>
+      <button type="button" class="lake-button-remove" title="${locale.image.remove()}"></button>
     </div>
   `);
   const removeButton = buttonGroupNode.find('.lake-button-remove');
@@ -270,7 +271,7 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
   });
   const buttonGroupNode = query(safeTemplate`
     <div class="lake-button-group">
-      <button type="button" class="lake-button-remove" title="Delete"></button>
+      <button type="button" class="lake-button-remove" title="${locale.image.remove()}"></button>
     </div>
   `);
   const removeButton = buttonGroupNode.find('.lake-button-remove');
@@ -331,8 +332,8 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
   });
   const buttonGroupNode = query(safeTemplate`
     <div class="lake-button-group">
-      <button type="button" class="lake-button-view" title="Full screen"></button>
-      <button type="button" class="lake-button-remove" title="Delete"></button>
+      <button type="button" class="lake-button-view" title="${locale.image.view()}"></button>
+      <button type="button" class="lake-button-remove" title="${locale.image.remove()}"></button>
     </div>
   `);
   const viewButton = buttonGroupNode.find('.lake-button-view');
