@@ -10,6 +10,7 @@ const { query, safeTemplate } = Utils;
 
 declare global {
   interface Window {
+    Editor: typeof Editor;
     editor: Editor;
     defaultValue: string;
     miniatureValue: string;
@@ -18,7 +19,7 @@ declare global {
   }
 }
 
-window.DEBUG = true;
+window.Editor = Editor;
 
 type MenuItem = {
   url: string;

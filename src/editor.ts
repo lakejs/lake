@@ -1,6 +1,6 @@
 import debounce from 'lodash/debounce';
 import EventEmitter from 'eventemitter3';
-import pkg from '../package.json';
+import { version } from '../package.json';
 import { NativeNode } from './types/native';
 import { UploadRequestMethod } from './types/request';
 import { editors } from './storage/editors';
@@ -39,7 +39,7 @@ const defaultConfig = {
 };
 
 export class Editor {
-  public static version: string = pkg.version;
+  public static version: string = version;
 
   public static box = new BoxManager();
 

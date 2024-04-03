@@ -39,10 +39,10 @@
       let reporter;
       if (location.search.indexOf('console=true') >= 0) {
         reporter = 'tap';
-        window.DEBUG = false;
+        window.LAKE_DEBUG = false;
       } else {
         reporter = 'html';
-        window.DEBUG = true;
+        window.LAKE_DEBUG = true;
       }
       window.mocha.status = 'running';
       mocha.setup({

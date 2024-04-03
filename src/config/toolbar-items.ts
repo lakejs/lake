@@ -1,5 +1,7 @@
 import { ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
+import { toHex } from '../utils';
+import { L } from '../i18n';
 import {
   headingMenuItems,
   listMenuItems,
@@ -10,7 +12,6 @@ import {
   moreStyleMenuItems,
   colorMenuItems,
 } from './menu-items';
-import { toHex } from '../utils';
 
 const tagPluginNameMap: Map<string, string> = new Map([
   ['strong', 'bold'],
@@ -28,7 +29,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'undo',
     type: 'button',
     icon: icons.get('undo'),
-    tooltip: 'Undo',
+    tooltip: L.tooltip.bold(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
