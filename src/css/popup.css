@@ -1,21 +1,4 @@
-.lake-popup button {
-  border-radius: 5px;
-  border: 0;
-  color: var(--text-color);
-  background-color: #fff;
-  padding: 0;
-  margin: 0;
-  line-height: 0;
-  cursor: pointer;
-  user-select: none;
-  outline: none;
-}
-.lake-popup button svg {
-  width: 16px;
-  height: 16px;
-  margin: 6px;
-}
-.lake-popup input {
+.lake-popup input[type="text"] {
   font-family: var(--font-family);
   font-size: 14px;
   color: var(--text-color);
@@ -24,10 +7,10 @@
   border: 1px solid var(--input-border-color);
   padding: 4px 10px;
 }
-.lake-popup input:hover {
+.lake-popup input[type="text"]:hover {
   border: 1px solid var(--input-border-hover-color);
 }
-.lake-popup input:focus {
+.lake-popup input[type="text"]:focus {
   border: 1px solid var(--input-border-active-color);
   outline: none;
 }

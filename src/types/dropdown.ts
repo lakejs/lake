@@ -1,5 +1,3 @@
-import type { Nodes } from '../models/nodes';
-
 export type DropdownMenuItem = {
   value: string;
   icon?: string;
@@ -17,8 +15,3 @@ export type DropdownItem = {
   menuItems: DropdownMenuItem[];
   hasDocumentClick?: boolean;
 };
-
-export type DropdownConfig = DropdownItem & {
-  root: Nodes;
-  onSelect: (value: string) => void;
-}

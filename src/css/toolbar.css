@@ -5,33 +5,6 @@
   flex-wrap: wrap;
   align-items: center;
 }
-.lake-toolbar .lake-toolbar-button {
-  border-radius: 5px;
-  border: 0;
-  color: var(--text-color);
-  background-color: #fff;
-  padding: 0;
-  margin: 0 1px;
-  line-height: 0;
-  cursor: pointer;
-  user-select: none;
-  outline: none;
-}
-.lake-toolbar .lake-toolbar-button[disabled] {
-  opacity: 0.25;
-  cursor: default;
-}
-.lake-toolbar .lake-toolbar-button-hovered {
-  background-color: var(--background-hover-color);
-}
-.lake-toolbar .lake-toolbar-button-selected {
-  background-color: var(--background-active-color);
-}
-.lake-toolbar .lake-toolbar-button svg {
-  width: 16px;
-  height: 16px;
-  margin: 6px;
-}
 .lake-toolbar .lake-toolbar-divider {
   width: 1px;
   height: 20px;

@@ -85,9 +85,9 @@ describe('ui / toolbar', () => {
     expect(editor.getValue()).to.equal('<h2><br /><focus /></h2>');
     const buttonNode = toolbar.root.find('button[name="undo"]');
     buttonNode.emit('mouseenter');
-    expect(buttonNode.hasClass('lake-toolbar-button-hovered')).to.equal(true);
+    expect(buttonNode.hasClass('lake-button-hovered')).to.equal(true);
     buttonNode.emit('mouseleave');
-    expect(buttonNode.hasClass('lake-toolbar-button-hovered')).to.equal(false);
+    expect(buttonNode.hasClass('lake-button-hovered')).to.equal(false);
     click(buttonNode);
     const value = editor.getValue();
     debug(`output: ${value}`);
@@ -565,9 +565,9 @@ describe('ui / toolbar', () => {
     editor.setValue('<p>foo<focus /></p>');
     const buttonNode = toolbar.root.find('button[name="image"]');
     buttonNode.emit('mouseenter');
-    expect(buttonNode.hasClass('lake-toolbar-button-hovered')).to.equal(true);
+    expect(buttonNode.hasClass('lake-button-hovered')).to.equal(true);
     buttonNode.emit('mouseleave');
-    expect(buttonNode.hasClass('lake-toolbar-button-hovered')).to.equal(false);
+    expect(buttonNode.hasClass('lake-button-hovered')).to.equal(false);
     toolbar.root.find('.lake-upload input[type="file"]').emit('change', event as Event);
     requests[0].respond(200, {}, JSON.stringify({
       url: '../assets/images/heaven-lake-512.png',

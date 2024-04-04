@@ -3,6 +3,7 @@ import { icons } from '../icons';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
+import { Button } from './button';
 import { locale } from '../i18n';
 
 export class LinkPopup {
@@ -20,106 +21,131 @@ export class LinkPopup {
         <div class="lake-row">${locale.link.url()}</div>
         <div class="lake-row lake-url-row">
           <input type="text" name="url" />
-          <button type="button" class="lake-button-copy" title="${locale.link.copy()}"></button>
-          <button type="button" class="lake-button-open" title="${locale.link.open()}"></button>
         </div>
         <div class="lake-row">${locale.link.title()}</div>
         <div class="lake-row">
           <input type="text" name="title" />
         </div>
-        <div class="lake-row">
-          <button type="button" class="lake-button-save"><span>${locale.link.save()}</span></button>
-          <button type="button" class="lake-button-unlink"><span>${locale.link.unlink()}</span></button>
-        </div>
+        <div class="lake-row lake-button-row"></div>
       </div>
     `);
-    const openIcon = icons.get('open');
-    if (openIcon) {
-      this.root.find('.lake-button-open').append(openIcon);
-    }
-    const copyButton = this.root.find('.lake-button-copy');
-    const copyIcon = icons.get('copy');
-    if (copyIcon) {
-      copyButton.append(copyIcon);
-    }
-    const copyDoneIcon = icons.get('checkCircle');
-    if (copyDoneIcon) {
-      copyButton.append(copyDoneIcon);
-    }
-    const copyErrorIcon = icons.get('warningCircle');
-    if (copyErrorIcon) {
-      copyButton.append(copyErrorIcon);
-    }
-    const saveIcon = icons.get('check');
-    if (saveIcon) {
-      this.root.find('.lake-button-save').prepend(saveIcon);
-    }
-    const unlinkIcon = icons.get('unlink');
-    if (unlinkIcon) {
-      this.root.find('.lake-button-unlink').prepend(unlinkIcon);
-    }
+    this.appendCopyButton();
+    this.appendOpenButton();
+    this.appendSaveButton();
+    this.appendUnlinkButton();
     target.append(this.root);
-    this.bindEvents();
   }
 
-  private async writeClipboardText(text: string, errorCallback: () => void) {
+  // Writes the specified text to the system clipboard
+  private async writeClipboardText(text: string): Promise<boolean> {
+    let error = false;
     try {
       await navigator.clipboard.writeText(text);
     } catch {
-      errorCallback();
+      error = true;
+    }
+    return new Promise(resolve => {
+      resolve(error);
+    });
+  }
+
+  // Copy link to clipboard
+  private appendCopyButton(): void {
+    let timeoutId: number | null = null;
+    const button = new Button({
+      root: this.root.find('.lake-url-row'),
+      name: 'copy',
+      icon: icons.get('copy'),
+      tooltip: locale.link.copy(),
+      onClick: () => {
+        if (!this.linkNode) {
+          return;
+        }
+        const url = this.getInputValue('url');
+        this.writeClipboardText(url).then(error => {
+          const svgNode = this.root.find('button[name="copy"] svg');
+          svgNode.hide();
+          if (error) {
+            svgNode.eq(2).show('inline');
+            return;
+          }
+          svgNode.eq(1).show('inline');
+          this.event.emit('copy');
+          if (timeoutId) {
+            window.clearTimeout(timeoutId);
+          }
+          timeoutId = window.setTimeout(() => {
+            svgNode.hide();
+            svgNode.eq(0).show('inline');
+          }, 2000);
+        });
+      },
+    });
+    button.render();
+    const copyDoneIcon = icons.get('checkCircle');
+    if (copyDoneIcon) {
+      button.node.append(copyDoneIcon);
+    }
+    const copyErrorIcon = icons.get('warningCircle');
+    if (copyErrorIcon) {
+      button.node.append(copyErrorIcon);
     }
   }
 
-  private bindEvents(): void {
-    // Copy link to clipboard
-    let timeoutId: number | null = null;
-    this.root.find('.lake-button-copy').on('click', () => {
-      if (!this.linkNode) {
-        return;
-      }
-      const url = this.getInputValue('url');
-      this.writeClipboardText(url, () => {
-        const svgNode = this.root.find('.lake-button-copy svg');
-        svgNode.hide();
-        svgNode.eq(2).show('inline');
-      });
-      const svgNode = this.root.find('.lake-button-copy svg');
-      svgNode.hide();
-      svgNode.eq(1).show('inline');
-      if (timeoutId) {
-        window.clearTimeout(timeoutId);
-      }
-      timeoutId = window.setTimeout(() => {
-        svgNode.hide();
-        svgNode.eq(0).show('inline');
-      }, 2000);
+  // Open link in new tab
+  private appendOpenButton(): void {
+    const button = new Button({
+      root: this.root.find('.lake-url-row'),
+      name: 'open',
+      icon: icons.get('open'),
+      tooltip: locale.link.open(),
+      onClick: () => {
+        if (!this.linkNode) {
+          return;
+        }
+        const url = this.getInputValue('url');
+        window.open(url);
+      },
     });
-    // Open link in new tab
-    this.root.find('.lake-button-open').on('click', () => {
-      if (!this.linkNode) {
-        return;
-      }
-      const url = this.getInputValue('url');
-      window.open(url);
+    button.render();
+  }
+
+  // Save link
+  private appendSaveButton(): void {
+    const button = new Button({
+      root: this.root.find('.lake-button-row'),
+      name: 'save',
+      icon: icons.get('check'),
+      text: locale.link.save(),
+      onClick: () => {
+        if (!this.linkNode) {
+          return;
+        }
+        this.save();
+        this.hide();
+        this.event.emit('save');
+      },
     });
-    // Save link
-    this.root.find('.lake-button-save').on('click', () => {
-      if (!this.linkNode) {
-        return;
-      }
-      this.save();
-      this.hide();
-      this.event.emit('save');
+    button.render();
+  }
+
+  // Remove link
+  private appendUnlinkButton(): void {
+    const button = new Button({
+      root: this.root.find('.lake-button-row'),
+      name: 'unlink',
+      icon: icons.get('unlink'),
+      text: locale.link.unlink(),
+      onClick: () => {
+        if (!this.linkNode) {
+          return;
+        }
+        this.linkNode.remove(true);
+        this.hide();
+        this.event.emit('remove');
+      },
     });
-    // Remove link
-    this.root.find('.lake-button-unlink').on('click', () => {
-      if (!this.linkNode) {
-        return;
-      }
-      this.linkNode.remove(true);
-      this.hide();
-      this.event.emit('remove');
-    });
+    button.render();
   }
 
   private getInputValue(name: string): string {

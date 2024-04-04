@@ -7,8 +7,9 @@ import { toolbarItems } from '../config/toolbar-items';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
-import { uploadImage } from './upload';
+import { Button } from './button';
 import { Dropdown } from './dropdown';
+import { uploadImage } from './upload';
 
 const defaultItems: string[] = [
   'undo',
@@ -73,30 +74,17 @@ export class Toolbar {
 
   private appendButton(item: ToolbarButtonItem): void {
     const editor = this.editor;
-    const buttonNode = query('<button type="button" class="lake-toolbar-button" />');
-    buttonNode.attr('name', item.name);
-    buttonNode.attr('title', item.tooltip);
-    if (item.icon) {
-      buttonNode.append(item.icon);
-    }
-    this.container.append(buttonNode);
-    buttonNode.on('mouseenter', () => {
-      if (buttonNode.attr('disabled')) {
-        return;
-      }
-      buttonNode.addClass('lake-toolbar-button-hovered');
+    const button = new Button({
+      root: this.container,
+      name: item.name,
+      icon: item.icon,
+      tooltip: item.tooltip,
+      onClick: () => {
+        editor.focus();
+        item.onClick(editor, item.name);
+      },
     });
-    buttonNode.on('mouseleave', () => {
-      if (buttonNode.attr('disabled')) {
-        return;
-      }
-      buttonNode.removeClass('lake-toolbar-button-hovered');
-    });
-    buttonNode.on('click', event => {
-      event.preventDefault();
-      editor.focus();
-      item.onClick(editor, item.name);
-    });
+    button.render();
   }
 
   private appendDropdown(item: ToolbarDropdownItem) {
@@ -134,7 +122,6 @@ export class Toolbar {
     const uploadNode = query(safeTemplate`
       <div class="lake-upload">
         <input type="file" />
-        <button type="button" class="lake-toolbar-button" />
       </div>
     `);
     const fileNode = uploadNode.find('input[type="file"]');
@@ -145,23 +132,17 @@ export class Toolbar {
     if (item.multiple === true) {
       fileNode.attr('multiple', 'true');
     }
-    const buttonNode = uploadNode.find('button');
-    buttonNode.attr('name', item.name);
-    buttonNode.attr('title', item.tooltip);
-    if (item.icon) {
-      buttonNode.append(item.icon);
-    }
+    const button = new Button({
+      root: uploadNode,
+      name: item.name,
+      icon: item.icon,
+      tooltip: item.tooltip,
+      onClick: () => {
+        fileNativeNode.click();
+      },
+    });
+    button.render();
     this.container.append(uploadNode);
-    buttonNode.on('mouseenter', () => {
-      buttonNode.addClass('lake-toolbar-button-hovered');
-    });
-    buttonNode.on('mouseleave', () => {
-      buttonNode.removeClass('lake-toolbar-button-hovered');
-    });
-    buttonNode.on('click', event => {
-      event.preventDefault();
-      fileNativeNode.click();
-    });
     fileNode.on('click', event => event.stopPropagation());
     fileNode.on('change', event => {
       const target = event.target as HTMLInputElement;

@@ -21,7 +21,7 @@
   opacity: 0.25;
   cursor: default;
 }
-.lake-dropdown.lake-dropdown-list .lake-dropdown-title-hovered {
+.lake-dropdown.lake-list-dropdown .lake-dropdown-title-hovered {
   background-color: var(--background-hover-color);
 }
 .lake-dropdown .lake-dropdown-title.lake-dropdown-title-no-down {
@@ -48,7 +48,7 @@
   height: 16px;
   margin: 6px 2px 6px 4px;
 }
-.lake-dropdown.lake-dropdown-color .lake-dropdown-icon svg:last-child {
+.lake-dropdown.lake-color-dropdown .lake-dropdown-icon svg:last-child {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -90,45 +90,45 @@
   align-items: center;
   cursor: pointer;
 }
-.lake-dropdown .lake-dropdown-list-menu li {
+.lake-dropdown .lake-list-dropdown-menu li {
   padding: 6px 24px 6px 10px;
 }
-.lake-dropdown .lake-dropdown-list-menu li:hover {
+.lake-dropdown .lake-list-dropdown-menu li:hover {
   background-color: var(--background-hover-color);
 }
-.lake-dropdown .lake-dropdown-list-menu li .lake-dropdown-menu-check {
+.lake-dropdown .lake-list-dropdown-menu li .lake-dropdown-menu-check {
   line-height: 0;
   visibility: hidden;
 }
-.lake-dropdown .lake-dropdown-list-menu li .lake-dropdown-menu-check svg {
+.lake-dropdown .lake-list-dropdown-menu li .lake-dropdown-menu-check svg {
   width: 12px;
   height: 12px;
 }
-.lake-dropdown .lake-dropdown-list-menu li .lake-dropdown-menu-icon {
+.lake-dropdown .lake-list-dropdown-menu li .lake-dropdown-menu-icon {
   line-height: 0;
   margin-left: 10px;
 }
-.lake-dropdown .lake-dropdown-list-menu li .lake-dropdown-menu-icon svg {
+.lake-dropdown .lake-list-dropdown-menu li .lake-dropdown-menu-icon svg {
   width: 16px;
   height: 16px;
 }
-.lake-dropdown .lake-dropdown-list-menu li .lake-dropdown-menu-text {
+.lake-dropdown .lake-list-dropdown-menu li .lake-dropdown-menu-text {
   margin-left: 10px;
   white-space: nowrap;
 }
-.lake-dropdown .lake-dropdown-color-menu {
+.lake-dropdown .lake-color-dropdown-menu {
   flex-wrap: wrap;
   justify-content: center;
   width: 296px;
 }
-.lake-dropdown .lake-dropdown-color-menu li {
+.lake-dropdown .lake-color-dropdown-menu li {
   position: relative;
   padding: 0;
 }
-.lake-dropdown .lake-dropdown-color-menu li:hover {
+.lake-dropdown .lake-color-dropdown-menu li:hover {
   background-color: var(--background-hover-color);
 }
-.lake-dropdown .lake-dropdown-color-menu li .lake-dropdown-menu-check {
+.lake-dropdown .lake-color-dropdown-menu li .lake-dropdown-menu-check {
   position: absolute;
   top: 6px;
   left: 6px;
@@ -136,24 +136,24 @@
   line-height: 0;
   visibility: hidden;
 }
-.lake-dropdown .lake-dropdown-color-menu li .lake-dropdown-menu-check svg {
+.lake-dropdown .lake-color-dropdown-menu li .lake-dropdown-menu-check svg {
   width: 12px;
   height: 12px;
   fill: #fff;
 }
-.lake-dropdown .lake-dropdown-color-menu li[value^="#f" i] .lake-dropdown-menu-check svg,
-.lake-dropdown .lake-dropdown-color-menu li[value^="#e6" i] .lake-dropdown-menu-check svg {
+.lake-dropdown .lake-color-dropdown-menu li[value^="#f" i] .lake-dropdown-menu-check svg,
+.lake-dropdown .lake-color-dropdown-menu li[value^="#e6" i] .lake-dropdown-menu-check svg {
   fill: #000;
 }
-.lake-dropdown .lake-dropdown-color-menu li .lake-dropdown-menu-icon {
+.lake-dropdown .lake-color-dropdown-menu li .lake-dropdown-menu-icon {
   line-height: 0;
 }
-.lake-dropdown .lake-dropdown-color-menu li .lake-dropdown-menu-icon svg {
+.lake-dropdown .lake-color-dropdown-menu li .lake-dropdown-menu-icon svg {
   width: 16px;
   height: 16px;
   margin: 3px 4px;
 }
-.lake-dropdown .lake-dropdown-color-menu li .lake-dropdown-menu-text {
+.lake-dropdown .lake-color-dropdown-menu li .lake-dropdown-menu-text {
   font-size: 0;
   border: 1px solid var(--background-hover-color);
   border-radius: 2px;
@@ -161,16 +161,16 @@
   height: 16px;
   margin: 3px;
 }
-.lake-dropdown .lake-dropdown-color-menu li:first-child {
+.lake-dropdown .lake-color-dropdown-menu li:first-child {
   width: 100%;
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 4px;
 }
-.lake-dropdown .lake-dropdown-color-menu li:first-child .lake-dropdown-menu-check {
+.lake-dropdown .lake-color-dropdown-menu li:first-child .lake-dropdown-menu-check {
   display: none;
 }
-.lake-dropdown .lake-dropdown-color-menu li:first-child .lake-dropdown-menu-text {
+.lake-dropdown .lake-color-dropdown-menu li:first-child .lake-dropdown-menu-text {
   width: 100%;
   font-size: 14px;
   border: 1px solid transparent;

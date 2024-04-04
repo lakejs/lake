@@ -1,11 +1,16 @@
 import { Base64 } from 'js-base64';
 import { NativeNode } from '../types/native';
-import { DropdownConfig, DropdownMenuItem } from '../types/dropdown';
+import { DropdownItem, DropdownMenuItem } from '../types/dropdown';
 import { icons } from '../icons';
 import { template } from '../utils/template';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
+
+export type DropdownConfig = DropdownItem & {
+  root: Nodes;
+  onSelect: (value: string) => void;
+}
 
 export class Dropdown {
   private config: DropdownConfig;
@@ -18,7 +23,7 @@ export class Dropdown {
     this.config = config;
     this.root = config.root;
     this.node = query(safeTemplate`
-      <div class="lake-dropdown">
+      <div class="lake-dropdown lake-${config.menuType}-dropdown">
         <button type="button" class="lake-dropdown-title">
           <div class="lake-dropdown-${config.icon ? 'icon' : 'text'}"></div>
           <div class="lake-dropdown-down-icon"></div>
@@ -198,7 +203,6 @@ export class Dropdown {
   public render(): void {
     const config = this.config;
     const dropdownNode = this.node;
-    dropdownNode.addClass(`lake-dropdown-${config.menuType}`);
     const titleNode = dropdownNode.find('.lake-dropdown-title');
     if (!config.downIcon) {
       titleNode.addClass('lake-dropdown-title-no-down');
@@ -218,7 +222,7 @@ export class Dropdown {
       downIconNode.append(config.downIcon);
     }
     const menuNode = query('<ul class="lake-dropdown-menu" />');
-    menuNode.addClass(`lake-dropdown-${config.menuType}-menu`);
+    menuNode.addClass(`lake-${config.menuType}-dropdown-menu`);
     Dropdown.setValue(dropdownNode, [config.defaultValue]);
     if (textNode.length > 0) {
       const menuMap = Dropdown.getMenuMap(config.menuItems);

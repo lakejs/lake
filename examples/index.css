@@ -69,7 +69,6 @@ body {
 .header .lake-dropdown .lake-dropdown-icon img {
   width: 24px;
   height: 24px;
-  margin: 6px;
 }
 .header .lake-dropdown .lake-dropdown-menu {
   top: 36px;
@@ -139,10 +138,10 @@ body {
 .lake-mini-editor {
   max-width: 600px;
 }
-.lake-mini-editor .lake-toolbar .lake-dropdown-color-menu {
+.lake-mini-editor .lake-toolbar .lake-color-dropdown-menu {
   width: 156px;
 }
-.lake-mini-editor .lake-toolbar .lake-dropdown-color-menu li:first-child .lake-dropdown-menu-text {
+.lake-mini-editor .lake-toolbar .lake-color-dropdown-menu li:first-child .lake-dropdown-menu-text {
   text-align: center;
 }
 .lake-mini-editor .lake-root {

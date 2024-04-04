@@ -31,7 +31,7 @@ export default (editor: Editor) => {
     if (tagetNode.isInside) {
       return;
     }
-    const buttonNode = tagetNode.closest('.lake-toolbar-button');
+    const buttonNode = tagetNode.closest('.lake-button');
     if (buttonNode.length > 0 && buttonNode.attr('name') === 'formatPainter') {
       return;
     }

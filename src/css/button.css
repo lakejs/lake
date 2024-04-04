@@ -1,0 +1,45 @@
+.lake-button {
+  border-radius: 5px;
+  border: 0;
+  color: var(--text-color);
+  background-color: #fff;
+  padding: 0;
+  margin: 0 1px;
+  line-height: 0;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+}
+.lake-button[disabled] {
+  opacity: 0.25;
+  cursor: default;
+}
+.lake-button svg {
+  width: 16px;
+  height: 16px;
+  margin: 6px;
+}
+.lake-icon-button.lake-button-hovered {
+  background-color: var(--background-hover-color);
+}
+.lake-icon-button.lake-button-selected {
+  background-color: var(--background-active-color);
+}
+.lake-text-button {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  padding: 8px 16px;
+}
+.lake-text-button.lake-button-hovered {
+  background-color: var(--background-hover-color);
+}
+.lake-text-button svg {
+  background-color: transparent;
+  margin: 0 6px 0 0;
+  vertical-align: middle;
+}
+.lake-text-button span {
+  display: inline-block;
+  line-height: 16px;
+  vertical-align: middle;
+}

@@ -35,7 +35,7 @@ describe('plugins / link', () => {
     editor.command.execute('link');
     (editor.popupContainer.find('.lake-link-popup input[name="url"]').get(0) as HTMLInputElement).value = 'http://bar.com';
     (editor.popupContainer.find('.lake-link-popup input[name="title"]').get(0) as HTMLInputElement).value = 'bar';
-    click(editor.popupContainer.find('.lake-link-popup .lake-button-save'));
+    click(editor.popupContainer.find('.lake-link-popup button[name="save"]'));
     const value = editor.getValue();
     editor.unmount();
     expect(value).to.equal('<p><a href="http://bar.com"><focus />bar</a></p>');
@@ -44,19 +44,10 @@ describe('plugins / link', () => {
   it('should remove a link', () => {
     editor.setValue('<p><a href="http://foo.com">foo<focus /></a></p>');
     editor.command.execute('link');
-    click(editor.popupContainer.find('.lake-link-popup .lake-button-unlink'));
+    click(editor.popupContainer.find('.lake-link-popup button[name="unlink"]'));
     const value = editor.getValue();
     editor.unmount();
     expect(value).to.equal('<p>foo<focus /></p>');
-  });
-
-  it('should copy a link to clipboard', async() => {
-    editor.setValue('<p><a href="http://foo.com">foo<focus /></a></p>');
-    editor.command.execute('link');
-    click(editor.popupContainer.find('.lake-link-popup .lake-button-copy'));
-    editor.unmount();
-    expect(editor.popupContainer.find('.lake-link-popup .lake-button-copy svg').eq(0).computedCSS('display')).to.equal('none');
-    expect(editor.popupContainer.find('.lake-link-popup .lake-button-copy svg').eq(1).computedCSS('display')).to.equal('inline');
   });
 
 });
