@@ -76,4 +76,20 @@ describe('ui: ui / button', () => {
     expect(buttonValue).to.equal('save clicked');
   });
 
+  it('should not add hovered class when button is selected', () => {
+    const button = new Button({
+      root: rootNode,
+      name: 'bold',
+      icon: icons.get('bold'),
+      tooltip: 'Bold',
+      onClick: () => {},
+    });
+    button.render();
+    const buttonNode = button.node;
+    buttonNode.addClass('lake-button-selected');
+    buttonNode.emit('mouseenter');
+    expect(buttonNode.hasClass('lake-button-hovered')).to.equal(false);
+    buttonNode.remove();
+  });
+
 });

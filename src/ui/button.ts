@@ -45,6 +45,9 @@ export class Button {
       if (buttonNode.attr('disabled')) {
         return;
       }
+      if (buttonNode.hasClass('lake-button-selected')) {
+        return;
+      }
       buttonNode.addClass('lake-button-hovered');
     });
     buttonNode.on('mouseleave', () => {
