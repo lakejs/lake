@@ -3,12 +3,14 @@ import type { Formatters, Locales, Translations, TranslationFunctions } from './
 
 import enUS from './en-US';
 import zhCN from './zh-CN';
+import ja from './ja';
 import ko from './ko';
 
 const localeTranslations = {
   'en-US': enUS,
   'zh-CN': zhCN,
-  'ko': ko,
+  ja,
+  ko,
 };
 
 const locales: Locales[] = Object.keys(localeTranslations) as Locales[];

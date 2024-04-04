@@ -7,6 +7,7 @@ export type BaseLocale = 'en-US'
 
 export type Locales =
 	| 'en-US'
+	| 'ja'
 	| 'ko'
 	| 'zh-CN'
 
@@ -195,7 +196,7 @@ type RootTranslation = {
 		 */
 		newLink: string
 		/**
-		 * U​R​L
+		 * L​i​n​k​ ​U​R​L
 		 */
 		url: string
 		/**
@@ -436,7 +437,7 @@ export type TranslationFunctions = {
 		 */
 		newLink: () => LocalizedString
 		/**
-		 * URL
+		 * Link URL
 		 */
 		url: () => LocalizedString
 		/**

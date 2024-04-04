@@ -76,6 +76,10 @@ const languageMenuItems = [
     text: '简体中文',
   },
   {
+    value: 'ja',
+    text: '日本語',
+  },
+  {
     value: 'ko',
     text: '한국어',
   },
