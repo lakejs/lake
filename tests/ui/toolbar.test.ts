@@ -201,7 +201,7 @@ describe('ui / toolbar', () => {
   it('bold: clicks button and updates state', done => {
     editor.setValue('<p><anchor />bar<focus /></p>');
     toolbar.event.on('updatestate', () => {
-      const isSelected = toolbar.root.find('button[name="bold"].lake-toolbar-button-selected').length > 0;
+      const isSelected = toolbar.root.find('button[name="bold"].lake-button-selected').length > 0;
       editor.unmount();
       expect(isSelected).to.equal(true);
       done();

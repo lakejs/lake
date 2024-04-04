@@ -150,3 +150,10 @@ body {
 .lake-mini-editor .lake-container {
   padding: 8px 12px;
 }
+/* headless editor */
+.lake-headless-editor .lake-toolbar-root {
+  padding: 8px;
+}
+.lake-headless-editor .lake-toolbar-root .lake-button {
+  margin-right: 8px;
+}

@@ -2,7 +2,6 @@ import './css';
 import './elements/box';
 import './elements/bookmark';
 import { BoxComponent } from './types/box';
-import { DropdownMenuItem } from './types/dropdown';
 import { ToolbarItem } from './types/toolbar';
 import { icons } from './icons';
 import * as Utils from './utils';
@@ -25,6 +24,7 @@ import { addMark} from './operations/add-mark';
 import { removeMark} from './operations/remove-mark';
 import { fixList} from './operations/fix-list';
 import { insertLink } from './operations/insert-link';
+import { Button } from './ui/button';
 import { Dropdown } from './ui/dropdown';
 import { Editor } from './editor';
 import { Toolbar } from './ui/toolbar';
@@ -111,7 +111,6 @@ export {
   Editor,
   Toolbar,
   ToolbarItem,
-  DropdownMenuItem,
   BoxComponent,
   icons,
   Utils,
@@ -134,5 +133,6 @@ export {
   removeMark,
   fixList,
   insertLink,
+  Button,
   Dropdown,
 };

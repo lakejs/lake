@@ -172,7 +172,7 @@ export class Toolbar {
         appliedItems = [];
       }
       for (const item of buttonItemList) {
-        const selectedClass = 'lake-toolbar-button-selected';
+        const selectedClass = 'lake-button-selected';
         const buttonNode = this.container.find(`button[name="${item.name}"]`);
         const isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems, editor) : false;
         if (isDisabled) {
