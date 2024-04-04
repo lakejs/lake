@@ -21,15 +21,7 @@ declare global {
 
 window.Editor = Editor;
 
-type MenuItem = {
-  url: string;
-  text: string;
-  source: string;
-  editorValue: string;
-  editor: (value: string) => Editor;
-};
-
-const menuItems: MenuItem[] = [
+const menuItems = [
   {
     url: './',
     text: 'Default configuration',
@@ -74,7 +66,22 @@ const menuItems: MenuItem[] = [
   },
 ];
 
-const menuItemMap: Map<string, MenuItem> = new Map();
+const languageMenuItems = [
+  {
+    value: 'en-US',
+    text: 'English',
+  },
+  {
+    value: 'zh-CN',
+    text: '简体中文',
+  },
+  {
+    value: 'ko',
+    text: '한국어',
+  },
+];
+
+const menuItemMap: Map<string, typeof menuItems[0]> = new Map();
 for (const item of menuItems) {
   const type = item.url.substring(2) || 'default';
   menuItemMap.set(type, item);
@@ -97,16 +104,7 @@ function renderHeader(pageType: string): void {
     tooltip: 'Select language',
     width: 'auto',
     menuType: 'list',
-    menuItems: [
-      {
-        value: 'en-US',
-        text: 'English',
-      },
-      {
-        value: 'zh-CN',
-        text: '简体中文',
-      },
-    ],
+    menuItems: languageMenuItems,
     hasDocumentClick: true,
     onSelect: value => {
       localStorage.setItem(localStorageKey, value);

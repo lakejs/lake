@@ -71,6 +71,9 @@ body {
   height: 24px;
   margin: 6px;
 }
+.header .lake-dropdown .lake-dropdown-menu {
+  top: 36px;
+}
 .header .source {
   line-height: 0;
 }

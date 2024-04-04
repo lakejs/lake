@@ -48,7 +48,7 @@ export default {
   },
   link: {
     newLink: 'New link',
-    url: 'URL',
+    url: 'Link URL',
     title: 'Link title',
     copy: 'Copy link to clipboard',
     open: 'Open link in new tab',

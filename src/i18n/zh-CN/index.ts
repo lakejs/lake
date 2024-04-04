@@ -2,8 +2,8 @@ import type { Translation } from '../types';
 
 export default {
   toolbar: {
-    undo: '后退 (Ctrl+Z)',
-    redo: '前进 (Ctrl+Y)',
+    undo: '撤消 (Ctrl+Z)',
+    redo: '重做 (Ctrl+Y)',
     selectAll: '全选 (Ctrl+A)',
     paragraph: '正文',
     blockQuote: '引用',
@@ -48,10 +48,10 @@ export default {
   },
   link: {
     newLink: '新链接',
-    url: '链接',
-    title: '文本',
-    copy: '复制链接',
-    open: '访问链接',
+    url: '链接 URL',
+    title: '链接文本',
+    copy: '复制到剪贴板',
+    open: '打开链接',
     save: '确定',
     unlink: '取消链接',
   },
