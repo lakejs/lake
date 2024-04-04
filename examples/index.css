@@ -7,7 +7,7 @@ body {
 .header {
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: 44px 1fr 36px;
+  grid-template-columns: 44px 1fr 36px 36px;
   align-items: center;
   padding: 8px 8px 16px 8px;
   background-color: #fff;
@@ -65,6 +65,11 @@ body {
 }
 .header .title {
   font-size: 18px;
+}
+.header .lake-dropdown .lake-dropdown-icon img {
+  width: 24px;
+  height: 24px;
+  margin: 6px;
 }
 .header .source {
   line-height: 0;

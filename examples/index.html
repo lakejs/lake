@@ -18,6 +18,7 @@
     <div class="header">
       <div class="menu"></div>
       <div class="title"></div>
+      <div class="language lake-custom-properties"></div>
       <div class="source"></div>
     </div>
     <div class="lake-editor">
@@ -25,7 +26,7 @@
       <div class="lake-root"></div>
     </div>
     <script>
-      window.LAKE_LANGUAGE = 'zh-CN';
+      window.LAKE_LANGUAGE = localStorage.getItem('lake-example-language') ?? 'en-US';
       window.LAKE_DEBUG = true;
     </script>
     <script src="../assets/values/default-value.js"></script>

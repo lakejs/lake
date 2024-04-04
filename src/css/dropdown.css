@@ -42,7 +42,8 @@
 .lake-dropdown .lake-dropdown-icon-hovered {
   background-color: var(--background-hover-color);
 }
-.lake-dropdown .lake-dropdown-icon svg {
+.lake-dropdown .lake-dropdown-icon svg,
+.lake-dropdown .lake-dropdown-icon img {
   width: 16px;
   height: 16px;
   margin: 6px 2px 6px 4px;
@@ -52,7 +53,8 @@
   left: 0;
   bottom: 0;
 }
-.lake-dropdown .lake-dropdown-title-no-down .lake-dropdown-icon svg {
+.lake-dropdown .lake-dropdown-title-no-down .lake-dropdown-icon svg,
+.lake-dropdown .lake-dropdown-title-no-down .lake-dropdown-icon img {
   margin: 6px;
 }
 .lake-dropdown .lake-dropdown-down-icon {

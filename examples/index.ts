@@ -1,5 +1,5 @@
 import './index.css';
-import { Editor, Utils } from '../src';
+import { Editor, Utils, Dropdown } from '../src';
 import defaultEditor from './default-editor';
 import fullEditor from './full-editor';
 import documentEditor from './document-editor';
@@ -66,13 +66,6 @@ const menuItems: MenuItem[] = [
     editor: headlessEditor,
   },
   {
-    url: './i18n',
-    text: 'Internationalization',
-    source: 'https://github.com/lakejs/lake/blob/master/examples/default-editor.ts',
-    editorValue: window.defaultValue,
-    editor: defaultEditor,
-  },
-  {
     url: './huge-content',
     text: 'Huge Content',
     source: 'https://github.com/lakejs/lake/blob/master/examples/default-editor.ts',
@@ -96,6 +89,31 @@ function renderHeader(pageType: string): void {
   titleNode.text(currentItem.text);
   const sourceNode = query('.header .source');
   sourceNode.append(`<a href="${currentItem.source}" target="_blank" title="View Source"><img src="../assets/icons/code.svg" /></a>`);
+  const localStorageKey = 'lake-example-language';
+  const languageDropdown = new Dropdown({
+    root: query('.header .language'),
+    icon: '<img src="../assets/icons/globe.svg" />',
+    defaultValue: localStorage.getItem(localStorageKey) ?? 'en-US',
+    tooltip: 'Select language',
+    width: 'auto',
+    menuType: 'list',
+    menuItems: [
+      {
+        value: 'en-US',
+        text: 'English',
+      },
+      {
+        value: 'zh-CN',
+        text: '简体中文',
+      },
+    ],
+    hasDocumentClick: true,
+    onSelect: value => {
+      localStorage.setItem(localStorageKey, value);
+      window.location.reload();
+    },
+  });
+  languageDropdown.render();
   const menuNode = query('.header .menu');
   menuNode.append('<button type="button" name="list"><img src="../assets/icons/list.svg" /></button>');
   const ul = query('<ul />');

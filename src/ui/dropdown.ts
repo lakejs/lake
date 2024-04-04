@@ -219,6 +219,7 @@ export class Dropdown {
     }
     const menuNode = query('<ul class="lake-dropdown-menu" />');
     menuNode.addClass(`lake-dropdown-${config.menuType}-menu`);
+    Dropdown.setValue(dropdownNode, [config.defaultValue]);
     if (textNode.length > 0) {
       const menuMap = Dropdown.getMenuMap(config.menuItems);
       textNode.text(menuMap.get(config.defaultValue) ?? config.defaultValue);
