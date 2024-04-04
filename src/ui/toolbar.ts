@@ -1,16 +1,14 @@
 import debounce from 'lodash/debounce';
-import { Base64 } from 'js-base64';
 import EventEmitter from 'eventemitter3';
 import type { Editor } from '../editor';
 import { NativeNode } from '../types/native';
-import { ButtonItem, DropdownItem, UploadItem, ToolbarItem } from '../types/toolbar';
-import { icons } from '../icons';
+import { ToolbarButtonItem, ToolbarDropdownItem, ToolbarUploadItem, ToolbarItem } from '../types/toolbar';
 import { toolbarItems } from '../config/toolbar-items';
-import { template } from '../utils/template';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { uploadImage } from './upload';
+import { Dropdown } from './dropdown';
 
 const defaultItems: string[] = [
   'undo',
@@ -69,25 +67,11 @@ export class Toolbar {
     this.root.addClass('lake-custom-properties');
   }
 
-  // Returns the value of the node.
-  public getValue(node: Nodes): string[] {
-    const value = node.attr('value');
-    if (value === '') {
-      return [];
-    }
-    return JSON.parse(Base64.decode(value));
-  }
-
-  // Updates the value of the node.
-  public setValue(node: Nodes, value: string[]): void {
-    node.attr('value', Base64.encode(JSON.stringify(value)));
-  }
-
   private appendDivider(): void {
     this.container.append('<div class="lake-toolbar-divider" />');
   }
 
-  private appendButton(item: ButtonItem): void {
+  private appendButton(item: ToolbarButtonItem): void {
     const editor = this.editor;
     const buttonNode = query('<button type="button" class="lake-toolbar-button" />');
     buttonNode.attr('name', item.name);
@@ -115,145 +99,28 @@ export class Toolbar {
     });
   }
 
-  private getMenuMap(item: DropdownItem): Map<string, string> {
-    const menuMap: Map<string, string> = new Map();
-    if (!item.menuItems) {
-      return menuMap;
-    }
-    for (const menuItem of item.menuItems) {
-      // remove HTML tags
-      const text = menuItem.text.replace(/<[^>]*>/g, '');
-      menuMap.set(menuItem.value, text);
-    }
-    return menuMap;
-  }
-
-  private updateColorAccent(titleNode: Nodes, value: string): void {
-    const svgNode = titleNode.find('.lake-dropdown-icon svg').eq(1);
-    const lineNode = svgNode.find('line');
-    if (lineNode.length > 0) {
-      lineNode.attr('stroke', value);
-    } else {
-      svgNode.find('path').attr('fill', value);
-    }
-  }
-
-  private addDropdownMenu(menuNode: Nodes, item: DropdownItem): void {
-    for (const menuItem of item.menuItems) {
-      const listContent = template`
-        <li value="${menuItem.value}">
-          <div class="lake-dropdown-menu-text">${menuItem.text}</div>
-        </li>
-      `;
-      const listNode = query(listContent);
-      menuNode.append(listNode);
-      if (item.menuType === 'color') {
-        listNode.attr('title', menuItem.text);
-        listNode.find('.lake-dropdown-menu-text').css('background-color', menuItem.value);
-      }
-      if (menuItem.icon) {
-        const menuIconNode = query('<div class="lake-dropdown-menu-icon"></div>');
-        menuIconNode.append(menuItem.icon);
-        listNode.prepend(menuIconNode);
-      }
-      const checkIcon = icons.get('check');
-      if (checkIcon) {
-        const checkNode = query('<div class="lake-dropdown-menu-check"></div>');
-        checkNode.append(checkIcon);
-        listNode.prepend(checkNode);
-      }
-    }
-  }
-
-  private bindDropdownEvents(dropdownNode: Nodes, item: DropdownItem): void {
+  private appendDropdown(item: ToolbarDropdownItem) {
     const editor = this.editor;
-    const titleNode = dropdownNode.find('.lake-dropdown-title');
-    const textNode = titleNode.find('.lake-dropdown-text');
-    const iconNode = titleNode.find('.lake-dropdown-icon');
-    const downIconNode = titleNode.find('.lake-dropdown-down-icon');
-    const menuNode = dropdownNode.find('.lake-dropdown-menu');
-    if (item.menuType === 'color') {
-      iconNode.on('mouseenter', () => {
-        if (dropdownNode.attr('disabled')) {
-          return;
-        }
-        iconNode.addClass('lake-dropdown-icon-hovered');
-      });
-      iconNode.on('mouseleave', () => {
-        iconNode.removeClass('lake-dropdown-icon-hovered');
-      });
-      downIconNode.on('mouseenter', () => {
-        if (dropdownNode.attr('disabled')) {
-          return;
-        }
-        downIconNode.addClass('lake-dropdown-down-icon-hovered');
-      });
-      downIconNode.on('mouseleave', () => {
-        downIconNode.removeClass('lake-dropdown-down-icon-hovered');
-      });
-    } else {
-      titleNode.on('mouseenter', () => {
-        if (dropdownNode.attr('disabled')) {
-          return;
-        }
-        titleNode.addClass('lake-dropdown-title-hovered');
-      });
-      titleNode.on('mouseleave', () => {
-        titleNode.removeClass('lake-dropdown-title-hovered');
-      });
-    }
-    if (item.menuType === 'color') {
-      iconNode.on('click', event => {
-        event.preventDefault();
-        if (dropdownNode.attr('disabled')) {
-          return;
-        }
+    const dropdown = new Dropdown({
+      root: this.container,
+      icon: item.icon,
+      accentIcon: item.accentIcon,
+      downIcon: item.downIcon,
+      defaultValue: item.defaultValue,
+      tooltip:item.tooltip,
+      width: item.width,
+      menuType: item.menuType,
+      menuItems: item.menuItems,
+      hasDocumentClick: false,
+      onSelect: value => {
         editor.focus();
-        const value = dropdownNode.attr('color') || item.defaultValue;
         item.onSelect(editor, value);
-      });
-    }
-    const triggerNode = (item.menuType === 'color' && downIconNode) ? downIconNode : titleNode;
-    triggerNode.on('click', event => {
-      event.preventDefault();
-      if (dropdownNode.attr('disabled')) {
-        return;
-      }
-      const currentValues = this.getValue(dropdownNode);
-      menuNode.find('.lake-dropdown-menu-check').css('visibility', 'hidden');
-      menuNode.find('li').each(node => {
-        const listNode = query(node);
-        if (currentValues.indexOf(listNode.attr('value')) >= 0) {
-          listNode.find('.lake-dropdown-menu-check').css('visibility', 'visible');
-        }
-      });
-      menuNode.css('visibility', 'hidden');
-      menuNode.show(item.menuType === 'color' ? 'flex' : 'block');
-      const dropdownNativeNode = dropdownNode.get(0) as HTMLElement;
-      const dropdownRect = dropdownNativeNode.getBoundingClientRect();
-      if (dropdownRect.x + menuNode.width() > window.innerWidth) {
-        menuNode.css('left', 'auto');
-        menuNode.css('right', '0');
-      } else {
-        menuNode.css('left', '');
-        menuNode.css('right', '');
-      }
-      menuNode.css('visibility', '');
+      },
     });
-    menuNode.on('click', event => {
-      event.preventDefault();
-      editor.focus();
-      const listItem = query(event.target as NativeNode).closest('li');
-      const value = listItem.attr('value');
-      if (textNode.length > 0) {
-        textNode.text(listItem.text());
-      }
-      if (item.menuType === 'color' && value !== '') {
-        dropdownNode.attr('color', value);
-        this.updateColorAccent(titleNode, value);
-      }
-      item.onSelect(editor, value);
-    });
+    dropdown.render();
+    dropdown.node.attr('name', item.name);
+    const titleNode = dropdown.node.find('.lake-dropdown-title');
+    const menuNode = dropdown.node.find('.lake-dropdown-menu');
     editor.event.on('click', target => {
       if (target.closest('.lake-dropdown-title').get(0) === titleNode.get(0)) {
         return;
@@ -262,59 +129,7 @@ export class Toolbar {
     });
   }
 
-  private appendDropdown(item: DropdownItem) {
-    const menuMap = this.getMenuMap(item);
-    const dropdownNode = item.icon ? query(safeTemplate`
-      <div class="lake-dropdown">
-        <button type="button" class="lake-dropdown-title">
-          <div class="lake-dropdown-icon"></div>
-          <div class="lake-dropdown-down-icon"></div>
-        </button>
-      </div>
-    `) : query(safeTemplate`
-      <div class="lake-dropdown">
-        <button type="button" class="lake-dropdown-title">
-          <div class="lake-dropdown-text"></div>
-          <div class="lake-dropdown-down-icon"></div>
-        </button>
-      </div>
-    `);
-    dropdownNode.attr('name', item.name);
-    dropdownNode.addClass(`lake-dropdown-${item.menuType}`);
-    const titleNode = dropdownNode.find('.lake-dropdown-title');
-    if (!item.downIcon) {
-      titleNode.addClass('lake-dropdown-title-no-down');
-    }
-    titleNode.css('width', item.width);
-    titleNode.attr('title', item.tooltip);
-    const textNode = titleNode.find('.lake-dropdown-text');
-    const iconNode = titleNode.find('.lake-dropdown-icon');
-    if (item.icon) {
-      iconNode.append(item.icon);
-    }
-    if (item.accentIcon) {
-      iconNode.append(item.accentIcon);
-    }
-    const downIconNode = titleNode.find('.lake-dropdown-down-icon');
-    if (item.downIcon) {
-      downIconNode.append(item.downIcon);
-    }
-    const menuNode = query('<ul class="lake-dropdown-menu" />');
-    menuNode.addClass(`lake-dropdown-${item.menuType}-menu`);
-    if (textNode.length > 0) {
-      textNode.text(menuMap.get(item.defaultValue) ?? item.defaultValue);
-    }
-    if (item.menuType === 'color') {
-      this.updateColorAccent(titleNode, item.defaultValue);
-    }
-    this.addDropdownMenu(menuNode, item);
-    dropdownNode.append(titleNode);
-    dropdownNode.append(menuNode);
-    this.container.append(dropdownNode);
-    this.bindDropdownEvents(dropdownNode, item);
-  }
-
-  private appendUpload(item: UploadItem): void {
+  private appendUpload(item: ToolbarUploadItem): void {
     const editor = this.editor;
     const uploadNode = query(safeTemplate`
       <div class="lake-upload">
@@ -363,8 +178,8 @@ export class Toolbar {
   private getUpdateStateHandler(config: {
     editor: Editor;
     allMenuMap: Map<string, Map<string, string>>;
-    buttonItemList: ButtonItem[];
-    dropdownItemList: DropdownItem[];
+    buttonItemList: ToolbarButtonItem[];
+    dropdownItemList: ToolbarDropdownItem[];
   }): () => void {
     const { editor, allMenuMap, buttonItemList, dropdownItemList } = config;
     return debounce(() => {
@@ -404,7 +219,7 @@ export class Toolbar {
           dropdownNode.removeAttr('disabled');
         }
         if (!isDisabled) {
-          this.setValue(dropdownNode, selectedValues);
+          Dropdown.setValue(dropdownNode, selectedValues);
           const textNode = dropdownNode.find('.lake-dropdown-text');
           if (textNode.length > 0) {
             const key = selectedValues[0] || item.defaultValue;
@@ -428,8 +243,8 @@ export class Toolbar {
     this.root.empty();
     this.root.append(this.container);
     const allMenuMap: Map<string, Map<string, string>> = new Map();
-    const buttonItemList: ButtonItem[] = [];
-    const dropdownItemList: DropdownItem[] = [];
+    const buttonItemList: ToolbarButtonItem[] = [];
+    const dropdownItemList: ToolbarDropdownItem[] = [];
     this.items.forEach(name => {
       if (name === '|') {
         this.appendDivider();
@@ -450,7 +265,7 @@ export class Toolbar {
         return;
       }
       if (item.type === 'dropdown') {
-        allMenuMap.set(item.name, this.getMenuMap(item));
+        allMenuMap.set(item.name, Dropdown.getMenuMap(item.menuItems));
         dropdownItemList.push(item);
         this.appendDropdown(item);
         return;

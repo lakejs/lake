@@ -10,6 +10,7 @@ import './box.css';
 import './hr.css';
 import './image.css';
 import './code-block.css';
+import './dropdown.css';
 import './popup.css';
 import './link-popup.css';
 import './toolbar.css';

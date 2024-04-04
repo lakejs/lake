@@ -6,8 +6,8 @@ import {
   indentWithTab,
   javascript,
 } from '../codemirror';
+import { debug, query } from '../utils';
 import type { BoxComponent } from '..';
-import { query } from '../utils';
 
 type CodeMirrorConfig = {
   parent:  Element;
@@ -68,5 +68,9 @@ export const codeBlockBox: BoxComponent = {
       onChange: onChangeHandler,
     });
     box.setData('codeEditor', codeEditor);
+    box.useEffect(() => () => {
+      codeEditor.destroy();
+      debug('CodeMirror destroyed');
+    });
   },
 };

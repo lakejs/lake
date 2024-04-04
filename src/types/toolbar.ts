@@ -1,13 +1,8 @@
 import type { Editor } from '../editor';
+import { DropdownItem } from './dropdown';
 import { AppliedItem } from './object';
 
-export type ToolbarMenuItem = {
-  value: string;
-  icon?: string;
-  text: string;
-};
-
-export type ButtonItem = {
+export type ToolbarButtonItem = {
   name: string;
   type: 'button';
   icon?: string;
@@ -17,23 +12,15 @@ export type ButtonItem = {
   onClick: (editor: Editor, value: string) => void;
 };
 
-export type DropdownItem = {
+export type ToolbarDropdownItem = DropdownItem & {
   name: string;
   type: 'dropdown';
-  icon?: string;
-  accentIcon?: string;
-  downIcon?: string;
-  defaultValue: string;
-  tooltip: string;
-  width: string;
-  menuType: 'list' | 'color';
-  menuItems: ToolbarMenuItem[];
   selectedValues?: (appliedItems: AppliedItem[], editor: Editor) => string[];
   isDisabled?: (AppliedItems: AppliedItem[], editor: Editor) => boolean;
   onSelect: (editor: Editor, value: string) => void;
-};
+}
 
-export type UploadItem = {
+export type ToolbarUploadItem = {
   name: string;
   type: 'upload';
   icon?: string;
@@ -42,4 +29,4 @@ export type UploadItem = {
   multiple?: boolean;
 };
 
-export type ToolbarItem = ButtonItem | DropdownItem | UploadItem;
+export type ToolbarItem = ToolbarButtonItem | ToolbarDropdownItem | ToolbarUploadItem;

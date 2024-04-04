@@ -1,8 +1,8 @@
+import { DropdownMenuItem } from '../types/dropdown';
 import { icons } from '../icons';
-import { ToolbarMenuItem } from '../types/toolbar';
 import { locale } from '../i18n';
 
-export const  headingMenuItems: ToolbarMenuItem[] = [
+export const  headingMenuItems: DropdownMenuItem[] = [
   {
     value: 'h1',
     text: `<span style="font-weight: bold; font-size: 26px;">${locale.toolbar.heading1()}</span>`,
@@ -33,7 +33,7 @@ export const  headingMenuItems: ToolbarMenuItem[] = [
   },
 ];
 
-export const listMenuItems: ToolbarMenuItem[] = [
+export const listMenuItems: DropdownMenuItem[] = [
   {
     icon: icons.get('numberedList'),
     value: 'numbered',
@@ -51,7 +51,7 @@ export const listMenuItems: ToolbarMenuItem[] = [
   },
 ];
 
-export const alignMenuItems: ToolbarMenuItem[] = [
+export const alignMenuItems: DropdownMenuItem[] = [
   {
     icon: icons.get('alignLeft'),
     value: 'left',
@@ -74,7 +74,7 @@ export const alignMenuItems: ToolbarMenuItem[] = [
   },
 ];
 
-export const indentMenuItems: ToolbarMenuItem[] = [
+export const indentMenuItems: DropdownMenuItem[] = [
   {
     icon: icons.get('increaseIndent'),
     value: 'increase',
@@ -87,7 +87,7 @@ export const indentMenuItems: ToolbarMenuItem[] = [
   },
 ];
 
-export const fontFamilyMenuItems: ToolbarMenuItem[] = [
+export const fontFamilyMenuItems: DropdownMenuItem[] = [
   {
     value: 'Arial',
     text: '<span style="font-family: Arial;">Arial</span>',
@@ -138,7 +138,7 @@ export const fontFamilyMenuItems: ToolbarMenuItem[] = [
   },
 ];
 
-export const fontSizeMenuItems: ToolbarMenuItem[] = [
+export const fontSizeMenuItems: DropdownMenuItem[] = [
   {
     value: '12px',
     text: '12px',
@@ -169,7 +169,7 @@ export const fontSizeMenuItems: ToolbarMenuItem[] = [
   },
 ];
 
-export const moreStyleMenuItems: ToolbarMenuItem[] = [
+export const moreStyleMenuItems: DropdownMenuItem[] = [
   {
     icon: icons.get('italic'),
     value: 'italic',
@@ -218,7 +218,7 @@ const colors: string[] = [
   // from gray-1 to gray-11, and gray-13
   '#000000', '#1f1f1f', '#262626', '#434343', '#595959', '#8c8c8c', '#bfbfbf', '#d9d9d9', '#f0f0f0', '#f5f5f5', '#fafafa', '#ffffff', // Neutral Color
 ];
-export const colorMenuItems: ToolbarMenuItem[] = [
+export const colorMenuItems: DropdownMenuItem[] = [
   {
     icon: icons.get('removeFormat'),
     value: '',
