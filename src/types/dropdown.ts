@@ -5,6 +5,7 @@ export type DropdownMenuItem = {
 };
 
 export type DropdownItem = {
+  name: string;
   icon?: string;
   accentIcon?: string;
   downIcon?: string;

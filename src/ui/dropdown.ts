@@ -23,8 +23,8 @@ export class Dropdown {
     this.config = config;
     this.root = config.root;
     this.node = query(safeTemplate`
-      <div class="lake-dropdown lake-${config.menuType}-dropdown">
-        <button type="button" class="lake-dropdown-title">
+      <div class="lake-dropdown lake-${config.menuType}-dropdown" name="${config.name}">
+        <button type="button" name="${config.name}" class="lake-dropdown-title">
           <div class="lake-dropdown-${config.icon ? 'icon' : 'text'}"></div>
           <div class="lake-dropdown-down-icon"></div>
         </button>

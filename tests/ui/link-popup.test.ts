@@ -21,7 +21,7 @@ describe('ui: ui / link-popup', () => {
     query(document.body).append(container);
     query(document.body).append(linkNode);
     const popup = new LinkPopup(container);
-    const copyButton = popup.root.find('button[name="copy"]');
+    const copyButton = popup.container.find('button[name="copy"]');
     popup.event.on('copy', ()=> {
       expect(copyButton.find('svg').eq(0).computedCSS('display')).to.equal('none');
       expect(copyButton.find('svg').eq(1).computedCSS('display')).to.equal('inline');
@@ -29,7 +29,7 @@ describe('ui: ui / link-popup', () => {
     });
     popup.show(linkNode);
     click(copyButton);
-    popup.root.remove();
+    popup.container.remove();
   });
 
 });

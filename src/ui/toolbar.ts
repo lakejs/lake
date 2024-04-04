@@ -91,6 +91,7 @@ export class Toolbar {
     const editor = this.editor;
     const dropdown = new Dropdown({
       root: this.container,
+      name: item.name,
       icon: item.icon,
       accentIcon: item.accentIcon,
       downIcon: item.downIcon,
@@ -106,7 +107,6 @@ export class Toolbar {
       },
     });
     dropdown.render();
-    dropdown.node.attr('name', item.name);
     const titleNode = dropdown.node.find('.lake-dropdown-title');
     const menuNode = dropdown.node.find('.lake-dropdown-menu');
     editor.event.on('click', target => {
@@ -120,7 +120,7 @@ export class Toolbar {
   private appendUpload(item: ToolbarUploadItem): void {
     const editor = this.editor;
     const uploadNode = query(safeTemplate`
-      <div class="lake-upload">
+      <div class="lake-upload" name="${item.name}">
         <input type="file" />
       </div>
     `);

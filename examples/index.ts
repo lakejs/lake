@@ -103,6 +103,7 @@ function renderHeader(pageType: string): void {
   const localStorageKey = 'lake-example-language';
   const languageDropdown = new Dropdown({
     root: query('.header .language'),
+    name: 'language',
     icon: '<img src="../assets/icons/globe.svg" />',
     defaultValue: localStorage.getItem(localStorageKey) ?? 'en-US',
     tooltip: 'Select language',

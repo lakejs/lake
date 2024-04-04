@@ -9,14 +9,14 @@ import { locale } from '../i18n';
 export class LinkPopup {
   private linkNode: Nodes | null;
 
-  public root: Nodes;
+  public container: Nodes;
 
   public event: EventEmitter;
 
-  constructor(target: Nodes) {
+  constructor(root: Nodes) {
     this.linkNode = null;
     this.event = new EventEmitter();
-    this.root = query(safeTemplate`
+    this.container = query(safeTemplate`
       <div class="lake-link-popup">
         <div class="lake-row">${locale.link.url()}</div>
         <div class="lake-row lake-url-row">
@@ -33,7 +33,7 @@ export class LinkPopup {
     this.appendOpenButton();
     this.appendSaveButton();
     this.appendUnlinkButton();
-    target.append(this.root);
+    root.append(this.container);
   }
 
   // Writes the specified text to the system clipboard
@@ -53,7 +53,7 @@ export class LinkPopup {
   private appendCopyButton(): void {
     let timeoutId: number | null = null;
     const button = new Button({
-      root: this.root.find('.lake-url-row'),
+      root: this.container.find('.lake-url-row'),
       name: 'copy',
       icon: icons.get('copy'),
       tooltip: locale.link.copy(),
@@ -63,7 +63,7 @@ export class LinkPopup {
         }
         const url = this.getInputValue('url');
         this.writeClipboardText(url).then(error => {
-          const svgNode = this.root.find('button[name="copy"] svg');
+          const svgNode = this.container.find('button[name="copy"] svg');
           svgNode.hide();
           if (error) {
             svgNode.eq(2).show('inline');
@@ -95,7 +95,7 @@ export class LinkPopup {
   // Open link in new tab
   private appendOpenButton(): void {
     const button = new Button({
-      root: this.root.find('.lake-url-row'),
+      root: this.container.find('.lake-url-row'),
       name: 'open',
       icon: icons.get('open'),
       tooltip: locale.link.open(),
@@ -113,7 +113,7 @@ export class LinkPopup {
   // Save link
   private appendSaveButton(): void {
     const button = new Button({
-      root: this.root.find('.lake-button-row'),
+      root: this.container.find('.lake-button-row'),
       name: 'save',
       icon: icons.get('check'),
       text: locale.link.save(),
@@ -132,7 +132,7 @@ export class LinkPopup {
   // Remove link
   private appendUnlinkButton(): void {
     const button = new Button({
-      root: this.root.find('.lake-button-row'),
+      root: this.container.find('.lake-button-row'),
       name: 'unlink',
       icon: icons.get('unlink'),
       text: locale.link.unlink(),
@@ -149,13 +149,13 @@ export class LinkPopup {
   }
 
   private getInputValue(name: string): string {
-    const inputElement = this.root.find(`input[name="${name}"]`);
+    const inputElement = this.container.find(`input[name="${name}"]`);
     const nativeInputElement = inputElement.get(0) as HTMLInputElement;
     return nativeInputElement.value;
   }
 
   private setInputValue(name: string, value: string): void {
-    const inputElement = this.root.find(`input[name="${name}"]`);
+    const inputElement = this.container.find(`input[name="${name}"]`);
     const nativeInputElement = inputElement.get(0) as HTMLInputElement;
     nativeInputElement.value = value;
   }
@@ -187,18 +187,18 @@ export class LinkPopup {
       return;
     }
     // link.x + popup.width > window.width
-    if (linkRect.x + this.root.width() > window.innerWidth) {
+    if (linkRect.x + this.container.width() > window.innerWidth) {
       // link.x + window.scrollX - (popup.width - link.width)
-      this.root.css('left', `${linkX - this.root.width() + linkRect.width}px`);
+      this.container.css('left', `${linkX - this.container.width() + linkRect.width}px`);
     } else {
-      this.root.css('left', `${linkX}px`);
+      this.container.css('left', `${linkX}px`);
     }
     // link.y + link.height + popup.height > window.height
-    if (linkRect.y + linkRect.height + this.root.height() > window.innerHeight) {
+    if (linkRect.y + linkRect.height + this.container.height() > window.innerHeight) {
       // link.y + window.scrollY - popup.height
-      this.root.css('top', `${linkY - this.root.height()}px`);
+      this.container.css('top', `${linkY - this.container.height()}px`);
     } else {
-      this.root.css('top', `${linkY + linkRect.height}px`);
+      this.container.css('top', `${linkY + linkRect.height}px`);
     }
   }
 
@@ -208,14 +208,14 @@ export class LinkPopup {
     const title = linkNode.text();
     this.setInputValue('url', url);
     this.setInputValue('title', title);
-    this.root.css('visibility', 'hidden');
-    this.root.show();
+    this.container.css('visibility', 'hidden');
+    this.container.show();
     this.updatePosition();
-    this.root.css('visibility', '');
+    this.container.css('visibility', '');
   }
 
   public hide(): void {
     this.linkNode = null;
-    this.root.hide();
+    this.container.hide();
   }
 }

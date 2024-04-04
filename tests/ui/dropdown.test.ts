@@ -96,6 +96,7 @@ describe('ui: ui / dropdown', () => {
     let dropdownValue;
     const dropdown = new Dropdown({
       root: rootNode,
+      name: 'heading',
       downIcon: icons.get('down'),
       defaultValue: 'p',
       tooltip: 'Heading',
@@ -124,6 +125,7 @@ describe('ui: ui / dropdown', () => {
   it('heading dropdown: document click', () => {
     const dropdown = new Dropdown({
       root: rootNode,
+      name: 'heading',
       downIcon: icons.get('down'),
       defaultValue: 'p',
       tooltip: 'Heading',
@@ -146,6 +148,7 @@ describe('ui: ui / dropdown', () => {
   it('heading dropdown: disabled', () => {
     const dropdown = new Dropdown({
       root: rootNode,
+      name: 'heading',
       downIcon: icons.get('down'),
       defaultValue: 'p',
       tooltip: 'Heading',
@@ -170,6 +173,7 @@ describe('ui: ui / dropdown', () => {
     let dropdownValue;
     const dropdown = new Dropdown({
       root: rootNode,
+      name: 'align',
       icon: icons.get('alignLeft'),
       downIcon: icons.get('down'),
       defaultValue: '',
@@ -199,6 +203,7 @@ describe('ui: ui / dropdown', () => {
   it('align dropdown: disabled', () => {
     const dropdown = new Dropdown({
       root: rootNode,
+      name: 'align',
       icon: icons.get('alignLeft'),
       downIcon: icons.get('down'),
       defaultValue: '',
@@ -224,6 +229,7 @@ describe('ui: ui / dropdown', () => {
     let dropdownValue;
     const dropdown = new Dropdown({
       root: rootNode,
+      name: 'moreStyle',
       icon: icons.get('more'),
       defaultValue: '',
       tooltip: 'More style',
@@ -252,6 +258,7 @@ describe('ui: ui / dropdown', () => {
   it('moreStyle dropdown: not having document click', () => {
     const dropdown = new Dropdown({
       root: rootNode,
+      name: 'moreStyle',
       icon: icons.get('more'),
       defaultValue: '',
       tooltip: 'More style',
@@ -270,6 +277,7 @@ describe('ui: ui / dropdown', () => {
     let dropdownValue;
     const dropdown = new Dropdown({
       root: rootNode,
+      name: 'fontColor',
       icon: icons.get('fontColor'),
       accentIcon: icons.get('fontColorAccent'),
       downIcon: icons.get('down'),
@@ -310,6 +318,7 @@ describe('ui: ui / dropdown', () => {
   it('color dropdown: disabled', () => {
     const dropdown = new Dropdown({
       root: rootNode,
+      name: 'fontColor',
       icon: icons.get('fontColor'),
       accentIcon: icons.get('fontColorAccent'),
       downIcon: icons.get('down'),
