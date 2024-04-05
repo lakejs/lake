@@ -8,8 +8,9 @@ export default (value: string) => {
   });
   const toolbarRoot = Utils.query('.lake-toolbar-root');
   toolbarRoot.addClass('lake-custom-properties');
+  const buttonList: Button[] = [];
   // Heading 1
-  new Button({
+  buttonList.push(new Button({
     root: toolbarRoot,
     name: 'heading1',
     text: 'H1',
@@ -18,9 +19,9 @@ export default (value: string) => {
       editor.focus();
       editor.command.execute('heading', 'h1');
     },
-  }).render();
+  }));
   // Heading 2
-  new Button({
+  buttonList.push(new Button({
     root: toolbarRoot,
     name: 'heading2',
     text: 'H2',
@@ -29,9 +30,9 @@ export default (value: string) => {
       editor.focus();
       editor.command.execute('heading', 'h2');
     },
-  }).render();
+  }));
   // Heading 3
-  new Button({
+  buttonList.push(new Button({
     root: toolbarRoot,
     name: 'heading3',
     text: 'H3',
@@ -40,9 +41,9 @@ export default (value: string) => {
       editor.focus();
       editor.command.execute('heading', 'h3');
     },
-  }).render();
+  }));
   // Paragraph
-  new Button({
+  buttonList.push(new Button({
     root: toolbarRoot,
     name: 'paragraph',
     text: 'Paragraph',
@@ -50,9 +51,9 @@ export default (value: string) => {
       editor.focus();
       editor.command.execute('heading', 'p');
     },
-  }).render();
+  }));
   // Bold
-  new Button({
+  buttonList.push(new Button({
     root: toolbarRoot,
     name: 'bold',
     text: 'B',
@@ -61,9 +62,9 @@ export default (value: string) => {
       editor.focus();
       editor.command.execute('bold');
     },
-  }).render();
+  }));
   // Italic
-  new Button({
+  buttonList.push(new Button({
     root: toolbarRoot,
     name: 'italic',
     text: 'I',
@@ -72,9 +73,9 @@ export default (value: string) => {
       editor.focus();
       editor.command.execute('italic');
     },
-  }).render();
+  }));
   // Underline
-  new Button({
+  buttonList.push(new Button({
     root: toolbarRoot,
     name: 'underline',
     text: 'U',
@@ -83,9 +84,43 @@ export default (value: string) => {
       editor.focus();
       editor.command.execute('underline');
     },
-  }).render();
-  editor.event.on('statechange', name => {
-    toolbarRoot.find(`button[name=${name}]`).addClass('lake-button-selected');
+  }));
+  for (const button of buttonList) {
+    button.render();
+  }
+  editor.event.on('statechange', data => {
+    const { disabledNameMap, selectedNameMap, selectedValuesMap } = data;
+    for (const button of buttonList) {
+      const name = button.node.attr('name');
+      let isDisabled = disabledNameMap.get(name);
+      let isSelected = selectedNameMap.get(name);
+      if (name === 'heading1') {
+        const selectedValues = selectedValuesMap.get('heading') ?? [];
+        isSelected = selectedValues[0] === 'h1';
+      } else if (name === 'heading2') {
+        const selectedValues = selectedValuesMap.get('heading') ?? [];
+        isSelected = selectedValues[0] === 'h2';
+      } else if (name === 'heading3') {
+        const selectedValues = selectedValuesMap.get('heading') ?? [];
+        isSelected = selectedValues[0] === 'h3';
+      } else if (name === 'paragraph') {
+        const selectedValues = selectedValuesMap.get('heading') ?? [];
+        isSelected = selectedValues[0] === 'p';
+      } else {
+        isDisabled = disabledNameMap.get(name);
+        isSelected = selectedNameMap.get(name);
+      }
+      if (isDisabled) {
+        button.node.attr('disabled', 'true');
+      } else {
+        button.node.removeAttr('disabled');
+      }
+      if (isSelected) {
+        button.node.addClass('lake-button-selected');
+      } else {
+        button.node.removeClass('lake-button-selected');
+      }
+    }
   });
   editor.render();
   return editor;

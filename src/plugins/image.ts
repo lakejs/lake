@@ -22,8 +22,10 @@ export default (editor: Editor) => {
       node.replaceWith(box.node);
     });
   });
-  editor.command.add('image', (value: BoxValue) => {
-    editor.insertBox('image', value);
-    editor.history.save();
+  editor.command.add('image', {
+    execute: (value: BoxValue) => {
+      editor.insertBox('image', value);
+      editor.history.save();
+    },
   });
 };

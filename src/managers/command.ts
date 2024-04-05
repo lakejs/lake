@@ -1,19 +1,29 @@
 import EventEmitter from 'eventemitter3';
+import { AppliedItem } from '../types/object';
 import { debug } from '../utils/debug';
+import { Selection } from './selection';
 
-type CommandHandler = (...data: any[]) => void;
+type CommmandItem = {
+  isDisabled?: (AppliedItems: AppliedItem[]) => boolean;
+  isSelected?: (appliedItems: AppliedItem[]) => boolean;
+  selectedValues?: (AppliedItems: AppliedItem[]) => string[];
+  execute: (...data: any[]) => void;
+};
 
 export class Command {
-  private commandMap: Map<string, CommandHandler>;
+  private selection: Selection;
+
+  private commandMap: Map<string, CommmandItem>;
 
   public event: EventEmitter;
 
-  constructor() {
+  constructor(selection: Selection) {
+    this.selection = selection;
     this.commandMap = new Map();
     this.event = new EventEmitter();
   }
 
-  public add(name: string, handler: CommandHandler) {
+  public add(name: string, handler: CommmandItem) {
     this.commandMap.set(name, handler);
   }
 
@@ -21,13 +31,45 @@ export class Command {
     return Array.from(this.commandMap.keys());
   }
 
-  public execute(name: string, ...data: any[]) {
-    const handler = this.commandMap.get(name);
-    if (handler === undefined) {
+  public getItem(name: string): CommmandItem {
+    const commandItem = this.commandMap.get(name);
+    if (commandItem === undefined) {
       throw new Error(`Command '${name}' does not exist.`);
     }
+    return commandItem;
+  }
+
+  public isDisabled(name: string): boolean {
+    const commandItem = this.getItem(name);
+    if (!commandItem.isDisabled) {
+      return false;
+    }
+    const appliedItems = this.selection.getAppliedItems();
+    return commandItem.isDisabled(appliedItems);
+  }
+
+  public isSelected(name: string): boolean {
+    const commandItem = this.getItem(name);
+    if (!commandItem.isSelected) {
+      return false;
+    }
+    const appliedItems = this.selection.getAppliedItems();
+    return commandItem.isSelected(appliedItems);
+  }
+
+  public selectedValues(name: string): string[] {
+    const commandItem = this.getItem(name);
+    if (!commandItem.selectedValues) {
+      return [];
+    }
+    const appliedItems = this.selection.getAppliedItems();
+    return commandItem.selectedValues(appliedItems);
+  }
+
+  public execute(name: string, ...data: any[]): void {
+    const commandItem = this.getItem(name);
     this.event.emit('beforeexecute', name);
-    handler.apply(this, data);
+    commandItem.execute.apply(this, data);
     this.event.emit('execute', name);
     debug(`Command '${name}' executed`);
   }

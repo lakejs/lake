@@ -12,8 +12,10 @@ export default (editor: Editor) => {
       node.replaceWith(box.node);
     });
   });
-  editor.command.add('hr', () => {
-    editor.insertBox('hr');
-    editor.history.save();
+  editor.command.add('hr', {
+    execute: () => {
+      editor.insertBox('hr');
+      editor.history.save();
+    },
   });
 };

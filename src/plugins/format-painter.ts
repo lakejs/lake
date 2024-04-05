@@ -6,15 +6,17 @@ let markList: Nodes[] = [];
 const formatPainterClassName = 'lake-format-painter';
 
 export default (editor: Editor) => {
-  editor.command.add('formatPainter', () => {
-    editor.container.addClass(formatPainterClassName);
-    const appliedItems = editor.selection.getAppliedItems();
-    for (const item of appliedItems) {
-      const node = item.node.clone();
-      if (node.isMark && node.name !== 'a') {
-        markList.push(node);
+  editor.command.add('formatPainter', {
+    execute: () => {
+      editor.container.addClass(formatPainterClassName);
+      const appliedItems = editor.selection.getAppliedItems();
+      for (const item of appliedItems) {
+        const node = item.node.clone();
+        if (node.isMark && node.name !== 'a') {
+          markList.push(node);
+        }
       }
-    }
+    },
   });
   editor.container.on('click', () => {
     editor.container.removeClass(formatPainterClassName);

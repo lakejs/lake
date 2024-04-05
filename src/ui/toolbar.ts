@@ -1,4 +1,3 @@
-import debounce from 'lodash/debounce';
 import EventEmitter from 'eventemitter3';
 import type { Editor } from '../editor';
 import { NativeNode } from '../types/native';
@@ -156,68 +155,6 @@ export class Toolbar {
     });
   }
 
-  private getUpdateStateHandler(config: {
-    editor: Editor;
-    allMenuMap: Map<string, Map<string, string>>;
-    buttonItemList: ToolbarButtonItem[];
-    dropdownItemList: ToolbarDropdownItem[];
-  }): () => void {
-    const { editor, allMenuMap, buttonItemList, dropdownItemList } = config;
-    return debounce(() => {
-      let appliedItems = editor.selection.appliedItems;
-      if (
-        appliedItems.length > 0 &&
-        appliedItems[0].node.closestContainer().get(0) !== editor.container.get(0)
-      ) {
-        appliedItems = [];
-      }
-      for (const item of buttonItemList) {
-        const selectedClass = 'lake-button-selected';
-        const buttonNode = this.container.find(`button[name="${item.name}"]`);
-        const isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems, editor) : false;
-        if (isDisabled) {
-          buttonNode.attr('disabled', 'true');
-          buttonNode.removeClass(selectedClass);
-        } else {
-          buttonNode.removeAttr('disabled');
-        }
-        if (!isDisabled) {
-          const isSelected = item.isSelected && appliedItems.length > 0 ? item.isSelected(appliedItems, editor) : false;
-          if (isSelected) {
-            buttonNode.addClass(selectedClass);
-          } else {
-            buttonNode.removeClass(selectedClass);
-          }
-        }
-      }
-      for (const item of dropdownItemList) {
-        const selectedValues = item.selectedValues && appliedItems.length > 0 ? item.selectedValues(appliedItems, editor) : [];
-        const dropdownNode = this.container.find(`div.lake-dropdown[name="${item.name}"]`);
-        const isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems, editor) : false;
-        if (isDisabled) {
-          dropdownNode.attr('disabled', 'true');
-        } else {
-          dropdownNode.removeAttr('disabled');
-        }
-        if (!isDisabled) {
-          Dropdown.setValue(dropdownNode, selectedValues);
-          const textNode = dropdownNode.find('.lake-dropdown-text');
-          if (textNode.length > 0) {
-            const key = selectedValues[0] || item.defaultValue;
-            const menuMap = allMenuMap.get(item.name);
-            const text = (menuMap && menuMap.get(key)) ?? key;
-            textNode.text(text);
-          }
-        }
-      }
-      this.event.emit('updatestate');
-    }, 100, {
-      leading: false,
-      trailing: true,
-      maxWait: 100,
-    });
-  }
-
   // Renders a toolbar for the specified editor.
   public render() {
     const editor = this.editor;
@@ -255,13 +192,60 @@ export class Toolbar {
         this.appendUpload(item);
       }
     });
-    const updateStateHandler = this.getUpdateStateHandler({
-      editor,
-      allMenuMap,
-      buttonItemList,
-      dropdownItemList,
+    editor.event.on('statechange', data => {
+      const { appliedItems, disabledNameMap, selectedNameMap, selectedValuesMap } = data;
+      for (const item of buttonItemList) {
+        const selectedClass = 'lake-button-selected';
+        const buttonNode = this.container.find(`button[name="${item.name}"]`);
+        let isDisabled = disabledNameMap.get(item.name);
+        if (isDisabled === undefined) {
+          isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems, editor) : false;
+        }
+        if (isDisabled) {
+          buttonNode.attr('disabled', 'true');
+          buttonNode.removeClass(selectedClass);
+        } else {
+          buttonNode.removeAttr('disabled');
+        }
+        if (!isDisabled) {
+          let isSelected = selectedNameMap.get(item.name);
+          if (isSelected === undefined) {
+            isSelected = item.isSelected && appliedItems.length > 0 ? item.isSelected(appliedItems, editor) : false;
+          }
+          if (isSelected) {
+            buttonNode.addClass(selectedClass);
+          } else {
+            buttonNode.removeClass(selectedClass);
+          }
+        }
+      }
+      for (const item of dropdownItemList) {
+        let selectedValues = selectedValuesMap.get(item.name);
+        if (selectedValues === undefined) {
+          selectedValues = item.selectedValues && appliedItems.length > 0 ? item.selectedValues(appliedItems, editor) : [];
+        }
+        const dropdownNode = this.container.find(`div.lake-dropdown[name="${item.name}"]`);
+        let isDisabled = disabledNameMap.get(item.name);
+        if (isDisabled === undefined) {
+          isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems, editor) : false;
+        }
+        if (isDisabled) {
+          dropdownNode.attr('disabled', 'true');
+        } else {
+          dropdownNode.removeAttr('disabled');
+        }
+        if (!isDisabled) {
+          Dropdown.setValue(dropdownNode, selectedValues);
+          const textNode = dropdownNode.find('.lake-dropdown-text');
+          if (textNode.length > 0) {
+            const key = selectedValues[0] || item.defaultValue;
+            const menuMap = allMenuMap.get(item.name);
+            const text = (menuMap && menuMap.get(key)) ?? key;
+            textNode.text(text);
+          }
+        }
+      }
+      this.event.emit('updatestate');
     });
-    editor.event.on('selectionchange', updateStateHandler);
-    editor.event.on('change', updateStateHandler);
   }
 }

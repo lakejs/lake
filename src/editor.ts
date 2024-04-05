@@ -106,7 +106,7 @@ export class Editor {
 
     this.event = new EventEmitter();
     this.selection = new Selection(this.container);
-    this.command = new Command();
+    this.command = new Command(this.selection);
     this.history = new History(this.selection);
     this.keystroke = new Keystroke(this.container);
     this.box = Editor.box;
@@ -118,52 +118,11 @@ export class Editor {
     this.beforeunloadListener = () => {
       this.commitUnsavedInputData();
     };
-    const updateBoxSelectionStyleHandler = debounce(() => {
-      // The editor has been unmounted.
-      if (this.root.first().length === 0) {
-        return;
-      }
-      const range = this.selection.range;
-      const clonedRange = range.clone();
-      clonedRange.adaptBox();
-      this.box.findAll(this).each(boxNode => {
-        const box = new Box(boxNode);
-        const boxContainer = box.getContainer();
-        if (boxContainer.length === 0) {
-          return;
-        }
-        if (range.compareBeforeNode(boxContainer) < 0 && range.compareAfterNode(boxContainer) > 0) {
-          if (!(range.isCollapsed && range.startNode.get(0) === boxContainer.get(0) && range.startOffset === 0)) {
-            boxContainer.removeClass('lake-box-selected');
-            boxContainer.removeClass('lake-box-focused');
-            boxContainer.addClass('lake-box-activated');
-            return;
-          }
-        }
-        if (clonedRange.intersectsNode(box.node)) {
-          boxContainer.removeClass('lake-box-activated');
-          if (range.isCollapsed) {
-            boxContainer.removeClass('lake-box-selected');
-            boxContainer.addClass('lake-box-focused');
-          } else {
-            boxContainer.removeClass('lake-box-focused');
-            boxContainer.addClass('lake-box-selected');
-          }
-          return;
-        }
-        boxContainer.removeClass('lake-box-activated');
-        boxContainer.removeClass('lake-box-focused');
-        boxContainer.removeClass('lake-box-selected');
-      });
-    }, 50, {
-      leading: false,
-      trailing: true,
-      maxWait: 50,
-    });
     this.selectionchangeListener = () => {
       this.selection.syncByRange();
       this.selection.appliedItems = this.selection.getAppliedItems();
-      updateBoxSelectionStyleHandler();
+      this.emitStateChangeEvent();
+      this.updateBoxSelectionStyle();
       this.event.emit('selectionchange');
     };
     this.clickListener = event => {
@@ -178,6 +137,90 @@ export class Editor {
       this.event.emit('resize');
     };
   }
+
+  private updateBoxSelectionStyle = debounce(() => {
+    // The editor has been unmounted.
+    if (this.root.first().length === 0) {
+      return;
+    }
+    const range = this.selection.range;
+    const clonedRange = range.clone();
+    clonedRange.adaptBox();
+    this.box.findAll(this).each(boxNode => {
+      const box = new Box(boxNode);
+      const boxContainer = box.getContainer();
+      if (boxContainer.length === 0) {
+        return;
+      }
+      if (range.compareBeforeNode(boxContainer) < 0 && range.compareAfterNode(boxContainer) > 0) {
+        if (!(range.isCollapsed && range.startNode.get(0) === boxContainer.get(0) && range.startOffset === 0)) {
+          boxContainer.removeClass('lake-box-selected');
+          boxContainer.removeClass('lake-box-focused');
+          boxContainer.addClass('lake-box-activated');
+          return;
+        }
+      }
+      if (clonedRange.intersectsNode(box.node)) {
+        boxContainer.removeClass('lake-box-activated');
+        if (range.isCollapsed) {
+          boxContainer.removeClass('lake-box-selected');
+          boxContainer.addClass('lake-box-focused');
+        } else {
+          boxContainer.removeClass('lake-box-focused');
+          boxContainer.addClass('lake-box-selected');
+        }
+        return;
+      }
+      boxContainer.removeClass('lake-box-activated');
+      boxContainer.removeClass('lake-box-focused');
+      boxContainer.removeClass('lake-box-selected');
+    });
+  }, 50, {
+    leading: false,
+    trailing: true,
+    maxWait: 50,
+  });
+
+  private emitStateChangeEvent = debounce(() => {
+    const commandNames = this.command.getNames();
+    let appliedItems = this.selection.appliedItems;
+    if (
+      appliedItems.length > 0 &&
+      appliedItems[0].node.closestContainer().get(0) !== this.container.get(0)
+    ) {
+      appliedItems = [];
+    }
+    const disabledNameMap: Map<string, boolean> = new Map();
+    const selectedNameMap: Map<string, boolean> = new Map();
+    const selectedValuesMap: Map<string, string[]> = new Map();
+    if (appliedItems.length > 0) {
+      for (const name of commandNames) {
+        const commandItem = this.command.getItem(name);
+        if (commandItem.isDisabled && commandItem.isDisabled(appliedItems)) {
+          disabledNameMap.set(name, true);
+        }
+        if (commandItem.isSelected && commandItem.isSelected(appliedItems)) {
+          selectedNameMap.set(name, true);
+        }
+        if (commandItem.selectedValues) {
+          const values = commandItem.selectedValues(appliedItems);
+          if (values.length > 0) {
+            selectedValuesMap.set(name, values);
+          }
+        }
+      }
+    }
+    this.event.emit('statechange', {
+      appliedItems,
+      disabledNameMap,
+      selectedNameMap,
+      selectedValuesMap,
+    });
+  }, 100, {
+    leading: false,
+    trailing: true,
+    maxWait: 100,
+  });
 
   private inputInBoxStrip(): void {
     const selection = this.selection;
@@ -258,14 +301,17 @@ export class Editor {
   private bindHistoryEvents(): void {
     this.history.event.on('undo', value => {
       this.box.renderAll(this);
+      this.emitStateChangeEvent();
       this.event.emit('change', value);
     });
     this.history.event.on('redo', value => {
       this.box.renderAll(this);
+      this.emitStateChangeEvent();
       this.event.emit('change', value);
     });
     this.history.event.on('save', value => {
       this.box.rectifyInstances(this);
+      this.emitStateChangeEvent();
       this.event.emit('change', value);
     });
   }

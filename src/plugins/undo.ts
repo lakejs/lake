@@ -1,8 +1,10 @@
 import type { Editor } from '..';
 
 export default (editor: Editor) => {
-  editor.command.add('undo', () => {
-    editor.history.undo();
+  editor.command.add('undo', {
+    execute: () => {
+      editor.history.undo();
+    },
   });
   editor.keystroke.setKeydown('mod+z', event => {
     const range = editor.selection.range;

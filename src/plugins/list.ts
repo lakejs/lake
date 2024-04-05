@@ -18,64 +18,84 @@ function setChecklist(editor: Editor, value: boolean) {
 }
 
 export default (editor: Editor) => {
-  editor.command.add('list', (type: 'numbered' | 'bulleted' | 'checklist', value: boolean = false) => {
-    const blocks = editor.selection.range.getBlocks();
-    let isNumberedList = false;
-    let isBulletedList = false;
-    let isChecklist = false;
-    for (const block of blocks) {
-      if (!isNumberedList && block.name === 'ol') {
-        isNumberedList = true;
+  editor.command.add('list', {
+    selectedValues: appliedItems => {
+      let currentValue = '';
+      for (const item of appliedItems) {
+        if (item.name === 'ol') {
+          currentValue = 'numbered';
+          break;
+        }
+        if (item.name === 'ul' && !item.node.hasAttr('type')) {
+          currentValue = 'bulleted';
+          break;
+        }
+        if (item.name === 'ul' && item.node.attr('type') === 'checklist') {
+          currentValue = 'checklist';
+          break;
+        }
       }
-      if (!isBulletedList && block.name === 'ul' && !block.hasAttr('type')) {
-        isBulletedList = true;
+      return [currentValue];
+    },
+    execute: (type: 'numbered' | 'bulleted' | 'checklist', value: boolean = false) => {
+      const blocks = editor.selection.range.getBlocks();
+      let isNumberedList = false;
+      let isBulletedList = false;
+      let isChecklist = false;
+      for (const block of blocks) {
+        if (!isNumberedList && block.name === 'ol') {
+          isNumberedList = true;
+        }
+        if (!isBulletedList && block.name === 'ul' && !block.hasAttr('type')) {
+          isBulletedList = true;
+        }
+        if (!isChecklist && block.name === 'ul' && block.attr('type') === 'checklist') {
+          isChecklist = true;
+        }
       }
-      if (!isChecklist && block.name === 'ul' && block.attr('type') === 'checklist') {
-        isChecklist = true;
+      if (isNumberedList) {
+        if (type === 'numbered') {
+          setParagraph(editor);
+        }
+        if (type === 'bulleted') {
+          setBulletedList(editor);
+        }
+        if (type === 'checklist') {
+          setChecklist(editor, value);
+        }
+      } else if (isBulletedList) {
+        if (type === 'numbered') {
+          setNumberedList(editor);
+        }
+        if (type === 'bulleted') {
+          setParagraph(editor);
+        }
+        if (type === 'checklist') {
+          setChecklist(editor, value);
+        }
+      } else if (isChecklist) {
+        if (type === 'numbered') {
+          setNumberedList(editor);
+        }
+        if (type === 'bulleted') {
+          setBulletedList(editor);
+        }
+        if (type === 'checklist') {
+          setParagraph(editor);
+        }
+      } else {
+        if (type === 'numbered') {
+          setNumberedList(editor);
+        }
+        if (type === 'bulleted') {
+          setBulletedList(editor);
+        }
+        if (type === 'checklist') {
+          setChecklist(editor, value);
+        }
       }
-    }
-    if (isNumberedList) {
-      if (type === 'numbered') {
-        setParagraph(editor);
-      }
-      if (type === 'bulleted') {
-        setBulletedList(editor);
-      }
-      if (type === 'checklist') {
-        setChecklist(editor, value);
-      }
-    } else if (isBulletedList) {
-      if (type === 'numbered') {
-        setNumberedList(editor);
-      }
-      if (type === 'bulleted') {
-        setParagraph(editor);
-      }
-      if (type === 'checklist') {
-        setChecklist(editor, value);
-      }
-    } else if (isChecklist) {
-      if (type === 'numbered') {
-        setNumberedList(editor);
-      }
-      if (type === 'bulleted') {
-        setBulletedList(editor);
-      }
-      if (type === 'checklist') {
-        setParagraph(editor);
-      }
-    } else {
-      if (type === 'numbered') {
-        setNumberedList(editor);
-      }
-      if (type === 'bulleted') {
-        setBulletedList(editor);
-      }
-      if (type === 'checklist') {
-        setChecklist(editor, value);
-      }
-    }
-    editor.history.save();
+      editor.history.save();
+    },
   });
   editor.container.on('click', event => {
     const mouseEvent = event as MouseEvent;

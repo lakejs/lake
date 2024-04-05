@@ -1,8 +1,10 @@
 import type { Editor } from '..';
 
 export default (editor: Editor) => {
-  editor.command.add('redo', () => {
-    editor.history.redo();
+  editor.command.add('redo', {
+    execute: () => {
+      editor.history.redo();
+    },
   });
   editor.keystroke.setKeydown('mod+y', event => {
     const range = editor.selection.range;

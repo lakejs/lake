@@ -47,12 +47,14 @@ export default (editor: Editor) => {
     }
     showPopup(linkNode);
   });
-  editor.command.add('link', () => {
-    const linkNode = editor.selection.insertLink(`<a href="">${locale.link.newLink()}</a>`);
-    if (!linkNode) {
-      return;
-    }
-    editor.history.save();
-    showPopup(linkNode);
+  editor.command.add('link', {
+    execute: () => {
+      const linkNode = editor.selection.insertLink(`<a href="">${locale.link.newLink()}</a>`);
+      if (!linkNode) {
+        return;
+      }
+      editor.history.save();
+      showPopup(linkNode);
+    },
   });
 };

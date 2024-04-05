@@ -33,6 +33,9 @@
 .lake-text-button.lake-button-hovered {
   background-color: var(--background-hover-color);
 }
+.lake-text-button.lake-button-selected {
+  background-color: var(--background-active-color);
+}
 .lake-text-button svg {
   background-color: transparent;
   margin: 0 6px 0 0;

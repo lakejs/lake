@@ -1,6 +1,5 @@
 import { ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
-import { toHex } from '../utils';
 import { locale } from '../i18n';
 import {
   headingMenuItems,
@@ -67,7 +66,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('blockQuote'),
     tooltip: locale.toolbar.blockQuote(),
-    isSelected: appliedItems => !!appliedItems.find(item => item.name === 'blockquote'),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -165,8 +163,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('bold'),
     tooltip: locale.toolbar.bold(),
-    isDisabled: appliedItems => !!appliedItems.find(item => item.node.isHeading),
-    isSelected: appliedItems => !!appliedItems.find(item => item.name === 'strong'),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -176,7 +172,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('italic'),
     tooltip: locale.toolbar.italic(),
-    isSelected: appliedItems => !!appliedItems.find(item => item.name === 'i'),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -186,7 +181,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('underline'),
     tooltip: locale.toolbar.underline(),
-    isSelected: appliedItems => !!appliedItems.find(item => item.name === 'u'),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -196,7 +190,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('strikethrough'),
     tooltip: locale.toolbar.strikethrough(),
-    isSelected: appliedItems => !!appliedItems.find(item => item.name === 's'),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -206,7 +199,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('superscript'),
     tooltip: locale.toolbar.superscript(),
-    isSelected: appliedItems => !!appliedItems.find(item => item.name === 'sup'),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -216,7 +208,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('subscript'),
     tooltip: locale.toolbar.subscript(),
-    isSelected: appliedItems => !!appliedItems.find(item => item.name === 'sub'),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -226,7 +217,6 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('code'),
     tooltip: locale.toolbar.code(),
-    isSelected: appliedItems => !!appliedItems.find(item => item.name === 'code'),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -285,10 +275,6 @@ export const toolbarItems: ToolbarItem[] = [
     width: '100px',
     menuType: 'list',
     menuItems: headingMenuItems,
-    selectedValues: appliedItems => {
-      const currentItem = appliedItems.find(item => item.node.isHeading || item.name === 'p');
-      return currentItem ? [currentItem.name] : [];
-    },
     onSelect: (editor, value) => {
       editor.command.execute('heading', value);
     },
@@ -303,24 +289,6 @@ export const toolbarItems: ToolbarItem[] = [
     width: 'auto',
     menuType: 'list',
     menuItems: listMenuItems,
-    selectedValues: appliedItems => {
-      let currentValue = '';
-      for (const item of appliedItems) {
-        if (item.name === 'ol') {
-          currentValue = 'numbered';
-          break;
-        }
-        if (item.name === 'ul' && !item.node.hasAttr('type')) {
-          currentValue = 'bulleted';
-          break;
-        }
-        if (item.name === 'ul' && item.node.attr('type') === 'checklist') {
-          currentValue = 'checklist';
-          break;
-        }
-      }
-      return [currentValue];
-    },
     onSelect: (editor, value) => {
       editor.command.execute('list', value);
     },
@@ -335,16 +303,6 @@ export const toolbarItems: ToolbarItem[] = [
     width: 'auto',
     menuType: 'list',
     menuItems: alignMenuItems,
-    selectedValues: appliedItems => {
-      let currentValue = '';
-      for (const item of appliedItems) {
-        if (item.node.isBlock) {
-          currentValue = item.node.computedCSS('text-align');
-          break;
-        }
-      }
-      return [currentValue];
-    },
     onSelect: (editor, value) => {
       editor.command.execute('align', value);
     },
@@ -372,15 +330,6 @@ export const toolbarItems: ToolbarItem[] = [
     width: '100px',
     menuType: 'list',
     menuItems: fontFamilyMenuItems,
-    selectedValues: appliedItems => {
-      for (const item of appliedItems) {
-        if (item.name === 'span') {
-          const currentValue = item.node.css('font-family');
-          return [currentValue.replace(/['"]/g, '')];
-        }
-      }
-      return [];
-    },
     onSelect: (editor, value) => {
       editor.command.execute('fontFamily', value);
     },
@@ -394,16 +343,6 @@ export const toolbarItems: ToolbarItem[] = [
     width: '65px',
     menuType: 'list',
     menuItems: fontSizeMenuItems,
-    isDisabled: appliedItems => !!appliedItems.find(item => item.node.isHeading),
-    selectedValues: appliedItems => {
-      for (const item of appliedItems) {
-        if (item.name === 'span') {
-          const currentValue = item.node.css('font-size');
-          return [currentValue.replace(/\.\d+/, '')];
-        }
-      }
-      return [];
-    },
     onSelect: (editor, value) => {
       editor.command.execute('fontSize', value);
     },
@@ -442,15 +381,6 @@ export const toolbarItems: ToolbarItem[] = [
     width: 'auto',
     menuType: 'color',
     menuItems: colorMenuItems,
-    selectedValues: appliedItems => {
-      for (const item of appliedItems) {
-        if (item.name === 'span') {
-          const currentValue = item.node.computedCSS('color');
-          return [toHex(currentValue)];
-        }
-      }
-      return [];
-    },
     onSelect: (editor, value) => {
       editor.command.execute('fontColor', value);
     },
@@ -466,15 +396,6 @@ export const toolbarItems: ToolbarItem[] = [
     width: 'auto',
     menuType: 'color',
     menuItems: colorMenuItems,
-    selectedValues: appliedItems => {
-      for (const item of appliedItems) {
-        if (item.name === 'span') {
-          const currentValue = item.node.computedCSS('background-color');
-          return [toHex(currentValue)];
-        }
-      }
-      return [];
-    },
     onSelect: (editor, value) => {
       editor.command.execute('highlight', value);
     },
