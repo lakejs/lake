@@ -13,14 +13,12 @@ type CommmandItem = {
 export class Command {
   private selection: Selection;
 
-  private commandMap: Map<string, CommmandItem>;
+  private commandMap: Map<string, CommmandItem> = new Map();
 
-  public event: EventEmitter;
+  public event: EventEmitter = new EventEmitter();
 
   constructor(selection: Selection) {
     this.selection = selection;
-    this.commandMap = new Map();
-    this.event = new EventEmitter();
   }
 
   public add(name: string, handler: CommmandItem) {

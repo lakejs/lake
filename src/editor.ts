@@ -45,17 +45,7 @@ export class Editor {
 
   public static plugin = new Plugin();
 
-  private unsavedInputData: string;
-
-  private beforeunloadListener: EventListener;
-
-  private selectionchangeListener: EventListener;
-
-  private clickListener: EventListener;
-
-  private mouseoverListener: EventListener;
-
-  private resizeListener: EventListener;
+  private unsavedInputData: string = '';
 
   public root: Nodes;
 
@@ -69,11 +59,11 @@ export class Editor {
 
   public popupContainer: Nodes;
 
-  public isComposing: boolean;
+  public isComposing: boolean = false;
 
   public readonly: boolean;
 
-  public event: EventEmitter;
+  public event: EventEmitter = new EventEmitter();
 
   public selection: Selection;
 
@@ -83,7 +73,7 @@ export class Editor {
 
   public keystroke: Keystroke;
 
-  public box: BoxManager;
+  public box: BoxManager = Editor.box;
 
   constructor(config: EditorConfig) {
     if (!config.root) {
@@ -95,7 +85,6 @@ export class Editor {
     this.container = query('<div class="lake-container" />');
     this.overlayContainer = query('<div class="lake-overlay" />');
     this.popupContainer = query('<div class="lake-popup lake-custom-properties" />');
-    this.isComposing = false;
     this.readonly = this.config.readonly;
 
     this.root.addClass('lake-custom-properties');
@@ -104,39 +93,39 @@ export class Editor {
       spellcheck: this.config.spellcheck ? 'true' : 'false',
     });
 
-    this.event = new EventEmitter();
     this.selection = new Selection(this.container);
     this.command = new Command(this.selection);
     this.history = new History(this.selection);
     this.keystroke = new Keystroke(this.container);
-    this.box = Editor.box;
-
-    this.unsavedInputData = '';
 
     editors.set(this.container.id, this);
-
-    this.beforeunloadListener = () => {
-      this.commitUnsavedInputData();
-    };
-    this.selectionchangeListener = () => {
-      this.selection.syncByRange();
-      this.selection.appliedItems = this.selection.getAppliedItems();
-      this.emitStateChangeEvent();
-      this.updateBoxSelectionStyle();
-      this.event.emit('selectionchange');
-    };
-    this.clickListener = event => {
-      const targetNode = new Nodes(event.target as Element);
-      this.event.emit('click', targetNode);
-    };
-    this.mouseoverListener = event => {
-      const targetNode = new Nodes(event.target as Element);
-      this.event.emit('mouseover', targetNode);
-    };
-    this.resizeListener = () => {
-      this.event.emit('resize');
-    };
   }
+
+  private beforeunloadListener: EventListener = () => {
+    this.commitUnsavedInputData();
+  };
+
+  private selectionchangeListener: EventListener = () => {
+    this.selection.syncByRange();
+    this.selection.appliedItems = this.selection.getAppliedItems();
+    this.emitStateChangeEvent();
+    this.updateBoxSelectionStyle();
+    this.event.emit('selectionchange');
+  };
+
+  private clickListener: EventListener = event => {
+    const targetNode = new Nodes(event.target as Element);
+    this.event.emit('click', targetNode);
+  };
+
+  private mouseoverListener: EventListener = event => {
+    const targetNode = new Nodes(event.target as Element);
+    this.event.emit('mouseover', targetNode);
+  };
+
+  private resizeListener: EventListener = () => {
+    this.event.emit('resize');
+  };
 
   private updateBoxSelectionStyle = debounce(() => {
     // The editor has been unmounted.

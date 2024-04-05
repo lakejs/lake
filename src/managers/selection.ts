@@ -93,7 +93,7 @@ export class Selection {
   public range: Range;
 
   // Is a saved node list which is used to update state of the toolbar.
-  public appliedItems: AppliedItem[];
+  public appliedItems: AppliedItem[] = [];
 
   constructor(container: Nodes) {
     const selection = window.getSelection();
@@ -105,7 +105,6 @@ export class Selection {
     this.selection = selection;
     this.container = container;
     this.range = this.getRangeFromNativeSelection();
-    this.appliedItems = [];
   }
 
   // Returns the current selected range from the native selection.

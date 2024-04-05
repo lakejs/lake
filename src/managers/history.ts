@@ -28,25 +28,20 @@ export class History {
   private container: Nodes;
 
   // an array for storing the history items
-  private list: Nodes[];
+  private list: Nodes[] = [];
 
   // the next index of the list
-  private index: number;
+  private index: number = 0;
 
-  private canSave: boolean;
+  private canSave: boolean = true;
 
-  public limit: number;
+  public limit: number = 100;
 
-  public event: EventEmitter;
+  public event: EventEmitter = new EventEmitter();
 
   constructor(selection: Selection) {
     this.selection = selection;
     this.container = selection.container;
-    this.list = [];
-    this.index = 0;
-    this.canSave = true;
-    this.limit = 100;
-    this.event = new EventEmitter();
   }
 
   private removeBookmark(value: string): string {

@@ -14,14 +14,12 @@ const shortenedTypeMap = new Map([
 export class Keystroke {
   private container: Nodes;
 
-  private keydownEventList: EventItem[];
+  private keydownEventList: EventItem[] = [];
 
-  private keyupEventList: EventItem[];
+  private keyupEventList: EventItem[] = [];
 
   constructor(container: Nodes) {
     this.container = container;
-    this.keydownEventList = [];
-    this.keyupEventList = [];
   }
 
   private normalizeType(type: string) {

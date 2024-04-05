@@ -55,14 +55,13 @@ export class Toolbar {
 
   public container: Nodes;
 
-  public event: EventEmitter;
+  public event: EventEmitter = new EventEmitter();
 
   constructor(config: ToolbarConfig) {
     this.items = config.items || defaultItems;
     this.editor = config.editor;
     this.root = query(config.root);
     this.container = query('<div class="lake-toolbar" />');
-    this.event = new EventEmitter();
 
     this.root.addClass('lake-custom-properties');
   }

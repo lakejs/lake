@@ -32,10 +32,9 @@ export class Box {
   // <lake-box> element
   public node: Nodes;
 
-  public event: EventEmitter;
+  public event: EventEmitter = new EventEmitter();
 
   constructor(node: string | Nodes | NativeNode) {
-    this.event = new EventEmitter();
     if (typeof node === 'string') {
       const component = boxes.get(node);
       if (component === undefined) {

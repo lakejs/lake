@@ -7,15 +7,13 @@ import { Button } from './button';
 import { locale } from '../i18n';
 
 export class LinkPopup {
-  private linkNode: Nodes | null;
+  private linkNode: Nodes | null = null;
 
   public container: Nodes;
 
-  public event: EventEmitter;
+  public event: EventEmitter = new EventEmitter();
 
   constructor(root: Nodes) {
-    this.linkNode = null;
-    this.event = new EventEmitter();
     this.container = query(safeTemplate`
       <div class="lake-link-popup">
         <div class="lake-row">${locale.link.url()}</div>
