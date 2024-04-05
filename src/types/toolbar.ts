@@ -7,16 +7,16 @@ export type ToolbarButtonItem = {
   type: 'button';
   icon?: string;
   tooltip: string;
-  isSelected?: (appliedItems: AppliedItem[], editor: Editor) => boolean;
-  isDisabled?: (AppliedItems: AppliedItem[], editor: Editor) => boolean;
+  isSelected?: (appliedItems: AppliedItem[]) => boolean;
+  isDisabled?: (AppliedItems: AppliedItem[]) => boolean;
   onClick: (editor: Editor, value: string) => void;
 };
 
 export type ToolbarDropdownItem = DropdownItem & {
   name: string;
   type: 'dropdown';
-  selectedValues?: (appliedItems: AppliedItem[], editor: Editor) => string[];
-  isDisabled?: (AppliedItems: AppliedItem[], editor: Editor) => boolean;
+  selectedValues?: (appliedItems: AppliedItem[]) => string[];
+  isDisabled?: (AppliedItems: AppliedItem[]) => boolean;
   onSelect: (editor: Editor, value: string) => void;
 }
 

@@ -198,7 +198,7 @@ export class Toolbar {
         const buttonNode = this.container.find(`button[name="${item.name}"]`);
         let isDisabled = disabledNameMap.get(item.name);
         if (isDisabled === undefined) {
-          isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems, editor) : false;
+          isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems) : false;
         }
         if (isDisabled) {
           buttonNode.attr('disabled', 'true');
@@ -209,7 +209,7 @@ export class Toolbar {
         if (!isDisabled) {
           let isSelected = selectedNameMap.get(item.name);
           if (isSelected === undefined) {
-            isSelected = item.isSelected && appliedItems.length > 0 ? item.isSelected(appliedItems, editor) : false;
+            isSelected = item.isSelected && appliedItems.length > 0 ? item.isSelected(appliedItems) : false;
           }
           if (isSelected) {
             buttonNode.addClass(selectedClass);
@@ -221,12 +221,12 @@ export class Toolbar {
       for (const item of dropdownItemList) {
         let selectedValues = selectedValuesMap.get(item.name);
         if (selectedValues === undefined) {
-          selectedValues = item.selectedValues && appliedItems.length > 0 ? item.selectedValues(appliedItems, editor) : [];
+          selectedValues = item.selectedValues && appliedItems.length > 0 ? item.selectedValues(appliedItems) : [];
         }
         const dropdownNode = this.container.find(`div.lake-dropdown[name="${item.name}"]`);
         let isDisabled = disabledNameMap.get(item.name);
         if (isDisabled === undefined) {
-          isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems, editor) : false;
+          isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems) : false;
         }
         if (isDisabled) {
           dropdownNode.attr('disabled', 'true');
