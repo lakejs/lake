@@ -244,7 +244,6 @@ export class Toolbar {
           }
         }
       }
-      this.event.emit('updatestate');
     });
   }
 }

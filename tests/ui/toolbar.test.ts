@@ -107,7 +107,7 @@ describe('ui / toolbar', () => {
   });
 
   it('heading: selects an item and updates state', done => {
-    toolbar.event.on('updatestate', () => {
+    editor.event.on('statechange', () => {
       click(toolbar.root.find('div[name="heading"] .lake-dropdown-title'));
       const visibility = toolbar.root.find('div[name="heading"] li[value="h3"] .lake-dropdown-menu-check').computedCSS('visibility');
       const titleText = toolbar.root.find('div[name="heading"] .lake-dropdown-text').text();
@@ -148,7 +148,7 @@ describe('ui / toolbar', () => {
 
   it('fontFamily: selects an item and updates state', done => {
     editor.setValue('<p><anchor />foo<focus /></p>');
-    toolbar.event.on('updatestate', () => {
+    editor.event.on('statechange', () => {
       click(toolbar.root.find('div[name="fontFamily"] .lake-dropdown-down-icon'));
       const visibility = toolbar.root.find('div[name="fontFamily"] li[value="Tahoma"] .lake-dropdown-menu-check').computedCSS('visibility');
       editor.unmount();
@@ -164,7 +164,7 @@ describe('ui / toolbar', () => {
 
   it('fontSize: selects an item and updates state', done => {
     editor.setValue('<p><anchor />foo<focus /></p>');
-    toolbar.event.on('updatestate', () => {
+    editor.event.on('statechange', () => {
       click(toolbar.root.find('div[name="fontSize"] .lake-dropdown-down-icon'));
       const visibility = toolbar.root.find('div[name="fontSize"] li[value="32px"] .lake-dropdown-menu-check').computedCSS('visibility');
       editor.unmount();
@@ -200,7 +200,7 @@ describe('ui / toolbar', () => {
 
   it('bold: clicks button and updates state', done => {
     editor.setValue('<p><anchor />bar<focus /></p>');
-    toolbar.event.on('updatestate', () => {
+    editor.event.on('statechange', () => {
       const isSelected = toolbar.root.find('button[name="bold"].lake-button-selected').length > 0;
       editor.unmount();
       expect(isSelected).to.equal(true);
@@ -268,7 +268,7 @@ describe('ui / toolbar', () => {
 
   it('moreStyle: selects an item and updates state', done => {
     editor.setValue('<p><anchor />bar<focus /></p>');
-    toolbar.event.on('updatestate', () => {
+    editor.event.on('statechange', () => {
       click(toolbar.root.find('div[name="moreStyle"] .lake-dropdown-title'));
       const visibility = toolbar.root.find('div[name="moreStyle"] li[value="underline"] .lake-dropdown-menu-check').computedCSS('visibility');
       editor.unmount();
@@ -293,7 +293,7 @@ describe('ui / toolbar', () => {
 
   it('fontColor: selects a color and updates state', done => {
     editor.setValue('<p><anchor />foo<focus /></p>');
-    toolbar.event.on('updatestate', () => {
+    editor.event.on('statechange', () => {
       click(toolbar.root.find('div[name="fontColor"] .lake-dropdown-down-icon'));
       const visibility = toolbar.root.find('div[name="fontColor"] li[value="#fa541c"] .lake-dropdown-menu-check').computedCSS('visibility');
       editor.unmount();
@@ -333,7 +333,7 @@ describe('ui / toolbar', () => {
 
   it('highlight: selects a color and updates state', done => {
     editor.setValue('<p><anchor />foo<focus /></p>');
-    toolbar.event.on('updatestate', () => {
+    editor.event.on('statechange', () => {
       click(toolbar.root.find('div[name="highlight"] .lake-dropdown-down-icon'));
       const visibility = toolbar.root.find('div[name="highlight"] li[value="#a0d911"] .lake-dropdown-menu-check').computedCSS('visibility');
       editor.unmount();
@@ -354,7 +354,7 @@ describe('ui / toolbar', () => {
 
   it('list: selects numbered list and updates state', done => {
     editor.setValue('<p>foo<focus /></p>');
-    toolbar.event.on('updatestate', () => {
+    editor.event.on('statechange', () => {
       click(toolbar.root.find('div[name="list"] .lake-dropdown-title'));
       const visibility = toolbar.root.find('div[name="list"] li[value="numbered"] .lake-dropdown-menu-check').computedCSS('visibility');
       editor.unmount();
@@ -370,7 +370,7 @@ describe('ui / toolbar', () => {
 
   it('list: selects bulleted list and updates state', done => {
     editor.setValue('<p>foo<focus /></p>');
-    toolbar.event.on('updatestate', () => {
+    editor.event.on('statechange', () => {
       click(toolbar.root.find('div[name="list"] .lake-dropdown-title'));
       const visibility = toolbar.root.find('div[name="list"] li[value="bulleted"] .lake-dropdown-menu-check').computedCSS('visibility');
       editor.unmount();
@@ -386,7 +386,7 @@ describe('ui / toolbar', () => {
 
   it('list: selects checklist and updates state', done => {
     editor.setValue('<p>foo<focus /></p>');
-    toolbar.event.on('updatestate', () => {
+    editor.event.on('statechange', () => {
       click(toolbar.root.find('div[name="list"] .lake-dropdown-title'));
       const visibility = toolbar.root.find('div[name="list"] li[value="checklist"] .lake-dropdown-menu-check').computedCSS('visibility');
       editor.unmount();
@@ -429,7 +429,7 @@ describe('ui / toolbar', () => {
 
   it('align: selects an item and updates state', done => {
     editor.setValue('<p>foo<focus /></p>');
-    toolbar.event.on('updatestate', () => {
+    editor.event.on('statechange', () => {
       click(toolbar.root.find('div[name="align"] .lake-dropdown-title'));
       const visibility = toolbar.root.find('div[name="align"] li[value="center"] .lake-dropdown-menu-check').computedCSS('visibility');
       editor.unmount();

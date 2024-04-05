@@ -108,9 +108,8 @@ export class Editor {
   private selectionchangeListener: EventListener = () => {
     this.selection.syncByRange();
     this.selection.appliedItems = this.selection.getAppliedItems();
-    this.emitStateChangeEvent();
     this.updateBoxSelectionStyle();
-    this.event.emit('selectionchange');
+    this.emitStateChangeEvent();
   };
 
   private clickListener: EventListener = event => {
