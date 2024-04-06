@@ -20,7 +20,7 @@ function setChecklist(editor: Editor, value: boolean) {
 export default (editor: Editor) => {
   editor.command.add('list', {
     selectedValues: appliedItems => {
-      let currentValue = '';
+      let currentValue;
       for (const item of appliedItems) {
         if (item.name === 'ol') {
           currentValue = 'numbered';
@@ -35,7 +35,7 @@ export default (editor: Editor) => {
           break;
         }
       }
-      return [currentValue];
+      return currentValue ? [currentValue] : [];
     },
     execute: (type: 'numbered' | 'bulleted' | 'checklist', value: boolean = false) => {
       const blocks = editor.selection.range.getBlocks();

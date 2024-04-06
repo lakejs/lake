@@ -94,18 +94,15 @@ export default (value: string) => {
       const name = button.node.attr('name');
       let isDisabled = disabledNameMap.get(name);
       let isSelected = selectedNameMap.get(name);
+      const headingValues = selectedValuesMap.get('heading') ?? [];
       if (name === 'heading1') {
-        const selectedValues = selectedValuesMap.get('heading') ?? [];
-        isSelected = selectedValues[0] === 'h1';
+        isSelected = headingValues[0] === 'h1';
       } else if (name === 'heading2') {
-        const selectedValues = selectedValuesMap.get('heading') ?? [];
-        isSelected = selectedValues[0] === 'h2';
+        isSelected = headingValues[0] === 'h2';
       } else if (name === 'heading3') {
-        const selectedValues = selectedValuesMap.get('heading') ?? [];
-        isSelected = selectedValues[0] === 'h3';
+        isSelected = headingValues[0] === 'h3';
       } else if (name === 'paragraph') {
-        const selectedValues = selectedValuesMap.get('heading') ?? [];
-        isSelected = selectedValues[0] === 'p';
+        isSelected = headingValues[0] === 'p';
       } else {
         isDisabled = disabledNameMap.get(name);
         isSelected = selectedNameMap.get(name);

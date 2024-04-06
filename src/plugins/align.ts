@@ -3,14 +3,14 @@ import type { Editor } from '..';
 export default (editor: Editor) => {
   editor.command.add('align', {
     selectedValues: appliedItems => {
-      let currentValue = '';
+      let currentValue;
       for (const item of appliedItems) {
         if (item.node.isBlock) {
           currentValue = item.node.computedCSS('text-align');
           break;
         }
       }
-      return [currentValue];
+      return currentValue ? [currentValue] : [];
     },
     execute: (type: 'left' | 'center' | 'right' | 'justify') => {
       editor.selection.setBlocks({
