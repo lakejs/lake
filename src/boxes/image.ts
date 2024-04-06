@@ -341,7 +341,7 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
   if (maximizeIcon) {
     viewButton.append(maximizeIcon);
   }
-  if (width < 80) {
+  if (width < 80 || PhotoSwipeLightbox === null) {
     viewButton.hide();
   }
   const removeButton = buttonGroupNode.find('.lake-button-remove');

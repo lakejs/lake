@@ -80,7 +80,7 @@ function getBuildConfig(type, extractExternal) {
         file: `./dist/${jsFileName}`,
         format: 'iife',
         name: 'Lake',
-        sourcemap: false,
+        sourcemap: true,
         globals,
         plugins: [terser()],
         assetFileNames: cssFileName,
@@ -103,7 +103,7 @@ function getBuildConfig(type, extractExternal) {
     output: {
       file: './lib/lake.js',
       format: 'es',
-      sourcemap: false,
+      sourcemap: true,
       assetFileNames: 'lake.css',
     },
     plugins: [
