@@ -59,13 +59,13 @@ import link from './plugins/link';
 import hr from './plugins/hr';
 import image from './plugins/image';
 import codeBlock from './plugins/code-block';
+import markdown from './plugins/markdown';
 import enterKey from './plugins/enter-key';
 import shiftEnterKey from './plugins/shift-enter-key';
 import backspaceKey from './plugins/backspace-key';
 import deleteKey from './plugins/delete-key';
 import tabKey from './plugins/tab-key';
 import arrowKeys from './plugins/arrow-keys';
-import markdown from './plugins/markdown';
 
 Editor.box.add(hrBox);
 Editor.box.add(imageBox);
@@ -99,13 +99,13 @@ Editor.plugin.add(link);
 Editor.plugin.add(hr);
 Editor.plugin.add(image);
 Editor.plugin.add(codeBlock);
+Editor.plugin.add(markdown);
 Editor.plugin.add(enterKey);
 Editor.plugin.add(shiftEnterKey);
 Editor.plugin.add(backspaceKey);
 Editor.plugin.add(deleteKey);
 Editor.plugin.add(tabKey);
 Editor.plugin.add(arrowKeys);
-Editor.plugin.add(markdown);
 
 export {
   Editor,

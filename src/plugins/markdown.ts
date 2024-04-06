@@ -70,7 +70,7 @@ const markItemList: MarkItem[] = [
   },
 ];
 
-const blockItemList: BlockItem[] = [
+const blockItemListForSpaceKey: BlockItem[] = [
   {
     re: /^#+$/,
     getParameters: (text: string) => [
@@ -112,6 +112,21 @@ const blockItemList: BlockItem[] = [
     re: /^>$/,
     getParameters: () => [
       'blockQuote',
+    ],
+  },
+];
+
+const blockItemListForEnterKey: BlockItem[] = [
+  {
+    re: /^-+$/,
+    getParameters: () => [
+      'hr',
+    ],
+  },
+  {
+    re: /^`+$/,
+    getParameters: () => [
+      'codeBlock',
     ],
   },
 ];
@@ -183,12 +198,12 @@ function executeMarkCommand(editor: Editor, point: Point): boolean {
   return false;
 }
 
-function executeBlockCommand(editor: Editor, point: Point): boolean {
+function spaceKeyExecutesBlockCommand(editor: Editor, point: Point): boolean {
   const selection = editor.selection;
   const offset = point.offset;
   let text = point.node.text().slice(0, offset);
   text = text.replace(/[\u200B\u2060]/g, '');
-  for (const item of blockItemList) {
+  for (const item of blockItemListForSpaceKey) {
     if (item.re.test(text)) {
       // <p>#<focus />foo</p>
       // to
@@ -210,9 +225,35 @@ function executeBlockCommand(editor: Editor, point: Point): boolean {
   return false;
 }
 
+function enterKeyExecutesBlockCommand(editor: Editor, block: Nodes): boolean {
+  const selection = editor.selection;
+  let text = block.text();
+  text = text.replace(/[\u200B\u2060]/g, '');
+  for (const item of blockItemListForEnterKey) {
+    if (item.re.test(text)) {
+      // <p>---<focus /></p>
+      // to
+      // <lake-box type="block" name="hr" focus="right"></lake-box>
+      editor.prepareOperation();
+      block.empty();
+      fixEmptyBlock(block);
+      selection.range.shrinkAfter(block);
+      const parameters = item.getParameters(text);
+      editor.command.execute(parameters.shift() as string, ...parameters);
+      editor.commitOperation();
+      return true;
+    }
+  }
+  return false;
+}
+
 export default (editor: Editor) => {
   editor.keystroke.setKeydown('space', event => {
     const selection = editor.selection;
+    const range = selection.range;
+    if (range.isBox) {
+      return;
+    }
     const point = getMarkdownPoint(editor);
     if (!point) {
       return;
@@ -221,12 +262,41 @@ export default (editor: Editor) => {
       event.preventDefault();
       return;
     }
-    const block = selection.range.getBlocks()[0];
-    if (block && !(block.isHeading || block.name === 'p')) {
+    const block = range.getBlocks()[0];
+    if (!block) {
       return;
     }
-    if (executeBlockCommand(editor, point)) {
+    if (!(block.isHeading || block.name === 'p')) {
+      return;
+    }
+    if (spaceKeyExecutesBlockCommand(editor, point)) {
       event.preventDefault();
+    }
+  });
+  editor.keystroke.setKeydown('enter', event => {
+    const selection = editor.selection;
+    const range = selection.range;
+    if (range.isBox) {
+      return;
+    }
+    const block = range.getBlocks()[0];
+    if (!block) {
+      return;
+    }
+    if (!(block.isHeading || block.name === 'p')) {
+      return;
+    }
+    if (block.find('lake-box').length > 0) {
+      return;
+    }
+    if (range.getRightText() !== '') {
+      return;
+    }
+    if (enterKeyExecutesBlockCommand(editor, block)) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      // returning false is for unit test
+      return false;
     }
   });
 };

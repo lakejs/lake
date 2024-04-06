@@ -4,7 +4,7 @@ import { Nodes } from '../models/nodes';
 
 type EventItem = {
   type: string;
-  listener: EventListener;
+  listener: (event: Event) => void | boolean;
 };
 
 const shortenedTypeMap = new Map([
@@ -63,7 +63,9 @@ export class Keystroke {
     type = this.normalizeType(type);
     for (const item of this.keydownEventList) {
       if (item.type === type) {
-        item.listener(new Event(type));
+        if (item.listener(new Event(type)) === false) {
+          break;
+        }
       }
     }
   }
@@ -73,7 +75,9 @@ export class Keystroke {
     type = this.normalizeType(type);
     for (const item of this.keyupEventList) {
       if (item.type === type) {
-        item.listener(new Event(type));
+        if (item.listener(new Event(type)) === false) {
+          break;
+        }
       }
     }
   }
