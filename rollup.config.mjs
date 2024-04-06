@@ -62,16 +62,19 @@ function getBuildConfig(type, extractExternal) {
   let cssFileName;
   let globals;
   let external;
+  let sourcemap;
   if (extractExternal) {
     jsFileName = 'lake.min.js';
     cssFileName = 'lake.css';
     globals = globalVariables;
     external = externalModules;
+    sourcemap = true;
   } else {
     jsFileName = 'lake-all.min.js';
     cssFileName = 'lake-all.css';
     globals = {};
     external = [];
+    sourcemap = false;
   }
   if (type === 'iife') {
     return {
@@ -80,7 +83,7 @@ function getBuildConfig(type, extractExternal) {
         file: `./dist/${jsFileName}`,
         format: 'iife',
         name: 'Lake',
-        sourcemap: true,
+        sourcemap,
         globals,
         plugins: [terser()],
         assetFileNames: cssFileName,
