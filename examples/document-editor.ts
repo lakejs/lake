@@ -1,7 +1,7 @@
-import { Editor, Toolbar, Utils } from '../src';
+import './document-editor.css';
+import { Editor, Toolbar } from '../src';
 
 export default (value: string) => {
-  Utils.query('.lake-editor').addClass('lake-document-editor');
   const editor = new Editor({
     root: '.lake-root',
     value,

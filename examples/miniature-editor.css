@@ -1,0 +1,25 @@
+.miniature .lake-editor {
+  box-sizing: border-box;
+  padding: 0 8px;
+  margin: 0 auto;
+  min-width: 300px;
+  max-width: 600px;
+}
+.miniature .lake-toolbar-root {
+  border: 1px solid #d9d9d9;
+  border-bottom: none;
+}
+.miniature .lake-editor .lake-toolbar .lake-color-dropdown-menu {
+  width: 156px;
+}
+.miniature .lake-editor .lake-toolbar .lake-color-dropdown-menu li:first-child .lake-dropdown-menu-text {
+  text-align: center;
+}
+.miniature .lake-root {
+  border: 1px solid #d9d9d9;
+  height: 100px;
+  overflow: auto;
+}
+.miniature .lake-editor .lake-container {
+  padding: 8px 12px;
+}

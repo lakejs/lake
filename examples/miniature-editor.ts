@@ -1,3 +1,4 @@
+import './miniature-editor.css';
 import { Editor, Toolbar, ToolbarItem, Utils, icons } from '../src';
 
 const colors: string[] = [
@@ -88,7 +89,6 @@ const toolbarItems = [
 ];
 
 export default (value: string) => {
-  Utils.query('.lake-editor').addClass('lake-mini-editor');
   const editor = new Editor({
     root: '.lake-root',
     value,

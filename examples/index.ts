@@ -1,4 +1,5 @@
 import './index.css';
+import './default-editor.css';
 import { Editor, Utils, Dropdown } from '../src';
 import defaultEditor from './default-editor';
 import fullEditor from './full-editor';
@@ -146,9 +147,7 @@ function renderEditor(pageType: string): void {
   if (!currentItem) {
     return;
   }
-  if (pageType === 'document') {
-    query(document.body).addClass('document');
-  }
+  query(document.body).addClass(pageType);
   const localStorageKey = `lake-example-${pageType}-value`;
   const editorValue = localStorage.getItem(localStorageKey) ?? currentItem.editorValue;
   const editor = currentItem.editor(editorValue);

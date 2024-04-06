@@ -1,7 +1,7 @@
+import './headless-editor.css';
 import { Editor, Utils, Button } from '../src';
 
 export default (value: string) => {
-  Utils.query('.lake-editor').addClass('lake-headless-editor');
   const editor = new Editor({
     root: '.lake-root',
     value,
