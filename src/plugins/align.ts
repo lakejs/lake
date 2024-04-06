@@ -1,5 +1,10 @@
 import type { Editor } from '..';
 
+const alignValueMap: {[key: string]: string} = {
+  start: 'left',
+  end: 'right',
+};
+
 export default (editor: Editor) => {
   editor.command.add('align', {
     selectedValues: appliedItems => {
@@ -10,7 +15,10 @@ export default (editor: Editor) => {
           break;
         }
       }
-      return currentValue ? [currentValue] : [];
+      if (!currentValue) {
+        return [];
+      }
+      return [alignValueMap[currentValue] || currentValue];
     },
     execute: (type: 'left' | 'center' | 'right' | 'justify') => {
       editor.selection.setBlocks({

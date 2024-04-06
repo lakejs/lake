@@ -74,4 +74,63 @@ describe('plugins / align', () => {
     );
   });
 
+  it('selectedValues: start', () => {
+    const content = `
+    <p style="text-align: start;">heading<focus /></p>
+    <p>foo</p>
+    `;
+    const output = content;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        expect(editor.command.selectedValues('align')[0]).to.equal('left');
+      },
+    );
+  });
+
+  it('selectedValues: center', () => {
+    const content = `
+    <p style="text-align: center;">heading<focus /></p>
+    <p>foo</p>
+    `;
+    const output = content;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        expect(editor.command.selectedValues('align')[0]).to.equal('center');
+      },
+    );
+  });
+
+  it('selectedValues: end', () => {
+    const content = `
+    <p style="text-align: end;">heading<focus /></p>
+    <p>foo</p>
+    `;
+    const output = content;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        expect(editor.command.selectedValues('align')[0]).to.equal('right');
+      },
+    );
+  });
+
+  it('selectedValues: empty', () => {
+    const content = `
+    foo<focus />
+    `;
+    const output = content;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        expect(editor.command.selectedValues('align').length).to.equal(0);
+      },
+    );
+  });
+
 });

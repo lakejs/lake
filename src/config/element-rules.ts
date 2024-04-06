@@ -2,7 +2,7 @@ const blockAttributeRules: any = {
   id: /^[\w-]+$/,
   class: /^[\w-]+$/,
   style: {
-    'text-align': ['left', 'center', 'right', 'justify'],
+    'text-align': ['left', 'center', 'right', 'justify', 'start', 'end'],
     'margin-left': /^-?\d+px$/i,
     'text-indent': /^-?\d+em$/i,
   },

@@ -908,7 +908,7 @@ describe('plugins / paste', () => {
     <p><br /><focus /></p>
     `;
     const output = `
-    <h2>bar<focus /></h2>
+    <h2 style="text-align: start;">bar<focus /></h2>
     `;
     const clipboardData = `
     <html>
