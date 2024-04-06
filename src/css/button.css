@@ -1,6 +1,8 @@
 .lake-button {
   border-radius: 5px;
   border: 0;
+  font-family: var(--font-family);
+  font-size: 14px;
   color: var(--text-color);
   background-color: #fff;
   padding: 0;

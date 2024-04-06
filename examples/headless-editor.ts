@@ -9,34 +9,12 @@ export default (value: string) => {
   const toolbarRoot = Utils.query('.lake-toolbar-root');
   toolbarRoot.addClass('lake-custom-properties');
   const buttonList: Button[] = [];
-  // Heading 1
+  // Heading
   buttonList.push(new Button({
     root: toolbarRoot,
-    name: 'heading1',
-    text: 'H1',
-    tooltip: 'Heading 1',
-    onClick: () => {
-      editor.focus();
-      editor.command.execute('heading', 'h1');
-    },
-  }));
-  // Heading 2
-  buttonList.push(new Button({
-    root: toolbarRoot,
-    name: 'heading2',
-    text: 'H2',
-    tooltip: 'Heading 2',
-    onClick: () => {
-      editor.focus();
-      editor.command.execute('heading', 'h2');
-    },
-  }));
-  // Heading 3
-  buttonList.push(new Button({
-    root: toolbarRoot,
-    name: 'heading3',
-    text: 'H3',
-    tooltip: 'Heading 3',
+    name: 'heading',
+    text: 'H',
+    tooltip: 'Heading',
     onClick: () => {
       editor.focus();
       editor.command.execute('heading', 'h3');
@@ -50,6 +28,16 @@ export default (value: string) => {
     onClick: () => {
       editor.focus();
       editor.command.execute('heading', 'p');
+    },
+  }));
+  // Block quote
+  buttonList.push(new Button({
+    root: toolbarRoot,
+    name: 'blockQuote',
+    text: 'Quote',
+    onClick: () => {
+      editor.focus();
+      editor.command.execute('blockQuote');
     },
   }));
   // Bold
@@ -74,15 +62,24 @@ export default (value: string) => {
       editor.command.execute('italic');
     },
   }));
-  // Underline
+  // Code
   buttonList.push(new Button({
     root: toolbarRoot,
-    name: 'underline',
-    text: 'U',
-    tooltip: 'Underline',
+    name: 'code',
+    text: 'Code',
     onClick: () => {
       editor.focus();
-      editor.command.execute('underline');
+      editor.command.execute('code');
+    },
+  }));
+  // Link
+  buttonList.push(new Button({
+    root: toolbarRoot,
+    name: 'link',
+    text: 'Link',
+    onClick: () => {
+      editor.focus();
+      editor.command.execute('link');
     },
   }));
   for (const button of buttonList) {
@@ -95,12 +92,8 @@ export default (value: string) => {
       let isDisabled = disabledNameMap.get(name);
       let isSelected = selectedNameMap.get(name);
       const headingValues = selectedValuesMap.get('heading') ?? [];
-      if (name === 'heading1') {
-        isSelected = headingValues[0] === 'h1';
-      } else if (name === 'heading2') {
-        isSelected = headingValues[0] === 'h2';
-      } else if (name === 'heading3') {
-        isSelected = headingValues[0] === 'h3';
+      if (name === 'heading') {
+        isSelected = /^h[1-6]$/i.test(headingValues[0] || '');
       } else if (name === 'paragraph') {
         isSelected = headingValues[0] === 'p';
       } else {
