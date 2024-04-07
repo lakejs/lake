@@ -15,7 +15,7 @@ export type DropdownConfig = DropdownItem & {
 export class Dropdown {
   private config: DropdownConfig;
 
-  public root: Nodes;
+  private root: Nodes;
 
   public node: Nodes;
 

@@ -14,7 +14,7 @@ export type ButtonConfig = {
 export class Button {
   private config: ButtonConfig;
 
-  public root: Nodes;
+  private root: Nodes;
 
   public node: Nodes;
 
