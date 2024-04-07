@@ -55,19 +55,19 @@ const toolbarItems = [
 
 describe('ui / toolbar', () => {
 
-  let editorNode: Nodes;
+  let rootNode: Nodes;
   let editor: Editor;
   let toolbar: Toolbar;
 
   beforeEach(() => {
-    editorNode = query('<div class="lake-editor"><div class="lake-toolbar-root"></div><div class="lake-root"></div></div>');
-    query(document.body).append(editorNode);
+    rootNode = query('<div class="lake-editor"><div class="lake-toolbar-root"></div><div class="lake-root"></div></div>');
+    query(document.body).append(rootNode);
     editor = new Editor({
-      root: editorNode.find('.lake-root'),
+      root: rootNode.find('.lake-root'),
       value: '<p><br /><focus /></p>',
     });
     editor.render();
-    const toolbarNode = editorNode.find('.lake-toolbar-root');
+    const toolbarNode = rootNode.find('.lake-toolbar-root');
     toolbar = new Toolbar({
       editor,
       root: toolbarNode,
@@ -77,7 +77,8 @@ describe('ui / toolbar', () => {
   });
 
   afterEach(() => {
-    editorNode.remove();
+    editor.unmount();
+    rootNode.remove();
   });
 
   it('undo: clicks button', () => {
@@ -92,7 +93,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p><br /><focus /></p>');
-    editor.unmount();
   });
 
   it('redo: clicks button', () => {
@@ -103,15 +103,13 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<h2><br /><focus /></h2>');
-    editor.unmount();
   });
 
   it('heading: selects an item and updates state', done => {
-    editor.event.on('statechange', () => {
+    editor.event.once('statechange', () => {
       click(toolbar.container.find('div[name="heading"] .lake-dropdown-title'));
       const visibility = toolbar.container.find('div[name="heading"] li[value="h3"] .lake-dropdown-menu-check').computedCSS('visibility');
       const titleText = toolbar.container.find('div[name="heading"] .lake-dropdown-text').text();
-      editor.unmount();
       expect(visibility).to.equal('visible');
       expect(titleText).to.equal('Heading 3');
       done();
@@ -134,7 +132,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p><br /><focus /></p>');
-    editor.unmount();
   });
 
   it('blockQuote: clicks button', () => {
@@ -143,15 +140,13 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<blockquote><br /><focus /></blockquote>');
-    editor.unmount();
   });
 
   it('fontFamily: selects an item and updates state', done => {
     editor.setValue('<p><anchor />foo<focus /></p>');
-    editor.event.on('statechange', () => {
+    editor.event.once('statechange', () => {
       click(toolbar.container.find('div[name="fontFamily"] .lake-dropdown-down-icon'));
       const visibility = toolbar.container.find('div[name="fontFamily"] li[value="Tahoma"] .lake-dropdown-menu-check').computedCSS('visibility');
-      editor.unmount();
       expect(visibility).to.equal('visible');
       done();
     });
@@ -164,10 +159,9 @@ describe('ui / toolbar', () => {
 
   it('fontSize: selects an item and updates state', done => {
     editor.setValue('<p><anchor />foo<focus /></p>');
-    editor.event.on('statechange', () => {
+    editor.event.once('statechange', () => {
       click(toolbar.container.find('div[name="fontSize"] .lake-dropdown-down-icon'));
       const visibility = toolbar.container.find('div[name="fontSize"] li[value="32px"] .lake-dropdown-menu-check').computedCSS('visibility');
-      editor.unmount();
       expect(visibility).to.equal('visible');
       done();
     });
@@ -186,7 +180,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p><strong>foo</strong></p><p><anchor /><strong>bar</strong><focus /></p>');
-    editor.unmount();
   });
 
   it('removeFormat: clicks button', () => {
@@ -195,14 +188,12 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p><anchor />bar<focus /></p>');
-    editor.unmount();
   });
 
   it('bold: clicks button and updates state', done => {
     editor.setValue('<p><anchor />bar<focus /></p>');
-    editor.event.on('statechange', () => {
+    editor.event.once('statechange', () => {
       const isSelected = toolbar.container.find('button[name="bold"].lake-button-selected').length > 0;
-      editor.unmount();
       expect(isSelected).to.equal(true);
       done();
     });
@@ -218,7 +209,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p><anchor /><i>bar</i><focus /></p>');
-    editor.unmount();
   });
 
   it('underline: clicks button', () => {
@@ -227,7 +217,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p><anchor /><u>bar</u><focus /></p>');
-    editor.unmount();
   });
 
   it('strikethrough: clicks button', () => {
@@ -236,7 +225,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p><anchor /><s>bar</s><focus /></p>');
-    editor.unmount();
   });
 
   it('superscript: clicks button', () => {
@@ -245,7 +233,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p><anchor /><sup>bar</sup><focus /></p>');
-    editor.unmount();
   });
 
   it('subscript: clicks button', () => {
@@ -254,7 +241,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p><anchor /><sub>bar</sub><focus /></p>');
-    editor.unmount();
   });
 
   it('code: clicks button', () => {
@@ -263,15 +249,13 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p><anchor /><code>bar</code><focus /></p>');
-    editor.unmount();
   });
 
   it('moreStyle: selects an item and updates state', done => {
     editor.setValue('<p><anchor />bar<focus /></p>');
-    editor.event.on('statechange', () => {
+    editor.event.once('statechange', () => {
       click(toolbar.container.find('div[name="moreStyle"] .lake-dropdown-title'));
       const visibility = toolbar.container.find('div[name="moreStyle"] li[value="underline"] .lake-dropdown-menu-check').computedCSS('visibility');
-      editor.unmount();
       expect(visibility).to.equal('visible');
       done();
     });
@@ -288,15 +272,13 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p><anchor /><span style="color: #f5222d;">foo</span><focus /></p>');
-    editor.unmount();
   });
 
   it('fontColor: selects a color and updates state', done => {
     editor.setValue('<p><anchor />foo<focus /></p>');
-    editor.event.on('statechange', () => {
+    editor.event.once('statechange', () => {
       click(toolbar.container.find('div[name="fontColor"] .lake-dropdown-down-icon'));
       const visibility = toolbar.container.find('div[name="fontColor"] li[value="#fa541c"] .lake-dropdown-menu-check').computedCSS('visibility');
-      editor.unmount();
       expect(visibility).to.equal('visible');
       done();
     });
@@ -328,15 +310,13 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p><anchor /><span style="background-color: #fadb14;">foo</span><focus /></p>');
-    editor.unmount();
   });
 
   it('highlight: selects a color and updates state', done => {
     editor.setValue('<p><anchor />foo<focus /></p>');
-    editor.event.on('statechange', () => {
+    editor.event.once('statechange', () => {
       click(toolbar.container.find('div[name="highlight"] .lake-dropdown-down-icon'));
       const visibility = toolbar.container.find('div[name="highlight"] li[value="#a0d911"] .lake-dropdown-menu-check').computedCSS('visibility');
-      editor.unmount();
       expect(visibility).to.equal('visible');
       done();
     });
@@ -354,10 +334,9 @@ describe('ui / toolbar', () => {
 
   it('list: selects numbered list and updates state', done => {
     editor.setValue('<p>foo<focus /></p>');
-    editor.event.on('statechange', () => {
+    editor.event.once('statechange', () => {
       click(toolbar.container.find('div[name="list"] .lake-dropdown-title'));
       const visibility = toolbar.container.find('div[name="list"] li[value="numbered"] .lake-dropdown-menu-check').computedCSS('visibility');
-      editor.unmount();
       expect(visibility).to.equal('visible');
       done();
     });
@@ -370,10 +349,9 @@ describe('ui / toolbar', () => {
 
   it('list: selects bulleted list and updates state', done => {
     editor.setValue('<p>foo<focus /></p>');
-    editor.event.on('statechange', () => {
+    editor.event.once('statechange', () => {
       click(toolbar.container.find('div[name="list"] .lake-dropdown-title'));
       const visibility = toolbar.container.find('div[name="list"] li[value="bulleted"] .lake-dropdown-menu-check').computedCSS('visibility');
-      editor.unmount();
       expect(visibility).to.equal('visible');
       done();
     });
@@ -386,10 +364,9 @@ describe('ui / toolbar', () => {
 
   it('list: selects checklist and updates state', done => {
     editor.setValue('<p>foo<focus /></p>');
-    editor.event.on('statechange', () => {
+    editor.event.once('statechange', () => {
       click(toolbar.container.find('div[name="list"] .lake-dropdown-title'));
       const visibility = toolbar.container.find('div[name="list"] li[value="checklist"] .lake-dropdown-menu-check').computedCSS('visibility');
-      editor.unmount();
       expect(visibility).to.equal('visible');
       done();
     });
@@ -406,7 +383,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<ol start="1"><li>foo<focus /></li></ol>');
-    editor.unmount();
   });
 
   it('bulletedList: clicks button', () => {
@@ -415,7 +391,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<ul><li>foo<focus /></li></ul>');
-    editor.unmount();
   });
 
   it('checklist: clicks button', () => {
@@ -424,15 +399,13 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<ul type="checklist"><li value="false">foo<focus /></li></ul>');
-    editor.unmount();
   });
 
   it('align: selects an item and updates state', done => {
     editor.setValue('<p>foo<focus /></p>');
-    editor.event.on('statechange', () => {
+    editor.event.once('statechange', () => {
       click(toolbar.container.find('div[name="align"] .lake-dropdown-title'));
       const visibility = toolbar.container.find('div[name="align"] li[value="center"] .lake-dropdown-menu-check').computedCSS('visibility');
-      editor.unmount();
       expect(visibility).to.equal('visible');
       done();
     });
@@ -449,7 +422,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p style="text-align: left;">foo<focus /></p>');
-    editor.unmount();
   });
 
   it('alignCenter: clicks button', () => {
@@ -458,7 +430,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p style="text-align: center;">foo<focus /></p>');
-    editor.unmount();
   });
 
   it('alignRight: clicks button', () => {
@@ -467,7 +438,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p style="text-align: right;">foo<focus /></p>');
-    editor.unmount();
   });
 
   it('alignJustify: clicks button', () => {
@@ -476,7 +446,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p style="text-align: justify;">foo<focus /></p>');
-    editor.unmount();
   });
 
   it('indent: selects an item', () => {
@@ -486,7 +455,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p style="margin-left: 40px;">foo<focus /></p>');
-    editor.unmount();
   });
 
   it('increaseIndent: clicks button', () => {
@@ -495,7 +463,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p style="margin-left: 40px;">foo<focus /></p>');
-    editor.unmount();
   });
 
   it('decreaseIndent: clicks button', () => {
@@ -504,7 +471,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p style="margin-left: 40px;">foo<focus /></p>');
-    editor.unmount();
   });
 
   it('link: clicks button', () => {
@@ -513,7 +479,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p>foo<a>New link</a><focus /></p>');
-    editor.unmount();
   });
 
   it('codeBlock: clicks button', () => {
@@ -522,7 +487,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<lake-box type="block" name="codeBlock" focus="right"></lake-box>');
-    editor.unmount();
   });
 
   it('hr: clicks button', () => {
@@ -531,7 +495,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<lake-box type="block" name="hr" focus="right"></lake-box>');
-    editor.unmount();
   });
 
   it('selectAll: clicks button', () => {
@@ -540,7 +503,6 @@ describe('ui / toolbar', () => {
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p><anchor />foo<focus /></p>');
-    editor.unmount();
   });
 
   it('image: upload file', () => {
@@ -585,7 +547,6 @@ describe('ui / toolbar', () => {
     expect(box2.value.status).to.equal('done');
     expect(box2.value.url).to.equal('../assets/images/lac-gentau-256.jpg');
     xhr.restore();
-    editor.unmount();
   });
 
 });

@@ -37,6 +37,7 @@ describe('boxes / image', () => {
   });
 
   afterEach(() => {
+    editor.unmount();
     rootNode.remove();
   });
 
@@ -45,12 +46,11 @@ describe('boxes / image', () => {
       return;
     }
     const boxNode = box.node;
-    box.event.on('render', () => {
+    box.event.once('render', () => {
       click(boxNode.find('.lake-button-view'));
     });
-    box.event.on('openfullscreen', () => {
+    box.event.once('openfullscreen', () => {
       click(query('.lake-pswp .pswp__button--close'));
-      editor.unmount();
       done();
     });
   });
@@ -60,10 +60,9 @@ describe('boxes / image', () => {
       return;
     }
     const boxNode = box.node;
-    box.event.on('render', () => {
+    box.event.once('render', () => {
       click(boxNode.find('.lake-button-remove'));
       const value = editor.getValue();
-      editor.unmount();
       expect(value).to.equal('<p><br /><focus /></p>');
       done();
     });
@@ -74,7 +73,7 @@ describe('boxes / image', () => {
       return;
     }
     const boxNode = box.node;
-    box.event.on('render', () => {
+    box.event.once('render', () => {
       click(boxNode.find('.lake-image-img'));
       const oldWidth = boxNode.width();
       const pointerdownEvent = new PointerEvent('pointerdown', {
@@ -96,7 +95,6 @@ describe('boxes / image', () => {
       boxNode.find('.lake-resizer-bottom-right').emit('pointermove', pointermoveEvent);
       boxNode.find('.lake-resizer-bottom-right').emit('pointerup', pointerupEvent);
       const newWidth = boxNode.width();
-      editor.unmount();
       expect(newWidth).to.equal(oldWidth - 200);
       done();
     });

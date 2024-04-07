@@ -168,7 +168,7 @@ export class Dropdown {
       menuNode.show(config.menuType === 'color' ? 'flex' : 'block');
       const dropdownNativeNode = dropdownNode.get(0) as HTMLElement;
       const dropdownRect = dropdownNativeNode.getBoundingClientRect();
-      if (dropdownRect.x + menuNode.width() > window.innerWidth) {
+      if (dropdownRect.x + menuNode.width() + 50 > window.innerWidth) {
         menuNode.css('left', 'auto');
         menuNode.css('right', '0');
       } else {

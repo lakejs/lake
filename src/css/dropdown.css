@@ -13,6 +13,7 @@
   margin-right: 4px;
   border-radius: 5px;
   border: 0;
+  font-size: 14px;
   background-color: #fff;
   cursor: pointer;
   outline: none;
@@ -91,6 +92,7 @@
   cursor: pointer;
 }
 .lake-dropdown .lake-list-dropdown-menu li {
+  margin: 0;
   padding: 6px 24px 6px 10px;
 }
 .lake-dropdown .lake-list-dropdown-menu li:hover {

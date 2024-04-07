@@ -12,7 +12,7 @@ type BlockItem = {
   getParameters: () => (string | boolean)[];
 } | {
   re: RegExp;
-  getParameters: (text: string) => (string | boolean)[];
+  getParameters: (results: RegExpExecArray) => (string | boolean | object)[];
 };
 
 const headingTypeMap = new Map([
@@ -73,9 +73,9 @@ const markItemList: MarkItem[] = [
 const blockItemListForSpaceKey: BlockItem[] = [
   {
     re: /^#+$/,
-    getParameters: (text: string) => [
+    getParameters: (results: RegExpExecArray) => [
       'heading',
-      headingTypeMap.get(text) ?? 'h6',
+      headingTypeMap.get(results[0]) ?? 'h6',
     ],
   },
   {
@@ -124,10 +124,20 @@ const blockItemListForEnterKey: BlockItem[] = [
     ],
   },
   {
-    re: /^`+$/,
-    getParameters: () => [
-      'codeBlock',
-    ],
+    re: /^`+([a-z]*)$/i,
+    getParameters: (results: RegExpExecArray) => {
+      if (!results[1]) {
+        return [
+          'codeBlock',
+        ];
+      }
+      return [
+        'codeBlock',
+        {
+          lang: results[1],
+        },
+      ];
+    },
   },
 ];
 
@@ -173,8 +183,8 @@ function executeMarkCommand(editor: Editor, point: Point): boolean {
   const offset = point.offset;
   const text = point.node.text().slice(0, offset);
   for (const item of markItemList) {
-    const result = item.re.exec(text);
-    if (result !== null) {
+    const results = item.re.exec(text);
+    if (results !== null) {
       // <p>foo**bold**<focus /></p>, offset = 11
       // to
       // <p>foobold\u200B<focus /></p>,
@@ -186,7 +196,7 @@ function executeMarkCommand(editor: Editor, point: Point): boolean {
       const oldValue = node.text();
       const newValue = `${oldValue.replace(item.re, '$1')}\u200B`;
       node.get(0).nodeValue = newValue;
-      range.setStart(node, offset - result[0].length);
+      range.setStart(node, offset - results[0].length);
       range.setEnd(node, offset - (oldValue.length - newValue.length) - 1);
       const parameters = item.getParameters();
       editor.command.execute(parameters.shift() as string, ...parameters);
@@ -204,7 +214,8 @@ function spaceKeyExecutesBlockCommand(editor: Editor, point: Point): boolean {
   let text = point.node.text().slice(0, offset);
   text = text.replace(/[\u200B\u2060]/g, '');
   for (const item of blockItemListForSpaceKey) {
-    if (item.re.test(text)) {
+    const results = item.re.exec(text);
+    if (results !== null) {
       // <p>#<focus />foo</p>
       // to
       // <h1><focus />foo</h1>
@@ -215,7 +226,7 @@ function spaceKeyExecutesBlockCommand(editor: Editor, point: Point): boolean {
       const block = bookmark.focus.closestBlock();
       fixEmptyBlock(block);
       selection.range.shrinkAfter(block);
-      const parameters = item.getParameters(text);
+      const parameters = item.getParameters(results);
       editor.command.execute(parameters.shift() as string, ...parameters);
       selection.toBookmark(bookmark);
       editor.commitOperation();
@@ -230,7 +241,8 @@ function enterKeyExecutesBlockCommand(editor: Editor, block: Nodes): boolean {
   let text = block.text();
   text = text.replace(/[\u200B\u2060]/g, '');
   for (const item of blockItemListForEnterKey) {
-    if (item.re.test(text)) {
+    const results = item.re.exec(text);
+    if (results !== null) {
       // <p>---<focus /></p>
       // to
       // <lake-box type="block" name="hr" focus="right"></lake-box>
@@ -238,7 +250,7 @@ function enterKeyExecutesBlockCommand(editor: Editor, block: Nodes): boolean {
       block.empty();
       fixEmptyBlock(block);
       selection.range.shrinkAfter(block);
-      const parameters = item.getParameters(text);
+      const parameters = item.getParameters(results);
       editor.command.execute(parameters.shift() as string, ...parameters);
       editor.commitOperation();
       return true;

@@ -11,6 +11,8 @@
 .cm-editor .cm-gutters {
   color: var(--disabled-text-color);
   border-right: 1px solid var(--border-color);
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 .cm-editor .cm-activeLineGutter {
   color: var(--text-color);
@@ -33,6 +35,7 @@ lake-box[name="codeBlock"] {
 .lake-code-block {
   box-sizing: border-box;
   border: 1px solid var(--border-color);
+  border-radius: 5px;
 }
 lake-box[name="codeBlock"] .lake-box-selected .lake-code-block {
   background-color: var(--selection-background-color);
@@ -42,4 +45,32 @@ lake-box[name="codeBlock"] .lake-box-focused .lake-code-block {
 }
 lake-box[name="codeBlock"] .lake-box-activated .lake-code-block {
   border-color: var(--box-border-active-color);
+}
+.lake-code-block {
+  position: relative;
+}
+.lake-code-block .lake-dropdown {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  display: none;
+}
+lake-box[name="codeBlock"] .lake-box-activated .lake-code-block .lake-dropdown {
+  display: block;
+}
+.lake-code-block .lake-dropdown .lake-dropdown-title {
+  margin: 0;
+  padding-right: 4px;
+}
+.lake-code-block .lake-dropdown .lake-dropdown-text {
+  margin: 3px 6px;
+}
+.lake-code-block .lake-dropdown .lake-dropdown-down-icon svg {
+  margin: 5px 2px;
+}
+.lake-code-block .lake-dropdown .lake-dropdown-menu {
+  top: 24px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  height: 200px;
 }

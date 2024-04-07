@@ -1,3 +1,4 @@
+import { Box } from '../../src';
 import { testPlugin } from '../utils';
 
 const imageBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTI1Ni5wbmciLCJzdGF0dXMiOiJkb25lIn0=';
@@ -579,6 +580,42 @@ describe('plugins / markdown', () => {
       editor => {
         editor.keystroke.keydown('enter');
       },
+    );
+  });
+
+  it('keystroke: should insert a codeBlock with language type', () => {
+    const content = '<p>```css<focus /></p>';
+    const output = `
+    <lake-box type="block" name="codeBlock" focus="right"></lake-box>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+        const boxNode = editor.container.find('lake-box');
+        const box = new Box(boxNode);
+        expect(box.value.lang).to.equal('css');
+      },
+      true,
+    );
+  });
+
+  it('keystroke: should insert a codeBlock with unknown language type', () => {
+    const content = '<p>```foo<focus /></p>';
+    const output = `
+    <lake-box type="block" name="codeBlock" focus="right"></lake-box>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+        const boxNode = editor.container.find('lake-box');
+        const box = new Box(boxNode);
+        expect(box.value.lang).to.equal('foo');
+      },
+      true,
     );
   });
 

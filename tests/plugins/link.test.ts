@@ -18,6 +18,7 @@ describe('plugins / link', () => {
   });
 
   afterEach(() => {
+    editor.unmount();
     rootNode.remove();
   });
 
@@ -25,7 +26,6 @@ describe('plugins / link', () => {
     editor.command.execute('link');
     const value = editor.getValue();
     const linkTitle = (editor.popupContainer.find('.lake-link-popup input[name="title"]').get(0) as HTMLInputElement).value;
-    editor.unmount();
     expect(value).to.equal('<p><a>New link</a><focus /></p>');
     expect(linkTitle).to.equal('New link');
   });
@@ -37,7 +37,6 @@ describe('plugins / link', () => {
     (editor.popupContainer.find('.lake-link-popup input[name="title"]').get(0) as HTMLInputElement).value = 'bar';
     click(editor.popupContainer.find('.lake-link-popup button[name="save"]'));
     const value = editor.getValue();
-    editor.unmount();
     expect(value).to.equal('<p><a href="http://bar.com"><focus />bar</a></p>');
   });
 
@@ -46,7 +45,6 @@ describe('plugins / link', () => {
     editor.command.execute('link');
     click(editor.popupContainer.find('.lake-link-popup button[name="unlink"]'));
     const value = editor.getValue();
-    editor.unmount();
     expect(value).to.equal('<p>foo<focus /></p>');
   });
 
