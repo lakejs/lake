@@ -9,8 +9,8 @@ export const hrBox: BoxComponent = {
       return;
     }
     box.useEffect(() => {
-      const root = box.getContainer().find('.lake-hr');
-      root.on('click', () => {
+      const hrNode = box.getContainer().find('.lake-hr');
+      hrNode.on('click', () => {
         editor.selection.range.selectBox(box.node);
       });
     });

@@ -43,12 +43,12 @@ export const codeBlockBox: BoxComponent = {
       return;
     }
     const width = editor.innerWidth() - 2;
-    const root = query('<div class="lake-code-block" />');
-    root.css('width', `${width}px`);
+    const codeBlockNode = query('<div class="lake-code-block" />');
+    codeBlockNode.css('width', `${width}px`);
     const container = box.getContainer();
     container.empty();
-    container.append(root);
-    const parent = root.get(0);
+    container.append(codeBlockNode);
+    const parent = codeBlockNode.get(0);
     if (!parent) {
       return;
     }
@@ -63,7 +63,7 @@ export const codeBlockBox: BoxComponent = {
       }, 0);
     };
     const codeEditor = CodeMirror({
-      parent: root.get(0) as Element,
+      parent: codeBlockNode.get(0) as Element,
       value: box.value.code ?? '',
       onChange: onChangeHandler,
     });

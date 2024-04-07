@@ -1,4 +1,3 @@
-import EventEmitter from 'eventemitter3';
 import type { Editor } from '../editor';
 import { NativeNode } from '../types/native';
 import { ToolbarButtonItem, ToolbarDropdownItem, ToolbarUploadItem, ToolbarItem } from '../types/toolbar';
@@ -49,13 +48,11 @@ export class Toolbar {
 
   private items: (string | ToolbarItem)[];
 
-  public editor: Editor;
+  private editor: Editor;
 
-  public root: Nodes;
+  private root: Nodes;
 
   public container: Nodes;
-
-  public event: EventEmitter = new EventEmitter();
 
   constructor(config: ToolbarConfig) {
     this.items = config.items || defaultItems;

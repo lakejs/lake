@@ -214,7 +214,7 @@ function removeImageBox(box: Box): void {
 }
 
 // Displays error icon and filename.
-async function renderError(root: Nodes, box: Box): Promise<void> {
+async function renderError(imageNode: Nodes, box: Box): Promise<void> {
   const value = box.value;
   box.getContainer().css({
     width: '',
@@ -240,12 +240,12 @@ async function renderError(root: Nodes, box: Box): Promise<void> {
   if (imageIcon) {
     errorNode.find('.lake-error-icon').append(imageIcon);
   }
-  root.append(buttonGroupNode);
-  root.append(errorNode);
+  imageNode.append(buttonGroupNode);
+  imageNode.append(errorNode);
 }
 
 // Displays an image with uplaoding progress.
-async function renderUploading(root: Nodes, box: Box): Promise<void> {
+async function renderUploading(imageNode: Nodes, box: Box): Promise<void> {
   const editor = box.getEditor();
   if (!editor) {
     return;
@@ -253,7 +253,7 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
   const value = box.value;
   const imageInfo = await getImageInfo(value.url);
   if (!imageInfo.width || !imageInfo.height) {
-    await renderError(root, box);
+    await renderError(imageNode, box);
     return;
   }
   const maxWidth = editor.innerWidth() - 2;
@@ -298,13 +298,13 @@ async function renderUploading(root: Nodes, box: Box): Promise<void> {
     draggable: 'false',
     alt: value.name,
   });
-  root.append(buttonGroupNode);
-  root.append(progressNode);
-  root.append(imgNode);
+  imageNode.append(buttonGroupNode);
+  imageNode.append(progressNode);
+  imageNode.append(imgNode);
 }
 
 // Displays an image that can be previewed or removed.
-async function renderDone(root: Nodes, box: Box): Promise<void> {
+async function renderDone(imageNode: Nodes, box: Box): Promise<void> {
   const editor = box.getEditor();
   if (!editor) {
     return;
@@ -312,7 +312,7 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
   const value = box.value;
   const imageInfo = await getImageInfo(value.url);
   if (!imageInfo.width || !imageInfo.height) {
-    await renderError(root, box);
+    await renderError(imageNode, box);
     return;
   }
   let width = value.width;
@@ -368,9 +368,9 @@ async function renderDone(root: Nodes, box: Box): Promise<void> {
   bindResizerEvents(resizerNode.find('.lake-resizer-top-right'), box);
   bindResizerEvents(resizerNode.find('.lake-resizer-bottom-left'), box);
   bindResizerEvents(resizerNode.find('.lake-resizer-bottom-right'), box);
-  root.append(buttonGroupNode);
-  root.append(resizerNode);
-  root.append(imgNode);
+  imageNode.append(buttonGroupNode);
+  imageNode.append(resizerNode);
+  imageNode.append(imgNode);
 }
 
 export const imageBox: BoxComponent = {
@@ -407,27 +407,27 @@ export const imageBox: BoxComponent = {
     if (value.status === 'loading') {
       return;
     }
-    const root = query('<div class="lake-image" />');
-    root.addClass(`lake-image-${value.status}`);
+    const imageNode = query('<div class="lake-image" />');
+    imageNode.addClass(`lake-image-${value.status}`);
     let promise: Promise<void>;
     if (value.status === 'uploading') {
-      promise = renderUploading(root, box);
+      promise = renderUploading(imageNode, box);
     } else if (value.status === 'error') {
-      promise = renderError(root, box);
+      promise = renderError(imageNode, box);
     } else {
-      promise = renderDone(root, box);
+      promise = renderDone(imageNode, box);
     }
     promise.then(() => {
       container.empty();
-      container.append(root);
-      root.find('.lake-button-view').on('click', () => openFullScreen(box));
-      root.find('.lake-button-remove').on('click', event => {
+      container.append(imageNode);
+      imageNode.find('.lake-button-view').on('click', () => openFullScreen(box));
+      imageNode.find('.lake-button-remove').on('click', event => {
         event.stopPropagation();
         removeImageBox(box);
       });
       box.event.emit('render');
     });
-    root.on('click', () => {
+    imageNode.on('click', () => {
       editor.selection.range.selectBox(box.node);
     });
   },
