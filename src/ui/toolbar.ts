@@ -133,6 +133,7 @@ export class Toolbar {
       icon: item.icon,
       tooltip: item.tooltip,
       onClick: () => {
+        editor.focus();
         fileNativeNode.click();
       },
     });
