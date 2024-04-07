@@ -358,10 +358,10 @@ export class Editor {
   public insertBox(
     boxName: Parameters<typeof insertBox>[1],
     boxValue?: Parameters<typeof insertBox>[2],
-  ): ReturnType<typeof insertBox> {
+  ): Box {
     const box = insertBox(this.selection.range, boxName, boxValue);
     if (!box) {
-      return box;
+      throw new Error(`Box '${boxName}' cannot be inserted outside the editor.`);
     }
     const instanceMap = this.box.getInstances(this);
     instanceMap.set(box.node.id, box);

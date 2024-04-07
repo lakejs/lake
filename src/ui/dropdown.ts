@@ -2,6 +2,7 @@ import { Base64 } from 'js-base64';
 import { NativeNode } from '../types/native';
 import { DropdownItem, DropdownMenuItem } from '../types/dropdown';
 import { icons } from '../icons';
+import { encode } from '../utils/encode';
 import { template } from '../utils/template';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
@@ -70,7 +71,7 @@ export class Dropdown {
     const config = this.config;
     for (const menuItem of config.menuItems) {
       const listContent = template`
-        <li value="${menuItem.value}">
+        <li value="${encode(menuItem.value)}">
           <div class="lake-dropdown-menu-text">${menuItem.text}</div>
         </li>
       `;

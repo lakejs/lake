@@ -13,7 +13,7 @@ describe('boxes / image', () => {
 
   let rootNode: Nodes;
   let editor: Editor;
-  let box: Box | null;
+  let box: Box;
 
   beforeEach(()=> {
     rootNode = query('<div class="lake-root" />');
@@ -42,9 +42,6 @@ describe('boxes / image', () => {
   });
 
   it('should open full screen', done => {
-    if (!box) {
-      return;
-    }
     const boxNode = box.node;
     box.event.once('render', () => {
       click(boxNode.find('.lake-button-view'));
@@ -56,9 +53,6 @@ describe('boxes / image', () => {
   });
 
   it('should remove the box', done => {
-    if (!box) {
-      return;
-    }
     const boxNode = box.node;
     box.event.once('render', () => {
       click(boxNode.find('.lake-button-remove'));
@@ -69,9 +63,6 @@ describe('boxes / image', () => {
   });
 
   it('should resize the image', done => {
-    if (!box) {
-      return;
-    }
     const boxNode = box.node;
     box.event.once('render', () => {
       click(boxNode.find('.lake-image-img'));

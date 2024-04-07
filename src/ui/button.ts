@@ -24,7 +24,6 @@ export class Button {
     this.node = query(safeTemplate`
       <button type="button" name="${config.name}" class="lake-button" />
     `);
-
   }
 
   public render(): void {

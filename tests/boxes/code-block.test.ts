@@ -6,7 +6,7 @@ describe('boxes / code-block', () => {
 
   let rootNode: Nodes;
   let editor: Editor;
-  let box: Box | null;
+  let box: Box;
 
   beforeEach(()=> {
     rootNode = query('<div class="lake-root" />');
@@ -28,9 +28,6 @@ describe('boxes / code-block', () => {
   });
 
   it('should activate box after clicking', done => {
-    if (!box) {
-      return;
-    }
     const boxContainer = box.getContainer();
     box.getData('codeEditor').focus();
     editor.event.once('statechange', () => {
@@ -40,18 +37,12 @@ describe('boxes / code-block', () => {
   });
 
   it('should change language', done => {
-    if (!box) {
-      return;
-    }
     const boxContainer = box.getContainer();
     const dropdownNode = boxContainer.find('.lake-dropdown');
     expect(box.value.lang).to.equal('css');
     expect(dropdownNode.computedCSS('display')).to.equal('none');
     box.getData('codeEditor').focus();
     editor.event.once('statechange', () => {
-      if (!box) {
-        return;
-      }
       expect(dropdownNode.computedCSS('display')).to.equal('block');
       click(dropdownNode.find('button[name="langType"]'));
       expect(dropdownNode.find('.lake-dropdown-menu').computedCSS('display')).to.equal('block');

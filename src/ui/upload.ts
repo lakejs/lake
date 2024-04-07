@@ -24,9 +24,6 @@ export function uploadImage(config: Config): Box {
     type: file.type,
     lastModified: file.lastModified,
   });
-  if (!box) {
-    throw new Error('The image box cannot be inserted outside the editor.');
-  }
   const xhr = request({
     onProgress: e => {
       const percentNode = box.node.find('.lake-percent');

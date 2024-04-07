@@ -92,7 +92,7 @@ export function testBox(
   });
   editor.render();
   const box = editor.insertBox(name, value);
-  if (callback && box) {
+  if (callback) {
     callback(box, editor);
   }
 }

@@ -6,7 +6,7 @@ describe('boxes / hr', () => {
 
   let rootNode: Nodes;
   let editor: Editor;
-  let box: Box | null;
+  let box: Box;
 
   beforeEach(()=> {
     rootNode = query('<div class="lake-root" />');
@@ -25,9 +25,6 @@ describe('boxes / hr', () => {
   });
 
   it('should focus on box after clicking', done => {
-    if (!box) {
-      return;
-    }
     const boxContainer = box.getContainer();
     click(boxContainer.find('.lake-hr'));
     editor.event.once('statechange', () => {
