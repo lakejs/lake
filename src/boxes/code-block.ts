@@ -4,51 +4,16 @@ import {
   EditorView,
   keymap,
   indentWithTab,
-  cpp,
-  css,
-  go,
-  html,
-  java,
-  javascript,
-  json,
-  markdown,
-  php,
-  python,
-  rust,
-  xml,
-  yaml,
+  langItems,
 } from '../codemirror';
 import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
 import { debug, query } from '../utils';
 import { Dropdown } from '../ui/dropdown';
 
-type LangItem = {
-  value: string,
-  text: string,
-  component?: typeof cpp,
-};
-
 const defaultLangValue = 'text';
 
-const langItems: LangItem[] = [
-  { value: 'text', text: 'Plain text' },
-  { value: 'cpp', text: 'C++', component: cpp },
-  { value: 'css', text: 'CSS', component: css },
-  { value: 'go', text: 'Go', component: go },
-  { value: 'html', text: 'HTML', component: html },
-  { value: 'java', text: 'Java', component: java },
-  { value: 'javascript', text: 'JavaScript', component: javascript },
-  { value: 'json', text: 'JSON', component: json },
-  { value: 'markdown', text: 'Markdown', component: markdown },
-  { value: 'php', text: 'PHP', component: php },
-  { value: 'python', text: 'Python', component: python },
-  { value: 'rust', text: 'Rust', component: rust },
-  { value: 'xml', text: 'XML', component: xml },
-  { value: 'yaml', text: 'YAML', component: yaml },
-];
-
-const langItemMap: Map<string, LangItem> = new Map();
+const langItemMap: Map<string, typeof langItems[0]> = new Map();
 for (const item of langItems) {
   langItemMap.set(item.value, item);
 }
