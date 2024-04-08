@@ -7,7 +7,7 @@ body {
 .header {
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: 44px 1fr 36px 36px;
+  grid-template-columns: 44px 1fr 38px 36px;
   align-items: center;
   padding: 8px 8px 16px 8px;
   background-color: #fff;
@@ -30,7 +30,6 @@ body {
   line-height: 0;
   cursor: pointer;
   user-select: none;
-  outline: none;
 }
 .header .menu .hovered {
   background-color: #0000000a;
@@ -58,7 +57,6 @@ body {
 .header .menu ul li a {
   color: #000000e0;
   text-decoration: none;
-  outline: none;
 }
 .header .menu ul li a:hover {
   text-decoration: underline;
@@ -79,7 +77,6 @@ body {
 .header .source a {
   display: block;
   border-radius: 5px;
-  outline: none;
 }
 .header .source a:hover {
   background-color: #0000000a;

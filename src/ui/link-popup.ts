@@ -210,6 +210,7 @@ export class LinkPopup {
     this.container.show();
     this.updatePosition();
     this.container.css('visibility', '');
+    this.container.find('input[name="url"]').focus();
   }
 
   public hide(): void {

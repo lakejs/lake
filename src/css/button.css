@@ -10,7 +10,6 @@
   line-height: 0;
   cursor: pointer;
   user-select: none;
-  outline: none;
 }
 .lake-button[disabled] {
   opacity: 0.25;

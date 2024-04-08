@@ -8,6 +8,7 @@ export type ButtonConfig = {
   icon?: string;
   text?: string;
   tooltip?: string;
+  tabIndex?: number,
   onClick: () => void;
 }
 
@@ -24,6 +25,9 @@ export class Button {
     this.node = query(safeTemplate`
       <button type="button" name="${config.name}" class="lake-button" />
     `);
+    if (config.tabIndex !== undefined) {
+      this.node.attr('tabindex', config.tabIndex.toString());
+    }
   }
 
   public render(): void {

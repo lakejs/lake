@@ -16,7 +16,6 @@
   font-size: 14px;
   background-color: #fff;
   cursor: pointer;
-  outline: none;
 }
 .lake-dropdown[disabled] .lake-dropdown-title {
   opacity: 0.25;

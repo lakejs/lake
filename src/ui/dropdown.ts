@@ -10,6 +10,7 @@ import { Nodes } from '../models/nodes';
 
 export type DropdownConfig = DropdownItem & {
   root: Nodes;
+  tabIndex?: number;
   onSelect: (value: string) => void;
 }
 
@@ -31,6 +32,10 @@ export class Dropdown {
         </button>
       </div>
     `);
+    if (config.tabIndex !== undefined) {
+      const titleNode = this.node.find('.lake-dropdown-title');
+      titleNode.attr('tabindex', config.tabIndex.toString());
+    }
   }
 
   // Returns the value of the node.

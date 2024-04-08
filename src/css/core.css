@@ -23,7 +23,6 @@
 .lake-container a {
   color: var(--link-color);
   text-decoration: none;
-  outline: none;
 }
 .lake-container a:hover {
   color: var(--link-hover-color);

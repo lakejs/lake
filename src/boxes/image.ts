@@ -222,7 +222,7 @@ async function renderError(imageNode: Nodes, box: Box): Promise<void> {
   });
   const buttonGroupNode = query(safeTemplate`
     <div class="lake-button-group">
-      <button type="button" class="lake-button-remove" title="${locale.image.remove()}"></button>
+      <button type="button" tabindex="-1" class="lake-button-remove" title="${locale.image.remove()}"></button>
     </div>
   `);
   const removeButton = buttonGroupNode.find('.lake-button-remove');
@@ -271,7 +271,7 @@ async function renderUploading(imageNode: Nodes, box: Box): Promise<void> {
   });
   const buttonGroupNode = query(safeTemplate`
     <div class="lake-button-group">
-      <button type="button" class="lake-button-remove" title="${locale.image.remove()}"></button>
+      <button type="button" tabindex="-1" class="lake-button-remove" title="${locale.image.remove()}"></button>
     </div>
   `);
   const removeButton = buttonGroupNode.find('.lake-button-remove');
@@ -332,8 +332,8 @@ async function renderDone(imageNode: Nodes, box: Box): Promise<void> {
   });
   const buttonGroupNode = query(safeTemplate`
     <div class="lake-button-group">
-      <button type="button" class="lake-button-view" title="${locale.image.view()}"></button>
-      <button type="button" class="lake-button-remove" title="${locale.image.remove()}"></button>
+      <button type="button" tabindex="-1" class="lake-button-view" title="${locale.image.view()}"></button>
+      <button type="button" tabindex="-1" class="lake-button-remove" title="${locale.image.remove()}"></button>
     </div>
   `);
   const viewButton = buttonGroupNode.find('.lake-button-view');

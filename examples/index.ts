@@ -126,14 +126,16 @@ function renderHeader(pageType: string): void {
     ul.append(safeTemplate`<li><a href="${item.url}">${item.text}</a></li>`);
   }
   let timeoutId: number | null = null;
-  menuNode.on('mouseenter', () => {
+  const showMenuListener = () => {
     if (timeoutId) {
       window.clearTimeout(timeoutId);
       timeoutId = null;
     }
     menuNode.find('button').addClass('hovered');
     menuNode.find('ul').show();
-  });
+  };
+  menuNode.on('click', showMenuListener);
+  menuNode.on('mouseenter', showMenuListener);
   menuNode.on('mouseleave', () => {
     timeoutId = window.setTimeout(() => {
       menuNode.find('button').removeClass('hovered');

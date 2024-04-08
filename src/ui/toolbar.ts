@@ -74,6 +74,7 @@ export class Toolbar {
       name: item.name,
       icon: item.icon,
       tooltip: item.tooltip,
+      tabIndex: -1,
       onClick: () => {
         editor.focus();
         item.onClick(editor, item.name);
@@ -96,6 +97,7 @@ export class Toolbar {
       menuType: item.menuType,
       menuItems: item.menuItems,
       hasDocumentClick: false,
+      tabIndex: -1,
       onSelect: value => {
         editor.focus();
         item.onSelect(editor, value);
@@ -132,6 +134,7 @@ export class Toolbar {
       name: item.name,
       icon: item.icon,
       tooltip: item.tooltip,
+      tabIndex: -1,
       onClick: () => {
         editor.focus();
         fileNativeNode.click();
