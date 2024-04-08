@@ -83,7 +83,7 @@ for (const color of colors) {
   });
 }
 
-describe('ui: ui / dropdown', () => {
+describe('ui: ui / dropdown-ui', () => {
 
   let rootNode: Nodes;
 

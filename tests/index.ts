@@ -70,8 +70,11 @@ import './managers/plugin.test';
 
 // Boxes
 import './boxes/hr.test';
+import './boxes/hr-ui.test';
 import './boxes/image.test';
+import './boxes/image-ui.test';
 import './boxes/code-block.test';
+import './boxes/code-block-ui.test';
 
 // Plugins
 import './plugins/copy.test';
@@ -112,9 +115,11 @@ import './plugins/arrow-keys.test';
 
 // UI
 import './ui/button.test';
-import './ui/dropdown.test';
+import './ui/button-ui.test';
+import './ui/dropdown-ui.test';
 import './ui/upload.test';
 import './ui/link-popup.test';
+import './ui/link-popup-ui.test';
 import './ui/toolbar.test';
 
 // Editor

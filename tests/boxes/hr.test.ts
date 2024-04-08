@@ -1,4 +1,4 @@
-import { testBox, click } from '../utils';
+import { click } from '../utils';
 import { query } from '../../src/utils';
 import { Editor, Nodes, Box } from '../../src';
 
@@ -30,16 +30,6 @@ describe('boxes / hr', () => {
     editor.event.once('statechange', () => {
       expect(boxContainer.hasClass('lake-box-focused')).to.equal(true);
       done();
-    });
-  });
-
-});
-
-describe('ui: boxes / hr', () => {
-
-  it('box: hr', () => {
-    testBox('hr', undefined, box => {
-      expect(box.name).to.equal('hr');
     });
   });
 

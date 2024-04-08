@@ -60,15 +60,16 @@ export class LinkPopup {
           return;
         }
         const url = this.getInputValue('url');
-        this.writeClipboardText(url).then(error => {
+        this.writeClipboardText(url).then((error: boolean) => {
           const svgNode = this.container.find('button[name="copy"] svg');
           svgNode.hide();
           if (error) {
             svgNode.eq(2).show('inline');
+            this.event.emit('copy', error);
             return;
           }
           svgNode.eq(1).show('inline');
-          this.event.emit('copy');
+          this.event.emit('copy', error);
           if (timeoutId) {
             window.clearTimeout(timeoutId);
           }

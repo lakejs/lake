@@ -1,4 +1,4 @@
-import { testBox, click } from '../utils';
+import { click } from '../utils';
 import { query } from '../../src/utils';
 import { Editor, Nodes, Box } from '../../src';
 
@@ -50,19 +50,6 @@ describe('boxes / code-block', () => {
       expect(dropdownNode.find('.lake-dropdown-menu').computedCSS('display')).to.equal('none');
       expect(box.value.lang).to.equal('html');
       done();
-    });
-  });
-
-});
-
-describe('ui: boxes / code-block', () => {
-
-  it('box: codeBlock', () => {
-    testBox('codeBlock', {
-      lang: 'javascript',
-      code: 'function foo() {\n\n}',
-    }, box => {
-      expect(box.name).to.equal('codeBlock');
     });
   });
 
