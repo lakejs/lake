@@ -147,13 +147,13 @@ export class LinkPopup {
     button.render();
   }
 
-  private getInputValue(name: string): string {
+  public getInputValue(name: string): string {
     const inputElement = this.container.find(`input[name="${name}"]`);
     const nativeInputElement = inputElement.get(0) as HTMLInputElement;
     return nativeInputElement.value;
   }
 
-  private setInputValue(name: string, value: string): void {
+  public setInputValue(name: string, value: string): void {
     const inputElement = this.container.find(`input[name="${name}"]`);
     const nativeInputElement = inputElement.get(0) as HTMLInputElement;
     nativeInputElement.value = value;
@@ -165,8 +165,12 @@ export class LinkPopup {
     }
     const url = this.getInputValue('url');
     let title = this.getInputValue('title');
+    if (url === '' && title === '') {
+      this.linkNode.remove();
+      return;
+    }
     if (title === '') {
-      title = 'Link';
+      title = url;
     }
     this.linkNode.attr('href', url);
     this.linkNode.text(title);
@@ -206,7 +210,9 @@ export class LinkPopup {
     const url = linkNode.attr('href');
     const title = linkNode.text();
     this.setInputValue('url', url);
-    this.setInputValue('title', title);
+    if (title !== url) {
+      this.setInputValue('title', title);
+    }
     this.container.css('visibility', 'hidden');
     this.container.show();
     this.updatePosition();

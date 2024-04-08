@@ -37,4 +37,38 @@ describe('ui / link-popup', () => {
     linkNode.remove();
   });
 
+  it('title should use URL when title is empty', () => {
+    const linkNode = query('<a href="http://github.com/">GitHub</a>');
+    query(document.body).append(linkNode);
+    const popup = new LinkPopup(rootNode);
+    const saveButton = popup.container.find('button[name="save"]');
+    popup.show(linkNode);
+    popup.setInputValue('title', '');
+    click(saveButton);
+    expect(linkNode.text()).to.equal('http://github.com/');
+    linkNode.remove();
+  });
+
+  it('title should not display URL when title and URL are equal', () => {
+    const linkNode = query('<a href="http://github.com/">http://github.com/</a>');
+    query(document.body).append(linkNode);
+    const popup = new LinkPopup(rootNode);
+    popup.show(linkNode);
+    expect(popup.getInputValue('title')).to.equal('');
+    linkNode.remove();
+  });
+
+  it('should remove link when both URL and title are empty', () => {
+    const linkNode = query('<a href="http://github.com/">GitHub</a>');
+    query(document.body).append(linkNode);
+    const popup = new LinkPopup(rootNode);
+    const saveButton = popup.container.find('button[name="save"]');
+    popup.show(linkNode);
+    popup.setInputValue('url', '');
+    popup.setInputValue('title', '');
+    click(saveButton);
+    expect(linkNode.parent().length).to.equal(0);
+    linkNode.remove();
+  });
+
 });
