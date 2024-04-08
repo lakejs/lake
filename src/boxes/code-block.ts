@@ -65,6 +65,7 @@ export const codeBlockBox: BoxComponent = {
         updateListener,
       ],
     });
+    codeBlockNode.find('[contenteditable="true"]').attr('tabindex', '-1');
     const dropdown = new Dropdown({
       root: codeBlockNode,
       name: 'langType',

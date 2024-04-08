@@ -92,6 +92,7 @@ export default (value: string) => {
   const editor = new Editor({
     root: '.lake-root',
     value,
+    indentWithTab: false,
   });
   editor.render();
   new Toolbar({

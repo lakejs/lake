@@ -22,6 +22,8 @@ type EditorConfig = {
   value?: string;
   readonly?: boolean;
   spellcheck?: boolean;
+  tabIndex?: number;
+  indentWithTab?: boolean;
   minChangeSize?: number;
   imageRequestMethod?: UploadRequestMethod;
   imageRequestAction?: string;
@@ -32,6 +34,8 @@ const defaultConfig = {
   value: '<p><br /><focus /></p>',
   readonly: false,
   spellcheck: false,
+  tabIndex: 0,
+  indentWithTab: true,
   minChangeSize: 5,
   imageRequestMethod: 'POST' as UploadRequestMethod,
   imageRequestAction: '/upload',
@@ -91,6 +95,7 @@ export class Editor {
     this.container.attr({
       contenteditable: this.readonly ? 'false' : 'true',
       spellcheck: this.config.spellcheck ? 'true' : 'false',
+      tabindex: this.config.tabIndex.toString(),
     });
 
     this.selection = new Selection(this.container);
@@ -304,6 +309,15 @@ export class Editor {
     });
   }
 
+  private bindFocusEvents(): void {
+    this.container.on('focus', ()=> {
+      this.root.addClass('lake-root-focused');
+    });
+    this.container.on('blur', ()=> {
+      this.root.removeClass('lake-root-focused');
+    });
+  }
+
   // Saves the input data which is unsaved.
   public commitUnsavedInputData(): void {
     if (this.unsavedInputData.length > 0) {
@@ -397,6 +411,7 @@ export class Editor {
     query(document.body).append(this.popupContainer);
     this.container.append(fragment);
     if (!this.readonly) {
+      this.bindFocusEvents();
       this.focus();
       this.selection.synByBookmark();
       this.history.save();

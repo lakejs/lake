@@ -11,6 +11,9 @@
   cursor: pointer;
   user-select: none;
 }
+.lake-button:focus {
+  outline: var(--button-outline);
+}
 .lake-button[disabled] {
   opacity: 0.25;
   cursor: default;

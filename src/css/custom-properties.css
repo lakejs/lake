@@ -22,10 +22,11 @@
   --box-border-active-color: #faad14;
   /* button */
   --button-shadow: 0 2px 0 #00000005;
+  --button-outline: 2px solid #69b1ff;
   /* popup */
   --popup-shadow: 0 6px 16px 0 #00000014, 0 3px 6px -4px #0000001f, 0 9px 28px 8px #0000000d;
   /* input form */
   --input-border-color: #d9d9d9;
   --input-border-hover-color: #69b1ff;
-  --input-border-active-color: #1677ff;
+  --input-outline: 2px solid #69b1ff;
 }

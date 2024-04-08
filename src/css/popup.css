@@ -11,8 +11,8 @@
   border: 1px solid var(--input-border-hover-color);
 }
 .lake-popup input[type="text"]:focus {
-  border: 1px solid var(--input-border-active-color);
-  outline: none;
+  outline: var(--input-outline);
+  outline-offset: -2px;
 }
 .lake-popup .lake-row {
   padding-bottom: 8px;
