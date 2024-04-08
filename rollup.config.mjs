@@ -10,34 +10,50 @@ import terser from '@rollup/plugin-terser';
 const codeMirrorPath = path.resolve('./src/codemirror.ts');
 
 const globalVariables = {
-  photoswipe: 'PhotoSwipe',
-  'photoswipe/lightbox': 'PhotoSwipeLightbox',
   [codeMirrorPath]: 'CodeMirror',
 };
 const externalModules = [
-  'photoswipe/style.css',
-  'photoswipe',
-  'photoswipe/lightbox',
   codeMirrorPath,
 ];
 
 function getWatchConfig(type) {
+  const globals = {
+    ...globalVariables,
+    'js-base64': 'Base64',
+    eventemitter3: 'EventEmitter3',
+    'lodash': 'lodash',
+    'photoswipe/lightbox': 'PhotoSwipeLightbox',
+    photoswipe: 'PhotoSwipe',
+    tinykeys: 'tinykeys',
+    'blueimp-md5': 'md5',
+    'typesafe-i18n': 'typesafeI18n',
+  };
+  const external = [
+    ...externalModules,
+    'js-base64',
+    'eventemitter3',
+    'lodash',
+    'photoswipe/style.css',
+    'photoswipe/lightbox',
+    'photoswipe',
+    'tinykeys',
+    'blueimp-md5',
+    'typesafe-i18n',
+  ];
+  if (type === 'tests') {
+    globals.sinon = 'sinon';
+    external.push('sinon');
+  }
   return {
     input: `./${type}/index.ts`,
     output: {
       file: `./temp/${type}/bundle.js`,
       format: 'iife',
       sourcemap: true,
-      globals: {
-        ...globalVariables,
-        sinon: 'sinon',
-      },
+      globals,
       assetFileNames: 'bundle.css',
     },
-    external: [
-      ...externalModules,
-      'sinon',
-    ],
+    external,
     watch: {
       include: [
         'src/**',
@@ -57,38 +73,20 @@ function getWatchConfig(type) {
   };
 }
 
-function getBuildConfig(type, extractExternal) {
-  let jsFileName;
-  let cssFileName;
-  let globals;
-  let external;
-  let sourcemap;
-  if (extractExternal) {
-    jsFileName = 'lake.min.js';
-    cssFileName = 'lake.css';
-    globals = globalVariables;
-    external = externalModules;
-    sourcemap = true;
-  } else {
-    jsFileName = 'lake-all.min.js';
-    cssFileName = 'lake-all.css';
-    globals = {};
-    external = [];
-    sourcemap = false;
-  }
+function getBuildConfig(type) {
   if (type === 'iife') {
     return {
       input: './src/index.ts',
       output: {
-        file: `./dist/${jsFileName}`,
+        file: './dist/lake.min.js',
         format: 'iife',
         name: 'Lake',
-        sourcemap,
-        globals,
+        sourcemap: true,
+        globals: globalVariables,
         plugins: [terser()],
-        assetFileNames: cssFileName,
+        assetFileNames: 'lake.css',
       },
-      external,
+      external: externalModules,
       plugins: [
         nodeResolve(),
         typescript(),
@@ -152,8 +150,7 @@ export default (commandLineArgs) => {
     ];
   }
   return [
-    getBuildConfig('iife', true),
-    getBuildConfig('iife', false),
+    getBuildConfig('iife'),
     getBuildConfig('es'),
     getCodeMirrorBuildConfig(),
   ];

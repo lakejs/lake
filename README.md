@@ -13,7 +13,7 @@ Compressed copies of Lake files are available, you can download them from jsDeli
 * jsDelivr: https://www.jsdelivr.com/package/npm/lakelib?path=dist&tab=files
 * UNPKG: https://unpkg.com/browse/lakelib@latest/dist/
 
-Note: `lake-all.css` and `lake-all.min.js` are built with CodeMirror and PhotoSwipe, so they are very convenient to use. But if you have already imported these libraries in your page, then it is not the best approach, you had better use `lake.css` and `lake.min.js`, which are without large third-party libraries. To find out more, take a look at the [IIFE example](https://github.com/lakejs/lake/blob/master/examples/iife.html) and [Rollup configuration](https://github.com/lakejs/lake/blob/master/rollup.config.mjs).
+Note: `lake.min.js` has not built with CodeMirror, so addtioanaly including `codemirror.min.js` to your page is needed. But if you do not need the code block feature, you do not have to include CodeMirror, just set the global variable to null. To find out more, take a look at the [IIFE example](https://github.com/lakejs/lake/blob/master/examples/iife.html) and [Rollup configuration](https://github.com/lakejs/lake/blob/master/rollup.config.mjs).
 
 #### Downloading Lake using npm
 
@@ -28,8 +28,8 @@ npm install lakelib
 First, add the following lines of code in the `<head>` of an HTML page.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lakelib@latest/dist/lake-all.css" />
-<script src="https://cdn.jsdelivr.net/npm/lakelib@latest/dist/lake-all.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lakelib@latest/dist/lake.css" />
+<script src="https://cdn.jsdelivr.net/npm/lakelib@latest/dist/lake.min.js"></script>
 ```
 
 Then, in the HTML page add the following HTML code that will serve as a placeholder for an editor instance.
@@ -57,7 +57,7 @@ new Lake.Toolbar({
 
 ### Development
 
-First, you need to clone the repository and install all necessary dependencies. Then, start a composite server that contains an HTTP service and real-time bundling.
+To build Lake or change source code, you need to download the repository and start a development server that contains an HTTP service and real-time bundling.
 
 ``` bash
 # clone the repository
@@ -66,7 +66,7 @@ git clone https://github.com/lakejs/lake.git
 cd lake
 # install all dependencies
 pnpm install
-# build dependencies
+# build CodeMirror
 pnpm build
 # start a local server
 pnpm start
