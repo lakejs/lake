@@ -65,4 +65,7 @@ export default {
     zoomOut: 'Zoom out',
     zoomIn: 'Zoom in',
   },
+  codeBlock: {
+    langType: 'Select language',
+  },
 } satisfies BaseTranslation;

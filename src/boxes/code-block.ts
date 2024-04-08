@@ -10,6 +10,7 @@ import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
 import { debug, query } from '../utils';
 import { Dropdown } from '../ui/dropdown';
+import { locale } from '../i18n';
 
 const defaultLangValue = 'text';
 
@@ -71,7 +72,7 @@ export const codeBlockBox: BoxComponent = {
       name: 'langType',
       downIcon: icons.get('down'),
       defaultValue: langItem ? boxValue.lang : defaultLangValue,
-      tooltip: 'Select language',
+      tooltip: locale.codeBlock.langType(),
       width: 'auto',
       menuType: 'list',
       menuItems: langItems.map(item => ({

@@ -254,6 +254,12 @@ type RootTranslation = {
 		 */
 		zoomIn: string
 	}
+	codeBlock: {
+		/**
+		 * S​e​l​e​c​t​ ​l​a​n​g​u​a​g​e
+		 */
+		langType: string
+	}
 }
 
 export type TranslationFunctions = {
@@ -494,6 +500,12 @@ export type TranslationFunctions = {
 		 * Zoom in
 		 */
 		zoomIn: () => LocalizedString
+	}
+	codeBlock: {
+		/**
+		 * Select language
+		 */
+		langType: () => LocalizedString
 	}
 }
 

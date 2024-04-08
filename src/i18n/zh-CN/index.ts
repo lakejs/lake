@@ -65,4 +65,7 @@ export default {
     zoomOut: '缩小',
     zoomIn: '放大',
   },
+  codeBlock: {
+    langType: '选择代码语言',
+  },
 } satisfies Translation;
