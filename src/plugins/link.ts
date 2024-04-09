@@ -18,10 +18,7 @@ export default (editor: Editor) => {
     popup.updatePosition();
   });
   editor.event.on('click', (targetNode: Nodes) => {
-    if (
-      targetNode.closest('.lake-toolbar button[name="link"]').length > 0 ||
-      targetNode.closest('.lake-link-popup').length > 0
-    ) {
+    if (targetNode.closest('button[name="link"]').length > 0) {
       return;
     }
     const linkNode = targetNode.closest('a');

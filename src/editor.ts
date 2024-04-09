@@ -119,6 +119,9 @@ export class Editor {
 
   private clickListener: EventListener = event => {
     const targetNode = new Nodes(event.target as Element);
+    if (targetNode.closest('.lake-popup').length > 0) {
+      return;
+    }
     this.event.emit('click', targetNode);
   };
 

@@ -33,8 +33,8 @@ export default (editor: Editor) => {
     if (tagetNode.isInside) {
       return;
     }
-    const buttonNode = tagetNode.closest('.lake-button');
-    if (buttonNode.length > 0 && buttonNode.attr('name') === 'formatPainter') {
+    const buttonNode = tagetNode.closest('button[name="formatPainter"]');
+    if (buttonNode.length > 0) {
       return;
     }
     editor.container.removeClass(formatPainterClassName);

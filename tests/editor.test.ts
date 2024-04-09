@@ -2,6 +2,7 @@ import { debug, query } from '../src/utils';
 import { Nodes } from '../src/models/nodes';
 import { Box } from '../src/models/box';
 import { Editor } from '../src/editor';
+import { click } from './utils';
 
 function inputData(editor: Editor, data: string) {
   const event = new InputEvent('input', {
@@ -284,6 +285,21 @@ describe('editor', () => {
     });
     editor.container.find('.lake-box-strip').eq(0).text('你好');
     inputCompositionData(editor, '你好');
+  });
+
+  it('click event', () => {
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    let clickCount = 0;
+    editor.event.on('click', () => {
+      clickCount++;
+    });
+    click(editor.container.parent());
+    expect(clickCount).to.equal(1);
+    click(query(editor.popupContainer));
+    expect(clickCount).to.equal(1);
   });
 
   /*

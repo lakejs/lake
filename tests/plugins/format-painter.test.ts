@@ -1,17 +1,17 @@
 import type { Editor } from '../../src';
-import { testPlugin } from '../utils';
+import { testPlugin, click } from '../utils';
 
 function testFormatPainter(editor: Editor): void {
   editor.command.execute('formatPainter');
   expect(editor.container.hasClass('lake-format-painter')).to.equal(true);
   editor.selection.range.selectNodeContents(editor.container.find('p').eq(1));
-  editor.container.emit('click');
+  click(editor.container);
   expect(editor.container.hasClass('lake-format-painter')).to.equal(false);
 }
 
 describe('plugins / format-painter', () => {
 
-  it('copies and adds strong with collapsed selection', () => {
+  it('should copy and add strong with collapsed selection', () => {
     const content = `
     <p><strong>f<focus />oo</strong></p>
     <p>bar</p>
@@ -29,7 +29,7 @@ describe('plugins / format-painter', () => {
     );
   });
 
-  it('copies and adds strong with expanded selection', () => {
+  it('should copy and add strong with expanded selection', () => {
     const content = `
     <p><anchor /><strong>foo</strong><focus /></p>
     <p>bar</p>
@@ -47,7 +47,7 @@ describe('plugins / format-painter', () => {
     );
   });
 
-  it('copies and adds strong-i', () => {
+  it('should copy and add strong-i', () => {
     const content = `
     <p><strong><i><anchor />foo<focus /></i></strong></p>
     <p>bar</p>
@@ -65,7 +65,7 @@ describe('plugins / format-painter', () => {
     );
   });
 
-  it('copies and adds span-i', () => {
+  it('should copy and add span-i', () => {
     const content = `
     <p><span style="color: red; background-color: blue;"><i><anchor />foo<focus /></i></span></p>
     <p>bar</p>
@@ -97,6 +97,23 @@ describe('plugins / format-painter', () => {
       output,
       editor => {
         testFormatPainter(editor);
+      },
+    );
+  });
+
+  it('should cancel painting', () => {
+    const content = `
+    <p><strong>f<focus />oo</strong></p>
+    <p>bar</p>
+    `;
+    const output = content;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.command.execute('formatPainter');
+        click(editor.container.parent());
+        expect(editor.container.hasClass('lake-format-painter')).to.equal(false);
       },
     );
   });

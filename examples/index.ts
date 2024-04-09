@@ -154,6 +154,7 @@ function renderHeader(pageType: string): void {
 function renderEditor(pageType: string): void {
   const currentItem = menuItemMap.get(pageType);
   if (!currentItem) {
+    window.location.href = './';
     return;
   }
   query(document.body).addClass(pageType);
