@@ -125,11 +125,6 @@ export class Editor {
     this.event.emit('click', targetNode);
   };
 
-  private mouseoverListener: EventListener = event => {
-    const targetNode = new Nodes(event.target as Element);
-    this.event.emit('mouseover', targetNode);
-  };
-
   private resizeListener: EventListener = () => {
     this.event.emit('resize');
   };
@@ -422,7 +417,6 @@ export class Editor {
       this.bindHistoryEvents();
     }
     document.addEventListener('click', this.clickListener);
-    document.addEventListener('mouseover', this.mouseoverListener);
     window.addEventListener('resize', this.resizeListener);
   }
 
@@ -435,7 +429,6 @@ export class Editor {
       document.removeEventListener('selectionchange', this.selectionchangeListener);
     }
     document.removeEventListener('click', this.clickListener);
-    document.removeEventListener('mouseover', this.mouseoverListener);
     window.removeEventListener('resize', this.resizeListener);
   }
 }
