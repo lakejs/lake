@@ -669,6 +669,15 @@ describe('models / nodes', () => {
     expect(nodes.width()).to.equal(240);
   });
 
+  it('method: innerWidth', () => {
+    const nodes = new Nodes(element);
+    // nodes.css('border', '1px solid #000');
+    nodes.css('margin', '10px');
+    nodes.css('padding', '20px');
+    nodes.css('width', '200px');
+    expect(nodes.innerWidth()).to.equal(200);
+  });
+
   it('method: height', () => {
     const nodes = new Nodes(element);
     // nodes.css('border', '1px solid #000');

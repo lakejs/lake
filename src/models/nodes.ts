@@ -624,6 +624,13 @@ export class Nodes {
     return element.offsetWidth;
   }
 
+  // Returns the interior width of the first element, which does not include padding.
+  public innerWidth() {
+    const paddingLeft = parseInt(this.computedCSS('padding-left'), 10) || 0;
+    const paddingRight = parseInt(this.computedCSS('padding-right'), 10) || 0;
+    return this.width() - paddingLeft - paddingRight;
+  }
+
   // Returns the height of of the first element.
   public height(): number {
     const element = this.get(0) as HTMLElement;

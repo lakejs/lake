@@ -392,13 +392,6 @@ export class Editor {
     return box;
   }
 
-  // Returns the interior width of the editor area, which does not include padding.
-  public innerWidth() {
-    const paddingLeft = parseInt(this.container.computedCSS('padding-left'), 10) || 0;
-    const paddingRight = parseInt(this.container.computedCSS('padding-right'), 10) || 0;
-    return this.container.width() - paddingLeft - paddingRight;
-  }
-
   // Renders an editor area and set default value to it.
   public render(): void {
     const value = normalizeValue(this.config.value);
