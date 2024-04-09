@@ -96,7 +96,6 @@ export class Toolbar {
       width: item.width,
       menuType: item.menuType,
       menuItems: item.menuItems,
-      hasDocumentClick: false,
       tabIndex: -1,
       onSelect: value => {
         editor.focus();
@@ -104,14 +103,6 @@ export class Toolbar {
       },
     });
     dropdown.render();
-    const titleNode = dropdown.node.find('.lake-dropdown-title');
-    const menuNode = dropdown.node.find('.lake-dropdown-menu');
-    editor.event.on('click', target => {
-      if (target.closest('.lake-dropdown-title').get(0) === titleNode.get(0)) {
-        return;
-      }
-      menuNode.hide();
-    });
   }
 
   private appendUpload(item: ToolbarUploadItem): void {

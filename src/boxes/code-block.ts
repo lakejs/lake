@@ -79,7 +79,6 @@ export const codeBlockBox: BoxComponent = {
         value: item.value,
         text: item.text,
       })),
-      hasDocumentClick: true,
       onSelect: value => {
         const item = langItemMap.get(value);
         codeEditor.dispatch({

@@ -100,7 +100,18 @@ export class Dropdown {
     }
   }
 
-  private bindDropdownEvents(): void {
+  private documentClickListener = (event: Event) => {
+    const targetNode = new Nodes(event.target as Element);
+    const titleNode = this.node.find('.lake-dropdown-title');
+    const menuNode = this.node.find('.lake-dropdown-menu');
+    if (targetNode.closest('.lake-dropdown-title').get(0) === titleNode.get(0)) {
+      return;
+    }
+    menuNode.hide();
+    document.removeEventListener('click', this.documentClickListener);
+  };
+
+  private bindEvents(): void {
     const config = this.config;
     const dropdownNode = this.node;
     const titleNode = dropdownNode.find('.lake-dropdown-title');
@@ -148,14 +159,6 @@ export class Dropdown {
         config.onSelect(value);
       });
     }
-    const documentClickListener = (event: Event) => {
-      const targetNode = new Nodes(event.target as Element);
-      if (targetNode.closest('.lake-dropdown-title').get(0) === titleNode.get(0)) {
-        return;
-      }
-      menuNode.hide();
-      document.removeEventListener('click', documentClickListener);
-    };
     const triggerNode = (config.menuType === 'color' && downIconNode) ? downIconNode : titleNode;
     triggerNode.on('click', event => {
       event.preventDefault();
@@ -182,9 +185,7 @@ export class Dropdown {
         menuNode.css('right', '');
       }
       menuNode.css('visibility', '');
-      if (config.hasDocumentClick) {
-        document.addEventListener('click', documentClickListener);
-      }
+      document.addEventListener('click', this.documentClickListener);
     });
     menuNode.on('click', event => {
       event.preventDefault();
@@ -200,9 +201,7 @@ export class Dropdown {
       }
       config.onSelect(value);
       menuNode.hide();
-      if (config.hasDocumentClick) {
-        document.removeEventListener('click', documentClickListener);
-      }
+      document.removeEventListener('click', this.documentClickListener);
     });
   }
 
@@ -241,6 +240,11 @@ export class Dropdown {
     dropdownNode.append(titleNode);
     dropdownNode.append(menuNode);
     this.root.append(dropdownNode);
-    this.bindDropdownEvents();
+    this.bindEvents();
+  }
+
+  public unmount(): void {
+    this.node.remove();
+    document.removeEventListener('click', this.documentClickListener);
   }
 }

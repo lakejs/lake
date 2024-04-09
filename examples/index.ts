@@ -111,7 +111,6 @@ function renderHeader(pageType: string): void {
     width: 'auto',
     menuType: 'list',
     menuItems: languageMenuItems,
-    hasDocumentClick: true,
     onSelect: value => {
       localStorage.setItem(localStorageKey, value);
       window.location.reload();

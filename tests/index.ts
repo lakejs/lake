@@ -116,6 +116,7 @@ import './plugins/arrow-keys.test';
 // UI
 import './ui/button.test';
 import './ui/button-ui.test';
+import './ui/dropdown.test';
 import './ui/dropdown-ui.test';
 import './ui/upload.test';
 import './ui/link-popup.test';

@@ -14,5 +14,4 @@ export type DropdownItem = {
   width: string;
   menuType: 'list' | 'color';
   menuItems: DropdownMenuItem[];
-  hasDocumentClick?: boolean;
 };
