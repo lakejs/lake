@@ -4,48 +4,35 @@ import { LinkPopup } from '../ui/link-popup';
 import { locale } from '../i18n';
 
 export default (editor: Editor) => {
-  let popup: LinkPopup;
-  const showPopup = (lineNode: Nodes): void => {
-    if (popup) {
-      popup.show(lineNode);
-      return;
-    }
-    popup = new LinkPopup(editor.popupContainer);
-    popup.event.on('save', () => {
-      editor.history.save();
-    });
-    popup.event.on('remove', () => {
-      editor.history.save();
-    });
-    popup.show(lineNode);
-  };
+  const popup = new LinkPopup(editor.popupContainer);
+  popup.event.on('save', () => {
+    editor.history.save();
+  });
+  popup.event.on('remove', () => {
+    editor.history.save();
+  });
   editor.root.on('scroll', () => {
-    if (!popup) {
-      return;
-    }
     popup.updatePosition();
   });
   editor.event.on('resize', () => {
-    if (!popup) {
-      return;
-    }
     popup.updatePosition();
   });
   editor.event.on('click', (targetNode: Nodes) => {
-    if (targetNode.isOutside) {
-      return;
-    }
-    if (targetNode.closest('lake-box').length > 0) {
+    if (
+      targetNode.closest('.lake-toolbar button[name="link"]').length > 0 ||
+      targetNode.closest('.lake-link-popup').length > 0
+    ) {
       return;
     }
     const linkNode = targetNode.closest('a');
     if (linkNode.length === 0) {
-      if (popup) {
-        popup.hide();
-      }
+      popup.hide();
       return;
     }
-    showPopup(linkNode);
+    if (linkNode.closest('lake-box').length > 0) {
+      return;
+    }
+    popup.show(linkNode);
   });
   editor.command.add('link', {
     execute: () => {
@@ -54,7 +41,7 @@ export default (editor: Editor) => {
         return;
       }
       editor.history.save();
-      showPopup(linkNode);
+      popup.show(linkNode);
     },
   });
 };

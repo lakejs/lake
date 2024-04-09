@@ -11,7 +11,7 @@
   cursor: pointer;
   user-select: none;
 }
-.lake-button:focus {
+.lake-button:focus-visible {
   outline: var(--button-outline);
 }
 .lake-button[disabled] {

@@ -10,7 +10,7 @@
 .lake-popup input[type="text"]:hover {
   border: 1px solid var(--input-border-hover-color);
 }
-.lake-popup input[type="text"]:focus {
+.lake-popup input[type="text"]:focus-visible {
   outline: var(--input-outline);
   outline-offset: -2px;
 }

@@ -72,7 +72,7 @@ export class Dropdown {
     }
   }
 
-  private addDropdownMenu(menuNode: Nodes): void {
+  private addMenu(menuNode: Nodes): void {
     const config = this.config;
     for (const menuItem of config.menuItems) {
       const listContent = template`
@@ -236,7 +236,7 @@ export class Dropdown {
     if (config.menuType === 'color') {
       this.updateColorAccent(titleNode, config.defaultValue);
     }
-    this.addDropdownMenu(menuNode);
+    this.addMenu(menuNode);
     dropdownNode.append(titleNode);
     dropdownNode.append(menuNode);
     this.root.append(dropdownNode);

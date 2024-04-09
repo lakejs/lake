@@ -9,11 +9,14 @@ import { locale } from '../i18n';
 export class LinkPopup {
   private linkNode: Nodes | null = null;
 
+  private root: Nodes;
+
   public container: Nodes;
 
   public event: EventEmitter = new EventEmitter();
 
   constructor(root: Nodes) {
+    this.root = root;
     this.container = query(safeTemplate`
       <div class="lake-link-popup">
         <div class="lake-row">${locale.link.url()}</div>
@@ -27,11 +30,6 @@ export class LinkPopup {
         <div class="lake-row lake-button-row"></div>
       </div>
     `);
-    this.appendCopyButton();
-    this.appendOpenButton();
-    this.appendSaveButton();
-    this.appendUnlinkButton();
-    root.append(this.container);
   }
 
   // Writes the specified text to the system clipboard
@@ -205,7 +203,21 @@ export class LinkPopup {
     }
   }
 
+  public render(): void {
+    this.appendCopyButton();
+    this.appendOpenButton();
+    this.appendSaveButton();
+    this.appendUnlinkButton();
+    this.root.append(this.container);
+  }
+
   public show(linkNode: Nodes): void {
+    if (this.root.find('.lake-link-popup').length === 0) {
+      this.render();
+    }
+    if (this.linkNode && this.linkNode.get(0) === linkNode.get(0)) {
+      return;
+    }
     this.linkNode = linkNode;
     const url = linkNode.attr('href');
     const title = linkNode.text();

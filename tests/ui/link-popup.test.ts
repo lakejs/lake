@@ -20,8 +20,8 @@ describe('ui / link-popup', () => {
     const linkNode = query('<a href="http://github.com/">GitHub</a>');
     query(document.body).append(linkNode);
     const popup = new LinkPopup(rootNode);
-    const copyButton = popup.container.find('button[name="copy"]');
     popup.event.on('copy', error => {
+      const copyButton = popup.container.find('button[name="copy"]');
       if (error) {
         expect(copyButton.find('svg').eq(0).computedCSS('display')).to.equal('none');
         expect(copyButton.find('svg').eq(2).computedCSS('display')).to.equal('inline');
@@ -33,7 +33,7 @@ describe('ui / link-popup', () => {
       done();
     });
     popup.show(linkNode);
-    click(copyButton);
+    click(popup.container.find('button[name="copy"]'));
     linkNode.remove();
   });
 
@@ -41,9 +41,9 @@ describe('ui / link-popup', () => {
     const linkNode = query('<a href="http://github.com/">GitHub</a>');
     query(document.body).append(linkNode);
     const popup = new LinkPopup(rootNode);
-    const saveButton = popup.container.find('button[name="save"]');
     popup.show(linkNode);
     popup.setInputValue('title', '');
+    const saveButton = popup.container.find('button[name="save"]');
     click(saveButton);
     expect(linkNode.text()).to.equal('http://github.com/');
     linkNode.remove();
@@ -62,10 +62,10 @@ describe('ui / link-popup', () => {
     const linkNode = query('<a href="http://github.com/">GitHub</a>');
     query(document.body).append(linkNode);
     const popup = new LinkPopup(rootNode);
-    const saveButton = popup.container.find('button[name="save"]');
     popup.show(linkNode);
     popup.setInputValue('url', '');
     popup.setInputValue('title', '');
+    const saveButton = popup.container.find('button[name="save"]');
     click(saveButton);
     expect(linkNode.parent().length).to.equal(0);
     linkNode.remove();
