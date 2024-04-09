@@ -72,7 +72,7 @@ export class Dropdown {
     }
   }
 
-  private addMenu(menuNode: Nodes): void {
+  private apppendMenuItems(menuNode: Nodes): void {
     const config = this.config;
     for (const menuItem of config.menuItems) {
       const listContent = template`
@@ -110,6 +110,45 @@ export class Dropdown {
     menuNode.hide();
     document.removeEventListener('click', this.documentClickListener);
   };
+
+  private showMenu(): void {
+    const config = this.config;
+    const dropdownNode = this.node;
+    const menuNode = dropdownNode.find('.lake-dropdown-menu');
+    if (dropdownNode.attr('disabled')) {
+      return;
+    }
+    const currentValues = Dropdown.getValue(dropdownNode);
+    menuNode.find('.lake-dropdown-menu-check').css('visibility', 'hidden');
+    menuNode.find('li').each(node => {
+      const listNode = query(node);
+      listNode.on('mouseenter', () => {
+        if (listNode.hasClass('lake-dropdown-item-selected')) {
+          return;
+        }
+        listNode.addClass('lake-dropdown-item-hovered');
+      });
+      listNode.on('mouseleave', () => {
+        listNode.removeClass('lake-dropdown-item-hovered');
+      });
+      if (currentValues.indexOf(listNode.attr('value')) >= 0) {
+        listNode.find('.lake-dropdown-menu-check').css('visibility', 'visible');
+      }
+    });
+    menuNode.css('visibility', 'hidden');
+    menuNode.show(config.menuType === 'color' ? 'flex' : 'block');
+    const dropdownNativeNode = dropdownNode.get(0) as HTMLElement;
+    const dropdownRect = dropdownNativeNode.getBoundingClientRect();
+    if (dropdownRect.x + menuNode.width() + 50 > window.innerWidth) {
+      menuNode.css('left', 'auto');
+      menuNode.css('right', '0');
+    } else {
+      menuNode.css('left', '');
+      menuNode.css('right', '');
+    }
+    menuNode.css('visibility', '');
+    document.addEventListener('click', this.documentClickListener);
+  }
 
   private bindEvents(): void {
     const config = this.config;
@@ -162,30 +201,7 @@ export class Dropdown {
     const triggerNode = (config.menuType === 'color' && downIconNode) ? downIconNode : titleNode;
     triggerNode.on('click', event => {
       event.preventDefault();
-      if (dropdownNode.attr('disabled')) {
-        return;
-      }
-      const currentValues = Dropdown.getValue(dropdownNode);
-      menuNode.find('.lake-dropdown-menu-check').css('visibility', 'hidden');
-      menuNode.find('li').each(node => {
-        const listNode = query(node);
-        if (currentValues.indexOf(listNode.attr('value')) >= 0) {
-          listNode.find('.lake-dropdown-menu-check').css('visibility', 'visible');
-        }
-      });
-      menuNode.css('visibility', 'hidden');
-      menuNode.show(config.menuType === 'color' ? 'flex' : 'block');
-      const dropdownNativeNode = dropdownNode.get(0) as HTMLElement;
-      const dropdownRect = dropdownNativeNode.getBoundingClientRect();
-      if (dropdownRect.x + menuNode.width() + 50 > window.innerWidth) {
-        menuNode.css('left', 'auto');
-        menuNode.css('right', '0');
-      } else {
-        menuNode.css('left', '');
-        menuNode.css('right', '');
-      }
-      menuNode.css('visibility', '');
-      document.addEventListener('click', this.documentClickListener);
+      this.showMenu();
     });
     menuNode.on('click', event => {
       event.preventDefault();
@@ -236,7 +252,7 @@ export class Dropdown {
     if (config.menuType === 'color') {
       this.updateColorAccent(titleNode, config.defaultValue);
     }
-    this.addMenu(menuNode);
+    this.apppendMenuItems(menuNode);
     dropdownNode.append(titleNode);
     dropdownNode.append(menuNode);
     this.root.append(dropdownNode);
