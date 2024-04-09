@@ -1,5 +1,5 @@
 import { basicSetup } from 'codemirror';
-import { Compartment } from '@codemirror/state';
+import { EditorState, Compartment } from '@codemirror/state';
 import { EditorView, keymap } from '@codemirror/view';
 import { indentWithTab } from '@codemirror/commands';
 import type { LanguageSupport } from '@codemirror/language';
@@ -45,6 +45,7 @@ const langItems: LangItem[] = [
 
 export {
   basicSetup,
+  EditorState,
   Compartment,
   EditorView,
   keymap,

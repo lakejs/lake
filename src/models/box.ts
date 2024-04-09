@@ -150,7 +150,7 @@ export class Box {
 
   // Returns the editor instance of the box.
   public getEditor(): Editor | undefined {
-    const container = this.node.closestContainer();
+    const container = this.node.closest('div[contenteditable]');
     return container.length > 0 ? editors.get(container.id) : undefined;
   }
 

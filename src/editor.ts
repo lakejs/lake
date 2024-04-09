@@ -415,8 +415,8 @@ export class Editor {
       this.focus();
       this.selection.synByBookmark();
       this.history.save();
+      Editor.plugin.loadAll(this);
     }
-    Editor.plugin.loadAll(this);
     Editor.box.renderAll(this);
     if (!this.readonly) {
       window.addEventListener('beforeunload', this.beforeunloadListener);

@@ -6,6 +6,7 @@ import fullEditor from './full-editor';
 import documentEditor from './document-editor';
 import miniatureEditor from './miniature-editor';
 import headlessEditor from './headless-editor';
+import contentView from './content-view';
 
 const { query, safeTemplate } = Utils;
 
@@ -64,6 +65,13 @@ const menuItems = [
     source: 'https://github.com/lakejs/lake/blob/master/examples/default-editor.ts',
     editorValue: window.hugeValue,
     editor: defaultEditor,
+  },
+  {
+    url: './content-view',
+    text: 'Content view',
+    source: 'https://github.com/lakejs/lake/blob/master/examples/content-view.ts',
+    editorValue: window.defaultValue,
+    editor: contentView,
   },
 ];
 

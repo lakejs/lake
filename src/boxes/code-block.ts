@@ -1,5 +1,6 @@
 import {
   basicSetup,
+  EditorState,
   Compartment,
   EditorView,
   keymap,
@@ -61,6 +62,7 @@ export const codeBlockBox: BoxComponent = {
       doc: boxValue.code ?? '',
       extensions: [
         basicSetup,
+        EditorState.readOnly.of(editor.readonly),
         keymap.of([indentWithTab]),
         language.of(langItem && langItem.component ? langItem.component() : []),
         updateListener,

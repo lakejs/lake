@@ -5,9 +5,14 @@ lake-box[name="hr"] {
   height: 21px;
   display: flex;
   align-items: center;
+}
+.lake-container[contenteditable="true"] .lake-hr {
   cursor: pointer;
 }
-lake-box[name="hr"] .lake-box-hovered .lake-hr {
+.lake-container[contenteditable="false"] .lake-hr {
+  cursor: default;
+}
+.lake-container[contenteditable="true"] lake-box[name="hr"] .lake-box-hovered .lake-hr {
   background-color: var(--background-hover-color);
 }
 lake-box[name="hr"] .lake-box-selected .lake-hr,
