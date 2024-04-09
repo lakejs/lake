@@ -99,9 +99,6 @@ export default (editor: Editor) => {
   });
   editor.container.on('click', event => {
     const mouseEvent = event as MouseEvent;
-    if (editor.readonly) {
-      return;
-    }
     if (!mouseEvent.target) {
       return;
     }

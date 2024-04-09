@@ -92,7 +92,6 @@
   width: 16px;
   height: 16px;
   border-radius: 4px;
-  cursor: pointer;
 }
 .lake-container ul[type="checklist"] li[value="true"]::before {
   border: 1px solid #1890ff;
@@ -115,5 +114,10 @@
   border-right: 2px solid #fff;
   border-radius: 1px;
   transform: rotate(45deg) scale(1) translate(-50%,-50%);
+}
+.lake-container[contenteditable="true"] ul[type="checklist"] li::before {
+  cursor: pointer;
+}
+.lake-container[contenteditable="true"] ul[type="checklist"] li::after {
   cursor: pointer;
 }
