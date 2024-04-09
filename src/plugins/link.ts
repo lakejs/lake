@@ -29,7 +29,10 @@ export default (editor: Editor) => {
       popup.hide();
       return;
     }
-    if (linkNode.closest('lake-box').length > 0) {
+    if (
+      linkNode.isOutside ||
+      linkNode.closest('lake-box').length > 0
+    ) {
       return;
     }
     popup.show(linkNode);

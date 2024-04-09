@@ -105,4 +105,12 @@ describe('plugins / link', () => {
     expect(linkTitle).to.equal('foo');
   });
 
+  it('should not show popup when the link node is outside the editor', () => {
+    const linkNode = query('<a>foo<focus /></a>');
+    query(document.body).append(linkNode);
+    click(linkNode);
+    expect(editor.popupContainer.find('.lake-link-popup').length).to.equal(0);
+    linkNode.remove();
+  });
+
 });
