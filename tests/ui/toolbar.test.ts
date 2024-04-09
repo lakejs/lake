@@ -59,7 +59,7 @@ describe('ui / toolbar', () => {
   let editor: Editor;
   let toolbar: Toolbar;
 
-  beforeEach(() => {
+  before(() => {
     rootNode = query('<div class="lake-editor"><div class="lake-toolbar-root"></div><div class="lake-root"></div></div>');
     query(document.body).append(rootNode);
     editor = new Editor({
@@ -76,7 +76,7 @@ describe('ui / toolbar', () => {
     toolbar.render();
   });
 
-  afterEach(() => {
+  after(() => {
     editor.unmount();
     rootNode.remove();
   });
