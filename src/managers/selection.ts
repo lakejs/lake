@@ -92,9 +92,6 @@ export class Selection {
   // Is a saved range which is used to add it to the native selection later.
   public range: Range;
 
-  // Is a saved node list which is used to update state of the toolbar.
-  public appliedItems: AppliedItem[] = [];
-
   constructor(container: Nodes) {
     const selection = window.getSelection();
     // When called on an <iframe> that is not displayed (e.g., where 'display: none' is set) Firefox will return null,

@@ -112,7 +112,6 @@ export class Editor {
 
   private selectionchangeListener: EventListener = () => {
     this.selection.syncByRange();
-    this.selection.appliedItems = this.selection.getAppliedItems();
     this.updateBoxSelectionStyle();
     this.emitStateChangeEvent();
   };
@@ -175,7 +174,7 @@ export class Editor {
 
   private emitStateChangeEvent = debounce(() => {
     const commandNames = this.command.getNames();
-    let appliedItems = this.selection.appliedItems;
+    let appliedItems = this.selection.getAppliedItems();
     if (
       appliedItems.length > 0 &&
       appliedItems[0].node.closestContainer().get(0) !== this.container.get(0)
