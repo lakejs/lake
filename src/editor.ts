@@ -171,6 +171,7 @@ export class Editor {
       boxContainer.removeClass('lake-box-focused');
       boxContainer.removeClass('lake-box-selected');
     });
+    this.event.emit('boxselectionstylechange');
   }, 50, {
     leading: false,
     trailing: true,

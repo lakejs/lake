@@ -136,7 +136,7 @@ describe('editor', () => {
     expect(value).to.equal(output);
   });
 
-  it('selection event: should not have any class', done => {
+  it('selection event: should not have any class', () => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
     const editor = new Editor({
       root: rootNode,
@@ -146,16 +146,13 @@ describe('editor', () => {
     const boxNode = editor.container.find('lake-box');
     const box = new Box(boxNode);
     const boxContainer = box.getContainer();
-    window.setTimeout(() => {
-      const isActivated = boxContainer.hasClass('lake-box-activated');
-      const isFocused = boxContainer.hasClass('lake-box-focused');
-      const isSelected = boxContainer.hasClass('lake-box-selected');
-      editor.unmount();
-      expect(isActivated).to.equal(false);
-      expect(isFocused).to.equal(false);
-      expect(isSelected).to.equal(false);
-      done();
-    }, 0);
+    const isActivated = boxContainer.hasClass('lake-box-activated');
+    const isFocused = boxContainer.hasClass('lake-box-focused');
+    const isSelected = boxContainer.hasClass('lake-box-selected');
+    editor.unmount();
+    expect(isActivated).to.equal(false);
+    expect(isFocused).to.equal(false);
+    expect(isSelected).to.equal(false);
   });
 
   it('selection event: should have activated class', done => {
@@ -169,8 +166,7 @@ describe('editor', () => {
     const boxNode = editor.container.find('lake-box');
     const box = new Box(boxNode);
     const boxContainer = box.getContainer();
-    range.selectNodeContents(boxContainer);
-    window.setTimeout(() => {
+    editor.event.once('boxselectionstylechange', () => {
       const isActivated = boxContainer.hasClass('lake-box-activated');
       const isFocused = boxContainer.hasClass('lake-box-focused');
       const isSelected = boxContainer.hasClass('lake-box-selected');
@@ -179,7 +175,8 @@ describe('editor', () => {
       expect(isFocused).to.equal(false);
       expect(isSelected).to.equal(false);
       done();
-    }, 100);
+    });
+    range.selectNodeContents(boxContainer);
   });
 
   it('selection event: should have focused class', done => {
@@ -193,8 +190,7 @@ describe('editor', () => {
     const boxNode = editor.container.find('lake-box');
     const box = new Box(boxNode);
     const boxContainer = box.getContainer();
-    range.selectBox(boxNode);
-    window.setTimeout(() => {
+    editor.event.once('boxselectionstylechange', () => {
       const isActivated = boxContainer.hasClass('lake-box-activated');
       const isFocused = boxContainer.hasClass('lake-box-focused');
       const isSelected = boxContainer.hasClass('lake-box-selected');
@@ -203,7 +199,8 @@ describe('editor', () => {
       expect(isFocused).to.equal(true);
       expect(isSelected).to.equal(false);
       done();
-    }, 100);
+    });
+    range.selectBox(boxNode);
   });
 
   it('selection event: should have selected class', done => {
@@ -217,8 +214,7 @@ describe('editor', () => {
     const boxNode = editor.container.find('lake-box');
     const box = new Box(boxNode);
     const boxContainer = box.getContainer();
-    range.selectNodeContents(editor.container);
-    window.setTimeout(() => {
+    editor.event.once('boxselectionstylechange', () => {
       const isActivated = boxContainer.hasClass('lake-box-activated');
       const isFocused = boxContainer.hasClass('lake-box-focused');
       const isSelected = boxContainer.hasClass('lake-box-selected');
@@ -227,7 +223,8 @@ describe('editor', () => {
       expect(isFocused).to.equal(false);
       expect(isSelected).to.equal(true);
       done();
-    }, 100);
+    });
+    range.selectNodeContents(editor.container);
   });
 
   it('input event: input text in the left strip of inline box', done => {
@@ -324,16 +321,16 @@ describe('editor', () => {
   it('readonly mode', () => {
     const input = '<p>foo<focus /></p>';
     const output = '<p>foo<focus /></p>';
-    const view = new Editor({
+    const contentView = new Editor({
       root: rootNode,
       readonly: true,
       value: input,
     });
-    view.render();
-    const readonly = view.readonly;
-    const value = view.getValue();
+    contentView.render();
+    const readonly = contentView.readonly;
+    const value = contentView.getValue();
     debug(`output: ${value}`);
-    view.unmount();
+    contentView.unmount();
     expect(readonly).to.equal(true);
     expect(value).to.equal(output);
   });

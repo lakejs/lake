@@ -30,7 +30,7 @@ describe('boxes / code-block', () => {
   it('should activate box after clicking', done => {
     const boxContainer = box.getContainer();
     box.getData('codeEditor').focus();
-    editor.event.once('statechange', () => {
+    editor.event.once('boxselectionstylechange', () => {
       expect(boxContainer.hasClass('lake-box-activated')).to.equal(true);
       done();
     });
@@ -42,7 +42,7 @@ describe('boxes / code-block', () => {
     expect(box.value.lang).to.equal('css');
     expect(dropdownNode.computedCSS('display')).to.equal('none');
     box.getData('codeEditor').focus();
-    editor.event.once('statechange', () => {
+    editor.event.once('boxselectionstylechange', () => {
       expect(dropdownNode.computedCSS('display')).to.equal('block');
       click(dropdownNode.find('button[name="langType"]'));
       expect(dropdownNode.find('.lake-dropdown-menu').computedCSS('display')).to.equal('block');
