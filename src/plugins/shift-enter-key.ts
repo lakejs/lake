@@ -13,7 +13,7 @@ function addLineBreak(editor: Editor): void {
       return;
     }
   }
-  editor.selection.insertContents('<br />');
+  editor.selection.insertNode(query('<br />'));
 }
 
 function addBlockOrLineBreakForBox(editor: Editor): void {
@@ -51,6 +51,7 @@ export default (editor: Editor) => {
     if (range.isInsideBox) {
       return;
     }
+    editor.rectifyContent();
     event.preventDefault();
     if (range.isBox) {
       addBlockOrLineBreakForBox(editor);

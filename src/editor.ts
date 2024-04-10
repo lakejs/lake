@@ -4,7 +4,7 @@ import { version } from '../package.json';
 import { NativeNode } from './types/native';
 import { UploadRequestMethod } from './types/request';
 import { editors } from './storage/editors';
-import { denormalizeValue, normalizeValue, query } from './utils';
+import { denormalizeValue, normalizeValue, query, debug } from './utils';
 import { Nodes } from './models/nodes';
 import { Box } from './models/box';
 import { HTMLParser } from './parsers/html-parser';
@@ -213,6 +213,12 @@ export class Editor {
     maxWait: 100,
   });
 
+  private emitChangeEvent = (value: string) => {
+    this.rectifyContent();
+    this.emitStateChangeEvent();
+    this.event.emit('change', value);
+  };
+
   private inputInBoxStrip(): void {
     const selection = this.selection;
     const range = selection.range;
@@ -292,18 +298,15 @@ export class Editor {
   private bindHistoryEvents(): void {
     this.history.event.on('undo', value => {
       this.box.renderAll(this);
-      this.emitStateChangeEvent();
-      this.event.emit('change', value);
+      this.emitChangeEvent(value);
     });
     this.history.event.on('redo', value => {
       this.box.renderAll(this);
-      this.emitStateChangeEvent();
-      this.event.emit('change', value);
+      this.emitChangeEvent(value);
     });
     this.history.event.on('save', value => {
       this.box.rectifyInstances(this);
-      this.emitStateChangeEvent();
-      this.event.emit('change', value);
+      this.emitChangeEvent(value);
     });
   }
 
@@ -314,6 +317,34 @@ export class Editor {
     this.container.on('blur', ()=> {
       this.root.removeClass('lake-root-focused');
     });
+  }
+
+  // Fixes wrong content, especially empty tag.
+  public rectifyContent(): void {
+    let children = this.container.children();
+    for (const child of children) {
+      if ((child.isBlock || child.isMark) && child.html() === '') {
+        child.remove();
+        debug('Rectifying content: empty tag was removed');
+      }
+    }
+    children = this.container.children();
+    if (children.length === 0) {
+      this.container.html('<p><br /></p>');
+      this.selection.range.shrinkAfter(this.container);
+      debug('Rectifying content: default paragraph was added');
+      return;
+    }
+    if (children.length === 1) {
+      const child = children[0];
+      if (child.isVoid) {
+        const paragraph = query('<p />');
+        child.before(paragraph);
+        paragraph.append(child);
+        this.selection.range.shrinkAfter(paragraph);
+        debug('Rectifying content: void element was wrapped in paragraph');
+      }
+    }
   }
 
   // Saves the input data which is unsaved.

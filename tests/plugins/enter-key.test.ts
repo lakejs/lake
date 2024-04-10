@@ -4,7 +4,41 @@ const imageBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTI1Ni5wb
 
 describe('plugins / enter-key', () => {
 
-  it('paragraph: empty content', () => {
+  it('paragraph: no content', () => {
+    const content = `
+    <focus />
+    `;
+    const output = `
+    <p><br /></p>
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('paragraph: wrong content', () => {
+    const content = `
+    <focus /><br /><p></p>
+    `;
+    const output = `
+    <p><br /></p>
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('paragraph: empty paragraph', () => {
     const content = `
     <p><br /><focus /></p>
     `;

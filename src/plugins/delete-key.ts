@@ -37,6 +37,7 @@ export default (editor: Editor) => {
     if (range.isInsideBox) {
       return;
     }
+    editor.rectifyContent();
     if (range.isBoxRight) {
       const boxNode = range.startNode.closest('lake-box');
       const nextNode = boxNode.next();

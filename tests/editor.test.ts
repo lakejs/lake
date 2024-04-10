@@ -51,7 +51,7 @@ describe('editor', () => {
     rootNode.remove();
   });
 
-  it('constructor: sets spellcheck', () => {
+  it('constructor: spellcheck is true', () => {
     const editor = new Editor({
       root: rootNode,
       spellcheck: true,
@@ -62,6 +62,23 @@ describe('editor', () => {
     expect(spellcheck).to.equal('true');
   });
 
+  it('constructor: readonly is true', () => {
+    const input = '<p>foo<focus /></p>';
+    const output = '<p>foo<focus /></p>';
+    const contentView = new Editor({
+      root: rootNode,
+      readonly: true,
+      value: input,
+    });
+    contentView.render();
+    const readonly = contentView.readonly;
+    const value = contentView.getValue();
+    debug(`output: ${value}`);
+    contentView.unmount();
+    expect(readonly).to.equal(true);
+    expect(value).to.equal(output);
+  });
+
   it('constructor: empty default value', () => {
     const input = '';
     const output = '';
@@ -70,6 +87,66 @@ describe('editor', () => {
       value: input,
     });
     editor.render();
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+  });
+
+  it('rectifyContent method: no content', () => {
+    const input = '';
+    const output = '<p><br /><focus /></p>';
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    editor.container.html(input);
+    editor.history.save();
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+  });
+
+  it('rectifyContent method: br', () => {
+    const input = '<br />';
+    const output = '<p><br /><focus /></p>';
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    editor.container.html(input);
+    editor.history.save();
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+  });
+
+  it('rectifyContent method: br and empty mark', () => {
+    const input = '<br /><span></span>';
+    const output = '<p><br /><focus /></p>';
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    editor.container.html(input);
+    editor.history.save();
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+  });
+
+  it('rectifyContent method: br and empty block', () => {
+    const input = '<br /><p></p>';
+    const output = '<p><br /><focus /></p>';
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    editor.container.html(input);
+    editor.history.save();
     const value = editor.getValue();
     debug(`output: ${value}`);
     editor.unmount();
@@ -104,6 +181,18 @@ describe('editor', () => {
     expect(value).to.equal(output);
   });
 
+  it('method: focus / blur', () => {
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    editor.focus();
+    expect(rootNode.hasClass('lake-root-focused')).to.equal(true);
+    editor.blur();
+    expect(rootNode.hasClass('lake-root-focused')).to.equal(false);
+    editor.unmount();
+  });
+
   it('method: insertBox', () => {
     const output = '<p><lake-box type="inline" name="inlineBox" focus="right"></lake-box></p>';
     const editor = new Editor({
@@ -136,7 +225,7 @@ describe('editor', () => {
     expect(value).to.equal(output);
   });
 
-  it('selection event: should not have any class', () => {
+  it('box selection: should not have any class', () => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
     const editor = new Editor({
       root: rootNode,
@@ -155,7 +244,7 @@ describe('editor', () => {
     expect(isSelected).to.equal(false);
   });
 
-  it('selection event: should have activated class', done => {
+  it('box selection: should have activated class', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
     const editor = new Editor({
       root: rootNode,
@@ -179,7 +268,7 @@ describe('editor', () => {
     range.selectNodeContents(boxContainer);
   });
 
-  it('selection event: should have focused class', done => {
+  it('box selection: should have focused class', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
     const editor = new Editor({
       root: rootNode,
@@ -203,7 +292,7 @@ describe('editor', () => {
     range.selectBox(boxNode);
   });
 
-  it('selection event: should have selected class', done => {
+  it('box selection: should have selected class', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
     const editor = new Editor({
       root: rootNode,
@@ -235,7 +324,7 @@ describe('editor', () => {
     });
     editor.render();
     editor.setValue(input);
-    editor.event.on('input', () => {
+    editor.event.once('input', () => {
       const value = editor.getValue();
       debug(`output: ${value}`);
       editor.unmount();
@@ -254,7 +343,7 @@ describe('editor', () => {
     });
     editor.render();
     editor.setValue(input);
-    editor.event.on('input', () => {
+    editor.event.once('input', () => {
       const value = editor.getValue();
       debug(`output: ${value}`);
       editor.unmount();
@@ -273,7 +362,7 @@ describe('editor', () => {
     });
     editor.render();
     editor.setValue(input);
-    editor.event.on('input', () => {
+    editor.event.once('input', () => {
       const value = editor.getValue();
       debug(`output: ${value}`);
       editor.unmount();
@@ -282,6 +371,31 @@ describe('editor', () => {
     });
     editor.container.find('.lake-box-strip').eq(0).text('你好');
     inputCompositionData(editor, '你好');
+  });
+
+  it('statechange event', done => {
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    editor.event.once('statechange', data => {
+      expect(data.appliedItems[0].name).to.equal('h1');
+      done();
+    });
+    editor.command.execute('heading', 'h1');
+  });
+
+  it('change event', () => {
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    let calledCount = 0;
+    editor.event.on('change', () => {
+      calledCount++;
+    });
+    editor.command.execute('heading', 'h1');
+    expect(calledCount).to.equal(1);
   });
 
   it('click event', () => {
@@ -297,42 +411,6 @@ describe('editor', () => {
     expect(clickCount).to.equal(1);
     click(query(editor.popupContainer));
     expect(clickCount).to.equal(1);
-  });
-
-  /*
-  it('always keeps empty paragraph', () => {
-    const input = '<p>foo</p>';
-    const output = '<p><br /><focus /></p>';
-    const editor = new Editor({
-      root: rootNode,
-    });
-    editor.render();
-    editor.setValue(input);
-    editor.command.execute('selectAll');
-    editor.selection.deleteContents();
-    editor.history.save();
-    const value = editor.getValue();
-    debug(`output: ${value}`);
-    editor.unmount();
-    expect(value).to.equal(output);
-  });
-  */
-
-  it('readonly mode', () => {
-    const input = '<p>foo<focus /></p>';
-    const output = '<p>foo<focus /></p>';
-    const contentView = new Editor({
-      root: rootNode,
-      readonly: true,
-      value: input,
-    });
-    contentView.render();
-    const readonly = contentView.readonly;
-    const value = contentView.getValue();
-    debug(`output: ${value}`);
-    contentView.unmount();
-    expect(readonly).to.equal(true);
-    expect(value).to.equal(output);
   });
 
 });

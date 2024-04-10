@@ -4,6 +4,54 @@ const imageBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTI1Ni5wb
 
 describe('plugins / shift-enter-key', () => {
 
+  it('paragraph: no content', () => {
+    const content = `
+    <focus />
+    `;
+    const output = `
+    <p><br /><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('shift+enter');
+      },
+    );
+  });
+
+  it('paragraph: wrong content', () => {
+    const content = `
+    <focus /><br /><p></p>
+    `;
+    const output = `
+    <p><br /><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('shift+enter');
+      },
+    );
+  });
+
+  it('paragraph: empty paragraph', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <p><br /><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('shift+enter');
+      },
+    );
+  });
+
   it('the focus is between the characters of the text', () => {
     const content = `
     <p>f<focus />oo</p>

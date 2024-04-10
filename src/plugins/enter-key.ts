@@ -57,6 +57,7 @@ export default (editor: Editor) => {
       return;
     }
     event.preventDefault();
+    editor.rectifyContent();
     if (range.isBox) {
       addBlockOrSplitBlockForBox(editor);
       editor.history.save();
