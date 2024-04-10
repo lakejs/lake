@@ -52,6 +52,38 @@ describe('plugins / backspace-key', () => {
     );
   });
 
+  it('should delete br without text', () => {
+    const content = `
+    <p><br /><br /><focus /></p>
+    `;
+    const output = `
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should delete br with text', () => {
+    const content = `
+    <p>foo<br /><br /><focus /></p>
+    `;
+    const output = `
+    <p>foo<br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
   it('sets heading to paragraph', () => {
     const content = `
     <h1><br /><focus /></h1>
@@ -512,7 +544,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('should remove br', () => {
+  it('should remove br after inline box', () => {
     const content = `
     <p>foo</p>
     <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><br /><focus /></p>

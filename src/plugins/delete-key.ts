@@ -88,6 +88,13 @@ export default (editor: Editor) => {
       editor.history.save();
       return;
     }
+    if (nextNode.name === 'br' && nextNode.next().length > 0) {
+      event.preventDefault();
+      range.setStartBefore(nextNode);
+      range.collapseToStart();
+      nextNode.remove();
+      editor.history.save();
+    }
     const rightText = range.getRightText();
     if (rightText === '') {
       event.preventDefault();
@@ -97,14 +104,6 @@ export default (editor: Editor) => {
         block = range.getBlocks()[0];
       }
       mergeWithNextBlock(editor, block);
-      editor.history.save();
-      return;
-    }
-    if (nextNode.name === 'br') {
-      event.preventDefault();
-      range.setStartBefore(nextNode);
-      range.collapseToStart();
-      nextNode.remove();
       editor.history.save();
     }
   });

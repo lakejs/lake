@@ -52,6 +52,38 @@ describe('plugins / delete-key', () => {
     );
   });
 
+  it('should delete br without text', () => {
+    const content = `
+    <p><focus /><br /><br /></p>
+    `;
+    const output = `
+    <p><focus /><br /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('delete');
+      },
+    );
+  });
+
+  it('should delete br with text', () => {
+    const content = `
+    <p>foo<focus /><br /><br /></p>
+    `;
+    const output = `
+    <p>foo<focus /><br /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('delete');
+      },
+    );
+  });
+
   it('merges empty paragraphs', () => {
     const content = `
     <p><br /><focus /></p>
@@ -320,7 +352,7 @@ describe('plugins / delete-key', () => {
     );
   });
 
-  it('should remove br', () => {
+  it('should remove br before inline box', () => {
     const content = `
     <p>foo</p>
     <p><focus /><br /><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
