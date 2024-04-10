@@ -1,6 +1,8 @@
 /* CodeMirror */
 .cm-editor {
   font-size: 14px;
+  border-radius: 5px;
+  background-color: #f6f8fa;
 }
 .cm-editor.cm-focused {
   outline: none;
@@ -8,23 +10,7 @@
 .cm-editor .cm-content {
   font-family: Consolas, Courier, monospace;
 }
-.cm-editor .cm-gutters {
-  color: var(--disabled-text-color);
-  border-right: 1px solid var(--border-color);
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-}
-.cm-editor .cm-activeLineGutter {
-  color: var(--text-color);
-  background-color: transparent;
-}
-.cm-editor .cm-activeLine {
-  background-color: transparent;
-}
-.cm-editor .cm-selectionBackground {
-  background-color: transparent;
-}
-.cm-editor.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground {
+.cm-editor .cm-content ::selection {
   background-color: var(--selection-background-color);
 }
 
@@ -34,7 +20,7 @@ lake-box[name="codeBlock"] {
 }
 .lake-code-block {
   box-sizing: border-box;
-  border: 1px solid var(--border-color);
+  border: 1px solid transparent;
   border-radius: 5px;
 }
 lake-box[name="codeBlock"] .lake-box-selected .lake-code-block {
@@ -44,7 +30,7 @@ lake-box[name="codeBlock"] .lake-box-focused .lake-code-block {
   border-color: var(--box-border-focus-color);
 }
 lake-box[name="codeBlock"] .lake-box-activated .lake-code-block {
-  border-color: var(--box-border-active-color);
+  border-color: var(--box-border-focus-color);
 }
 .lake-code-block {
   position: relative;
@@ -61,6 +47,10 @@ lake-box[name="codeBlock"] .lake-box-activated .lake-code-block .lake-dropdown {
 .lake-code-block .lake-dropdown .lake-dropdown-title {
   margin: 0;
   padding-right: 4px;
+  background-color: #f6f8fa;
+}
+.lake-code-block .lake-dropdown.lake-list-dropdown .lake-dropdown-title-hovered {
+  background-color: var(--background-active-color);
 }
 .lake-code-block .lake-dropdown .lake-dropdown-text {
   margin: 3px 6px;
