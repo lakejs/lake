@@ -1,10 +1,11 @@
 import type { BaseTranslation } from '../types';
+import { modifierText } from '../../utils/modifier-text';
 
 export default {
   toolbar: {
-    undo: 'Undo (Ctrl+Z)',
-    redo: 'Redo (Ctrl+Y)',
-    selectAll: 'Select all (Ctrl+A)',
+    undo: `Undo (${modifierText('mod+Z')})`,
+    redo: `Redo (${modifierText('mod+Y')})`,
+    selectAll: `Select all (${modifierText('mod+A')})`,
     paragraph: 'Paragraph',
     blockQuote: 'Block quotation',
     numberedList: 'Numbered list',
@@ -16,9 +17,9 @@ export default {
     alignJustify: 'Align justify',
     increaseIndent: 'Increase indent',
     decreaseIndent: 'Decrease indent',
-    bold: 'Bold (Ctrl+B)',
-    italic: 'Italic (Ctrl+I)',
-    underline: 'Underline (Ctrl+U)',
+    bold: `Bold (${modifierText('mod+B')})`,
+    italic: `Italic (${modifierText('mod+I')})`,
+    underline: `Underline (${modifierText('mod+U')})`,
     strikethrough: 'Strikethrough',
     superscript: 'Superscript',
     subscript: 'Subscript',

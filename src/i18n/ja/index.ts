@@ -1,10 +1,11 @@
 import type { Translation } from '../types';
+import { modifierText } from '../../utils/modifier-text';
 
 export default {
   toolbar: {
-    undo: '元に戻す (Ctrl+Z)',
-    redo: 'やり直し (Ctrl+Y)',
-    selectAll: 'すべて選択 (Ctrl+A)',
+    undo: `元に戻す (${modifierText('mod+Z')})`,
+    redo: `やり直し (${modifierText('mod+Y')})`,
+    selectAll: `すべて選択 (${modifierText('mod+A')})`,
     paragraph: 'テキスト',
     blockQuote: 'ブロック引用',
     numberedList: '番号付きリスト',
@@ -16,9 +17,9 @@ export default {
     alignJustify: '左右に並べ替え',
     increaseIndent: 'インデントを増やす',
     decreaseIndent: 'インデントを減らす',
-    bold: '太字 (Ctrl+B)',
-    italic: '斜体 (Ctrl+I)',
-    underline: '下線 (Ctrl+U)',
+    bold: `太字 (${modifierText('mod+B')})`,
+    italic: `斜体 (${modifierText('mod+I')})`,
+    underline: `下線 (${modifierText('mod+U')})`,
     strikethrough: '取り消し線',
     superscript: '上付き文字',
     subscript: '下付き文字',

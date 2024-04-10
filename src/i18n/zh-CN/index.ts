@@ -1,10 +1,11 @@
 import type { Translation } from '../types';
+import { modifierText } from '../../utils/modifier-text';
 
 export default {
   toolbar: {
-    undo: '撤消 (Ctrl+Z)',
-    redo: '重做 (Ctrl+Y)',
-    selectAll: '全选 (Ctrl+A)',
+    undo: `撤消 (${modifierText('mod+Z')})`,
+    redo: `重做 (${modifierText('mod+Y')})`,
+    selectAll: `全选 (${modifierText('mod+A')})`,
     paragraph: '正文',
     blockQuote: '引用',
     numberedList: '编号',
@@ -16,9 +17,9 @@ export default {
     alignJustify: '两端对齐',
     increaseIndent: '增加缩进',
     decreaseIndent: '减少缩进',
-    bold: '粗体 (Ctrl+B)',
-    italic: '斜体 (Ctrl+I)',
-    underline: '下划线 (Ctrl+U)',
+    bold: `粗体 (${modifierText('mod+B')})`,
+    italic: `斜体 (${modifierText('mod+I')})`,
+    underline: `下划线 (${modifierText('mod+U')})`,
     strikethrough: '删除线',
     superscript: '上标',
     subscript: '下标',

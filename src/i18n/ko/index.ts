@@ -1,10 +1,11 @@
 import type { Translation } from '../types';
+import { modifierText } from '../../utils/modifier-text';
 
 export default {
   toolbar: {
-    undo: '작업취소 (Ctrl+Z)',
-    redo: '작업재개 (Ctrl+Y)',
-    selectAll: '전체 선택 (Ctrl+A)',
+    undo: `작업취소 (${modifierText('mod+Z')})`,
+    redo: `작업재개 (${modifierText('mod+Y')})`,
+    selectAll: `전체 선택 (${modifierText('mod+A')})`,
     paragraph: '텍스트',
     blockQuote: '인용문',
     numberedList: '순서 목록',
@@ -16,9 +17,9 @@ export default {
     alignJustify: '좌우로 정렬',
     increaseIndent: '들여쓰기 증가',
     decreaseIndent: '들여쓰기 줄이기',
-    bold: '굵게 (Ctrl+B)',
-    italic: '기울임꼴 (Ctrl+I)',
-    underline: '밑줄 (Ctrl+U)',
+    bold: `굵게 (${modifierText('mod+B')})`,
+    italic: `기울임꼴 (${modifierText('mod+I')})`,
+    underline: `밑줄 (${modifierText('mod+U')})`,
     strikethrough: '취소선',
     superscript: '위첨자',
     subscript: '아래 첨자',

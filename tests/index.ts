@@ -8,6 +8,7 @@ import './utils/to-hex.test';
 import './utils/parse-style.test';
 import './utils/normalize-value.test';
 import './utils/denormalize-value.test';
+import './utils/modifier-text.test';
 
 // Object Utils
 import './utils/for-each.test';

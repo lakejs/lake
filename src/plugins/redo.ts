@@ -6,12 +6,14 @@ export default (editor: Editor) => {
       editor.history.redo();
     },
   });
-  editor.keystroke.setKeydown('mod+y', event => {
+  const redoHandler = (event: Event) => {
     const range = editor.selection.range;
     if (range.isInsideBox) {
       return;
     }
     event.preventDefault();
     editor.command.execute('redo');
-  });
+  };
+  editor.keystroke.setKeydown('mod+y', redoHandler);
+  editor.keystroke.setKeydown('mod+shift+z', redoHandler);
 };

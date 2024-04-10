@@ -8,6 +8,7 @@ export * from './to-hex';
 export * from './parse-style';
 export * from './normalize-value';
 export * from './denormalize-value';
+export * from './modifier-text';
 
 // Object
 export * from './for-each';
