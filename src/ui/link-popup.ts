@@ -36,7 +36,11 @@ export class LinkPopup {
   private async writeClipboardText(text: string): Promise<boolean> {
     let error = false;
     try {
-      await navigator.clipboard.writeText(text);
+      if (window.LAKE_TEST) {
+        error = window.LAKE_ERROR;
+      } else {
+        await navigator.clipboard.writeText(text);
+      }
     } catch {
       error = true;
     }

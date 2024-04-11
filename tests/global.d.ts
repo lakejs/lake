@@ -6,3 +6,5 @@
 /* eslint-disable no-var */
 
 declare var expect: typeof chai.expect;
+declare var LAKE_TEST: boolean;
+declare var LAKE_ERROR: boolean;

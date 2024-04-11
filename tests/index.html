@@ -42,6 +42,8 @@
     <div id="mocha"></div>
     <script class="mocha-init">
       window.expect = chai.expect;
+      window.LAKE_TEST = true;
+      window.LAKE_ERROR = false;
       let reporter;
       if (location.search.indexOf('console=true') >= 0) {
         reporter = 'tap';

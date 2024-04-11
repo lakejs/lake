@@ -22,15 +22,30 @@ describe('ui / link-popup', () => {
     const popup = new LinkPopup(rootNode);
     popup.event.on('copy', error => {
       const copyButton = popup.container.find('button[name="copy"]');
+      if (!error) {
+        expect(copyButton.find('svg').eq(0).computedCSS('display')).to.equal('none');
+        expect(copyButton.find('svg').eq(1).computedCSS('display')).to.equal('inline');
+        done();
+      }
+    });
+    popup.show(linkNode);
+    click(popup.container.find('button[name="copy"]'));
+    linkNode.remove();
+  });
+
+  it('should not copy a link to clipboard', done => {
+    window.LAKE_ERROR = true;
+    const linkNode = query('<a href="http://github.com/">GitHub</a>');
+    query(document.body).append(linkNode);
+    const popup = new LinkPopup(rootNode);
+    popup.event.on('copy', error => {
+      const copyButton = popup.container.find('button[name="copy"]');
       if (error) {
         expect(copyButton.find('svg').eq(0).computedCSS('display')).to.equal('none');
         expect(copyButton.find('svg').eq(2).computedCSS('display')).to.equal('inline');
+        window.LAKE_ERROR = false;
         done();
-        return;
       }
-      expect(copyButton.find('svg').eq(0).computedCSS('display')).to.equal('none');
-      expect(copyButton.find('svg').eq(1).computedCSS('display')).to.equal('inline');
-      done();
     });
     popup.show(linkNode);
     click(popup.container.find('button[name="copy"]'));
