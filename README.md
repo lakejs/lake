@@ -44,15 +44,14 @@ Then, in the HTML page add the following HTML code that will serve as a placehol
 Finally, call the following JavaScript code to render the editor.
 
 ```js
+const toolbar = new Lake.Toolbar({
+  root: '.lake-toolbar-root',
+});
 const editor = new Lake.Editor({
   root: '.lake-root',
-  value: '<p><br /><focus /></p>',
+  toolbar,
 });
 editor.render();
-new Lake.Toolbar({
-  editor,
-  root: '.lake-toolbar-root',
-}).render();
 ```
 
 ### Development
