@@ -3,6 +3,7 @@
     "src/**/*",
     "examples/**/*",
     "tests/**/*",
+    "assets/**/*.ts",
   ],
   "compilerOptions": {
     "outDir": "temp",

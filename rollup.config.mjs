@@ -127,7 +127,7 @@ function getBuildConfig(type) {
 
 function getCodeMirrorBuildConfig() {
   return {
-    input: './src/codemirror.ts',
+    input: './assets/codemirror.ts',
     output: {
       file: './dist/codemirror.min.js',
       format: 'iife',
