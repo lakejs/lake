@@ -16,9 +16,11 @@ import { History } from './managers/history';
 import { Keystroke } from './managers/keystroke';
 import { BoxManager } from './managers/box-manager';
 import { Plugin } from './managers/plugin';
+import { Toolbar } from './ui/toolbar';
 
 type EditorConfig = {
   root: string | Nodes | NativeNode;
+  toolbar?: Toolbar;
   value?: string;
   readonly?: boolean;
   spellcheck?: boolean;
@@ -53,6 +55,8 @@ export class Editor {
 
   public root: Nodes;
 
+  public toolbar: Toolbar | undefined;
+
   public config: typeof defaultConfig;
 
   public containerWrapper: Nodes;
@@ -84,6 +88,7 @@ export class Editor {
       throw new Error('The root of the config must be specified.');
     }
     this.root = query(config.root);
+    this.toolbar = config.toolbar;
     this.config = {...defaultConfig, ...config};
     this.containerWrapper = query('<div class="lake-container-wrapper" />');
     this.container = query('<div class="lake-container" />');
@@ -440,6 +445,9 @@ export class Editor {
       Editor.plugin.loadAll(this);
     }
     Editor.box.renderAll(this);
+    if (this.toolbar) {
+      this.toolbar.render(this);
+    }
     if (!this.readonly) {
       window.addEventListener('beforeunload', this.beforeunloadListener);
       document.addEventListener('selectionchange', this.selectionchangeListener);

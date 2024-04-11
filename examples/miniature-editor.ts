@@ -89,16 +89,16 @@ const toolbarItems = [
 ];
 
 export default (value: string) => {
+  const toolbar = new Toolbar({
+    root: '.lake-toolbar-root',
+    items: toolbarItems,
+  });
   const editor = new Editor({
     root: '.lake-root',
+    toolbar,
     value,
     indentWithTab: false,
   });
   editor.render();
-  new Toolbar({
-    editor,
-    root: '.lake-toolbar-root',
-    items: toolbarItems,
-  }).render();
   return editor;
 };

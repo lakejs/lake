@@ -33,7 +33,6 @@ const defaultItems: string[] = [
 ];
 
 type ToolbarConfig = {
-  editor: Editor;
   root: string | Nodes | NativeNode;
   items?: (string | ToolbarItem)[];
 };
@@ -48,15 +47,12 @@ export class Toolbar {
 
   private items: (string | ToolbarItem)[];
 
-  private editor: Editor;
-
   private root: Nodes;
 
   public container: Nodes;
 
   constructor(config: ToolbarConfig) {
     this.items = config.items || defaultItems;
-    this.editor = config.editor;
     this.root = query(config.root);
     this.container = query('<div class="lake-toolbar" />');
 
@@ -67,8 +63,7 @@ export class Toolbar {
     this.container.append('<div class="lake-toolbar-divider" />');
   }
 
-  private appendButton(item: ToolbarButtonItem): void {
-    const editor = this.editor;
+  private appendButton(editor: Editor, item: ToolbarButtonItem): void {
     const button = new Button({
       root: this.container,
       name: item.name,
@@ -83,8 +78,7 @@ export class Toolbar {
     button.render();
   }
 
-  private appendDropdown(item: ToolbarDropdownItem) {
-    const editor = this.editor;
+  private appendDropdown(editor: Editor, item: ToolbarDropdownItem) {
     const dropdown = new Dropdown({
       root: this.container,
       name: item.name,
@@ -105,8 +99,7 @@ export class Toolbar {
     dropdown.render();
   }
 
-  private appendUpload(item: ToolbarUploadItem): void {
-    const editor = this.editor;
+  private appendUpload(editor: Editor, item: ToolbarUploadItem): void {
     const uploadNode = query(safeTemplate`
       <div class="lake-upload" name="${item.name}">
         <input type="file" />
@@ -147,8 +140,7 @@ export class Toolbar {
   }
 
   // Renders a toolbar for the specified editor.
-  public render() {
-    const editor = this.editor;
+  public render(editor: Editor) {
     this.root.empty();
     this.root.append(this.container);
     const allMenuMap: Map<string, Map<string, string>> = new Map();
@@ -170,17 +162,17 @@ export class Toolbar {
       }
       if (item.type === 'button') {
         buttonItemList.push(item);
-        this.appendButton(item);
+        this.appendButton(editor, item);
         return;
       }
       if (item.type === 'dropdown') {
         allMenuMap.set(item.name, Dropdown.getMenuMap(item.menuItems));
         dropdownItemList.push(item);
-        this.appendDropdown(item);
+        this.appendDropdown(editor, item);
         return;
       }
       if (item.type === 'upload') {
-        this.appendUpload(item);
+        this.appendUpload(editor, item);
       }
     });
     editor.event.on('statechange', data => {

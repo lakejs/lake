@@ -16,18 +16,17 @@ describe('plugins / link', () => {
   beforeEach(()=> {
     rootNode = query('<div class="lake-editor"><div class="lake-toolbar-root"></div><div class="lake-root"></div></div>');
     query(document.body).append(rootNode);
-    editor = new Editor({
-      root: rootNode.find('.lake-root'),
-      value: '<p><br /><focus /></p>',
-    });
-    editor.render();
     const toolbarNode = rootNode.find('.lake-toolbar-root');
     toolbar = new Toolbar({
-      editor,
       root: toolbarNode,
       items: toolbarItems,
     });
-    toolbar.render();
+    editor = new Editor({
+      root: rootNode.find('.lake-root'),
+      toolbar,
+      value: '<p><br /><focus /></p>',
+    });
+    editor.render();
   });
 
   afterEach(() => {
