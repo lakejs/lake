@@ -13,7 +13,7 @@ lake-box[name="hr"] {
   cursor: default;
 }
 .lake-container[contenteditable="true"] lake-box[name="hr"] .lake-box-hovered .lake-hr {
-  background-color: var(--background-hover-color);
+  background-color: var(--box-background-color);
 }
 lake-box[name="hr"] .lake-box-selected .lake-hr,
 lake-box[name="hr"] .lake-box-focused .lake-hr {

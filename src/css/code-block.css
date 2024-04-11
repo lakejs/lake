@@ -2,7 +2,7 @@
 .cm-editor {
   font-size: 14px;
   border-radius: 5px;
-  background-color: #f6f8fa;
+  background-color: var(--box-background-color);
 }
 .cm-editor.cm-focused {
   outline: none;
@@ -10,30 +10,22 @@
 .cm-editor .cm-content {
   font-family: Consolas, Courier, monospace;
 }
-.cm-editor .cm-content ::selection {
-  background-color: var(--selection-background-color);
-}
 
 /* code block */
 lake-box[name="codeBlock"] {
-  margin-bottom: 8px;
-}
-.lake-code-block {
-  box-sizing: border-box;
-  border: 1px solid transparent;
-  border-radius: 5px;
-}
-lake-box[name="codeBlock"] .lake-box-selected .lake-code-block {
-  background-color: var(--selection-background-color);
+  margin: 16px 0;
 }
 lake-box[name="codeBlock"] .lake-box-focused .lake-code-block {
-  border-color: var(--box-border-focus-color);
+  border-color: var(--box-border-color);
 }
 lake-box[name="codeBlock"] .lake-box-activated .lake-code-block {
-  border-color: var(--box-border-focus-color);
+  border-color: var(--box-border-color);
 }
 .lake-code-block {
   position: relative;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: 5px;
 }
 .lake-code-block .lake-dropdown {
   position: absolute;
@@ -47,7 +39,7 @@ lake-box[name="codeBlock"] .lake-box-activated .lake-code-block .lake-dropdown {
 .lake-code-block .lake-dropdown .lake-dropdown-title {
   margin: 0;
   padding-right: 4px;
-  background-color: #f6f8fa;
+  background-color: var(--box-background-color);
 }
 .lake-code-block .lake-dropdown.lake-list-dropdown .lake-dropdown-title-hovered {
   background-color: var(--background-active-color);
@@ -63,4 +55,11 @@ lake-box[name="codeBlock"] .lake-box-activated .lake-code-block .lake-dropdown {
   overflow-y: scroll;
   scrollbar-width: thin;
   height: 200px;
+}
+.lake-code-block-error {
+  font-size: 14px;
+  color: var(--error-color);
+  border-radius: 5px;
+  background-color: var(--box-background-color);
+  padding: 8px 16px;
 }

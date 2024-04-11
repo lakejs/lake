@@ -23,6 +23,17 @@
     "url": "https://github.com/lakejs/lake/issues"
   },
   "dependencies": {
+    "@types/blueimp-md5": "^2.18.2",
+    "@types/lodash": "^4.17.0",
+    "blueimp-md5": "^2.19.0",
+    "eventemitter3": "^5.0.1",
+    "js-base64": "^3.7.7",
+    "lodash": "^4.17.21",
+    "photoswipe": "^5.4.3",
+    "tinykeys": "^2.1.0",
+    "typesafe-i18n": "^5.26.2"
+  },
+  "devDependencies": {
     "@codemirror/commands": "^6.3.3",
     "@codemirror/lang-cpp": "^6.0.2",
     "@codemirror/lang-css": "^6.2.1",
@@ -42,17 +53,6 @@
     "@codemirror/state": "^6.4.1",
     "@codemirror/view": "^6.26.1",
     "@lezer/highlight": "^1.2.0",
-    "@types/blueimp-md5": "^2.18.2",
-    "@types/lodash": "^4.17.0",
-    "blueimp-md5": "^2.19.0",
-    "eventemitter3": "^5.0.1",
-    "js-base64": "^3.7.7",
-    "lodash": "^4.17.21",
-    "photoswipe": "^5.4.3",
-    "tinykeys": "^2.1.0",
-    "typesafe-i18n": "^5.26.2"
-  },
-  "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
@@ -85,7 +85,8 @@
     "start": "npm-run-all --parallel --print-label express watch",
     "express": "node ./scripts/start-server.mjs",
     "watch": "rollup --watch --config rollup.config.mjs",
-    "build": "rimraf ./dist ./lib & rollup --config rollup.config.mjs",
+    "build": "rimraf ./lib & rollup --config rollup.config.mjs",
+    "codemirror": "rollup --config rollup.config.mjs --codemirror",
     "i18n": "typesafe-i18n --no-watch",
     "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,.mjs\"",
     "test": "node ./scripts/run-tests.mjs",

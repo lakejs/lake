@@ -5,6 +5,7 @@ declare global {
   interface Window {
     LAKE_LANGUAGE: Locales;
     LAKE_DEBUG: boolean;
+    CodeMirror: any;
   }
 
   interface Element {

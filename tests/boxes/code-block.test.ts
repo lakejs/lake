@@ -53,4 +53,20 @@ describe('boxes / code-block', () => {
     });
   });
 
+  it('error status: should focus on box after clicking', done => {
+    const CodeMirror = window.CodeMirror;
+    window.CodeMirror = undefined;
+    box = editor.insertBox('codeBlock', {
+      lang: 'css',
+      code: '.hello { }',
+    });
+    const boxContainer = box.getContainer();
+    click(boxContainer.find('.lake-code-block'));
+    editor.event.once('boxselectionstylechange', () => {
+      expect(boxContainer.hasClass('lake-box-focused')).to.equal(true);
+      window.CodeMirror = CodeMirror;
+      done();
+    });
+  });
+
 });

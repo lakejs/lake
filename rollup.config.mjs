@@ -149,9 +149,12 @@ export default (commandLineArgs) => {
       getWatchConfig('tests'),
     ];
   }
+  if (commandLineArgs.codemirror === true) {
+    delete commandLineArgs.codemirror;
+    return getCodeMirrorBuildConfig();
+  }
   return [
     getBuildConfig('iife'),
     getBuildConfig('es'),
-    getCodeMirrorBuildConfig(),
   ];
 };

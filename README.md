@@ -13,7 +13,7 @@ Compressed copies of Lake files are available, you can download them from jsDeli
 * jsDelivr: https://www.jsdelivr.com/package/npm/lakelib?path=dist&tab=files
 * UNPKG: https://unpkg.com/browse/lakelib@latest/dist/
 
-Note: `lake.min.js` is not built with CodeMirror, so addtioanaly including `codemirror.min.js` to your page is needed. But if you do not need the code block feature, there is no need to include external CodeMirror file, just set the global variable to null. To find out more, take a look at the [IIFE example](https://github.com/lakejs/lake/blob/master/examples/iife.html) and [Rollup configuration](https://github.com/lakejs/lake/blob/master/rollup.config.mjs).
+Note: `lake.min.js` is not built with CodeMirror, so if you need the code block feature, addtioanaly including `codemirror.min.js` to your page is needed. But if you do not need it, there is no need to include external CodeMirror file. To find out more, take a look at the [IIFE example](https://github.com/lakejs/lake/blob/master/examples/iife.html) and [Rollup configuration](https://github.com/lakejs/lake/blob/master/rollup.config.mjs).
 
 #### Downloading Lake using npm
 
@@ -67,7 +67,7 @@ cd lake
 # install all dependencies
 pnpm install
 # build CodeMirror
-pnpm build
+pnpm codemirror
 # start a local server
 pnpm start
 ```
