@@ -6,48 +6,81 @@ import { locale } from '../i18n';
 
 const config = {
   defaultLang: 'text',
-  background: '#0000000a',
-  foreground: '#444d56',
-  selection: '#1ba2e333',
-  cursor: '#044289',
-  keyword: '#cf222e',
-  variable: '#1f2328',
-  parameter: '#24292e',
-  function: '#005cc5',
-  string: '#0a3069',
-  constant: '#0550ae',
-  type: '#24292f',
-  class: '#24292e',
-  number: '#0550ae',
   comment: '#57606a',
+  name: '#444d56',
+  variableName: '#953800',
+  typeName: '#0550ae',
+  propertyName: '#444d56',
+  className: '#24292e',
+  labelName: '#005cc5',
+  namespace: '#0550ae',
+  macroName: '#444d56',
+  literal: '#444d56',
+  string: '#0a3069',
+  number: '#0550ae',
+  bool: '#0550ae',
+  regexp: '#116329',
+  color: '#0550ae',
+  keyword: '#cf222e',
+  modifier: '#24292f',
+  operator: '#cf222e',
+  bracket: '#57606a',
+  content: '#57606a',
+  meta: '#8250df',
   heading: '#0550ae',
   invalid: '#f6f8fa',
-  regexp: '#116329',
+  definition: '#cf222e',
+  constant: '#0550ae',
+  function: '#005cc5',
+  standard: '#444d56',
+  special: '#444d56',
 };
 
+// https://lezer.codemirror.net/docs/ref/#highlight.tags
 function getHighlightStyle(CodeMirror: any) {
   const { HighlightStyle, tags } = CodeMirror;
   return HighlightStyle.define([
-    { tag: tags.keyword, color: config.keyword },
-    { tag: [tags.name, tags.deleted, tags.character, tags.macroName], color: config.variable },
-    { tag: [tags.propertyName], color: config.function },
-    { tag: [tags.processingInstruction, tags.string, tags.inserted, tags.special(tags.string)], color: config.string },
-    { tag: [tags.function(tags.variableName), tags.labelName], color: config.function },
-    { tag: [tags.color, tags.constant(tags.name), tags.standard(tags.name)], color: config.constant },
-    { tag: [tags.definition(tags.name), tags.separator], color: config.variable },
-    { tag: [tags.className], color: config.class },
-    { tag: [tags.number, tags.changed, tags.annotation, tags.modifier, tags.self, tags.namespace], color: config.number },
-    { tag: [tags.typeName], color: config.type },
-    { tag: [tags.operator, tags.operatorKeyword], color: config.keyword },
-    { tag: [tags.url, tags.escape, tags.regexp, tags.link], color: config.regexp },
-    { tag: [tags.meta, tags.comment], color: config.comment },
+    { tag: [tags.comment, tags.lineComment, tags.blockComment, tags.docComment], color: config.comment },
+    { tag: [tags.name], color: config.name },
+    { tag: [tags.variableName, tags.self], color: config.variableName },
+    { tag: [tags.typeName, tags.tagName], color: config.typeName },
+    { tag: [tags.propertyName, tags.attributeName], color: config.propertyName },
+    { tag: [tags.className], color: config.className },
+    { tag: [tags.labelName], color: config.labelName },
+    { tag: [tags.namespace], color: config.namespace },
+    { tag: [tags.macroName], color: config.macroName },
+    { tag: [tags.literal], color: config.literal },
+    { tag: [tags.string, tags.docString, tags.character, tags.attributeValue, tags.unit], color: config.string },
+    { tag: [tags.number, tags.integer, tags.float], color: config.number },
+    { tag: [tags.bool, tags.null, tags.atom], color: config.bool },
+    { tag: [tags.regexp, tags.escape, tags.url], color: config.regexp },
+    { tag: [tags.color], color: config.color },
+    { tag: [
+      tags.keyword, tags.operatorKeyword, tags.controlKeyword,
+      tags.definitionKeyword, tags.moduleKeyword,
+    ], color: config.keyword },
+    { tag: [tags.modifier], color: config.modifier },
+    { tag: [
+      tags.operator, tags.derefOperator, tags.arithmeticOperator, tags.logicOperator, tags.bitwiseOperator,
+      tags.compareOperator, tags.updateOperator, tags.definitionOperator, tags.typeOperator, tags.controlOperator,
+    ], color: config.operator },
+    { tag: [
+      tags.punctuation, tags.separator, tags.bracket, tags.angleBracket, tags.squareBracket,
+      tags.paren, tags.brace, tags.contentSeparator,
+    ], color: config.bracket },
+    { tag: [tags.content], color: config.content },
+    { tag: [tags.meta, tags.documentMeta, tags.annotation, tags.processingInstruction], color: config.meta },
+    { tag: tags.heading, fontWeight: 'bold', color: config.heading },
     { tag: tags.strong, fontWeight: 'bold' },
     { tag: tags.emphasis, fontStyle: 'italic' },
     { tag: tags.link, textDecoration: 'underline' },
-    { tag: tags.heading, fontWeight: 'bold', color: config.heading },
-    { tag: [tags.atom, tags.bool, tags.special(tags.variableName)], color: config.variable },
-    { tag: tags.invalid, color: config.invalid },
     { tag: tags.strikethrough, textDecoration: 'line-through' },
+    { tag: [tags.invalid, tags.inserted, tags.deleted, tags.changed], color: config.invalid },
+    { tag: [tags.definition(tags.name)], color: config.definition },
+    { tag: [tags.constant(tags.name)], color: config.constant },
+    { tag: [tags.function(tags.variableName)], color: config.function },
+    { tag: [tags.standard(tags.name)], color: config.standard },
+    { tag: [tags.special(tags.variableName)], color: config.special },
   ]);
 }
 
@@ -71,7 +104,10 @@ export const codeBlockBox: BoxComponent = {
     const CodeMirror = window.CodeMirror;
     if (!CodeMirror) {
       codeBlockNode.addClass('lake-code-block-error');
-      codeBlockNode.text('The code cannot be displayed because window.CodeMirror is not found. Please check if the CodeMirror file is added to this page.');
+      codeBlockNode.text(`
+        The code cannot be displayed because window.CodeMirror is not found.
+        Please check if the CodeMirror file is added to this page.
+      `.trim());
       codeBlockNode.on('click', () => {
         editor.selection.range.selectBox(box.node);
       });
