@@ -21,6 +21,23 @@ describe('plugins / markdown', () => {
     );
   });
 
+  it('keystroke: should not set heading 1 when heading command does not exist', () => {
+    const content = `
+    <p>#<focus />foo</p>
+    `;
+    const output = `
+    <p>#<focus />foo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.command.delete('heading');
+        editor.keystroke.keydown('space');
+      },
+    );
+  });
+
   it('keystroke: should set heading 2', () => {
     const content = `
     <p>##<focus />foo</p>
@@ -358,6 +375,23 @@ describe('plugins / markdown', () => {
     );
   });
 
+  it('keystroke: should not add bold when bold command does not exist', () => {
+    const content = `
+    <p>foo**bold**<focus />bar</p>
+    `;
+    const output = `
+    <p>foo**bold**<focus />bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.command.delete('bold');
+        editor.keystroke.keydown('space');
+      },
+    );
+  });
+
   it('keystroke: should add bold (__bold__ space)', () => {
     const content = `
     <p>__foo__<focus />bar</p>
@@ -578,6 +612,19 @@ describe('plugins / markdown', () => {
       content,
       output,
       editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('keystroke: should not insert codeBlock when codeBlock command does not exist', () => {
+    const content = '<p>```<focus /></p>';
+    const output = '<p>```</p><p><br /><focus /></p>';
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.command.delete('codeBlock');
         editor.keystroke.keydown('enter');
       },
     );

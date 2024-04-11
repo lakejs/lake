@@ -185,6 +185,11 @@ function executeMarkCommand(editor: Editor, point: Point): boolean {
   for (const item of markItemList) {
     const results = item.re.exec(text);
     if (results !== null) {
+      const parameters = item.getParameters();
+      const commandName = parameters.shift() as string;
+      if (!editor.command.has(commandName)) {
+        return false;
+      }
       // <p>foo**bold**<focus /></p>, offset = 11
       // to
       // <p>foobold\u200B<focus /></p>,
@@ -198,8 +203,7 @@ function executeMarkCommand(editor: Editor, point: Point): boolean {
       node.get(0).nodeValue = newValue;
       range.setStart(node, offset - results[0].length);
       range.setEnd(node, offset - (oldValue.length - newValue.length) - 1);
-      const parameters = item.getParameters();
-      editor.command.execute(parameters.shift() as string, ...parameters);
+      editor.command.execute(commandName, ...parameters);
       selection.toBookmark(bookmark);
       editor.commitOperation();
       return true;
@@ -216,6 +220,11 @@ function spaceKeyExecutesBlockCommand(editor: Editor, point: Point): boolean {
   for (const item of blockItemListForSpaceKey) {
     const results = item.re.exec(text);
     if (results !== null) {
+      const parameters = item.getParameters(results);
+      const commandName = parameters.shift() as string;
+      if (!editor.command.has(commandName)) {
+        return false;
+      }
       // <p>#<focus />foo</p>
       // to
       // <h1><focus />foo</h1>
@@ -226,8 +235,7 @@ function spaceKeyExecutesBlockCommand(editor: Editor, point: Point): boolean {
       const block = bookmark.focus.closestBlock();
       fixEmptyBlock(block);
       selection.range.shrinkAfter(block);
-      const parameters = item.getParameters(results);
-      editor.command.execute(parameters.shift() as string, ...parameters);
+      editor.command.execute(commandName, ...parameters);
       selection.toBookmark(bookmark);
       editor.commitOperation();
       return true;
@@ -243,6 +251,11 @@ function enterKeyExecutesBlockCommand(editor: Editor, block: Nodes): boolean {
   for (const item of blockItemListForEnterKey) {
     const results = item.re.exec(text);
     if (results !== null) {
+      const parameters = item.getParameters(results);
+      const commandName = parameters.shift() as string;
+      if (!editor.command.has(commandName)) {
+        return false;
+      }
       // <p>---<focus /></p>
       // to
       // <lake-box type="block" name="hr" focus="right"></lake-box>
@@ -250,8 +263,7 @@ function enterKeyExecutesBlockCommand(editor: Editor, block: Nodes): boolean {
       block.empty();
       fixEmptyBlock(block);
       selection.range.shrinkAfter(block);
-      const parameters = item.getParameters(results);
-      editor.command.execute(parameters.shift() as string, ...parameters);
+      editor.command.execute(commandName, ...parameters);
       editor.commitOperation();
       return true;
     }

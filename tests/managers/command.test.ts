@@ -4,6 +4,55 @@ import { Command } from '../../src/managers/command';
 
 describe('managers / command', () => {
 
+  it('method: add / delete', () => {
+    const container = query('<div contenteditable="true" />');
+    const selection = new Selection(container);
+    const command = new Command(selection);
+    command.add('bold', {
+      execute: () => {},
+    });
+    command.delete('bold');
+    expect(command.has('bold')).to.deep.equal(false);
+  });
+
+  it('method: getNames', () => {
+    const container = query('<div contenteditable="true" />');
+    const selection = new Selection(container);
+    const command = new Command(selection);
+    command.add('bold', {
+      execute: () => {},
+    });
+    command.add('align', {
+      execute: () => {},
+    });
+    expect(command.getNames()).to.deep.equal(['bold', 'align']);
+  });
+
+  it('method: has', () => {
+    const container = query('<div contenteditable="true" />');
+    const selection = new Selection(container);
+    const command = new Command(selection);
+    command.add('bold', {
+      execute: () => {},
+    });
+    command.add('align', {
+      execute: () => {},
+    });
+    expect(command.has('bold')).to.equal(true);
+    expect(command.has('italic')).to.equal(false);
+  });
+
+  it('method: getItem', () => {
+    const container = query('<div contenteditable="true" />');
+    const selection = new Selection(container);
+    const command = new Command(selection);
+    const item = {
+      execute: () => {},
+    };
+    command.add('bold', item);
+    expect(command.getItem('bold')).to.equal(item);
+  });
+
   it('method: isDiabled', () => {
     const container = query('<div contenteditable="true" />');
     const selection = new Selection(container);
@@ -13,7 +62,6 @@ describe('managers / command', () => {
       execute: () => {},
     });
     command.add('align', {
-      isDisabled: () => false,
       execute: () => {},
     });
     expect(command.isDisabled('bold')).to.equal(true);
@@ -29,11 +77,25 @@ describe('managers / command', () => {
       execute: () => {},
     });
     command.add('align', {
-      isSelected: () => false,
       execute: () => {},
     });
     expect(command.isSelected('bold')).to.equal(true);
     expect(command.isSelected('align')).to.equal(false);
+  });
+
+  it('method: selectedValues', () => {
+    const container = query('<div contenteditable="true" />');
+    const selection = new Selection(container);
+    const command = new Command(selection);
+    command.add('heading', {
+      selectedValues: () => ['h3'],
+      execute: () => {},
+    });
+    command.add('align', {
+      execute: () => {},
+    });
+    expect(command.selectedValues('heading')).to.deep.equal(['h3']);
+    expect(command.selectedValues('align').length).to.equal(0);
   });
 
   it('method: execute', () => {

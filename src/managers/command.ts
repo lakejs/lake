@@ -21,12 +21,20 @@ export class Command {
     this.selection = selection;
   }
 
-  public add(name: string, handler: CommmandItem) {
-    this.commandMap.set(name, handler);
+  public add(name: string, commandItem: CommmandItem) {
+    this.commandMap.set(name, commandItem);
+  }
+
+  public delete(name: string) {
+    this.commandMap.delete(name);
   }
 
   public getNames(): string[] {
     return Array.from(this.commandMap.keys());
+  }
+
+  public has(name: string): boolean {
+    return this.commandMap.get(name) !== undefined;
   }
 
   public getItem(name: string): CommmandItem {
