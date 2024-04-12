@@ -200,7 +200,7 @@ describe('operations / delete-contents', () => {
     );
   });
 
-  it('the cursor is at the left of the box', () => {
+  it('the cursor is at the start of the box', () => {
     const content = `
     <lake-box type="block" name="blockBox" focus="start"></lake-box>
     <p>foo</p>
@@ -218,7 +218,7 @@ describe('operations / delete-contents', () => {
     );
   });
 
-  it('the start position of the range is at the left of the box', () => {
+  it('the start position of the range is at the start of the box', () => {
     const content = `
     <anchor /><lake-box type="block" name="blockBox"></lake-box>
     <p><focus />foo</p>

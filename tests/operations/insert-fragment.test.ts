@@ -61,7 +61,7 @@ describe('operations / insert-fragment', () => {
     );
   });
 
-  it('the cursor is at the left of the box', () => {
+  it('the cursor is at the start of the box', () => {
     const content = `
     <lake-box type="block" name="blockBox" focus="start"></lake-box>
     <p>foo</p>

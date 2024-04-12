@@ -396,7 +396,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('the cursor is at the left of the inline box', () => {
+  it('the cursor is at the start of the inline box', () => {
     const content = `
     <p><lake-box type="inline" name="inlineBox"></lake-box></p>
     <p><focus />foo</p>
@@ -419,7 +419,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('the cursor is at the right of the inline box', () => {
+  it('the cursor is at the end of the inline box', () => {
     const content = `
     <p><lake-box type="inline" name="inlineBox"></lake-box></p>
     <p><focus />foo</p>
@@ -442,7 +442,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('the cursor is at the left of the block box', () => {
+  it('the cursor is at the start of the block box', () => {
     const content = `
     <lake-box type="block" name="blockBox"></lake-box>
     <p><focus />foo</p>
@@ -466,7 +466,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('the cursor is at the right of the block box', () => {
+  it('the cursor is at the end of the block box', () => {
     const content = `
     <lake-box type="block" name="blockBox"></lake-box>
     <p><focus />foo</p>

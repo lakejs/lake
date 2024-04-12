@@ -226,7 +226,7 @@ export class Range {
     this.collapseToStart();
   }
 
-  // Sets the range to the left position of the box.
+  // Sets the range to the start position of the box.
   public selectBoxStart(boxNode: Nodes): void {
     const boxStrip = boxNode.find('.lake-box-strip');
     if (boxStrip.length === 0) {
@@ -236,7 +236,7 @@ export class Range {
     this.collapseToEnd();
   }
 
-  // Sets the range to the left position of the box.
+  // Sets the range to the start position of the box.
   public selectBoxEnd(boxNode: Nodes): void {
     const boxStrip = boxNode.find('.lake-box-strip');
     if (boxStrip.length === 0) {
@@ -546,11 +546,11 @@ export class Range {
     if (block.length === 0) {
       return '';
     }
-    const leftRange = new Range();
-    leftRange.setStartBefore(block);
-    leftRange.setEnd(node, offset);
+    const startRange = new Range();
+    startRange.setStartBefore(block);
+    startRange.setEnd(node, offset);
     const container = query('<div />');
-    container.append(leftRange.cloneContents());
+    container.append(startRange.cloneContents());
     const text = container.text();
     if (text === '' && container.find('lake-box').length > 0) {
       return '\u200B';
@@ -570,11 +570,11 @@ export class Range {
     if (block.length === 0) {
       return '';
     }
-    const rightRange = new Range();
-    rightRange.setStart(node, offset);
-    rightRange.setEndAfter(block);
+    const endRange = new Range();
+    endRange.setStart(node, offset);
+    endRange.setEndAfter(block);
     const container = query('<div />');
-    container.append(rightRange.cloneContents());
+    container.append(endRange.cloneContents());
     const text = container.text();
     if (text === '' && container.find('lake-box').length > 0) {
       return '\u200B';

@@ -105,7 +105,7 @@ describe('operations / insert-box', () => {
     );
   });
 
-  it('inserts a block box when the cursor is at the right of the box', () => {
+  it('inserts a block box when the cursor is at the end of the box', () => {
     const content = `
     <lake-box type="block" name="blockBox" focus="end"></lake-box>
     <p>foo</p>

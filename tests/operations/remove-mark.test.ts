@@ -266,7 +266,7 @@ describe('operations / remove-mark', () => {
     );
   });
 
-  it('the cursor is at the left of the inline box', () => {
+  it('the cursor is at the start of the inline box', () => {
     const content = `
     <p><lake-box type="inline" name="inlineBox" focus="start"></lake-box></p>
     <p>foo</p>
