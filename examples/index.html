@@ -25,6 +25,7 @@
       <div class="menu"></div>
       <div class="title"></div>
       <div class="language lake-custom-properties"></div>
+      <div class="direction lake-custom-properties"></div>
       <div class="source"></div>
     </div>
     <div class="lake-editor">
@@ -33,6 +34,7 @@
     </div>
     <script>
       window.LAKE_LANGUAGE = localStorage.getItem('lake-example-language') ?? 'en-US';
+      document.documentElement.dir = localStorage.getItem('lake-example-direction') ?? 'ltr';
       window.LAKE_DEBUG = true;
     </script>
     <script src="../assets/values/default-value.js"></script>

@@ -94,21 +94,24 @@ const languageMenuItems = [
   },
 ];
 
+const directionMenuItems = [
+  {
+    value: 'ltr',
+    text: 'Left to Right',
+  },
+  {
+    value: 'rtl',
+    text: 'Right to Left',
+  },
+];
+
 const menuItemMap: Map<string, typeof menuItems[0]> = new Map();
 for (const item of menuItems) {
   const type = item.url.substring(2) || 'default';
   menuItemMap.set(type, item);
 }
 
-function renderHeader(pageType: string): void {
-  const currentItem = menuItemMap.get(pageType);
-  if (!currentItem) {
-    return;
-  }
-  const titleNode = query('.header .title');
-  titleNode.text(currentItem.text);
-  const sourceNode = query('.header .source');
-  sourceNode.append(`<a href="${currentItem.source}" target="_blank" title="View Source"><img src="../assets/icons/code.svg" /></a>`);
+function renderLanguage(): void {
   const localStorageKey = 'lake-example-language';
   const languageDropdown = new Dropdown({
     root: query('.header .language'),
@@ -125,6 +128,38 @@ function renderHeader(pageType: string): void {
     },
   });
   languageDropdown.render();
+}
+
+function renderDirection(): void {
+  const localStorageKey = 'lake-example-direction';
+  const directionDropdown = new Dropdown({
+    root: query('.header .direction'),
+    name: 'direction',
+    icon: '<img src="../assets/icons/direction.svg" />',
+    defaultValue: localStorage.getItem(localStorageKey) ?? 'en-US',
+    tooltip: 'Select writing direction',
+    width: 'auto',
+    menuType: 'list',
+    menuItems: directionMenuItems,
+    onSelect: value => {
+      localStorage.setItem(localStorageKey, value);
+      window.location.reload();
+    },
+  });
+  directionDropdown.render();
+}
+
+function renderHeader(pageType: string): void {
+  const currentItem = menuItemMap.get(pageType);
+  if (!currentItem) {
+    return;
+  }
+  const titleNode = query('.header .title');
+  titleNode.text(currentItem.text);
+  const sourceNode = query('.header .source');
+  sourceNode.append(`<a href="${currentItem.source}" target="_blank" title="View Source"><img src="../assets/icons/code.svg" /></a>`);
+  renderLanguage();
+  renderDirection();
   const menuNode = query('.header .menu');
   menuNode.append('<button type="button" name="list"><img src="../assets/icons/list.svg" /></button>');
   const ul = query('<ul />');

@@ -28,7 +28,7 @@ lake-box[name="codeBlock"] .lake-box-activated .lake-code-block {
 .lake-code-block .lake-dropdown {
   position: absolute;
   top: 2px;
-  right: 2px;
+  inset-inline-end: 2px;
   display: none;
 }
 lake-box[name="codeBlock"] .lake-box-focused .lake-code-block .lake-dropdown,
