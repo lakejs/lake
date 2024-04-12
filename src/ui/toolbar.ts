@@ -1,5 +1,6 @@
 import type { Editor } from '../editor';
 import { NativeNode } from '../types/native';
+import { AppliedItem } from '../types/object';
 import { ToolbarButtonItem, ToolbarDropdownItem, ToolbarUploadItem, ToolbarItem } from '../types/toolbar';
 import { toolbarItems } from '../config/toolbar-items';
 import { safeTemplate } from '../utils/safe-template';
@@ -8,6 +9,18 @@ import { Nodes } from '../models/nodes';
 import { Button } from './button';
 import { Dropdown } from './dropdown';
 import { uploadImage } from './upload';
+
+type ToolbarConfig = {
+  root: string | Nodes | NativeNode;
+  items?: (string | ToolbarItem)[];
+};
+
+type StateData = {
+  appliedItems: AppliedItem[];
+  disabledNameMap: Map<string, boolean>;
+  selectedNameMap: Map<string, boolean>;
+  selectedValuesMap: Map<string, string[]>;
+};
 
 const defaultItems: string[] = [
   'undo',
@@ -32,11 +45,6 @@ const defaultItems: string[] = [
   'hr',
 ];
 
-type ToolbarConfig = {
-  root: string | Nodes | NativeNode;
-  items?: (string | ToolbarItem)[];
-};
-
 const toolbarItemMap: Map<string, ToolbarItem> = new Map();
 
 toolbarItems.forEach(item => {
@@ -48,6 +56,12 @@ export class Toolbar {
   private items: (string | ToolbarItem)[];
 
   private root: Nodes;
+
+  private allMenuMap: Map<string, Map<string, string>> = new Map();
+
+  private buttonItemList: ToolbarButtonItem[] = [];
+
+  private dropdownItemList: ToolbarDropdownItem[] = [];
 
   public container: Nodes;
 
@@ -139,13 +153,66 @@ export class Toolbar {
     });
   }
 
+  // Updates state of each item such as disabled, selected.
+  public updateState(data: StateData) {
+    const { appliedItems, disabledNameMap, selectedNameMap, selectedValuesMap } = data;
+    for (const item of this.buttonItemList) {
+      const selectedClass = 'lake-button-selected';
+      const buttonNode = this.container.find(`button[name="${item.name}"]`);
+      let isDisabled = disabledNameMap.get(item.name);
+      if (isDisabled === undefined) {
+        isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems) : false;
+      }
+      if (isDisabled) {
+        buttonNode.attr('disabled', 'true');
+        buttonNode.removeClass(selectedClass);
+      } else {
+        buttonNode.removeAttr('disabled');
+      }
+      if (!isDisabled) {
+        let isSelected = selectedNameMap.get(item.name);
+        if (isSelected === undefined) {
+          isSelected = item.isSelected && appliedItems.length > 0 ? item.isSelected(appliedItems) : false;
+        }
+        if (isSelected) {
+          buttonNode.addClass(selectedClass);
+        } else {
+          buttonNode.removeClass(selectedClass);
+        }
+      }
+    }
+    for (const item of this.dropdownItemList) {
+      let selectedValues = selectedValuesMap.get(item.name);
+      if (selectedValues === undefined) {
+        selectedValues = item.selectedValues && appliedItems.length > 0 ? item.selectedValues(appliedItems) : [];
+      }
+      const dropdownNode = this.container.find(`div.lake-dropdown[name="${item.name}"]`);
+      let isDisabled = disabledNameMap.get(item.name);
+      if (isDisabled === undefined) {
+        isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems) : false;
+      }
+      if (isDisabled) {
+        dropdownNode.attr('disabled', 'true');
+      } else {
+        dropdownNode.removeAttr('disabled');
+      }
+      if (!isDisabled) {
+        Dropdown.setValue(dropdownNode, selectedValues);
+        const textNode = dropdownNode.find('.lake-dropdown-text');
+        if (textNode.length > 0) {
+          const key = selectedValues[0] || item.defaultValue;
+          const menuMap = this.allMenuMap.get(item.name);
+          const text = (menuMap && menuMap.get(key)) ?? key;
+          textNode.text(text);
+        }
+      }
+    }
+  }
+
   // Renders a toolbar for the specified editor.
   public render(editor: Editor) {
     this.root.empty();
     this.root.append(this.container);
-    const allMenuMap: Map<string, Map<string, string>> = new Map();
-    const buttonItemList: ToolbarButtonItem[] = [];
-    const dropdownItemList: ToolbarDropdownItem[] = [];
     this.items.forEach(name => {
       if (name === '|') {
         this.appendDivider();
@@ -161,72 +228,18 @@ export class Toolbar {
         item = name;
       }
       if (item.type === 'button') {
-        buttonItemList.push(item);
+        this.buttonItemList.push(item);
         this.appendButton(editor, item);
         return;
       }
       if (item.type === 'dropdown') {
-        allMenuMap.set(item.name, Dropdown.getMenuMap(item.menuItems));
-        dropdownItemList.push(item);
+        this.allMenuMap.set(item.name, Dropdown.getMenuMap(item.menuItems));
+        this.dropdownItemList.push(item);
         this.appendDropdown(editor, item);
         return;
       }
       if (item.type === 'upload') {
         this.appendUpload(editor, item);
-      }
-    });
-    editor.event.on('statechange', data => {
-      const { appliedItems, disabledNameMap, selectedNameMap, selectedValuesMap } = data;
-      for (const item of buttonItemList) {
-        const selectedClass = 'lake-button-selected';
-        const buttonNode = this.container.find(`button[name="${item.name}"]`);
-        let isDisabled = disabledNameMap.get(item.name);
-        if (isDisabled === undefined) {
-          isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems) : false;
-        }
-        if (isDisabled) {
-          buttonNode.attr('disabled', 'true');
-          buttonNode.removeClass(selectedClass);
-        } else {
-          buttonNode.removeAttr('disabled');
-        }
-        if (!isDisabled) {
-          let isSelected = selectedNameMap.get(item.name);
-          if (isSelected === undefined) {
-            isSelected = item.isSelected && appliedItems.length > 0 ? item.isSelected(appliedItems) : false;
-          }
-          if (isSelected) {
-            buttonNode.addClass(selectedClass);
-          } else {
-            buttonNode.removeClass(selectedClass);
-          }
-        }
-      }
-      for (const item of dropdownItemList) {
-        let selectedValues = selectedValuesMap.get(item.name);
-        if (selectedValues === undefined) {
-          selectedValues = item.selectedValues && appliedItems.length > 0 ? item.selectedValues(appliedItems) : [];
-        }
-        const dropdownNode = this.container.find(`div.lake-dropdown[name="${item.name}"]`);
-        let isDisabled = disabledNameMap.get(item.name);
-        if (isDisabled === undefined) {
-          isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems) : false;
-        }
-        if (isDisabled) {
-          dropdownNode.attr('disabled', 'true');
-        } else {
-          dropdownNode.removeAttr('disabled');
-        }
-        if (!isDisabled) {
-          Dropdown.setValue(dropdownNode, selectedValues);
-          const textNode = dropdownNode.find('.lake-dropdown-text');
-          if (textNode.length > 0) {
-            const key = selectedValues[0] || item.defaultValue;
-            const menuMap = allMenuMap.get(item.name);
-            const text = (menuMap && menuMap.get(key)) ?? key;
-            textNode.text(text);
-          }
-        }
       }
     });
   }

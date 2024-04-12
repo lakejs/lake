@@ -206,12 +206,16 @@ export class Editor {
         }
       }
     }
-    this.event.emit('statechange', {
+    const stateData = {
       appliedItems,
       disabledNameMap,
       selectedNameMap,
       selectedValuesMap,
-    });
+    };
+    if (this.toolbar) {
+      this.toolbar.updateState(stateData);
+    }
+    this.event.emit('statechange', stateData);
   }, 100, {
     leading: false,
     trailing: true,
