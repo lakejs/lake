@@ -1,7 +1,7 @@
 {
   "name": "lakelib",
   "description": "Rich text editor based on the browser",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Luo Longhao <luolonghao@gmail.com>",
   "license": "MIT",
   "homepage": "http://lakejs.com",
@@ -9,7 +9,8 @@
     "type": "git",
     "url": "git+https://github.com/lakejs/lake.git"
   },
-  "main": "./lib/lake",
+  "main": "./lib/lake.js",
+  "types": "./lib/types/index.d.ts",
   "files": [
     "dist",
     "lib"
