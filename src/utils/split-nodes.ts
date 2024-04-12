@@ -11,7 +11,7 @@ import { Range } from '../models/range';
 // <p><strong>beginning<i>one|two</i>end</strong></p>
 // to
 // <p><strong>beginning<i>one</i></strong>|<strong><i>two</i>end</strong></p>
-export function splitNodes(node: Nodes, offset: number, limitNode: Nodes): { left: Nodes, right: Nodes } | null {
+export function splitNodes(node: Nodes, offset: number, limitNode: Nodes): { start: Nodes, end: Nodes } | null {
   const range = new Range();
   let parent;
   if (node.isText) {
@@ -35,22 +35,22 @@ export function splitNodes(node: Nodes, offset: number, limitNode: Nodes): { lef
     return null;
   }
   range.collapseToStart();
-  const leftPart = parent.clone();
+  const startPart = parent.clone();
   let child = parent.first();
   while (child.length > 0) {
     if (range.compareBeforeNode(child) >= 0) {
       break;
     }
     const nextNode = child.next();
-    leftPart.append(child);
+    startPart.append(child);
     child = nextNode;
   }
-  parent.before(leftPart);
+  parent.before(startPart);
   if (parent.parent().length > 0 && parent.parent().get(0) !== limitNode.get(0)) {
     return splitNodes(parent.parent(), parent.index(), limitNode);
   }
   return {
-    left: leftPart,
-    right: parent,
+    start: startPart,
+    end: parent,
   };
 }

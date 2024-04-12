@@ -149,12 +149,12 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
   // insert fragment
   if (fragment.childNodes.length > 0) {
     const parts = selection.splitBlock();
-    if (parts.left) {
-      range.setEndAfter(parts.left);
+    if (parts.start) {
+      range.setEndAfter(parts.start);
       range.collapseToEnd();
     }
-    if (parts.right && parts.right.isEmpty) {
-      parts.right.remove();
+    if (parts.end && parts.end.isEmpty) {
+      parts.end.remove();
     }
     selection.insertFragment(fragment);
     range.shrinkAfter(lastNode);

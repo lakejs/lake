@@ -61,17 +61,17 @@ export function removeMark(range: Range, value?: string): void {
       return;
     }
     const parts = splitMarks(range, false);
-    if (!parts.left) {
+    if (!parts.start) {
       return;
     }
-    if (parts.right) {
-      removeEmptyMarks(parts.right);
+    if (parts.end) {
+      removeEmptyMarks(parts.end);
     }
     const zeroWidthSpace = new Nodes(document.createTextNode('\u200B'));
-    const newMark = copyNestedMarks(parts.left, tagName);
+    const newMark = copyNestedMarks(parts.start, tagName);
     if (!newMark) {
-      parts.left.after(zeroWidthSpace);
-      removeEmptyMarks(parts.left);
+      parts.start.after(zeroWidthSpace);
+      removeEmptyMarks(parts.start);
       if (zeroWidthSpace.prev().isText) {
         range.setStartAfter(zeroWidthSpace.prev());
         range.collapseToStart();
@@ -83,8 +83,8 @@ export function removeMark(range: Range, value?: string): void {
       return;
     }
     appendDeepest(newMark, zeroWidthSpace);
-    parts.left.after(newMark);
-    removeEmptyMarks(parts.left);
+    parts.start.after(newMark);
+    removeEmptyMarks(parts.start);
     range.shrinkAfter(newMark);
     return;
   }

@@ -85,8 +85,8 @@ export function addMark(range: Range, value: string | Nodes): void {
     // https://en.wikipedia.org/wiki/Zero-width_space
     const zeroWidthSpace = new Nodes(document.createTextNode('\u200B'));
     const parts = splitMarks(range);
-    if (parts.left) {
-      const newMark = copyNestedMarks(parts.left);
+    if (parts.start) {
+      const newMark = copyNestedMarks(parts.start);
       if (newMark) {
         if (newMark.name === tagName) {
           newMark.css(cssProperties);

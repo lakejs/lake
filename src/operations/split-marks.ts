@@ -18,8 +18,8 @@ function removeEmptyMarks(node: Nodes): void {
 
 // Splits text nodes or mark nodes at a specified position.
 function splitMarksAtPoint(node: Nodes, offset: number, removeEmptyMark: boolean): TwoParts {
-  let left = null;
-  let right = null;
+  let start = null;
+  let end = null;
   let limitBlock = node.closestBlock();
   if (limitBlock.length === 0) {
     limitBlock = node.closestContainer();
@@ -27,22 +27,22 @@ function splitMarksAtPoint(node: Nodes, offset: number, removeEmptyMark: boolean
   const parts = splitNodes(node, offset, limitBlock);
   if (parts) {
     if (removeEmptyMark) {
-      removeEmptyMarks(parts.left);
-      removeEmptyMarks(parts.right);
-      if (!parts.left.isEmpty) {
-        left = parts.left;
+      removeEmptyMarks(parts.start);
+      removeEmptyMarks(parts.end);
+      if (!parts.start.isEmpty) {
+        start = parts.start;
       }
-      if (!parts.right.isEmpty) {
-        right = parts.right;
+      if (!parts.end.isEmpty) {
+        end = parts.end;
       }
     } else {
-      left = parts.left;
-      right = parts.right;
+      start = parts.start;
+      end = parts.end;
     }
   }
   return {
-    left,
-    right,
+    start,
+    end,
   };
 }
 
@@ -53,42 +53,42 @@ function splitMarksAtPoint(node: Nodes, offset: number, removeEmptyMark: boolean
 export function splitMarks(range: Range, removeEmptyMark: boolean = true): ThreeParts {
   if (range.commonAncestor.isOutside) {
     return {
-      left: null,
+      start: null,
       center: null,
-      right: null,
+      end: null,
     };
   }
   range.adaptBox();
   if (range.isCollapsed) {
     const parts = splitMarksAtPoint(range.startNode, range.startOffset, removeEmptyMark);
-    if (parts.left) {
-      range.setStartAfter(parts.left);
+    if (parts.start) {
+      range.setStartAfter(parts.start);
       range.collapseToStart();
-    } else if (parts.right) {
-      range.setStartBefore(parts.right);
+    } else if (parts.end) {
+      range.setStartBefore(parts.end);
       range.collapseToStart();
     }
     return {
-      left: parts.left,
+      start: parts.start,
       center: null,
-      right: parts.right,
+      end: parts.end,
     };
   }
   const startParts = splitMarksAtPoint(range.startNode, range.startOffset, removeEmptyMark);
-  if (startParts.left) {
-    range.setStartAfter(startParts.left);
-  } else if (startParts.right) {
-    range.setStartBefore(startParts.right);
+  if (startParts.start) {
+    range.setStartAfter(startParts.start);
+  } else if (startParts.end) {
+    range.setStartBefore(startParts.end);
   }
   const endParts = splitMarksAtPoint(range.endNode, range.endOffset, removeEmptyMark);
-  if (endParts.left) {
-    range.setEndAfter(endParts.left);
-  } else if (endParts.right) {
-    range.setEndBefore(endParts.right);
+  if (endParts.start) {
+    range.setEndAfter(endParts.start);
+  } else if (endParts.end) {
+    range.setEndBefore(endParts.end);
   }
   return {
-    left: startParts.left,
-    center: endParts.left,
-    right: endParts.right,
+    start: startParts.start,
+    center: endParts.start,
+    end: endParts.end,
   };
 }

@@ -24,18 +24,18 @@ export function insertBox(range: Range, boxName: string, boxValue?: BoxValue): B
   }
   // block box
   const parts = splitBlock(range);
-  if (parts.left) {
-    range.setEndAfter(parts.left);
+  if (parts.start) {
+    range.setEndAfter(parts.start);
     range.collapseToEnd();
   }
-  if (parts.right && parts.right.isEmpty) {
-    parts.right.remove();
+  if (parts.end && parts.end.isEmpty) {
+    parts.end.remove();
   }
   insertFragment(range, fragment);
   box.render();
   range.selectBoxEnd(box.node);
-  if (parts.left && parts.left.isEmpty) {
-    parts.left.remove();
+  if (parts.start && parts.start.isEmpty) {
+    parts.start.remove();
   }
   return box;
 }

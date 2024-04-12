@@ -12,8 +12,8 @@ import { deleteContents } from './delete-contents';
 export function splitBlock(range: Range): TwoParts {
   if (range.commonAncestor.isOutside) {
     return {
-      left: null,
-      right: null,
+      start: null,
+      end: null,
     };
   }
   if (range.isCollapsed) {
@@ -25,8 +25,8 @@ export function splitBlock(range: Range): TwoParts {
   const closestBlock = node.closestOperableBlock();
   if (closestBlock.length === 0) {
     return {
-      left: null,
-      right: null,
+      start: null,
+      end: null,
     };
   }
   let limitBlock = closestBlock.parent();
@@ -34,35 +34,35 @@ export function splitBlock(range: Range): TwoParts {
     limitBlock = node.closestContainer();
   }
   const parts = splitNodes(node, range.startOffset, limitBlock);
-  let left = null;
-  let right = null;
+  let start = null;
+  let end = null;
   if (parts) {
-    left = parts.left;
-    right = parts.right;
+    start = parts.start;
+    end = parts.end;
   }
   if (!parts && node.isBlock) {
     if (range.startOffset > 0) {
-      left = node.children()[range.startOffset - 1];
+      start = node.children()[range.startOffset - 1];
     }
-    right = node.children()[range.startOffset];
-    if (right && !right.isBlock) {
-      right = null;
+    end = node.children()[range.startOffset];
+    if (end && !end.isBlock) {
+      end = null;
     }
   }
-  if (left && left.isEmpty) {
-    appendDeepest(left, query('<br />'));
+  if (start && start.isEmpty) {
+    appendDeepest(start, query('<br />'));
   }
-  if (right) {
-    if (right.isEmpty) {
-      appendDeepest(right, query('<br />'));
-      range.shrinkAfter(right);
+  if (end) {
+    if (end.isEmpty) {
+      appendDeepest(end, query('<br />'));
+      range.shrinkAfter(end);
     } else {
-      range.shrinkBefore(right);
+      range.shrinkBefore(end);
     }
   }
   fixList(range);
   return {
-    left,
-    right,
+    start,
+    end,
   };
 }
