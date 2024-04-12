@@ -66,6 +66,7 @@ import backspaceKey from './plugins/backspace-key';
 import deleteKey from './plugins/delete-key';
 import tabKey from './plugins/tab-key';
 import arrowKeys from './plugins/arrow-keys';
+import escapeKey from './plugins/escape-key';
 
 Editor.box.add(hrBox);
 Editor.box.add(imageBox);
@@ -106,6 +107,7 @@ Editor.plugin.add(backspaceKey);
 Editor.plugin.add(deleteKey);
 Editor.plugin.add(tabKey);
 Editor.plugin.add(arrowKeys);
+Editor.plugin.add(escapeKey);
 
 export {
   Editor,

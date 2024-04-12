@@ -113,6 +113,7 @@ import './plugins/backspace-key.test';
 import './plugins/delete-key.test';
 import './plugins/tab-key.test';
 import './plugins/arrow-keys.test';
+import './plugins/escape-key.test';
 
 // UI
 import './ui/button.test';
