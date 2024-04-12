@@ -1,6 +1,6 @@
 import { testBox } from '../utils';
 
-describe('ui: boxes / hr-ui', () => {
+describe('boxes / hr-ui', () => {
 
   it('hr', () => {
     testBox('hr', undefined, box => {

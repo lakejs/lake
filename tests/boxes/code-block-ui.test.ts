@@ -99,7 +99,7 @@ public class Class<T, V> implements MyInterface {
 }
 `.trim();
 
-describe('ui: boxes / code-block-ui', () => {
+describe('boxes / code-block-ui', () => {
 
   it('codeBlock: HTML', () => {
     testBox('codeBlock', {

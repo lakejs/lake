@@ -1,7 +1,7 @@
 import { query } from '../../src/utils';
 import { LinkPopup } from '../../src/ui/link-popup';
 
-describe('ui: ui / link-popup-ui', () => {
+describe('ui / link-popup-ui', () => {
 
   it('link popup', () => {
     const container = query('<div class="lake-popup lake-custom-properties" />');

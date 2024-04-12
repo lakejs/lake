@@ -3,7 +3,7 @@ import { query } from '../../src/utils';
 import { Button } from '../../src/ui/button';
 import { Nodes, icons } from '../../src';
 
-describe('ui: ui / button-ui', () => {
+describe('ui / button-ui', () => {
 
   let rootNode: Nodes;
 

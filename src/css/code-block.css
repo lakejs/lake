@@ -15,9 +15,7 @@
 lake-box[name="codeBlock"] {
   margin: 16px 0;
 }
-lake-box[name="codeBlock"] .lake-box-focused .lake-code-block {
-  border-color: var(--box-border-color);
-}
+lake-box[name="codeBlock"] .lake-box-focused .lake-code-block,
 lake-box[name="codeBlock"] .lake-box-activated .lake-code-block {
   border-color: var(--box-border-color);
 }
@@ -33,6 +31,7 @@ lake-box[name="codeBlock"] .lake-box-activated .lake-code-block {
   right: 2px;
   display: none;
 }
+lake-box[name="codeBlock"] .lake-box-focused .lake-code-block .lake-dropdown,
 lake-box[name="codeBlock"] .lake-box-activated .lake-code-block .lake-dropdown {
   display: block;
 }

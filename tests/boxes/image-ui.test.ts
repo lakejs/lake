@@ -7,7 +7,7 @@ const mediumOriginalUrl = '../assets/images/heaven-lake-1280.png';
 const largeUrl = '../assets/images/lac-gentau-1024.jpg';
 const largeOriginalUrl = '../assets/images/lac-gentau-4096.jpg';
 
-describe('ui: boxes / image-ui', () => {
+describe('boxes / image-ui', () => {
 
   it('uploading: small size', () => {
     testBox('image', {

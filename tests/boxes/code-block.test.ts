@@ -27,11 +27,22 @@ describe('boxes / code-block', () => {
     rootNode.remove();
   });
 
+  it('should focus on box after selecting box', done => {
+    const boxContainer = box.getContainer();
+    editor.selection.range.selectBox(box.node);
+    editor.event.once('boxselectionstylechange', () => {
+      expect(boxContainer.hasClass('lake-box-focused')).to.equal(true);
+      expect(boxContainer.find('.lake-dropdown').computedCSS('display')).to.equal('block');
+      done();
+    });
+  });
+
   it('should activate box after clicking', done => {
     const boxContainer = box.getContainer();
     box.getData('codeEditor').focus();
     editor.event.once('boxselectionstylechange', () => {
       expect(boxContainer.hasClass('lake-box-activated')).to.equal(true);
+      expect(boxContainer.find('.lake-dropdown').computedCSS('display')).to.equal('block');
       done();
     });
   });
