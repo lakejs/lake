@@ -7,7 +7,7 @@ export default (editor: Editor) => {
     if (range.isBoxCenter || range.isInsideBox) {
       event.preventDefault();
       const boxNode = range.commonAncestor.closest('lake-box');
-      range.selectBoxRight(boxNode);
+      range.selectBoxEnd(boxNode);
       selection.addRangeToNativeSelection();
       return;
     }

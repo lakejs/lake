@@ -74,12 +74,12 @@ describe('managers / selection', () => {
 
   it('synByBookmark method: with box-bookmark', () => {
     const content = `
-    <lake-box type="block" name="blockBox" focus="right"></lake-box>
+    <lake-box type="block" name="blockBox" focus="end"></lake-box>
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
     selection.synByBookmark();
-    expect(selection.range.isBoxRight).to.equal(true);
+    expect(selection.range.isBoxEnd).to.equal(true);
   });
 
   it('getAppliedItems method: is a collapsed range', () => {

@@ -159,7 +159,7 @@ describe('plugins / delete-key', () => {
     `;
     const output = `
     <p>foo</p>
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     `;
     testPlugin(
       content,
@@ -176,7 +176,7 @@ describe('plugins / delete-key', () => {
     <lake-box type="block" name="hr"></lake-box>
     `;
     const output = `
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     `;
     testPlugin(
       content,
@@ -189,11 +189,11 @@ describe('plugins / delete-key', () => {
 
   it('should remove empty next paragraph after box', () => {
     const content = `
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     <p><br /></p>
     `;
     const output = `
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     `;
     testPlugin(
       content,
@@ -206,7 +206,7 @@ describe('plugins / delete-key', () => {
 
   it('should remove box after selecting the beginning of box', () => {
     const content = `
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     <p>foo</p>
     `;
     const output = `
@@ -224,7 +224,7 @@ describe('plugins / delete-key', () => {
 
   it('should move cursor into paragraph after box', () => {
     const content = `
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>foo</p>
     `;
     const output = `
@@ -280,12 +280,12 @@ describe('plugins / delete-key', () => {
 
   it('should merge two blocks that include only inline boxes (1)', () => {
     const content = `
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box></p>
     <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
     `;
     const output = `
     <p>
-      <lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>
+      <lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>
     </p>
     `;
     testPlugin(
@@ -319,7 +319,7 @@ describe('plugins / delete-key', () => {
   it('should remove inline box (1)', () => {
     const content = `
     <p>foo</p>
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="start"></lake-box></p>
     `;
     const output = `
     <p>foo</p>
@@ -372,7 +372,7 @@ describe('plugins / delete-key', () => {
 
   it('should remove the next inline box when focus is at the end of an inline box', () => {
     const content = `
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
     `;
     const output = `
     <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus /></p>

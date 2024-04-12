@@ -112,8 +112,8 @@ describe('operations / to-bookmark', () => {
     expect(container.html()).to.equal('<p>outer start</p>foo<strong>bold</strong><p>outer end</p>');
   });
 
-  it('focus is on the left strip of box', () => {
-    const content = '<lake-box type="block" name="blockBox" focus="left"></lake-box>';
+  it('focus is on the start strip of box', () => {
+    const content = '<lake-box type="block" name="blockBox" focus="start"></lake-box>';
     container.html(content);
     const range = new Range();
     const anchor = new Nodes();
@@ -122,11 +122,11 @@ describe('operations / to-bookmark', () => {
       anchor,
       focus,
     });
-    expect(range.isBoxLeft).to.equal(true);
+    expect(range.isBoxStart).to.equal(true);
   });
 
-  it('focus is on the right strip of box', () => {
-    const content = '<lake-box type="block" name="blockBox" focus="right"></lake-box>';
+  it('focus is on the end strip of box', () => {
+    const content = '<lake-box type="block" name="blockBox" focus="end"></lake-box>';
     container.html(content);
     const range = new Range();
     const anchor = new Nodes();
@@ -135,7 +135,7 @@ describe('operations / to-bookmark', () => {
       anchor,
       focus,
     });
-    expect(range.isBoxRight).to.equal(true);
+    expect(range.isBoxEnd).to.equal(true);
   });
 
   it('focus is on the box', () => {
@@ -149,8 +149,8 @@ describe('operations / to-bookmark', () => {
       focus,
     });
     expect(range.isBox).to.equal(true);
-    expect(range.isBoxLeft).to.equal(false);
-    expect(range.isBoxRight).to.equal(false);
+    expect(range.isBoxStart).to.equal(false);
+    expect(range.isBoxEnd).to.equal(false);
   });
 
 });

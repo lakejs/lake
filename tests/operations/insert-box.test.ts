@@ -27,7 +27,7 @@ describe('operations / insert-box', () => {
     <p>foo<focus /></p>
     `;
     const output = `
-    <p>foo<lake-box type="inline" name="inlineBox" focus="right"></lake-box></p>
+    <p>foo<lake-box type="inline" name="inlineBox" focus="end"></lake-box></p>
     `;
     testOperation(
       content,
@@ -38,12 +38,12 @@ describe('operations / insert-box', () => {
     );
   });
 
-  it('inserts an inline box into the left strip of box', () => {
+  it('inserts an inline box into the start strip of box', () => {
     const content = `
-    <p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>
+    <p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>
     `;
     const output = `
-    <p>foo<lake-box type="inline" name="inlineBox" focus="right"></lake-box><lake-box type="inline" name="inlineBox"></lake-box>bar</p>
+    <p>foo<lake-box type="inline" name="inlineBox" focus="end"></lake-box><lake-box type="inline" name="inlineBox"></lake-box>bar</p>
     `;
     testOperation(
       content,
@@ -54,12 +54,12 @@ describe('operations / insert-box', () => {
     );
   });
 
-  it('inserts an inline box into the right strip of box', () => {
+  it('inserts an inline box into the end strip of box', () => {
     const content = `
-    <p>foo<lake-box type="inline" name="inlineBox" focus="right"></lake-box>bar</p>
+    <p>foo<lake-box type="inline" name="inlineBox" focus="end"></lake-box>bar</p>
     `;
     const output = `
-    <p>foo<lake-box type="inline" name="inlineBox"></lake-box><lake-box type="inline" name="inlineBox" focus="right"></lake-box>bar</p>
+    <p>foo<lake-box type="inline" name="inlineBox"></lake-box><lake-box type="inline" name="inlineBox" focus="end"></lake-box>bar</p>
     `;
     testOperation(
       content,
@@ -76,7 +76,7 @@ describe('operations / insert-box', () => {
     <p><focus />foo</p>
     `;
     const output = `
-    <lake-box type="block" name="blockBox" focus="right"></lake-box>
+    <lake-box type="block" name="blockBox" focus="end"></lake-box>
     <p>foo</p>
     `;
     testOperation(
@@ -94,7 +94,7 @@ describe('operations / insert-box', () => {
     `;
     const output = `
     <p>foo</p>
-    <lake-box type="block" name="blockBox" focus="right"></lake-box>
+    <lake-box type="block" name="blockBox" focus="end"></lake-box>
     `;
     testOperation(
       content,
@@ -107,12 +107,12 @@ describe('operations / insert-box', () => {
 
   it('inserts a block box when the cursor is at the right of the box', () => {
     const content = `
-    <lake-box type="block" name="blockBox" focus="right"></lake-box>
+    <lake-box type="block" name="blockBox" focus="end"></lake-box>
     <p>foo</p>
     `;
     const output = `
     <lake-box type="block" name="blockBox"></lake-box>
-    <lake-box type="block" name="blockBox" focus="right"></lake-box>
+    <lake-box type="block" name="blockBox" focus="end"></lake-box>
     <p>foo</p>
     `;
     testOperation(

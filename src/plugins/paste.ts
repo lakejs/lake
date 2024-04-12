@@ -71,10 +71,10 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
   if (boxNode.length > 0) {
     const box = new Box(boxNode);
     if (box.type === 'inline') {
-      if (range.isBoxLeft) {
+      if (range.isBoxStart) {
         range.setStartBefore(boxNode);
         range.collapseToStart();
-      } else if (range.isBoxRight) {
+      } else if (range.isBoxEnd) {
         range.setStartAfter(boxNode);
         range.collapseToStart();
       } else {
@@ -82,10 +82,10 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
       }
     } else {
       const paragraph = query('<p />');
-      if (range.isBoxLeft) {
+      if (range.isBoxStart) {
         boxNode.before(paragraph);
         range.shrinkAfter(paragraph);
-      } else if (range.isBoxRight) {
+      } else if (range.isBoxEnd) {
         boxNode.after(paragraph);
         range.shrinkAfter(paragraph);
       } else {

@@ -485,7 +485,7 @@ describe('ui / toolbar', () => {
     click(toolbar.container.find('button[name="codeBlock"]'));
     const value = editor.getValue();
     debug(`output: ${value}`);
-    expect(value).to.equal('<lake-box type="block" name="codeBlock" focus="right"></lake-box>');
+    expect(value).to.equal('<lake-box type="block" name="codeBlock" focus="end"></lake-box>');
   });
 
   it('hr: clicks button', () => {
@@ -493,7 +493,7 @@ describe('ui / toolbar', () => {
     click(toolbar.container.find('button[name="hr"]'));
     const value = editor.getValue();
     debug(`output: ${value}`);
-    expect(value).to.equal('<lake-box type="block" name="hr" focus="right"></lake-box>');
+    expect(value).to.equal('<lake-box type="block" name="hr" focus="end"></lake-box>');
   });
 
   it('selectAll: clicks button', () => {
@@ -538,7 +538,7 @@ describe('ui / toolbar', () => {
     }));
     const value = removeBoxValueFromHTML(editor.getValue());
     debug(`output: ${value}`);
-    expect(value).to.equal('<p>foo<lake-box type="inline" name="image"></lake-box><lake-box type="inline" name="image" focus="right"></lake-box></p>');
+    expect(value).to.equal('<p>foo<lake-box type="inline" name="image"></lake-box><lake-box type="inline" name="image" focus="end"></lake-box></p>');
     const box1 = new Box(editor.container.find('lake-box').eq(0));
     const box2 = new Box(editor.container.find('lake-box').eq(1));
     expect(box1.value.status).to.equal('done');

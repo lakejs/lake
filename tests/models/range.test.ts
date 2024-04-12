@@ -93,14 +93,14 @@ describe('models / range', () => {
     expect(range.isBox).to.equal(true);
   });
 
-  it('property: isBoxLeft', () => {
+  it('property: isBoxStart', () => {
     setTestBox(container);
     const range = new Range();
     const boxNode = container.find('lake-box');
-    range.selectBoxLeft(boxNode);
-    expect(range.isBoxLeft).to.equal(true);
-    range.selectBoxRight(boxNode);
-    expect(range.isBoxLeft).to.equal(false);
+    range.selectBoxStart(boxNode);
+    expect(range.isBoxStart).to.equal(true);
+    range.selectBoxEnd(boxNode);
+    expect(range.isBoxStart).to.equal(false);
   });
 
   it('property: isBoxCenter', () => {
@@ -111,20 +111,20 @@ describe('models / range', () => {
     expect(range.isBoxCenter).to.equal(true);
     range.setStart(boxNode.find('.lake-box-container'), 1);
     expect(range.isBoxCenter).to.equal(false);
-    range.selectBoxLeft(boxNode);
+    range.selectBoxStart(boxNode);
     expect(range.isBoxCenter).to.equal(false);
-    range.selectBoxRight(boxNode);
+    range.selectBoxEnd(boxNode);
     expect(range.isBoxCenter).to.equal(false);
   });
 
-  it('property: isBoxRight', () => {
+  it('property: isBoxEnd', () => {
     setTestBox(container);
     const range = new Range();
     const boxNode = container.find('lake-box');
-    range.selectBoxLeft(boxNode);
-    expect(range.isBoxRight).to.equal(false);
-    range.selectBoxRight(boxNode);
-    expect(range.isBoxRight).to.equal(true);
+    range.selectBoxStart(boxNode);
+    expect(range.isBoxEnd).to.equal(false);
+    range.selectBoxEnd(boxNode);
+    expect(range.isBoxEnd).to.equal(true);
   });
 
   it('property: isInsideBox', () => {
@@ -135,9 +135,9 @@ describe('models / range', () => {
     expect(range.isInsideBox).to.equal(false);
     range.setStart(boxNode.find('.lake-box-container'), 1);
     expect(range.isInsideBox).to.equal(true);
-    range.selectBoxLeft(boxNode);
+    range.selectBoxStart(boxNode);
     expect(range.isInsideBox).to.equal(false);
-    range.selectBoxRight(boxNode);
+    range.selectBoxEnd(boxNode);
     expect(range.isInsideBox).to.equal(false);
   });
 
@@ -350,20 +350,20 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('method: selectBoxLeft', () => {
+  it('method: selectBoxStart', () => {
     setTestBox(container);
     const range = new Range();
-    range.selectBoxLeft(container.find('lake-box'));
+    range.selectBoxStart(container.find('lake-box'));
     const node = new Nodes((range.startNode.get(0) as Element).nextElementSibling);
     expect(node.attr('class')).to.equal('lake-box-container');
     expect(range.startOffset).to.equal(1);
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('method: selectBoxRight', () => {
+  it('method: selectBoxEnd', () => {
     setTestBox(container);
     const range = new Range();
-    range.selectBoxRight(container.find('lake-box'));
+    range.selectBoxEnd(container.find('lake-box'));
     const node = new Nodes((range.startNode.get(0) as Element).previousElementSibling);
     expect(node.attr('class')).to.equal('lake-box-container');
     expect(range.startOffset).to.equal(1);
@@ -392,7 +392,7 @@ describe('models / range', () => {
     setTestBox(container);
     const range = new Range();
     range.shrinkBefore(container.find('lake-box'));
-    expect(range.isBoxLeft).to.equal(true);
+    expect(range.isBoxStart).to.equal(true);
   });
 
   it('shrinkBefore method: box in the paragraph', () => {
@@ -400,7 +400,7 @@ describe('models / range', () => {
     setTestBox(container.find('p'));
     const range = new Range();
     range.shrinkBefore(container.find('p'));
-    expect(range.isBoxLeft).to.equal(true);
+    expect(range.isBoxStart).to.equal(true);
   });
 
   it('shrinkAfter method: non-block', () => {
@@ -425,7 +425,7 @@ describe('models / range', () => {
     setTestBox(container);
     const range = new Range();
     range.shrinkAfter(container.find('lake-box'));
-    expect(range.isBoxRight).to.equal(true);
+    expect(range.isBoxEnd).to.equal(true);
   });
 
   it('shrinkAfter method: box in the paragraph', () => {
@@ -433,7 +433,7 @@ describe('models / range', () => {
     setTestBox(container.find('p'));
     const range = new Range();
     range.shrinkAfter(container.find('p'));
-    expect(range.isBoxRight).to.equal(true);
+    expect(range.isBoxEnd).to.equal(true);
   });
 
   it('shrink method: expanded range', () => {
@@ -499,7 +499,7 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(false);
   });
 
-  it('adaptBox method: should move out to the left side of the box', () => {
+  it('adaptBox method: should move out to the start strip of the box', () => {
     setTestBox(container);
     container.prepend('<p>foo</p>');
     container.append('<p>bar</p>');
@@ -514,7 +514,7 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('adaptBox method: should move out to the right side of the box', () => {
+  it('adaptBox method: should move out to the end strip of the box', () => {
     setTestBox(container);
     container.prepend('<p>foo</p>');
     container.append('<p>bar</p>');
@@ -544,7 +544,7 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(false);
   });
 
-  it('adaptBox method: should move out to the left side of the table', () => {
+  it('adaptBox method: should move out to the start strip of the table', () => {
     container.prepend('<p>bar</p>');
     container.append('<table><tr><td>foo</td></tr></table>');
     const range = new Range();
@@ -558,7 +558,7 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(false);
   });
 
-  it('adaptBox method: should move out to the right side of the table', () => {
+  it('adaptBox method: should move out to the end strip of the table', () => {
     container.prepend('<table><tr><td>foo</td></tr></table>');
     container.append('<p>bar</p>');
     const range = new Range();
@@ -593,7 +593,7 @@ describe('models / range', () => {
     range.setStartAfter(container.find('p').eq(0));
     range.collapseToStart();
     range.adaptBlock();
-    expect(range.isBoxLeft).to.equal(true);
+    expect(range.isBoxStart).to.equal(true);
   });
 
   it('adaptBlock method: should shrink', () => {

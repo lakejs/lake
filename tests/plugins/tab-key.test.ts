@@ -58,12 +58,12 @@ describe('plugins / tab-key', () => {
     );
   });
 
-  it('inline box: the focus is left', () => {
+  it('inline box: the focus is on the start', () => {
     const content = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box>bar</p>
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="start"></lake-box>bar</p>
     `;
     const output = `
-    <p style="text-indent: 2em;">foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box>bar</p>
+    <p style="text-indent: 2em;">foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="start"></lake-box>bar</p>
     `;
     testPlugin(
       content,
@@ -90,12 +90,12 @@ describe('plugins / tab-key', () => {
     );
   });
 
-  it('inline box: the focus is right', () => {
+  it('inline box: the focus is on the end', () => {
     const content = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box>bar</p>
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box>bar</p>
     `;
     const output = `
-    <p style="text-indent: 2em;">foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box>bar</p>
+    <p style="text-indent: 2em;">foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box>bar</p>
     `;
     testPlugin(
       content,
@@ -106,10 +106,10 @@ describe('plugins / tab-key', () => {
     );
   });
 
-  it('block box: the focus is left', () => {
+  it('block box: the focus i', () => {
     const content = `
     <p>foo</p>
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     <p>bar</p>
     `;
     const output = content;
@@ -138,10 +138,10 @@ describe('plugins / tab-key', () => {
     );
   });
 
-  it('block box: the focus is right', () => {
+  it('block box: the focus is on the end', () => {
     const content = `
     <p>foo</p>
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>bar</p>
     `;
     const output = content;

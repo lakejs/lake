@@ -24,7 +24,7 @@ describe('operations / remove-box', () => {
 
   it('remove a inline box', () => {
     const content = `
-    <p>foo<lake-box type="inline" name="inlineBox" focus="right"></lake-box></p>
+    <p>foo<lake-box type="inline" name="inlineBox" focus="end"></lake-box></p>
     `;
     const output = `
     <p>foo<focus /></p>
@@ -40,7 +40,7 @@ describe('operations / remove-box', () => {
 
   it('remove a block box', () => {
     const content = `
-    <lake-box type="block" name="blockBox" focus="right"></lake-box>
+    <lake-box type="block" name="blockBox" focus="end"></lake-box>
     <p>foo</p>
     `;
     const output = `

@@ -336,11 +336,11 @@ describe('plugins / enter-key', () => {
 
   it('box: the focus is at the beginning of block box', () => {
     const content = `
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     `;
     const output = `
     <p><br /></p>
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     `;
     testPlugin(
       content,
@@ -353,7 +353,7 @@ describe('plugins / enter-key', () => {
 
   it('box: the focus is at the end of block box', () => {
     const content = `
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     `;
     const output = `
     <lake-box type="block" name="hr"></lake-box>
@@ -375,7 +375,7 @@ describe('plugins / enter-key', () => {
     `;
     const output = `
     <p><br /></p>
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     <p>foo</p>
     `;
     testPlugin(
@@ -446,11 +446,11 @@ describe('plugins / enter-key', () => {
 
   it('box: the focus is at the beginning of inline box', () => {
     const content = `
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="start"></lake-box></p>
     `;
     const output = `
     <p><br /></p>
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="start"></lake-box></p>
     `;
     testPlugin(
       content,
@@ -463,7 +463,7 @@ describe('plugins / enter-key', () => {
 
   it('box: the focus is at the end of inline box', () => {
     const content = `
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box></p>
     `;
     const output = `
     <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
@@ -485,7 +485,7 @@ describe('plugins / enter-key', () => {
     `;
     const output = `
     <p><br /></p>
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="start"></lake-box></p>
     <p>foo</p>
     `;
     testPlugin(

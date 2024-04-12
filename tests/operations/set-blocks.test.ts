@@ -354,11 +354,11 @@ describe('operations / set-blocks', () => {
 
   it('the cursor is at the right of the box', () => {
     const content = `
-    <lake-box type="block" name="blockBox" focus="right"></lake-box>
+    <lake-box type="block" name="blockBox" focus="end"></lake-box>
     <p>foo</p>
     `;
     const output = `
-    <lake-box type="block" name="blockBox" focus="right"></lake-box>
+    <lake-box type="block" name="blockBox" focus="end"></lake-box>
     <p>foo</p>
     `;
     testOperation(

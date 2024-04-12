@@ -9,7 +9,7 @@ describe('plugins / code-block', () => {
     `;
     const output = `
     <p>foo</p>
-    <lake-box type="block" name="codeBlock" focus="right"></lake-box>
+    <lake-box type="block" name="codeBlock" focus="end"></lake-box>
     `;
     testPlugin(
       content,
@@ -26,7 +26,7 @@ describe('plugins / code-block', () => {
     `;
     const output = `
     <p>foo</p>
-    <lake-box type="block" name="codeBlock" focus="right"></lake-box>
+    <lake-box type="block" name="codeBlock" focus="end"></lake-box>
     `;
     testPlugin(
       content,

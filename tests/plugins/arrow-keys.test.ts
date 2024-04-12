@@ -22,9 +22,9 @@ describe('plugins / arrow-keys', () => {
     );
   });
 
-  it('left key: cursor is on the left strip of the inline box', () => {
+  it('left key: cursor is on the start strip of the inline box', () => {
     const content = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box>bar</p>
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="start"></lake-box>bar</p>
     `;
     const output = `
     <p>foo<focus /><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>bar</p>
@@ -38,9 +38,9 @@ describe('plugins / arrow-keys', () => {
     );
   });
 
-  it('left key: cursor is on the right strip of the inline box', () => {
+  it('left key: cursor is on the end strip of the inline box', () => {
     const content = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box>bar</p>
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box>bar</p>
     `;
     const output = `
     <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
@@ -59,7 +59,7 @@ describe('plugins / arrow-keys', () => {
     <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
     `;
     const output = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box>bar</p>
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="start"></lake-box>bar</p>
     `;
     testPlugin(
       content,
@@ -86,10 +86,10 @@ describe('plugins / arrow-keys', () => {
     );
   });
 
-  it('left key: cursor is on the left strip of the block box', () => {
+  it('left key: cursor is on the start strip of the block box', () => {
     const content = `
     <p>foo</p>
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     <p>bar</p>
     `;
     const output = `
@@ -106,10 +106,10 @@ describe('plugins / arrow-keys', () => {
     );
   });
 
-  it('left key: cursor is on the right strip of the block box', () => {
+  it('left key: cursor is on the end strip of the block box', () => {
     const content = `
     <p>foo</p>
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>bar</p>
     `;
     const output = `
@@ -134,7 +134,7 @@ describe('plugins / arrow-keys', () => {
     `;
     const output = `
     <p>foo</p>
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     <p>bar</p>
     `;
     testPlugin(
@@ -148,7 +148,7 @@ describe('plugins / arrow-keys', () => {
 
   it('left key: two inline boxes', () => {
     const content = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box>bar</p>
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}" focus="start"></lake-box>bar</p>
     `;
     const output = `
     <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>bar</p>
@@ -180,9 +180,9 @@ describe('plugins / arrow-keys', () => {
     );
   });
 
-  it('right key: cursor is on the left strip of the inline box', () => {
+  it('right key: cursor is on the start strip of the inline box', () => {
     const content = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box>bar</p>
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="start"></lake-box>bar</p>
     `;
     const output = `
     <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
@@ -196,9 +196,9 @@ describe('plugins / arrow-keys', () => {
     );
   });
 
-  it('right key: cursor is on the right strip of the inline box', () => {
+  it('right key: cursor is on the end strip of the inline box', () => {
     const content = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box>bar</p>
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box>bar</p>
     `;
     const output = `
     <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus />bar</p>
@@ -217,7 +217,7 @@ describe('plugins / arrow-keys', () => {
     <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
     `;
     const output = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box>bar</p>
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box>bar</p>
     `;
     testPlugin(
       content,
@@ -244,10 +244,10 @@ describe('plugins / arrow-keys', () => {
     );
   });
 
-  it('right key: cursor is on the left strip of the block box', () => {
+  it('right key: cursor is on the start strip of the block box', () => {
     const content = `
     <p>foo</p>
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     <p>bar</p>
     `;
     const output = `
@@ -264,10 +264,10 @@ describe('plugins / arrow-keys', () => {
     );
   });
 
-  it('right key: cursor is on the right strip of the block box', () => {
+  it('right key: cursor is on the end strip of the block box', () => {
     const content = `
     <p>foo</p>
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>bar</p>
     `;
     const output = `
@@ -292,7 +292,7 @@ describe('plugins / arrow-keys', () => {
     `;
     const output = `
     <p>foo</p>
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>bar</p>
     `;
     testPlugin(
@@ -306,7 +306,7 @@ describe('plugins / arrow-keys', () => {
 
   it('right key: two inline boxes', () => {
     const content = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>bar</p>
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>bar</p>
     `;
     const output = `
     <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>

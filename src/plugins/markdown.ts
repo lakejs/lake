@@ -258,7 +258,7 @@ function enterKeyExecutesBlockCommand(editor: Editor, block: Nodes): boolean {
       }
       // <p>---<focus /></p>
       // to
-      // <lake-box type="block" name="hr" focus="right"></lake-box>
+      // <lake-box type="block" name="hr" focus="end"></lake-box>
       editor.prepareOperation();
       block.empty();
       fixEmptyBlock(block);

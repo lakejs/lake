@@ -51,30 +51,30 @@ describe('operations / insert-bookmark', () => {
     expect(container.html()).to.equal('<p>outer start</p>foo<strong><lake-bookmark type="anchor"></lake-bookmark>bold<lake-bookmark type="focus"></lake-bookmark></strong><p>outer end</p>');
   });
 
-  it('box-bookmark: left strip', () => {
+  it('box-bookmark: start strip', () => {
     container.html('<p>outer start</p><lake-box type="block" name="blockBox"></lake-box><p>outer end</p>');
     const range = new Range();
     const boxNode = container.find('lake-box');
     const box = new Box(boxNode);
     box.render();
-    range.selectBoxLeft(boxNode);
+    range.selectBoxStart(boxNode);
     const bookmark = insertBookmark(range);
     expect(bookmark.anchor.length).to.equal(0);
     expect(bookmark.focus.name).to.equal('lake-box');
-    expect(bookmark.focus.attr('focus')).to.equal('left');
+    expect(bookmark.focus.attr('focus')).to.equal('start');
   });
 
-  it('box-bookmark: right strip', () => {
+  it('box-bookmark: end strip', () => {
     container.html('<p>outer start</p><lake-box type="block" name="blockBox"></lake-box><p>outer end</p>');
     const range = new Range();
     const boxNode = container.find('lake-box');
     const box = new Box(boxNode);
     box.render();
-    range.selectBoxRight(boxNode);
+    range.selectBoxEnd(boxNode);
     const bookmark = insertBookmark(range);
     expect(bookmark.anchor.length).to.equal(0);
     expect(bookmark.focus.name).to.equal('lake-box');
-    expect(bookmark.focus.attr('focus')).to.equal('right');
+    expect(bookmark.focus.attr('focus')).to.equal('end');
   });
 
   it('box-bookmark: focus on the box', () => {

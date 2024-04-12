@@ -70,7 +70,7 @@ export function addMark(range: Range, value: string | Nodes): void {
       const box = new Box(boxNode);
       if (box.type === 'block') {
         const newBlock = query('<p><br /></p>');
-        if (range.isBoxLeft) {
+        if (range.isBoxStart) {
           boxNode.before(newBlock);
         } else {
           boxNode.after(newBlock);

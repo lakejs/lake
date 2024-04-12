@@ -10,7 +10,7 @@ describe('plugins / image', () => {
     <p>foo<focus />bar</p>
     `;
     const output = `
-    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box>bar</p>
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box>bar</p>
     `;
     testPlugin(
       content,

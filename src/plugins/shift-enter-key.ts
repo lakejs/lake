@@ -21,11 +21,11 @@ function addBlockOrLineBreakForBox(editor: Editor): void {
   const boxNode = range.startNode.closest('lake-box');
   const block = boxNode.closestBlock();
   if (block.length > 0 && !block.isContainer) {
-    if (range.isBoxLeft) {
+    if (range.isBoxStart) {
       range.setStartBefore(boxNode);
       range.collapseToStart();
       addLineBreak(editor);
-    } else if (range.isBoxRight) {
+    } else if (range.isBoxEnd) {
       range.setStartAfter(boxNode);
       range.collapseToStart();
       addLineBreak(editor);
@@ -35,9 +35,9 @@ function addBlockOrLineBreakForBox(editor: Editor): void {
     return;
   }
   const newBlock = query('<p><br /></p>');
-  if (range.isBoxLeft) {
+  if (range.isBoxStart) {
     boxNode.before(newBlock);
-  } else if (range.isBoxRight) {
+  } else if (range.isBoxEnd) {
     boxNode.after(newBlock);
     range.shrinkAfter(newBlock);
   } else {

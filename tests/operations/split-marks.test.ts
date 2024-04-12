@@ -214,9 +214,9 @@ describe('operations / split-marks', () => {
     );
   });
 
-  it('collapsed range: the cursor is on the left side of the inline box', () => {
+  it('collapsed range: the cursor is on the start strip of the inline box', () => {
     const content = `
-    <p><strong>one<lake-box type="inline" name="inlineBox" focus="left"></lake-box>two</strong></p>
+    <p><strong>one<lake-box type="inline" name="inlineBox" focus="start"></lake-box>two</strong></p>
     `;
     const output = `
     <p><strong>one</strong><focus /><strong><lake-box type="inline" name="inlineBox"></lake-box>two</strong></p>
@@ -230,9 +230,9 @@ describe('operations / split-marks', () => {
     );
   });
 
-  it('collapsed range: the cursor is on the right side of the inline box', () => {
+  it('collapsed range: the cursor is on the end strip of the inline box', () => {
     const content = `
-    <p><strong>one<lake-box type="inline" name="inlineBox" focus="right"></lake-box>two</strong></p>
+    <p><strong>one<lake-box type="inline" name="inlineBox" focus="end"></lake-box>two</strong></p>
     `;
     const output = `
     <p><strong>one<lake-box type="inline" name="inlineBox"></lake-box></strong><focus /><strong>two</strong></p>

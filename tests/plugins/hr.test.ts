@@ -8,7 +8,7 @@ describe('plugins / hr', () => {
     `;
     const output = `
     <p>foo</p>
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     `;
     testPlugin(
       content,

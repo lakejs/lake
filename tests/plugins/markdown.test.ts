@@ -187,7 +187,7 @@ describe('plugins / markdown', () => {
 
   it('keystroke: space key behavior should be normal when focus is in a box', () => {
     const content = `
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box></p>
     `;
     const output = content;
     testPlugin(
@@ -525,7 +525,7 @@ describe('plugins / markdown', () => {
     <p>---<focus /></p>
     `;
     const output = `
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     `;
     testPlugin(
       content,
@@ -541,7 +541,7 @@ describe('plugins / markdown', () => {
     <p>\u200B---\u200B<focus /></p>
     `;
     const output = `
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     `;
     testPlugin(
       content,
@@ -588,7 +588,7 @@ describe('plugins / markdown', () => {
 
   it('keystroke: enter key behavior should be normal when focus is in a box', () => {
     const content = `
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box>---</p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box>---</p>
     `;
     const output = `
     <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
@@ -606,7 +606,7 @@ describe('plugins / markdown', () => {
   it('keystroke: should insert codeBlock', () => {
     const content = '<p>```<focus /></p>';
     const output = `
-    <lake-box type="block" name="codeBlock" focus="right"></lake-box>
+    <lake-box type="block" name="codeBlock" focus="end"></lake-box>
     `;
     testPlugin(
       content,
@@ -633,7 +633,7 @@ describe('plugins / markdown', () => {
   it('keystroke: should insert a codeBlock with language type', () => {
     const content = '<p>```css<focus /></p>';
     const output = `
-    <lake-box type="block" name="codeBlock" focus="right"></lake-box>
+    <lake-box type="block" name="codeBlock" focus="end"></lake-box>
     `;
     testPlugin(
       content,
@@ -651,7 +651,7 @@ describe('plugins / markdown', () => {
   it('keystroke: should insert a codeBlock with unknown language type', () => {
     const content = '<p>```foo<focus /></p>';
     const output = `
-    <lake-box type="block" name="codeBlock" focus="right"></lake-box>
+    <lake-box type="block" name="codeBlock" focus="end"></lake-box>
     `;
     testPlugin(
       content,

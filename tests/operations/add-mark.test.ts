@@ -413,7 +413,7 @@ describe('operations / add-mark', () => {
         const boxNode = container.find('lake-box');
         const box = new Box(boxNode);
         box.render();
-        range.selectBoxLeft(boxNode);
+        range.selectBoxStart(boxNode);
         addMark(range, '<strong />');
       },
     );
@@ -436,7 +436,7 @@ describe('operations / add-mark', () => {
         const boxNode = container.find('lake-box');
         const box = new Box(boxNode);
         box.render();
-        range.selectBoxRight(boxNode);
+        range.selectBoxEnd(boxNode);
         addMark(range, '<strong />');
       },
     );
@@ -460,7 +460,7 @@ describe('operations / add-mark', () => {
         const boxNode = container.find('lake-box');
         const box = new Box(boxNode);
         box.render();
-        range.selectBoxLeft(boxNode);
+        range.selectBoxStart(boxNode);
         addMark(range, '<strong />');
       },
     );
@@ -484,7 +484,7 @@ describe('operations / add-mark', () => {
         const boxNode = container.find('lake-box');
         const box = new Box(boxNode);
         box.render();
-        range.selectBoxRight(boxNode);
+        range.selectBoxEnd(boxNode);
         addMark(range, '<strong />');
       },
     );
@@ -509,7 +509,7 @@ describe('operations / add-mark', () => {
         const boxNode = container.find('lake-box').eq(0);
         const box = new Box(boxNode);
         box.render();
-        range.selectBoxLeft(boxNode);
+        range.selectBoxStart(boxNode);
         range.setEnd(container.find('p').eq(1), 2);
         addMark(range, '<strong />');
       },

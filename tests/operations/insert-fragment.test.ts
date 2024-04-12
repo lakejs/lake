@@ -63,12 +63,12 @@ describe('operations / insert-fragment', () => {
 
   it('the cursor is at the left of the box', () => {
     const content = `
-    <lake-box type="block" name="blockBox" focus="left"></lake-box>
+    <lake-box type="block" name="blockBox" focus="start"></lake-box>
     <p>foo</p>
     `;
     const output = `
     <p>bar</p>
-    <lake-box type="block" name="blockBox" focus="left"></lake-box>
+    <lake-box type="block" name="blockBox" focus="start"></lake-box>
     <p>foo</p>
     `;
     testOperation(

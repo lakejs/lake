@@ -45,7 +45,7 @@ describe('managers / box-manager', () => {
     expect(box.getNames().indexOf('managerTest') >= 0).to.equal(true);
     const editor = new Editor({
       root: rootNode,
-      value: '<lake-box type="block" name="managerTest" focus="right"></lake-box><lake-box type="block" name="managerTest"></lake-box>',
+      value: '<lake-box type="block" name="managerTest" focus="end"></lake-box><lake-box type="block" name="managerTest"></lake-box>',
     });
     editor.render();
     editor.container.find('lake-box').eq(1).remove();

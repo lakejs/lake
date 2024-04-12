@@ -7,8 +7,8 @@ import { insertNode } from './insert-node';
 // or the method inserts a pair of bookmarks into the beginning and the end of the range.
 // case 1: foo<lake-bookmark type="focus" />bar
 // case 2: <lake-bookmark type="anchor" />foo<lake-bookmark type="focus" />
-// case 3: foo<lake-box type="inline" name="image" focus="left"></lake-box>bar
-// case 4: foo<lake-box type="inline" name="image" focus="right"></lake-box>bar
+// case 3: foo<lake-box type="inline" name="image" focus="start"></lake-box>bar
+// case 4: foo<lake-box type="inline" name="image" focus="end"></lake-box>bar
 // case 5: <lake-bookmark type="anchor" /><lake-box type="inline" name="image"></lake-box>foo<lake-bookmark type="focus" />
 export function insertBookmark(range: Range): { anchor: Nodes, focus: Nodes } {
   if (range.commonAncestor.isOutside) {
@@ -20,10 +20,10 @@ export function insertBookmark(range: Range): { anchor: Nodes, focus: Nodes } {
   // box
   const boxNode = range.startNode.closest('lake-box');
   if (boxNode.length > 0) {
-    if (range.isBoxLeft) {
-      boxNode.attr('focus', 'left');
-    } else if (range.isBoxRight) {
-      boxNode.attr('focus', 'right');
+    if (range.isBoxStart) {
+      boxNode.attr('focus', 'start');
+    } else if (range.isBoxEnd) {
+      boxNode.attr('focus', 'end');
     } else {
       boxNode.attr('focus', 'center');
     }

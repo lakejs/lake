@@ -237,7 +237,7 @@ export class Editor {
     const boxNode = stripNode.closest('lake-box');
     const box = new Box(boxNode);
     if (box.type === 'inline') {
-      if (range.isBoxLeft) {
+      if (range.isBoxStart) {
         range.setStartBefore(boxNode);
         range.collapseToStart();
       } else {
@@ -246,7 +246,7 @@ export class Editor {
       }
     } else {
       const paragraph = query('<p />');
-      if (range.isBoxLeft) {
+      if (range.isBoxStart) {
         boxNode.before(paragraph);
       } else {
         boxNode.after(paragraph);
@@ -267,7 +267,7 @@ export class Editor {
     });
     this.container.on('beforeinput', () => {
       const range = this.selection.range;
-      if (range.isBoxLeft || range.isBoxRight) {
+      if (range.isBoxStart || range.isBoxEnd) {
         this.commitUnsavedInputData();
       }
     });
@@ -288,7 +288,7 @@ export class Editor {
           inputEvent.inputType === 'insertText' ||
           inputEvent.inputType === 'insertCompositionText'
         ) {
-          if (range.isBoxLeft || range.isBoxRight) {
+          if (range.isBoxStart || range.isBoxEnd) {
             this.inputInBoxStrip();
           } else {
             this.unsavedInputData += inputEvent.data ?? '';

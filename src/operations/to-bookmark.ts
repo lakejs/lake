@@ -40,12 +40,12 @@ export function toBookmark(range: Range, bookmark: { anchor: Nodes, focus: Nodes
         box.render();
       }
       const focusValue = focus.attr('focus');
-      if (focusValue === 'left') {
-        range.selectBoxLeft(focus);
+      if (focusValue === 'start') {
+        range.selectBoxStart(focus);
       } else if (focusValue === 'center') {
         range.selectBox(focus);
       } else {
-        range.selectBoxRight(focus);
+        range.selectBoxEnd(focus);
       }
       focus.removeAttr('focus');
       return;

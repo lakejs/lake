@@ -19,7 +19,7 @@ export function insertBox(range: Range, boxName: string, boxValue?: BoxValue): B
   if (box.type === 'inline') {
     insertFragment(range, fragment);
     box.render();
-    range.selectBoxRight(box.node);
+    range.selectBoxEnd(box.node);
     return box;
   }
   // block box
@@ -33,7 +33,7 @@ export function insertBox(range: Range, boxName: string, boxValue?: BoxValue): B
   }
   insertFragment(range, fragment);
   box.render();
-  range.selectBoxRight(box.node);
+  range.selectBoxEnd(box.node);
   if (parts.left && parts.left.isEmpty) {
     parts.left.remove();
   }

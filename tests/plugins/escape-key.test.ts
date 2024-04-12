@@ -22,7 +22,7 @@ describe('plugins / escape-key', () => {
   it('focus is on the beginning of a box', () => {
     const content = `
     <p>foo</p>
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     <p>bar</p>
     `;
     const output = content;
@@ -43,7 +43,7 @@ describe('plugins / escape-key', () => {
     `;
     const output = `
     <p>foo</p>
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>bar</p>
     `;
     testPlugin(
@@ -58,7 +58,7 @@ describe('plugins / escape-key', () => {
   it('focus is on the end of a box', () => {
     const content = `
     <p>foo</p>
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>bar</p>
     `;
     const output = content;
@@ -77,7 +77,7 @@ describe('plugins / escape-key', () => {
     <p>foo</p>
     `;
     const output = `
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>foo</p>
     `;
     testPlugin(

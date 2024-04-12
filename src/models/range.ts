@@ -48,11 +48,11 @@ export class Range {
     return boxNode.length > 0;
   }
 
-  // Returns a boolean value indicating whether the range's common ancestor node is in the left strip of the box.
+  // Returns a boolean value indicating whether the range's common ancestor node is in the start strip of the box.
   // case 1: <lake-box><span class="lake-box-strip">|</span><div class="lake-box-container"></div> ...
   // case 2: <lake-box><span class="lake-box-strip"></span>|<div class="lake-box-container"></div> ...
   // case 3: <lake-box>|<span class="lake-box-strip"></span><div class="lake-box-container"></div> ...
-  public get isBoxLeft(): boolean {
+  public get isBoxStart(): boolean {
     const boxNode = this.commonAncestor.closest('lake-box');
     if (boxNode.length === 0) {
       return false;
@@ -75,11 +75,11 @@ export class Range {
     return this.isCollapsed && this.startNode.get(0) === boxContainer.get(0) && this.startOffset === 0;
   }
 
-  // Returns a boolean value indicating whether the range's common ancestor node is in the right strip of the box.
+  // Returns a boolean value indicating whether the range's common ancestor node is in the end strip of the box.
   // case 1: ... <div class="lake-box-container"></div><span class="lake-box-strip">|</span></lake-box>
   // case 2: ... <div class="lake-box-container"></div>|<span class="lake-box-strip"></span></lake-box>
   // case 3: ... <div class="lake-box-container"></div><span class="lake-box-strip"></span>|</lake-box>
-  public get isBoxRight(): boolean {
+  public get isBoxEnd(): boolean {
     const boxNode = this.commonAncestor.closest('lake-box');
     if (boxNode.length === 0) {
       return false;
@@ -227,7 +227,7 @@ export class Range {
   }
 
   // Sets the range to the left position of the box.
-  public selectBoxLeft(boxNode: Nodes): void {
+  public selectBoxStart(boxNode: Nodes): void {
     const boxStrip = boxNode.find('.lake-box-strip');
     if (boxStrip.length === 0) {
       throw new Error(`The box cannot be selected because the box '${boxNode.attr('name')}' (id=${boxNode.id}) has not been rendered yet.`);
@@ -237,7 +237,7 @@ export class Range {
   }
 
   // Sets the range to the left position of the box.
-  public selectBoxRight(boxNode: Nodes): void {
+  public selectBoxEnd(boxNode: Nodes): void {
     const boxStrip = boxNode.find('.lake-box-strip');
     if (boxStrip.length === 0) {
       throw new Error(`The box cannot be selected because the box '${boxNode.attr('name')}' (id=${boxNode.id}) has not been rendered yet.`);
@@ -249,7 +249,7 @@ export class Range {
   // Collapses the range and sets the range to the beginning of the contents of the specified node.
   public shrinkBefore(node: Nodes): void {
     if (node.isBox) {
-      this.selectBoxLeft(node);
+      this.selectBoxStart(node);
       return;
     }
     if (node.isText) {
@@ -265,7 +265,7 @@ export class Range {
       child.isElement && !child.isVoid
     ) {
       if (child.isBox) {
-        this.selectBoxLeft(child);
+        this.selectBoxStart(child);
         return;
       }
       this.setStart(child, 0);
@@ -276,7 +276,7 @@ export class Range {
   // Collapses the range and sets the range to the end of the contents of the specified node.
   public shrinkAfter(node: Nodes): void {
     if (node.isBox) {
-      this.selectBoxRight(node);
+      this.selectBoxEnd(node);
       return;
     }
     if (node.isText) {
@@ -293,7 +293,7 @@ export class Range {
       child.isElement && !child.isVoid
     ) {
       if (child.isBox) {
-        this.selectBoxRight(child);
+        this.selectBoxEnd(child);
         return;
       }
       this.setEnd(child, child.children().length);
@@ -335,7 +335,7 @@ export class Range {
     if (startBoxNode.length > 0) {
       const startRange = this.clone();
       startRange.collapseToStart();
-      if (startRange.isBoxRight) {
+      if (startRange.isBoxEnd) {
         this.setStartAfter(startBoxNode);
       } else {
         this.setStartBefore(startBoxNode);
@@ -345,7 +345,7 @@ export class Range {
     if (endBoxNode.length > 0) {
       const endRange = this.clone();
       endRange.collapseToEnd();
-      if (endRange.isBoxLeft) {
+      if (endRange.isBoxStart) {
         this.setEndBefore(endBoxNode);
       } else {
         this.setEndAfter(endBoxNode);

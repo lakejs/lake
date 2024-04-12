@@ -121,11 +121,11 @@ describe('plugins / shift-enter-key', () => {
 
   it('box: the focus is at the beginning of the block box', () => {
     const content = `
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     `;
     const output = `
     <p><br /></p>
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     `;
     testPlugin(
       content,
@@ -138,7 +138,7 @@ describe('plugins / shift-enter-key', () => {
 
   it('box: the focus is at the end of the block box', () => {
     const content = `
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     `;
     const output = `
     <lake-box type="block" name="hr"></lake-box>
@@ -191,7 +191,7 @@ describe('plugins / shift-enter-key', () => {
 
   it('box: the focus is at the beginning of the inline box', () => {
     const content = `
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="start"></lake-box></p>
     `;
     const output = `
     <p><br /><focus /><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
@@ -207,7 +207,7 @@ describe('plugins / shift-enter-key', () => {
 
   it('box: the focus is at the end of the inline box', () => {
     const content = `
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box></p>
     `;
     const output = `
     <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><br /><br /><focus /></p>

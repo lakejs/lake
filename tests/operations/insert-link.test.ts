@@ -174,7 +174,7 @@ describe('operations / insert-link', () => {
         const boxNode = container.find('lake-box').eq(0);
         const box = new Box(boxNode);
         box.render();
-        range.selectBoxLeft(boxNode);
+        range.selectBoxStart(boxNode);
         range.setEnd(container.find('p').eq(1), 2);
         insertLink(range, '<a href="http://foo.com/" />');
       },

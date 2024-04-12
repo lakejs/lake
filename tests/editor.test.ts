@@ -194,7 +194,7 @@ describe('editor', () => {
   });
 
   it('method: insertBox', () => {
-    const output = '<p><lake-box type="inline" name="inlineBox" focus="right"></lake-box></p>';
+    const output = '<p><lake-box type="inline" name="inlineBox" focus="end"></lake-box></p>';
     const editor = new Editor({
       root: rootNode,
     });
@@ -209,7 +209,7 @@ describe('editor', () => {
   });
 
   it('method: removeBox', () => {
-    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const output = '<p>foo<focus />bar</p>';
     const editor = new Editor({
       root: rootNode,
@@ -226,7 +226,7 @@ describe('editor', () => {
   });
 
   it('box class: should not have any class', () => {
-    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const editor = new Editor({
       root: rootNode,
     });
@@ -247,7 +247,7 @@ describe('editor', () => {
   });
 
   it('box class: should have activated class', done => {
-    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const editor = new Editor({
       root: rootNode,
     });
@@ -274,7 +274,7 @@ describe('editor', () => {
   });
 
   it('box class: should have focused class', done => {
-    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const editor = new Editor({
       root: rootNode,
     });
@@ -301,7 +301,7 @@ describe('editor', () => {
   });
 
   it('box class: should have selected class', done => {
-    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const editor = new Editor({
       root: rootNode,
     });
@@ -327,7 +327,7 @@ describe('editor', () => {
   });
 
   it('box class: should have hovered class', () => {
-    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const editor = new Editor({
       root: rootNode,
     });
@@ -348,8 +348,8 @@ describe('editor', () => {
     expect(isHovered).to.equal(true);
   });
 
-  it('input event: input text in the left strip of inline box', done => {
-    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
+  it('input event: input text in the start strip of inline box', done => {
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const output = '<p>fooa<focus /><lake-box type="inline" name="inlineBox"></lake-box>bar</p>';
     const editor = new Editor({
       root: rootNode,
@@ -367,8 +367,8 @@ describe('editor', () => {
     inputData(editor, 'a');
   });
 
-  it('input event: input text in the right strip of inline box', done => {
-    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="right"></lake-box>bar</p>';
+  it('input event: input text in the end strip of inline box', done => {
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="end"></lake-box>bar</p>';
     const output = '<p>foo<lake-box type="inline" name="inlineBox"></lake-box>a<focus />bar</p>';
     const editor = new Editor({
       root: rootNode,
@@ -386,8 +386,8 @@ describe('editor', () => {
     inputData(editor, 'a');
   });
 
-  it('input event: input composition text in the left strip of inline box', done => {
-    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="left"></lake-box>bar</p>';
+  it('input event: input composition text in the start strip of inline box', done => {
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const output = '<p>foo你好<focus /><lake-box type="inline" name="inlineBox"></lake-box>bar</p>';
     const editor = new Editor({
       root: rootNode,

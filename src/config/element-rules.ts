@@ -83,7 +83,7 @@ export function getElementRules(): any {
       type: ['inline', 'block'],
       name: /^[\w-]+$/,
       value: /^[^"]+$/,
-      focus: ['left', 'center', 'right'],
+      focus: ['start', 'center', 'end'],
     },
     br: {},
     hr: {},

@@ -15,7 +15,7 @@ function mergeWithNextBlock(editor: Editor, block: Nodes): void {
     if (block.isEmpty) {
       block.remove();
     }
-    range.selectBoxLeft(nextBlock);
+    range.selectBoxStart(nextBlock);
     editor.history.save();
     return;
   }
@@ -38,7 +38,7 @@ export default (editor: Editor) => {
       return;
     }
     editor.rectifyContent();
-    if (range.isBoxRight) {
+    if (range.isBoxEnd) {
       const boxNode = range.startNode.closest('lake-box');
       const nextNode = boxNode.next();
       if (nextNode.length === 0) {

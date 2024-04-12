@@ -196,13 +196,13 @@ describe('operations / split-block', () => {
     );
   });
 
-  it('collapsed range: the cursor is on the left side of the inline box', () => {
+  it('collapsed range: the cursor is on the start strip of the inline box', () => {
     const content = `
-    <p>one<lake-box type="inline" name="inlineBox" focus="left"></lake-box>two</p>
+    <p>one<lake-box type="inline" name="inlineBox" focus="start"></lake-box>two</p>
     `;
     const output = `
     <p>one</p>
-    <p><lake-box type="inline" name="inlineBox" focus="left"></lake-box>two</p>
+    <p><lake-box type="inline" name="inlineBox" focus="start"></lake-box>two</p>
     `;
     testOperation(
       content,
@@ -213,9 +213,9 @@ describe('operations / split-block', () => {
     );
   });
 
-  it('collapsed range: the cursor is on the right side of the inline box', () => {
+  it('collapsed range: the cursor is on the end strip of the inline box', () => {
     const content = `
-    <p>one<lake-box type="inline" name="inlineBox" focus="right"></lake-box>two</p>
+    <p>one<lake-box type="inline" name="inlineBox" focus="end"></lake-box>two</p>
     `;
     const output = `
     <p>one<lake-box type="inline" name="inlineBox"></lake-box></p>

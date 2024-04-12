@@ -112,10 +112,10 @@ describe('plugins / paste', () => {
     );
   });
 
-  it('pastes plain text when cursor is on the left side of hr', () => {
+  it('pastes plain text when cursor is on the start strip of hr', () => {
     const content = `
     <p>top</p>
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     <p>bottom</p>
     `;
     const output = `
@@ -133,10 +133,10 @@ describe('plugins / paste', () => {
     );
   });
 
-  it('pastes plain text when cursor is on the right side of hr', () => {
+  it('pastes plain text when cursor is on the end strip of hr', () => {
     const content = `
     <p>top</p>
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>bottom</p>
     `;
     const output = `
@@ -451,10 +451,10 @@ describe('plugins / paste', () => {
     );
   });
 
-  it('pastes a heading when cursor is on the left side of hr', () => {
+  it('pastes a heading when cursor is on the start strip of hr', () => {
     const content = `
     <p>top</p>
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     <p>bottom</p>
     `;
     const output = `
@@ -472,10 +472,10 @@ describe('plugins / paste', () => {
     );
   });
 
-  it('pastes a heading when cursor is on the right side of hr', () => {
+  it('pastes a heading when cursor is on the end strip of hr', () => {
     const content = `
     <p>top</p>
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>bottom</p>
     `;
     const output = `
@@ -667,7 +667,7 @@ describe('plugins / paste', () => {
     <p><br /><focus /></p>
     `;
     const output = `
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box></p>
     `;
     testPlugin(
       content,
@@ -680,7 +680,7 @@ describe('plugins / paste', () => {
 
   it('pastes image box when the cursor is at the beginning of image box', () => {
     const content = `
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="left"></lake-box></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="start"></lake-box></p>
     `;
     const output = `
     <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus /><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
@@ -696,7 +696,7 @@ describe('plugins / paste', () => {
 
   it('pastes image box when the cursor is at the end of image box', () => {
     const content = `
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box></p>
     `;
     const output = `
     <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus /></p>
@@ -715,7 +715,7 @@ describe('plugins / paste', () => {
     <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box></p>
     `;
     const output = `
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="right"></lake-box></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box></p>
     `;
     testPlugin(
       content,
@@ -764,7 +764,7 @@ describe('plugins / paste', () => {
     `;
     const output = `
     <p>f</p>
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>oo</p>
     `;
     testPlugin(
@@ -781,7 +781,7 @@ describe('plugins / paste', () => {
     <p><br /><focus /></p>
     `;
     const output = `
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     `;
     testPlugin(
       content,
@@ -798,7 +798,7 @@ describe('plugins / paste', () => {
     `;
     const output = `
     <p>f</p>
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>oo</p>
     `;
     testPlugin(
@@ -1032,7 +1032,7 @@ describe('plugins / paste', () => {
     <p><br /><focus /></p>
     `;
     const output = `
-    <p><lake-box type="inline" name="image" focus="right"></lake-box></p>
+    <p><lake-box type="inline" name="image" focus="end"></lake-box></p>
     `;
     testPlugin(
       content,

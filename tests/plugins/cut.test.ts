@@ -76,15 +76,15 @@ describe('plugins / cut', () => {
     );
   });
 
-  it('should not cut when cusor is at the left strip of the box', () => {
+  it('should not cut when cusor is at the start strip of the box', () => {
     const content = `
     <p>top</p>
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     <p>bottom</p>
     `;
     const output = `
     <p>top</p>
-    <lake-box type="block" name="hr" focus="left"></lake-box>
+    <lake-box type="block" name="hr" focus="start"></lake-box>
     <p>bottom</p>
     `;
     testPlugin(
@@ -97,15 +97,15 @@ describe('plugins / cut', () => {
     );
   });
 
-  it('should not cut when cusor is at the right strip of the box', () => {
+  it('should not cut when cusor is at the end strip of the box', () => {
     const content = `
     <p>top</p>
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>bottom</p>
     `;
     const output = `
     <p>top</p>
-    <lake-box type="block" name="hr" focus="right"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>bottom</p>
     `;
     testPlugin(
