@@ -4,14 +4,14 @@ import { Nodes } from '../models/nodes';
 
 function splitBlock(editor: Editor, block: Nodes): void {
   const range = editor.selection.range;
-  const rightText = range.getRightText();
+  const endText = range.getEndText();
   editor.selection.splitBlock();
   block = range.getBlocks()[0];
   if (!block) {
     editor.history.save();
     return;
   }
-  if (rightText === '' && (block.isHeading || block.name === 'blockquote')) {
+  if (endText === '' && (block.isHeading || block.name === 'blockquote')) {
     editor.selection.setBlocks('<p />');
     editor.history.save();
     return;

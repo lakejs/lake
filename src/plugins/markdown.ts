@@ -313,7 +313,7 @@ export default (editor: Editor) => {
     if (block.find('lake-box').length > 0) {
       return;
     }
-    if (range.getRightText() !== '') {
+    if (range.getEndText() !== '') {
       return;
     }
     if (enterKeyExecutesBlockCommand(editor, block)) {

@@ -95,8 +95,8 @@ export default (editor: Editor) => {
       nextNode.remove();
       editor.history.save();
     }
-    const rightText = range.getRightText();
-    if (rightText === '') {
+    const endText = range.getEndText();
+    if (endText === '') {
       event.preventDefault();
       let block = range.getBlocks()[0];
       if (!block) {

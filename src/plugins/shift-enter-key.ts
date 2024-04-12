@@ -6,8 +6,8 @@ function addLineBreak(editor: Editor): void {
   const block = range.startNode.closestBlock();
   if (block.length > 0 && !block.isContainer) {
     const prevNode = range.getPrevNode();
-    const rightText = range.getRightText();
-    if (prevNode.name !== 'br' && rightText === '') {
+    const endText = range.getEndText();
+    if (prevNode.name !== 'br' && endText === '') {
       editor.selection.insertContents('<br /><br />');
       editor.history.save();
       return;

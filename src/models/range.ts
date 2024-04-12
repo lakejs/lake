@@ -534,9 +534,9 @@ export class Range {
     return marks;
   }
 
-  // Returns the text of the left part of the closest block divided into two parts by the start point of the range.
+  // Returns the text of the start part of the closest block divided into two parts by the start point of the range.
   // "<p>one<anchor />two<focus />three</p>" returns "three".
-  public getLeftText(): string {
+  public getStartText(): string {
     const node = this.startNode;
     const offset = this.startOffset;
     let block = node.closestBlock();
@@ -558,9 +558,9 @@ export class Range {
     return text;
   }
 
-  // Returns the text of the right part of the closest block divided into two parts by the end point of the range.
+  // Returns the text of the end part of the closest block divided into two parts by the end point of the range.
   // "<p>one<anchor />two<focus />three</p>" returns "three".
-  public getRightText(): string {
+  public getEndText(): string {
     const node = this.endNode;
     const offset = this.endOffset;
     let block = node.closestBlock();
