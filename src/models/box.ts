@@ -78,6 +78,9 @@ export class Box {
       container.off('mouseleave');
       container.off('click');
     }
+    container.on('mousedown', event => {
+      event.preventDefault();
+    });
     container.on('mouseenter', () => {
       if (
         container.hasClass('lake-box-selected') ||

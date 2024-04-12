@@ -163,6 +163,7 @@ describe('models / box', () => {
     boxContainer.addClass('lake-box-activated');
     boxContainer.emit('mouseenter');
     expect(boxContainer.hasClass('lake-box-hovered')).to.equal(false);
+    boxContainer.emit('mousedown');
   });
 
   it('update (re-render) box', () => {
