@@ -309,6 +309,18 @@ describe('managers / history', () => {
     expect(redoValue).to.equal('abc');
   });
 
+  it('should not trigger save event', () => {
+    const selection = new Selection(container);
+    const history = new History(selection);
+    let saveValue = '';
+    history.event.on('save', value => {
+      saveValue = value;
+    });
+    container.html('a');
+    history.save(false);
+    expect(saveValue).to.equal('');
+  });
+
   it('can undo when the index is 0', () => {
     const selection = new Selection(container);
     const history = new History(selection);

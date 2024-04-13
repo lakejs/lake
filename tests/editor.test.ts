@@ -472,7 +472,7 @@ describe('editor', () => {
         expect(value).to.equal('<p>fooa<focus /></p>');
         deleteContentBackward(editor);
       }
-      if (calledCount === 3) {
+      if (calledCount === 2) {
         expect(value).to.equal('<p>foo<focus /></p>');
         done();
       }

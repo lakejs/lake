@@ -112,7 +112,7 @@ export class Editor {
   }
 
   private beforeunloadListener: EventListener = () => {
-    this.commitUnsavedInputData();
+    this.history.save();
   };
 
   private selectionchangeListener: EventListener = () => {
@@ -372,7 +372,7 @@ export class Editor {
   // Saves the input data which is unsaved.
   public commitUnsavedInputData(): void {
     if (this.unsavedInputData.length > 0) {
-      this.history.save();
+      this.history.save(false);
       this.unsavedInputData = '';
     }
   }

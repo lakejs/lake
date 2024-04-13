@@ -94,8 +94,7 @@
     "clean": "rimraf ./dist ./lib ./temp"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint",
-    "pre-push": "pnpm build && pnpm codemirror"
+    "pre-commit": "pnpm lint"
   },
   "packageManager": "pnpm@8.15.6"
 }

@@ -192,7 +192,7 @@ export class History {
     this.canSave = false;
   }
 
-  public save(): void {
+  public save(emitSaveEvent = true): void {
     if (!this.canSave) {
       return;
     }
@@ -210,7 +210,9 @@ export class History {
       this.list.shift();
       this.index = this.list.length;
     }
-    this.event.emit('save', denormalizeValue(value));
+    if (emitSaveEvent) {
+      this.event.emit('save', denormalizeValue(value));
+    }
     debug(`History saved, the last index is ${this.index}`);
   }
 }
