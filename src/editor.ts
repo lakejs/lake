@@ -265,11 +265,20 @@ export class Editor {
     this.container.on('compositionend', () => {
       this.isComposing = false;
     });
-    this.container.on('beforeinput', () => {
+    this.container.on('beforeinput', event => {
+      const inputEvent = event as InputEvent;
       const range = this.selection.range;
       if (range.isBoxStart || range.isBoxEnd) {
         this.commitUnsavedInputData();
+        return;
       }
+      if (
+        inputEvent.inputType === 'insertText' ||
+        inputEvent.inputType === 'insertCompositionText'
+      ) {
+        return;
+      }
+      this.commitUnsavedInputData();
     });
     this.container.on('input', event => {
       const inputEvent = event as InputEvent;
@@ -284,22 +293,24 @@ export class Editor {
           this.event.emit('input', inputEvent);
           return;
         }
+        if (range.isBoxStart || range.isBoxEnd) {
+          this.inputInBoxStrip();
+          this.history.save();
+          this.event.emit('input', inputEvent);
+          return;
+        }
         if (
           inputEvent.inputType === 'insertText' ||
           inputEvent.inputType === 'insertCompositionText'
         ) {
-          if (range.isBoxStart || range.isBoxEnd) {
-            this.inputInBoxStrip();
-          } else {
-            this.unsavedInputData += inputEvent.data ?? '';
-            if (this.unsavedInputData.length < this.config.minChangeSize) {
-              this.event.emit('input', inputEvent);
-              return;
-            }
+          this.unsavedInputData += inputEvent.data ?? '';
+          if (this.unsavedInputData.length < this.config.minChangeSize) {
+            this.event.emit('input', inputEvent);
+            this.emitChangeEvent(this.getValue());
+            return;
           }
         }
         this.history.save();
-        this.unsavedInputData = '';
         this.event.emit('input', inputEvent);
       }, 0);
     });

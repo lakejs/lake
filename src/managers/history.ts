@@ -4,6 +4,7 @@ import { NativeNode } from '../types/native';
 import { boxInstances } from '../storage/box-instances';
 import { debug } from '../utils/debug';
 import { morph } from '../utils/morph';
+import { denormalizeValue } from '../utils/denormalize-value';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { HTMLParser } from '../parsers/html-parser';
@@ -209,7 +210,7 @@ export class History {
       this.list.shift();
       this.index = this.list.length;
     }
-    this.event.emit('save', value);
+    this.event.emit('save', denormalizeValue(value));
     debug(`History saved, the last index is ${this.index}`);
   }
 }

@@ -4,17 +4,20 @@ import { Box } from '../src/models/box';
 import { Editor } from '../src/editor';
 import { click } from './utils';
 
-function inputData(editor: Editor, data: string) {
+function insertText(editor: Editor, data: string) {
   const event = new InputEvent('input', {
     data,
     inputType: 'insertText',
     isComposing: false,
   });
   editor.container.emit('beforeinput', event);
+  const nativeRange = editor.selection.range.get();
+  nativeRange.insertNode(document.createTextNode(data));
+  nativeRange.collapse(false);
   editor.container.emit('input', event);
 }
 
-function inputCompositionData(editor: Editor, data: string) {
+function insertCompositionText(editor: Editor, data: string) {
   editor.container.emit('compositionstart');
   const event = new InputEvent('input', {
     data,
@@ -22,8 +25,25 @@ function inputCompositionData(editor: Editor, data: string) {
     isComposing: true,
   });
   editor.container.emit('beforeinput', event);
+  const nativeRange = editor.selection.range.get();
+  nativeRange.insertNode(document.createTextNode(data));
+  nativeRange.collapse(false);
   editor.container.emit('input', event);
   editor.container.emit('compositionend');
+}
+
+function deleteContentBackward(editor: Editor) {
+  const event = new InputEvent('input', {
+    inputType: 'deleteContentBackward',
+    isComposing: false,
+  });
+  editor.container.emit('beforeinput', event);
+  const nativeRange = editor.selection.range.get();
+  nativeRange.setStart(nativeRange.startContainer, nativeRange.startOffset - 1);
+  // debug('start node:', nativeRange.startContainer, ', offset:', nativeRange.startOffset);
+  // debug('end node:', nativeRange.endContainer, ', offset:', nativeRange.endOffset);
+  nativeRange.deleteContents();
+  editor.container.emit('input', event);
 }
 
 describe('editor', () => {
@@ -363,8 +383,7 @@ describe('editor', () => {
       expect(value).to.equal(output);
       done();
     });
-    editor.container.find('.lake-box-strip').eq(0).text('a');
-    inputData(editor, 'a');
+    insertText(editor, 'a');
   });
 
   it('input event: input text in the end strip of inline box', done => {
@@ -382,8 +401,7 @@ describe('editor', () => {
       expect(value).to.equal(output);
       done();
     });
-    editor.container.find('.lake-box-strip').eq(1).text('a');
-    inputData(editor, 'a');
+    insertText(editor, 'a');
   });
 
   it('input event: input composition text in the start strip of inline box', done => {
@@ -401,8 +419,7 @@ describe('editor', () => {
       expect(value).to.equal(output);
       done();
     });
-    editor.container.find('.lake-box-strip').eq(0).text('你好');
-    inputCompositionData(editor, '你好');
+    insertCompositionText(editor, '你好');
   });
 
   it('statechange event', done => {
@@ -417,17 +434,50 @@ describe('editor', () => {
     editor.command.execute('heading', 'h1');
   });
 
-  it('change event', () => {
+  it('change event: execute command', done => {
     const editor = new Editor({
       root: rootNode,
     });
     editor.render();
-    let calledCount = 0;
-    editor.event.on('change', () => {
-      calledCount++;
+    editor.event.once('change', (value: string) => {
+      expect(value).to.equal('<h1><br /><focus /></h1>');
+      done();
     });
     editor.command.execute('heading', 'h1');
-    expect(calledCount).to.equal(1);
+  });
+
+  it('change event: input data', done => {
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p>foo<focus /></p>',
+    });
+    editor.render();
+    editor.event.once('change', (value: string) => {
+      expect(value).to.equal('<p>fooa<focus /></p>');
+      done();
+    });
+    insertText(editor, 'a');
+  });
+
+  it('change event: input and delete data', done => {
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p>foo<focus /></p>',
+    });
+    editor.render();
+    let calledCount = 0;
+    editor.event.on('change', (value: string) => {
+      calledCount++;
+      if (calledCount === 1) {
+        expect(value).to.equal('<p>fooa<focus /></p>');
+        deleteContentBackward(editor);
+      }
+      if (calledCount === 3) {
+        expect(value).to.equal('<p>foo<focus /></p>');
+        done();
+      }
+    });
+    insertText(editor, 'a');
   });
 
   it('click event', () => {
