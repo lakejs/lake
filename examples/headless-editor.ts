@@ -85,8 +85,8 @@ export default (value: string) => {
   for (const button of buttonList) {
     button.render();
   }
-  editor.event.on('statechange', data => {
-    const { disabledNameMap, selectedNameMap, selectedValuesMap } = data;
+  editor.event.on('statechange', stateData => {
+    const { disabledNameMap, selectedNameMap, selectedValuesMap } = stateData;
     for (const button of buttonList) {
       const name = button.node.attr('name');
       let isDisabled = disabledNameMap.get(name);

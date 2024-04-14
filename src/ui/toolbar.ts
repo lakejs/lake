@@ -1,6 +1,6 @@
 import type { Editor } from '../editor';
 import { NativeNode } from '../types/native';
-import { AppliedItem } from '../types/object';
+import { StateData } from '../types/object';
 import { ToolbarButtonItem, ToolbarDropdownItem, ToolbarUploadItem, ToolbarItem } from '../types/toolbar';
 import { toolbarItems } from '../config/toolbar-items';
 import { safeTemplate } from '../utils/safe-template';
@@ -13,13 +13,6 @@ import { uploadImage } from './upload';
 type ToolbarConfig = {
   root: string | Nodes | NativeNode;
   items?: (string | ToolbarItem)[];
-};
-
-type StateData = {
-  appliedItems: AppliedItem[];
-  disabledNameMap: Map<string, boolean>;
-  selectedNameMap: Map<string, boolean>;
-  selectedValuesMap: Map<string, string[]>;
 };
 
 const defaultItems: string[] = [
@@ -154,8 +147,8 @@ export class Toolbar {
   }
 
   // Updates state of each item such as disabled, selected.
-  public updateState(data: StateData) {
-    const { appliedItems, disabledNameMap, selectedNameMap, selectedValuesMap } = data;
+  public updateState(stateData: StateData) {
+    const { appliedItems, disabledNameMap, selectedNameMap, selectedValuesMap } = stateData;
     for (const item of this.buttonItemList) {
       const selectedClass = 'lake-button-selected';
       const buttonNode = this.container.find(`button[name="${item.name}"]`);

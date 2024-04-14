@@ -1,7 +1,9 @@
 import debounce from 'lodash/debounce';
+import isEqual from 'lodash/isEqual';
 import EventEmitter from 'eventemitter3';
 import { version } from '../package.json';
 import { NativeNode } from './types/native';
+import { StateData } from './types/object';
 import { UploadRequestMethod } from './types/request';
 import { editors } from './storage/editors';
 import { denormalizeValue, normalizeValue, query, debug } from './utils';
@@ -52,6 +54,13 @@ export class Editor {
   public static plugin = new Plugin();
 
   private unsavedInputData: string = '';
+
+  private stateData: StateData = {
+    appliedItems: [],
+    disabledNameMap: new Map(),
+    selectedNameMap: new Map(),
+    selectedValuesMap: new Map(),
+  };
 
   public root: Nodes;
 
@@ -208,16 +217,20 @@ export class Editor {
         }
       }
     }
-    const stateData = {
+    const stateData: StateData = {
       appliedItems,
       disabledNameMap,
       selectedNameMap,
       selectedValuesMap,
     };
+    if (isEqual(stateData, this.stateData)) {
+      return;
+    }
     if (this.toolbar) {
       this.toolbar.updateState(stateData);
     }
     this.event.emit('statechange', stateData);
+    this.stateData = stateData;
   }, 100, {
     leading: false,
     trailing: true,

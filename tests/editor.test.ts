@@ -427,8 +427,8 @@ describe('editor', () => {
       root: rootNode,
     });
     editor.render();
-    editor.event.once('statechange', data => {
-      expect(data.appliedItems[0].name).to.equal('h1');
+    editor.event.once('statechange', stateData => {
+      expect(stateData.appliedItems[0].name).to.equal('h1');
       done();
     });
     editor.command.execute('heading', 'h1');
