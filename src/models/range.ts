@@ -233,7 +233,7 @@ export class Range {
       throw new Error(`The box cannot be selected because the box '${boxNode.attr('name')}' (id=${boxNode.id}) has not been rendered yet.`);
     }
     this.selectNodeContents(boxStrip.eq(0));
-    this.collapseToEnd();
+    this.collapseToStart();
   }
 
   // Sets the range to the start position of the box.
@@ -243,7 +243,7 @@ export class Range {
       throw new Error(`The box cannot be selected because the box '${boxNode.attr('name')}' (id=${boxNode.id}) has not been rendered yet.`);
     }
     this.selectNodeContents(boxStrip.eq(1));
-    this.collapseToEnd();
+    this.collapseToStart();
   }
 
   // Collapses the range and sets the range to the beginning of the contents of the specified node.
