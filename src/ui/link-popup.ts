@@ -122,9 +122,10 @@ export class LinkPopup {
         if (!this.linkNode) {
           return;
         }
+        const linkNode = this.linkNode;
         this.save();
         this.hide();
-        this.event.emit('save');
+        this.event.emit('save', linkNode);
       },
     });
     button.render();

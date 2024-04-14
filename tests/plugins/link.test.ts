@@ -53,7 +53,7 @@ describe('plugins / link', () => {
     click(editor.popupContainer.find('.lake-link-popup button[name="save"]'));
     expect(editor.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('none');
     const value = editor.getValue();
-    expect(value).to.equal('<p><a href="http://bar.com"><focus />bar</a></p>');
+    expect(value).to.equal('<p><a href="http://bar.com">bar</a><focus /></p>');
   });
 
   it('should remove a link', () => {

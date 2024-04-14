@@ -5,7 +5,11 @@ import { locale } from '../i18n';
 
 export default (editor: Editor) => {
   const popup = new LinkPopup(editor.popupContainer);
-  popup.event.on('save', () => {
+  popup.event.on('save', node => {
+    const range = editor.selection.range;
+    range.setStartAfter(node);
+    range.collapseToStart();
+    editor.selection.addRangeToNativeSelection();
     editor.history.save();
   });
   popup.event.on('remove', () => {
