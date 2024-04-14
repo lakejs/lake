@@ -142,9 +142,10 @@ export class LinkPopup {
         if (!this.linkNode) {
           return;
         }
+        const lastChild = this.linkNode.last();
         this.linkNode.remove(true);
         this.hide();
-        this.event.emit('remove');
+        this.event.emit('remove', lastChild);
       },
     });
     button.render();

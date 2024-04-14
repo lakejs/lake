@@ -12,7 +12,11 @@ export default (editor: Editor) => {
     editor.selection.addRangeToNativeSelection();
     editor.history.save();
   });
-  popup.event.on('remove', () => {
+  popup.event.on('remove', node => {
+    const range = editor.selection.range;
+    range.setStartAfter(node);
+    range.collapseToStart();
+    editor.selection.addRangeToNativeSelection();
     editor.history.save();
   });
   editor.root.on('scroll', () => {

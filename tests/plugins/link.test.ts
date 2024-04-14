@@ -57,14 +57,14 @@ describe('plugins / link', () => {
   });
 
   it('should remove a link', () => {
-    editor.setValue('<p><a href="http://foo.com">foo<focus /></a></p>');
+    editor.setValue('<p><a href="http://foo.com">foo</a>bar<focus /></p>');
     const linkNode = editor.container.find('a');
     click(linkNode);
     expect(editor.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('block');
     click(editor.popupContainer.find('.lake-link-popup button[name="unlink"]'));
     expect(editor.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('none');
     const value = editor.getValue();
-    expect(value).to.equal('<p>foo<focus /></p>');
+    expect(value).to.equal('<p>foo<focus />bar</p>');
   });
 
   it('should close popup', () => {
