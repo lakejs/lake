@@ -3,6 +3,7 @@
 import path from 'path';
 import { networkInterfaces } from 'os';
 import { fileURLToPath } from 'url';
+import pc from 'picocolors';
 import express from 'express';
 import multer from 'multer';
 
@@ -12,6 +13,8 @@ const maxFileSize = 10 * 1024 * 1024;
 const scriptsPath = path.dirname(fileURLToPath(import.meta.url));
 const rootPath = path.resolve(scriptsPath, '../');
 const uploadPath = path.resolve(rootPath, './temp/');
+
+const step = (msg) => console.log(pc.cyan(msg));
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -70,7 +73,7 @@ app.post('/upload', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log('Starting up an HTTP server');
+  step('Starting up an HTTP server');
   console.log('Available on:');
   const nets = networkInterfaces();
   for (const name of Object.keys(nets)) {

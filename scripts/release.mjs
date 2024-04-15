@@ -30,7 +30,7 @@ import { readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 import { createRequire } from 'module';
-import c from 'picocolors';
+import pc from 'picocolors';
 import prompts from 'prompts';
 import { execa } from 'execa';
 import semver from 'semver';
@@ -48,7 +48,7 @@ const dir = fileURLToPath(new URL('.', import.meta.url));
 const inc = (i) => _inc(currentVersion, i);
 const run = (bin, args, opts = {}) =>
   execa(bin, args, { stdio: 'inherit', ...opts });
-const step = (msg) => console.log(c.cyan(msg));
+const step = (msg) => console.log(pc.cyan(msg));
 
 function updatePackage(version) {
   const pkgPath = resolve(resolve(dir, '..'), 'package.json');

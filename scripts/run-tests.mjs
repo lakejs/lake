@@ -2,21 +2,31 @@
 
 /* eslint no-console: "off" */
 
+import pc from 'picocolors';
 import puppeteer from 'puppeteer';
 
 const url = 'http://localhost:8080/tests/index.html?console=true';
 
+const step = (msg) => console.log(pc.cyan(msg));
+
 (async() => {
   // Launches a browser and runs test cases
-  console.log('Launching a browser instance');
+  step('Launching a browser instance');
   const browser = await puppeteer.launch({
     headless: true,
   });
   const page = await browser.newPage();
   page.on('console', message => {
-    console.log(message.text().trim());
+    const msg = message.text().trim();
+    if (msg.indexOf('not ok') === 0) {
+      console.log(pc.red(msg));
+    } if (msg.indexOf('ok') === 0) {
+      console.log(pc.green(msg));
+    } else {
+      console.log(msg);
+    }
   });
-  console.log(`Navigating to ${url}`);
+  step(`Navigating to ${url}`);
   console.time('Duration');
   await page.coverage.startJSCoverage();
   await page.goto(url);
