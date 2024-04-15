@@ -136,7 +136,7 @@ async function main() {
   step('\nCommitting changes...');
   // await run('git', ['add', 'CHANGELOG.md', 'package.json']);
   await run('git', ['add', 'package.json']);
-  await run('git', ['commit', '-m', `release: v${targetVersion}`]);
+  await run('git', ['commit', '-m', `release: version ${targetVersion}`]);
   await run('git', ['tag', `v${targetVersion}`]);
 
   // Publish the package.
