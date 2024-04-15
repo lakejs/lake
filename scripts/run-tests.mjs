@@ -20,8 +20,6 @@ const step = (msg) => console.log(pc.cyan(msg));
     const msg = message.text().trim();
     if (msg.indexOf('not ok') === 0) {
       console.log(pc.red(msg));
-    } if (msg.indexOf('ok') === 0) {
-      console.log(pc.green(msg));
     } else {
       console.log(msg);
     }

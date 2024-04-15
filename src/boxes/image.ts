@@ -195,8 +195,10 @@ function openFullScreen(box: Box): void {
   lightbox.on('openingAnimationEnd', () => {
     box.event.emit('openfullscreen');
   });
-  lightbox.on('closingAnimationEnd', () => {
-    box.event.emit('closefullscreen');
+  lightbox.on('destroy', () => {
+    window.setTimeout(() => {
+      box.event.emit('closefullscreen');
+    }, 0);
   });
   lightbox.init();
   lightbox.loadAndOpen(currentIndex);
