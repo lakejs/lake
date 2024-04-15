@@ -1,5 +1,5 @@
-import { click } from '../utils';
-import { query } from '../../src/utils';
+import { click, removeBoxValueFromHTML } from '../utils';
+import { query, debug } from '../../src/utils';
 import { Editor, Nodes, Box } from '../../src';
 
 const mediumUrl = '../assets/images/heaven-lake-512.png';
@@ -16,7 +16,7 @@ describe('boxes / image', () => {
     query(document.body).append(rootNode);
     editor = new Editor({
       root: rootNode,
-      value: '<p><br /><focus /></p>',
+      value: '<p>foo<focus />bar</p>',
     });
     editor.render();
     box = editor.insertBox('image', {
@@ -42,9 +42,14 @@ describe('boxes / image', () => {
     box.event.once('render', () => {
       click(boxNode.find('.lake-button-view'));
     });
+    box.event.once('closefullscreen', () => {
+      const value = removeBoxValueFromHTML(editor.getValue());
+      debug(`output: ${value}`);
+      expect(value).to.equal('<p>foo<lake-box type="inline" name="image" focus="center"></lake-box>bar</p>');
+      done();
+    });
     box.event.once('openfullscreen', () => {
       click(query('.lake-pswp .pswp__button--close'));
-      done();
     });
   });
 
@@ -53,7 +58,8 @@ describe('boxes / image', () => {
     box.event.once('render', () => {
       click(boxNode.find('.lake-button-remove'));
       const value = editor.getValue();
-      expect(value).to.equal('<p><br /><focus /></p>');
+      debug(`output: ${value}`);
+      expect(value).to.equal('<p>foo<focus />bar</p>');
       done();
     });
   });

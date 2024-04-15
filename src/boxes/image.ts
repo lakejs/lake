@@ -140,6 +140,7 @@ function openFullScreen(box: Box): void {
     dataSource,
     mainClass: 'lake-pswp',
     zoom: false,
+    returnFocus: false,
     arrowPrevSVG: icons.get('left'),
     arrowNextSVG: icons.get('right'),
     closeSVG: icons.get('close'),
@@ -193,6 +194,9 @@ function openFullScreen(box: Box): void {
   });
   lightbox.on('openingAnimationEnd', () => {
     box.event.emit('openfullscreen');
+  });
+  lightbox.on('closingAnimationEnd', () => {
+    box.event.emit('closefullscreen');
   });
   lightbox.init();
   lightbox.loadAndOpen(currentIndex);
