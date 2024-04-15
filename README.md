@@ -66,9 +66,9 @@ cd lake
 # install all dependencies
 pnpm install
 # build CodeMirror
-pnpm codemirror
+pnpm build:codemirror
 # start a local server
-pnpm start
+pnpm dev
 ```
 
 You can now view all demos by visiting `http://localhost:8080/examples/`.
