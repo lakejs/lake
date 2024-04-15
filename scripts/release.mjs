@@ -100,7 +100,7 @@ async function main() {
   const { yes: tagOk } = await prompts({
     type: 'confirm',
     name: 'yes',
-    message: `Releasing v${targetVersion} on ${tags[tag]}. Confirm?`,
+    message: `Releasing version ${targetVersion} on ${tags[tag]}. Confirm?`,
   });
 
   if (!tagOk) {
@@ -137,7 +137,7 @@ async function main() {
   // await run('git', ['add', 'CHANGELOG.md', 'package.json']);
   await run('git', ['add', 'package.json']);
   await run('git', ['commit', '-m', `release: version ${targetVersion}`]);
-  await run('git', ['tag', `v${targetVersion}`]);
+  await run('git', ['tag', `${targetVersion}`]);
 
   // Publish the package.
   step('\nPublishing the package...');
@@ -151,7 +151,7 @@ async function main() {
 
   // Push to GitHub.
   step('\nPushing to GitHub...');
-  await run('git', ['push', 'origin', `refs/tags/v${targetVersion}`]);
+  await run('git', ['push', 'origin', `refs/tags/${targetVersion}`]);
   await run('git', ['push']);
 }
 
