@@ -16,7 +16,7 @@ const externalModules = [
   codeMirrorPath,
 ];
 
-function getWatchConfig(type) {
+function getBundleConfig(type) {
   const globals = {
     ...globalVariables,
     'js-base64': 'Base64',
@@ -145,9 +145,13 @@ function getCodeMirrorBuildConfig() {
 export default (commandLineArgs) => {
   if (commandLineArgs.watch === true) {
     return [
-      getWatchConfig('examples'),
-      getWatchConfig('tests'),
+      getBundleConfig('examples'),
+      getBundleConfig('tests'),
     ];
+  }
+  if (commandLineArgs.test === true) {
+    delete commandLineArgs.test;
+    return getBundleConfig('tests');
   }
   if (commandLineArgs.codemirror === true) {
     delete commandLineArgs.codemirror;

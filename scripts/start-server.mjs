@@ -7,7 +7,10 @@ import pc from 'picocolors';
 import express from 'express';
 import multer from 'multer';
 
-const port = 8080;
+const argv = process.argv.slice(2);
+
+const port = argv[0] || 8080;
+
 const maxFileSize = 10 * 1024 * 1024;
 
 const scriptsPath = path.dirname(fileURLToPath(import.meta.url));

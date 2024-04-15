@@ -2,15 +2,36 @@
 
 /* eslint no-console: "off" */
 
+import { existsSync } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import pc from 'picocolors';
 import puppeteer from 'puppeteer';
+import { execa } from 'execa';
+import waitOn from 'wait-on';
 
-const url = 'http://localhost:8080/tests/index.html?console=true';
+const url = 'http://localhost:8081/tests/index.html?console=true';
+
+const scriptsPath = path.dirname(fileURLToPath(import.meta.url));
+const bundleFile = path.resolve(scriptsPath, '../temp/tests/bundle.js');
 
 const step = (msg) => console.log(pc.cyan(msg));
 
 (async() => {
-  // Launches a browser and runs test cases
+  // Build the bundle file if it is not exist
+  if (!existsSync(bundleFile)) {
+    step(`Building ${bundleFile}`);
+    await execa('pnpm', ['test:rollup']);
+  }
+  // Waits for starting HTTP server
+  step('Waiting for starting HTTP server');
+  const subprocess = execa('pnpm', ['test:express']);
+  await waitOn({
+    resources: [
+      url,
+    ],
+  });
+  // Launche a browser and run test cases
   step('Launching a browser instance');
   const browser = await puppeteer.launch({
     headless: true,
@@ -32,8 +53,7 @@ const step = (msg) => console.log(pc.cyan(msg));
   const jsCoverage = await page.coverage.stopJSCoverage();
   console.timeEnd('Duration');
   await browser.close();
-
-  // Calculates used bytes
+  // Calculate used bytes
   let totalBytes = 0;
   let usedBytes = 0;
   for (const entry of jsCoverage) {
@@ -45,4 +65,7 @@ const step = (msg) => console.log(pc.cyan(msg));
     }
   }
   console.log(`Bytes used: ${(usedBytes / totalBytes * 100).toFixed(2)}%`);
+  // Terminate the process
+  subprocess.kill();
+  process.exit();
 })();

@@ -34,6 +34,8 @@
     "sort:package": "sort-package-json",
     "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,.mjs\"",
     "test": "node ./scripts/run-tests.mjs",
+    "test:express": "node ./scripts/start-server.mjs 8081",
+    "test:rollup": "rollup --config rollup.config.mjs --test",
     "release": "node ./scripts/release.mjs"
   },
   "simple-git-hooks": {
@@ -101,7 +103,8 @@
     "sinon": "^17.0.1",
     "sort-package-json": "^2.10.0",
     "tslib": "^2.6.2",
-    "typescript": "^5.4.4"
+    "typescript": "^5.4.4",
+    "wait-on": "^7.2.0"
   },
   "packageManager": "pnpm@8.15.6"
 }
