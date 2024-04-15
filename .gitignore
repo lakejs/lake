@@ -8,6 +8,5 @@ desktop.ini
 /temp
 /dist
 /lib
-pnpm-lock.yaml
 .pnpm-debug.log
 rollup.config-*.mjs
