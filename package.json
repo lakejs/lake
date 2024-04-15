@@ -1,27 +1,43 @@
 {
   "name": "lakelib",
-  "description": "Rich text editor based on the browser",
   "version": "0.0.6",
-  "author": "Luo Longhao <luolonghao@gmail.com>",
-  "license": "MIT",
+  "description": "Rich text editor based on the browser",
+  "keywords": [
+    "rich text",
+    "wysiwyg",
+    "editor"
+  ],
   "homepage": "http://lakejs.com",
+  "bugs": {
+    "url": "https://github.com/lakejs/lake/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lakejs/lake.git"
   },
+  "license": "MIT",
+  "author": "Luo Longhao <luolonghao@gmail.com>",
   "main": "./lib/lake.js",
   "types": "./lib/types/index.d.ts",
   "files": [
     "dist",
     "lib"
   ],
-  "keywords": [
-    "rich text",
-    "wysiwyg",
-    "editor"
-  ],
-  "bugs": {
-    "url": "https://github.com/lakejs/lake/issues"
+  "scripts": {
+    "dev": "npm-run-all --parallel --print-label dev:express dev:rollup",
+    "dev:express": "node ./scripts/start-server.mjs",
+    "dev:rollup": "rollup --watch --config rollup.config.mjs",
+    "build": "rimraf ./dist ./lib && pnpm build:lake && pnpm build:codemirror",
+    "build:lake": "rollup --config rollup.config.mjs",
+    "build:codemirror": "rollup --config rollup.config.mjs --codemirror",
+    "i18n": "typesafe-i18n --no-watch",
+    "sort:package": "sort-package-json",
+    "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,.mjs\"",
+    "test": "node ./scripts/run-tests.mjs",
+    "release": "node ./scripts/release.mjs"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm sort:package && pnpm lint"
   },
   "dependencies": {
     "@types/blueimp-md5": "^2.18.2",
@@ -86,22 +102,6 @@
     "sort-package-json": "^2.10.0",
     "tslib": "^2.6.2",
     "typescript": "^5.4.4"
-  },
-  "scripts": {
-    "dev": "npm-run-all --parallel --print-label dev:express dev:rollup",
-    "dev:express": "node ./scripts/start-server.mjs",
-    "dev:rollup": "rollup --watch --config rollup.config.mjs",
-    "build": "rimraf ./dist ./lib && pnpm build:lake && pnpm build:codemirror",
-    "build:lake": "rollup --config rollup.config.mjs",
-    "build:codemirror": "rollup --config rollup.config.mjs --codemirror",
-    "i18n": "typesafe-i18n --no-watch",
-    "sort:package": "sort-package-json",
-    "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,.mjs\"",
-    "test": "node ./scripts/run-tests.mjs",
-    "release": "node ./scripts/release.mjs"
-  },
-  "simple-git-hooks": {
-    "pre-commit": "pnpm sort:package && pnpm lint"
   },
   "packageManager": "pnpm@8.15.6"
 }
