@@ -1,28 +1,15 @@
-name: Test
-
-env:
-  NODE_OPTIONS: --max-old-space-size=6144
+name: CI
 
 on:
   push:
     branches: [master]
   pull_request:
     branches: [master]
-    types: [opened, synchronize, reopened]
-  workflow_dispatch:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
-  cancel-in-progress: true
 
 jobs:
-  test:
+  test_on_chrome:
+    name: Chrome Test
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node_version: [18]
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,13 +17,13 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v3
 
-      - name: Set node version to ${{ matrix.node_version }}
+      - name: Set node version
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node_version }}
+          node-version: 18
           cache: pnpm
 
-      - name: Install deps
+      - name: Install dependencies
         run: pnpm install
 
       - name: Install Puppeteer

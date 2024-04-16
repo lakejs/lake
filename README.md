@@ -61,7 +61,7 @@ To build Lake or change source code, you need to download the repository and sta
 ``` bash
 # clone the repository
 git clone https://github.com/lakejs/lake.git
-# install all dependencies
+# install dependencies
 pnpm install
 # build CodeMirror
 pnpm build:codemirror
