@@ -94,10 +94,10 @@ pnpm dev
 
 You can now view all demos by visiting `http://localhost:8080/examples/`.
 
-### Running tests
+## Running tests
 
 Lake uses a lot of browser APIs and therefore it requires a real browser environment to run the tests. You can open `http://localhost:8080/tests/` to run all test cases visibly, or execute `pnpm test` command in your console to run the tests in headless mode.
 
-### License
+## License
 
 [MIT](https://github.com/lakejs/lake/blob/master/LICENSE)
