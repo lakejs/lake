@@ -29,8 +29,8 @@ const step = (msg) => console.log(pc.cyan(msg));
     step(`Building ${bundleFile}`);
     await execa('pnpm', ['test:rollup']);
   }
-  // Waits for starting HTTP server
-  step('Waiting for starting HTTP server');
+  // Wait for starting HTTP server
+  step('Starting up an HTTP server');
   const subprocess = execa('pnpm', ['test:express']);
   await waitOn({
     resources: [
@@ -43,10 +43,12 @@ const step = (msg) => console.log(pc.cyan(msg));
     headless: true,
   });
   const page = await browser.newPage();
+  let failures = 0;
   page.on('console', message => {
     const msg = message.text().trim();
     if (msg.indexOf('not ok') === 0) {
       console.log(pc.red(msg));
+      failures++;
     } else {
       console.log(msg);
     }
@@ -73,5 +75,8 @@ const step = (msg) => console.log(pc.cyan(msg));
   console.log(`Bytes used: ${(usedBytes / totalBytes * 100).toFixed(2)}%`);
   // Terminate the process
   subprocess.kill();
+  if (failures > 0) {
+    throw new Error(`Test failed. failures: ${failures}`);
+  }
   process.exit();
 })();
