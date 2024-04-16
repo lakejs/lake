@@ -5,30 +5,34 @@
   font-size: 14px;
   user-select: none;
 }
-.lake-dropdown .lake-dropdown-title {
+.lake-dropdown button.lake-dropdown-title {
+  box-sizing: content-box;
+  border-radius: 5px;
+  border: 0;
+  font-family: Arial;
+  font-size: 14px;
+  color: var(--text-color);
+  background-color: #fff;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0;
   margin-right: 4px;
-  border-radius: 5px;
-  border: 0;
-  font-size: 14px;
-  background-color: #fff;
   cursor: pointer;
 }
-.lake-dropdown[disabled] .lake-dropdown-title {
+.lake-dropdown[disabled] button.lake-dropdown-title {
   opacity: 0.25;
   cursor: default;
 }
-.lake-dropdown.lake-list-dropdown .lake-dropdown-title-hovered {
+.lake-dropdown.lake-list-dropdown button.lake-dropdown-title-hovered {
   background-color: var(--background-hover-color);
 }
-.lake-dropdown .lake-dropdown-title.lake-dropdown-title-no-down {
+.lake-dropdown button.lake-dropdown-title.lake-dropdown-title-no-down {
   margin-right: 0;
 }
 .lake-dropdown .lake-dropdown-text {
   height: 16px;
+  line-height: normal;
   margin: 6px;
   overflow: hidden;
   white-space: nowrap;
@@ -53,8 +57,8 @@
   left: 0;
   bottom: 0;
 }
-.lake-dropdown .lake-dropdown-title-no-down .lake-dropdown-icon svg,
-.lake-dropdown .lake-dropdown-title-no-down .lake-dropdown-icon img {
+.lake-dropdown button.lake-dropdown-title-no-down .lake-dropdown-icon svg,
+.lake-dropdown button.lake-dropdown-title-no-down .lake-dropdown-icon img {
   margin: 6px;
 }
 .lake-dropdown .lake-dropdown-down-icon {
@@ -71,6 +75,7 @@
   fill: var(--secondary-text-color);
 }
 .lake-dropdown .lake-dropdown-menu {
+  box-sizing: content-box;
   position: absolute;
   top: 30px;
   left: 0;
@@ -89,9 +94,9 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  margin: 0;
 }
 .lake-dropdown .lake-list-dropdown-menu li {
-  margin: 0;
   padding: 6px 24px 6px 10px;
 }
 .lake-dropdown .lake-list-dropdown-menu li.lake-dropdown-item-hovered {
@@ -162,6 +167,7 @@
 }
 .lake-dropdown .lake-color-dropdown-menu li .lake-dropdown-menu-text {
   font-size: 0;
+  box-sizing: content-box;
   border: 1px solid var(--background-hover-color);
   border-radius: 2px;
   width: 16px;

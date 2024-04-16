@@ -1,6 +1,7 @@
 import './index.css';
 import './default-editor.css';
 import { Editor, Utils, Dropdown } from '../src';
+import './reset.css';
 import defaultEditor from './default-editor';
 import fullEditor from './full-editor';
 import documentEditor from './document-editor';

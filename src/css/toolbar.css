@@ -1,4 +1,9 @@
 .lake-toolbar {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: normal;
+  line-height: normal;
+  color: var(--text-color);
   background-color: #fff;
   padding: 4px;
   display: flex;
@@ -6,6 +11,7 @@
   align-items: center;
 }
 .lake-toolbar .lake-toolbar-divider {
+  box-sizing: content-box;
   width: 1px;
   height: 20px;
   margin: 0 4px;

@@ -1,7 +1,10 @@
 .lake-container {
   font-family: var(--font-family);
   font-size: 16px;
+  font-weight: normal;
+  line-height: normal;
   color: var(--text-color);
+  background-color: #fff;
   padding: 16px 24px;
 }
 .lake-container:focus {
