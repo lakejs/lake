@@ -1,21 +1,17 @@
-> This project is not complete yet, please DO NOT integrate it into your production.
-
 # Lake
 
 Lake is a rich text editor for the web. It has a good user experience and provides easy-to-use programming interface to allow further extension.
 
-### Getting Started
-
-#### Downloading Lake from CDN
+## Downloading Lake from CDN
 
 Compressed copies of Lake files are available, you can download them from jsDelivr or UNPKG.
 
-* jsDelivr: https://www.jsdelivr.com/package/npm/lakelib?path=dist&tab=files
-* UNPKG: https://unpkg.com/browse/lakelib@latest/dist/
+* jsDelivr: https://www.jsdelivr.com/package/npm/lakelib
+* UNPKG: https://unpkg.com/browse/lakelib/
 
 Note: `lake.min.js` is not built with CodeMirror, so if you need the code block feature, addtioanaly including `codemirror.min.js` to your page is needed. But if you do not need it, there is no need to include external CodeMirror file. To find out more, see [IIFE example](https://github.com/lakejs/lake/blob/master/examples/iife.html) and [Rollup configuration](https://github.com/lakejs/lake/blob/master/rollup.config.mjs).
 
-#### Downloading Lake using npm
+## Downloading Lake using npm
 
 Lake is registered as a package on npm. You can install the latest version of Lake with the following npm command.
 
@@ -23,12 +19,12 @@ Lake is registered as a package on npm. You can install the latest version of La
 npm install lakelib
 ```
 
-#### Quick start
+## Quick start with CDN
 
 First, add the following lines of code in the `<head>` of an HTML page.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lakelib@latest/dist/lake.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lakelib@latest/dist/lake.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/lakelib@latest/dist/lake.min.js"></script>
 ```
 
@@ -54,18 +50,45 @@ const editor = new Lake.Editor({
 editor.render();
 ```
 
-### Development
+## Quick start with npm
+
+First, in the HTML page add the following HTML code that will serve as a placeholder for an editor instance.
+
+```html
+<div class="lake-editor">
+  <div class="lake-toolbar-root"></div>
+  <div class="lake-root"></div>
+</div>
+```
+
+Then, call the following JavaScript code to render the editor.
+
+```js
+import 'lakelib/lib/lake.css';
+import { Editor, Toolbar } from 'lakelib';
+
+const toolbar = new Toolbar({
+  root: '.lake-toolbar-root',
+});
+const editor = new Editor({
+  root: '.lake-root',
+  toolbar,
+});
+editor.render();
+```
+
+## Development
 
 To build Lake or change source code, you need to download the repository and start a development server that contains an HTTP service and real-time bundling.
 
 ``` bash
-# clone the repository
+# Clone the repository
 git clone https://github.com/lakejs/lake.git
-# install dependencies
+# Install dependencies
 pnpm install
-# build CodeMirror
+# Build CodeMirror
 pnpm build:codemirror
-# start a local server
+# Start a local server
 pnpm dev
 ```
 
