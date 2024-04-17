@@ -34,63 +34,6 @@ dependencies:
     version: 5.26.2(typescript@5.4.4)
 
 devDependencies:
-  '@codemirror/commands':
-    specifier: ^6.3.3
-    version: 6.3.3
-  '@codemirror/lang-cpp':
-    specifier: ^6.0.2
-    version: 6.0.2
-  '@codemirror/lang-css':
-    specifier: ^6.2.1
-    version: 6.2.1(@codemirror/view@6.26.1)
-  '@codemirror/lang-go':
-    specifier: ^6.0.0
-    version: 6.0.0(@codemirror/view@6.26.1)
-  '@codemirror/lang-html':
-    specifier: ^6.4.8
-    version: 6.4.8
-  '@codemirror/lang-java':
-    specifier: ^6.0.1
-    version: 6.0.1
-  '@codemirror/lang-javascript':
-    specifier: ^6.2.2
-    version: 6.2.2
-  '@codemirror/lang-json':
-    specifier: ^6.0.1
-    version: 6.0.1
-  '@codemirror/lang-markdown':
-    specifier: ^6.2.4
-    version: 6.2.4
-  '@codemirror/lang-php':
-    specifier: ^6.0.1
-    version: 6.0.1
-  '@codemirror/lang-python':
-    specifier: ^6.1.5
-    version: 6.1.5(@codemirror/view@6.26.1)
-  '@codemirror/lang-rust':
-    specifier: ^6.0.1
-    version: 6.0.1
-  '@codemirror/lang-sql':
-    specifier: ^6.6.3
-    version: 6.6.3(@codemirror/view@6.26.1)
-  '@codemirror/lang-xml':
-    specifier: ^6.1.0
-    version: 6.1.0
-  '@codemirror/lang-yaml':
-    specifier: ^6.1.0
-    version: 6.1.0(@codemirror/view@6.26.1)
-  '@codemirror/language':
-    specifier: ^6.10.1
-    version: 6.10.1
-  '@codemirror/state':
-    specifier: ^6.4.1
-    version: 6.4.1
-  '@codemirror/view':
-    specifier: ^6.26.1
-    version: 6.26.1
-  '@lezer/highlight':
-    specifier: ^1.2.0
-    version: 1.2.0
   '@rollup/plugin-commonjs':
     specifier: ^25.0.7
     version: 25.0.7(rollup@4.14.0)
@@ -139,6 +82,9 @@ devDependencies:
   express:
     specifier: ^4.19.2
     version: 4.19.2
+  lake-codemirror:
+    specifier: ^1.0.0
+    version: 1.0.0
   mocha:
     specifier: ^10.4.0
     version: 10.4.0
@@ -3096,6 +3042,30 @@ packages:
   /kleur@3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
+    dev: true
+
+  /lake-codemirror@1.0.0:
+    resolution: {integrity: sha512-tdCvOX52o8SfzeFArq/fox+Je2mfsBJZh0cMIlCXU64C3ryR6ySYdkFv8KSXUXBdKIvhSNMSAMOzqJnldJ7nlQ==}
+    dependencies:
+      '@codemirror/commands': 6.3.3
+      '@codemirror/lang-cpp': 6.0.2
+      '@codemirror/lang-css': 6.2.1(@codemirror/view@6.26.1)
+      '@codemirror/lang-go': 6.0.0(@codemirror/view@6.26.1)
+      '@codemirror/lang-html': 6.4.8
+      '@codemirror/lang-java': 6.0.1
+      '@codemirror/lang-javascript': 6.2.2
+      '@codemirror/lang-json': 6.0.1
+      '@codemirror/lang-markdown': 6.2.4
+      '@codemirror/lang-php': 6.0.1
+      '@codemirror/lang-python': 6.1.5(@codemirror/view@6.26.1)
+      '@codemirror/lang-rust': 6.0.1
+      '@codemirror/lang-sql': 6.6.3(@codemirror/view@6.26.1)
+      '@codemirror/lang-xml': 6.1.0
+      '@codemirror/lang-yaml': 6.1.0(@codemirror/view@6.26.1)
+      '@codemirror/language': 6.10.1
+      '@codemirror/state': 6.4.1
+      '@codemirror/view': 6.26.1
+      '@lezer/highlight': 1.2.0
     dev: true
 
   /levn@0.4.1:

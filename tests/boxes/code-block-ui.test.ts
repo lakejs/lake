@@ -9,7 +9,7 @@ const htmlCode = `
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../dist/lake.css" />
     <!-- If you do not need the code block feature, there is no need to add the following CodeMirror script. -->
-    <script src="../dist/codemirror.min.js"></script>
+    <script src="../node_modules/lake-codemirror/dist/codemirror.min.js"></script>
     <script src="../dist/lake.min.js"></script>
     <style>
       .lake-editor {

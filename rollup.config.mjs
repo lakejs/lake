@@ -1,4 +1,3 @@
-import path from 'path';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
@@ -7,18 +6,8 @@ import svg from 'rollup-plugin-svg-import';
 import css from 'rollup-plugin-import-css';
 import terser from '@rollup/plugin-terser';
 
-const codeMirrorPath = path.resolve('./src/codemirror.ts');
-
-const globalVariables = {
-  [codeMirrorPath]: 'CodeMirror',
-};
-const externalModules = [
-  codeMirrorPath,
-];
-
 function getBundleConfig(type) {
   const globals = {
-    ...globalVariables,
     'js-base64': 'Base64',
     eventemitter3: 'EventEmitter3',
     'lodash': 'lodash',
@@ -29,7 +18,6 @@ function getBundleConfig(type) {
     'typesafe-i18n': 'typesafeI18n',
   };
   const external = [
-    ...externalModules,
     'js-base64',
     'eventemitter3',
     'lodash',
@@ -82,11 +70,9 @@ function getBuildConfig(type) {
         format: 'iife',
         name: 'Lake',
         sourcemap: true,
-        globals: globalVariables,
         plugins: [terser()],
         assetFileNames: 'lake.css',
       },
-      external: externalModules,
       plugins: [
         nodeResolve(),
         typescript(),
@@ -125,23 +111,6 @@ function getBuildConfig(type) {
   };
 }
 
-function getCodeMirrorBuildConfig() {
-  return {
-    input: './assets/codemirror.ts',
-    output: {
-      file: './dist/codemirror.min.js',
-      format: 'iife',
-      name: 'CodeMirror',
-      sourcemap: false,
-      plugins: [terser()],
-    },
-    plugins: [
-      nodeResolve(),
-      typescript(),
-    ],
-  };
-}
-
 export default (commandLineArgs) => {
   if (commandLineArgs.watch === true) {
     return [
@@ -152,10 +121,6 @@ export default (commandLineArgs) => {
   if (commandLineArgs.test === true) {
     delete commandLineArgs.test;
     return getBundleConfig('tests');
-  }
-  if (commandLineArgs.codemirror === true) {
-    delete commandLineArgs.codemirror;
-    return getCodeMirrorBuildConfig();
   }
   return [
     getBuildConfig('iife'),

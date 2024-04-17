@@ -42,6 +42,12 @@ export default (editor: Editor) => {
     }
     popup.show(linkNode);
   });
+  editor.container.on('click', event => {
+    const targetNode = new Nodes(event.target as Element);
+    if (targetNode.closest('a').length > 0) {
+      event.preventDefault();
+    }
+  });
   editor.command.add('link', {
     execute: () => {
       const linkNode = editor.selection.insertLink(`<a href="">${locale.link.newLink()}</a>`);

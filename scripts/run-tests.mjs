@@ -13,17 +13,11 @@ import waitOn from 'wait-on';
 const url = 'http://localhost:8081/tests/index.html?console=true';
 
 const scriptsPath = path.dirname(fileURLToPath(import.meta.url));
-const codeMirrorFile = path.resolve(scriptsPath, '../dist/codemirror.min.js');
 const bundleFile = path.resolve(scriptsPath, '../temp/tests/bundle.js');
 
 const step = (msg) => console.log(pc.cyan(msg));
 
 (async() => {
-  // Build CodeMirror file if it is not exist
-  if (!existsSync(codeMirrorFile)) {
-    step(`Building ${codeMirrorFile}`);
-    await execa('pnpm', ['build:codemirror']);
-  }
   // Build the bundle file if it is not exist
   if (!existsSync(bundleFile)) {
     step(`Building ${bundleFile}`);
