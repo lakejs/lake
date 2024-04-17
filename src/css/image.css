@@ -27,11 +27,11 @@
 .lake-image {
   position: relative;
   line-height: 0;
+  box-sizing: content-box;
   border: 1px solid transparent;
   border-radius: 4px;
 }
 .lake-image .lake-image-img {
-  box-sizing: border-box;
   border: 0;
   border-radius: 4px;
   width: 100%;
