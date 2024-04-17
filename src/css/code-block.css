@@ -51,6 +51,8 @@ lake-box[name="codeBlock"] .lake-box-activated .lake-code-block .lake-dropdown {
 }
 .lake-code-block .lake-dropdown .lake-dropdown-menu {
   top: 24px;
+  left: auto;
+  right: 0;
   overflow-y: scroll;
   scrollbar-width: thin;
   height: 200px;
