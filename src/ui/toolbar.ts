@@ -20,7 +20,6 @@ const defaultItems: string[] = [
   'redo',
   '|',
   'heading',
-  'fontSize',
   '|',
   'formatPainter',
   'removeFormat',
