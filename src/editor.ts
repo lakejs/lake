@@ -484,7 +484,7 @@ export class Editor {
       this.bindInputEvents();
       this.bindHistoryEvents();
     }
-    document.addEventListener('click', this.clickListener, { capture: true });
+    document.addEventListener('click', this.clickListener);
     window.addEventListener('resize', this.resizeListener);
   }
 
