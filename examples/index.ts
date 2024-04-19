@@ -7,7 +7,7 @@ import fullEditor from './full-editor';
 import documentEditor from './document-editor';
 import miniatureEditor from './miniature-editor';
 import headlessEditor from './headless-editor';
-import contentView from './content-view';
+import readonlyEditor from './readonly-editor';
 
 const { query, safeTemplate } = Utils;
 
@@ -68,11 +68,11 @@ const menuItems = [
     editor: defaultEditor,
   },
   {
-    url: './content-view',
-    text: 'Content view',
-    source: 'https://github.com/lakejs/lake/blob/main/examples/content-view.ts',
+    url: './readonly',
+    text: 'Read-only mode',
+    source: 'https://github.com/lakejs/lake/blob/main/examples/readonly-editor.ts',
     editorValue: window.defaultValue,
-    editor: contentView,
+    editor: readonlyEditor,
   },
 ];
 

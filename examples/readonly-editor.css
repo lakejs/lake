@@ -1,0 +1,10 @@
+.readonly .lake-editor {
+  box-sizing: border-box;
+  padding: 0 8px;
+  margin: 0 auto;
+}
+.readonly .lake-root {
+  border: 0;
+  height: auto;
+  overflow: visible;
+}
