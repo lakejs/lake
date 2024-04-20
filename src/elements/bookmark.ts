@@ -2,4 +2,6 @@ class BookmarkElement extends HTMLElement {
 
 }
 
-customElements.define('lake-bookmark', BookmarkElement);
+if (customElements.get('lake-bookmark') !== undefined) {
+  customElements.define('lake-bookmark', BookmarkElement);
+}

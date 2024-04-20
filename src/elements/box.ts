@@ -2,4 +2,6 @@ class BoxElement extends HTMLElement {
 
 }
 
-customElements.define('lake-box', BoxElement);
+if (customElements.get('lake-box') !== undefined) {
+  customElements.define('lake-box', BoxElement);
+}
