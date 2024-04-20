@@ -26,8 +26,9 @@
   "scripts": {
     "dev": "npm-run-all --parallel --print-label dev:express dev:rollup",
     "dev:express": "node ./scripts/start-server.mjs",
-    "dev:rollup": "rollup --watch --config rollup.config.mjs",
-    "build": "rimraf ./dist ./lib && rollup --config rollup.config.mjs",
+    "dev:rollup": "rollup --watch --config rollup.config.mjs --example --test",
+    "dev:lib": "rollup --watch --config rollup.config.mjs --es",
+    "build": "rimraf ./dist ./lib && rollup --config rollup.config.mjs --iife --es",
     "i18n": "typesafe-i18n --no-watch",
     "sort:package": "sort-package-json",
     "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,.mjs\"",

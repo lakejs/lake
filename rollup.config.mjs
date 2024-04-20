@@ -73,6 +73,11 @@ function getBuildConfig(type) {
         plugins: [terser()],
         assetFileNames: 'lake.css',
       },
+      watch: {
+        include: [
+          'src/**',
+        ],
+      },
       plugins: [
         nodeResolve(),
         typescript(),
@@ -93,6 +98,11 @@ function getBuildConfig(type) {
       sourcemap: true,
       assetFileNames: 'lake.css',
     },
+    watch: {
+      include: [
+        'src/**',
+      ],
+    },
     plugins: [
       typescript({
         compilerOptions: {
@@ -112,18 +122,22 @@ function getBuildConfig(type) {
 }
 
 export default (commandLineArgs) => {
-  if (commandLineArgs.watch === true) {
-    return [
-      getBundleConfig('examples'),
-      getBundleConfig('tests'),
-    ];
+  const configList = [];
+  if (commandLineArgs.example === true) {
+    delete commandLineArgs.example;
+    configList.push(getBundleConfig('examples'));
   }
   if (commandLineArgs.test === true) {
     delete commandLineArgs.test;
-    return getBundleConfig('tests');
+    configList.push(getBundleConfig('tests'));
   }
-  return [
-    getBuildConfig('iife'),
-    getBuildConfig('es'),
-  ];
+  if (commandLineArgs.iife === true) {
+    delete commandLineArgs.iife;
+    configList.push(getBuildConfig('iife'));
+  }
+  if (commandLineArgs.es === true) {
+    delete commandLineArgs.es;
+    configList.push(getBuildConfig('es'));
+  }
+  return configList;
 };
