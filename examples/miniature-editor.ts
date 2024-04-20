@@ -1,5 +1,5 @@
 import './miniature-editor.css';
-import { Editor, Toolbar, ToolbarItem, Utils, icons } from '../src';
+import { Editor, Toolbar, ToolbarItem, Utils, icons, Nodes } from '../src';
 
 const colors: string[] = [
   '#E53333', '#E56600', '#FF9900', '#64451D', '#DFC5A4', '#FFE500',
@@ -88,17 +88,27 @@ const toolbarItems = [
   'link',
 ];
 
-export default (value: string) => {
+function createEditor(rootNode: Nodes, value: string): Editor {
   const toolbar = new Toolbar({
-    root: '.lake-toolbar-root',
+    root: rootNode.find('.lake-toolbar-root'),
     items: toolbarItems,
   });
   const editor = new Editor({
-    root: '.lake-root',
+    root: rootNode.find('.lake-root'),
     toolbar,
     value,
     indentWithTab: false,
   });
   editor.render();
+  return editor;
+}
+
+export default (value: string) => {
+  const rootNode = Utils.query('.lake-editor');
+  const rootNode2 = rootNode.clone(true);
+  rootNode2.css('margin-top', '10px');
+  rootNode.after(rootNode2);
+  const editor = createEditor(rootNode, value);
+  createEditor(rootNode2, value);
   return editor;
 };
