@@ -9,11 +9,6 @@ Compressed copies of Lake files are available, you can download them from jsDeli
 * jsDelivr: https://www.jsdelivr.com/package/npm/lakelib
 * UNPKG: https://unpkg.com/browse/lakelib/
 
-Note: These files do not include CodeMirror, so if you need the code block feature, addtioanaly including CodeMirror to your page is needed.
-
-* jsDelivr: https://www.jsdelivr.com/package/npm/lake-codemirror
-* UNPKG: https://unpkg.com/browse/lake-codemirror/
-
 ## Downloading Lake using npm
 
 Lake is registered as a package on npm. You can install the latest version of Lake with the following npm command.
@@ -24,14 +19,14 @@ npm install lakelib
 
 ## Quick start with CDN
 
-First, add the following lines of code in the `<head>` of an HTML page.
+Add the following lines of code in the `<head>` of an HTML page.
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lakelib@latest/dist/lake.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/lakelib@latest/dist/lake.min.js"></script>
 ```
 
-Then, in the HTML page add the following HTML code that will serve as a placeholder for an editor instance.
+In the HTML page add the following HTML code that will serve as a placeholder for an editor instance.
 
 ```html
 <div class="lake-editor">
@@ -40,7 +35,7 @@ Then, in the HTML page add the following HTML code that will serve as a placehol
 </div>
 ```
 
-Finally, call the following JavaScript code to render the editor.
+Call the following JavaScript code to render the editor.
 
 ```js
 const toolbar = new Lake.Toolbar({
@@ -55,7 +50,7 @@ editor.render();
 
 ## Quick start with npm
 
-First, in the HTML page add the following HTML code that will serve as a placeholder for an editor instance.
+In the HTML page add the following HTML code that will serve as a placeholder for an editor instance.
 
 ```html
 <div class="lake-editor">
@@ -64,7 +59,7 @@ First, in the HTML page add the following HTML code that will serve as a placeho
 </div>
 ```
 
-Then, call the following JavaScript code to render the editor.
+Call the following JavaScript code to render the editor.
 
 ```js
 import 'lakelib/lib/lake.css';
