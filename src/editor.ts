@@ -469,7 +469,6 @@ export class Editor {
     this.container.append(fragment);
     if (!this.readonly) {
       this.bindFocusEvents();
-      this.focus();
       this.selection.synByBookmark();
       this.history.save();
       Editor.plugin.loadAll(this);
