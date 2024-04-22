@@ -427,10 +427,14 @@ export const imageBox: BoxComponent = {
       container.empty();
       container.append(imageNode);
       imageNode.find('.lake-button-view').on('click', () => openFullScreen(box));
-      imageNode.find('.lake-button-remove').on('click', event => {
-        event.stopPropagation();
-        removeImageBox(box);
-      });
+      if (editor.readonly) {
+        imageNode.find('.lake-button-remove').hide();
+      } else {
+        imageNode.find('.lake-button-remove').on('click', event => {
+          event.stopPropagation();
+          removeImageBox(box);
+        });
+      }
       box.event.emit('render');
     });
     imageNode.on('click', () => {

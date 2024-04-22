@@ -6,6 +6,7 @@
 .lake-container h6 {
   font-weight: bold;
   line-height: normal;
+  border: 0;
   margin: 0;
   padding: 0;
 }

@@ -481,11 +481,11 @@ export class Editor {
     if (!this.readonly) {
       window.addEventListener('beforeunload', this.beforeunloadListener);
       document.addEventListener('selectionchange', this.selectionchangeListener);
+      document.addEventListener('click', this.clickListener);
+      window.addEventListener('resize', this.resizeListener);
       this.bindInputEvents();
       this.bindHistoryEvents();
     }
-    document.addEventListener('click', this.clickListener);
-    window.addEventListener('resize', this.resizeListener);
   }
 
   // Destroys a rendered editor.
@@ -495,8 +495,8 @@ export class Editor {
     if (!this.readonly) {
       window.removeEventListener('beforeunload', this.beforeunloadListener);
       document.removeEventListener('selectionchange', this.selectionchangeListener);
+      document.removeEventListener('click', this.clickListener);
+      window.removeEventListener('resize', this.resizeListener);
     }
-    document.removeEventListener('click', this.clickListener);
-    window.removeEventListener('resize', this.resizeListener);
   }
 }
