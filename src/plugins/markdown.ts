@@ -118,7 +118,7 @@ const blockItemListForSpaceKey: BlockItem[] = [
 
 const blockItemListForEnterKey: BlockItem[] = [
   {
-    re: /^-+$/,
+    re: /^-{3,}$/,
     getParameters: () => [
       'hr',
     ],

@@ -520,12 +520,45 @@ describe('plugins / markdown', () => {
     );
   });
 
-  it('keystroke: should insert hr', () => {
+  it('keystroke: should insert hr (3 minuses)', () => {
     const content = `
     <p>---<focus /></p>
     `;
     const output = `
     <lake-box type="block" name="hr" focus="end"></lake-box>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('keystroke: should insert hr (4 minuses)', () => {
+    const content = `
+    <p>----<focus /></p>
+    `;
+    const output = `
+    <lake-box type="block" name="hr" focus="end"></lake-box>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('keystroke: should not insert hr (2 minuses)', () => {
+    const content = `
+    <p>--<focus /></p>
+    `;
+    const output = `
+    <p>--</p>
+    <p><br /><focus /></p>
     `;
     testPlugin(
       content,
