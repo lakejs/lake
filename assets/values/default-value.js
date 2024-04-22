@@ -51,10 +51,12 @@ window.defaultValue = `
 <lake-box type="block" name="hr"></lake-box>
 <p>The <code>&lt;blockquote&gt;</code> tag represents a block quotation.</p>
 <blockquote>Normal quote</blockquote>
-<blockquote type="success">Success</blockquote>
 <blockquote type="info">Info</blockquote>
+<blockquote type="tip">Info</blockquote>
+<blockquote type="success">Success</blockquote>
 <blockquote type="warning">Warning</blockquote>
 <blockquote type="error">Error</blockquote>
+<blockquote type="danger">Error</blockquote>
 <p><br /></p>
 
 <h3>Block Properties</h3>

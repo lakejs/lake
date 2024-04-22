@@ -520,6 +520,151 @@ describe('plugins / markdown', () => {
     );
   });
 
+  it('keystroke: should insert an info blockquote', () => {
+    const content = `
+    <p>:::info<focus /></p>
+    `;
+    const output = `
+    <blockquote type="info"><br /><focus /></blockquote>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('keystroke: should insert a tip blockquote', () => {
+    const content = `
+    <p>:::tip<focus /></p>
+    `;
+    const output = `
+    <blockquote type="tip"><br /><focus /></blockquote>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('keystroke: should insert a success blockquote', () => {
+    const content = `
+    <p>:::success<focus /></p>
+    `;
+    const output = `
+    <blockquote type="success"><br /><focus /></blockquote>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('keystroke: should insert a warning blockquote', () => {
+    const content = `
+    <p>:::warning<focus /></p>
+    `;
+    const output = `
+    <blockquote type="warning"><br /><focus /></blockquote>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('keystroke: should insert an error blockquote', () => {
+    const content = `
+    <p>:::error<focus /></p>
+    `;
+    const output = `
+    <blockquote type="error"><br /><focus /></blockquote>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('keystroke: should insert a danger blockquote', () => {
+    const content = `
+    <p>:::danger<focus /></p>
+    `;
+    const output = `
+    <blockquote type="danger"><br /><focus /></blockquote>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('keystroke: should insert a normal blockquote when type is invalid', () => {
+    const content = `
+    <p>:::invalid<focus /></p>
+    `;
+    const output = `
+    <blockquote><br /><focus /></blockquote>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('keystroke: should insert a blockquote when inputting more than three colons', () => {
+    const content = `
+    <p>::::info<focus /></p>
+    `;
+    const output = `
+    <blockquote type="info"><br /><focus /></blockquote>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('keystroke: should not insert blockquote when inputting less than three colons', () => {
+    const content = `
+    <p>::info<focus /></p>
+    `;
+    const output = `
+    <p>::info</p>
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
   it('keystroke: should insert hr (3 minuses)', () => {
     const content = `
     <p>---<focus /></p>

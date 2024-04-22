@@ -33,7 +33,7 @@ export function getElementRules(): any {
     },
     blockquote: {
       ...blockAttributeRules,
-      type: ['success', 'info', 'warning', 'error'],
+      type: ['info', 'tip', 'success', 'warning', 'error', 'danger'],
     },
     ul: {
       ...blockAttributeRules,

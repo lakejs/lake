@@ -118,6 +118,21 @@ const blockItemListForSpaceKey: BlockItem[] = [
 
 const blockItemListForEnterKey: BlockItem[] = [
   {
+    re: /^:{3,}([a-z]*)$/i,
+    getParameters: (results: RegExpExecArray) => {
+      if (!results[1]) {
+        return [
+          'blockQuote',
+          'info',
+        ];
+      }
+      return [
+        'blockQuote',
+        results[1],
+      ];
+    },
+  },
+  {
     re: /^-{3,}$/,
     getParameters: () => [
       'hr',

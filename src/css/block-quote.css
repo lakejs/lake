@@ -10,19 +10,21 @@
   color: var(--text-color);
   border-radius: 8px;
 }
+.lake-container blockquote[type="info"],
+.lake-container blockquote[type="tip"] {
+  background-color: #e6f4ff;
+  border: 1px solid #91caff;
+}
 .lake-container blockquote[type="success"] {
   background-color: #f6ffed;
   border: 1px solid #b7eb8f;
-}
-.lake-container blockquote[type="info"] {
-  background-color: #e6f4ff;
-  border: 1px solid #91caff;
 }
 .lake-container blockquote[type="warning"] {
   background-color: #fffbe6;
   border: 1px solid #ffe58f;
 }
-.lake-container blockquote[type="error"] {
+.lake-container blockquote[type="error"],
+.lake-container blockquote[type="danger"] {
   background-color: #fff2f0;
   border: 1px solid #ffccc7;
 }
