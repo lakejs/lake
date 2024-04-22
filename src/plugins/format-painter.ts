@@ -1,11 +1,10 @@
 import type { Editor } from '..';
 import { Nodes } from '../models/nodes';
 
-let markList: Nodes[] = [];
-
 const formatPainterClassName = 'lake-format-painter';
 
 export default (editor: Editor) => {
+  let markList: Nodes[] = [];
   editor.command.add('formatPainter', {
     execute: () => {
       editor.container.addClass(formatPainterClassName);
@@ -30,7 +29,7 @@ export default (editor: Editor) => {
     editor.history.save();
   });
   editor.event.on('click', (tagetNode: Nodes) => {
-    if (tagetNode.isInside) {
+    if (tagetNode.isInside && tagetNode.closestContainer().get(0) === editor.container.get(0)) {
       return;
     }
     const buttonNode = tagetNode.closest('button[name="formatPainter"]');

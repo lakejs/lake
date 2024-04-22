@@ -429,6 +429,7 @@ describe('editor', () => {
     editor.render();
     editor.event.once('statechange', stateData => {
       expect(stateData.appliedItems[0].name).to.equal('h1');
+      editor.unmount();
       done();
     });
     editor.command.execute('heading', 'h1');
@@ -441,6 +442,7 @@ describe('editor', () => {
     editor.render();
     editor.event.once('change', (value: string) => {
       expect(value).to.equal('<h1><br /><focus /></h1>');
+      editor.unmount();
       done();
     });
     editor.command.execute('heading', 'h1');
@@ -454,6 +456,7 @@ describe('editor', () => {
     editor.render();
     editor.event.once('change', (value: string) => {
       expect(value).to.equal('<p>fooa<focus /></p>');
+      editor.unmount();
       done();
     });
     insertText(editor, 'a');
@@ -474,13 +477,14 @@ describe('editor', () => {
       }
       if (calledCount === 2) {
         expect(value).to.equal('<p>foo<focus /></p>');
+        editor.unmount();
         done();
       }
     });
     insertText(editor, 'a');
   });
 
-  it('click event', () => {
+  it('single editor: click event', () => {
     const editor = new Editor({
       root: rootNode,
     });
@@ -489,10 +493,38 @@ describe('editor', () => {
     editor.event.on('click', () => {
       clickCount++;
     });
-    click(editor.container.parent());
+    click(rootNode);
     expect(clickCount).to.equal(1);
     click(query(editor.popupContainer));
     expect(clickCount).to.equal(1);
+    editor.unmount();
+  });
+
+  it('two editors: click event', () => {
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    let clickCount = 0;
+    editor.event.on('click', () => {
+      clickCount++;
+    });
+    const editor2 = new Editor({
+      root: rootNode,
+    });
+    editor2.render();
+    let clickCount2 = 0;
+    editor2.event.on('click', () => {
+      clickCount2++;
+    });
+    click(rootNode);
+    expect(clickCount).to.equal(1);
+    expect(clickCount2).to.equal(1);
+    click(query(editor.popupContainer));
+    expect(clickCount).to.equal(1);
+    expect(clickCount2).to.equal(1);
+    editor.unmount();
+    editor2.unmount();
   });
 
 });

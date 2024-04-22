@@ -1,5 +1,7 @@
-import type { Editor } from '../../src';
-import { testPlugin, click } from '../utils';
+import { Editor, Utils } from '../../src';
+import { testPlugin, click, formatHTML } from '../utils';
+
+const { query, debug } = Utils;
 
 function testFormatPainter(editor: Editor): void {
   editor.command.execute('formatPainter');
@@ -11,7 +13,7 @@ function testFormatPainter(editor: Editor): void {
 
 describe('plugins / format-painter', () => {
 
-  it('should copy and add strong with collapsed selection', () => {
+  it('should copy and add strong when selection is collapsed', () => {
     const content = `
     <p><strong>f<focus />oo</strong></p>
     <p>bar</p>
@@ -29,7 +31,7 @@ describe('plugins / format-painter', () => {
     );
   });
 
-  it('should copy and add strong with expanded selection', () => {
+  it('should copy and add strong when selection is expanded', () => {
     const content = `
     <p><anchor /><strong>foo</strong><focus /></p>
     <p>bar</p>
@@ -116,6 +118,39 @@ describe('plugins / format-painter', () => {
         expect(editor.container.hasClass('lake-format-painter')).to.equal(false);
       },
     );
+  });
+
+  it('should not apply style to another editor', () => {
+    const content = `
+    <p><strong>f<focus />oo</strong></p>
+    <p>bar</p>
+    `;
+    const output = `
+    <p><strong>foo</strong></p>
+    <p><anchor />bar<focus /></p>
+    `;
+    const rootNode = query('<div class="lake-root" />');
+    query(document.body).append(rootNode);
+    const editor = new Editor({
+      root: rootNode,
+      value: content,
+    });
+    editor.render();
+    const editor2 = new Editor({
+      root: rootNode,
+      value: content,
+    });
+    editor2.render();
+    editor.command.execute('formatPainter');
+    expect(editor.container.hasClass('lake-format-painter')).to.equal(true);
+    editor2.selection.range.selectNodeContents(editor2.container.find('p').eq(1));
+    click(editor2.container.find('p').eq(1));
+    expect(editor.container.hasClass('lake-format-painter')).to.equal(false);
+    const html = editor2.getValue();
+    editor.unmount();
+    rootNode.remove();
+    debug(`output: ${html}`);
+    expect(html).to.equal(formatHTML(output));
   });
 
 });

@@ -1,6 +1,5 @@
 import sinon from 'sinon';
-import { Box } from '../../src/models/box';
-import { Editor } from '../../src';
+import { Editor, Box } from '../../src';
 import { testPlugin } from '../utils';
 
 const imageUrl = '../assets/images/heaven-lake-256.png';
