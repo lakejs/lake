@@ -131,13 +131,15 @@ describe('plugins / format-painter', () => {
     `;
     const rootNode = query('<div class="lake-root" />');
     query(document.body).append(rootNode);
+    const rootNode2 = query('<div class="lake-root" />');
+    query(document.body).append(rootNode2);
     const editor = new Editor({
       root: rootNode,
       value: content,
     });
     editor.render();
     const editor2 = new Editor({
-      root: rootNode,
+      root: rootNode2,
       value: content,
     });
     editor2.render();
@@ -148,7 +150,9 @@ describe('plugins / format-painter', () => {
     expect(editor.container.hasClass('lake-format-painter')).to.equal(false);
     const html = editor2.getValue();
     editor.unmount();
+    editor2.unmount();
     rootNode.remove();
+    rootNode2.remove();
     debug(`output: ${html}`);
     expect(html).to.equal(formatHTML(output));
   });

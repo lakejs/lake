@@ -500,7 +500,9 @@ describe('editor', () => {
     editor.unmount();
   });
 
-  it('two editors: click event', () => {
+  it('multi-editor: click event', () => {
+    const rootNode2 = query('<div class="lake-root" />');
+    query(document.body).append(rootNode2);
     const editor = new Editor({
       root: rootNode,
     });
@@ -510,14 +512,14 @@ describe('editor', () => {
       clickCount++;
     });
     const editor2 = new Editor({
-      root: rootNode,
+      root: rootNode2,
     });
     editor2.render();
     let clickCount2 = 0;
     editor2.event.on('click', () => {
       clickCount2++;
     });
-    click(rootNode);
+    click(rootNode2);
     expect(clickCount).to.equal(1);
     expect(clickCount2).to.equal(1);
     click(query(editor.popupContainer));
@@ -525,6 +527,7 @@ describe('editor', () => {
     expect(clickCount2).to.equal(1);
     editor.unmount();
     editor2.unmount();
+    rootNode2.remove();
   });
 
 });

@@ -36,8 +36,10 @@ export default (editor: Editor) => {
     }
     if (
       linkNode.isOutside ||
+      linkNode.closestContainer().get(0) !== editor.container.get(0) ||
       linkNode.closest('lake-box').length > 0
     ) {
+      popup.hide();
       return;
     }
     popup.show(linkNode);

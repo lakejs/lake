@@ -43,7 +43,7 @@ describe('plugins / link', () => {
     expect(linkTitle).to.equal('New link');
   });
 
-  it('should update a link', () => {
+  it('single editor: should update a link', () => {
     editor.setValue('<p><a href="http://foo.com">foo<focus /></a></p>');
     const linkNode = editor.container.find('a');
     click(linkNode);
@@ -54,6 +54,28 @@ describe('plugins / link', () => {
     expect(editor.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('none');
     const value = editor.getValue();
     expect(value).to.equal('<p><a href="http://bar.com">bar</a><focus /></p>');
+  });
+
+  it('multi-editor: should update a link', () => {
+    const rootNode2 = query('<div class="lake-root" />');
+    query(document.body).append(rootNode2);
+    const editor2 = new Editor({
+      root: rootNode2,
+    });
+    editor2.render();
+    editor2.setValue('<p><a href="">foo<focus /></a></p>');
+    const linkNode = editor2.container.find('a');
+    click(linkNode);
+    expect(editor2.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('block');
+    (editor2.popupContainer.find('.lake-link-popup input[name="url"]').get(0) as HTMLInputElement).value = 'http://bar.com';
+    (editor2.popupContainer.find('.lake-link-popup input[name="title"]').get(0) as HTMLInputElement).value = 'bar';
+    click(editor2.popupContainer.find('.lake-link-popup button[name="save"]'));
+    expect(editor.popupContainer.find('.lake-link-popup').length).to.equal(0);
+    expect(editor2.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('none');
+    const value = editor2.getValue();
+    expect(value).to.equal('<p><a href="http://bar.com">bar</a><focus /></p>');
+    editor2.unmount();
+    rootNode2.remove();
   });
 
   it('should remove a link', () => {
