@@ -57,6 +57,8 @@ export default (value: string) => {
     toolbar,
     value,
     image: {
+      // requestMethod: 'GET',
+      // requestAction: '/assets/json/upload-image.json',
       requestAction: '/upload',
     },
   });

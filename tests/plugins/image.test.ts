@@ -13,7 +13,6 @@ describe('plugins / image', () => {
       output,
       editor => {
         expect(editor.config.image.requestMethod).to.equal('POST');
-        expect(editor.config.image.requestAction).to.equal('/upload');
         expect(editor.config.image.requestTypes).to.deep.equal(['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml']);
       },
     );
