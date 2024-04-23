@@ -56,7 +56,9 @@ export default (value: string) => {
     root: '.lake-root',
     toolbar,
     value,
-    imageRequestAction: '/upload',
+    image: {
+      requestAction: '/upload',
+    },
   });
   editor.render();
   return editor;

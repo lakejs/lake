@@ -4,7 +4,6 @@ import EventEmitter from 'eventemitter3';
 import { version } from '../package.json';
 import { NativeNode } from './types/native';
 import { StateData } from './types/object';
-import { UploadRequestMethod } from './types/request';
 import { editors } from './storage/editors';
 import { denormalizeValue, normalizeValue, query, debug } from './utils';
 import { Nodes } from './models/nodes';
@@ -20,6 +19,16 @@ import { BoxManager } from './managers/box-manager';
 import { Plugin } from './managers/plugin';
 import { Toolbar } from './ui/toolbar';
 
+type Config = {
+  value: string;
+  readonly: boolean;
+  spellcheck: boolean;
+  tabIndex: number;
+  indentWithTab: boolean;
+  minChangeSize: number;
+  [name: string]: any;
+};
+
 type EditorConfig = {
   root: string | Nodes | NativeNode;
   toolbar?: Toolbar;
@@ -29,21 +38,16 @@ type EditorConfig = {
   tabIndex?: number;
   indentWithTab?: boolean;
   minChangeSize?: number;
-  imageRequestMethod?: UploadRequestMethod;
-  imageRequestAction?: string;
-  imageRequestTypes?: string[];
+  [name: string]: any;
 };
 
-const defaultConfig = {
+const defaultConfig: Config = {
   value: '<p><br /><focus /></p>',
   readonly: false,
   spellcheck: false,
   tabIndex: 0,
   indentWithTab: true,
   minChangeSize: 5,
-  imageRequestMethod: 'POST' as UploadRequestMethod,
-  imageRequestAction: '/upload',
-  imageRequestTypes: ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'],
 };
 
 export class Editor {
@@ -66,7 +70,7 @@ export class Editor {
 
   public toolbar: Toolbar | undefined;
 
-  public config: typeof defaultConfig;
+  public config: Config;
 
   public containerWrapper: Nodes;
 
@@ -98,7 +102,10 @@ export class Editor {
     }
     this.root = query(config.root);
     this.toolbar = config.toolbar;
-    this.config = {...defaultConfig, ...config};
+    this.config = { ...defaultConfig };
+    for (const key of Object.keys(config)) {
+      this.config[key] = config[key];
+    }
     this.containerWrapper = query('<div class="lake-container-wrapper" />');
     this.container = query('<div class="lake-container" />');
     this.overlayContainer = query('<div class="lake-overlay" />');
@@ -400,6 +407,18 @@ export class Editor {
   public commitOperation(): void {
     this.history.continue();
     this.history.save();
+  }
+
+  // Sets default config for a plugin.
+  public setPluginConfig(pluginName: string, pluginConfig: {[key: string]: any}): void {
+    if (!this.config[pluginName]) {
+      this.config[pluginName] = {};
+    }
+    for (const key of Object.keys(pluginConfig)) {
+      if (this.config[pluginName][key] === undefined) {
+        this.config[pluginName][key] = pluginConfig[key];
+      }
+    }
   }
 
   // Sets focus on the editor area.

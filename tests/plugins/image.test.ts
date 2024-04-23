@@ -5,6 +5,20 @@ const imageBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTI1Ni5wb
 
 describe('plugins / image', () => {
 
+  it('should return correct config', () => {
+    const content = '';
+    const output = '';
+    testPlugin(
+      content,
+      output,
+      editor => {
+        expect(editor.config.image.requestMethod).to.equal('POST');
+        expect(editor.config.image.requestAction).to.equal('/upload');
+        expect(editor.config.image.requestTypes).to.deep.equal(['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml']);
+      },
+    );
+  });
+
   it('inserts an image box', () => {
     const content = `
     <p>foo<focus />bar</p>

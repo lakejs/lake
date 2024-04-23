@@ -5,6 +5,11 @@ import { Box } from '../models/box';
 import { Fragment } from '../models/fragment';
 
 export default (editor: Editor) => {
+  editor.setPluginConfig('image', {
+    requestMethod: 'POST',
+    requestAction: '/upload',
+    requestTypes: ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'],
+  });
   editor.event.on('beforepaste', (nativeFragment: DocumentFragment) => {
     const fragment = new Fragment(nativeFragment);
     fragment.find('img').each(nativeNode => {

@@ -164,8 +164,8 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
 }
 
 export default (editor: Editor) => {
-  const { imageRequestTypes } = editor.config;
   editor.container.on('paste', event => {
+    const { requestTypes } = editor.config.image;
     const range = editor.selection.range;
     if (range.isInsideBox) {
       return;
@@ -179,7 +179,7 @@ export default (editor: Editor) => {
     // upload file
     if (dataTransfer.files.length > 0) {
       for (const file of dataTransfer.files) {
-        if (imageRequestTypes.indexOf(file.type) >= 0) {
+        if (requestTypes.indexOf(file.type) >= 0) {
           uploadImage({
             editor,
             file,

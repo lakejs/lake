@@ -2,7 +2,6 @@
 
 /* eslint no-console: "off" */
 
-import { existsSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import pc from 'picocolors';
@@ -18,11 +17,9 @@ const bundleFile = path.resolve(scriptsPath, '../temp/tests/bundle.js');
 const step = (msg) => console.log(pc.cyan(msg));
 
 (async() => {
-  // Build the bundle file if it is not exist
-  if (!existsSync(bundleFile)) {
-    step(`Building ${bundleFile}`);
-    await execa('pnpm', ['test:rollup']);
-  }
+  // Build the bundle file
+  step(`Building ${bundleFile}`);
+  await execa('pnpm', ['test:rollup']);
   // Wait for starting HTTP server
   step('Starting up an HTTP server');
   const subprocess = execa('pnpm', ['test:express']);

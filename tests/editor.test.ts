@@ -77,9 +77,8 @@ describe('editor', () => {
       spellcheck: true,
     });
     editor.render();
-    const spellcheck = editor.container.attr('spellcheck');
+    expect(editor.container.attr('spellcheck')).to.equal('true');
     editor.unmount();
-    expect(spellcheck).to.equal('true');
   });
 
   it('constructor: readonly is true', () => {
@@ -97,6 +96,36 @@ describe('editor', () => {
     contentView.unmount();
     expect(readonly).to.equal(true);
     expect(value).to.equal(output);
+  });
+
+  it('constructor: tabIndex is -1', () => {
+    const editor = new Editor({
+      root: rootNode,
+      tabIndex: -1,
+    });
+    editor.render();
+    expect(editor.container.attr('tabindex')).to.equal('-1');
+    editor.unmount();
+  });
+
+  it('constructor: indentWithTab is false', () => {
+    const editor = new Editor({
+      root: rootNode,
+      indentWithTab: false,
+    });
+    editor.render();
+    expect(editor.config.indentWithTab).to.equal(false);
+    editor.unmount();
+  });
+
+  it('constructor: minChangeSize is false', () => {
+    const editor = new Editor({
+      root: rootNode,
+      minChangeSize: 10,
+    });
+    editor.render();
+    expect(editor.config.minChangeSize).to.equal(10);
+    editor.unmount();
   });
 
   it('constructor: empty default value', () => {
@@ -171,6 +200,40 @@ describe('editor', () => {
     debug(`output: ${value}`);
     editor.unmount();
     expect(value).to.equal(output);
+  });
+
+  it('setPluginConfig method: plugin config is not set', () => {
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    editor.setPluginConfig('testPlugin', {
+      key2: 'bb',
+      key3: 'cc',
+    });
+    expect(editor.config.testPlugin.key1).to.equal(undefined);
+    expect(editor.config.testPlugin.key2).to.equal('bb');
+    expect(editor.config.testPlugin.key3).to.equal('cc');
+    editor.unmount();
+  });
+
+  it('setPluginConfig method: plugin config is set', () => {
+    const editor = new Editor({
+      root: rootNode,
+      testPlugin: {
+        key1: 'aa',
+        key2: 'bb',
+      },
+    });
+    editor.render();
+    editor.setPluginConfig('testPlugin', {
+      key2: 'b',
+      key3: 'c',
+    });
+    expect(editor.config.testPlugin.key1).to.equal('aa');
+    expect(editor.config.testPlugin.key2).to.equal('bb');
+    expect(editor.config.testPlugin.key3).to.equal('c');
+    editor.unmount();
   });
 
   it('method: getValue', () => {

@@ -12,9 +12,9 @@ type Config = {
 
 export function uploadImage(config: Config): Box {
   const { editor, file, onError, onSuccess} = config;
-  const { imageRequestMethod, imageRequestAction, imageRequestTypes } = editor.config;
-  if (imageRequestTypes.indexOf(file.type) < 0) {
-    throw new Error(`Cannot upload file because its type '${file.type}' is not found in ['${imageRequestTypes.join('\', \'')}'].`);
+  const { requestMethod, requestAction, requestTypes } = editor.config.image;
+  if (requestTypes.indexOf(file.type) < 0) {
+    throw new Error(`Cannot upload file because its type '${file.type}' is not found in ['${requestTypes.join('\', \'')}'].`);
   }
   const box = editor.insertBox('image', {
     url: URL.createObjectURL(file),
@@ -58,8 +58,8 @@ export function uploadImage(config: Config): Box {
       }
     },
     file,
-    action: imageRequestAction,
-    method: imageRequestMethod,
+    action: requestAction,
+    method: requestMethod,
   });
   box.setData('xhr', xhr);
   return box;
