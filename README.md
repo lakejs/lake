@@ -1,79 +1,14 @@
 # Lake
 
+[![CI](https://github.com/lakejs/lake/actions/workflows/ci.yml/badge.svg)](https://github.com/lakejs/lake/actions)
+[![npm](https://img.shields.io/npm/v/lakelib)](https://npmjs.org/package/lakelib)
+[![size](https://badgen.net/bundlephobia/minzip/lakelib?style=flat-square)](https://bundlephobia.com/package/lakelib)
+
+---
+
 Lake is a rich text editor for the web. It has a good user experience and provides easy-to-use programming interface to allow further extension.
 
-## Downloading Lake from CDN
-
-Compressed copies of Lake files are available, you can download them from jsDelivr or UNPKG.
-
-* jsDelivr: https://www.jsdelivr.com/package/npm/lakelib
-* UNPKG: https://unpkg.com/browse/lakelib/
-
-## Downloading Lake using npm
-
-Lake is registered as a package on npm. You can install the latest version of Lake with the following npm command.
-
-```bash
-npm install lakelib
-```
-
-## Quick start with CDN
-
-Add the following lines of code in the `<head>` of an HTML page.
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lakelib@latest/dist/lake.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/lakelib@latest/dist/lake.min.js"></script>
-```
-
-In the HTML page add the following HTML code that will serve as a placeholder for an editor instance.
-
-```html
-<div class="lake-editor">
-  <div class="lake-toolbar-root"></div>
-  <div class="lake-root"></div>
-</div>
-```
-
-Call the following JavaScript code to render the editor.
-
-```js
-const toolbar = new Lake.Toolbar({
-  root: '.lake-toolbar-root',
-});
-const editor = new Lake.Editor({
-  root: '.lake-root',
-  toolbar,
-});
-editor.render();
-```
-
-## Quick start with npm
-
-In the HTML page add the following HTML code that will serve as a placeholder for an editor instance.
-
-```html
-<div class="lake-editor">
-  <div class="lake-toolbar-root"></div>
-  <div class="lake-root"></div>
-</div>
-```
-
-Call the following JavaScript code to render the editor.
-
-```js
-import 'lakelib/lib/lake.css';
-import { Editor, Toolbar } from 'lakelib';
-
-const toolbar = new Toolbar({
-  root: '.lake-toolbar-root',
-});
-const editor = new Editor({
-  root: '.lake-root',
-  toolbar,
-});
-editor.render();
-```
+[Examples](https://lakejs.org/examples/) · [Getting started](https://lakejs.org/guide/getting-started.html) · [Reference](https://lakejs.org/reference/)
 
 ## Development
 
