@@ -103,11 +103,12 @@ export function testPlugin(
   callback: (editor: Editor) => void,
   removeBoxValue: boolean = false,
 ): void {
+  const defaultValue = '<p><br /><focus /></p>';
   const rootNode = query('<div class="lake-root" />');
   query(document.body).append(rootNode);
   const editor = new Editor({
     root: rootNode,
-    value: content,
+    value: content || defaultValue,
   });
   editor.render();
   callback(editor);
@@ -120,5 +121,5 @@ export function testPlugin(
   editor.unmount();
   rootNode.remove();
   debug(`output: ${html}`);
-  expect(html).to.equal(formatHTML(output));
+  expect(html).to.equal(formatHTML(output || defaultValue));
 }

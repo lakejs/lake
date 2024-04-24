@@ -61,6 +61,9 @@ export default (value: string) => {
       // requestAction: '/assets/json/upload-image.json',
       requestAction: '/upload',
     },
+    codeBlock: {
+      // langList: ['text', 'html'],
+    },
   });
   editor.render();
   return editor;

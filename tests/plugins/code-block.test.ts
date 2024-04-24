@@ -3,6 +3,17 @@ import { testPlugin } from '../utils';
 
 describe('plugins / code-block', () => {
 
+  it('should return correct config', () => {
+    testPlugin(
+      '',
+      '',
+      editor => {
+        expect(editor.config.codeBlock.langList[0]).to.equal('text');
+        expect(editor.config.codeBlock.defaultLang).to.equal('text');
+      },
+    );
+  });
+
   it('should insert into the end of the paragraph', () => {
     const content = `
     <p>foo<focus /></p>

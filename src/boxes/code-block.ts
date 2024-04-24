@@ -5,7 +5,6 @@ import { Dropdown } from '../ui/dropdown';
 import { locale } from '../i18n';
 
 const config = {
-  defaultLang: 'text',
   comment: '#57606a',
   name: '#444d56',
   variableName: '#953800',
@@ -116,8 +115,13 @@ export const codeBlockBox: BoxComponent = {
     const {
       EditorState, Compartment, EditorView,
       keymap, history, defaultKeymap, historyKeymap,
-      indentWithTab, syntaxHighlighting, langItems,
+      indentWithTab, syntaxHighlighting,
     } = CodeMirror;
+    const defaultLangItems = CodeMirror.langItems;
+    const codeBlockConfig = editor.config.codeBlock;
+    const langItems = defaultLangItems.filter(
+      (item: any) => codeBlockConfig.langList.indexOf(item.value) >= 0,
+    );
     // language menu items
     const langItemMap: Map<string, any> = new Map();
     for (const item of langItems) {
@@ -163,7 +167,7 @@ export const codeBlockBox: BoxComponent = {
       root: codeBlockNode,
       name: 'langType',
       downIcon: icons.get('down'),
-      defaultValue: langItem ? boxValue.lang : config.defaultLang,
+      defaultValue: langItem ? boxValue.lang : codeBlockConfig.defaultLang,
       tooltip: locale.codeBlock.langType(),
       width: 'auto',
       menuType: 'list',

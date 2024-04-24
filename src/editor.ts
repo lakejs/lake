@@ -487,10 +487,10 @@ export class Editor {
     query(document.body).append(this.popupContainer);
     this.container.append(fragment);
     if (!this.readonly) {
+      Editor.plugin.loadAll(this);
       this.bindFocusEvents();
       this.selection.synByBookmark();
       this.history.save();
-      Editor.plugin.loadAll(this);
     }
     Editor.box.renderAll(this);
     if (this.toolbar) {
