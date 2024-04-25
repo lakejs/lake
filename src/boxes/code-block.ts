@@ -151,6 +151,7 @@ export const codeBlockBox: BoxComponent = {
       doc: boxValue.code ?? '',
       extensions: [
         EditorState.readOnly.of(editor.readonly),
+        EditorView.editable.of(!editor.readonly),
         history(),
         keymap.of([
           ...defaultKeymap,
