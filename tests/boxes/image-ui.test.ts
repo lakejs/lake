@@ -1,4 +1,4 @@
-import { testBox } from '../utils';
+import { showBox } from '../utils';
 
 const smallUrl = '../assets/images/heaven-lake-64.png';
 const smallOriginalUrl = '../assets/images/heaven-lake-1280.png';
@@ -10,7 +10,7 @@ const largeOriginalUrl = '../assets/images/lac-gentau-4096.jpg';
 describe('boxes / image-ui', () => {
 
   it('uploading: small size', () => {
-    testBox('image', {
+    showBox('image', {
       url: smallUrl,
       status: 'uploading',
       name: 'heaven-lake-64.png',
@@ -23,7 +23,7 @@ describe('boxes / image-ui', () => {
   });
 
   it('uploading: medium size', () => {
-    testBox('image', {
+    showBox('image', {
       url: mediumUrl,
       status: 'uploading',
       name: 'heaven-lake-512.png',
@@ -37,7 +37,7 @@ describe('boxes / image-ui', () => {
   });
 
   it('uploading: large size', () => {
-    testBox('image', {
+    showBox('image', {
       url: largeUrl,
       status: 'uploading',
       name: 'lac-gentau-4096.jpg',
@@ -51,7 +51,7 @@ describe('boxes / image-ui', () => {
   });
 
   it('loading: small size', () => {
-    testBox('image', {
+    showBox('image', {
       url: smallUrl,
       width: 64,
       height: 46,
@@ -62,7 +62,7 @@ describe('boxes / image-ui', () => {
   });
 
   it('loading: medium size', () => {
-    testBox('image', {
+    showBox('image', {
       url: smallUrl,
       width: 512,
       height: 366,
@@ -73,7 +73,7 @@ describe('boxes / image-ui', () => {
   });
 
   it('loading: large size', () => {
-    testBox('image', {
+    showBox('image', {
       url: smallUrl,
       width: 1024,
       height: 670,
@@ -84,7 +84,7 @@ describe('boxes / image-ui', () => {
   });
 
   it('done: small size', () => {
-    testBox('image', {
+    showBox('image', {
       url: smallUrl,
       originalUrl: smallOriginalUrl,
       originalWidth: 1280,
@@ -100,7 +100,7 @@ describe('boxes / image-ui', () => {
   });
 
   it('done: medium size', () => {
-    testBox('image', {
+    showBox('image', {
       url: mediumUrl,
       originalUrl: mediumOriginalUrl,
       originalWidth: 1024,
@@ -116,7 +116,7 @@ describe('boxes / image-ui', () => {
   });
 
   it('done: large size', () => {
-    testBox('image', {
+    showBox('image', {
       url: largeUrl,
       originalUrl: largeOriginalUrl,
       originalWidth: 4096,
@@ -132,7 +132,7 @@ describe('boxes / image-ui', () => {
   });
 
   it('error status', () => {
-    testBox('image', {
+    showBox('image', {
       url: smallUrl,
       status: 'error',
       name: 'heaven-lake-64.png',

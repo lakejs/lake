@@ -4,6 +4,9 @@ import { LinkPopup } from '../ui/link-popup';
 import { locale } from '../i18n';
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   const popup = new LinkPopup(editor.popupContainer);
   popup.event.on('save', node => {
     const range = editor.selection.range;

@@ -30,6 +30,9 @@ export default (editor: Editor) => {
     langList,
     defaultLang: 'text',
   });
+  if (editor.readonly) {
+    return;
+  }
   editor.command.add('codeBlock', {
     execute: (value: BoxValue) => {
       const box = editor.insertBox('codeBlock', value);

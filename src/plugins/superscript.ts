@@ -3,6 +3,9 @@ import type { Editor } from '..';
 const tagName = 'sup';
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.command.add('superscript', {
     isSelected: appliedItems => !!appliedItems.find(item => item.name === tagName),
     execute: () => {

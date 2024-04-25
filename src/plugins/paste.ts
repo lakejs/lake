@@ -164,6 +164,9 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
 }
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.container.on('paste', event => {
     const { requestTypes } = editor.config.image;
     const range = editor.selection.range;

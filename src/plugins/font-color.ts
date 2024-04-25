@@ -2,6 +2,9 @@ import type { Editor } from '..';
 import { toHex } from '../utils';
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.command.add('fontColor', {
     selectedValues: appliedItems => {
       for (const item of appliedItems) {

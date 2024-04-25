@@ -4,6 +4,9 @@ import { Fragment } from '../models/fragment';
 import { Box } from '../models/box';
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.event.on('beforepaste', (nativeFragment: DocumentFragment) => {
     const fragment = new Fragment(nativeFragment);
     fragment.find('hr').each(nativeNode => {

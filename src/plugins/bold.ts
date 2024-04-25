@@ -3,6 +3,9 @@ import type { Editor } from '..';
 const tagName = 'strong';
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.command.add('bold', {
     isDisabled: appliedItems => !!appliedItems.find(item => item.node.isHeading),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === tagName),

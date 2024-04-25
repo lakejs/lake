@@ -1,6 +1,9 @@
 import type { Editor } from '..';
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.command.add('redo', {
     execute: () => {
       editor.history.redo();

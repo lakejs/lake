@@ -486,8 +486,8 @@ export class Editor {
     this.containerWrapper.append(this.overlayContainer);
     query(document.body).append(this.popupContainer);
     this.container.append(fragment);
+    Editor.plugin.loadAll(this);
     if (!this.readonly) {
-      Editor.plugin.loadAll(this);
       this.bindFocusEvents();
       this.selection.synByBookmark();
       this.history.save();

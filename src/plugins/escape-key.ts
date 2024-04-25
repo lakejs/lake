@@ -1,6 +1,9 @@
 import type { Editor } from '..';
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.keystroke.setKeydown('escape', event => {
     const selection = editor.selection;
     const range = selection.range;

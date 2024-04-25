@@ -3,6 +3,9 @@ import type { Editor } from '..';
 const tagName = 'code';
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.command.add('code', {
     isSelected: appliedItems => !!appliedItems.find(item => item.name === tagName),
     execute: () => {

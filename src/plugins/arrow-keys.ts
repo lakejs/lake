@@ -1,6 +1,9 @@
 import type { Editor } from '..';
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.keystroke.setKeydown('arrow-left', event => {
     const range = editor.selection.range;
     if (range.isInsideBox) {

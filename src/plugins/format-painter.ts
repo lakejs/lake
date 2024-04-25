@@ -4,6 +4,9 @@ import { Nodes } from '../models/nodes';
 const formatPainterClassName = 'lake-format-painter';
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   let markList: Nodes[] = [];
   editor.command.add('formatPainter', {
     execute: () => {

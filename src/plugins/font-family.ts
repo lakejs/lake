@@ -1,6 +1,9 @@
 import type { Editor } from '..';
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.command.add('fontFamily', {
     selectedValues: appliedItems => {
       for (const item of appliedItems) {

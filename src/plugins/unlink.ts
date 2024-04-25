@@ -3,6 +3,9 @@ import type { Editor } from '..';
 const tagName = 'a';
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.command.add('unlink', {
     execute: () => {
       const range = editor.selection.range;

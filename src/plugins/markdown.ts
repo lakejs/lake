@@ -287,6 +287,9 @@ function enterKeyExecutesBlockCommand(editor: Editor, block: Nodes): boolean {
 }
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.keystroke.setKeydown('space', event => {
     const selection = editor.selection;
     const range = selection.range;

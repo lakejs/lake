@@ -11,6 +11,9 @@ const typeList = [
 ];
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.command.add('blockQuote', {
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'blockquote'),
     execute: (type?: string) => {

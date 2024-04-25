@@ -9,6 +9,9 @@ export default (editor: Editor) => {
     requestMethod: 'POST',
     requestTypes: ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'],
   });
+  if (editor.readonly) {
+    return;
+  }
   editor.event.on('beforepaste', (nativeFragment: DocumentFragment) => {
     const fragment = new Fragment(nativeFragment);
     fragment.find('img').each(nativeNode => {

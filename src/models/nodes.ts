@@ -348,7 +348,7 @@ export class Nodes {
     return block;
   }
 
-  // Traverses the first node and its parents until it finds a root element which has contenteditable="true" attribute..
+  // Traverses the first node and its parents until it finds a root element which has contenteditable="true" attribute.
   public closestContainer(): Nodes {
     return this.closest('div[contenteditable="true"]');
   }

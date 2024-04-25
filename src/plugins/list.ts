@@ -18,6 +18,9 @@ function setChecklist(editor: Editor, value: boolean) {
 }
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.command.add('list', {
     selectedValues: appliedItems => {
       let currentValue;

@@ -1,4 +1,4 @@
-import { testBox } from '../utils';
+import { showBox } from '../utils';
 
 const htmlCode = `
 <!DOCTYPE html>
@@ -102,7 +102,7 @@ public class Class<T, V> implements MyInterface {
 describe('boxes / code-block-ui', () => {
 
   it('codeBlock: HTML', () => {
-    testBox('codeBlock', {
+    showBox('codeBlock', {
       lang: 'html',
       code: htmlCode,
     }, box => {
@@ -110,8 +110,17 @@ describe('boxes / code-block-ui', () => {
     });
   });
 
+  it('codeBlock: HTML (read-only)', () => {
+    showBox('codeBlock', {
+      lang: 'html',
+      code: htmlCode,
+    }, box => {
+      expect(box.value.lang).to.equal('html');
+    }, true);
+  });
+
   it('codeBlock: CSS', () => {
-    testBox('codeBlock', {
+    showBox('codeBlock', {
       lang: 'css',
       code: cssCode,
     }, box => {
@@ -120,7 +129,7 @@ describe('boxes / code-block-ui', () => {
   });
 
   it('codeBlock: JavaScript', () => {
-    testBox('codeBlock', {
+    showBox('codeBlock', {
       lang: 'javascript',
       code: javascriptCode,
     }, box => {
@@ -129,7 +138,7 @@ describe('boxes / code-block-ui', () => {
   });
 
   it('codeBlock: Java', () => {
-    testBox('codeBlock', {
+    showBox('codeBlock', {
       lang: 'java',
       code: javaCode,
     }, box => {
@@ -140,7 +149,7 @@ describe('boxes / code-block-ui', () => {
   it('codeBlock: error status', () => {
     const CodeMirror = window.CodeMirror;
     window.CodeMirror = undefined;
-    testBox('codeBlock', {
+    showBox('codeBlock', {
       lang: 'javascript',
       code: javascriptCode,
     }, box => {

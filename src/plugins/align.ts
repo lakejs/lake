@@ -6,6 +6,9 @@ const alignValueMap: {[key: string]: string} = {
 };
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.command.add('align', {
     selectedValues: appliedItems => {
       let currentValue;

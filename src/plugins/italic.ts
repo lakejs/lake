@@ -3,6 +3,9 @@ import type { Editor } from '..';
 const tagName = 'i';
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.command.add('italic', {
     isSelected: appliedItems => !!appliedItems.find(item => item.name === tagName),
     execute: () => {

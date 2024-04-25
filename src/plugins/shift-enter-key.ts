@@ -46,6 +46,9 @@ function addBlockOrLineBreakForBox(editor: Editor): void {
 }
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.keystroke.setKeydown('shift+enter', event => {
     const range = editor.selection.range;
     if (range.isInsideBox) {

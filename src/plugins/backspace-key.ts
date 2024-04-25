@@ -41,6 +41,9 @@ function mergeWithPreviousBlock(editor: Editor, block: Nodes): void {
 }
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.keystroke.setKeydown('backspace', event => {
     const range = editor.selection.range;
     if (range.isInsideBox) {

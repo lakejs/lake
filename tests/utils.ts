@@ -79,19 +79,31 @@ export function testOperation(
   expect(html).to.equal(formatHTML(output));
 }
 
-export function testBox(
+export function showBox(
   name: string,
   value?: BoxValue,
   callback?: (box: Box, editor?: Editor) => void,
+  readonly: boolean = false,
 ): void {
   const rootNode = query('<div class="lake-root" />');
   query(document.body).append(rootNode);
+  let box = new Box(name);
+  if (value) {
+    box.value = value;
+  }
+  let content;
+  if (box.type === 'inline') {
+    content = `<p>${box.node.outerHTML()}</p>`;
+  } else {
+    content = box.node.outerHTML();
+  }
   const editor = new Editor({
     root: rootNode,
-    value: '<p><br /><focus /></p>',
+    value: content,
+    readonly,
   });
   editor.render();
-  const box = editor.insertBox(name, value);
+  box = new Box(editor.container.find('lake-box'));
   if (callback) {
     callback(box, editor);
   }

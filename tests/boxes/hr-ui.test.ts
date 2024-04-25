@@ -1,9 +1,9 @@
-import { testBox } from '../utils';
+import { showBox } from '../utils';
 
 describe('boxes / hr-ui', () => {
 
   it('hr', () => {
-    testBox('hr', undefined, box => {
+    showBox('hr', undefined, box => {
       expect(box.name).to.equal('hr');
     });
   });

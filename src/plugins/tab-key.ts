@@ -2,6 +2,9 @@ import type { Editor } from '..';
 import { setBlockIndent } from '../utils';
 
 export default (editor: Editor) => {
+  if (editor.readonly) {
+    return;
+  }
   editor.keystroke.setKeydown('tab', event => {
     if (editor.config.indentWithTab === false) {
       return;
