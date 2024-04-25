@@ -826,6 +826,24 @@ describe('plugins / markdown', () => {
     );
   });
 
+  it('keystroke: should insert a codeBlock with short language type', () => {
+    const content = '<p>```js<focus /></p>';
+    const output = `
+    <lake-box type="block" name="codeBlock" focus="end"></lake-box>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+        const boxNode = editor.container.find('lake-box');
+        const box = new Box(boxNode);
+        expect(box.value.lang).to.equal('javascript');
+      },
+      true,
+    );
+  });
+
   it('keystroke: should insert a codeBlock with unknown language type', () => {
     const content = '<p>```foo<focus /></p>';
     const output = `

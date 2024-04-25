@@ -24,6 +24,13 @@ const headingTypeMap = new Map([
   ['######', 'h6'],
 ]);
 
+const shortLangTypeMap = new Map([
+  ['js', 'javascript'],
+  ['ts', 'typescript'],
+  ['md', 'markdown'],
+  ['htm', 'html'],
+]);
+
 const markItemList: MarkItem[] = [
   {
     re: /\*\*(.+?)\*\*$/,
@@ -149,7 +156,7 @@ const blockItemListForEnterKey: BlockItem[] = [
       return [
         'codeBlock',
         {
-          lang: results[1],
+          lang: shortLangTypeMap.get(results[1]) ?? results[1],
         },
       ];
     },
