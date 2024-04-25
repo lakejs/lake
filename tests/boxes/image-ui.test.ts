@@ -115,6 +115,22 @@ describe('boxes / image-ui', () => {
     });
   });
 
+  it('done: medium size (read-only)', () => {
+    showBox('image', {
+      url: mediumUrl,
+      originalUrl: mediumOriginalUrl,
+      originalWidth: 1024,
+      originalHeight: 731,
+      status: 'done',
+      name: 'heaven-lake-512.png',
+      size: 60008,
+      type: 'image/jpeg',
+      lastModified: 1710229517198,
+    }, box => {
+      expect(box.value.status).to.equal('done');
+    }, true);
+  });
+
   it('done: large size', () => {
     showBox('image', {
       url: largeUrl,
