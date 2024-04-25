@@ -7,7 +7,7 @@ declare global {
     LAKE_DEBUG: boolean;
     LAKE_TEST: boolean;
     LAKE_ERROR: boolean;
-    CodeMirror: any;
+    LakeCodeMirror: any;
   }
 
   interface Element {

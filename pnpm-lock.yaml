@@ -83,8 +83,8 @@ devDependencies:
     specifier: ^4.19.2
     version: 4.19.2
   lake-codemirror:
-    specifier: ^1.0.2
-    version: 1.0.2
+    specifier: ^2.0.0
+    version: 2.0.0
   mocha:
     specifier: ^10.4.0
     version: 10.4.0
@@ -181,8 +181,8 @@ packages:
       '@lezer/common': 1.2.1
     dev: true
 
-  /@codemirror/commands@6.4.0:
-    resolution: {integrity: sha512-HB3utD5GxCvEhSyj5EuG9KpuQQhFpxalh3lwrspyL/GeSNDe4c6JDxVzL12SJ+7gUknHjZzmq7OPCb9QPgiRmQ==}
+  /@codemirror/commands@6.5.0:
+    resolution: {integrity: sha512-rK+sj4fCAN/QfcY9BEzYMgp4wwL/q5aj/VfNSoH1RWPF9XS/dUwBkvlL3hpWgEjOqlpdN1uLC9UkjJ4tmyjJYg==}
     dependencies:
       '@codemirror/language': 6.10.1
       '@codemirror/state': 6.4.1
@@ -239,7 +239,7 @@ packages:
     resolution: {integrity: sha512-OOnmhH67h97jHzCuFaIEspbmsT98fNdhVhmA3zCxW0cn7l8rChDhZtwiwJ/JOKXgfm4J+ELxQihxaI7bj7mJRg==}
     dependencies:
       '@codemirror/language': 6.10.1
-      '@lezer/java': 1.1.1
+      '@lezer/java': 1.1.2
     dev: true
 
   /@codemirror/lang-javascript@6.2.2:
@@ -251,7 +251,7 @@ packages:
       '@codemirror/state': 6.4.1
       '@codemirror/view': 6.26.3
       '@lezer/common': 1.2.1
-      '@lezer/javascript': 1.4.14
+      '@lezer/javascript': 1.4.15
     dev: true
 
   /@codemirror/lang-json@6.0.1:
@@ -528,16 +528,16 @@ packages:
       '@lezer/lr': 1.4.0
     dev: true
 
-  /@lezer/java@1.1.1:
-    resolution: {integrity: sha512-mt3dX13fRlpY7RlWELYRakanXgmwXsLRCrhstrn+c1sZd7jR2xle46/3heoxGd+oHxnuTnpoyXTyxcLJQs9+mQ==}
+  /@lezer/java@1.1.2:
+    resolution: {integrity: sha512-3j8X70JvYf0BZt8iSRLXLkt0Ry1hVUgH6wT32yBxH/Xi55nW2VMhc1Az4SKwu4YGSmxCm1fsqDDcHTuFjC8pmg==}
     dependencies:
       '@lezer/common': 1.2.1
       '@lezer/highlight': 1.2.0
       '@lezer/lr': 1.4.0
     dev: true
 
-  /@lezer/javascript@1.4.14:
-    resolution: {integrity: sha512-GEdUyspTRgc5dwIGebUk+f3BekvqEWVIYsIuAC3pA8e8wcikGwBZRWRa450L0s8noGWuULwnmi4yjxTnYz9PpA==}
+  /@lezer/javascript@1.4.15:
+    resolution: {integrity: sha512-B082ZdjI0vo2AgLqD834GlRTE9gwRX8NzHzKq5uDwEnQ9Dq+A/CEhd3nf68tiNA2f9O+8jS1NeSTUYT9IAqcTw==}
     dependencies:
       '@lezer/common': 1.2.1
       '@lezer/highlight': 1.2.0
@@ -1334,13 +1334,13 @@ packages:
     dev: true
     optional: true
 
-  /bare-fs@2.2.3:
-    resolution: {integrity: sha512-amG72llr9pstfXOBOHve1WjiuKKAMnebcmMbPWDZ7BCevAoJLpugjuAPRsDINEyjT0a6tbaVx3DctkXIRbLuJw==}
+  /bare-fs@2.3.0:
+    resolution: {integrity: sha512-TNFqa1B4N99pds2a5NYHR15o0ZpdNKbAeKTE/+G6ED/UeOavv8RY3dr/Fu99HW3zU3pXpo2kDNO8Sjsm2esfOw==}
     requiresBuild: true
     dependencies:
       bare-events: 2.2.2
       bare-path: 2.1.1
-      streamx: 2.16.1
+      bare-stream: 1.0.0
     dev: true
     optional: true
 
@@ -1355,6 +1355,14 @@ packages:
     requiresBuild: true
     dependencies:
       bare-os: 2.2.1
+    dev: true
+    optional: true
+
+  /bare-stream@1.0.0:
+    resolution: {integrity: sha512-KhNUoDL40iP4gFaLSsoGE479t0jHijfYdIcxRn/XtezA2BaUD0NRf/JGRpsMq6dMNM+SrCrB0YSSo/5wBY4rOQ==}
+    requiresBuild: true
+    dependencies:
+      streamx: 2.16.1
     dev: true
     optional: true
 
@@ -3052,10 +3060,10 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /lake-codemirror@1.0.2:
-    resolution: {integrity: sha512-nPjWv4Med/dVAPZm/q8IIKpTxiY4CatR1aszHQkKg0dEWrDKU2Hj+2uQEbHooLgeaQbdHj3iM+tClyMPNEoCcw==}
+  /lake-codemirror@2.0.0:
+    resolution: {integrity: sha512-IrN+fJXpWdGeJ0xmdC625gIIFB+hR6jpbiwiDgURte6ACmzGJ3EJt62OmnLuPBiteTQ6WdVly+/c8Hz3DVRJ1g==}
     dependencies:
-      '@codemirror/commands': 6.4.0
+      '@codemirror/commands': 6.5.0
       '@codemirror/lang-cpp': 6.0.2
       '@codemirror/lang-css': 6.2.1(@codemirror/view@6.26.3)
       '@codemirror/lang-go': 6.0.0(@codemirror/view@6.26.3)
@@ -4321,7 +4329,7 @@ packages:
       pump: 3.0.0
       tar-stream: 3.1.7
     optionalDependencies:
-      bare-fs: 2.2.3
+      bare-fs: 2.3.0
       bare-path: 2.1.1
     dev: true
 

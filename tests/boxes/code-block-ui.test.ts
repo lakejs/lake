@@ -147,14 +147,14 @@ describe('boxes / code-block-ui', () => {
   });
 
   it('codeBlock: error status', () => {
-    const CodeMirror = window.CodeMirror;
-    window.CodeMirror = undefined;
+    const CodeMirror = window.LakeCodeMirror;
+    window.LakeCodeMirror = undefined;
     showBox('codeBlock', {
       lang: 'javascript',
       code: javascriptCode,
     }, box => {
       expect(box.getContainer().find('.lake-code-block-error').length).to.equal(1);
-      window.CodeMirror = CodeMirror;
+      window.LakeCodeMirror = CodeMirror;
     });
   });
 

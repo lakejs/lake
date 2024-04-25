@@ -100,12 +100,12 @@ export const codeBlockBox: BoxComponent = {
       return;
     }
     // begin to create CodeMirror
-    const CodeMirror = window.CodeMirror;
+    const CodeMirror = window.LakeCodeMirror;
     if (!CodeMirror) {
       codeBlockNode.addClass('lake-code-block-error');
       codeBlockNode.text(`
-        The code cannot be displayed because window.CodeMirror is not found.
-        Please check if the CodeMirror file is added to this page.
+        The code cannot be displayed because window.LakeCodeMirror is not found.
+        Please check if the "lake-codemirror" library is added to this page.
       `.trim());
       codeBlockNode.on('click', () => {
         editor.selection.range.selectBox(box.node);

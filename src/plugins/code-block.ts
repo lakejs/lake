@@ -23,7 +23,7 @@ const langList = [
 ];
 
 export default (editor: Editor) => {
-  if (!window.CodeMirror) {
+  if (!window.LakeCodeMirror) {
     return;
   }
   editor.setPluginConfig('codeBlock', {

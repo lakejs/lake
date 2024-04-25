@@ -65,8 +65,8 @@ describe('boxes / code-block', () => {
   });
 
   it('error status: should focus on box after clicking', done => {
-    const CodeMirror = window.CodeMirror;
-    window.CodeMirror = undefined;
+    const CodeMirror = window.LakeCodeMirror;
+    window.LakeCodeMirror = undefined;
     box = editor.insertBox('codeBlock', {
       lang: 'css',
       code: '.hello { }',
@@ -75,7 +75,7 @@ describe('boxes / code-block', () => {
     click(boxContainer.find('.lake-code-block'));
     editor.event.once('boxselectionstylechange', () => {
       expect(boxContainer.hasClass('lake-box-focused')).to.equal(true);
-      window.CodeMirror = CodeMirror;
+      window.LakeCodeMirror = CodeMirror;
       done();
     });
   });
