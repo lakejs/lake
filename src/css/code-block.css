@@ -9,11 +9,15 @@
 }
 .cm-editor .cm-content {
   font-family: Consolas, Courier, monospace;
+  margin: 16px 20px;
 }
 
 /* code block */
 lake-box[name="codeBlock"] {
   margin: 16px 0;
+}
+lake-box[name="codeBlock"] .lake-box-container {
+  overflow-x: auto;
 }
 lake-box[name="codeBlock"] .lake-box-focused .lake-code-block,
 lake-box[name="codeBlock"] .lake-box-activated .lake-code-block {
@@ -62,5 +66,5 @@ lake-box[name="codeBlock"] .lake-box-activated .lake-code-block .lake-dropdown {
   color: var(--error-color);
   border-radius: 5px;
   background-color: var(--box-background-color);
-  padding: 8px 16px;
+  padding: 16px 20px;
 }

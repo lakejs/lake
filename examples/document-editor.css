@@ -5,7 +5,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
 }
 .document .lake-editor {
   box-sizing: border-box;
@@ -19,8 +19,10 @@
   top: 60px;
   width: 100%;
   border: 1px solid #d9d9d9;
+  background-color: #fff;
   border-left: none;
   border-right: none;
+  z-index: 1;
 }
 .document .lake-editor .lake-root {
   height: auto;

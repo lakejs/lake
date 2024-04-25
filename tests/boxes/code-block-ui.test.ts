@@ -5,10 +5,9 @@ const htmlCode = `
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Lake example - Immediately invoked function expressions</title>
+    <title>Lake example - IIFE / UMD</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../dist/lake.css" />
-    <!-- If you do not need the code block feature, there is no need to add the following CodeMirror script. -->
     <script src="../node_modules/lake-codemirror/dist/codemirror.min.js"></script>
     <script src="../dist/lake.min.js"></script>
     <style>
@@ -16,6 +15,17 @@ const htmlCode = `
         box-sizing: border-box;
         padding: 0 8px;
         margin: 0 auto;
+        min-width: 300px;
+        max-width: 1000px;
+      }
+      .lake-toolbar-root {
+        border: 1px solid #d9d9d9;
+        border-bottom: 0;
+      }
+      .lake-root {
+        border: 1px solid #d9d9d9;
+        height: calc(100vh - 160px);
+        overflow: auto;
       }
     </style>
   </head>
@@ -25,8 +35,12 @@ const htmlCode = `
       <div class="lake-root"></div>
     </div>
     <script>
+      const toolbar = new Lake.Toolbar({
+        root: '.lake-toolbar-root',
+      });
       const editor = new Lake.Editor({
         root: '.lake-root',
+        toolbar,
         value: '<p><br /><focus /></p>',
       });
       editor.render();
