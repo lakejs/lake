@@ -4,8 +4,10 @@ import EventEmitter from 'eventemitter3';
 import { version } from '../package.json';
 import { NativeNode } from './types/native';
 import { StateData } from './types/object';
+import { Locales, TranslationFunctions } from './i18n/types';
 import { editors } from './storage/editors';
 import { denormalizeValue, normalizeValue, query, debug } from './utils';
+import { i18nObject } from './i18n';
 import { Nodes } from './models/nodes';
 import { Box } from './models/box';
 import { HTMLParser } from './parsers/html-parser';
@@ -25,6 +27,7 @@ type Config = {
   spellcheck: boolean;
   tabIndex: number;
   indentWithTab: boolean;
+  lang: string;
   minChangeSize: number;
   [name: string]: any;
 };
@@ -37,6 +40,7 @@ type EditorConfig = {
   spellcheck?: boolean;
   tabIndex?: number;
   indentWithTab?: boolean;
+  lang?: string;
   minChangeSize?: number;
   [name: string]: any;
 };
@@ -47,6 +51,7 @@ const defaultConfig: Config = {
   spellcheck: false,
   tabIndex: 0,
   indentWithTab: true,
+  lang: 'en-US',
   minChangeSize: 5,
 };
 
@@ -359,6 +364,11 @@ export class Editor {
     this.container.on('blur', ()=> {
       this.root.removeClass('lake-root-focused');
     });
+  }
+
+  // Returns translation functions by the specified lang.
+  public get locale(): TranslationFunctions {
+    return i18nObject(this.config.lang as Locales);
   }
 
   // Fixes wrong content, especially empty tag.

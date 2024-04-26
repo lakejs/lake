@@ -1,5 +1,5 @@
 import './miniature-editor.css';
-import { Editor, Toolbar, ToolbarItem, Utils, icons, Nodes } from '../src';
+import { Editor, Toolbar, ToolbarItem, Utils, icons } from '../src';
 
 const colors: string[] = [
   '#E53333', '#E56600', '#FF9900', '#64451D', '#DFC5A4', '#FFE500',
@@ -88,7 +88,13 @@ const toolbarItems = [
   'link',
 ];
 
-function createEditor(rootNode: Nodes, value: string): Editor {
+export default (value: string) => {
+  // copy root node
+  const rootNode = Utils.query('.lake-editor');
+  const rootNode2 = rootNode.clone(true);
+  rootNode2.css('margin-top', '10px');
+  rootNode.after(rootNode2);
+  // create editor 1
   const toolbar = new Toolbar({
     root: rootNode.find('.lake-toolbar-root'),
     items: toolbarItems,
@@ -96,19 +102,23 @@ function createEditor(rootNode: Nodes, value: string): Editor {
   const editor = new Editor({
     root: rootNode.find('.lake-root'),
     toolbar,
+    lang: window.LAKE_LANGUAGE,
     value,
     indentWithTab: false,
   });
   editor.render();
-  return editor;
-}
-
-export default (value: string) => {
-  const rootNode = Utils.query('.lake-editor');
-  const rootNode2 = rootNode.clone(true);
-  rootNode2.css('margin-top', '10px');
-  rootNode.after(rootNode2);
-  const editor = createEditor(rootNode, value);
-  createEditor(rootNode2, value);
+  // create editor 2
+  const toolbar2 = new Toolbar({
+    root: rootNode2.find('.lake-toolbar-root'),
+    items: toolbarItems,
+  });
+  const editor2 = new Editor({
+    root: rootNode2.find('.lake-root'),
+    toolbar: toolbar2,
+    lang: 'en-US',
+    value,
+    indentWithTab: false,
+  });
+  editor2.render();
   return editor;
 };

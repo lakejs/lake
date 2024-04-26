@@ -1,7 +1,9 @@
+import { TranslationFunctions } from '../i18n/types';
+
 export type DropdownMenuItem = {
   value: string;
   icon?: string;
-  text: string;
+  text: string | ((locale: TranslationFunctions) => string);
 };
 
 export type DropdownItem = {
@@ -10,7 +12,7 @@ export type DropdownItem = {
   accentIcon?: string;
   downIcon?: string;
   defaultValue: string;
-  tooltip: string;
+  tooltip: string | ((locale: TranslationFunctions) => string);
   width: string;
   menuType: 'list' | 'color';
   menuItems: DropdownMenuItem[];

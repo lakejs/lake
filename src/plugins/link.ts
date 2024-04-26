@@ -1,13 +1,15 @@
 import { type Editor } from '..';
 import { Nodes } from '../models/nodes';
 import { LinkPopup } from '../ui/link-popup';
-import { locale } from '../i18n';
 
 export default (editor: Editor) => {
   if (editor.readonly) {
     return;
   }
-  const popup = new LinkPopup(editor.popupContainer);
+  const popup = new LinkPopup({
+    root: editor.popupContainer,
+    locale: editor.locale,
+  });
   popup.event.on('save', node => {
     const range = editor.selection.range;
     range.setStartAfter(node);
@@ -49,7 +51,7 @@ export default (editor: Editor) => {
   });
   editor.command.add('link', {
     execute: () => {
-      const linkNode = editor.selection.insertLink(`<a href="">${locale.link.newLink()}</a>`);
+      const linkNode = editor.selection.insertLink(`<a href="">${editor.locale.link.newLink()}</a>`);
       if (!linkNode) {
         return;
       }

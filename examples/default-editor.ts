@@ -9,6 +9,7 @@ export default (value: string) => {
   const editor = new Editor({
     root: '.lake-root',
     toolbar,
+    lang: window.LAKE_LANGUAGE,
     value,
   });
   editor.event.on('statechange', () => {

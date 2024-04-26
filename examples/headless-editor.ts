@@ -4,6 +4,7 @@ import { Editor, Utils, Button } from '../src';
 export default (value: string) => {
   const editor = new Editor({
     root: '.lake-root',
+    lang: window.LAKE_LANGUAGE,
     value,
   });
   const toolbarRoot = Utils.query('.lake-toolbar-root');

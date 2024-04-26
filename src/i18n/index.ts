@@ -39,7 +39,7 @@ const loadLocale = (locale: Locales): void => {
 
 const loadAllLocales = (): void => locales.forEach(loadLocale);
 
-const i18nObject = (locale: Locales): TranslationFunctions =>
+export const i18nObject = (locale: Locales): TranslationFunctions =>
   initI18nObject<Locales, Translations, TranslationFunctions, Formatters>(
     locale,
     loadedLocales[locale],
@@ -47,7 +47,3 @@ const i18nObject = (locale: Locales): TranslationFunctions =>
   );
 
 loadAllLocales();
-
-const language = locales.indexOf(window.LAKE_LANGUAGE) >= 0 ? window.LAKE_LANGUAGE : 'en-US';
-
-export const locale = i18nObject(language);

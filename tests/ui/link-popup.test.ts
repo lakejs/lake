@@ -19,7 +19,9 @@ describe('ui / link-popup', () => {
   it('should copy a link to clipboard', done => {
     const linkNode = query('<a href="http://github.com/">GitHub</a>');
     query(document.body).append(linkNode);
-    const popup = new LinkPopup(rootNode);
+    const popup = new LinkPopup({
+      root: rootNode,
+    });
     popup.event.on('copy', error => {
       const copyButton = popup.container.find('button[name="copy"]');
       if (!error) {
@@ -37,7 +39,9 @@ describe('ui / link-popup', () => {
     window.LAKE_ERROR = true;
     const linkNode = query('<a href="http://github.com/">GitHub</a>');
     query(document.body).append(linkNode);
-    const popup = new LinkPopup(rootNode);
+    const popup = new LinkPopup({
+      root: rootNode,
+    });
     popup.event.on('copy', error => {
       const copyButton = popup.container.find('button[name="copy"]');
       if (error) {
@@ -55,7 +59,9 @@ describe('ui / link-popup', () => {
   it('title should use URL when title is empty', () => {
     const linkNode = query('<a href="http://github.com/">GitHub</a>');
     query(document.body).append(linkNode);
-    const popup = new LinkPopup(rootNode);
+    const popup = new LinkPopup({
+      root: rootNode,
+    });
     popup.show(linkNode);
     popup.setInputValue('title', '');
     const saveButton = popup.container.find('button[name="save"]');
@@ -67,7 +73,9 @@ describe('ui / link-popup', () => {
   it('title should not display URL when title and URL are equal', () => {
     const linkNode = query('<a href="http://github.com/">http://github.com/</a>');
     query(document.body).append(linkNode);
-    const popup = new LinkPopup(rootNode);
+    const popup = new LinkPopup({
+      root: rootNode,
+    });
     popup.show(linkNode);
     expect(popup.getInputValue('title')).to.equal('');
     linkNode.remove();
@@ -76,7 +84,9 @@ describe('ui / link-popup', () => {
   it('should remove link when both URL and title are empty', () => {
     const linkNode = query('<a href="http://github.com/">GitHub</a>');
     query(document.body).append(linkNode);
-    const popup = new LinkPopup(rootNode);
+    const popup = new LinkPopup({
+      root: rootNode,
+    });
     popup.show(linkNode);
     popup.setInputValue('url', '');
     popup.setInputValue('title', '');

@@ -74,7 +74,7 @@ export class Toolbar {
       root: this.container,
       name: item.name,
       icon: item.icon,
-      tooltip: item.tooltip,
+      tooltip: typeof item.tooltip === 'string' ? item.tooltip : item.tooltip(editor.locale),
       tabIndex: -1,
       onClick: () => {
         editor.focus();
@@ -87,12 +87,13 @@ export class Toolbar {
   private appendDropdown(editor: Editor, item: ToolbarDropdownItem) {
     const dropdown = new Dropdown({
       root: this.container,
+      locale: editor.locale,
       name: item.name,
       icon: item.icon,
       accentIcon: item.accentIcon,
       downIcon: item.downIcon,
       defaultValue: item.defaultValue,
-      tooltip:item.tooltip,
+      tooltip: item.tooltip,
       width: item.width,
       menuType: item.menuType,
       menuItems: item.menuItems,
@@ -123,7 +124,7 @@ export class Toolbar {
       root: uploadNode,
       name: item.name,
       icon: item.icon,
-      tooltip: item.tooltip,
+      tooltip: typeof item.tooltip === 'string' ? item.tooltip : item.tooltip(editor.locale),
       tabIndex: -1,
       onClick: () => {
         editor.focus();
@@ -225,7 +226,7 @@ export class Toolbar {
         return;
       }
       if (item.type === 'dropdown') {
-        this.allMenuMap.set(item.name, Dropdown.getMenuMap(item.menuItems));
+        this.allMenuMap.set(item.name, Dropdown.getMenuMap(item.menuItems, editor.locale));
         this.dropdownItemList.push(item);
         this.appendDropdown(editor, item);
         return;

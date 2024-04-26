@@ -1,5 +1,6 @@
 import { Base64 } from 'js-base64';
 import { NativeNode } from '../types/native';
+import { TranslationFunctions } from '../i18n/types';
 import { DropdownItem, DropdownMenuItem } from '../types/dropdown';
 import { icons } from '../icons';
 import { encode } from '../utils/encode';
@@ -7,9 +8,11 @@ import { template } from '../utils/template';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
+import { i18nObject } from '../../src/i18n';
 
 export type DropdownConfig = DropdownItem & {
   root: Nodes;
+  locale?: TranslationFunctions;
   tabIndex?: number;
   onSelect: (value: string) => void;
 }
@@ -19,11 +22,14 @@ export class Dropdown {
 
   private root: Nodes;
 
+  private locale: TranslationFunctions;
+
   public node: Nodes;
 
   constructor(config: DropdownConfig) {
     this.config = config;
     this.root = config.root;
+    this.locale = config.locale || i18nObject('en-US');
     this.node = query(safeTemplate`
       <div class="lake-dropdown lake-${config.menuType}-dropdown" name="${config.name}">
         <button type="button" name="${config.name}" class="lake-dropdown-title">
@@ -52,11 +58,12 @@ export class Dropdown {
     node.attr('value', Base64.encode(JSON.stringify(value)));
   }
 
-  public static getMenuMap(menuItems: DropdownMenuItem[]): Map<string, string> {
+  public static getMenuMap(menuItems: DropdownMenuItem[], locale: TranslationFunctions): Map<string, string> {
     const menuMap: Map<string, string> = new Map();
     for (const menuItem of menuItems) {
       // remove HTML tags
-      const text = menuItem.text.replace(/<[^>]*>/g, '');
+      let text = typeof menuItem.text === 'string' ? menuItem.text : menuItem.text(locale);
+      text = text.replace(/<[^>]*>/g, '');
       menuMap.set(menuItem.value, text);
     }
     return menuMap;
@@ -75,15 +82,16 @@ export class Dropdown {
   private apppendMenuItems(menuNode: Nodes): void {
     const config = this.config;
     for (const menuItem of config.menuItems) {
+      const menuText = typeof menuItem.text === 'string' ? menuItem.text : menuItem.text(this.locale);
       const listContent = template`
         <li value="${encode(menuItem.value)}">
-          <div class="lake-dropdown-menu-text">${menuItem.text}</div>
+          <div class="lake-dropdown-menu-text">${menuText}</div>
         </li>
       `;
       const listNode = query(listContent);
       menuNode.append(listNode);
       if (config.menuType === 'color') {
-        listNode.attr('title', menuItem.text);
+        listNode.attr('title', menuText);
         listNode.find('.lake-dropdown-menu-text').css('background-color', menuItem.value);
       }
       if (menuItem.icon) {
@@ -229,7 +237,8 @@ export class Dropdown {
       titleNode.addClass('lake-dropdown-title-no-down');
     }
     titleNode.css('width', config.width);
-    titleNode.attr('title', config.tooltip);
+    const tooltip = typeof config.tooltip === 'string' ? config.tooltip : config.tooltip(this.locale);
+    titleNode.attr('title', tooltip);
     const textNode = titleNode.find('.lake-dropdown-text');
     const iconNode = titleNode.find('.lake-dropdown-icon');
     if (config.icon) {
@@ -246,7 +255,7 @@ export class Dropdown {
     menuNode.addClass(`lake-${config.menuType}-dropdown-menu`);
     Dropdown.setValue(dropdownNode, [config.defaultValue]);
     if (textNode.length > 0) {
-      const menuMap = Dropdown.getMenuMap(config.menuItems);
+      const menuMap = Dropdown.getMenuMap(config.menuItems, this.locale);
       textNode.text(menuMap.get(config.defaultValue) ?? config.defaultValue);
     }
     if (config.menuType === 'color') {

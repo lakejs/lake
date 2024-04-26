@@ -2,7 +2,6 @@ import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
 import { debug, query } from '../utils';
 import { Dropdown } from '../ui/dropdown';
-import { locale } from '../i18n';
 
 const config = {
   comment: '#57606a',
@@ -169,7 +168,7 @@ export const codeBlockBox: BoxComponent = {
       name: 'langType',
       downIcon: icons.get('down'),
       defaultValue: langItem ? boxValue.lang : codeBlockConfig.defaultLang,
-      tooltip: locale.codeBlock.langType(),
+      tooltip: editor.locale.codeBlock.langType(),
       width: 'auto',
       menuType: 'list',
       menuItems: langItems.map((item: any) => ({

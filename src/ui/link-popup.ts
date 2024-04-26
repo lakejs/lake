@@ -1,29 +1,38 @@
 import EventEmitter from 'eventemitter3';
+import { TranslationFunctions } from '../i18n/types';
 import { icons } from '../icons';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { Button } from './button';
-import { locale } from '../i18n';
+import { i18nObject } from '../../src/i18n';
+
+type LinkPopupConfig = {
+  root: Nodes;
+  locale?: TranslationFunctions;
+};
 
 export class LinkPopup {
   private linkNode: Nodes | null = null;
 
   private root: Nodes;
 
+  private locale: TranslationFunctions;
+
   public container: Nodes;
 
   public event: EventEmitter = new EventEmitter();
 
-  constructor(root: Nodes) {
-    this.root = root;
+  constructor(config: LinkPopupConfig) {
+    this.root = config.root;
+    this.locale = config.locale || i18nObject('en-US');
     this.container = query(safeTemplate`
       <div class="lake-link-popup">
-        <div class="lake-row">${locale.link.url()}</div>
+        <div class="lake-row">${this.locale.link.url()}</div>
         <div class="lake-row lake-url-row">
           <input type="text" name="url" />
         </div>
-        <div class="lake-row">${locale.link.title()}</div>
+        <div class="lake-row">${this.locale.link.title()}</div>
         <div class="lake-row">
           <input type="text" name="title" />
         </div>
@@ -56,7 +65,7 @@ export class LinkPopup {
       root: this.container.find('.lake-url-row'),
       name: 'copy',
       icon: icons.get('copy'),
-      tooltip: locale.link.copy(),
+      tooltip: this.locale.link.copy(),
       onClick: () => {
         if (!this.linkNode) {
           return;
@@ -99,7 +108,7 @@ export class LinkPopup {
       root: this.container.find('.lake-url-row'),
       name: 'open',
       icon: icons.get('open'),
-      tooltip: locale.link.open(),
+      tooltip: this.locale.link.open(),
       onClick: () => {
         if (!this.linkNode) {
           return;
@@ -117,7 +126,7 @@ export class LinkPopup {
       root: this.container.find('.lake-button-row'),
       name: 'save',
       icon: icons.get('check'),
-      text: locale.link.save(),
+      text: this.locale.link.save(),
       onClick: () => {
         if (!this.linkNode) {
           return;
@@ -137,7 +146,7 @@ export class LinkPopup {
       root: this.container.find('.lake-button-row'),
       name: 'unlink',
       icon: icons.get('unlink'),
-      text: locale.link.unlink(),
+      text: this.locale.link.unlink(),
       onClick: () => {
         if (!this.linkNode) {
           return;

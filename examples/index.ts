@@ -13,11 +13,10 @@ const { query, safeTemplate } = Utils;
 
 declare global {
   interface Window {
+    LAKE_LANGUAGE: string;
     Editor: typeof Editor;
     editor: Editor;
     defaultValue: string;
-    miniatureValue: string;
-    headlessValue: string;
     hugeValue: string;
   }
 }

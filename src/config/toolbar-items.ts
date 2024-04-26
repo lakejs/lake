@@ -1,6 +1,5 @@
 import { ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
-import { locale } from '../i18n';
 import {
   headingMenuItems,
   listMenuItems,
@@ -28,7 +27,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'undo',
     type: 'button',
     icon: icons.get('undo'),
-    tooltip: locale.toolbar.undo(),
+    tooltip: locale => locale.toolbar.undo(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -37,7 +36,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'redo',
     type: 'button',
     icon: icons.get('redo'),
-    tooltip: locale.toolbar.redo(),
+    tooltip: locale => locale.toolbar.redo(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -46,7 +45,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'selectAll',
     type: 'button',
     icon: icons.get('selectAll'),
-    tooltip: locale.toolbar.selectAll(),
+    tooltip: locale => locale.toolbar.selectAll(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -55,7 +54,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'paragraph',
     type: 'button',
     icon: icons.get('paragraph'),
-    tooltip: locale.toolbar.paragraph(),
+    tooltip: locale => locale.toolbar.paragraph(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'p'),
     onClick: editor => {
       editor.command.execute('heading', 'p');
@@ -65,7 +64,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'blockQuote',
     type: 'button',
     icon: icons.get('blockQuote'),
-    tooltip: locale.toolbar.blockQuote(),
+    tooltip: locale => locale.toolbar.blockQuote(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -74,7 +73,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'numberedList',
     type: 'button',
     icon: icons.get('numberedList'),
-    tooltip: locale.toolbar.numberedList(),
+    tooltip: locale => locale.toolbar.numberedList(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'ol'),
     onClick: editor => {
       editor.command.execute('list', 'numbered');
@@ -84,7 +83,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'bulletedList',
     type: 'button',
     icon: icons.get('bulletedList'),
-    tooltip: locale.toolbar.bulletedList(),
+    tooltip: locale => locale.toolbar.bulletedList(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'ul' && !item.node.hasAttr('type')),
     onClick: editor => {
       editor.command.execute('list', 'bulleted');
@@ -94,7 +93,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'checklist',
     type: 'button',
     icon: icons.get('checklist'),
-    tooltip: locale.toolbar.checklist(),
+    tooltip: locale => locale.toolbar.checklist(),
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'ul' && item.node.attr('type') === 'checklist'),
     onClick: editor => {
       editor.command.execute('list', 'checklist');
@@ -104,7 +103,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'alignLeft',
     type: 'button',
     icon: icons.get('alignLeft'),
-    tooltip: locale.toolbar.alignLeft(),
+    tooltip: locale => locale.toolbar.alignLeft(),
     isSelected: appliedItems => !!appliedItems.find(item => item.node.isBlock && item.node.css('text-align') === 'left'),
     onClick: editor => {
       editor.command.execute('align', 'left');
@@ -114,7 +113,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'alignCenter',
     type: 'button',
     icon: icons.get('alignCenter'),
-    tooltip: locale.toolbar.alignCenter(),
+    tooltip: locale => locale.toolbar.alignCenter(),
     isSelected: appliedItems => !!appliedItems.find(item => item.node.isBlock && item.node.css('text-align') === 'center'),
     onClick: editor => {
       editor.command.execute('align', 'center');
@@ -124,7 +123,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'alignRight',
     type: 'button',
     icon: icons.get('alignRight'),
-    tooltip: locale.toolbar.alignRight(),
+    tooltip: locale => locale.toolbar.alignRight(),
     isSelected: appliedItems => !!appliedItems.find(item => item.node.isBlock && item.node.css('text-align') === 'right'),
     onClick: editor => {
       editor.command.execute('align', 'right');
@@ -134,7 +133,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'alignJustify',
     type: 'button',
     icon: icons.get('alignJustify'),
-    tooltip: locale.toolbar.alignJustify(),
+    tooltip: locale => locale.toolbar.alignJustify(),
     isSelected: appliedItems => !!appliedItems.find(item => item.node.isBlock && item.node.css('text-align') === 'justify'),
     onClick: editor => {
       editor.command.execute('align', 'justify');
@@ -144,7 +143,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'increaseIndent',
     type: 'button',
     icon: icons.get('increaseIndent'),
-    tooltip: locale.toolbar.increaseIndent(),
+    tooltip: locale => locale.toolbar.increaseIndent(),
     onClick: editor => {
       editor.command.execute('indent', 'increase');
     },
@@ -153,7 +152,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'decreaseIndent',
     type: 'button',
     icon: icons.get('decreaseIndent'),
-    tooltip: locale.toolbar.decreaseIndent(),
+    tooltip: locale => locale.toolbar.decreaseIndent(),
     onClick: editor => {
       editor.command.execute('indent', 'decrease');
     },
@@ -162,7 +161,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'bold',
     type: 'button',
     icon: icons.get('bold'),
-    tooltip: locale.toolbar.bold(),
+    tooltip: locale => locale.toolbar.bold(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -171,7 +170,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'italic',
     type: 'button',
     icon: icons.get('italic'),
-    tooltip: locale.toolbar.italic(),
+    tooltip: locale => locale.toolbar.italic(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -180,7 +179,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'underline',
     type: 'button',
     icon: icons.get('underline'),
-    tooltip: locale.toolbar.underline(),
+    tooltip: locale => locale.toolbar.underline(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -189,7 +188,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'strikethrough',
     type: 'button',
     icon: icons.get('strikethrough'),
-    tooltip: locale.toolbar.strikethrough(),
+    tooltip: locale => locale.toolbar.strikethrough(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -198,7 +197,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'superscript',
     type: 'button',
     icon: icons.get('superscript'),
-    tooltip: locale.toolbar.superscript(),
+    tooltip: locale => locale.toolbar.superscript(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -207,7 +206,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'subscript',
     type: 'button',
     icon: icons.get('subscript'),
-    tooltip: locale.toolbar.subscript(),
+    tooltip: locale => locale.toolbar.subscript(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -216,7 +215,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'code',
     type: 'button',
     icon: icons.get('code'),
-    tooltip: locale.toolbar.code(),
+    tooltip: locale => locale.toolbar.code(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -225,7 +224,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'removeFormat',
     type: 'button',
     icon: icons.get('removeFormat'),
-    tooltip: locale.toolbar.removeFormat(),
+    tooltip: locale => locale.toolbar.removeFormat(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -234,7 +233,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'formatPainter',
     type: 'button',
     icon: icons.get('formatPainter'),
-    tooltip: locale.toolbar.formatPainter(),
+    tooltip: locale => locale.toolbar.formatPainter(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -243,7 +242,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'link',
     type: 'button',
     icon: icons.get('link'),
-    tooltip: locale.toolbar.link(),
+    tooltip: locale => locale.toolbar.link(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -252,7 +251,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'hr',
     type: 'button',
     icon: icons.get('hr'),
-    tooltip: locale.toolbar.hr(),
+    tooltip: locale => locale.toolbar.hr(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -261,7 +260,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'codeBlock',
     type: 'button',
     icon: icons.get('codeBlock'),
-    tooltip: locale.toolbar.codeBlock(),
+    tooltip: locale => locale.toolbar.codeBlock(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -271,7 +270,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'dropdown',
     downIcon: icons.get('down'),
     defaultValue: 'p',
-    tooltip: locale.toolbar.heading(),
+    tooltip: locale => locale.toolbar.heading(),
     width: '100px',
     menuType: 'list',
     menuItems: headingMenuItems,
@@ -285,7 +284,7 @@ export const toolbarItems: ToolbarItem[] = [
     downIcon: icons.get('down'),
     icon: icons.get('list'),
     defaultValue: '',
-    tooltip: locale.toolbar.list(),
+    tooltip: locale => locale.toolbar.list(),
     width: 'auto',
     menuType: 'list',
     menuItems: listMenuItems,
@@ -299,7 +298,7 @@ export const toolbarItems: ToolbarItem[] = [
     downIcon: icons.get('down'),
     icon: icons.get('alignLeft'),
     defaultValue: '',
-    tooltip: locale.toolbar.align(),
+    tooltip: locale => locale.toolbar.align(),
     width: 'auto',
     menuType: 'list',
     menuItems: alignMenuItems,
@@ -313,7 +312,7 @@ export const toolbarItems: ToolbarItem[] = [
     downIcon: icons.get('down'),
     icon: icons.get('increaseIndent'),
     defaultValue: '',
-    tooltip: locale.toolbar.indent(),
+    tooltip: locale => locale.toolbar.indent(),
     width: 'auto',
     menuType: 'list',
     menuItems: indentMenuItems,
@@ -326,7 +325,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'dropdown',
     downIcon: icons.get('down'),
     defaultValue: 'Segoe UI',
-    tooltip: locale.toolbar.fontFamily(),
+    tooltip: locale => locale.toolbar.fontFamily(),
     width: '100px',
     menuType: 'list',
     menuItems: fontFamilyMenuItems,
@@ -339,7 +338,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'dropdown',
     downIcon: icons.get('down'),
     defaultValue: '16px',
-    tooltip: locale.toolbar.fontSize(),
+    tooltip: locale => locale.toolbar.fontSize(),
     width: '65px',
     menuType: 'list',
     menuItems: fontSizeMenuItems,
@@ -352,7 +351,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'dropdown',
     icon: icons.get('more'),
     defaultValue: '',
-    tooltip: locale.toolbar.moreStyle(),
+    tooltip: locale => locale.toolbar.moreStyle(),
     width: 'auto',
     menuType: 'list',
     menuItems: moreStyleMenuItems,
@@ -377,7 +376,7 @@ export const toolbarItems: ToolbarItem[] = [
     icon: icons.get('fontColor'),
     accentIcon: icons.get('fontColorAccent'),
     defaultValue: '#f5222d',
-    tooltip: locale.toolbar.fontColor(),
+    tooltip: locale => locale.toolbar.fontColor(),
     width: 'auto',
     menuType: 'color',
     menuItems: colorMenuItems,
@@ -392,7 +391,7 @@ export const toolbarItems: ToolbarItem[] = [
     icon: icons.get('highlight'),
     accentIcon: icons.get('highlightAccent'),
     defaultValue: '#fadb14',
-    tooltip: locale.toolbar.highlight(),
+    tooltip: locale => locale.toolbar.highlight(),
     width: 'auto',
     menuType: 'color',
     menuItems: colorMenuItems,
@@ -404,7 +403,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'image',
     type: 'upload',
     icon: icons.get('image'),
-    tooltip: locale.toolbar.image(),
+    tooltip: locale => locale.toolbar.image(),
     accept: 'image/*',
     multiple: true,
   },

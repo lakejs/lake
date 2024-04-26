@@ -1,9 +1,7 @@
 import { KeyValue } from './object';
-import { Locales } from '../i18n/types';
 
 declare global {
   interface Window {
-    LAKE_LANGUAGE: Locales;
     LAKE_DEBUG: boolean;
     LAKE_TEST: boolean;
     LAKE_ERROR: boolean;

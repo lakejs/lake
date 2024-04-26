@@ -1,35 +1,34 @@
 import { DropdownMenuItem } from '../types/dropdown';
 import { icons } from '../icons';
-import { locale } from '../i18n';
 
 export const  headingMenuItems: DropdownMenuItem[] = [
   {
     value: 'h1',
-    text: `<span style="font-weight: bold; font-size: 26px;">${locale.toolbar.heading1()}</span>`,
+    text: locale => `<span style="font-weight: bold; font-size: 26px;">${locale.toolbar.heading1()}</span>`,
   },
   {
     value: 'h2',
-    text: `<span style="font-weight: bold; font-size: 24px;">${locale.toolbar.heading2()}</span>`,
+    text: locale => `<span style="font-weight: bold; font-size: 24px;">${locale.toolbar.heading2()}</span>`,
   },
   {
     value: 'h3',
-    text: `<span style="font-weight: bold; font-size: 22px;">${locale.toolbar.heading3()}</span>`,
+    text: locale => `<span style="font-weight: bold; font-size: 22px;">${locale.toolbar.heading3()}</span>`,
   },
   {
     value: 'h4',
-    text: `<span style="font-weight: bold; font-size: 20px;">${locale.toolbar.heading4()}</span>`,
+    text: locale => `<span style="font-weight: bold; font-size: 20px;">${locale.toolbar.heading4()}</span>`,
   },
   {
     value: 'h5',
-    text: `<span style="font-weight: bold; font-size: 18px;">${locale.toolbar.heading5()}</span>`,
+    text: locale => `<span style="font-weight: bold; font-size: 18px;">${locale.toolbar.heading5()}</span>`,
   },
   {
     value: 'h6',
-    text: `<span style="font-weight: bold; font-size: 16px;">${locale.toolbar.heading6()}</span>`,
+    text: locale => `<span style="font-weight: bold; font-size: 16px;">${locale.toolbar.heading6()}</span>`,
   },
   {
     value: 'p',
-    text: locale.toolbar.paragraph(),
+    text: locale => locale.toolbar.paragraph(),
   },
 ];
 
@@ -37,17 +36,17 @@ export const listMenuItems: DropdownMenuItem[] = [
   {
     icon: icons.get('numberedList'),
     value: 'numbered',
-    text: locale.toolbar.numberedList(),
+    text: locale => locale.toolbar.numberedList(),
   },
   {
     icon: icons.get('bulletedList'),
     value: 'bulleted',
-    text: locale.toolbar.bulletedList(),
+    text: locale => locale.toolbar.bulletedList(),
   },
   {
     icon: icons.get('checklist'),
     value: 'checklist',
-    text: locale.toolbar.checklist(),
+    text: locale => locale.toolbar.checklist(),
   },
 ];
 
@@ -55,22 +54,22 @@ export const alignMenuItems: DropdownMenuItem[] = [
   {
     icon: icons.get('alignLeft'),
     value: 'left',
-    text: locale.toolbar.alignLeft(),
+    text: locale => locale.toolbar.alignLeft(),
   },
   {
     icon: icons.get('alignCenter'),
     value: 'center',
-    text: locale.toolbar.alignCenter(),
+    text: locale => locale.toolbar.alignCenter(),
   },
   {
     icon: icons.get('alignRight'),
     value: 'right',
-    text: locale.toolbar.alignRight(),
+    text: locale => locale.toolbar.alignRight(),
   },
   {
     icon: icons.get('alignJustify'),
     value: 'justify',
-    text: locale.toolbar.alignJustify(),
+    text: locale => locale.toolbar.alignJustify(),
   },
 ];
 
@@ -78,12 +77,12 @@ export const indentMenuItems: DropdownMenuItem[] = [
   {
     icon: icons.get('increaseIndent'),
     value: 'increase',
-    text: locale.toolbar.increaseIndent(),
+    text: locale => locale.toolbar.increaseIndent(),
   },
   {
     icon: icons.get('decreaseIndent'),
     value: 'decrease',
-    text: locale.toolbar.decreaseIndent(),
+    text: locale => locale.toolbar.decreaseIndent(),
   },
 ];
 
@@ -173,32 +172,32 @@ export const moreStyleMenuItems: DropdownMenuItem[] = [
   {
     icon: icons.get('italic'),
     value: 'italic',
-    text: locale.toolbar.italic(),
+    text: locale => locale.toolbar.italic(),
   },
   {
     icon: icons.get('underline'),
     value: 'underline',
-    text: locale.toolbar.underline(),
+    text: locale => locale.toolbar.underline(),
   },
   {
     icon: icons.get('strikethrough'),
     value: 'strikethrough',
-    text: locale.toolbar.strikethrough(),
+    text: locale => locale.toolbar.strikethrough(),
   },
   {
     icon: icons.get('superscript'),
     value: 'superscript',
-    text: locale.toolbar.superscript(),
+    text: locale => locale.toolbar.superscript(),
   },
   {
     icon: icons.get('subscript'),
     value: 'subscript',
-    text: locale.toolbar.subscript(),
+    text: locale => locale.toolbar.subscript(),
   },
   {
     icon: icons.get('code'),
     value: 'code',
-    text: locale.toolbar.code(),
+    text: locale => locale.toolbar.code(),
   },
 ];
 
@@ -222,7 +221,7 @@ export const colorMenuItems: DropdownMenuItem[] = [
   {
     icon: icons.get('removeFormat'),
     value: '',
-    text: locale.toolbar.removeColor(),
+    text: locale => locale.toolbar.removeColor(),
   },
 ];
 for (const color of colors) {
