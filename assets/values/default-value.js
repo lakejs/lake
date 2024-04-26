@@ -1,7 +1,7 @@
 window.defaultValue = `
 <h3>Headings</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>In the beginning of a paragraph, input <code>#</code>, <code>##</code>, or <code>###</code> followed by a space to create a heading 1, heading 2, or heading 3.</p>
+<p>At the beginning of a paragraph, input <code>#</code>, <code>##</code>, or <code>###</code> followed by a space to create a heading 1, heading 2, or heading 3.</p>
 <h1>Heading level 1</h1>
 <h2>Heading level 2</h2>
 <h3>Heading level 3</h3>
@@ -28,13 +28,13 @@ window.defaultValue = `
 
 <h3>Block quotation</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>In the beginning of a paragraph, input <code>&gt;</code> followed by a space to create a block quotation.</p>
+<p>At the beginning of a paragraph, input <code>&gt;</code> followed by a space to create a block quotation.</p>
 <blockquote>This is a block quotation.</blockquote>
 <p><br /></p>
 
 <h3>Numbered list</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>In the beginning of a paragraph, input <code>1.</code> followed by a space to create a numbered list.</p>
+<p>At the beginning of a paragraph, input <code>1.</code> followed by a space to create a numbered list.</p>
 <ol start="1"><li>first item</li></ol>
 <ol start="2"><li>second item</li></ol>
 <ol start="1" indent="1"><li>second item first subitem</li></ol>
@@ -45,7 +45,7 @@ window.defaultValue = `
 
 <h3>Bulleted list</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>In the beginning of a paragraph, input <code>*</code>, <code>-</code>, or <code>+</code> followed by a space to create a bulleted list.</p>
+<p>At the beginning of a paragraph, input <code>*</code>, <code>-</code>, or <code>+</code> followed by a space to create a bulleted list.</p>
 <ul><li>first item</li></ul>
 <ul><li>second item</li></ul>
 <ul indent="1"><li>second item first subitem</li></ul>
@@ -56,7 +56,7 @@ window.defaultValue = `
 
 <h3>Checklist</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>In the beginning of a paragraph, input <code>[]</code> or <code>[x]</code> followed by a space to create a checklist.</p>
+<p>At the beginning of a paragraph, input <code>[]</code> or <code>[x]</code> followed by a space to create a checklist.</p>
 <ul type="checklist"><li value="true">first item</li></ul>
 <ul type="checklist"><li value="false">second item</li></ul>
 <ul type="checklist" indent="1"><li value="false">second item first subitem</li></ul>
@@ -98,7 +98,7 @@ window.defaultValue = `
 
 <h3>Alert block</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>In the beginning of a paragraph, input <code>:::info</code>, <code>:::warning</code>, or <code>:::danger</code> followed by an enter to create an alert block.</p>
+<p>At the beginning of a paragraph, input <code>:::info</code>, <code>:::warning</code>, or <code>:::danger</code> followed by an enter to create an alert block.</p>
 <blockquote type="info">This is an info box.</blockquote>
 <blockquote type="tip">This is a tip.</blockquote>
 <blockquote type="warning">This is a warning.</blockquote>
@@ -120,7 +120,7 @@ window.defaultValue = `
 
 <h3>Code block</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>In the beginning of a paragraph, input <code>\`\`\`</code> or <code>\`\`\`js</code> followed by a enter to create a code block.</p>
+<p>At the beginning of a paragraph, input <code>\`\`\`</code> or <code>\`\`\`js</code> followed by a enter to create a code block.</p>
 <lake-box type="block" name="codeBlock" value="eyJjb2RlIjoiZnVuY3Rpb24gbXlGdW5jKHRoZU9iamVjdCkge1xuICB0aGVPYmplY3QubWFrZSA9IFwiVG95b3RhXCI7XG59XG5cbmNvbnN0IG15Y2FyID0ge1xuICBtYWtlOiBcIkhvbmRhXCIsXG4gIG1vZGVsOiBcIkFjY29yZFwiLFxuICB5ZWFyOiAxOTk4LFxufTtcblxuY29uc29sZS5sb2cobXljYXIubWFrZSk7IC8vIFwiSG9uZGFcIlxubXlGdW5jKG15Y2FyKTtcbmNvbnNvbGUubG9nKG15Y2FyLm1ha2UpOyAvLyBcIlRveW90YVwiIiwibGFuZyI6ImphdmFzY3JpcHQifQ=="></lake-box>
 <blockquote type="tip">This feature is based on <a href="https://codemirror.net/">CodeMirror</a>.</blockquote>
 <p><br /></p>
