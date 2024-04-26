@@ -4,9 +4,7 @@ import { safeTemplate } from '../utils';
 const typeList = [
   'info',
   'tip',
-  'success',
   'warning',
-  'error',
   'danger',
 ];
 

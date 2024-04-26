@@ -552,44 +552,12 @@ describe('plugins / markdown', () => {
     );
   });
 
-  it('keystroke: should insert a success blockquote', () => {
-    const content = `
-    <p>:::success<focus /></p>
-    `;
-    const output = `
-    <blockquote type="success"><br /><focus /></blockquote>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.keystroke.keydown('enter');
-      },
-    );
-  });
-
   it('keystroke: should insert a warning blockquote', () => {
     const content = `
     <p>:::warning<focus /></p>
     `;
     const output = `
     <blockquote type="warning"><br /><focus /></blockquote>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.keystroke.keydown('enter');
-      },
-    );
-  });
-
-  it('keystroke: should insert an error blockquote', () => {
-    const content = `
-    <p>:::error<focus /></p>
-    `;
-    const output = `
-    <blockquote type="error"><br /><focus /></blockquote>
     `;
     testPlugin(
       content,

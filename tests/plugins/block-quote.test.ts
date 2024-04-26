@@ -94,24 +94,6 @@ describe('plugins / block-quote', () => {
     );
   });
 
-  it('should set a success blockquote', () => {
-    const content = `
-    <p>foo<focus /></p>
-    <p>bar</p>
-    `;
-    const output = `
-    <blockquote type="success">foo<focus /></blockquote>
-    <p>bar</p>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.command.execute('blockQuote', 'success');
-      },
-    );
-  });
-
   it('should set a warning blockquote', () => {
     const content = `
     <p>foo<focus /></p>
@@ -126,24 +108,6 @@ describe('plugins / block-quote', () => {
       output,
       editor => {
         editor.command.execute('blockQuote', 'warning');
-      },
-    );
-  });
-
-  it('should set an error blockquote', () => {
-    const content = `
-    <p>foo<focus /></p>
-    <p>bar</p>
-    `;
-    const output = `
-    <blockquote type="error">foo<focus /></blockquote>
-    <p>bar</p>
-    `;
-    testPlugin(
-      content,
-      output,
-      editor => {
-        editor.command.execute('blockQuote', 'error');
       },
     );
   });
