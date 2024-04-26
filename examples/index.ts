@@ -50,14 +50,14 @@ const menuItems = [
     url: './miniature',
     text: 'Miniature toolbar',
     source: 'https://github.com/lakejs/lake/blob/main/examples/miniature-editor.ts',
-    editorValue: window.miniatureValue,
+    editorValue: '<p>This example shows you how to use Lake for comment box.</p>',
     editor: miniatureEditor,
   },
   {
     url: './headless',
     text: 'Headless editor',
     source: 'https://github.com/lakejs/lake/blob/main/examples/headless-editor.ts',
-    editorValue: window.headlessValue,
+    editorValue: '<p>This example shows you how to customize a toolbar that is well adapted to your needs.</p>',
     editor: headlessEditor,
   },
   {
