@@ -3,7 +3,7 @@
   font-family: var(--font-family);
   font-size: 16px;
   font-weight: normal;
-  line-height: normal;
+  line-height: 1.45;
   padding: 16px 24px;
 }
 .lake-container:focus {
