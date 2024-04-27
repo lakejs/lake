@@ -71,7 +71,7 @@ describe('editor', () => {
     rootNode.remove();
   });
 
-  it('constructor: spellcheck is true', () => {
+  it('config: spellcheck is true', () => {
     const editor = new Editor({
       root: rootNode,
       spellcheck: true,
@@ -81,7 +81,7 @@ describe('editor', () => {
     editor.unmount();
   });
 
-  it('constructor: readonly is true', () => {
+  it('config: readonly is true', () => {
     const input = '<p>foo<focus /></p>';
     const output = '<p>foo<focus /></p>';
     const contentView = new Editor({
@@ -98,7 +98,7 @@ describe('editor', () => {
     expect(value).to.equal(output);
   });
 
-  it('constructor: tabIndex is -1', () => {
+  it('config: tabIndex is -1', () => {
     const editor = new Editor({
       root: rootNode,
       tabIndex: -1,
@@ -108,7 +108,7 @@ describe('editor', () => {
     editor.unmount();
   });
 
-  it('constructor: indentWithTab is false', () => {
+  it('config: indentWithTab is false', () => {
     const editor = new Editor({
       root: rootNode,
       indentWithTab: false,
@@ -118,7 +118,17 @@ describe('editor', () => {
     editor.unmount();
   });
 
-  it('constructor: minChangeSize is false', () => {
+  it('config: should return Chinese', () => {
+    const editor = new Editor({
+      root: rootNode,
+      lang: 'zh-CN',
+    });
+    editor.render();
+    expect(editor.locale.toolbar.code()).to.equal('行内代码');
+    editor.unmount();
+  });
+
+  it('config: minChangeSize is false', () => {
     const editor = new Editor({
       root: rootNode,
       minChangeSize: 10,
@@ -128,7 +138,7 @@ describe('editor', () => {
     editor.unmount();
   });
 
-  it('constructor: empty default value', () => {
+  it('config: empty default value', () => {
     const input = '';
     const output = '';
     const editor = new Editor({
