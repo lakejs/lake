@@ -357,13 +357,13 @@ export class Editor {
     });
   }
 
-  private bindFocusEvents(): void {
-    this.container.on('focus', ()=> {
-      this.root.addClass('lake-root-focused');
-    });
-    this.container.on('blur', ()=> {
-      this.root.removeClass('lake-root-focused');
-    });
+  // Returns a boolean value indicating whether the editor has focus.
+  public get hasFocus(): boolean {
+    const activeElement = document.activeElement;
+    if (!activeElement) {
+      return false;
+    }
+    return query(activeElement).closest('.lake-container').get(0) === this.container.get(0);
   }
 
   // Returns translation functions by the specified lang.
@@ -498,7 +498,6 @@ export class Editor {
     this.container.append(fragment);
     Editor.plugin.loadAll(this);
     if (!this.readonly) {
-      this.bindFocusEvents();
       this.selection.synByBookmark();
       this.history.save();
     }

@@ -12,9 +12,9 @@ describe('plugins / escape-key', () => {
       content,
       output,
       editor => {
-        expect(editor.root.hasClass('lake-root-focused')).to.equal(true);
+        expect(editor.hasFocus).to.equal(true);
         editor.keystroke.keydown('escape');
-        expect(editor.root.hasClass('lake-root-focused')).to.equal(false);
+        expect(editor.hasFocus).to.equal(false);
       },
     );
   });

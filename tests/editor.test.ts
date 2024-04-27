@@ -274,14 +274,22 @@ describe('editor', () => {
     expect(value).to.equal(output);
   });
 
-  it('method: focus / blur', () => {
+  it('method: hasFocus / focus / blur', () => {
     const editor = new Editor({
       root: rootNode,
     });
+    editor.container.on('focusin', ()=> {
+      editor.root.addClass('lake-root-focused');
+    });
+    editor.container.on('focusout', ()=> {
+      editor.root.removeClass('lake-root-focused');
+    });
     editor.render();
     editor.focus();
+    expect(editor.hasFocus).to.equal(true);
     expect(rootNode.hasClass('lake-root-focused')).to.equal(true);
     editor.blur();
+    expect(editor.hasFocus).to.equal(false);
     expect(rootNode.hasClass('lake-root-focused')).to.equal(false);
     editor.unmount();
   });

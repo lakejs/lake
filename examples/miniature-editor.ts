@@ -106,6 +106,12 @@ export default (value: string) => {
     value,
     indentWithTab: false,
   });
+  editor.container.on('focusin', ()=> {
+    editor.root.addClass('lake-root-focused');
+  });
+  editor.container.on('focusout', ()=> {
+    editor.root.removeClass('lake-root-focused');
+  });
   editor.render();
   // create editor 2
   const toolbar2 = new Toolbar({
@@ -118,6 +124,12 @@ export default (value: string) => {
     lang: 'en-US',
     value,
     indentWithTab: false,
+  });
+  editor2.container.on('focusin', ()=> {
+    editor2.root.addClass('lake-root-focused');
+  });
+  editor2.container.on('focusout', ()=> {
+    editor2.root.removeClass('lake-root-focused');
   });
   editor2.render();
   return editor;

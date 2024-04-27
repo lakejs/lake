@@ -14,7 +14,7 @@ export default (editor: Editor) => {
       selection.addRangeToNativeSelection();
       return;
     }
-    if (editor.root.hasClass('lake-root-focused')) {
+    if (editor.hasFocus) {
       event.preventDefault();
       editor.blur();
     }
