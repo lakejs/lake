@@ -3,7 +3,7 @@ import isEqual from 'lodash/isEqual';
 import EventEmitter from 'eventemitter3';
 import { version } from '../package.json';
 import { NativeNode } from './types/native';
-import { StateData } from './types/object';
+import { SelectionState } from './types/object';
 import { Locales, TranslationFunctions } from './i18n/types';
 import { editors } from './storage/editors';
 import { denormalizeValue, normalizeValue, query, debug } from './utils';
@@ -64,7 +64,7 @@ export class Editor {
 
   private unsavedInputData: string = '';
 
-  private stateData: StateData = {
+  private state: SelectionState = {
     appliedItems: [],
     disabledNameMap: new Map(),
     selectedNameMap: new Map(),
@@ -229,20 +229,20 @@ export class Editor {
         }
       }
     }
-    const stateData: StateData = {
+    const state: SelectionState = {
       appliedItems,
       disabledNameMap,
       selectedNameMap,
       selectedValuesMap,
     };
-    if (isEqual(stateData, this.stateData)) {
+    if (isEqual(state, this.state)) {
       return;
     }
     if (this.toolbar) {
-      this.toolbar.updateState(stateData);
+      this.toolbar.updateState(state);
     }
-    this.event.emit('statechange', stateData);
-    this.stateData = stateData;
+    this.event.emit('statechange', state);
+    this.state = state;
   }, 100, {
     leading: false,
     trailing: true,

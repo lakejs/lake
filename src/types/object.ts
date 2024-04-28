@@ -23,7 +23,7 @@ export type AppliedItem = {
   styles: KeyValue;
 };
 
-export type StateData = {
+export type SelectionState = {
   appliedItems: AppliedItem[];
   disabledNameMap: Map<string, boolean>;
   selectedNameMap: Map<string, boolean>;

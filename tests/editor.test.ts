@@ -510,8 +510,8 @@ describe('editor', () => {
       value: '<p><br /><focus /></p>',
     });
     editor.render();
-    editor.event.once('statechange', stateData => {
-      expect(stateData.appliedItems[0].name).to.equal('h1');
+    editor.event.once('statechange', state => {
+      expect(state.appliedItems[0].name).to.equal('h1');
       editor.unmount();
       done();
     });
