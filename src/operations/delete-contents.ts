@@ -11,7 +11,8 @@ export function deleteContents(range: Range): void {
   if (range.isCollapsed) {
     return;
   }
-  range.adapt();
+  range.adaptBox();
+  range.adaptTable();
   if (range.isInoperative) {
     return;
   }

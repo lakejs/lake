@@ -326,6 +326,28 @@ describe('plugins / backspace-key', () => {
     );
   });
 
+  it('table: should delete content which includes table', () => {
+    const content = `
+    <p><anchor />foo</p>
+    <table>
+      <tr>
+        <td>foo<br /><p>bar</p></td>
+      </tr>
+    </table>
+    <p><focus /><br /></p>
+    `;
+    const output = `
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
   it('should move cursor into a box in the previous paragraph', () => {
     const content = `
     <lake-box type="block" name="hr"></lake-box>

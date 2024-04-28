@@ -91,7 +91,7 @@ describe('operations / delete-contents', () => {
     );
   });
 
-  it('should delete text in a table (1)', () => {
+  it('should delete text in td', () => {
     const content = `
     <p>foo</p>
     <table><tr><td><anchor />b<focus />ar</td></tr></table>
@@ -109,15 +109,12 @@ describe('operations / delete-contents', () => {
     );
   });
 
-  it('should delete text in a table (2)', () => {
+  it('should not delete content when the selection is across two cells', () => {
     const content = `
     <p>foo</p>
     <table><tr><td><anchor />one</td><td><focus />two</td></tr></table>
     `;
-    const output = `
-    <p>foo</p>
-    <table><tr><td><focus /></td><td>two</td></tr></table>
-    `;
+    const output = content;
     testOperation(
       content,
       output,
