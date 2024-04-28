@@ -298,6 +298,7 @@ describe('editor', () => {
     const output = '<p><lake-box type="inline" name="inlineBox" focus="end"></lake-box></p>';
     const editor = new Editor({
       root: rootNode,
+      value: '<p><br /><focus /></p>',
     });
     editor.render();
     expect(editor.box.getInstances(editor).size).to.equal(0);
@@ -506,6 +507,7 @@ describe('editor', () => {
   it('statechange event', done => {
     const editor = new Editor({
       root: rootNode,
+      value: '<p><br /><focus /></p>',
     });
     editor.render();
     editor.event.once('statechange', stateData => {
@@ -519,6 +521,7 @@ describe('editor', () => {
   it('change event: execute command', done => {
     const editor = new Editor({
       root: rootNode,
+      value: '<p><br /><focus /></p>',
     });
     editor.render();
     editor.event.once('change', (value: string) => {

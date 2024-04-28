@@ -46,7 +46,7 @@ type EditorConfig = {
 };
 
 const defaultConfig: Config = {
-  value: '<p><br /><focus /></p>',
+  value: '<p><br /></p>',
   readonly: false,
   spellcheck: false,
   tabIndex: 0,
