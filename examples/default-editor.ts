@@ -11,6 +11,9 @@ export default (value: string) => {
     toolbar,
     lang: window.LAKE_LANGUAGE,
     value,
+    image: {
+      requestAction: '/upload',
+    },
   });
   editor.event.on('statechange', () => {
     console.log('Event \'statechange\' emitted');

@@ -6,6 +6,9 @@ export default (value: string) => {
     root: '.lake-root',
     lang: window.LAKE_LANGUAGE,
     value,
+    image: {
+      requestAction: '/upload',
+    },
   });
   const toolbarRoot = Utils.query('.lake-toolbar-root');
   toolbarRoot.addClass('lake-custom-properties');

@@ -105,6 +105,9 @@ export default (value: string) => {
     lang: window.LAKE_LANGUAGE,
     value,
     indentWithTab: false,
+    image: {
+      requestAction: '/upload',
+    },
   });
   editor.container.on('focusin', ()=> {
     editor.root.addClass('lake-root-focused');
