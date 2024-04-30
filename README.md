@@ -8,7 +8,7 @@
 
 Lake is a rich text editor for the web. It has a good user experience and provides easy-to-use programming interface to allow further extension.
 
-[Examples](https://lakejs.org/examples/) · [Getting started](https://lakejs.org/guide/getting-started) · [Reference](https://lakejs.org/reference/)
+[Examples](https://lakejs.org/examples/) · [Getting started](https://lakejs.org/guide/) · [Reference](https://lakejs.org/reference/)
 
 ## Development
 
