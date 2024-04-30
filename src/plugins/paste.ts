@@ -2,7 +2,7 @@ import type { Editor } from '..';
 import { blockTagNames } from '../config/tag-names';
 import { getElementRules } from '../config/element-rules';
 import {
-  forEach, wrapNodeList, changeTagName,
+  wrapNodeList, changeTagName,
   fixNumberedList, removeBr, query, normalizeValue,
 } from '../utils';
 import { Nodes } from '../models/nodes';
@@ -16,10 +16,11 @@ const blockSelector = Array.from(blockTagNames).join(',');
 function getPasteElementRules(): any {
   const rules = getElementRules();
   rules.div = rules.p;
-  forEach(rules, (key, attributeRules) => {
+  for (const key of Object.keys(rules)) {
+    const attributeRules = rules[key];
     delete attributeRules.id;
     delete attributeRules.class;
-  });
+  }
   return rules;
 }
 

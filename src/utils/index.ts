@@ -10,9 +10,6 @@ export * from './normalize-value';
 export * from './denormalize-value';
 export * from './modifier-text';
 
-// Object
-export * from './for-each';
-
 // Native DOM
 export * from './get-css';
 export * from './to-node-list';

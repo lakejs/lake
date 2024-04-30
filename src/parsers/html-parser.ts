@@ -1,5 +1,5 @@
 import { getElementRules } from '../config/element-rules';
-import { forEach, parseStyle, encode } from '../utils';
+import { parseStyle, encode } from '../utils';
 import { Nodes } from '../models/nodes';
 
 export class HTMLParser {
@@ -62,11 +62,13 @@ export class HTMLParser {
         if (attr.name === 'style') {
           const styleRules = attributeRules.style;
           const styleMap: Map<string, string> = new Map();
-          forEach(parseStyle(attr.value), (key, value) => {
+          const styleData = parseStyle(attr.value);
+          for (const key of Object.keys(styleData)) {
+            const value = styleData[key];
             if (styleRules[key] && HTMLParser.matchRule(styleRules[key], value)) {
               styleMap.set(key, value);
             }
-          });
+          }
           attributeMap.set('style', styleMap);
         }
       }

@@ -7,7 +7,6 @@ import {
   blockTagNames, markTagNames, voidTagNames,
   headingTagNames, listTagNames, tableTagNames,
 } from '../config/tag-names';
-import { forEach } from '../utils/for-each';
 import { inString } from '../utils/in-string';
 import { camelCase } from '../utils/camel-case';
 import { getCSS } from '../utils/get-css';
@@ -530,9 +529,9 @@ export class Nodes {
 
   public attr(attributeName: any, value?: any): any {
     if (typeof attributeName === 'object') {
-      forEach(attributeName, (name, val) => {
-        this.attr(name, val);
-      });
+      for (const name of Object.keys(attributeName)) {
+        this.attr(name, attributeName[name]);
+      }
       return this;
     }
     if (value === undefined) {
@@ -601,9 +600,9 @@ export class Nodes {
 
   public css(propertyName: any, value?: any): any {
     if (typeof propertyName === 'object') {
-      forEach(propertyName, (name, val) => {
-        this.css(name, val);
-      });
+      for (const name of Object.keys(propertyName)) {
+        this.css(name, propertyName[name]);
+      }
       return this;
     }
     if (value === undefined) {

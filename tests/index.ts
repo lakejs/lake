@@ -10,9 +10,6 @@ import './utils/normalize-value.test';
 import './utils/denormalize-value.test';
 import './utils/modifier-text.test';
 
-// Object Utils
-import './utils/for-each.test';
-
 // Native DOM Utils
 import './utils/get-css.test';
 import './utils/to-node-list.test';

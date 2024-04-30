@@ -6,7 +6,6 @@ import { BoxType, BoxValue } from '../types/box';
 import { boxes } from '../storage/boxes';
 import { editors } from '../storage/editors';
 import { debug } from '../utils/debug';
-import { forEach } from '../utils/for-each';
 import { safeTemplate } from '../utils/safe-template';
 import { encode } from '../utils/encode';
 import { query } from '../utils/query';
@@ -135,9 +134,9 @@ export class Box {
     if (typeof valueKey === 'string') {
       value[valueKey] = valueValue;
     } else {
-      forEach(valueKey, (key, val) => {
-        value[key] = val;
-      });
+      for (const key of Object.keys(valueKey)) {
+        value[key] = valueKey[key];
+      }
     }
     this.value = value;
   }
