@@ -539,6 +539,7 @@ export class Editor {
     this.root.empty();
     this.popupContainer.remove();
     if (!this.readonly) {
+      this.event.removeAllListeners();
       window.removeEventListener('beforeunload', this.beforeunloadListener);
       document.removeEventListener('selectionchange', this.selectionchangeListener);
       document.removeEventListener('click', this.clickListener);

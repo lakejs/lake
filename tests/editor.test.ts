@@ -698,4 +698,20 @@ describe('editor', () => {
     rootNode2.remove();
   });
 
+  it('unmount method: should remove all listeners', () => {
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    let clickCount = 0;
+    editor.event.on('click', () => {
+      clickCount++;
+    });
+    click(rootNode);
+    expect(clickCount).to.equal(1);
+    editor.unmount();
+    editor.event.emit('click');
+    expect(clickCount).to.equal(1);
+  });
+
 });
