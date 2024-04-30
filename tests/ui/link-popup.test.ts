@@ -21,14 +21,14 @@ describe('ui / link-popup', () => {
     query(document.body).append(linkNode);
     const popup = new LinkPopup({
       root: rootNode,
-    });
-    popup.event.on('copy', error => {
-      const copyButton = popup.container.find('button[name="copy"]');
-      if (!error) {
-        expect(copyButton.find('svg').eq(0).computedCSS('display')).to.equal('none');
-        expect(copyButton.find('svg').eq(1).computedCSS('display')).to.equal('inline');
-        done();
-      }
+      onCopy: error => {
+        const copyButton = popup.container.find('button[name="copy"]');
+        if (!error) {
+          expect(copyButton.find('svg').eq(0).computedCSS('display')).to.equal('none');
+          expect(copyButton.find('svg').eq(1).computedCSS('display')).to.equal('inline');
+          done();
+        }
+      },
     });
     popup.show(linkNode);
     click(popup.container.find('button[name="copy"]'));
@@ -41,15 +41,15 @@ describe('ui / link-popup', () => {
     query(document.body).append(linkNode);
     const popup = new LinkPopup({
       root: rootNode,
-    });
-    popup.event.on('copy', error => {
-      const copyButton = popup.container.find('button[name="copy"]');
-      if (error) {
-        expect(copyButton.find('svg').eq(0).computedCSS('display')).to.equal('none');
-        expect(copyButton.find('svg').eq(2).computedCSS('display')).to.equal('inline');
-        window.LAKE_ERROR = false;
-        done();
-      }
+      onCopy: error => {
+        const copyButton = popup.container.find('button[name="copy"]');
+        if (error) {
+          expect(copyButton.find('svg').eq(0).computedCSS('display')).to.equal('none');
+          expect(copyButton.find('svg').eq(2).computedCSS('display')).to.equal('inline');
+          window.LAKE_ERROR = false;
+          done();
+        }
+      },
     });
     popup.show(linkNode);
     click(popup.container.find('button[name="copy"]'));

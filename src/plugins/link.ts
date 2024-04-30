@@ -9,20 +9,20 @@ export default (editor: Editor) => {
   const popup = new LinkPopup({
     root: editor.popupContainer,
     locale: editor.locale,
-  });
-  popup.event.on('save', node => {
-    const range = editor.selection.range;
-    range.setStartAfter(node);
-    range.collapseToStart();
-    editor.selection.addRangeToNativeSelection();
-    editor.history.save();
-  });
-  popup.event.on('remove', node => {
-    const range = editor.selection.range;
-    range.setStartAfter(node);
-    range.collapseToStart();
-    editor.selection.addRangeToNativeSelection();
-    editor.history.save();
+    onSave: node => {
+      const range = editor.selection.range;
+      range.setStartAfter(node);
+      range.collapseToStart();
+      editor.selection.addRangeToNativeSelection();
+      editor.history.save();
+    },
+    onRemove: node => {
+      const range = editor.selection.range;
+      range.setStartAfter(node);
+      range.collapseToStart();
+      editor.selection.addRangeToNativeSelection();
+      editor.history.save();
+    },
   });
   editor.root.on('scroll', () => {
     popup.updatePosition();

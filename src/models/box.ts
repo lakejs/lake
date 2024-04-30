@@ -200,6 +200,7 @@ export class Box {
     boxData[this.node.id] = {};
     effectData[this.node.id].setup = [];
     effectData[this.node.id].cleanup = [];
+    this.event.removeAllListeners();
     this.node.empty();
     debug(`Box '${this.name}' (id = ${this.node.id}) unmounted`);
   }

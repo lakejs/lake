@@ -536,10 +536,12 @@ export class Editor {
 
   // Destroys a rendered editor.
   public unmount(): void {
+    this.event.removeAllListeners();
+    this.command.event.removeAllListeners();
+    this.history.event.removeAllListeners();
     this.root.empty();
     this.popupContainer.remove();
     if (!this.readonly) {
-      this.event.removeAllListeners();
       window.removeEventListener('beforeunload', this.beforeunloadListener);
       document.removeEventListener('selectionchange', this.selectionchangeListener);
       document.removeEventListener('click', this.clickListener);

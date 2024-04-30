@@ -1,4 +1,3 @@
-import EventEmitter from 'eventemitter3';
 import { TranslationFunctions } from '../i18n/types';
 import { icons } from '../icons';
 import { safeTemplate } from '../utils/safe-template';
@@ -10,20 +9,25 @@ import { i18nObject } from '../../src/i18n';
 type LinkPopupConfig = {
   root: Nodes;
   locale?: TranslationFunctions;
+  onCopy?: (error: boolean) => void;
+  onSave?: (node: Nodes) => void;
+  onRemove?: (node: Nodes) => void;
 };
 
 export class LinkPopup {
-  private linkNode: Nodes | null = null;
+
+  private config: LinkPopupConfig;
 
   private root: Nodes;
 
   private locale: TranslationFunctions;
 
+  private linkNode: Nodes | null = null;
+
   public container: Nodes;
 
-  public event: EventEmitter = new EventEmitter();
-
   constructor(config: LinkPopupConfig) {
+    this.config = config;
     this.root = config.root;
     this.locale = config.locale || i18nObject('en-US');
     this.container = query(safeTemplate`
@@ -60,6 +64,7 @@ export class LinkPopup {
 
   // Copy link to clipboard
   private appendCopyButton(): void {
+    const config = this.config;
     let timeoutId: number | null = null;
     const button = new Button({
       root: this.container.find('.lake-url-row'),
@@ -76,11 +81,15 @@ export class LinkPopup {
           svgNode.hide();
           if (error) {
             svgNode.eq(2).show('inline');
-            this.event.emit('copy', error);
+            if (config.onCopy) {
+              config.onCopy(error);
+            }
             return;
           }
           svgNode.eq(1).show('inline');
-          this.event.emit('copy', error);
+          if (config.onCopy) {
+            config.onCopy(error);
+          }
           if (timeoutId) {
             window.clearTimeout(timeoutId);
           }
@@ -134,7 +143,9 @@ export class LinkPopup {
         const linkNode = this.linkNode;
         this.save();
         this.hide();
-        this.event.emit('save', linkNode);
+        if (this.config.onSave) {
+          this.config.onSave(linkNode);
+        }
       },
     });
     button.render();
@@ -154,7 +165,9 @@ export class LinkPopup {
         const lastChild = this.linkNode.last();
         this.linkNode.remove(true);
         this.hide();
-        this.event.emit('remove', lastChild);
+        if (this.config.onRemove) {
+          this.config.onRemove(lastChild);
+        }
       },
     });
     button.render();
