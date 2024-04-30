@@ -92,6 +92,7 @@ export const codeBlockBox: BoxComponent = {
     }
     const codeBlockNode = query('<div class="lake-code-block" />');
     const container = box.getContainer();
+    container.css('width', `${editor.container.innerWidth() - 2}px`);
     container.empty();
     container.append(codeBlockNode);
     const codeBlockNativeNode = codeBlockNode.get(0) as HTMLElement;
@@ -188,8 +189,13 @@ export const codeBlockBox: BoxComponent = {
     });
     dropdown.render();
     box.setData('codeEditor', codeEditor);
+    const resizeListener = () => {
+      container.css('width', `${editor.container.innerWidth() - 2}px`);
+    };
+    editor.event.on('resize', resizeListener);
     box.useEffect(() => () => {
       codeEditor.destroy();
+      editor.event.off('resize', resizeListener);
       debug('CodeMirror destroyed');
     });
   },

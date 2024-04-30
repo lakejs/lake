@@ -16,9 +16,6 @@
 lake-box[name="codeBlock"] {
   margin: 16px 0;
 }
-lake-box[name="codeBlock"] .lake-box-container {
-  overflow-x: auto;
-}
 lake-box[name="codeBlock"] .lake-box-focused .lake-code-block,
 lake-box[name="codeBlock"] .lake-box-activated .lake-code-block {
   border-color: var(--box-border-color);
