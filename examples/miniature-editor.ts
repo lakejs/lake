@@ -105,6 +105,7 @@ export default (value: string) => {
     lang: window.LAKE_LANGUAGE,
     value,
     indentWithTab: false,
+    placeholder: 'Add your comment here...',
     image: {
       requestAction: '/upload',
     },

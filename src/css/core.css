@@ -1,5 +1,6 @@
 .lake-container {
   box-sizing: content-box;
+  position: relative;
   font-family: var(--font-family);
   font-size: 16px;
   font-weight: normal;
@@ -13,6 +14,14 @@
 .lake-container ::selection {
   color: inherit;
   background: var(--selection-background-color);
+}
+.lake-container.lake-show-placeholder::before {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  color: var(--secondary-text-color);
+  content: attr(placeholder);
+  pointer-events: none;
 }
 .lake-container bookmark {
   display: inline;

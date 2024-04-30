@@ -26,6 +26,7 @@ type Config = {
   readonly: boolean;
   spellcheck: boolean;
   tabIndex: number;
+  placeholder: string;
   indentWithTab: boolean;
   lang: string;
   minChangeSize: number;
@@ -39,6 +40,7 @@ type EditorConfig = {
   readonly?: boolean;
   spellcheck?: boolean;
   tabIndex?: number;
+  placeholder?: string;
   indentWithTab?: boolean;
   lang?: string;
   minChangeSize?: number;
@@ -50,6 +52,7 @@ const defaultConfig: Config = {
   readonly: false,
   spellcheck: false,
   tabIndex: 0,
+  placeholder: '',
   indentWithTab: true,
   lang: 'en-US',
   minChangeSize: 5,
@@ -123,6 +126,9 @@ export class Editor {
       spellcheck: this.config.spellcheck ? 'true' : 'false',
       tabindex: this.config.tabIndex.toString(),
     });
+    if (this.config.placeholder !== '') {
+      this.container.attr('placeholder', this.config.placeholder);
+    }
 
     this.selection = new Selection(this.container);
     this.command = new Command(this.selection);
@@ -252,8 +258,19 @@ export class Editor {
   private emitChangeEvent = (value: string) => {
     this.rectifyContent();
     this.emitStateChangeEvent();
+    this.togglePlaceholderClass(value);
     this.event.emit('change', value);
   };
+
+  private togglePlaceholderClass(value: string) {
+    value = denormalizeValue(value);
+    const className = 'lake-show-placeholder';
+    if (value.replace('<focus />', '') === '<p><br /></p>') {
+      this.container.addClass(className);
+    } else {
+      this.container.removeClass(className);
+    }
+  }
 
   private inputInBoxStrip(): void {
     const selection = this.selection;
@@ -447,6 +464,7 @@ export class Editor {
     const htmlParser = new HTMLParser(value);
     const fragment = htmlParser.getFragment();
     this.container.empty();
+    this.togglePlaceholderClass(htmlParser.getHTML());
     this.container.append(fragment);
     Editor.box.renderAll(this);
     this.selection.synByBookmark();
@@ -495,6 +513,7 @@ export class Editor {
     this.containerWrapper.append(this.container);
     this.containerWrapper.append(this.overlayContainer);
     query(document.body).append(this.popupContainer);
+    this.togglePlaceholderClass(htmlParser.getHTML());
     this.container.append(fragment);
     Editor.plugin.loadAll(this);
     if (!this.readonly) {

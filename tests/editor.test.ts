@@ -1,4 +1,4 @@
-import { debug, query } from '../src/utils';
+import { debug, query, appendDeepest } from '../src/utils';
 import { Nodes } from '../src/models/nodes';
 import { Box } from '../src/models/box';
 import { Editor } from '../src/editor';
@@ -12,8 +12,13 @@ function insertText(editor: Editor, data: string) {
   });
   editor.container.emit('beforeinput', event);
   const nativeRange = editor.selection.range.get();
-  nativeRange.insertNode(document.createTextNode(data));
+  const textNode = document.createTextNode(data);
+  nativeRange.insertNode(textNode);
   nativeRange.collapse(false);
+  const prevNode = query(textNode).prev();
+  if (prevNode.length > 0 && prevNode.name === 'br') {
+    prevNode.remove();
+  }
   editor.container.emit('input', event);
 }
 
@@ -33,16 +38,22 @@ function insertCompositionText(editor: Editor, data: string) {
 }
 
 function deleteContentBackward(editor: Editor) {
+  const range = editor.selection.range;
   const event = new InputEvent('input', {
     inputType: 'deleteContentBackward',
     isComposing: false,
   });
   editor.container.emit('beforeinput', event);
-  const nativeRange = editor.selection.range.get();
+  const nativeRange = range.get();
   nativeRange.setStart(nativeRange.startContainer, nativeRange.startOffset - 1);
   // debug('start node:', nativeRange.startContainer, ', offset:', nativeRange.startOffset);
   // debug('end node:', nativeRange.endContainer, ', offset:', nativeRange.endOffset);
   nativeRange.deleteContents();
+  const block = range.getBlocks()[0];
+  if (block && block.isEmpty) {
+    appendDeepest(block, query('<br />'));
+    range.shrinkAfter(block);
+  }
   editor.container.emit('input', event);
 }
 
@@ -105,6 +116,38 @@ describe('editor', () => {
     });
     editor.render();
     expect(editor.container.attr('tabindex')).to.equal('-1');
+    editor.unmount();
+  });
+
+  it('config: should display placeholder (1)', () => {
+    const editor = new Editor({
+      root: rootNode,
+      placeholder: 'Add your Add your comment here...',
+    });
+    editor.render();
+    expect(editor.container.hasClass('lake-show-placeholder')).to.equal(true);
+    editor.unmount();
+  });
+
+  it('config: should display placeholder (2)', () => {
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p><br></p>',
+      placeholder: 'Add your Add your comment here...',
+    });
+    editor.render();
+    expect(editor.container.hasClass('lake-show-placeholder')).to.equal(true);
+    editor.unmount();
+  });
+
+  it('config: should not display placeholder', () => {
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p>foo</p>',
+      placeholder: 'Add your Add your comment here...',
+    });
+    editor.render();
+    expect(editor.container.hasClass('lake-show-placeholder')).to.equal(false);
     editor.unmount();
   });
 
@@ -260,7 +303,7 @@ describe('editor', () => {
     expect(value).to.equal(output);
   });
 
-  it('method: setValue', () => {
+  it('setValue method: set content', () => {
     const input = '<p><strong>\u200B# <focus />foo</strong></p>';
     const output = '<p><strong># <focus />foo</strong></p>';
     const editor = new Editor({
@@ -272,6 +315,22 @@ describe('editor', () => {
     debug(`output: ${value}`);
     editor.unmount();
     expect(value).to.equal(output);
+    expect(editor.container.hasClass('lake-show-placeholder')).to.equal(false);
+  });
+
+  it('setValue method: set empty content', () => {
+    const input = '<p><br></p>';
+    const output = '<p><br /></p>';
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    editor.setValue(input);
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+    expect(editor.container.hasClass('lake-show-placeholder')).to.equal(true);
   });
 
   it('method: hasFocus / focus / blur', () => {
@@ -561,6 +620,31 @@ describe('editor', () => {
       }
       if (calledCount === 2) {
         expect(value).to.equal('<p>foo<focus /></p>');
+        editor.unmount();
+        done();
+      }
+    });
+    insertText(editor, 'a');
+  });
+
+  it('change event: show or hide placeholder', done => {
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p><br /><focus /></p>',
+    });
+    editor.render();
+    expect(editor.container.hasClass('lake-show-placeholder')).to.equal(true);
+    let calledCount = 0;
+    editor.event.on('change', (value: string) => {
+      calledCount++;
+      if (calledCount === 1) {
+        expect(value).to.equal('<p>a<focus /></p>');
+        expect(editor.container.hasClass('lake-show-placeholder')).to.equal(false);
+        deleteContentBackward(editor);
+      }
+      if (calledCount === 2) {
+        expect(value).to.equal('<p><br /><focus /></p>');
+        expect(editor.container.hasClass('lake-show-placeholder')).to.equal(true);
         editor.unmount();
         done();
       }
