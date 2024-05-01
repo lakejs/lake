@@ -90,6 +90,10 @@
   box-shadow: var(--popup-shadow);
   display: none;
 }
+.lake-dropdown[placement="top"] .lake-dropdown-menu {
+  top: auto;
+  bottom: 30px;
+}
 .lake-dropdown .lake-dropdown-menu li {
   display: flex;
   align-items: center;

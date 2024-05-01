@@ -26,3 +26,14 @@
 .miniature .lake-editor .lake-container {
   padding: 8px 12px;
 }
+
+.miniature .lake-editor.lake-editor2 {
+  margin-top: 32px;
+}
+.miniature .lake-editor.lake-editor2 .lake-toolbar-root {
+  border: 1px solid #d9d9d9;
+  border-top: none;
+}
+.miniature .lake-editor.lake-editor2 .lake-root {
+  border-bottom: none;
+}

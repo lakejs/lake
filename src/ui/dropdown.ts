@@ -10,10 +10,11 @@ import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { i18nObject } from '../../src/i18n';
 
-export type DropdownConfig = DropdownItem & {
+type DropdownConfig = DropdownItem & {
   root: Nodes;
   locale?: TranslationFunctions;
   tabIndex?: number;
+  placement?: 'top' | 'bottom';
   onSelect: (value: string) => void;
 }
 
@@ -30,8 +31,9 @@ export class Dropdown {
     this.config = config;
     this.root = config.root;
     this.locale = config.locale || i18nObject('en-US');
+    const placement = config.placement || 'bottom';
     this.node = query(safeTemplate`
-      <div class="lake-dropdown lake-${config.menuType}-dropdown" name="${config.name}">
+      <div class="lake-dropdown lake-${config.menuType}-dropdown" name="${config.name}" placement="${placement}">
         <button type="button" name="${config.name}" class="lake-dropdown-title">
           <div class="lake-dropdown-${config.icon ? 'icon' : 'text'}"></div>
           <div class="lake-dropdown-down-icon"></div>

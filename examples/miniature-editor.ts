@@ -92,8 +92,9 @@ export default (value: string) => {
   // copy root node
   const rootNode = Utils.query('.lake-editor');
   const rootNode2 = rootNode.clone(true);
-  rootNode2.css('margin-top', '10px');
+  rootNode2.addClass('lake-editor2');
   rootNode.after(rootNode2);
+  rootNode2.append(rootNode2.find('.lake-toolbar-root'));
   // create editor 1
   const toolbar = new Toolbar({
     root: rootNode.find('.lake-toolbar-root'),
@@ -121,6 +122,7 @@ export default (value: string) => {
   const toolbar2 = new Toolbar({
     root: rootNode2.find('.lake-toolbar-root'),
     items: toolbarItems,
+    placement: 'bottom',
   });
   const editor2 = new Editor({
     root: rootNode2.find('.lake-root'),

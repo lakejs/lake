@@ -126,7 +126,7 @@ describe('ui / dropdown-ui', () => {
     dropdown.node.attr('disabled', 'true');
   });
 
-  it('align dropdown', () => {
+  it('align dropdown: placement is top', () => {
     const dropdown = new Dropdown({
       root: rootNode,
       name: 'align',
@@ -137,6 +137,7 @@ describe('ui / dropdown-ui', () => {
       width: 'auto',
       menuType: 'list',
       menuItems: alignMenuItems,
+      placement: 'top',
       onSelect: value => {
         debug(value);
       },

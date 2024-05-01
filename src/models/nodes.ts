@@ -625,8 +625,8 @@ export class Nodes {
 
   // Returns the interior width of the first element, which does not include padding.
   public innerWidth() {
-    const paddingLeft = parseInt(this.computedCSS('padding-left'), 10) || 0;
-    const paddingRight = parseInt(this.computedCSS('padding-right'), 10) || 0;
+    const paddingLeft = Number.parseInt(this.computedCSS('padding-left'), 10) || 0;
+    const paddingRight = Number.parseInt(this.computedCSS('padding-right'), 10) || 0;
     return this.width() - paddingLeft - paddingRight;
   }
 

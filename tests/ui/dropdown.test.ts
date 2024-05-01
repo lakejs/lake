@@ -149,6 +149,30 @@ describe('ui / dropdown', () => {
     dropdown.unmount();
   });
 
+  it('text dropdown: should show menu at the top', () => {
+    const dropdown = new Dropdown({
+      root: rootNode,
+      name: 'heading',
+      downIcon: icons.get('down'),
+      defaultValue: 'p',
+      tooltip: 'Heading',
+      width: '100px',
+      menuType: 'list',
+      menuItems: headingMenuItems,
+      placement: 'top',
+      onSelect: value => {
+        debug(value);
+      },
+    });
+    dropdown.render();
+    const titleNode = dropdown.node.find('.lake-dropdown-title');
+    click(titleNode);
+    expect(Number.parseInt(dropdown.node.find('.lake-dropdown-menu').computedCSS('top'), 10) < 0).to.equal(true);
+    click(query(document.body));
+    expect(dropdown.node.find('.lake-dropdown-menu').computedCSS('display')).to.equal('none');
+    dropdown.unmount();
+  });
+
   it('text dropdown: disabled status', () => {
     const dropdown = new Dropdown({
       root: rootNode,

@@ -10,9 +10,12 @@ import { Button } from './button';
 import { Dropdown } from './dropdown';
 import { uploadImage } from './upload';
 
+type ToolbarPlacement = 'top' | 'bottom';
+
 type ToolbarConfig = {
   root: string | Nodes | NativeNode;
   items?: (string | ToolbarItem)[];
+  placement?: ToolbarPlacement;
 };
 
 const defaultItems: string[] = [
@@ -45,9 +48,11 @@ toolbarItems.forEach(item => {
 
 export class Toolbar {
 
+  private root: Nodes;
+
   private items: (string | ToolbarItem)[];
 
-  private root: Nodes;
+  private placement: ToolbarPlacement = 'top';
 
   private allMenuMap: Map<string, Map<string, string>> = new Map();
 
@@ -58,10 +63,12 @@ export class Toolbar {
   public container: Nodes;
 
   constructor(config: ToolbarConfig) {
-    this.items = config.items || defaultItems;
     this.root = query(config.root);
+    this.items = config.items || defaultItems;
+    if (config.placement) {
+      this.placement = config.placement;
+    }
     this.container = query('<div class="lake-toolbar" />');
-
     this.root.addClass('lake-custom-properties');
   }
 
@@ -98,6 +105,7 @@ export class Toolbar {
       menuType: item.menuType,
       menuItems: item.menuItems,
       tabIndex: -1,
+      placement: this.placement === 'top' ? 'bottom' : 'top',
       onSelect: value => {
         editor.focus();
         item.onSelect(editor, value);

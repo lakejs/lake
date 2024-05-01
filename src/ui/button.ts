@@ -2,7 +2,7 @@ import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 
-export type ButtonConfig = {
+type ButtonConfig = {
   root: Nodes;
   name: string;
   icon?: string;

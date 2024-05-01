@@ -3,14 +3,14 @@ import { debug } from '../utils/debug';
 import { request } from '../utils/request';
 import { Box } from '../models/box';
 
-type Config = {
+type UploadConfig = {
   editor: Editor;
   file: File;
   onError?: ()=> void;
   onSuccess?: ()=> void;
 };
 
-export function uploadImage(config: Config): Box {
+export function uploadImage(config: UploadConfig): Box {
   const { editor, file, onError, onSuccess} = config;
   const { requestMethod, requestAction, requestTypes } = editor.config.image;
   if (requestTypes.indexOf(file.type) < 0) {
