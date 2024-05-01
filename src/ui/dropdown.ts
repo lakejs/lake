@@ -147,7 +147,11 @@ export class Dropdown {
     menuNode.show(config.menuType === 'color' ? 'flex' : 'block');
     const dropdownNativeNode = dropdownNode.get(0) as HTMLElement;
     const dropdownRect = dropdownNativeNode.getBoundingClientRect();
-    if (dropdownRect.x + menuNode.width() + 50 > window.innerWidth) {
+    // A overflow width on the left side, greater than 0 indicates an overflow.
+    const leftOverflow = menuNode.width() - (dropdownRect.x + dropdownRect.width);
+    // A overflow width on the right side, greater than 0 indicates an overflow.
+    const rightOverflow = dropdownRect.x + menuNode.width() - window.innerWidth;
+    if (rightOverflow + 50 > 0 && (leftOverflow < 0 || leftOverflow < rightOverflow)) {
       menuNode.css('left', 'auto');
       menuNode.css('right', '0');
     } else {
