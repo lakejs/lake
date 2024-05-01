@@ -830,4 +830,19 @@ describe('plugins / markdown', () => {
     );
   });
 
+  it('keystroke: should not insert codeBlock when inputting less than three backtick characters', () => {
+    const content = '<p>``js<focus /></p>';
+    const output = `
+    <p>\`\`js</p>
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
 });

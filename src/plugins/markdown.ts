@@ -146,7 +146,7 @@ const blockItemListForEnterKey: BlockItem[] = [
     ],
   },
   {
-    re: /^`+([a-z]*)$/i,
+    re: /^`{3,}([a-z]*)$/i,
     getParameters: (results: RegExpExecArray) => {
       if (!results[1]) {
         return [
