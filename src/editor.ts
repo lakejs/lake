@@ -259,7 +259,7 @@ export class Editor {
     this.rectifyContent();
     this.emitStateChangeEvent();
     this.togglePlaceholderClass(value);
-    // this.selection.scrollIntoView();
+    this.scrollToCaret();
     this.event.emit('change', value);
   };
 
@@ -457,6 +457,50 @@ export class Editor {
   // Removes focus from the editor area.
   public blur(): void {
     this.container.blur();
+  }
+
+  // Scrolls to the caret or the range of the selection.
+  public scrollToCaret(): void {
+    const rangeRect = this.selection.range.getRect();
+    const viewport = this.container.closestScroller();
+    if (viewport.length === 0) {
+      return;
+    }
+    const nativeViewport = viewport.get(0) as Element;
+    const viewportRect = nativeViewport.getBoundingClientRect();
+    const containerRect = (this.container.get(0) as Element).getBoundingClientRect();
+    const caret = query('<div class="lake-fake-caret" />');
+    const left = rangeRect.x - containerRect.x;
+    const top = rangeRect.y - containerRect.y;
+    caret.css({
+      position: 'absolute',
+      top: `${top}px`,
+      left: `${left}px`,
+      width: `${rangeRect.width}px`,
+      height: `${rangeRect.height}px`,
+      background: 'red',
+      'z-index': '-1',
+    });
+    this.overlayContainer.find('.lake-fake-caret').remove();
+    this.overlayContainer.append(caret);
+    const scrollX = nativeViewport.scrollLeft;
+    const scrollY = nativeViewport.scrollTop;
+    let needScroll = false;
+    let alignToTop = true;
+    if (left < scrollX || left > scrollX + viewportRect.width) {
+      needScroll = true;
+    }
+    if (top < scrollY) {
+      needScroll = true;
+      alignToTop = true;
+    } else if (top > scrollY + viewportRect.height) {
+      needScroll = true;
+      alignToTop = false;
+    }
+    if (needScroll) {
+      (caret.get(0) as Element).scrollIntoView(alignToTop);
+    }
+    caret.remove();
   }
 
   // Sets the specified HTML string to the editor area.

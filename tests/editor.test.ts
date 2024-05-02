@@ -289,6 +289,76 @@ describe('editor', () => {
     editor.unmount();
   });
 
+  it('method: hasFocus / focus / blur', () => {
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.container.on('focusin', ()=> {
+      editor.root.addClass('lake-root-focused');
+    });
+    editor.container.on('focusout', ()=> {
+      editor.root.removeClass('lake-root-focused');
+    });
+    editor.render();
+    editor.focus();
+    expect(editor.hasFocus).to.equal(true);
+    expect(rootNode.hasClass('lake-root-focused')).to.equal(true);
+    editor.blur();
+    expect(editor.hasFocus).to.equal(false);
+    expect(rootNode.hasClass('lake-root-focused')).to.equal(false);
+    editor.unmount();
+  });
+
+  it('method: scrollIntoView', () => {
+    rootNode.css('width', '200px');
+    rootNode.css('min-width', '200px');
+    rootNode.css('height', '100px');
+    rootNode.css('overflow', 'auto');
+    rootNode.css('white-space', 'nowrap');
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p>000000000000000000000000000000000000000</p><p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p>',
+    });
+    editor.render();
+    editor.container.css('padding', '0');
+    const  nativeRootNode = rootNode.get(0) as Element;
+    expect(nativeRootNode.scrollTop).to.equal(0);
+    // no scroll
+    editor.selection.range.selectNode(editor.container.find('p').eq(1));
+    editor.scrollToCaret();
+    expect(nativeRootNode.scrollTop).to.equal(0);
+    // sroll to right
+    editor.selection.range.selectNodeContents(editor.container.find('p').eq(0));
+    editor.selection.range.collapseToEnd();
+    editor.scrollToCaret();
+    // expect(nativeRootNode.scrollLeft > 140).to.equal(true);
+    // sroll to left
+    editor.selection.range.selectNodeContents(editor.container.find('p').eq(0));
+    editor.selection.range.collapseToStart();
+    editor.scrollToCaret();
+    // expect(nativeRootNode.scrollLeft).to.equal(0);
+    // scroll to middle
+    editor.selection.range.selectNode(editor.container.find('p').eq(4));
+    editor.scrollToCaret();
+    // expect(nativeRootNode.scrollTop > 60 && nativeRootNode.scrollTop < 70).to.equal(true);
+    // sroll to bottom
+    editor.selection.range.selectNode(editor.container.find('p').eq(9));
+    editor.scrollToCaret();
+    // expect(nativeRootNode.scrollTop > 210).to.equal(true);
+    // scroll to middle
+    editor.selection.range.selectNode(editor.container.find('p').eq(4));
+    editor.scrollToCaret();
+    // expect(nativeRootNode.scrollTop > 120 && nativeRootNode.scrollTop < 130).to.equal(true);
+    // scroll to top
+    editor.selection.range.selectNode(editor.container.find('p').eq(0));
+    editor.selection.range.collapseToStart();
+    editor.scrollToCaret();
+    expect(nativeRootNode.scrollTop).to.equal(0);
+    // should remove fake caret
+    expect(editor.overlayContainer.find('.lake-fake-caret').length).to.equal(0);
+    editor.unmount();
+  });
+
   it('method: getValue', () => {
     const input = '<p><strong>\u200B# <focus />foo</strong></p>';
     const output = '<p><strong># <focus />foo</strong></p>';
@@ -331,26 +401,6 @@ describe('editor', () => {
     editor.unmount();
     expect(value).to.equal(output);
     expect(editor.container.hasClass('lake-show-placeholder')).to.equal(true);
-  });
-
-  it('method: hasFocus / focus / blur', () => {
-    const editor = new Editor({
-      root: rootNode,
-    });
-    editor.container.on('focusin', ()=> {
-      editor.root.addClass('lake-root-focused');
-    });
-    editor.container.on('focusout', ()=> {
-      editor.root.removeClass('lake-root-focused');
-    });
-    editor.render();
-    editor.focus();
-    expect(editor.hasFocus).to.equal(true);
-    expect(rootNode.hasClass('lake-root-focused')).to.equal(true);
-    editor.blur();
-    expect(editor.hasFocus).to.equal(false);
-    expect(rootNode.hasClass('lake-root-focused')).to.equal(false);
-    editor.unmount();
   });
 
   it('method: insertBox', () => {

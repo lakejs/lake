@@ -1,7 +1,6 @@
 import { NativeSelection } from '../types/native';
 import { KeyValue, AppliedItem } from '../types/object';
 import { parseStyle } from '../utils/parse-style';
-import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertBookmark } from '../operations/insert-bookmark';
@@ -118,52 +117,6 @@ export class Selection {
   public addRangeToNativeSelection(): void {
     this.selection.removeAllRanges();
     this.selection.addRange(this.range.get());
-  }
-
-  // Scrolls to the selected range.
-  public scrollIntoView(): void {
-    this.addRangeToNativeSelection();
-    const rangeRect = this.range.getRect();
-    const viewport = this.container.closestScroller();
-    if (viewport.length === 0) {
-      return;
-    }
-    const nativeViewport = viewport.get(0) as Element;
-    const viewportRect = nativeViewport.getBoundingClientRect();
-    const containerRect = (this.container.get(0) as Element).getBoundingClientRect();
-    const caret = query('<div class="lake-fake-caret" />');
-    const left = rangeRect.x - containerRect.x;
-    const top = rangeRect.y - containerRect.y;
-    caret.css({
-      position: 'absolute',
-      top: `${top}px`,
-      left: `${left}px`,
-      width: `${rangeRect.width}px`,
-      height: `${rangeRect.height}px`,
-      background: 'red',
-      'z-index': '-1',
-    });
-    const overlayContainer = this.container.parent().find('.lake-overlay');
-    overlayContainer.find('.lake-fake-caret').remove();
-    overlayContainer.append(caret);
-    const scrollX = nativeViewport.scrollLeft;
-    const scrollY = nativeViewport.scrollTop;
-    let needScroll = false;
-    let alignToTop = true;
-    if (left < scrollX || left > scrollX + viewportRect.width) {
-      needScroll = true;
-    }
-    if (top < scrollY) {
-      needScroll = true;
-      alignToTop = true;
-    } else if (top > scrollY + viewportRect.height) {
-      needScroll = true;
-      alignToTop = false;
-    }
-    if (needScroll) {
-      (caret.get(0) as Element).scrollIntoView(alignToTop);
-    }
-    caret.remove();
   }
 
   // Synchronizes the saved range with the range of the native selection.
