@@ -1,6 +1,8 @@
+.lake-container-wrapper {
+  position: relative;
+}
 .lake-container {
   box-sizing: content-box;
-  position: relative;
   font-family: var(--font-family);
   font-size: 16px;
   font-weight: normal;

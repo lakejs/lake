@@ -352,6 +352,18 @@ export class Nodes {
     return this.closest('div[contenteditable="true"]');
   }
 
+  // Traverses the first node and its parents until it finds an element which can scroll.
+  public closestScroller(): Nodes {
+    let parent = this.eq(0);
+    while(parent.length > 0 && parent.isElement) {
+      if (['scroll', 'auto'].indexOf(parent.computedCSS('overflow-y')) >= 0) {
+        return parent;
+      }
+      parent = parent.parent();
+    }
+    return new Nodes();
+  }
+
   // Returns the parent of the first node.
   public parent(): Nodes {
     const node = this.get(0);

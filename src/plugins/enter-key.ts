@@ -8,12 +8,10 @@ function splitBlock(editor: Editor, block: Nodes): void {
   editor.selection.splitBlock();
   block = range.getBlocks()[0];
   if (!block) {
-    editor.history.save();
     return;
   }
   if (endText === '' && (block.isHeading || block.name === 'blockquote')) {
     editor.selection.setBlocks('<p />');
-    editor.history.save();
     return;
   }
   if (block.isList && block.attr('type') === 'checklist') {

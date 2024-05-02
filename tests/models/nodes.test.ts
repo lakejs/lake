@@ -323,6 +323,17 @@ describe('models / nodes', () => {
     expect(container.parent().closestContainer().length).to.equal(0);
   });
 
+  it('method: closestScroller', () => {
+    const scroller = query('<div class="scroller" style="overflow: auto"><div contenteditable="true"><p>foo</p>bar</div></div>');
+    expect(scroller.find('p').closestScroller().hasClass('scroller')).to.equal(true);
+    expect(scroller.closestScroller().hasClass('scroller')).to.equal(true);
+    expect(scroller.parent().closestScroller().length).to.equal(0);
+    scroller.css('overflow', 'scroll');
+    expect(scroller.closestScroller().hasClass('scroller')).to.equal(true);
+    scroller.css('overflow', 'visible');
+    expect(scroller.closestScroller().length).to.equal(0);
+  });
+
   it('method: parent', () => {
     const node = new Nodes(element);
     node.html('<p>foo</p><p>bar</p>');

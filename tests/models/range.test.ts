@@ -168,6 +168,49 @@ describe('models / range', () => {
     expect(range.get().startContainer).to.equal(document);
   });
 
+  it('method: getRect', () => {
+    let rect;
+    container.html('<strong>foo</strong>bar');
+    const range = new Range();
+    //  expanded range
+    range.setStart(container.find('strong'), 0);
+    range.setEnd(container.find('strong'), 1);
+    rect = range.getRect();
+    expect(rect.width > 0).to.equal(true);
+    expect(rect.height > 0).to.equal(true);
+    // collapsed range (at the beginning of an element)
+    range.setStart(container.find('strong'), 0);
+    range.collapseToStart();
+    rect = range.getRect();
+    expect(rect.width).to.equal(1);
+    expect(rect.height > 0).to.equal(true);
+    // collapsed range (at the end of an element)
+    range.setStart(container.find('strong'), 1);
+    range.collapseToStart();
+    rect = range.getRect();
+    expect(rect.width).to.equal(1);
+    expect(rect.height > 0).to.equal(true);
+    // collapsed range (at the beginning of a text)
+    range.setStart(container.find('strong').first(), 0);
+    range.collapseToStart();
+    rect = range.getRect();
+    expect(rect.width).to.equal(1);
+    expect(rect.height > 0).to.equal(true);
+    // collapsed range (at the end of a text)
+    range.setStart(container.find('strong').first(), 3);
+    range.collapseToStart();
+    rect = range.getRect();
+    expect(rect.width).to.equal(1);
+    expect(rect.height > 0).to.equal(true);
+    // empty block
+    container.html('<p></p>');
+    range.setStart(container.find('p'), 0);
+    range.collapseToStart();
+    rect = range.getRect();
+    expect(rect.width).to.equal(1);
+    expect(rect.height > 0).to.equal(true);
+  });
+
   it('method: comparePoint', () => {
     container.html('<strong>foo</strong>bar');
     const range = new Range();

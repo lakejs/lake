@@ -131,6 +131,54 @@ export class Range {
     return this.range;
   }
 
+  // Returns the size and position of the range.
+  public getRect(): DOMRect {
+    const range = this.clone();
+    let rect;
+    let x;
+    let width;
+    if (range.isCollapsed) {
+      let reference = 'left';
+      if (range.startNode.isElement) {
+        const children = range.startNode.children();
+        if (children.length === 0) {
+          range.selectNode(range.startNode);
+        } else if (range.startOffset < children.length) {
+          range.setEnd(range.startNode, range.startOffset + 1);
+        } else {
+          range.setStart(range.startNode, range.startOffset - 1);
+          reference = 'right';
+        }
+      } else {
+        const text = range.startNode.text();
+        if (range.startOffset < text.length) {
+          range.setEnd(range.startNode, range.startOffset + 1);
+        } else {
+          range.setStart(range.startNode, range.startOffset - 1);
+          reference = 'right';
+        }
+      }
+      rect = range.get().getBoundingClientRect();
+      if (reference === 'left') {
+        x = rect.x;
+      } else {
+        x = rect.right;
+      }
+      width = 1;
+    } else {
+      rect = range.get().getBoundingClientRect();
+      x = rect.x;
+      width = rect.width;
+    }
+    const height = rect.height;
+    return DOMRect.fromRect({
+      x,
+      y: rect.y,
+      width: width > 0 ? width : 1,
+      height: height > 0 ? height : 1,
+    });
+  }
+
   // Returns −1 if the point is before the range, 0 if the point is in the range, and 1 if the point is after the range.
   public comparePoint(node: Nodes, offset: number): number {
     return this.range.comparePoint(node.get(0), offset);

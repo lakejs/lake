@@ -259,6 +259,7 @@ export class Editor {
     this.rectifyContent();
     this.emitStateChangeEvent();
     this.togglePlaceholderClass(value);
+    // this.selection.scrollIntoView();
     this.event.emit('change', value);
   };
 
