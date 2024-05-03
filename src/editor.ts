@@ -473,12 +473,13 @@ export class Editor {
       left: `${left}px`,
       width: `${rangeRect.width}px`,
       height: `${rangeRect.height}px`,
-      background: 'red',
+      // background: 'red',
       'z-index': '-1',
     });
     this.overlayContainer.find('.lake-artificial-caret').remove();
     this.overlayContainer.append(artificialCaret);
-    // Scrolls the artificial caret element into the visible area of the browser window if it's not already within the visible area of the browser window.
+    // Scrolls the artificial caret element into the visible area of the browser window
+    // if it's not already within the visible area of the browser window.
     // If the element is already within the visible area of the browser window, then no scrolling takes place.
     // Try Element.scrollIntoViewIfNeeded() method:
     // scrollIntoViewIfNeeded is not part of any specification. This is a proprietary, WebKit-specific method.

@@ -309,7 +309,7 @@ describe('editor', () => {
     editor.unmount();
   });
 
-  it('method: scrollIntoView', () => {
+  it('method: scrollToCaret', () => {
     rootNode.css('width', '200px');
     rootNode.css('min-width', '200px');
     rootNode.css('height', '100px');
