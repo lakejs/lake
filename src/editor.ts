@@ -461,18 +461,13 @@ export class Editor {
 
   // Scrolls to the caret or the range of the selection.
   public scrollToCaret(): void {
+    // Creates an artificial caret that is the same size as the caret at the current caret position.
     const rangeRect = this.selection.range.getRect();
-    const viewport = this.container.closestScroller();
-    if (viewport.length === 0) {
-      return;
-    }
-    const nativeViewport = viewport.get(0) as Element;
-    const viewportRect = nativeViewport.getBoundingClientRect();
     const containerRect = (this.container.get(0) as Element).getBoundingClientRect();
-    const caret = query('<div class="lake-fake-caret" />');
+    const artificialCaret = query('<div class="lake-artificial-caret" />');
     const left = rangeRect.x - containerRect.x;
     const top = rangeRect.y - containerRect.y;
-    caret.css({
+    artificialCaret.css({
       position: 'absolute',
       top: `${top}px`,
       left: `${left}px`,
@@ -481,26 +476,53 @@ export class Editor {
       background: 'red',
       'z-index': '-1',
     });
-    this.overlayContainer.find('.lake-fake-caret').remove();
-    this.overlayContainer.append(caret);
-    const scrollX = nativeViewport.scrollLeft;
-    const scrollY = nativeViewport.scrollTop;
+    this.overlayContainer.find('.lake-artificial-caret').remove();
+    this.overlayContainer.append(artificialCaret);
+    // Scrolls the artificial caret element into the visible area of the browser window if it's not already within the visible area of the browser window.
+    // If the element is already within the visible area of the browser window, then no scrolling takes place.
+    // Try Element.scrollIntoViewIfNeeded() method:
+    // scrollIntoViewIfNeeded is not part of any specification. This is a proprietary, WebKit-specific method.
+    // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoViewIfNeeded
+    if ((artificialCaret.get(0) as any).scrollIntoViewIfNeeded) {
+      (artificialCaret.get(0) as any).scrollIntoViewIfNeeded(false);
+      artificialCaret.remove();
+      return;
+    }
+    let scrollX: number;
+    let scrollY: number;
+    let viewportWidth: number;
+    let viewportHeight: number;
+    const viewport = this.container.closestScroller();
+    if (viewport.length > 0) {
+      const nativeViewport = viewport.get(0) as Element;
+      const viewportRect = nativeViewport.getBoundingClientRect();
+      scrollX = nativeViewport.scrollLeft;
+      scrollY = nativeViewport.scrollTop;
+      viewportWidth = viewportRect.width;
+      viewportHeight = viewportRect.height;
+    } else {
+      const nativeContainerWrapper = this.containerWrapper.get(0) as HTMLElement;
+      scrollX = window.scrollX;
+      scrollY = window.scrollY;
+      viewportWidth = window.innerWidth - nativeContainerWrapper.offsetLeft;
+      viewportHeight = window.innerHeight - nativeContainerWrapper.offsetTop;
+    }
     let needScroll = false;
     let alignToTop = true;
-    if (left < scrollX || left > scrollX + viewportRect.width) {
+    if (left < scrollX || left > scrollX + viewportWidth) {
       needScroll = true;
     }
     if (top < scrollY) {
       needScroll = true;
       alignToTop = true;
-    } else if (top > scrollY + viewportRect.height) {
+    } else if (top > scrollY + viewportHeight) {
       needScroll = true;
       alignToTop = false;
     }
     if (needScroll) {
-      (caret.get(0) as Element).scrollIntoView(alignToTop);
+      (artificialCaret.get(0) as Element).scrollIntoView(alignToTop);
     }
-    caret.remove();
+    artificialCaret.remove();
   }
 
   // Sets the specified HTML string to the editor area.
