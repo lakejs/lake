@@ -481,14 +481,6 @@ export class Editor {
     // Scrolls the artificial caret element into the visible area of the browser window
     // if it's not already within the visible area of the browser window.
     // If the element is already within the visible area of the browser window, then no scrolling takes place.
-    // Try Element.scrollIntoViewIfNeeded() method:
-    // scrollIntoViewIfNeeded is not part of any specification. This is a proprietary, WebKit-specific method.
-    // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoViewIfNeeded
-    if ((artificialCaret.get(0) as any).scrollIntoViewIfNeeded) {
-      (artificialCaret.get(0) as any).scrollIntoViewIfNeeded(false);
-      artificialCaret.remove();
-      return;
-    }
     let scrollX: number;
     let scrollY: number;
     let viewportWidth: number;
