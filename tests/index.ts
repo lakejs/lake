@@ -78,6 +78,7 @@ import './boxes/code-block-ui.test';
 import './plugins/copy.test';
 import './plugins/cut.test';
 import './plugins/paste.test';
+import './plugins/drop.test';
 import './plugins/undo.test';
 import './plugins/redo.test';
 import './plugins/select-all.test';

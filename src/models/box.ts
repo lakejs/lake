@@ -23,7 +23,7 @@ const effectData: { [key: number]: { setup: SetupFunction[], cleanup: CleanupFun
 
 const framework = safeTemplate`
   <span class="lake-box-strip"><br /></span>
-  <div class="lake-box-container" contenteditable="false"></div>
+  <div class="lake-box-container" contenteditable="false" draggable="true"></div>
   <span class="lake-box-strip"><br /></span>
 `;
 
@@ -78,9 +78,11 @@ export class Box {
       container.off('click');
     }
     // fix: should not activate box when clicking box
+    /*
     container.on('mousedown', event => {
       event.preventDefault();
     });
+    */
     container.on('mouseenter', () => {
       if (
         container.hasClass('lake-box-selected') ||
