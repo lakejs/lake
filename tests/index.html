@@ -39,6 +39,7 @@
   <body>
     <div id="mocha"></div>
     <script class="mocha-init">
+      chai.config.truncateThreshold = 0;
       window.expect = chai.expect;
       window.LAKE_TEST = true;
       window.LAKE_ERROR = false;

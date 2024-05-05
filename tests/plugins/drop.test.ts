@@ -31,10 +31,12 @@ describe('plugins / drop', () => {
           preventDefault: ()=> {},
         };
         editor.container.emit('dragstart', dragEvent as Event);
+        const targetBlcok = editor.container.find('p');
+        const targetBlcokRect = (targetBlcok.get(0) as Element).getBoundingClientRect();
         const dropoverEvent = {
           ...new Event('drag'),
-          target: editor.container.find('p').get(0),
-          clientY: 100,
+          target: targetBlcok.get(0),
+          clientY: targetBlcokRect.y,
           dataTransfer: {
             getData: () => html,
             clearData: () => {},
@@ -44,7 +46,6 @@ describe('plugins / drop', () => {
         editor.container.emit('dragover', dropoverEvent as Event);
         const dropEvent = {
           ...new Event('drag'),
-          target: editor.container.find('p').get(0),
           dataTransfer: {
             getData: () => html,
             clearData: () => {},
@@ -85,10 +86,12 @@ describe('plugins / drop', () => {
           preventDefault: ()=> {},
         };
         editor.container.emit('dragstart', dragEvent as Event);
+        const targetBlcok = editor.container.find('p');
+        const targetBlcokRect = (targetBlcok.get(0) as Element).getBoundingClientRect();
         const dropoverEvent = {
           ...new Event('drag'),
-          target: editor.container.find('p').get(0),
-          clientY: 300,
+          target: targetBlcok.get(0),
+          clientY: targetBlcokRect.y + targetBlcokRect.height,
           dataTransfer: {
             getData: () => html,
             clearData: () => {},
@@ -98,7 +101,6 @@ describe('plugins / drop', () => {
         editor.container.emit('dragover', dropoverEvent as Event);
         const dropEvent = {
           ...new Event('drag'),
-          target: editor.container.find('p').get(0),
           dataTransfer: {
             getData: () => html,
             clearData: () => {},
