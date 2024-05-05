@@ -4,7 +4,61 @@ import { testPlugin } from '../utils';
 
 describe('plugins / drop', () => {
 
-  it('drag and drop an block box', () => {
+  it('drag and drop: should insert into the top of target block', () => {
+    const content = `
+    <p>foo</p>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
+    `;
+    const output = `
+    <lake-box type="block" name="hr" focus="end"></lake-box>
+    <p>foo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        let html = '';
+        const dragEvent = {
+          ...new Event('drag'),
+          target: editor.container.find('lake-box').get(0),
+          dataTransfer: {
+            getData: () => {},
+            setData: (type: string, data: string) => {
+              html = data;
+            },
+            clearData: () => {},
+          },
+          preventDefault: ()=> {},
+        };
+        editor.container.emit('dragstart', dragEvent as Event);
+        const dropoverEvent = {
+          ...new Event('drag'),
+          target: editor.container.find('p').get(0),
+          clientY: 100,
+          dataTransfer: {
+            getData: () => html,
+            clearData: () => {},
+          },
+          preventDefault: ()=> {},
+        };
+        editor.container.emit('dragover', dropoverEvent as Event);
+        const dropEvent = {
+          ...new Event('drag'),
+          target: editor.container.find('p').get(0),
+          dataTransfer: {
+            getData: () => html,
+            clearData: () => {},
+            files: [],
+          },
+          preventDefault: ()=> {},
+        };
+        editor.container.emit('drop', dropEvent as Event);
+      },
+      true,
+    );
+  });
+
+  it('drag and drop: should insert into the bottom of target block', () => {
     const content = `
     <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>foo</p>
@@ -31,12 +85,24 @@ describe('plugins / drop', () => {
           preventDefault: ()=> {},
         };
         editor.container.emit('dragstart', dragEvent as Event);
+        const dropoverEvent = {
+          ...new Event('drag'),
+          target: editor.container.find('p').get(0),
+          clientY: 300,
+          dataTransfer: {
+            getData: () => html,
+            clearData: () => {},
+          },
+          preventDefault: ()=> {},
+        };
+        editor.container.emit('dragover', dropoverEvent as Event);
         const dropEvent = {
           ...new Event('drag'),
           target: editor.container.find('p').get(0),
           dataTransfer: {
             getData: () => html,
             clearData: () => {},
+            files: [],
           },
           preventDefault: ()=> {},
         };

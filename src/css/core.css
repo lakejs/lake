@@ -41,3 +41,7 @@
   color: var(--link-hover-color);
   text-decoration: underline;
 }
+.lake-drop-indication {
+  background-color: #1677ff;
+  z-index: -1;
+}

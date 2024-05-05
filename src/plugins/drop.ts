@@ -9,6 +9,9 @@ export default (editor: Editor) => {
     return;
   }
   let draggedNode: Nodes | null = null;
+  let dropIndication: Nodes | null = null;
+  let targetBlock: Nodes | null = null;
+  let targetBlockPosition: 'top' | 'bottom' = 'bottom';
   editor.container.on('dragstart', event => {
     draggedNode = null;
     const dragEvent = event as DragEvent;
@@ -25,34 +28,101 @@ export default (editor: Editor) => {
     if (!dataTransfer) {
       return;
     }
+    dataTransfer.effectAllowed = 'move';
     dataTransfer.setData('text/html', boxNode.clone(false).outerHTML());
     draggedNode = boxNode;
+    dropIndication = query('<div class="lake-drop-indication" />');
+    dropIndication.css({
+      position: 'absolute',
+      height: '2px',
+      display: 'none',
+    });
+    editor.overlayContainer.append(dropIndication);
+    dropIndication.on('dragover', e => {
+      const transfer = (e as DragEvent).dataTransfer;
+      if (transfer) {
+        transfer.dropEffect = 'move';
+      }
+    });
+    dropIndication.on('drop', () => {});
+  });
+  editor.container.on('dragover', event => {
+    const dragEvent = event as DragEvent;
+    const dataTransfer = dragEvent.dataTransfer;
+    if (!dataTransfer) {
+      return;
+    }
+    if (!dropIndication) {
+      return;
+    }
+    dragEvent.preventDefault();
+    const targetNode = query(dragEvent.target as Element);
+    if (!targetNode.isInside) {
+      return;
+    }
+    dataTransfer.dropEffect = 'move';
+    const targetBoxNode = targetNode.closest('lake-box');
+    if (targetBoxNode.length > 0) {
+      if (targetBoxNode.attr('type') === 'block') {
+        targetBlock = targetBoxNode;
+      } else {
+        targetBlock = targetBoxNode.closestBlock();
+      }
+    } else {
+      targetBlock = targetNode.closestBlock();
+    }
+    const targetBlcokRect = (targetBlock.get(0) as Element).getBoundingClientRect();
+    const containerRect = (editor.container.get(0) as Element).getBoundingClientRect();
+    const left = targetBlcokRect.x - containerRect.x;
+    let top;
+    const middleTop = targetBlcokRect.y + (targetBlcokRect.height / 2);
+    if (dragEvent.clientY < middleTop) {
+      top = targetBlcokRect.y - containerRect.y;
+      targetBlockPosition = 'top';
+    } else {
+      top = targetBlcokRect.y + targetBlcokRect.height - containerRect.y;
+      targetBlockPosition = 'bottom';
+    }
+    dropIndication.css({
+      top: `${top}px`,
+      left: `${left}px`,
+      width: `${targetBlcokRect.width}px`,
+      display: 'block',
+    });
+  });
+  editor.container.on('dragend', () => {
+    dropIndication?.remove();
+    dropIndication = null;
   });
   editor.container.on('drop', event => {
+    dropIndication?.remove();
+    dropIndication = null;
     const dragEvent = event as DragEvent;
     const dataTransfer = dragEvent.dataTransfer;
     if (!dataTransfer) {
       return;
     }
     const { requestTypes } = editor.config.image;
-    const targetNode = query(dragEvent.target as Element);
-    if (targetNode.isContainer) {
-      dragEvent.preventDefault();
-      return;
-    }
     const html = dataTransfer.getData('text/html');
     dataTransfer.clearData('text/html');
-    if (draggedNode && html !== '') {
+    if (draggedNode && targetBlock && html !== '') {
       dragEvent.preventDefault();
       new Box(draggedNode).unmount();
       draggedNode.remove();
       const range = editor.selection.range;
-      const targetBoxNode = targetNode.closest('lake-box');
-      if (targetBoxNode.length > 0) {
-        range.selectBoxEnd(targetBoxNode);
+      if (targetBlock.isBox) {
+        if (targetBlockPosition === 'top') {
+          range.selectBoxStart(targetBlock);
+        } else {
+          range.selectBoxEnd(targetBlock);
+        }
       } else {
-        range.selectNodeContents(targetNode);
-        range.collapseToEnd();
+        range.selectNodeContents(targetBlock);
+        if (targetBlockPosition === 'top') {
+          range.collapseToStart();
+        } else {
+          range.collapseToEnd();
+        }
       }
       const box = new Box(query(html));
       editor.insertBox(box.name, box.value);
