@@ -45,7 +45,8 @@
   position: absolute;
   height: 1px;
   background-color: #1677ff;
-  z-index: -1;
+  z-index: 1;
+  pointer-events: none;
   display: none;
 }
 .lake-drop-indication svg {

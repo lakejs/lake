@@ -77,12 +77,6 @@ export class Box {
       container.off('mouseleave');
       container.off('click');
     }
-    // fix: should not activate box when clicking box
-    /*
-    container.on('mousedown', event => {
-      event.preventDefault();
-    });
-    */
     container.on('mouseenter', () => {
       if (
         container.hasClass('lake-box-selected') ||
