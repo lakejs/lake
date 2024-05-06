@@ -11,7 +11,7 @@ export default (editor: Editor) => {
   let draggedNode: Nodes | null = null;
   let dropIndication: Nodes | null = null;
   let targetBlock: Nodes | null = null;
-  let targetBlockPosition: 'top' | 'bottom' = 'bottom';
+  let dropPosition: 'top' | 'bottom' = 'bottom';
   editor.container.on('dragstart', event => {
     draggedNode = null;
     const dragEvent = event as DragEvent;
@@ -71,17 +71,22 @@ export default (editor: Editor) => {
     } else {
       targetBlock = targetNode.closestBlock();
     }
-    const targetBlcokRect = (targetBlock.get(0) as Element).getBoundingClientRect();
     const containerRect = (editor.container.get(0) as Element).getBoundingClientRect();
-    const left = targetBlcokRect.x - containerRect.x;
-    let top;
-    const middleTop = targetBlcokRect.y + (targetBlcokRect.height / 2);
-    if (dragEvent.clientY < middleTop) {
-      top = targetBlcokRect.y - containerRect.y;
-      targetBlockPosition = 'top';
-    } else {
-      top = targetBlcokRect.y + targetBlcokRect.height - containerRect.y;
-      targetBlockPosition = 'bottom';
+    let targetBlcokRect = (targetBlock.get(0) as Element).getBoundingClientRect();
+    dropPosition = 'bottom';
+    let left = targetBlcokRect.x - containerRect.x;
+    let top = targetBlcokRect.y + targetBlcokRect.height - containerRect.y + (parseInt(targetBlock.computedCSS('margin-bottom'), 10) / 2);
+    if (dragEvent.clientY < targetBlcokRect.y + (targetBlcokRect.height / 2)) {
+      const prevBlock = targetBlock.prev();
+      if (prevBlock.length > 0 && prevBlock.isBlock || (prevBlock.isBox && prevBlock.attr('type') === 'block')) {
+        targetBlock = prevBlock;
+        targetBlcokRect = (targetBlock.get(0) as Element).getBoundingClientRect();
+        left = targetBlcokRect.x - containerRect.x;
+        top = targetBlcokRect.y + targetBlcokRect.height - containerRect.y + (parseInt(targetBlock.computedCSS('margin-bottom'), 10) / 2);
+      } else {
+        dropPosition = 'top';
+        top = targetBlcokRect.y - containerRect.y - (parseInt(editor.container.computedCSS('padding-top'), 10) / 2);
+      }
     }
     dropIndication.css({
       top: `${top}px`,
@@ -105,20 +110,20 @@ export default (editor: Editor) => {
     const { requestTypes } = editor.config.image;
     const html = dataTransfer.getData('text/html');
     dataTransfer.clearData('text/html');
-    if (draggedNode && targetBlock && html !== '') {
+    if (draggedNode && targetBlock && draggedNode.get(0) !== targetBlock.get(0) && html !== '') {
       dragEvent.preventDefault();
       new Box(draggedNode).unmount();
       draggedNode.remove();
       const range = editor.selection.range;
       if (targetBlock.isBox) {
-        if (targetBlockPosition === 'top') {
+        if (dropPosition === 'top') {
           range.selectBoxStart(targetBlock);
         } else {
           range.selectBoxEnd(targetBlock);
         }
       } else {
         range.selectNodeContents(targetBlock);
-        if (targetBlockPosition === 'top') {
+        if (dropPosition === 'top') {
           range.collapseToStart();
         } else {
           range.collapseToEnd();

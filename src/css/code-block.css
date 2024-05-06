@@ -14,7 +14,7 @@
 
 /* code block */
 lake-box[name="codeBlock"] {
-  margin: 16px 0;
+  margin-bottom: 16px;
 }
 lake-box[name="codeBlock"] .lake-box-focused .lake-code-block,
 lake-box[name="codeBlock"] .lake-box-activated .lake-code-block {
