@@ -38,13 +38,6 @@ export default (editor: Editor) => {
     </div>
     `);
     editor.overlayContainer.append(dropIndication);
-    dropIndication.on('dragover', e => {
-      const transfer = (e as DragEvent).dataTransfer;
-      if (transfer) {
-        transfer.dropEffect = 'move';
-      }
-    });
-    dropIndication.on('drop', () => {});
   });
   editor.container.on('dragover', event => {
     const dragEvent = event as DragEvent;
@@ -53,14 +46,14 @@ export default (editor: Editor) => {
       return;
     }
     dragEvent.preventDefault();
+    dataTransfer.dropEffect = 'move';
     if (!dropIndication) {
       return;
     }
     const targetNode = query(dragEvent.target as Element);
-    if (!targetNode.isInside) {
+    if (targetNode.isContainer) {
       return;
     }
-    dataTransfer.dropEffect = 'move';
     const targetBoxNode = targetNode.closest('lake-box');
     if (targetBoxNode.length > 0) {
       if (targetBoxNode.attr('type') === 'block') {

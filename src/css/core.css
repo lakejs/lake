@@ -43,7 +43,7 @@
 }
 .lake-drop-indication {
   position: absolute;
-  height: 1px;
+  height: 2px;
   background-color: #1677ff;
   z-index: 1;
   pointer-events: none;
@@ -56,4 +56,5 @@
   width: 16px;
   height: 16px;
   fill: #1677ff;
+  pointer-events: none;
 }
