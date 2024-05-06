@@ -42,6 +42,17 @@
   text-decoration: underline;
 }
 .lake-drop-indication {
+  position: absolute;
+  height: 1px;
   background-color: #1677ff;
   z-index: -1;
+  display: none;
+}
+.lake-drop-indication svg {
+  position: absolute;
+  top: -7.5px;
+  left: -10px;
+  width: 16px;
+  height: 16px;
+  fill: #1677ff;
 }

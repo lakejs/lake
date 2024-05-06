@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { query } from '../utils/query';
+import { query, safeTemplate } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 
@@ -32,12 +32,11 @@ export default (editor: Editor) => {
     dataTransfer.setData('text/html', boxNode.clone(false).outerHTML());
     draggedNode = boxNode;
     // prepare an indication rod
-    dropIndication = query('<div class="lake-drop-indication" />');
-    dropIndication.css({
-      position: 'absolute',
-      height: '2px',
-      display: 'none',
-    });
+    dropIndication = query(safeTemplate`
+    <div class="lake-drop-indication">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M181.66,133.66l-80,80A8,8,0,0,1,88,208V48a8,8,0,0,1,13.66-5.66l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>
+    </div>
+    `);
     editor.overlayContainer.append(dropIndication);
     dropIndication.on('dragover', e => {
       const transfer = (e as DragEvent).dataTransfer;
