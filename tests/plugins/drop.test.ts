@@ -1,5 +1,3 @@
-import sinon from 'sinon';
-import { Box } from '../../src';
 import { testPlugin } from '../utils';
 
 let currentTranferData = '';
@@ -24,14 +22,16 @@ function getDragEvent(config:  any): Event {
 
 describe('plugins / drop', () => {
 
-  it('drag and drop: should insert into the top of target block', () => {
+  it('drag and drop: should insert into the top of first paragraph', () => {
     const content = `
     <p>foo</p>
+    <p>bar</p>
     <lake-box type="block" name="hr" focus="end"></lake-box>
     `;
     const output = `
     <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>foo</p>
+    <p>bar</p>
     `;
     testPlugin(
       content,
@@ -40,7 +40,7 @@ describe('plugins / drop', () => {
         editor.container.emit('dragstart', getDragEvent({
           target: editor.container.find('lake-box').get(0),
         }));
-        const targetBlcok = editor.container.find('p');
+        const targetBlcok = editor.container.find('p').eq(0);
         const targetBlcokRect = (targetBlcok.get(0) as Element).getBoundingClientRect();
         editor.container.emit('dragover', getDragEvent({
           target: targetBlcok.get(0),
@@ -54,14 +54,16 @@ describe('plugins / drop', () => {
     );
   });
 
-  it('drag and drop: should insert into the bottom of target block', () => {
+  it('drag and drop: should insert into the bottom of first paragraph', () => {
     const content = `
-    <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>foo</p>
+    <p>bar</p>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     `;
     const output = `
     <p>foo</p>
     <lake-box type="block" name="hr" focus="end"></lake-box>
+    <p>bar</p>
     `;
     testPlugin(
       content,
@@ -70,7 +72,7 @@ describe('plugins / drop', () => {
         editor.container.emit('dragstart', getDragEvent({
           target: editor.container.find('lake-box').get(0),
         }));
-        const targetBlcok = editor.container.find('p');
+        const targetBlcok = editor.container.find('p').eq(0);
         const targetBlcokRect = (targetBlcok.get(0) as Element).getBoundingClientRect();
         editor.container.emit('dragover', getDragEvent({
           target: targetBlcok.get(0),
@@ -84,36 +86,65 @@ describe('plugins / drop', () => {
     );
   });
 
-  it('drop an image from the outside', () => {
-    const xhr = sinon.useFakeXMLHttpRequest();
-    const requests: sinon.SinonFakeXMLHttpRequest[] = [];
-    xhr.onCreate = req => requests.push(req);
-    const files = [
-      new File(['foo'], 'heaven-lake-512.png', {
-        type: 'image/png',
-      }),
-    ];
+  it('drag and drop: should insert into the top of first box', () => {
     const content = `
-    <p><br /><focus /></p>
+    <lake-box type="block" name="hr"></lake-box>
+    <p>foo</p>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
     `;
     const output = `
-    <p><lake-box type="inline" name="image" focus="end"></lake-box></p>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
+    <lake-box type="block" name="hr"></lake-box>
+    <p>foo</p>
     `;
     testPlugin(
       content,
       output,
       editor => {
+        editor.container.emit('dragstart', getDragEvent({
+          target: editor.container.find('lake-box').get(1),
+        }));
+        const targetBlcok = editor.container.find('lake-box').eq(0);
+        const targetBlcokRect = (targetBlcok.get(0) as Element).getBoundingClientRect();
+        editor.container.emit('dragover', getDragEvent({
+          target: targetBlcok.get(0),
+          clientY: targetBlcokRect.y,
+        }));
         editor.container.emit('drop', getDragEvent({
-          target: editor.container.find('p').get(0),
-          files,
+          target: targetBlcok.get(0),
         }));
-        requests[0].respond(200, {}, JSON.stringify({
-          url: '../assets/images/heaven-lake-512.png',
+      },
+      true,
+    );
+  });
+
+  it('drag and drop: should insert into the bottom of first box', () => {
+    const content = `
+    <lake-box type="block" name="hr"></lake-box>
+    <p>foo</p>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
+    `;
+    const output = `
+    <lake-box type="block" name="hr"></lake-box>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
+    <p>foo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.container.emit('dragstart', getDragEvent({
+          target: editor.container.find('lake-box').get(1),
         }));
-        const box = new Box(editor.container.find('lake-box'));
-        expect(box.value.status).to.equal('done');
-        expect(box.value.url).to.equal('../assets/images/heaven-lake-512.png');
-        xhr.restore();
+        const targetBlcok = editor.container.find('lake-box').eq(0);
+        const targetBlcokRect = (targetBlcok.get(0) as Element).getBoundingClientRect();
+        editor.container.emit('dragover', getDragEvent({
+          target: targetBlcok.get(0),
+          clientY: targetBlcokRect.y + targetBlcokRect.height,
+        }));
+        editor.container.emit('drop', getDragEvent({
+          target: targetBlcok.get(0),
+        }));
       },
       true,
     );
