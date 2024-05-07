@@ -30,7 +30,6 @@ export default (editor: Editor) => {
     if (box.type === 'inline') {
       return;
     }
-    dataTransfer.setData('text/html', boxNode.clone(false).outerHTML());
     draggedNode = boxNode;
     // prepare an indication rod
     dropIndication = query(safeTemplate`
@@ -112,13 +111,13 @@ export default (editor: Editor) => {
     }
     dropIndication.remove();
     dropIndication = null;
-    const html = dataTransfer.getData('text/html');
-    dataTransfer.clearData('text/html');
     // drop a box
-    if (draggedNode && targetBlock && draggedNode.get(0) !== targetBlock.get(0)) {
+    if (
+      draggedNode && targetBlock && draggedNode.isBox &&
+      draggedNode.get(0) !== targetBlock.get(0)
+    ) {
       dragEvent.preventDefault();
-      new Box(draggedNode).unmount();
-      draggedNode.remove();
+      const draggedBox = new Box(draggedNode);
       const range = editor.selection.range;
       if (targetBlock.isBox) {
         if (dropPosition === 'top') {
@@ -134,8 +133,8 @@ export default (editor: Editor) => {
           range.collapseToEnd();
         }
       }
-      const box = new Box(query(html));
-      editor.insertBox(box.name, box.value);
+      editor.insertBox(draggedBox.name, draggedBox.value);
+      draggedNode.remove();
       editor.history.save();
     }
   });
