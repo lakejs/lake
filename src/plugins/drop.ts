@@ -11,6 +11,7 @@ export default (editor: Editor) => {
   let dropIndication: Nodes | null = null;
   let targetBlock: Nodes | null = null;
   let dropPosition: 'top' | 'bottom' = 'bottom';
+  // The dragstart event is fired when the user starts dragging an element or text selection.
   editor.container.on('dragstart', event => {
     draggedNode = null;
     const dragEvent = event as DragEvent;
@@ -34,18 +35,21 @@ export default (editor: Editor) => {
     // prepare an indication rod
     dropIndication = query(safeTemplate`
     <div class="lake-drop-indication">
-      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M181.66,133.66l-80,80A8,8,0,0,1,88,208V48a8,8,0,0,1,13.66-5.66l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" viewBox="0 0 256 256">
+        <path d="M181.66,133.66l-80,80A8,8,0,0,1,88,208V48a8,8,0,0,1,13.66-5.66l80,80A8,8,0,0,1,181.66,133.66Z"></path>
+      </svg>
     </div>
     `);
     editor.overlayContainer.append(dropIndication);
   });
+  // The dragover event is fired when an element or text selection is being dragged over a valid drop target (every few hundred milliseconds).
   editor.container.on('dragover', event => {
     const dragEvent = event as DragEvent;
+    dragEvent.preventDefault();
     const dataTransfer = dragEvent.dataTransfer;
     if (!dataTransfer) {
       return;
     }
-    dragEvent.preventDefault();
     dataTransfer.dropEffect = 'move';
     if (!dropIndication) {
       return;
@@ -56,7 +60,7 @@ export default (editor: Editor) => {
     }
     const targetBoxNode = targetNode.closest('lake-box');
     if (targetBoxNode.length > 0) {
-      if (targetBoxNode.attr('type') === 'block') {
+      if (targetBoxNode.isBlockBox) {
         targetBlock = targetBoxNode;
       } else {
         targetBlock = targetBoxNode.closestBlock();
@@ -71,7 +75,7 @@ export default (editor: Editor) => {
     let top = targetBlcokRect.y + targetBlcokRect.height - containerRect.y + (parseInt(targetBlock.computedCSS('margin-bottom'), 10) / 2);
     if (dragEvent.clientY < targetBlcokRect.y + (targetBlcokRect.height / 2)) {
       const prevBlock = targetBlock.prev();
-      if (prevBlock.length > 0 && prevBlock.isBlock || (prevBlock.isBox && prevBlock.attr('type') === 'block')) {
+      if (prevBlock.length > 0 && prevBlock.isBlock || prevBlock.isBlockBox) {
         targetBlock = prevBlock;
         targetBlcokRect = (targetBlock.get(0) as Element).getBoundingClientRect();
         left = targetBlcokRect.x - containerRect.x;
@@ -88,6 +92,7 @@ export default (editor: Editor) => {
       display: 'block',
     });
   });
+  // The dragend event is fired when a drag operation ends (by releasing a mouse button or hitting the escape key).
   editor.container.on('dragend', () => {
     if (!dropIndication) {
       return;
@@ -95,6 +100,7 @@ export default (editor: Editor) => {
     dropIndication.remove();
     dropIndication = null;
   });
+  // The drop event is fired when an element or text selection is dropped on a valid drop target.
   editor.container.on('drop', event => {
     const dragEvent = event as DragEvent;
     const dataTransfer = dragEvent.dataTransfer;

@@ -406,7 +406,7 @@ export const imageBox: BoxComponent = {
       }
     }
     if (container.first().length === 0) {
-      // The code below is for unit testing because some test cases need to
+      // The following code is for unit testing because some test cases need to
       // select the content of the box before it is completely loaded.
       // Example:
       // range.setStart(box.getContainer(), 1);
