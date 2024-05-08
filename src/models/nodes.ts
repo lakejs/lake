@@ -22,7 +22,7 @@ type EventItem = {
   listener: EventListener;
 };
 
-// Is a key-value object for storing all events.
+// A key-value object for storing all events.
 // value is an array which include types and listeners.
 const eventData: { [key: number]: EventItem[] } = {};
 

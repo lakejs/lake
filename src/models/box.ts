@@ -15,10 +15,10 @@ import { Nodes } from './nodes';
 type CleanupFunction = () => void;
 type SetupFunction = () => CleanupFunction | void;
 
-// Is a key-value object for storing data about box.
+// A key-value object for storing data about box.
 const boxData: { [key: number]: { [key: string]: any } } = {};
 
-// Is a key-value object for storing all effects.
+// A key-value object for storing all effects.
 const effectData: { [key: number]: { setup: SetupFunction[], cleanup: CleanupFunction[] } } = {};
 
 const framework = safeTemplate`
