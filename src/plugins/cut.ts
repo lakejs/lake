@@ -5,7 +5,7 @@ export default (editor: Editor) => {
   if (editor.readonly) {
     return;
   }
-  editor.container.on('cut', event => {
+  editor.event.on('cut', event => {
     const range = editor.selection.range;
     if (range.isInsideBox) {
       return;

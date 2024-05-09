@@ -2,10 +2,7 @@ import type { Editor } from '..';
 import { Box } from '../models/box';
 
 export default (editor: Editor) => {
-  if (editor.readonly) {
-    return;
-  }
-  editor.container.on('copy', event => {
+  editor.event.on('copy', event => {
     const range = editor.selection.range;
     if (range.isInsideBox) {
       return;

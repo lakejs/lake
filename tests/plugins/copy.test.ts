@@ -27,7 +27,7 @@ describe('plugins / copy', () => {
       content,
       output,
       editor => {
-        editor.container.emit('copy', event);
+        editor.event.emit('copy', event);
         expect(dataTransfer.getData('text/html')).to.equal('<hr />');
       },
     );
@@ -50,7 +50,7 @@ describe('plugins / copy', () => {
       editor => {
         const range = editor.selection.range;
         range.setStart(range.startNode, 1);
-        editor.container.emit('copy', event);
+        editor.event.emit('copy', event);
         expect(dataTransfer.getData('text/html')).to.equal('');
       },
     );
@@ -71,7 +71,7 @@ describe('plugins / copy', () => {
       content,
       output,
       editor => {
-        editor.container.emit('copy', event);
+        editor.event.emit('copy', event);
         expect(dataTransfer.getData('text/html')).to.equal('');
       },
     );
@@ -92,7 +92,7 @@ describe('plugins / copy', () => {
       content,
       output,
       editor => {
-        editor.container.emit('copy', event);
+        editor.event.emit('copy', event);
         expect(dataTransfer.getData('text/html')).to.equal('');
       },
     );

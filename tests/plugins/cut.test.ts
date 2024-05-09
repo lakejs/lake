@@ -26,7 +26,7 @@ describe('plugins / cut', () => {
       content,
       output,
       editor => {
-        editor.container.emit('cut', event);
+        editor.event.emit('cut', event);
         expect(dataTransfer.getData('text/html')).to.equal(`<img src="${imageUrl}" data-lake-value="${imageBoxValue}" />`);
       },
     );
@@ -47,7 +47,7 @@ describe('plugins / cut', () => {
       content,
       output,
       editor => {
-        editor.container.emit('cut', event);
+        editor.event.emit('cut', event);
         expect(dataTransfer.getData('text/html')).to.equal('<hr />');
       },
     );
@@ -70,7 +70,7 @@ describe('plugins / cut', () => {
       editor => {
         const range = editor.selection.range;
         range.setStart(range.startNode, 1);
-        editor.container.emit('cut', event);
+        editor.event.emit('cut', event);
         expect(dataTransfer.getData('text/html')).to.equal('');
       },
     );
@@ -91,7 +91,7 @@ describe('plugins / cut', () => {
       content,
       output,
       editor => {
-        editor.container.emit('cut', event);
+        editor.event.emit('cut', event);
         expect(dataTransfer.getData('text/html')).to.equal('');
       },
     );
@@ -112,7 +112,7 @@ describe('plugins / cut', () => {
       content,
       output,
       editor => {
-        editor.container.emit('cut', event);
+        editor.event.emit('cut', event);
         expect(dataTransfer.getData('text/html')).to.equal('');
       },
     );

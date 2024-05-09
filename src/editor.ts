@@ -138,6 +138,22 @@ export class Editor {
     editors.set(this.container.id, this);
   }
 
+  private copyListener: EventListener = event => {
+    const range = this.selection.range;
+    if (range.commonAncestor.closestContainer().get(0) !== this.container.get(0)) {
+      return;
+    }
+    this.event.emit('copy', event);
+  };
+
+  private cutListener: EventListener = event => {
+    const range = this.selection.range;
+    if (range.commonAncestor.closestContainer().get(0) !== this.container.get(0)) {
+      return;
+    }
+    this.event.emit('cut', event);
+  };
+
   private beforeunloadListener: EventListener = () => {
     this.history.save();
   };
@@ -584,7 +600,9 @@ export class Editor {
     if (this.toolbar) {
       this.toolbar.render(this);
     }
+    document.addEventListener('copy', this.copyListener);
     if (!this.readonly) {
+      document.addEventListener('cut', this.cutListener);
       window.addEventListener('beforeunload', this.beforeunloadListener);
       document.addEventListener('selectionchange', this.selectionchangeListener);
       document.addEventListener('click', this.clickListener);
@@ -601,7 +619,9 @@ export class Editor {
     this.history.event.removeAllListeners();
     this.root.empty();
     this.popupContainer.remove();
+    document.removeEventListener('copy', this.copyListener);
     if (!this.readonly) {
+      document.removeEventListener('cut', this.cutListener);
       window.removeEventListener('beforeunload', this.beforeunloadListener);
       document.removeEventListener('selectionchange', this.selectionchangeListener);
       document.removeEventListener('click', this.clickListener);
