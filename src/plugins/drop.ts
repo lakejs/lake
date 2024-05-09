@@ -24,10 +24,12 @@ export default (editor: Editor) => {
     const targetNode = query(dragEvent.target as Element);
     const boxNode = targetNode.closest('lake-box');
     if (boxNode.length === 0) {
+      dragEvent.preventDefault();
       return;
     }
     const box = new Box(boxNode);
     if (box.type === 'inline') {
+      dragEvent.preventDefault();
       return;
     }
     draggedNode = boxNode;
