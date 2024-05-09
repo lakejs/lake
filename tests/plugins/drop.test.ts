@@ -22,7 +22,7 @@ function getDragEvent(config:  any): Event {
 
 describe('plugins / drop', () => {
 
-  it('drag and drop: should insert into the top of first paragraph', () => {
+  it('drag and drop: should insert into the top of first paragraph (p + p + box)', () => {
     const content = `
     <p>foo</p>
     <p>bar</p>
@@ -32,6 +32,36 @@ describe('plugins / drop', () => {
     <lake-box type="block" name="hr" focus="end"></lake-box>
     <p>foo</p>
     <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.container.emit('dragstart', getDragEvent({
+          target: editor.container.find('lake-box').get(0),
+        }));
+        const targetBlcok = editor.container.find('p').eq(0);
+        const targetBlcokRect = (targetBlcok.get(0) as Element).getBoundingClientRect();
+        editor.container.emit('dragover', getDragEvent({
+          target: targetBlcok.get(0),
+          clientY: targetBlcokRect.y,
+        }));
+        editor.container.emit('drop', getDragEvent({
+          target: targetBlcok.get(0),
+        }));
+      },
+      true,
+    );
+  });
+
+  it('drag and drop: should insert into the top of first paragraph (p + box)', () => {
+    const content = `
+    <p>foo</p>
+    <lake-box type="block" name="hr" focus="end"></lake-box>
+    `;
+    const output = `
+    <lake-box type="block" name="hr" focus="end"></lake-box>
+    <p>foo</p>
     `;
     testPlugin(
       content,

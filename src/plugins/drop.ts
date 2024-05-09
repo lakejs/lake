@@ -114,11 +114,13 @@ export default (editor: Editor) => {
     dropIndication.remove();
     dropIndication = null;
     // drop a box
-    if (
-      draggedNode && targetBlock && draggedNode.isBox &&
-      draggedNode.get(0) !== targetBlock.get(0) &&
-      draggedNode.get(0) !== targetBlock.next().get(0)
-    ) {
+    if (draggedNode && targetBlock && draggedNode.isBox) {
+      if (draggedNode.get(0) === targetBlock.get(0)) {
+        return;
+      }
+      if (dropPosition === 'bottom' && draggedNode.get(0) === targetBlock.next().get(0)) {
+        return;
+      }
       dragEvent.preventDefault();
       const draggedBox = new Box(draggedNode);
       const range = editor.selection.range;
