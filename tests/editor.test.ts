@@ -202,6 +202,7 @@ describe('editor', () => {
       root: rootNode,
     });
     editor.render();
+    editor.focus();
     editor.container.html(input);
     editor.history.save();
     const value = editor.getValue();
@@ -217,6 +218,7 @@ describe('editor', () => {
       root: rootNode,
     });
     editor.render();
+    editor.focus();
     editor.container.html(input);
     editor.history.save();
     const value = editor.getValue();
@@ -232,6 +234,7 @@ describe('editor', () => {
       root: rootNode,
     });
     editor.render();
+    editor.focus();
     editor.container.html(input);
     editor.history.save();
     const value = editor.getValue();
@@ -247,6 +250,7 @@ describe('editor', () => {
       root: rootNode,
     });
     editor.render();
+    editor.focus();
     editor.container.html(input);
     editor.history.save();
     const value = editor.getValue();

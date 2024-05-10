@@ -6,6 +6,7 @@ import { icons } from '../icons';
 import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
 import { Nodes } from '../models/nodes';
+import { Range } from '../models/range';
 import { Box } from '../models/box';
 
 type ImageInfo = {
@@ -191,11 +192,18 @@ function openFullScreen(box: Box): void {
     }
     return placeholderSrc;
   });
+  let savedRange: Range;
   lightbox.on('openingAnimationEnd', () => {
+    savedRange = editor.selection.range;
     box.event.emit('openfullscreen');
   });
   lightbox.on('destroy', () => {
     window.setTimeout(() => {
+      if (savedRange) {
+        // fix(image): lose focus when zooming in the iOS
+        editor.selection.range = savedRange;
+        editor.selection.addRangeToNativeSelection();
+      }
       box.event.emit('closefullscreen');
     }, 0);
   });
