@@ -154,6 +154,14 @@ export class Editor {
     this.event.emit('cut', event);
   };
 
+  private pasteListener: EventListener = event => {
+    const range = this.selection.range;
+    if (range.commonAncestor.closestContainer().get(0) !== this.container.get(0)) {
+      return;
+    }
+    this.event.emit('paste', event);
+  };
+
   private beforeunloadListener: EventListener = () => {
     this.history.save();
   };
@@ -603,6 +611,7 @@ export class Editor {
     document.addEventListener('copy', this.copyListener);
     if (!this.readonly) {
       document.addEventListener('cut', this.cutListener);
+      document.addEventListener('paste', this.pasteListener);
       window.addEventListener('beforeunload', this.beforeunloadListener);
       document.addEventListener('selectionchange', this.selectionchangeListener);
       document.addEventListener('click', this.clickListener);
@@ -622,6 +631,7 @@ export class Editor {
     document.removeEventListener('copy', this.copyListener);
     if (!this.readonly) {
       document.removeEventListener('cut', this.cutListener);
+      document.removeEventListener('paste', this.pasteListener);
       window.removeEventListener('beforeunload', this.beforeunloadListener);
       document.removeEventListener('selectionchange', this.selectionchangeListener);
       document.removeEventListener('click', this.clickListener);

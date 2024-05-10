@@ -168,7 +168,7 @@ export default (editor: Editor) => {
   if (editor.readonly) {
     return;
   }
-  editor.container.on('paste', event => {
+  editor.event.on('paste', event => {
     const { requestTypes } = editor.config.image;
     const range = editor.selection.range;
     if (range.isInsideBox) {

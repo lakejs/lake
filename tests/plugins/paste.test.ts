@@ -10,7 +10,7 @@ function pasteData(editor: Editor, format: string, data: string) {
     clipboardData: new DataTransfer(),
   });
   event.clipboardData?.setData(format, data);
-  editor.container.emit('paste', event);
+  editor.event.emit('paste', event);
 }
 
 describe('plugins / paste', () => {
@@ -1045,7 +1045,7 @@ describe('plugins / paste', () => {
           },
           preventDefault: ()=> {},
         };
-        editor.container.emit('paste', event as Event);
+        editor.event.emit('paste', event as Event);
         requests[0].respond(200, {}, JSON.stringify({
           url: '../assets/images/heaven-lake-512.png',
         }));
