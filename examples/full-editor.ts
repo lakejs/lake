@@ -37,8 +37,9 @@ const toolbarItems = [
   'increaseIndent',
   'decreaseIndent',
   '|',
-  'image',
   'link',
+  'image',
+  'file',
   'codeBlock',
   'blockQuote',
   'paragraph',
@@ -59,6 +60,9 @@ export default (value: string) => {
     image: {
       // requestMethod: 'GET',
       // requestAction: '/assets/json/upload-image.json',
+      requestAction: '/upload',
+    },
+    file: {
       requestAction: '/upload',
     },
     codeBlock: {

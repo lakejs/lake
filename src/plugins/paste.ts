@@ -9,7 +9,7 @@ import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { HTMLParser } from '../parsers/html-parser';
 import { TextParser } from '../parsers/text-parser';
-import { uploadImage } from '../ui/upload';
+import { uploadFile } from '../ui/upload';
 
 const blockSelector = Array.from(blockTagNames).join(',');
 
@@ -184,8 +184,9 @@ export default (editor: Editor) => {
     if (dataTransfer.files.length > 0) {
       for (const file of dataTransfer.files) {
         if (requestTypes.indexOf(file.type) >= 0) {
-          uploadImage({
+          uploadFile({
             editor,
+            name: 'image',
             file,
           });
         }

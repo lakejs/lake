@@ -8,7 +8,7 @@ import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { Button } from './button';
 import { Dropdown } from './dropdown';
-import { uploadImage } from './upload';
+import { uploadFile } from './upload';
 
 type ToolbarPlacement = 'top' | 'bottom';
 
@@ -146,8 +146,9 @@ export class Toolbar {
       const target = event.target as HTMLInputElement;
       const files = target.files || [];
       for (const file of files) {
-        uploadImage({
+        uploadFile({
           editor,
+          name: item.name,
           file,
         });
       }

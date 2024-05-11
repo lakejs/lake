@@ -45,6 +45,7 @@ export default {
     fontColor: '文字色',
     highlight: '文字の背景',
     image: '画像',
+    file: 'ファイル',
     removeColor: 'デフォルト',
   },
   link: {

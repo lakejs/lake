@@ -45,6 +45,7 @@ export default {
     fontColor: '글자 색상',
     highlight: '글자 배경',
     image: '이미지',
+    file: '파일',
     removeColor: '기본색',
   },
   link: {

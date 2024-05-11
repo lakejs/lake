@@ -45,6 +45,7 @@ export default {
     fontColor: '文字颜色',
     highlight: '文字背景',
     image: '图片',
+    file: '文件',
     removeColor: '默认',
   },
   link: {

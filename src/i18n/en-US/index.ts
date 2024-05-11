@@ -45,6 +45,7 @@ export default {
     fontColor: 'Font color',
     highlight: 'Highlight',
     image: 'Image',
+    file: 'File',
     removeColor: 'Remove color',
   },
   link: {

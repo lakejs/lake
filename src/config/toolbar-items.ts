@@ -407,4 +407,12 @@ export const toolbarItems: ToolbarItem[] = [
     accept: 'image/*',
     multiple: true,
   },
+  {
+    name: 'file',
+    type: 'upload',
+    icon: icons.get('attachment'),
+    tooltip: locale => locale.toolbar.image(),
+    accept: 'image/*,audio/*,video/*,.doc,.docx,.xls,.xlsx,.ppt,.pptx',
+    multiple: true,
+  },
 ];

@@ -5,18 +5,19 @@ import { Box } from '../models/box';
 
 type UploadConfig = {
   editor: Editor;
+  name: string;
   file: File;
   onError?: ()=> void;
   onSuccess?: ()=> void;
 };
 
-export function uploadImage(config: UploadConfig): Box {
-  const { editor, file, onError, onSuccess} = config;
-  const { requestMethod, requestAction, requestTypes } = editor.config.image;
+export function uploadFile(config: UploadConfig): Box {
+  const { editor, name, file, onError, onSuccess} = config;
+  const { requestMethod, requestAction, requestTypes } = editor.config[name];
   if (requestTypes.indexOf(file.type) < 0) {
     throw new Error(`Cannot upload file because its type '${file.type}' is not found in ['${requestTypes.join('\', \'')}'].`);
   }
-  const box = editor.insertBox('image', {
+  const box = editor.insertBox(name, {
     url: URL.createObjectURL(file),
     status: 'uploading',
     name: file.name,

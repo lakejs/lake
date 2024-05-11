@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { query } from '../../src/utils';
 import { Editor, Nodes } from '../../src';
-import { uploadImage } from '../../src/ui/upload';
+import { uploadFile } from '../../src/ui/upload';
 
 let xhr: sinon.SinonFakeXMLHttpRequestStatic;
 let requests: sinon.SinonFakeXMLHttpRequest[];
@@ -33,8 +33,9 @@ describe('ui / upload', () => {
     const file = new File(['foo'], 'foo.png', {
       type: 'image/png',
     });
-    const box = uploadImage({
+    const box = uploadFile({
       editor,
+      name: 'image',
       file,
       onSuccess: ()=> {
         expect(box.value.status).to.equal('done');
@@ -53,8 +54,9 @@ describe('ui / upload', () => {
       type: 'text/plain',
     });
     try {
-      uploadImage({
+      uploadFile({
         editor,
+        name: 'image',
         file,
       });
     } catch(e) {
@@ -67,8 +69,9 @@ describe('ui / upload', () => {
     const file = new File(['foo'], 'foo.png', {
       type: 'image/png',
     });
-    const box = uploadImage({
+    const box = uploadFile({
       editor,
+      name: 'image',
       file,
       onError: ()=> {
         expect(box.value.status).to.equal('error');
@@ -86,8 +89,9 @@ describe('ui / upload', () => {
     const file = new File(['foo'], 'foo.png', {
       type: 'image/png',
     });
-    const box = uploadImage({
+    const box = uploadFile({
       editor,
+      name: 'image',
       file,
       onError: ()=> {
         expect(box.value.status).to.equal('error');

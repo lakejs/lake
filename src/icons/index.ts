@@ -72,6 +72,7 @@ import link from './link.svg';
 import unlink from './unlink.svg';
 import hr from './hr.svg';
 import image from './image.svg';
+import attachment from './attachment.svg';
 import codeBlock from './code-block.svg';
 import table from './table.svg';
 
@@ -132,6 +133,7 @@ export const icons: Map<string, string> = new Map([
   ['unlink', unlink],
   ['hr', hr],
   ['image', image],
+  ['attachment', attachment],
   ['codeBlock', codeBlock],
   ['table', table],
 ]);

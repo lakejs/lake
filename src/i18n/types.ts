@@ -18,15 +18,15 @@ export type Translations = RootTranslation
 type RootTranslation = {
 	toolbar: {
 		/**
-		 * U​n​d​o​ ​(​C​t​r​l​+​Z​)
+		 * U​n​d​o​ ​(​m​o​d​+​Z​)
 		 */
 		undo: string
 		/**
-		 * R​e​d​o​ ​(​C​t​r​l​+​Y​)
+		 * R​e​d​o​ ​(​m​o​d​+​Y​)
 		 */
 		redo: string
 		/**
-		 * S​e​l​e​c​t​ ​a​l​l​ ​(​C​t​r​l​+​A​)
+		 * S​e​l​e​c​t​ ​a​l​l​ ​(​m​o​d​+​A​)
 		 */
 		selectAll: string
 		/**
@@ -74,15 +74,15 @@ type RootTranslation = {
 		 */
 		decreaseIndent: string
 		/**
-		 * B​o​l​d​ ​(​C​t​r​l​+​B​)
+		 * B​o​l​d​ ​(​m​o​d​+​B​)
 		 */
 		bold: string
 		/**
-		 * I​t​a​l​i​c​ ​(​C​t​r​l​+​I​)
+		 * I​t​a​l​i​c​ ​(​m​o​d​+​I​)
 		 */
 		italic: string
 		/**
-		 * U​n​d​e​r​l​i​n​e​ ​(​C​t​r​l​+​U​)
+		 * U​n​d​e​r​l​i​n​e​ ​(​m​o​d​+​U​)
 		 */
 		underline: string
 		/**
@@ -186,6 +186,10 @@ type RootTranslation = {
 		 */
 		image: string
 		/**
+		 * F​i​l​e
+		 */
+		file: string
+		/**
 		 * R​e​m​o​v​e​ ​c​o​l​o​r
 		 */
 		removeColor: string
@@ -265,15 +269,15 @@ type RootTranslation = {
 export type TranslationFunctions = {
 	toolbar: {
 		/**
-		 * Undo (Ctrl+Z)
+		 * Undo (mod+Z)
 		 */
 		undo: () => LocalizedString
 		/**
-		 * Redo (Ctrl+Y)
+		 * Redo (mod+Y)
 		 */
 		redo: () => LocalizedString
 		/**
-		 * Select all (Ctrl+A)
+		 * Select all (mod+A)
 		 */
 		selectAll: () => LocalizedString
 		/**
@@ -321,15 +325,15 @@ export type TranslationFunctions = {
 		 */
 		decreaseIndent: () => LocalizedString
 		/**
-		 * Bold (Ctrl+B)
+		 * Bold (mod+B)
 		 */
 		bold: () => LocalizedString
 		/**
-		 * Italic (Ctrl+I)
+		 * Italic (mod+I)
 		 */
 		italic: () => LocalizedString
 		/**
-		 * Underline (Ctrl+U)
+		 * Underline (mod+U)
 		 */
 		underline: () => LocalizedString
 		/**
@@ -432,6 +436,10 @@ export type TranslationFunctions = {
 		 * Image
 		 */
 		image: () => LocalizedString
+		/**
+		 * File
+		 */
+		file: () => LocalizedString
 		/**
 		 * Remove color
 		 */

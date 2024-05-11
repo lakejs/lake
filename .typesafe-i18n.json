@@ -5,7 +5,5 @@
   "banner": "/* eslint-disable */",
   "outputPath": "./src/i18n/",
   "typesFileName": "types",
-  "utilFileName": "i18n-util",
-  "formattersTemplateFileName": "formatters",
   "tempPath": "./temp/typesafe-i18n/"
 }
