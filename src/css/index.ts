@@ -12,6 +12,7 @@ import './table.css';
 import './box.css';
 import './hr.css';
 import './image.css';
+import './file.css';
 import './code-block.css';
 import './link-popup.css';
 import './toolbar.css';

@@ -7,7 +7,7 @@ type UploadConfig = {
   editor: Editor;
   name: string;
   file: File;
-  onError?: ()=> void;
+  onError?: (error: string)=> void;
   onSuccess?: ()=> void;
 };
 
@@ -15,7 +15,10 @@ export function uploadFile(config: UploadConfig): Box {
   const { editor, name, file, onError, onSuccess} = config;
   const { requestMethod, requestAction, requestTypes } = editor.config[name];
   if (requestTypes.indexOf(file.type) < 0) {
-    throw new Error(`Cannot upload file because its type '${file.type}' is not found in ['${requestTypes.join('\', \'')}'].`);
+    if (onError) {
+      onError(`File '${file.name}' is not allowed for uploading.`);
+    }
+    throw new Error(`Cannot upload file '${file.name}' because its type '${file.type}' is not found in ['${requestTypes.join('\', \'')}'].`);
   }
   const box = editor.insertBox(name, {
     url: URL.createObjectURL(file),
@@ -36,7 +39,7 @@ export function uploadFile(config: UploadConfig): Box {
       box.updateValue('status', 'error');
       box.render();
       if (onError) {
-        onError();
+        onError(error.toString());
       }
     },
     onSuccess: body => {
@@ -44,7 +47,7 @@ export function uploadFile(config: UploadConfig): Box {
         box.updateValue('status', 'error');
         box.render();
         if (onError) {
-          onError();
+          onError('Cannot find the url field.');
         }
         return;
       }

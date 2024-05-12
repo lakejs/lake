@@ -29,7 +29,7 @@ describe('ui / upload', () => {
     rootNode.remove();
   });
 
-  it('uploadImage: upload succeeded', done => {
+  it('uploadImage: upload successful', done => {
     const file = new File(['foo'], 'foo.png', {
       type: 'image/png',
     });

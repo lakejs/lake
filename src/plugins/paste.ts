@@ -186,8 +186,9 @@ export default (editor: Editor) => {
         if (requestTypes.indexOf(file.type) >= 0) {
           uploadFile({
             editor,
-            name: 'image',
+            name: file.type.indexOf('image/') === 0 ? 'image' : 'file',
             file,
+            onError: error => editor.config.onMessage('error', error),
           });
         }
       }

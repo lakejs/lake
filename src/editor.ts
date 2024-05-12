@@ -21,6 +21,8 @@ import { BoxManager } from './managers/box-manager';
 import { Plugin } from './managers/plugin';
 import { Toolbar } from './ui/toolbar';
 
+type OnMessage = (type: 'success' | 'error' | 'warning', message: string) => void;
+
 type Config = {
   value: string;
   readonly: boolean;
@@ -30,6 +32,7 @@ type Config = {
   indentWithTab: boolean;
   lang: string;
   minChangeSize: number;
+  onMessage: OnMessage;
   [name: string]: any;
 };
 
@@ -44,6 +47,7 @@ type EditorConfig = {
   indentWithTab?: boolean;
   lang?: string;
   minChangeSize?: number;
+  onMessage?: OnMessage;
   [name: string]: any;
 };
 
@@ -56,6 +60,22 @@ const defaultConfig: Config = {
   indentWithTab: true,
   lang: 'en-US',
   minChangeSize: 5,
+  onMessage: (type, message) => {
+    if (type === 'success') {
+      // eslint-disable-next-line no-console
+      console.log(message);
+      return;
+    }
+    if (type === 'warning') {
+      // eslint-disable-next-line no-console
+      console.warn(message);
+      return;
+    }
+    if (type === 'error') {
+      // eslint-disable-next-line no-console
+      console.error(message);
+    }
+  },
 };
 
 export class Editor {

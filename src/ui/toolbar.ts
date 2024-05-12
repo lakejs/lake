@@ -150,6 +150,7 @@ export class Toolbar {
           editor,
           name: item.name,
           file,
+          onError: error => editor.config.onMessage('error', error),
         });
       }
     });

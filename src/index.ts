@@ -30,6 +30,7 @@ import { Editor } from './editor';
 import { Toolbar } from './ui/toolbar';
 import { hrBox } from './boxes/hr';
 import { imageBox } from './boxes/image';
+import { fileBox } from './boxes/file';
 import { codeBlockBox } from './boxes/code-block';
 import copy from './plugins/copy';
 import cut from './plugins/cut';
@@ -72,6 +73,7 @@ import escapeKey from './plugins/escape-key';
 
 Editor.box.add(hrBox);
 Editor.box.add(imageBox);
+Editor.box.add(fileBox);
 Editor.box.add(codeBlockBox);
 
 Editor.plugin.add(copy);
