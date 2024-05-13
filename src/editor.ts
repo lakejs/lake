@@ -598,8 +598,14 @@ export class Editor {
   }
 
   // Removes the selected box.
-  public removeBox(): ReturnType<typeof removeBox> {
-    const box = removeBox(this.selection.range);
+  public removeBox(box: Box | Nodes | null = null): ReturnType<typeof removeBox> {
+    if (box instanceof Nodes) {
+      box = new Box(box);
+    }
+    if (box) {
+      this.selection.range.selectBox(box.node);
+    }
+    box = removeBox(this.selection.range);
     if (box) {
       const instanceMap = this.box.getInstances(this);
       instanceMap.delete(box.node.id);

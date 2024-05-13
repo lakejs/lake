@@ -7,7 +7,7 @@ import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 
 // Removes current box.
-function removeImageBox(box: Box): void {
+function removeFileBox(box: Box): void {
   const editor = box.getEditor();
   if (!editor) {
     return;
@@ -16,8 +16,7 @@ function removeImageBox(box: Box): void {
   if (xhr) {
     xhr.abort();
   }
-  editor.selection.range.selectBox(box.node);
-  editor.removeBox();
+  editor.removeBox(box);
   editor.history.save();
 }
 
@@ -152,7 +151,7 @@ export const fileBox: BoxComponent = {
     } else {
       fileNode.find('.lake-button-remove').on('click', event => {
         event.stopPropagation();
-        removeImageBox(box);
+        removeFileBox(box);
       });
     }
     box.event.emit('render');

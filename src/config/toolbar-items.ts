@@ -411,7 +411,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'file',
     type: 'upload',
     icon: icons.get('attachment'),
-    tooltip: locale => locale.toolbar.image(),
+    tooltip: locale => locale.toolbar.file(),
     accept: '*',
     multiple: true,
   },

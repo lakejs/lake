@@ -423,7 +423,7 @@ describe('editor', () => {
     expect(value).to.equal(output);
   });
 
-  it('method: removeBox', () => {
+  it('removeBox method: no parameter', () => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const output = '<p>foo<focus />bar</p>';
     const editor = new Editor({
@@ -433,6 +433,40 @@ describe('editor', () => {
     editor.setValue(input);
     expect(editor.box.getInstances(editor).size).to.equal(1);
     editor.removeBox();
+    expect(editor.box.getInstances(editor).size).to.equal(0);
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+  });
+
+  it('removeBox method: by box node', () => {
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
+    const output = '<p>foo<focus />bar</p>';
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    editor.setValue(input);
+    expect(editor.box.getInstances(editor).size).to.equal(1);
+    editor.removeBox(editor.container.find('lake-box'));
+    expect(editor.box.getInstances(editor).size).to.equal(0);
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+  });
+
+  it('removeBox method: by box instance', () => {
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
+    const output = '<p>foo<focus />bar</p>';
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    editor.setValue(input);
+    expect(editor.box.getInstances(editor).size).to.equal(1);
+    editor.removeBox(new Box(editor.container.find('lake-box')));
     expect(editor.box.getInstances(editor).size).to.equal(0);
     const value = editor.getValue();
     debug(`output: ${value}`);

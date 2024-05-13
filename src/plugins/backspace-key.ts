@@ -95,8 +95,7 @@ export default (editor: Editor) => {
     const prevNode = range.getPrevNode();
     if (prevNode.isBox) {
       event.preventDefault();
-      range.selectBox(prevNode);
-      editor.removeBox();
+      editor.removeBox(prevNode);
       editor.history.save();
       return;
     }

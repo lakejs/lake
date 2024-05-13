@@ -221,8 +221,7 @@ function removeImageBox(box: Box): void {
   if (xhr) {
     xhr.abort();
   }
-  editor.selection.range.selectBox(box.node);
-  editor.removeBox();
+  editor.removeBox(box);
   editor.history.save();
 }
 
