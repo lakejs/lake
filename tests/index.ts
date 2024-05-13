@@ -105,6 +105,7 @@ import './plugins/format-painter.test';
 import './plugins/link.test';
 import './plugins/hr.test';
 import './plugins/image.test';
+import './plugins/file.test';
 import './plugins/code-block.test';
 import './plugins/markdown.test';
 import './plugins/enter-key.test';

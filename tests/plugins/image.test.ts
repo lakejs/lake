@@ -16,7 +16,7 @@ describe('plugins / image', () => {
     );
   });
 
-  it('inserts an image box', () => {
+  it('should insert an image', () => {
     const content = `
     <p>foo<focus />bar</p>
     `;
