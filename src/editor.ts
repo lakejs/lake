@@ -583,6 +583,17 @@ export class Editor {
     return value;
   }
 
+  // Sets the current range to the center position of the box.
+  public selectBox(box: Box | Nodes): void {
+    let boxNode = box;
+    if (box instanceof Box) {
+      boxNode = box.node;
+    } else {
+      boxNode = box;
+    }
+    this.selection.range.selectBox(boxNode);
+  }
+
   // Inserts a box into the position of the selection.
   public insertBox(
     boxName: Parameters<typeof insertBox>[1],
@@ -599,11 +610,8 @@ export class Editor {
 
   // Removes the selected box.
   public removeBox(box: Box | Nodes | null = null): ReturnType<typeof removeBox> {
-    if (box instanceof Nodes) {
-      box = new Box(box);
-    }
     if (box) {
-      this.selection.range.selectBox(box.node);
+      this.selectBox(box);
     }
     box = removeBox(this.selection.range);
     if (box) {

@@ -11,7 +11,7 @@ export const hrBox: BoxComponent = {
     box.useEffect(() => {
       const hrNode = box.getContainer().find('.lake-hr');
       hrNode.on('click', () => {
-        editor.selection.range.selectBox(box.node);
+        editor.selectBox(box);
       });
     });
     return '<div class="lake-hr"><hr /></div>';

@@ -108,7 +108,7 @@ export const codeBlockBox: BoxComponent = {
         Please check if the "lake-codemirror" library is added to this page.
       `.trim());
       codeBlockNode.on('click', () => {
-        editor.selection.range.selectBox(box.node);
+        editor.selectBox(box);
       });
       return;
     }

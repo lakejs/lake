@@ -29,7 +29,7 @@ describe('boxes / code-block', () => {
 
   it('should focus on box after selecting box', done => {
     const boxContainer = box.getContainer();
-    editor.selection.range.selectBox(box.node);
+    editor.selectBox(box);
     editor.event.once('boxselectionstylechange', () => {
       expect(boxContainer.hasClass('lake-box-focused')).to.equal(true);
       expect(boxContainer.find('.lake-dropdown').computedCSS('display')).to.equal('block');

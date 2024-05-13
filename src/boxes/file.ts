@@ -156,7 +156,7 @@ export const fileBox: BoxComponent = {
     }
     box.event.emit('render');
     fileNode.on('click', () => {
-      editor.selection.range.selectBox(box.node);
+      editor.selectBox(box);
     });
   },
 };
