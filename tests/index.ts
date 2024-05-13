@@ -9,6 +9,7 @@ import './utils/parse-style.test';
 import './utils/normalize-value.test';
 import './utils/denormalize-value.test';
 import './utils/modifier-text.test';
+import './utils/file-size.test';
 
 // Native DOM Utils
 import './utils/get-css.test';

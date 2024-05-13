@@ -9,6 +9,7 @@ export * from './parse-style';
 export * from './normalize-value';
 export * from './denormalize-value';
 export * from './modifier-text';
+export * from './file-size';
 
 // Native DOM
 export * from './get-css';

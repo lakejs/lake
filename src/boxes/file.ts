@@ -2,21 +2,9 @@ import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
 import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
+import { fileSize } from '../utils/file-size';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
-
-function humanFileSize(size: number): string {
-  let i = -1;
-  const units = [' KB', ' MB', ' GB'];
-  do {
-    size /= 1024;
-    i++;
-    if (i === 2) {
-      break;
-    }
-  } while (size > 1024);
-  return Math.max(size, 0.1).toFixed(1) + units[i];
-}
 
 // Removes current box.
 function removeImageBox(box: Box): void {
@@ -53,7 +41,7 @@ async function renderError(fileNode: Nodes, box: Box): Promise<void> {
   const infoNode = query(safeTemplate`
     <div class="lake-file-info">
       <div class="lake-file-type"></div>
-      <div class="lake-file-name">${value.name} (${humanFileSize(value.size)})</div>
+      <div class="lake-file-name">${value.name} (${fileSize(value.size)})</div>
     </div>
   `);
   const typeNode = infoNode.find('.lake-file-type');
@@ -125,7 +113,7 @@ async function renderDone(fileNode: Nodes, box: Box): Promise<void> {
   const infoNode = query(safeTemplate`
     <div class="lake-file-info">
       <div class="lake-file-type"></div>
-      <div class="lake-file-name">${value.name} (${humanFileSize(value.size)})</div>
+      <div class="lake-file-name">${value.name} (${fileSize(value.size)})</div>
     </div>
   `);
   const typeNode = infoNode.find('.lake-file-type');
