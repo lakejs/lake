@@ -23,6 +23,7 @@ import checkCircle from './check-circle.svg';
 import warningCircle from './warning-circle.svg';
 import file from './file.svg';
 import open from './open.svg';
+import download from './download.svg';
 import copy from './copy.svg';
 import remove from './remove.svg';
 import maximize from './maximize.svg';
@@ -88,6 +89,7 @@ export const icons: Map<string, string> = new Map([
   ['warningCircle', warningCircle],
   ['file', file],
   ['open', open],
+  ['download', download],
   ['copy', copy],
   ['remove', remove],
   ['maximize', maximize],

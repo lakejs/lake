@@ -1,11 +1,3 @@
-@keyframes lakeRotate {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 .lake-image-placeholder {
   display: flex;
   align-items: center;

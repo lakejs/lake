@@ -224,6 +224,7 @@ export class Editor {
           boxContainer.removeClass('lake-box-selected');
           boxContainer.removeClass('lake-box-focused');
           boxContainer.addClass('lake-box-activated');
+          box.event.emit('focus');
           return;
         }
       }
@@ -233,15 +234,18 @@ export class Editor {
           boxContainer.removeClass('lake-box-hovered');
           boxContainer.removeClass('lake-box-selected');
           boxContainer.addClass('lake-box-focused');
+          box.event.emit('focus');
         } else {
           boxContainer.removeClass('lake-box-focused');
           boxContainer.addClass('lake-box-selected');
+          box.event.emit('blur');
         }
         return;
       }
       boxContainer.removeClass('lake-box-activated');
       boxContainer.removeClass('lake-box-focused');
       boxContainer.removeClass('lake-box-selected');
+      box.event.emit('blur');
     });
     this.event.emit('boxselectionstylechange');
   }, 50, {

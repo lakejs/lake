@@ -1,11 +1,3 @@
-@keyframes lakeRotate {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 .lake-file {
   position: relative;
   line-height: 0;
@@ -68,32 +60,20 @@ lake-box[name="file"] .lake-box-focused .lake-button-group {
   margin: 6px;
 }
 /* uploading status */
-.lake-file-uploading .lake-image-img {
-  opacity: 0.5;
-}
-.lake-file .lake-progress {
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  z-index: 1;
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, .4);
-  line-height: 0;
+.lake-file-uploading .lake-progress {
   display: flex;
   align-items: center;
-  padding: 0 6px;
+  margin-right: 6px;
 }
-.lake-file .lake-progress svg {
-  fill: #fff;
+.lake-file-uploading .lake-progress svg {
   width: 16px;
   height: 16px;
   margin: 6px;
   animation: lakeRotate 1s linear 0s infinite normal none;
 }
-.lake-file .lake-progress .lake-percent {
-  font-size: 14px;
-  color: #fff;
-  margin: 6px;
+.lake-file-uploading .lake-progress .lake-percent {
+  line-height: 28px;
+  margin-left: 4px;
   white-space: nowrap;
 }
 /* error status */
