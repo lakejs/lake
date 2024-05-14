@@ -101,14 +101,12 @@ export const fileBox: BoxComponent = {
           items: boxToolbarItems,
         });
         toolbar.render();
-        console.log('render toolbar');
       });
       box.event.on('blur', () => {
         if (toolbar) {
           toolbar.unmount();
           toolbar = null;
         }
-        console.log('unmount toolbar');
       });
     }
     box.event.emit('render');
