@@ -13,26 +13,22 @@ const boxToolbarItems: BoxToolbarItem[] = [
     name: 'download',
     type: 'button',
     icon: icons.get('download'),
-    tooltip: locale => locale.toolbar.undo(),
+    tooltip: locale => locale.file.download(),
     onClick: box => {
-      const editor = box.getEditor();
-      if (!editor) {
-        return;
-      }
-      editor.removeBox(box);
-      editor.history.save();
+      window.open(box.value.url);
     },
   },
   {
     name: 'remove',
     type: 'button',
     icon: icons.get('remove'),
-    tooltip: locale => locale.toolbar.undo(),
+    tooltip: locale => locale.file.remove(),
     onClick: box => {
       const editor = box.getEditor();
       if (!editor) {
         return;
       }
+      editor.focus();
       editor.removeBox(box);
       editor.history.save();
     },
@@ -85,6 +81,9 @@ export const fileBox: BoxComponent = {
     const container = box.getContainer();
     const fileNode = query('<div class="lake-file" />');
     fileNode.addClass(`lake-file-${value.status}`);
+    if (editor.readonly) {
+      fileNode.addClass('lake-file-readonly');
+    }
     appendContent(fileNode, box);
     container.empty();
     container.append(fileNode);
@@ -93,20 +92,32 @@ export const fileBox: BoxComponent = {
         editor.selectBox(box);
       });
       let toolbar: BoxToolbar | null = null;
+      const scrollListener = () => {
+        if (toolbar) {
+          toolbar.updatePosition();
+        }
+      };
       box.event.on('focus', () => {
+        const items = value.status === 'done' ? boxToolbarItems : boxToolbarItems.filter(item => item.name === 'remove');
         toolbar = new BoxToolbar({
           root: editor.popupContainer,
           editor,
           box,
-          items: boxToolbarItems,
+          items,
         });
         toolbar.render();
+        editor.root.on('scroll', scrollListener);
       });
       box.event.on('blur', () => {
         if (toolbar) {
           toolbar.unmount();
           toolbar = null;
         }
+        editor.root.off('scroll', scrollListener);
+      });
+    } else {
+      fileNode.on('click', () => {
+        window.open(value.url);
       });
     }
     box.event.emit('render');

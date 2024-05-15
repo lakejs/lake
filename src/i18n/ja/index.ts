@@ -67,6 +67,10 @@ export default {
     zoomOut: '縮小',
     zoomIn: '拡大',
   },
+  file: {
+    download: 'ダウンロード',
+    remove: '削除',
+  },
   codeBlock: {
     langType: 'コード言語を選択',
   },

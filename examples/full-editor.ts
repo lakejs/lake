@@ -57,6 +57,15 @@ export default (value: string) => {
     root: '.lake-root',
     toolbar,
     value,
+    onMessage: (type, message) => {
+      if (type === 'error') {
+        // eslint-disable-next-line no-alert
+        window.alert(message);
+      } else {
+        // eslint-disable-next-line no-console
+        console.log(message);
+      }
+    },
     image: {
       // requestMethod: 'GET',
       // requestAction: '/assets/json/upload-image.json',

@@ -118,6 +118,11 @@ window.defaultValue = `
 <p>Heaven Lake is a volcanic crater lake atop Changbai Mountain. In Korea, it is known as Paektu Mountain or Baekdu Mountain. It lies on the border between China and North Korea, and is roughly evenly divided between the two countries. It is recognized as the highest volcanic lake in the world by the Shanghai Office of the Guinness World Records.</p>
 <p><br /></p>
 
+<h3>File</h3>
+<lake-box type="block" name="hr"></lake-box>
+<p><lake-box type="inline" name="file" value="eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTY0LnBuZyIsInN0YXR1cyI6ImRvbmUiLCJuYW1lIjoiaGVhdmVuLWxha2UtNjQucG5nIiwic2l6ZSI6MTA0NTUsInR5cGUiOiJpbWFnZS9qcGVnIiwibGFzdE1vZGlmaWVkIjoxNzEwMjI5NTE3MTk4fQ=="></lake-box></p>
+<p><br /></p>
+
 <h3>Code block</h3>
 <lake-box type="block" name="hr"></lake-box>
 <p>At the beginning of a paragraph, input <code>\`\`\`</code> or <code>\`\`\`js</code> followed by a enter to create a code block.</p>

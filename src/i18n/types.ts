@@ -258,6 +258,16 @@ type RootTranslation = {
 		 */
 		zoomIn: string
 	}
+	file: {
+		/**
+		 * D​o​w​n​l​o​a​d
+		 */
+		download: string
+		/**
+		 * D​e​l​e​t​e
+		 */
+		remove: string
+	}
 	codeBlock: {
 		/**
 		 * S​e​l​e​c​t​ ​l​a​n​g​u​a​g​e
@@ -508,6 +518,16 @@ export type TranslationFunctions = {
 		 * Zoom in
 		 */
 		zoomIn: () => LocalizedString
+	}
+	file: {
+		/**
+		 * Download
+		 */
+		download: () => LocalizedString
+		/**
+		 * Delete
+		 */
+		remove: () => LocalizedString
 	}
 	codeBlock: {
 		/**

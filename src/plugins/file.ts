@@ -6,6 +6,7 @@ export default (editor: Editor) => {
     requestMethod: 'POST',
     requestTypes: [
       'application/zip',
+      'application/x-zip-compressed',
       'application/vnd.rar',
       'image/gif',
       'image/jpeg',

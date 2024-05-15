@@ -12,10 +12,10 @@
 .lake-file .lake-file-type svg {
   width: 16px;
   height: 16px;
-  margin: 6px;
+  margin: 4px;
 }
 .lake-file .lake-file-name {
-  line-height: 28px;
+  line-height: 24px;
   margin-right: 6px;
   color: var(--link-color);
 }
@@ -24,40 +24,6 @@ lake-box[name="file"] .lake-box-hovered .lake-file {
 }
 lake-box[name="file"] .lake-box-focused .lake-file {
   border-color: var(--box-border-focus-color);
-}
-.lake-file .lake-button-group {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 2;
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, .4);
-  line-height: 0;
-  display: flex;
-  align-items: center;
-  padding: 0 6px;
-  display: none;
-}
-lake-box[name="file"] .lake-box-hovered .lake-button-group,
-lake-box[name="file"] .lake-box-focused .lake-button-group {
-  display: flex;
-}
-.lake-file .lake-button-group button {
-  border-radius: 5px;
-  border: 0;
-  color: var(--text-color);
-  background-color: transparent;
-  padding: 0;
-  margin: 0;
-  line-height: 0;
-  cursor: pointer;
-  user-select: none;
-}
-.lake-file .lake-button-group button svg {
-  fill: #fff;
-  width: 16px;
-  height: 16px;
-  margin: 6px;
 }
 /* uploading status */
 .lake-file-uploading .lake-progress {
@@ -68,11 +34,11 @@ lake-box[name="file"] .lake-box-focused .lake-button-group {
 .lake-file-uploading .lake-progress svg {
   width: 16px;
   height: 16px;
-  margin: 6px;
+  margin: 4px;
   animation: lakeRotate 1s linear 0s infinite normal none;
 }
 .lake-file-uploading .lake-progress .lake-percent {
-  line-height: 28px;
+  line-height: 24px;
   margin-left: 4px;
   white-space: nowrap;
 }
@@ -82,4 +48,8 @@ lake-box[name="file"] .lake-box-focused .lake-button-group {
 }
 .lake-file-error .lake-file-name {
   color: var(--error-color);
+}
+/* readonly mode */
+.lake-file-readonly {
+  cursor: pointer;
 }

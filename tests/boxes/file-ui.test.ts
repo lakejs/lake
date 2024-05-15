@@ -1,10 +1,12 @@
 import { showBox } from '../utils';
 
+const fileUrl = '../assets/images/heaven-lake-64.png';
+
 describe('boxes / file-ui', () => {
 
   it('uploading status', () => {
     showBox('file', {
-      url: 'smallUrl',
+      url: fileUrl,
       status: 'uploading',
       name: 'heaven-lake-64.png',
       size: 1947946,
@@ -17,7 +19,7 @@ describe('boxes / file-ui', () => {
 
   it('done status', () => {
     showBox('file', {
-      url: 'smallUrl',
+      url: fileUrl,
       status: 'done',
       name: 'heaven-lake-64.png',
       size: 10455,
@@ -30,7 +32,7 @@ describe('boxes / file-ui', () => {
 
   it('error status', () => {
     showBox('file', {
-      url: 'smallUrl',
+      url: fileUrl,
       status: 'error',
       name: 'heaven-lake-64.png',
       size: 10455,

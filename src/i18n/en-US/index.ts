@@ -67,6 +67,10 @@ export default {
     zoomOut: 'Zoom out',
     zoomIn: 'Zoom in',
   },
+  file: {
+    download: 'Download',
+    remove: 'Delete',
+  },
   codeBlock: {
     langType: 'Select language',
   },
