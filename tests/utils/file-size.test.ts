@@ -1,6 +1,6 @@
 import { fileSize } from '../../src/utils';
 
-describe('utils / fileSize', () => {
+describe('utils / file-size', () => {
 
   it('should return correct values', () => {
     expect(fileSize(0)).to.equal('0 KB');

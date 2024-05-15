@@ -87,7 +87,7 @@ export function showBox(
 ): void {
   const rootNode = query('<div class="lake-root" />');
   query(document.body).append(rootNode);
-  let box = new Box(name);
+  let box = getBox(name);
   if (value) {
     box.value = value;
   }

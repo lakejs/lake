@@ -1,6 +1,7 @@
 import sinon from 'sinon';
-import { Editor, Box } from '../../src';
 import { testPlugin } from '../utils';
+import { Editor } from '../../src';
+import { getBox } from '../../src/utils';
 
 const imageUrl = '../assets/images/heaven-lake-256.png';
 const imageBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTI1Ni5wbmciLCJzdGF0dXMiOiJkb25lIn0=';
@@ -1049,7 +1050,7 @@ describe('plugins / paste', () => {
         requests[0].respond(200, {}, JSON.stringify({
           url: '../assets/images/heaven-lake-512.png',
         }));
-        const box = new Box(editor.container.find('lake-box'));
+        const box = getBox(editor.container.find('lake-box'));
         expect(box.value.status).to.equal('done');
         expect(box.value.url).to.equal('../assets/images/heaven-lake-512.png');
         xhr.restore();

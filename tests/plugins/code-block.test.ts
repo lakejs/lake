@@ -1,5 +1,5 @@
-import { Box } from '../../src';
 import { testPlugin } from '../utils';
+import { getBox } from '../../src/utils';
 
 describe('plugins / code-block', () => {
 
@@ -49,7 +49,7 @@ describe('plugins / code-block', () => {
         };
         editor.command.execute('codeBlock', defaultValue);
         const boxNode = editor.container.find('lake-box');
-        const box = new Box(boxNode);
+        const box = getBox(boxNode);
         expect(box.value).to.deep.equal(defaultValue);
       },
       true,

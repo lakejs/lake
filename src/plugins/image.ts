@@ -1,7 +1,6 @@
 import type { Editor } from '..';
 import { BoxValue } from '../types/box';
-import { query } from '../utils';
-import { Box } from '../models/box';
+import { query, getBox } from '../utils';
 import { Fragment } from '../models/fragment';
 
 export default (editor: Editor) => {
@@ -16,7 +15,7 @@ export default (editor: Editor) => {
     const fragment = new Fragment(nativeFragment);
     fragment.find('img').each(nativeNode => {
       const node = query(nativeNode);
-      const box = new Box('image');
+      const box = getBox('image');
       const value = node.attr('data-lake-value');
       if (value === '') {
         box.value = {

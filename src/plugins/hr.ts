@@ -1,7 +1,6 @@
 import type { Editor } from '..';
-import { query } from '../utils';
+import { query, getBox } from '../utils';
 import { Fragment } from '../models/fragment';
-import { Box } from '../models/box';
 
 export default (editor: Editor) => {
   if (editor.readonly) {
@@ -11,7 +10,7 @@ export default (editor: Editor) => {
     const fragment = new Fragment(nativeFragment);
     fragment.find('hr').each(nativeNode => {
       const node = query(nativeNode);
-      const box = new Box('hr');
+      const box = getBox('hr');
       node.replaceWith(box.node);
     });
   });

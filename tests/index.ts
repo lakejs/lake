@@ -29,6 +29,9 @@ import './utils/remove-br.test';
 import './utils/set-block-indent.test';
 import './utils/morph.test';
 
+// Box Utils
+import './utils/get-box.test';
+
 // Network Utils
 import './utils/request.test';
 

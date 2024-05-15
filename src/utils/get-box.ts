@@ -4,7 +4,11 @@ import { query } from './query';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 
-export function getBox(boxNode: Nodes | NativeNode): Box {
+// Returns an already generated box instance or generates a new instance if it does not exist.
+export function getBox(boxNode: string | Nodes | NativeNode): Box {
+  if (typeof boxNode === 'string') {
+    return new Box(boxNode);
+  }
   boxNode = query(boxNode);
   const container = boxNode.closestContainer();
   if (container.length === 0) {

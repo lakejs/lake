@@ -1,4 +1,5 @@
 import { BoxValue } from '../types/box';
+import { getBox } from '../utils/get-box';
 import { Range } from '../models/range';
 import { Box } from '../models/box';
 import { insertFragment } from './insert-fragment';
@@ -9,7 +10,7 @@ export function insertBox(range: Range, boxName: string, boxValue?: BoxValue): B
   if (range.commonAncestor.isOutside) {
     return null;
   }
-  const box = new Box(boxName);
+  const box = getBox(boxName);
   if (boxValue) {
     box.value = boxValue;
   }

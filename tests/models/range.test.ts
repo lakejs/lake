@@ -1,12 +1,11 @@
 import { boxes } from '../../src/storage/boxes';
 import { createContainer } from '../utils';
-import { query, safeTemplate } from '../../src/utils';
+import { query, getBox, safeTemplate } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
-import { Box } from '../../src/models/box';
 
 function setTestBox(block: Nodes) {
-  const box = new Box('blockBox');
+  const box = getBox('blockBox');
   block.empty();
   block.append(box.node);
   box.render();
@@ -526,10 +525,10 @@ describe('models / range', () => {
 
   it('shrink method: with box', () => {
     container.html('<div><p><strong>foo</strong></p></div>');
-    const startBox = new Box('inlineBox');
+    const startBox = getBox('inlineBox');
     container.find('strong').prepend(startBox.node);
     startBox.render();
-    const endBox = new Box('inlineBox');
+    const endBox = getBox('inlineBox');
     container.find('strong').append(endBox.node);
     endBox.render();
     const range = new Range();
@@ -751,7 +750,7 @@ describe('models / range', () => {
   it('getBoxes method: select all', () => {
     setTestBox(container);
     container.append('<p>bar</p>');
-    const box = new Box('inlineBox');
+    const box = getBox('inlineBox');
     container.find('p').prepend(box.node);
     box.render();
     container.prepend('<p>foo</p>');

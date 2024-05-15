@@ -1,5 +1,5 @@
-import { Box } from '../../src';
 import { testPlugin } from '../utils';
+import { getBox } from '../../src/utils';
 
 const imageBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTI1Ni5wbmciLCJzdGF0dXMiOiJkb25lIn0=';
 
@@ -787,7 +787,7 @@ describe('plugins / markdown', () => {
       editor => {
         editor.keystroke.keydown('enter');
         const boxNode = editor.container.find('lake-box');
-        const box = new Box(boxNode);
+        const box = getBox(boxNode);
         expect(box.value.lang).to.equal('css');
       },
       true,
@@ -805,7 +805,7 @@ describe('plugins / markdown', () => {
       editor => {
         editor.keystroke.keydown('enter');
         const boxNode = editor.container.find('lake-box');
-        const box = new Box(boxNode);
+        const box = getBox(boxNode);
         expect(box.value.lang).to.equal('javascript');
       },
       true,
@@ -823,7 +823,7 @@ describe('plugins / markdown', () => {
       editor => {
         editor.keystroke.keydown('enter');
         const boxNode = editor.container.find('lake-box');
-        const box = new Box(boxNode);
+        const box = getBox(boxNode);
         expect(box.value.lang).to.equal('foo');
       },
       true,

@@ -1,8 +1,7 @@
 import sinon from 'sinon';
 import { click, removeBoxValueFromHTML } from '../utils';
-import { query, debug } from '../../src/utils';
+import { query, getBox, debug } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
-import { Box } from '../../src/models/box';
 import { Toolbar } from '../../src/ui/toolbar';
 import { Editor } from '../../src';
 
@@ -539,8 +538,8 @@ describe('ui / toolbar', () => {
     const value = removeBoxValueFromHTML(editor.getValue());
     debug(`output: ${value}`);
     expect(value).to.equal('<p>foo<lake-box type="inline" name="image"></lake-box><lake-box type="inline" name="image" focus="end"></lake-box></p>');
-    const box1 = new Box(editor.container.find('lake-box').eq(0));
-    const box2 = new Box(editor.container.find('lake-box').eq(1));
+    const box1 = getBox(editor.container.find('lake-box').eq(0));
+    const box2 = getBox(editor.container.find('lake-box').eq(1));
     expect(box1.value.status).to.equal('done');
     expect(box1.value.url).to.equal('../assets/images/heaven-lake-512.png');
     expect(box2.value.status).to.equal('done');

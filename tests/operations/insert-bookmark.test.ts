@@ -1,8 +1,7 @@
 import { boxes } from '../../src/storage/boxes';
-import { query } from '../../src/utils';
+import { query, getBox } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
-import { Box } from '../../src/models/box';
 import { insertBookmark } from '../../src/operations/insert-bookmark';
 
 describe('operations / insert-bookmark', () => {
@@ -55,7 +54,7 @@ describe('operations / insert-bookmark', () => {
     container.html('<p>outer start</p><lake-box type="block" name="blockBox"></lake-box><p>outer end</p>');
     const range = new Range();
     const boxNode = container.find('lake-box');
-    const box = new Box(boxNode);
+    const box = getBox(boxNode);
     box.render();
     range.selectBoxStart(boxNode);
     const bookmark = insertBookmark(range);
@@ -68,7 +67,7 @@ describe('operations / insert-bookmark', () => {
     container.html('<p>outer start</p><lake-box type="block" name="blockBox"></lake-box><p>outer end</p>');
     const range = new Range();
     const boxNode = container.find('lake-box');
-    const box = new Box(boxNode);
+    const box = getBox(boxNode);
     box.render();
     range.selectBoxEnd(boxNode);
     const bookmark = insertBookmark(range);
@@ -81,7 +80,7 @@ describe('operations / insert-bookmark', () => {
     container.html('<p>outer start</p><lake-box type="block" name="blockBox"></lake-box><p>outer end</p>');
     const range = new Range();
     const boxNode = container.find('lake-box');
-    const box = new Box(boxNode);
+    const box = getBox(boxNode);
     box.render();
     range.selectNodeContents(box.getContainer());
     const bookmark = insertBookmark(range);

@@ -1,6 +1,6 @@
 import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
-import { Box } from '../../src/models/box';
+import { getBox } from '../../src/utils';
 import { addMark } from '../../src/operations/add-mark';
 
 describe('operations / add-mark', () => {
@@ -411,7 +411,7 @@ describe('operations / add-mark', () => {
       range => {
         const container = range.startNode.closestContainer();
         const boxNode = container.find('lake-box');
-        const box = new Box(boxNode);
+        const box = getBox(boxNode);
         box.render();
         range.selectBoxStart(boxNode);
         addMark(range, '<strong />');
@@ -434,7 +434,7 @@ describe('operations / add-mark', () => {
       range => {
         const container = range.startNode.closestContainer();
         const boxNode = container.find('lake-box');
-        const box = new Box(boxNode);
+        const box = getBox(boxNode);
         box.render();
         range.selectBoxEnd(boxNode);
         addMark(range, '<strong />');
@@ -458,7 +458,7 @@ describe('operations / add-mark', () => {
       range => {
         const container = range.startNode.closestContainer();
         const boxNode = container.find('lake-box');
-        const box = new Box(boxNode);
+        const box = getBox(boxNode);
         box.render();
         range.selectBoxStart(boxNode);
         addMark(range, '<strong />');
@@ -482,7 +482,7 @@ describe('operations / add-mark', () => {
       range => {
         const container = range.startNode.closestContainer();
         const boxNode = container.find('lake-box');
-        const box = new Box(boxNode);
+        const box = getBox(boxNode);
         box.render();
         range.selectBoxEnd(boxNode);
         addMark(range, '<strong />');
@@ -507,7 +507,7 @@ describe('operations / add-mark', () => {
       range => {
         const container = range.startNode.closestContainer();
         const boxNode = container.find('lake-box').eq(0);
-        const box = new Box(boxNode);
+        const box = getBox(boxNode);
         box.render();
         range.selectBoxStart(boxNode);
         range.setEnd(container.find('p').eq(1), 2);
