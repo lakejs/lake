@@ -42,7 +42,17 @@ describe('boxes / file', () => {
       expect(value).to.equal('<p>foo<focus />bar</p>');
       done();
     });
-    editor.selectBox(boxNode);
+    click(boxNode.find('.lake-file'));
+  });
+
+  it('should hide the box toolbar', done => {
+    const boxNode = box.node;
+    editor.event.once('statechange', () => {
+      expect(query(document.body).find('.lake-box-toolbar').length).to.equal(0);
+      done();
+    });
+    click(boxNode.find('.lake-file'));
+    editor.selection.range.selectBoxEnd(boxNode);
   });
 
 });
