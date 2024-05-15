@@ -1,7 +1,7 @@
 import { removeZWS } from '../utils/remove-zws';
+import { getBox } from '../utils/get-box';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
-import { Box } from '../models/box';
 
 function removeAndNormalizeNode(node: Nodes, range?: Range) {
   const previousNode = node.prev();
@@ -35,7 +35,7 @@ export function toBookmark(range: Range, bookmark: { anchor: Nodes, focus: Nodes
   }
   if (focus.length > 0 && anchor.length === 0) {
     if (focus.isBox) {
-      const box = new Box(focus);
+      const box = getBox(focus);
       if (box.getContainer().length === 0) {
         box.render();
       }

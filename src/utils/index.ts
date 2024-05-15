@@ -29,6 +29,9 @@ export * from './remove-br';
 export * from './set-block-indent';
 export * from './morph';
 
+// Box
+export * from './get-box';
+
 // Network
 export * from './request';
 

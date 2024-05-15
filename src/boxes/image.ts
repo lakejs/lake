@@ -4,6 +4,7 @@ import PhotoSwipe from 'photoswipe';
 import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
 import { query } from '../utils/query';
+import { getBox } from '../utils/get-box';
 import { safeTemplate } from '../utils/safe-template';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
@@ -119,7 +120,7 @@ function openFullScreen(box: Box): void {
   let currentIndex = 0;
   const allImageBox = editor.container.find('lake-box[name="image"]');
   allImageBox.each((node, index) => {
-    const imageBox = new Box(node);
+    const imageBox = getBox(node);
     const imageValue = imageBox.value;
     if (imageValue.status !== 'done') {
       return;

@@ -5,8 +5,8 @@ import { boxInstances } from '../storage/box-instances';
 import { debug } from '../utils/debug';
 import { morph } from '../utils/morph';
 import { denormalizeValue } from '../utils/denormalize-value';
+import { getBox } from '../utils/get-box';
 import { Nodes } from '../models/nodes';
-import { Box } from '../models/box';
 import { HTMLParser } from '../parsers/html-parser';
 import { insertBookmark } from '../operations/insert-bookmark';
 import { Selection } from './selection';
@@ -103,7 +103,7 @@ export class History {
     const range = this.selection.range;
     const newContainer = this.container.clone(true);
     newContainer.find('lake-box').each(nativeNode => {
-      const box = new Box(nativeNode);
+      const box = getBox(nativeNode);
       box.getContainer().empty();
     });
     if (range.commonAncestor.isOutside) {

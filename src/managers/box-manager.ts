@@ -1,7 +1,8 @@
-import type { Editor } from '../editor';
 import { BoxComponent } from '../types/box';
 import { boxes } from '../storage/boxes';
 import { boxInstances } from '../storage/box-instances';
+import { query } from '../utils/query';
+import { getBox } from '../utils/get-box';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 
@@ -18,18 +19,18 @@ export class BoxManager {
     return Array.from(boxes.keys());
   }
 
-  public getInstances(editor: Editor): Map<number, Box> {
-    let instanceMap = boxInstances.get(editor.container.id);
+  public getInstances(container: Nodes): Map<number, Box> {
+    let instanceMap = boxInstances.get(container.id);
     if (!instanceMap) {
       instanceMap = new Map();
-      boxInstances.set(editor.container.id, instanceMap);
+      boxInstances.set(container.id, instanceMap);
       return instanceMap;
     }
     return instanceMap;
   }
 
-  public rectifyInstances(editor: Editor) {
-    const instanceMap = this.getInstances(editor);
+  public rectifyInstances(container: Nodes) {
+    const instanceMap = this.getInstances(container);
     for (const box of instanceMap.values()) {
       if (!box.node.get(0).isConnected) {
         box.unmount();
@@ -38,21 +39,16 @@ export class BoxManager {
     }
   }
 
-  public findAll(editor: Editor): Nodes {
-    return editor.container.find('lake-box');
-  }
-
-  public renderAll(editor: Editor): void {
-    this.rectifyInstances(editor);
-    const instanceMap = this.getInstances(editor);
-    this.findAll(editor).each(boxNativeNode => {
-      const boxNode = new Nodes(boxNativeNode);
+  public renderAll(container: Nodes): void {
+    this.rectifyInstances(container);
+    const instanceMap = this.getInstances(container);
+    container.find('lake-box').each(boxNativeNode => {
+      const boxNode = query(boxNativeNode);
       if (instanceMap.get(boxNode.id)) {
         return;
       }
-      const box = new Box(boxNode);
+      const box = getBox(boxNode);
       box.render();
-      instanceMap.set(box.node.id, box);
     });
   }
 }

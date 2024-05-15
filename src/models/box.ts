@@ -189,6 +189,7 @@ export class Box {
 
   // Destroys a rendered box.
   public unmount(): void {
+    this.event.emit('blur');
     for (const cleanup of effectData[this.node.id].cleanup) {
       cleanup();
     }

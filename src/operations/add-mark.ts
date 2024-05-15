@@ -1,7 +1,6 @@
-import { parseStyle, query, appendDeepest, removeBr } from '../utils';
+import { parseStyle, query, getBox, appendDeepest, removeBr } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
-import { Box } from '../models/box';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 import { splitMarks } from './split-marks';
@@ -67,7 +66,7 @@ export function addMark(range: Range, value: string | Nodes): void {
   if (range.isCollapsed) {
     if (range.isBox) {
       const boxNode = range.startNode.closest('lake-box');
-      const box = new Box(boxNode);
+      const box = getBox(boxNode);
       if (box.type === 'block') {
         const newBlock = query('<p><br /></p>');
         if (range.isBoxStart) {

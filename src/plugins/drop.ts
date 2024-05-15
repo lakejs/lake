@@ -1,7 +1,6 @@
 import type { Editor } from '..';
-import { query, safeTemplate } from '../utils';
+import { query, getBox, safeTemplate } from '../utils';
 import { Nodes } from '../models/nodes';
-import { Box } from '../models/box';
 
 export default (editor: Editor) => {
   if (editor.readonly) {
@@ -27,7 +26,7 @@ export default (editor: Editor) => {
       dragEvent.preventDefault();
       return;
     }
-    const box = new Box(boxNode);
+    const box = getBox(boxNode);
     if (box.type === 'inline') {
       dragEvent.preventDefault();
       return;
@@ -122,7 +121,7 @@ export default (editor: Editor) => {
         return;
       }
       dragEvent.preventDefault();
-      const draggedBox = new Box(draggedNode);
+      const draggedBox = getBox(draggedNode);
       const range = editor.selection.range;
       if (targetBlock.isBox) {
         if (dropPosition === 'top') {

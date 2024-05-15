@@ -1,4 +1,4 @@
-import { appendDeepest, query } from '../utils';
+import { appendDeepest, query, getBox } from '../utils';
 import { Range } from '../models/range';
 import { Box } from '../models/box';
 
@@ -10,7 +10,7 @@ export function removeBox(range: Range): Box | null {
   if (boxNode.length === 0) {
     return null;
   }
-  const box = new Box(boxNode);
+  const box = getBox(boxNode);
   if (box.type === 'block') {
     const paragraph = query('<p><br /></p>');
     boxNode.before(paragraph);

@@ -6,7 +6,7 @@ import { NativeNode } from './types/native';
 import { SelectionState } from './types/object';
 import { Locales, TranslationFunctions } from './i18n/types';
 import { editors } from './storage/editors';
-import { denormalizeValue, normalizeValue, query, debug } from './utils';
+import { denormalizeValue, normalizeValue, query, getBox, debug } from './utils';
 import { i18nObject } from './i18n';
 import { Nodes } from './models/nodes';
 import { Box } from './models/box';
@@ -212,8 +212,8 @@ export class Editor {
     const range = this.selection.range;
     const clonedRange = range.clone();
     clonedRange.adaptBox();
-    this.box.findAll(this).each(boxNode => {
-      const box = new Box(boxNode);
+    this.container.find('lake-box').each(boxNativeNode => {
+      const box = getBox(boxNativeNode);
       const boxContainer = box.getContainer();
       if (boxContainer.length === 0) {
         return;
@@ -326,7 +326,7 @@ export class Editor {
     const range = selection.range;
     const stripNode = range.startNode.closest('.lake-box-strip');
     const boxNode = stripNode.closest('lake-box');
-    const box = new Box(boxNode);
+    const box = getBox(boxNode);
     if (box.type === 'inline') {
       if (range.isBoxStart) {
         range.setStartBefore(boxNode);
@@ -410,15 +410,15 @@ export class Editor {
 
   private bindHistoryEvents(): void {
     this.history.event.on('undo', value => {
-      this.box.renderAll(this);
+      this.box.renderAll(this.container);
       this.emitChangeEvent(value);
     });
     this.history.event.on('redo', value => {
-      this.box.renderAll(this);
+      this.box.renderAll(this.container);
       this.emitChangeEvent(value);
     });
     this.history.event.on('save', value => {
-      this.box.rectifyInstances(this);
+      this.box.rectifyInstances(this.container);
       this.emitChangeEvent(value);
     });
   }
@@ -574,7 +574,7 @@ export class Editor {
     this.container.empty();
     this.togglePlaceholderClass(htmlParser.getHTML());
     this.container.append(fragment);
-    Editor.box.renderAll(this);
+    Editor.box.renderAll(this.container);
     this.selection.synByBookmark();
   }
 
@@ -607,7 +607,7 @@ export class Editor {
     if (!box) {
       throw new Error(`Box '${boxName}' cannot be inserted outside the editor.`);
     }
-    const instanceMap = this.box.getInstances(this);
+    const instanceMap = this.box.getInstances(this.container);
     instanceMap.set(box.node.id, box);
     return box;
   }
@@ -619,7 +619,7 @@ export class Editor {
     }
     box = removeBox(this.selection.range);
     if (box) {
-      const instanceMap = this.box.getInstances(this);
+      const instanceMap = this.box.getInstances(this.container);
       instanceMap.delete(box.node.id);
     }
     return box;
@@ -642,7 +642,7 @@ export class Editor {
       this.selection.synByBookmark();
       this.history.save();
     }
-    Editor.box.renderAll(this);
+    Editor.box.renderAll(this.container);
     if (this.toolbar) {
       this.toolbar.render(this);
     }

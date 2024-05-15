@@ -95,9 +95,9 @@ export class BoxToolbar {
     const boxX = boxRect.x + window.scrollX;
     const boxY = boxRect.y + window.scrollY;
     const left = (boxX + boxRect.width / 2 - this.container.width() / 2).toFixed(1);
-    const right = (boxY - this.container.height()).toFixed(1);
+    const top = (boxY - this.container.height() - 6).toFixed(1);
     this.container.css('left', `${left}px`);
-    this.container.css('top', `${right}px`);
+    this.container.css('top', `${top}px`);
   }
 
   // Renders a toolbar for the specified box.

@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { Box } from '../models/box';
+import { getBox } from '../utils/get-box';
 
 export default (editor: Editor) => {
   editor.event.on('copy', event => {
@@ -19,7 +19,7 @@ export default (editor: Editor) => {
     if (!dataTransfer) {
       return;
     }
-    const box = new Box(boxNode);
+    const box = getBox(boxNode);
     const content = box.getHTML();
     dataTransfer.setData('text/html', content);
   });

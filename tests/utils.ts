@@ -1,5 +1,5 @@
 import { BoxValue } from '../src/types/box';
-import { query, normalizeValue, denormalizeValue, debug } from '../src/utils';
+import { query, getBox, normalizeValue, denormalizeValue, debug } from '../src/utils';
 import { Nodes } from '../src/models/nodes';
 import { Range } from '../src/models/range';
 import { Box } from '../src/models/box';
@@ -103,7 +103,7 @@ export function showBox(
     readonly,
   });
   editor.render();
-  box = new Box(editor.container.find('lake-box'));
+  box = getBox(editor.container.find('lake-box'));
   if (callback) {
     callback(box, editor);
   }

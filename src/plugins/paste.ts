@@ -2,11 +2,10 @@ import type { Editor } from '..';
 import { blockTagNames } from '../config/tag-names';
 import { getElementRules } from '../config/element-rules';
 import {
-  wrapNodeList, changeTagName,
-  fixNumberedList, removeBr, query, normalizeValue,
+  wrapNodeList, changeTagName, fixNumberedList,
+  removeBr, query, getBox, normalizeValue,
 } from '../utils';
 import { Nodes } from '../models/nodes';
-import { Box } from '../models/box';
 import { HTMLParser } from '../parsers/html-parser';
 import { TextParser } from '../parsers/text-parser';
 import { uploadFile } from '../ui/upload';
@@ -70,7 +69,7 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
   const range = editor.selection.range;
   const boxNode = range.startNode.closest('lake-box');
   if (boxNode.length > 0) {
-    const box = new Box(boxNode);
+    const box = getBox(boxNode);
     if (box.type === 'inline') {
       if (range.isBoxStart) {
         range.setStartBefore(boxNode);
@@ -96,7 +95,7 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
   }
   const block = range.startNode.closestBlock();
   if (otherNode.isBlockBox) {
-    const box = new Box(otherNode);
+    const box = getBox(otherNode);
     const value = otherNode.attr('value') !== '' ? box.value : undefined;
     editor.insertBox(box.name, value);
     otherNode.remove();
@@ -108,7 +107,7 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
   if (block.isEmpty && block.name === 'p') {
     block.replaceWith(otherNode);
     otherNode.find('lake-box').each(node => {
-      new Box(node).render();
+      getBox(node).render();
     });
     range.shrinkAfter(otherNode);
     return;
@@ -211,6 +210,6 @@ export default (editor: Editor) => {
     editor.event.emit('beforepaste', fragment);
     fixClipboardData(fragment);
     pasteFragment(editor, fragment);
-    editor.box.renderAll(editor);
+    editor.box.renderAll(editor.container);
   });
 };

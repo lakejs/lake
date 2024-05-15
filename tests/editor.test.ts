@@ -1,6 +1,5 @@
-import { debug, query, appendDeepest } from '../src/utils';
+import { debug, query, getBox, appendDeepest } from '../src/utils';
 import { Nodes } from '../src/models/nodes';
-import { Box } from '../src/models/box';
 import { Editor } from '../src/editor';
 import { click } from './utils';
 
@@ -429,9 +428,9 @@ describe('editor', () => {
       value: '<p><br /><focus /></p>',
     });
     editor.render();
-    expect(editor.box.getInstances(editor).size).to.equal(0);
+    expect(editor.box.getInstances(editor.container).size).to.equal(0);
     editor.insertBox('inlineBox');
-    expect(editor.box.getInstances(editor).size).to.equal(1);
+    expect(editor.box.getInstances(editor.container).size).to.equal(1);
     const value = editor.getValue();
     debug(`output: ${value}`);
     editor.unmount();
@@ -446,9 +445,9 @@ describe('editor', () => {
     });
     editor.render();
     editor.setValue(input);
-    expect(editor.box.getInstances(editor).size).to.equal(1);
+    expect(editor.box.getInstances(editor.container).size).to.equal(1);
     editor.removeBox();
-    expect(editor.box.getInstances(editor).size).to.equal(0);
+    expect(editor.box.getInstances(editor.container).size).to.equal(0);
     const value = editor.getValue();
     debug(`output: ${value}`);
     editor.unmount();
@@ -463,9 +462,9 @@ describe('editor', () => {
     });
     editor.render();
     editor.setValue(input);
-    expect(editor.box.getInstances(editor).size).to.equal(1);
+    expect(editor.box.getInstances(editor.container).size).to.equal(1);
     editor.removeBox(editor.container.find('lake-box'));
-    expect(editor.box.getInstances(editor).size).to.equal(0);
+    expect(editor.box.getInstances(editor.container).size).to.equal(0);
     const value = editor.getValue();
     debug(`output: ${value}`);
     editor.unmount();
@@ -480,9 +479,9 @@ describe('editor', () => {
     });
     editor.render();
     editor.setValue(input);
-    expect(editor.box.getInstances(editor).size).to.equal(1);
-    editor.removeBox(new Box(editor.container.find('lake-box')));
-    expect(editor.box.getInstances(editor).size).to.equal(0);
+    expect(editor.box.getInstances(editor.container).size).to.equal(1);
+    editor.removeBox(getBox(editor.container.find('lake-box')));
+    expect(editor.box.getInstances(editor.container).size).to.equal(0);
     const value = editor.getValue();
     debug(`output: ${value}`);
     editor.unmount();
@@ -497,7 +496,7 @@ describe('editor', () => {
     editor.render();
     editor.setValue(input);
     const boxNode = editor.container.find('lake-box');
-    const box = new Box(boxNode);
+    const box = getBox(boxNode);
     const boxContainer = box.getContainer();
     const isActivated = boxContainer.hasClass('lake-box-activated');
     const isFocused = boxContainer.hasClass('lake-box-focused');
@@ -519,7 +518,7 @@ describe('editor', () => {
     editor.setValue(input);
     const range = editor.selection.range;
     const boxNode = editor.container.find('lake-box');
-    const box = new Box(boxNode);
+    const box = getBox(boxNode);
     const boxContainer = box.getContainer();
     boxContainer.emit('mouseenter');
     editor.event.once('boxselectionstylechange', () => {
@@ -546,7 +545,7 @@ describe('editor', () => {
     editor.setValue(input);
     const range = editor.selection.range;
     const boxNode = editor.container.find('lake-box');
-    const box = new Box(boxNode);
+    const box = getBox(boxNode);
     const boxContainer = box.getContainer();
     boxContainer.emit('mouseenter');
     editor.event.once('boxselectionstylechange', () => {
@@ -573,7 +572,7 @@ describe('editor', () => {
     editor.setValue(input);
     const range = editor.selection.range;
     const boxNode = editor.container.find('lake-box');
-    const box = new Box(boxNode);
+    const box = getBox(boxNode);
     const boxContainer = box.getContainer();
     editor.event.once('boxselectionstylechange', () => {
       const isActivated = boxContainer.hasClass('lake-box-activated');
@@ -598,7 +597,7 @@ describe('editor', () => {
     editor.render();
     editor.setValue(input);
     const boxNode = editor.container.find('lake-box');
-    const box = new Box(boxNode);
+    const box = getBox(boxNode);
     const boxContainer = box.getContainer();
     boxContainer.emit('mouseenter');
     const isActivated = boxContainer.hasClass('lake-box-activated');
