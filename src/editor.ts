@@ -187,14 +187,14 @@ export class Editor {
   };
 
   private selectionchangeListener: EventListener = () => {
-    this.selection.syncByRange();
+    this.selection.updateByRange();
     this.updateBoxSelectionStyle();
     this.emitStateChangeEvent();
   };
 
   private clickListener: EventListener = event => {
     const targetNode = new Nodes(event.target as Element);
-    if (targetNode.closest('.lake-popup').length > 0) {
+    if (!targetNode.get(0).isConnected || targetNode.closest('.lake-popup').length > 0) {
       return;
     }
     this.event.emit('click', targetNode);
@@ -575,7 +575,7 @@ export class Editor {
     this.togglePlaceholderClass(htmlParser.getHTML());
     this.container.append(fragment);
     Editor.box.renderAll(this.container);
-    this.selection.synByBookmark();
+    this.selection.updateByBookmark();
   }
 
   // Returns the contents from the editor.
@@ -639,7 +639,7 @@ export class Editor {
     this.container.append(fragment);
     Editor.plugin.loadAll(this);
     if (!this.readonly) {
-      this.selection.synByBookmark();
+      this.selection.updateByBookmark();
       this.history.save();
     }
     Editor.box.renderAll(this.container);

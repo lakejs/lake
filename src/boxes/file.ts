@@ -28,9 +28,9 @@ const boxToolbarItems: BoxToolbarItem[] = [
       if (!editor) {
         return;
       }
-      editor.focus();
       editor.removeBox(box);
       editor.history.save();
+      editor.selection.sync();
     },
   },
 ];

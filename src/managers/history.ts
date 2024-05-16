@@ -157,7 +157,7 @@ export class History {
       }
       this.index--;
     }
-    this.selection.synByBookmark();
+    this.selection.updateByBookmark();
     debug(`History undone, the last index is ${this.index}`);
   }
 
@@ -180,7 +180,7 @@ export class History {
         break;
       }
     }
-    this.selection.synByBookmark();
+    this.selection.updateByBookmark();
     debug(`History redone, the last index is ${this.index}`);
   }
 

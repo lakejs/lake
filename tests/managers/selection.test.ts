@@ -29,13 +29,13 @@ describe('managers / selection', () => {
     container.remove();
   });
 
-  it('addRangeToNativeSelection method: sets the saved range to the selection', () => {
+  it('sync method: sets the saved range to the selection', () => {
     const selection = new Selection(container);
     const range = new Range();
     container.html('<p>foo</p>');
     range.selectNodeContents(container.find('p'));
     selection.range = range;
-    selection.addRangeToNativeSelection();
+    selection.sync();
     const rangeFromSelection = new Range(window.getSelection()?.getRangeAt(0));
     expect(rangeFromSelection.startNode.name).to.equal('p');
     expect(rangeFromSelection.startOffset).to.equal(0);
@@ -43,42 +43,42 @@ describe('managers / selection', () => {
     expect(rangeFromSelection.endOffset).to.equal(1);
   });
 
-  it('syncByRange method: with the current selected range from the selection', () => {
+  it('updateByRange method: with the current selected range from the selection', () => {
     const selection = new Selection(container);
     const range = new Range();
     container.html('<p>foo</p>');
     range.selectNodeContents(container.find('p'));
     selection.range = range;
-    selection.addRangeToNativeSelection();
+    selection.sync();
     selection.range = new Range();
     expect(selection.range.startNode.get(0)).to.equal(document);
-    selection.syncByRange();
+    selection.updateByRange();
     expect(selection.range.startNode.name).to.equal('p');
     expect(selection.range.startOffset).to.equal(0);
     expect(selection.range.endNode.name).to.equal('p');
     expect(selection.range.endOffset).to.equal(1);
   });
 
-  it('synByBookmark method: with ordinary bookmark', () => {
+  it('updateByBookmark method: with ordinary bookmark', () => {
     const content = `
     <p><anchor />foo<focus /></p>
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
-    selection.synByBookmark();
+    selection.updateByBookmark();
     expect(selection.range.startNode.name).to.equal('p');
     expect(selection.range.startOffset).to.equal(0);
     expect(selection.range.endNode.name).to.equal('p');
     expect(selection.range.endOffset).to.equal(1);
   });
 
-  it('synByBookmark method: with box-bookmark', () => {
+  it('updateByBookmark method: with box-bookmark', () => {
     const content = `
     <lake-box type="block" name="blockBox" focus="end"></lake-box>
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
-    selection.synByBookmark();
+    selection.updateByBookmark();
     expect(selection.range.isBoxEnd).to.equal(true);
   });
 
@@ -88,7 +88,7 @@ describe('managers / selection', () => {
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
-    selection.synByBookmark();
+    selection.updateByBookmark();
     const appliedItems = selection.getAppliedItems();
     expect(appliedItems.length).to.equal(3);
     expect(appliedItems[0].name).to.equal('i');
@@ -102,7 +102,7 @@ describe('managers / selection', () => {
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
-    selection.synByBookmark();
+    selection.updateByBookmark();
     const appliedItems = selection.getAppliedItems();
     expect(appliedItems.length).to.equal(3);
     expect(appliedItems[0].name).to.equal('i');
@@ -116,7 +116,7 @@ describe('managers / selection', () => {
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
-    selection.synByBookmark();
+    selection.updateByBookmark();
     const appliedItems = selection.getAppliedItems();
     expect(appliedItems.length).to.equal(3);
     expect(appliedItems[0].name).to.equal('i');
@@ -131,7 +131,7 @@ describe('managers / selection', () => {
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
-    selection.synByBookmark();
+    selection.updateByBookmark();
     const appliedItems = selection.getAppliedItems();
     expect(appliedItems.length).to.equal(3);
     expect(appliedItems[0].name).to.equal('p');

@@ -56,6 +56,7 @@ export default (value: string) => {
   const editor = new Editor({
     root: '.lake-root',
     toolbar,
+    lang: window.LAKE_LANGUAGE,
     value,
     onMessage: (type, message) => {
       if (type === 'error') {

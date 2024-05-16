@@ -203,7 +203,7 @@ function openFullScreen(box: Box): void {
       if (savedRange) {
         // fix(image): lose focus when zooming in the iOS
         editor.selection.range = savedRange;
-        editor.selection.addRangeToNativeSelection();
+        editor.selection.sync();
       }
       box.event.emit('closefullscreen');
     }, 0);
@@ -435,6 +435,7 @@ export const imageBox: BoxComponent = {
           }
           editor.removeBox(box);
           editor.history.save();
+          editor.selection.sync();
         });
       }
       box.event.emit('render');

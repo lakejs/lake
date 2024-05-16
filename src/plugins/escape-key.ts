@@ -11,7 +11,7 @@ export default (editor: Editor) => {
       event.preventDefault();
       const boxNode = range.commonAncestor.closest('lake-box');
       range.selectBoxEnd(boxNode);
-      selection.addRangeToNativeSelection();
+      selection.sync();
       return;
     }
     if (editor.hasFocus) {

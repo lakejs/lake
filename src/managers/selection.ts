@@ -114,13 +114,13 @@ export class Selection {
   }
 
   // Adds the saved range to the native selection.
-  public addRangeToNativeSelection(): void {
+  public sync(): void {
     this.selection.removeAllRanges();
     this.selection.addRange(this.range.get());
   }
 
-  // Synchronizes the saved range with the range of the native selection.
-  public syncByRange(): void {
+  // Updates the saved range with the range of the native selection.
+  public updateByRange(): void {
     const newRange = this.getRangeFromNativeSelection();
     if (this.range.get() === newRange.get()) {
       return;
@@ -128,8 +128,8 @@ export class Selection {
     this.range = newRange;
   }
 
-  // Synchronizes the saved range with the range represented by the bookmark.
-  public synByBookmark(): void {
+  // Updates the saved range with the range represented by the bookmark.
+  public updateByBookmark(): void {
     const range = this.range;
     const container = this.container;
     const boxFocus = container.find('lake-box[focus]');
@@ -138,7 +138,7 @@ export class Selection {
         anchor: new Nodes(),
         focus: boxFocus,
       });
-      this.addRangeToNativeSelection();
+      this.sync();
       return;
     }
     const anchor = container.find('lake-bookmark[type="anchor"]');
@@ -147,7 +147,7 @@ export class Selection {
       anchor,
       focus,
     });
-    this.addRangeToNativeSelection();
+    this.sync();
   }
 
   public getAppliedItems(): AppliedItem[] {
