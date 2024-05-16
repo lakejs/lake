@@ -2,6 +2,7 @@ import { TranslationFunctions } from '../i18n/types';
 import { icons } from '../icons';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
+import { nodeAndView } from '../utils/node-and-view';
 import { Nodes } from '../models/nodes';
 import { Button } from './button';
 import { i18nObject } from '../../src/i18n';
@@ -206,15 +207,17 @@ export class LinkPopup {
     if (!this.linkNode) {
       return;
     }
+    const position = nodeAndView(this.linkNode);
+    if (position.left < 0 || position.right < 0 || position.top < 0 || position.bottom < 0) {
+      this.container.css('visibility', 'hidden');
+      return;
+    }
+    this.container.css('visibility', '');
     const linkNativeNode = this.linkNode.get(0) as HTMLElement;
     // Returns a DOMRect object providing information about the size of an element and its position relative to the viewport.
     const linkRect = linkNativeNode.getBoundingClientRect();
     const linkX = linkRect.x + window.scrollX;
     const linkY = linkRect.y + window.scrollY;
-    if (linkX < 0 || linkY < 0) {
-      this.hide();
-      return;
-    }
     // link.x + popup.width > window.width
     if (linkRect.x + this.container.width() > window.innerWidth) {
       // link.x + window.scrollX - (popup.width - link.width)

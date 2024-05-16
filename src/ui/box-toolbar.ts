@@ -2,6 +2,7 @@ import { Editor } from '../editor';
 import { NativeNode } from '../types/native';
 import { BoxToolbarButtonItem, BoxToolbarDropdownItem, BoxToolbarItem } from '../types/box-toolbar';
 import { query } from '../utils/query';
+import { nodeAndView } from '../utils/node-and-view';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { Button } from './button';
@@ -90,14 +91,23 @@ export class BoxToolbar {
   }
 
   public updatePosition(): void {
+    const boxNode = this.box.node;
+    const position = nodeAndView(boxNode);
+    if (position.left < 0 || position.right < 0 || position.top < 0 || position.bottom < 0) {
+      this.container.hide();
+      return;
+    }
     const boxNativeNode = this.box.node.get(0) as HTMLElement;
     const boxRect = boxNativeNode.getBoundingClientRect();
     const boxX = boxRect.x + window.scrollX;
     const boxY = boxRect.y + window.scrollY;
     const left = (boxX + boxRect.width / 2 - this.container.width() / 2).toFixed(1);
     const top = (boxY - this.container.height() - 6).toFixed(1);
-    this.container.css('left', `${left}px`);
-    this.container.css('top', `${top}px`);
+    this.container.css({
+      left: `${left}px`,
+      top: `${top}px`,
+      display: 'flex',
+    });
   }
 
   // Renders a toolbar for the specified box.

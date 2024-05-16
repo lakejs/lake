@@ -28,6 +28,7 @@ export * from './fix-numbered-list';
 export * from './remove-br';
 export * from './set-block-indent';
 export * from './morph';
+export * from './node-and-view';
 
 // Box
 export * from './get-box';

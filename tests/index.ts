@@ -28,6 +28,7 @@ import './utils/fix-numbered-list.test';
 import './utils/remove-br.test';
 import './utils/set-block-indent.test';
 import './utils/morph.test';
+import './utils/node-and-view.test';
 
 // Box Utils
 import './utils/get-box.test';
