@@ -23,7 +23,7 @@ const effectData: { [key: number]: { setup: SetupFunction[], cleanup: CleanupFun
 
 const framework = safeTemplate`
   <span class="lake-box-strip"><br /></span>
-  <div class="lake-box-container" contenteditable="false" draggable="true"></div>
+  <div class="lake-box-container" contenteditable="false"></div>
   <span class="lake-box-strip"><br /></span>
 `;
 
@@ -94,6 +94,9 @@ export class Box {
       debug(`Box '${this.name}' (id = ${this.node.id}) value:`);
       debug(this.value);
     });
+    if (this.type === 'block') {
+      container.attr('draggable', 'true');
+    }
   }
 
   // Returns the type of the box.
