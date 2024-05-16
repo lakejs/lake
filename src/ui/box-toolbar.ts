@@ -97,6 +97,7 @@ export class BoxToolbar {
       this.container.hide();
       return;
     }
+    this.container.show('flex');
     const boxNativeNode = this.box.node.get(0) as HTMLElement;
     const boxRect = boxNativeNode.getBoundingClientRect();
     const boxX = boxRect.x + window.scrollX;
@@ -106,7 +107,6 @@ export class BoxToolbar {
     this.container.css({
       left: `${left}px`,
       top: `${top}px`,
-      display: 'flex',
     });
   }
 
