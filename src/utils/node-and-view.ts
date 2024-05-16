@@ -24,10 +24,12 @@ export function nodeAndView(node: Nodes): NodePosition {
       const containerWrapper = container.parent();
       if (containerWrapper.length > 0) {
         const nativeContainerWrapper = containerWrapper.get(0) as HTMLElement;
-        left -= nativeContainerWrapper.offsetLeft;
-        right -= nativeContainerWrapper.offsetLeft;
-        top -= nativeContainerWrapper.offsetTop;
-        bottom -= nativeContainerWrapper.offsetTop;
+        const offsetLeft = nativeContainerWrapper.offsetLeft - window.scrollX;
+        const offsetTop = nativeContainerWrapper.offsetTop - window.scrollY;
+        left -= offsetLeft;
+        right -= offsetLeft;
+        top -= offsetTop;
+        bottom -= offsetTop;
       }
       const nativeViewport = viewport.get(0) as Element;
       const viewportRect = nativeViewport.getBoundingClientRect();
