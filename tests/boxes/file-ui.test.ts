@@ -30,6 +30,19 @@ describe('boxes / file-ui', () => {
     });
   });
 
+  it('done status (read-only)', () => {
+    showBox('file', {
+      url: fileUrl,
+      status: 'done',
+      name: 'heaven-lake-64.png',
+      size: 10455,
+      type: 'image/jpeg',
+      lastModified: 1710229517198,
+    }, box => {
+      expect(box.value.status).to.equal('done');
+    }, true);
+  });
+
   it('error status', () => {
     showBox('file', {
       url: fileUrl,

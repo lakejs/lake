@@ -4,6 +4,8 @@
   box-sizing: content-box;
   border: 1px solid transparent;
   border-radius: 4px;
+  cursor: default;
+  user-select: none;
 }
 .lake-file .lake-file-info {
   display: flex;
@@ -20,10 +22,13 @@
   color: var(--link-color);
 }
 lake-box[name="file"] .lake-box-hovered .lake-file {
-  border-color: var(--box-border-color);
+  background-color: var(--box-background-color);
+}
+lake-box[name="file"] .lake-box-selected .lake-file {
+  background-color: var(--selection-background-color);
 }
 lake-box[name="file"] .lake-box-focused .lake-file {
-  border-color: var(--box-border-focus-color);
+  background-color: var(--selection-background-color);
 }
 /* uploading status */
 .lake-file-uploading .lake-progress {
