@@ -94,7 +94,7 @@ export class Box {
       debug(`Box '${this.name}' (id = ${this.node.id}) value:`);
       debug(this.value);
     });
-    if (this.type === 'block') {
+    if (this.type === 'block' && this.node.isContentEditable) {
       container.attr('draggable', 'true');
     }
   }

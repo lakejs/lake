@@ -81,9 +81,6 @@ export const fileBox: BoxComponent = {
     const container = box.getContainer();
     const fileNode = query('<div class="lake-file" />');
     fileNode.addClass(`lake-file-${value.status}`);
-    if (editor.readonly) {
-      fileNode.addClass('lake-file-readonly');
-    }
     appendContent(fileNode, box);
     container.empty();
     container.append(fileNode);

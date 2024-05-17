@@ -4,8 +4,14 @@
   box-sizing: content-box;
   border: 1px solid transparent;
   border-radius: 4px;
+}
+.lake-container[contenteditable="true"] .lake-file {
   cursor: default;
   user-select: none;
+}
+.lake-container[contenteditable="false"] .lake-file {
+  cursor: pointer;
+  user-select: auto;
 }
 .lake-file .lake-file-info {
   display: flex;
@@ -53,8 +59,4 @@ lake-box[name="file"] .lake-box-focused .lake-file {
 }
 .lake-file-error .lake-file-name {
   color: var(--error-color);
-}
-/* readonly mode */
-.lake-file-readonly {
-  cursor: pointer;
 }
