@@ -1,6 +1,6 @@
 import { showBox } from '../utils';
 
-const fileUrl = '../assets/images/heaven-lake-64.png';
+const fileUrl = '../assets/files/heaven-lake-wikipedia.pdf';
 
 describe('boxes / file-ui', () => {
 
@@ -8,10 +8,10 @@ describe('boxes / file-ui', () => {
     showBox('file', {
       url: fileUrl,
       status: 'uploading',
-      name: 'heaven-lake-64.png',
-      size: 1947946,
-      type: 'image/png',
-      lastModified: 1710229517198,
+      name: 'Heaven Lake - Wikipedia.pdf',
+      size: 747385,
+      type: 'application/pdf',
+      lastModified: 1715935215309,
     }, box => {
       expect(box.value.status).to.equal('uploading');
     });
@@ -21,10 +21,10 @@ describe('boxes / file-ui', () => {
     showBox('file', {
       url: fileUrl,
       status: 'done',
-      name: 'heaven-lake-64.png',
-      size: 10455,
-      type: 'image/jpeg',
-      lastModified: 1710229517198,
+      name: 'Heaven Lake - Wikipedia.pdf',
+      size: 747385,
+      type: 'application/pdf',
+      lastModified: 1715935215309,
     }, box => {
       expect(box.value.status).to.equal('done');
     });
@@ -34,10 +34,10 @@ describe('boxes / file-ui', () => {
     showBox('file', {
       url: fileUrl,
       status: 'done',
-      name: 'heaven-lake-64.png',
-      size: 10455,
-      type: 'image/jpeg',
-      lastModified: 1710229517198,
+      name: 'Heaven Lake - Wikipedia.pdf',
+      size: 747385,
+      type: 'application/pdf',
+      lastModified: 1715935215309,
     }, box => {
       expect(box.value.status).to.equal('done');
     }, true);
@@ -47,10 +47,10 @@ describe('boxes / file-ui', () => {
     showBox('file', {
       url: fileUrl,
       status: 'error',
-      name: 'heaven-lake-64.png',
-      size: 10455,
-      type: 'image/jpeg',
-      lastModified: 1710229517198,
+      name: 'Heaven Lake - Wikipedia.pdf',
+      size: 747385,
+      type: 'application/pdf',
+      lastModified: 1715935215309,
     }, box => {
       expect(box.value.status).to.equal('error');
     });
