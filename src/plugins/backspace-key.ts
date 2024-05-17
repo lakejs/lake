@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { mergeNodes, setBlockIndent } from '../utils';
+import { query, appendDeepest, mergeNodes, setBlockIndent } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
@@ -74,6 +74,12 @@ export default (editor: Editor) => {
         range.shrinkAfter(prevNode);
         return;
       }
+      if (prevNode.isText && prevNode.text().length === 1) {
+        event.preventDefault();
+        prevNode.remove();
+        editor.history.save();
+        return;
+      }
       range.adaptBox();
     }
     if (range.isBox) {
@@ -96,6 +102,19 @@ export default (editor: Editor) => {
     if (prevNode.isBox) {
       event.preventDefault();
       editor.removeBox(prevNode);
+      editor.history.save();
+      return;
+    }
+    if (prevNode.isText && prevNode.text().length === 1) {
+      event.preventDefault();
+      const block = prevNode.closestBlock();
+      range.setStartBefore(prevNode);
+      range.collapseToStart();
+      prevNode.remove();
+      if (block.isEmpty) {
+        appendDeepest(block, query('<br />'));
+        range.shrinkAfter(block);
+      }
       editor.history.save();
       return;
     }

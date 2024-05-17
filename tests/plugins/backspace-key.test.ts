@@ -84,6 +84,22 @@ describe('plugins / backspace-key', () => {
     );
   });
 
+  it('should delete the previous text with a length of 1', () => {
+    const content = `
+    <p>f<focus /></p>
+    `;
+    const output = `
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
   it('sets heading to paragraph', () => {
     const content = `
     <h1><br /><focus /></h1>
@@ -426,6 +442,38 @@ describe('plugins / backspace-key', () => {
     const output = `
     <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box></p>
     <lake-box type="block" name="hr"></lake-box>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should delete the previous text with a length of 1 before box (1)', () => {
+    const content = `
+    <p>f<lake-box type="inline" name="image" value="${imageBoxValue}" focus="start"></lake-box></p>
+    `;
+    const output = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="start"></lake-box></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should delete the previous text with a length of 1 before box (2)', () => {
+    const content = `
+    <p>f<focus /><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
+    `;
+    const output = `
+    <p><focus /><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
     `;
     testPlugin(
       content,
