@@ -98,6 +98,7 @@ export default (editor: Editor) => {
         }
       }
       editor.history.save();
+      editor.selection.sync();
     },
   });
   editor.container.on('click', event => {

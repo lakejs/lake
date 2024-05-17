@@ -37,7 +37,8 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
     return;
   }
   if (range.isCollapsed) {
-    if (range.isBox) {
+    const boxNode = range.commonAncestor.closest('lake-box');
+    if (boxNode.isBlockBox) {
       return;
     }
   }

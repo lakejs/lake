@@ -1,5 +1,8 @@
 import { testPlugin } from '../utils';
 
+// const imageUrl = '../assets/images/heaven-lake-256.png';
+const imageBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTI1Ni5wbmciLCJzdGF0dXMiOiJkb25lIn0=';
+
 describe('plugins / list', () => {
 
   it('should change a paragraph to a numbered list', () => {
@@ -81,6 +84,24 @@ describe('plugins / list', () => {
     `;
     const output = `
     <ul><li>foo<focus /></li></ul>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.command.execute('list', 'bulleted');
+      },
+    );
+  });
+
+  it('should change a numbered list that includes an inline box to a bulleted list', () => {
+    const content = `
+    <ol><li>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box></li></ol>
+    <p>bar</p>
+    `;
+    const output = `
+    <ul><li>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box></li></ul>
     <p>bar</p>
     `;
     testPlugin(
