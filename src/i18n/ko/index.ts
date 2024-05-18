@@ -28,6 +28,7 @@ export default {
     formatPainter: '형식 페인터',
     link: '링크',
     hr: '구분선',
+    video: '동영상',
     codeBlock: '코드 블록',
     heading: '제목',
     heading1: '제목 1',

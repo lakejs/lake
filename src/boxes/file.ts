@@ -117,6 +117,5 @@ export const fileBox: BoxComponent = {
         window.open(value.url);
       });
     }
-    box.event.emit('render');
   },
 };

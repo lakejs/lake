@@ -118,6 +118,10 @@ type RootTranslation = {
 		 */
 		hr: string
 		/**
+		 * V​i​d​e​o
+		 */
+		video: string
+		/**
 		 * C​o​d​e​ ​b​l​o​c​k
 		 */
 		codeBlock: string
@@ -378,6 +382,10 @@ export type TranslationFunctions = {
 		 * Horizontal line
 		 */
 		hr: () => LocalizedString
+		/**
+		 * Video
+		 */
+		video: () => LocalizedString
 		/**
 		 * Code block
 		 */

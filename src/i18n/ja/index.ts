@@ -28,6 +28,7 @@ export default {
     formatPainter: '形式ペインタ',
     link: 'リンク',
     hr: '区切り線',
+    video: '動画',
     codeBlock: 'コードブロック',
     heading: 'タイトル',
     heading1: 'タイトル 1',

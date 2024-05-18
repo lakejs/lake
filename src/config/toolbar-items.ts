@@ -257,6 +257,15 @@ export const toolbarItems: ToolbarItem[] = [
     },
   },
   {
+    name: 'video',
+    type: 'button',
+    icon: icons.get('video'),
+    tooltip: locale => locale.toolbar.video(),
+    onClick: (editor, value) => {
+      editor.command.execute(value);
+    },
+  },
+  {
     name: 'codeBlock',
     type: 'button',
     icon: icons.get('codeBlock'),

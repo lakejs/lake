@@ -28,6 +28,7 @@ export default {
     formatPainter: 'Format painter',
     link: 'Link',
     hr: 'Horizontal line',
+    video: 'Video',
     codeBlock: 'Code block',
     heading: 'Heading',
     heading1: 'Heading 1',

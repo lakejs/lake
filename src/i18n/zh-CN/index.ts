@@ -28,6 +28,7 @@ export default {
     formatPainter: '格式刷',
     link: '链接',
     hr: '分割线',
+    video: '视频',
     codeBlock: '代码块',
     heading: '标题',
     heading1: '标题 1',
