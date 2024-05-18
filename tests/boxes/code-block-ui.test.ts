@@ -115,7 +115,7 @@ public class Class<T, V> implements MyInterface {
 
 describe('boxes / code-block-ui', () => {
 
-  it('codeBlock: HTML', () => {
+  it('HTML', () => {
     showBox('codeBlock', {
       lang: 'html',
       code: htmlCode,
@@ -124,7 +124,7 @@ describe('boxes / code-block-ui', () => {
     });
   });
 
-  it('codeBlock: HTML (read-only)', () => {
+  it('HTML (read-only)', () => {
     showBox('codeBlock', {
       lang: 'html',
       code: htmlCode,
@@ -133,7 +133,7 @@ describe('boxes / code-block-ui', () => {
     }, true);
   });
 
-  it('codeBlock: CSS', () => {
+  it('CSS', () => {
     showBox('codeBlock', {
       lang: 'css',
       code: cssCode,
@@ -142,7 +142,7 @@ describe('boxes / code-block-ui', () => {
     });
   });
 
-  it('codeBlock: JavaScript', () => {
+  it('JavaScript', () => {
     showBox('codeBlock', {
       lang: 'javascript',
       code: javascriptCode,
@@ -151,7 +151,7 @@ describe('boxes / code-block-ui', () => {
     });
   });
 
-  it('codeBlock: Java', () => {
+  it('Java', () => {
     showBox('codeBlock', {
       lang: 'java',
       code: javaCode,
@@ -160,7 +160,7 @@ describe('boxes / code-block-ui', () => {
     });
   });
 
-  it('codeBlock: error status', () => {
+  it('error status', () => {
     const CodeMirror = window.LakeCodeMirror;
     window.LakeCodeMirror = undefined;
     showBox('codeBlock', {
@@ -170,6 +170,18 @@ describe('boxes / code-block-ui', () => {
       expect(box.getContainer().find('.lake-code-block-error').length).to.equal(1);
       window.LakeCodeMirror = CodeMirror;
     });
+  });
+
+  it('error status (read-only): should not display', () => {
+    const CodeMirror = window.LakeCodeMirror;
+    window.LakeCodeMirror = undefined;
+    showBox('codeBlock', {
+      lang: 'javascript',
+      code: javascriptCode,
+    }, box => {
+      expect(box.node.computedCSS('display')).to.equal('none');
+      window.LakeCodeMirror = CodeMirror;
+    }, true);
   });
 
 });

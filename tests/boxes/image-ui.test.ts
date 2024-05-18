@@ -50,6 +50,20 @@ describe('boxes / image-ui', () => {
     });
   });
 
+  it('uploading (read-only): should not display', () => {
+    showBox('image', {
+      url: mediumUrl,
+      status: 'uploading',
+      name: 'heaven-lake-512.png',
+      size: 60008,
+      type: 'image/jpeg',
+      lastModified: 1710229517198,
+      percent: 50.49,
+    }, box => {
+      expect(box.node.computedCSS('display')).to.equal('none');
+    }, true);
+  });
+
   it('loading: small size', () => {
     showBox('image', {
       url: smallUrl,
@@ -81,6 +95,17 @@ describe('boxes / image-ui', () => {
     }, box => {
       expect(box.value.status).to.equal('loading');
     });
+  });
+
+  it('loading (read-only): should not display', () => {
+    showBox('image', {
+      url: smallUrl,
+      width: 1024,
+      height: 670,
+      status: 'loading',
+    }, box => {
+      expect(box.node.computedCSS('display')).to.equal('none');
+    }, true);
   });
 
   it('done: small size', () => {
@@ -115,22 +140,6 @@ describe('boxes / image-ui', () => {
     });
   });
 
-  it('done: medium size (read-only)', () => {
-    showBox('image', {
-      url: mediumUrl,
-      originalUrl: mediumOriginalUrl,
-      originalWidth: 1024,
-      originalHeight: 731,
-      status: 'done',
-      name: 'heaven-lake-512.png',
-      size: 60008,
-      type: 'image/jpeg',
-      lastModified: 1710229517198,
-    }, box => {
-      expect(box.value.status).to.equal('done');
-    }, true);
-  });
-
   it('done: large size', () => {
     showBox('image', {
       url: largeUrl,
@@ -147,6 +156,22 @@ describe('boxes / image-ui', () => {
     });
   });
 
+  it('done (read-only): medium size', () => {
+    showBox('image', {
+      url: mediumUrl,
+      originalUrl: mediumOriginalUrl,
+      originalWidth: 1024,
+      originalHeight: 731,
+      status: 'done',
+      name: 'heaven-lake-512.png',
+      size: 60008,
+      type: 'image/jpeg',
+      lastModified: 1710229517198,
+    }, box => {
+      expect(box.value.status).to.equal('done');
+    }, true);
+  });
+
   it('error status', () => {
     showBox('image', {
       url: smallUrl,
@@ -155,6 +180,16 @@ describe('boxes / image-ui', () => {
     }, box => {
       expect(box.value.status).to.equal('error');
     });
+  });
+
+  it('error status (read-only): should not display', () => {
+    showBox('image', {
+      url: smallUrl,
+      status: 'error',
+      name: 'heaven-lake-64.png',
+    }, box => {
+      expect(box.node.computedCSS('display')).to.equal('none');
+    }, true);
   });
 
 });

@@ -17,6 +17,19 @@ describe('boxes / file-ui', () => {
     });
   });
 
+  it('uploading status (read-only): should not display', () => {
+    showBox('file', {
+      url: fileUrl,
+      status: 'uploading',
+      name: 'Heaven Lake - Wikipedia.pdf',
+      size: 747385,
+      type: 'application/pdf',
+      lastModified: 1715935215309,
+    }, box => {
+      expect(box.node.computedCSS('display')).to.equal('none');
+    }, true);
+  });
+
   it('done status', () => {
     showBox('file', {
       url: fileUrl,
@@ -54,6 +67,19 @@ describe('boxes / file-ui', () => {
     }, box => {
       expect(box.value.status).to.equal('error');
     });
+  });
+
+  it('error status (read-only): should not display', () => {
+    showBox('file', {
+      url: fileUrl,
+      status: 'error',
+      name: 'Heaven Lake - Wikipedia.pdf',
+      size: 747385,
+      type: 'application/pdf',
+      lastModified: 1715935215309,
+    }, box => {
+      expect(box.node.computedCSS('display')).to.equal('none');
+    }, true);
   });
 
 });

@@ -385,6 +385,10 @@ export const imageBox: BoxComponent = {
       return;
     }
     const value = box.value;
+    if (editor.readonly && ['uploading', 'loading', 'error'].indexOf(value.status) >= 0) {
+      box.node.hide();
+      return;
+    }
     const container = box.getContainer();
     if (value.width && value.height && container.find('.lake-progress').length === 0) {
       container.css({

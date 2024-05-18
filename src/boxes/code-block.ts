@@ -102,6 +102,10 @@ export const codeBlockBox: BoxComponent = {
     // begin to create CodeMirror
     const CodeMirror = window.LakeCodeMirror;
     if (!CodeMirror) {
+      if (editor.readonly) {
+        box.node.hide();
+        return;
+      }
       codeBlockNode.addClass('lake-code-block-error');
       codeBlockNode.text(`
         The code cannot be displayed because window.LakeCodeMirror is not found.

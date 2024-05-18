@@ -78,6 +78,10 @@ export const fileBox: BoxComponent = {
       return;
     }
     const value = box.value;
+    if (editor.readonly && ['uploading', 'error'].indexOf(value.status) >= 0) {
+      box.node.hide();
+      return;
+    }
     const container = box.getContainer();
     const fileNode = query('<div class="lake-file" />');
     fileNode.addClass(`lake-file-${value.status}`);
