@@ -116,6 +116,10 @@ export const videoBox: BoxComponent = {
     boxContainer.empty();
     boxContainer.append(videoNode);
     if (!value.url) {
+      if (editor.readonly) {
+        box.node.hide();
+        return;
+      }
       const formNode = query(safeTemplate`
         <div class="lake-video-form">
           <div class="lake-row lake-tip-row">

@@ -39,7 +39,7 @@ describe('boxes / video', () => {
     expect(value).to.equal('<p>foo<focus />bar</p>');
   });
 
-  it('should resize the image', () => {
+  it('should resize the video', () => {
     const boxNode = box.node;
     boxNode.find('iframe').emit('load');
     const pointerdownEvent = new PointerEvent('pointerdown', {
@@ -60,7 +60,7 @@ describe('boxes / video', () => {
     boxNode.find('.lake-resizer-bottom-right').emit('pointerdown', pointerdownEvent);
     boxNode.find('.lake-resizer-bottom-right').emit('pointermove', pointermoveEvent);
     boxNode.find('.lake-resizer-bottom-right').emit('pointerup', pointerupEvent);
-    expect(box.node.find('iframe').attr('width')).to.equal('300');
+    expect(box.getContainer().css('width')).to.equal('300px');
     expect(box.node.find('iframe').attr('height')).to.equal('240');
     expect(box.value.width).to.equal(300);
     expect(box.value.height).to.equal(240);

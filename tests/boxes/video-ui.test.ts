@@ -10,7 +10,7 @@ describe('boxes / video-ui', () => {
     });
   });
 
-  it('should display video', () => {
+  it('has URL: should display video', () => {
     showBox('video', {
       url: youtubeUrl,
     }, box => {
@@ -18,7 +18,13 @@ describe('boxes / video-ui', () => {
     });
   });
 
-  it('read-only: should display video', () => {
+  it('no URL (read-only): should not display box', () => {
+    showBox('video', {}, box => {
+      expect(box.name).to.equal('video');
+    }, true);
+  });
+
+  it('has URL(read-only): should display video', () => {
     showBox('video', {
       url: youtubeUrl,
     }, box => {
