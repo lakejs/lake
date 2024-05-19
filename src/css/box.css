@@ -26,3 +26,37 @@ lake-box .lake-box-strip ::selection {
 lake-box .lake-box-container {
   display: block;
 }
+lake-box .lake-button-group {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .4);
+  line-height: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  display: none;
+}
+lake-box .lake-box-hovered .lake-button-group,
+lake-box .lake-box-focused .lake-button-group {
+  display: flex;
+}
+lake-box .lake-button-group button {
+  border-radius: 5px;
+  border: 0;
+  color: var(--text-color);
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+  cursor: pointer;
+  user-select: none;
+}
+lake-box .lake-button-group button svg {
+  fill: #fff;
+  width: 16px;
+  height: 16px;
+  margin: 6px;
+}

@@ -1,4 +1,5 @@
 import { BoxComponent } from '../types/box';
+import { icons } from '../icons';
 import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
 import { Nodes } from '../models/nodes';
@@ -7,7 +8,7 @@ import { Button } from '../ui/button';
 import { BoxResizer } from '../ui/box-resizer';
 
 function getVideoId(url: string): string {
-  const result = /[0-9a-z]+$/i.exec(url || '');
+  const result = /\w+$/i.exec(url || '');
   return result ? result[0] : '';
 }
 
@@ -16,14 +17,6 @@ function getInputValue(videoNode: Nodes, name: string): string {
   const nativeInputElement = inputElement.get(0) as HTMLInputElement;
   return nativeInputElement.value;
 }
-
-/*
-function setInputValue(videoNode: Nodes, name: string, value: string): void {
-  const inputElement = videoNode.find(`input[name="${name}"]`);
-  const nativeInputElement = inputElement.get(0) as HTMLInputElement;
-  nativeInputElement.value = value;
-}
-*/
 
 function showVideo(box: Box): void {
   const editor = box.getEditor();
@@ -52,29 +45,31 @@ function showVideo(box: Box): void {
   `);
   const videoNode = boxContainer.find('.lake-video');
   videoNode.append(iframeNode);
-  new BoxResizer({
-    root: videoNode,
-    box,
-    width,
-    height,
-    onResize: (newWidth, newHeight) => {
-      boxContainer.css({
-        width: `${newWidth}px`,
-        height: `${newHeight}px`,
-      });
-      iframeNode.attr({
-        width: newWidth.toString(),
-        height: newHeight.toString(),
-      });
-    },
-    onStop: (newWidth, newHeight) => {
-      box.updateValue({
-        width: newWidth,
-        height: newHeight,
-      });
-      editor.history.save();
-    },
-  }).render();
+  if (!editor.readonly) {
+    new BoxResizer({
+      root: videoNode,
+      box,
+      width,
+      height,
+      onResize: (newWidth, newHeight) => {
+        boxContainer.css({
+          width: `${newWidth}px`,
+          height: `${newHeight}px`,
+        });
+        iframeNode.attr({
+          width: newWidth.toString(),
+          height: newHeight.toString(),
+        });
+      },
+      onStop: (newWidth, newHeight) => {
+        box.updateValue({
+          width: newWidth,
+          height: newHeight,
+        });
+        editor.history.save();
+      },
+    }).render();
+  }
 }
 
 export const videoBox: BoxComponent = {
@@ -90,6 +85,27 @@ export const videoBox: BoxComponent = {
     const videoNode = query('<div class="lake-video" />');
     boxContainer.empty();
     boxContainer.append(videoNode);
+    const buttonGroupNode = query(safeTemplate`
+    <div class="lake-button-group">
+      <button type="button" tabindex="-1" class="lake-button-remove" title="${editor.locale.image.remove()}"></button>
+    </div>
+  `);
+    const removeButton = buttonGroupNode.find('.lake-button-remove');
+    const removeIcon = icons.get('remove');
+    if (removeIcon) {
+      removeButton.append(removeIcon);
+    }
+    if (editor.readonly) {
+      buttonGroupNode.find('.lake-button-remove').hide();
+    } else {
+      buttonGroupNode.find('.lake-button-remove').on('click', event => {
+        event.stopPropagation();
+        editor.removeBox(box);
+        editor.history.save();
+        editor.selection.sync();
+      });
+    }
+    videoNode.append(buttonGroupNode);
     if (!value.url) {
       const formNode = query(safeTemplate`
         <div class="lake-video-form">

@@ -5,6 +5,9 @@
   border: 1px solid var(--box-border-color);
   border-radius: 4px;
 }
+lake-box[name="video"] .lake-box-hovered .lake-resizer {
+  display: block;
+}
 .lake-video .lake-video-form {
   box-sizing: content-box;
   padding: 16px;

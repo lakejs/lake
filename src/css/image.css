@@ -32,40 +32,6 @@
 lake-box[name="image"] .lake-box-focused .lake-image {
   border-color: var(--box-border-focus-color);
 }
-.lake-image .lake-button-group {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 2;
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, .4);
-  line-height: 0;
-  display: flex;
-  align-items: center;
-  padding: 0 6px;
-  display: none;
-}
-lake-box[name="image"] .lake-box-hovered .lake-button-group,
-lake-box[name="image"] .lake-box-focused .lake-button-group {
-  display: flex;
-}
-.lake-image .lake-button-group button {
-  border-radius: 5px;
-  border: 0;
-  color: var(--text-color);
-  background-color: transparent;
-  padding: 0;
-  margin: 0;
-  line-height: 0;
-  cursor: pointer;
-  user-select: none;
-}
-.lake-image .lake-button-group button svg {
-  fill: #fff;
-  width: 16px;
-  height: 16px;
-  margin: 6px;
-}
 /* uploading status */
 .lake-image-uploading .lake-image-img {
   opacity: 0.5;
