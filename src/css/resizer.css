@@ -2,9 +2,6 @@
   user-select: none;
   display: none;
 }
-.lake-box-focused .lake-resizer {
-  display: block;
-}
 .lake-resizer-top-left,
 .lake-resizer-top-right,
 .lake-resizer-bottom-left,

@@ -18,6 +18,36 @@ function getInputValue(videoNode: Nodes, name: string): string {
   return nativeInputElement.value;
 }
 
+function appendButtonGroup(box: Box): void {
+  const editor = box.getEditor();
+  if (!editor) {
+    return;
+  }
+  const boxContainer = box.getContainer();
+  const videoNode = boxContainer.find('.lake-video');
+  const buttonGroupNode = query(safeTemplate`
+    <div class="lake-button-group">
+      <button type="button" tabindex="-1" class="lake-button-remove" title="${editor.locale.image.remove()}"></button>
+    </div>
+  `);
+  const removeButton = buttonGroupNode.find('.lake-button-remove');
+  const removeIcon = icons.get('remove');
+  if (removeIcon) {
+    removeButton.append(removeIcon);
+  }
+  if (editor.readonly) {
+    buttonGroupNode.find('.lake-button-remove').hide();
+  } else {
+    buttonGroupNode.find('.lake-button-remove').on('click', event => {
+      event.stopPropagation();
+      editor.removeBox(box);
+      editor.history.save();
+      editor.selection.sync();
+    });
+  }
+  videoNode.append(buttonGroupNode);
+}
+
 function showVideo(box: Box): void {
   const editor = box.getEditor();
   if (!editor) {
@@ -28,7 +58,7 @@ function showVideo(box: Box): void {
   const width = value.width || 560;
   const height = value.height || 315;
   boxContainer.css({
-    width: `${width}px`,
+    width: `${width + 1}px`,
     height: `${height}px`,
   });
   const videoId = getVideoId(value.url);
@@ -44,32 +74,35 @@ function showVideo(box: Box): void {
     </iframe>
   `);
   const videoNode = boxContainer.find('.lake-video');
-  videoNode.append(iframeNode);
   if (!editor.readonly) {
-    new BoxResizer({
-      root: videoNode,
-      box,
-      width,
-      height,
-      onResize: (newWidth, newHeight) => {
-        boxContainer.css({
-          width: `${newWidth}px`,
-          height: `${newHeight}px`,
-        });
-        iframeNode.attr({
-          width: newWidth.toString(),
-          height: newHeight.toString(),
-        });
-      },
-      onStop: (newWidth, newHeight) => {
-        box.updateValue({
-          width: newWidth,
-          height: newHeight,
-        });
-        editor.history.save();
-      },
-    }).render();
+    iframeNode.on('load', () => {
+      appendButtonGroup(box);
+      new BoxResizer({
+        root: videoNode,
+        box,
+        width,
+        height,
+        onResize: (newWidth, newHeight) => {
+          boxContainer.css({
+            width: `${newWidth + 1}px`,
+            height: `${newHeight}px`,
+          });
+          iframeNode.attr({
+            width: newWidth.toString(),
+            height: newHeight.toString(),
+          });
+        },
+        onStop: (newWidth, newHeight) => {
+          box.updateValue({
+            width: newWidth,
+            height: newHeight,
+          });
+          editor.history.save();
+        },
+      }).render();
+    });
   }
+  videoNode.append(iframeNode);
 }
 
 export const videoBox: BoxComponent = {
@@ -85,27 +118,6 @@ export const videoBox: BoxComponent = {
     const videoNode = query('<div class="lake-video" />');
     boxContainer.empty();
     boxContainer.append(videoNode);
-    const buttonGroupNode = query(safeTemplate`
-    <div class="lake-button-group">
-      <button type="button" tabindex="-1" class="lake-button-remove" title="${editor.locale.image.remove()}"></button>
-    </div>
-  `);
-    const removeButton = buttonGroupNode.find('.lake-button-remove');
-    const removeIcon = icons.get('remove');
-    if (removeIcon) {
-      removeButton.append(removeIcon);
-    }
-    if (editor.readonly) {
-      buttonGroupNode.find('.lake-button-remove').hide();
-    } else {
-      buttonGroupNode.find('.lake-button-remove').on('click', event => {
-        event.stopPropagation();
-        editor.removeBox(box);
-        editor.history.save();
-        editor.selection.sync();
-      });
-    }
-    videoNode.append(buttonGroupNode);
     if (!value.url) {
       const formNode = query(safeTemplate`
         <div class="lake-video-form">
@@ -138,6 +150,7 @@ export const videoBox: BoxComponent = {
       });
       button.render();
       videoNode.append(formNode);
+      appendButtonGroup(box);
     } else {
       showVideo(box);
     }

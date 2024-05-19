@@ -2,8 +2,6 @@
   position: relative;
   line-height: 0;
   box-sizing: content-box;
-  border: 1px solid var(--box-border-color);
-  border-radius: 4px;
 }
 lake-box[name="video"] .lake-box-hovered .lake-resizer {
   display: block;
@@ -12,6 +10,8 @@ lake-box[name="video"] .lake-box-hovered .lake-resizer {
   box-sizing: content-box;
   padding: 16px;
   line-height: normal;
+  border: 1px solid var(--box-border-color);
+  border-radius: 4px;
 }
 .lake-video input[type="text"] {
   box-sizing: border-box;

@@ -26,6 +26,14 @@ lake-box .lake-box-strip ::selection {
 lake-box .lake-box-container {
   display: block;
 }
+lake-box .lake-box-hovered .lake-button-group,
+lake-box .lake-box-focused .lake-button-group,
+lake-box .lake-box-activated .lake-button-group {
+  display: flex;
+}
+lake-box .lake-box-focused .lake-resizer {
+  display: block;
+}
 lake-box .lake-button-group {
   position: absolute;
   top: 8px;
@@ -38,10 +46,6 @@ lake-box .lake-button-group {
   align-items: center;
   padding: 0 6px;
   display: none;
-}
-lake-box .lake-box-hovered .lake-button-group,
-lake-box .lake-box-focused .lake-button-group {
-  display: flex;
 }
 lake-box .lake-button-group button {
   border-radius: 5px;
