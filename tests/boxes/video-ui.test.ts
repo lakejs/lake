@@ -13,8 +13,6 @@ describe('boxes / video-ui', () => {
   it('should display video', () => {
     showBox('video', {
       url: youtubeUrl,
-      width: 560,
-      height: 315,
     }, box => {
       expect(box.name).to.equal('video');
     });
@@ -23,8 +21,6 @@ describe('boxes / video-ui', () => {
   it('read-only: should display video', () => {
     showBox('video', {
       url: youtubeUrl,
-      width: 560,
-      height: 315,
     }, box => {
       expect(box.name).to.equal('video');
     }, true);

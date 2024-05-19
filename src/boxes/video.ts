@@ -58,7 +58,7 @@ function showVideo(box: Box): void {
   const width = value.width || 560;
   const height = value.height || 315;
   boxContainer.css({
-    width: `${width + 1}px`,
+    width: `${width}px`,
     height: `${height}px`,
   });
   const videoId = getVideoId(value.url);
@@ -66,12 +66,14 @@ function showVideo(box: Box): void {
     throw new Error(`Invalid link: ${value.url}`);
   }
   // YouTube URL: https://www.youtube.com/watch?v=5sMBhDv4sik
-  // Embed Video: <iframe width="560" height="315" src="https://www.youtube.com/embed/5sMBhDv4sik" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  // The script for embedding YouTube:
+  // <iframe width="560" height="315" src="https://www.youtube.com/embed/5sMBhDv4sik" title="YouTube video player"
+  // frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  // referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   const iframeNode = query(safeTemplate`
-    <iframe width="${width}" height="${height}" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-    </iframe>
+    <iframe width="${width}" height="${height}" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player"
+      frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   `);
   const videoNode = boxContainer.find('.lake-video');
   if (!editor.readonly) {
@@ -84,7 +86,7 @@ function showVideo(box: Box): void {
         height,
         onResize: (newWidth, newHeight) => {
           boxContainer.css({
-            width: `${newWidth + 1}px`,
+            width: `${newWidth}px`,
             height: `${newHeight}px`,
           });
           iframeNode.attr({

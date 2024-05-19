@@ -256,6 +256,9 @@ async function renderDone(imageNode: Nodes, box: Box): Promise<void> {
   const boxContainer = box.getContainer();
   const value = box.value;
   const imageInfo = await getImageInfo(value.url);
+  if (!boxContainer.get(0).isConnected) {
+    return;
+  }
   if (!imageInfo.width || !imageInfo.height) {
     await renderError(imageNode, box);
     return;

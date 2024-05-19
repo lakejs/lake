@@ -52,8 +52,8 @@ describe('ui / box-resizer', () => {
   });
 
   afterEach(() => {
-    // boxes.delete('inlineBox');
-    // container.remove();
+    boxes.delete('inlineBox');
+    container.remove();
   });
 
   it('should resize the box', () => {
