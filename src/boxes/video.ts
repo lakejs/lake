@@ -36,16 +36,12 @@ function appendButtonGroup(box: Box): void {
   if (removeIcon) {
     removeButton.append(removeIcon);
   }
-  if (editor.readonly) {
-    buttonGroupNode.find('.lake-button-remove').hide();
-  } else {
-    buttonGroupNode.find('.lake-button-remove').on('click', event => {
-      event.stopPropagation();
-      editor.removeBox(box);
-      editor.history.save();
-      editor.selection.sync();
-    });
-  }
+  buttonGroupNode.find('.lake-button-remove').on('click', event => {
+    event.stopPropagation();
+    editor.removeBox(box);
+    editor.history.save();
+    editor.selection.sync();
+  });
   videoNode.append(buttonGroupNode);
 }
 
