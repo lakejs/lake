@@ -1,0 +1,55 @@
+.lake-resizer {
+  user-select: none;
+  display: none;
+}
+.lake-box-focused .lake-resizer {
+  display: block;
+}
+.lake-resizer-top-left,
+.lake-resizer-top-right,
+.lake-resizer-bottom-left,
+.lake-resizer-bottom-right {
+  box-sizing: border-box;
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  line-height: 0;
+  z-index: 1;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  background-color: var(--box-border-focus-color);
+}
+.lake-resizer-top-left {
+  top: -5px;
+  left: -5px;
+  cursor: nwse-resize;
+}
+.lake-resizer-top-right {
+  top: -5px;
+  right: -5px;
+  cursor: nesw-resize;
+}
+.lake-resizer-bottom-left {
+  bottom: -5px;
+  left: -5px;
+  cursor: nesw-resize;
+}
+.lake-resizer-bottom-right {
+  bottom: -5px;
+  right: -5px;
+  cursor: nwse-resize;
+}
+.lake-resizer-info {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  z-index: 1;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .4);
+  padding: 2px 8px;
+  font-size: 14px;
+  line-height: normal;
+  color: #fff;
+  white-space: nowrap;
+  display: none;
+}

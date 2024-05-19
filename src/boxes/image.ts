@@ -9,72 +9,13 @@ import { safeTemplate } from '../utils/safe-template';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { Box } from '../models/box';
+import { BoxResizer } from '../ui/box-resizer';
 
 type ImageInfo = {
   node: Nodes;
   width?: number;
   height?: number;
 };
-
-function bindResizerEvents(pointerNode: Nodes, box: Box): void {
-  const editor = box.getEditor();
-  if (!editor) {
-    return;
-  }
-  const boxContainer = box.getContainer();
-  const resizerNode = pointerNode.closest('.lake-resizer');
-  const infoNode = resizerNode.find('.lake-resizer-info');
-  const isPlus = pointerNode.attr('class').indexOf('-right') >= 0;
-  const initialWidth = boxContainer.width();
-  const initialHeight = boxContainer.height();
-  const rate = initialHeight / initialWidth;
-  let clientX = 0;
-  let width = 0;
-  // resizing box
-  const pointermoveListener = (event: Event) => {
-    const pointerEvent = event as PointerEvent;
-    const diffX = pointerEvent.clientX - clientX;
-    const newWidth = Math.round(isPlus ? width + diffX : width - diffX);
-    const newHeight = Math.round(rate * newWidth);
-    boxContainer.css({
-      width: `${newWidth}px`,
-      height: `${newHeight}px`,
-    });
-    infoNode.text(`${newWidth} x ${newHeight}`);
-  };
-  // start resizing
-  const pointerdownListener = (event: Event) => {
-    const pointerEvent = event as PointerEvent;
-    const pointerNativeNode = pointerNode.get(0) as Element;
-    // The capture will be implicitly released after a pointerup or pointercancel event.
-    // https://developer.mozilla.org/en-US/docs/Web/API/Element/setPointerCapture
-    pointerNativeNode.setPointerCapture(pointerEvent.pointerId);
-    clientX = pointerEvent.clientX;
-    width = boxContainer.width();
-    infoNode.show();
-    pointerNode.on('pointermove', pointermoveListener);
-  };
-  // stop resizing
-  const pointerupListner = () => {
-    pointerNode.off('pointermove');
-    infoNode.hide();
-    width = box.getContainer().width();
-    const height = Math.round(rate * width);
-    box.updateValue({
-      width,
-      height,
-    });
-    editor.history.save();
-  };
-  // cancel resizing
-  const pointercancelListner = () => {
-    pointerNode.off('pointermove');
-    infoNode.hide();
-  };
-  pointerNode.on('pointerdown', pointerdownListener);
-  pointerNode.on('pointerup', pointerupListner);
-  pointerNode.on('pointercancel', pointercancelListner);
-}
 
 // Loads an image and get its width and height.
 async function getImageInfo(url: string): Promise<ImageInfo> {
@@ -312,6 +253,7 @@ async function renderDone(imageNode: Nodes, box: Box): Promise<void> {
   if (!editor) {
     return;
   }
+  const boxContainer = box.getContainer();
   const value = box.value;
   const imageInfo = await getImageInfo(value.url);
   if (!imageInfo.width || !imageInfo.height) {
@@ -329,7 +271,7 @@ async function renderDone(imageNode: Nodes, box: Box): Promise<void> {
       height,
     });
   }
-  box.getContainer().css({
+  boxContainer.css({
     width: `${width}px`,
     height: `${height}px`,
   });
@@ -352,27 +294,32 @@ async function renderDone(imageNode: Nodes, box: Box): Promise<void> {
   if (removeIcon) {
     removeButton.append(removeIcon);
   }
-  const resizerNode = query(safeTemplate`
-    <div class="lake-resizer">
-      <div class="lake-resizer-top-left"></div>
-      <div class="lake-resizer-top-right"></div>
-      <div class="lake-resizer-bottom-left"></div>
-      <div class="lake-resizer-bottom-right"></div>
-      <div class="lake-resizer-info">${width} x ${height}</div>
-    </div>
-  `);
   const imgNode = imageInfo.node;
   imgNode.addClass('lake-image-img');
   imgNode.attr({
     draggable: 'false',
     alt: value.name,
   });
-  bindResizerEvents(resizerNode.find('.lake-resizer-top-left'), box);
-  bindResizerEvents(resizerNode.find('.lake-resizer-top-right'), box);
-  bindResizerEvents(resizerNode.find('.lake-resizer-bottom-left'), box);
-  bindResizerEvents(resizerNode.find('.lake-resizer-bottom-right'), box);
   imageNode.append(buttonGroupNode);
-  imageNode.append(resizerNode);
+  new BoxResizer({
+    root: imageNode,
+    box,
+    width,
+    height,
+    onResize: (newWidth, newHeight) => {
+      boxContainer.css({
+        width: `${newWidth}px`,
+        height: `${newHeight}px`,
+      });
+    },
+    onStop: (newWidth, newHeight) => {
+      box.updateValue({
+        width: newWidth,
+        height: newHeight,
+      });
+      editor.history.save();
+    },
+  }).render();
   imageNode.append(imgNode);
 }
 

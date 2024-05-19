@@ -5,6 +5,7 @@ import './mark.css';
 import './button.css';
 import './dropdown.css';
 import './popup.css';
+import './resizer.css';
 import './toolbar.css';
 import './box-toolbar.css';
 import './format-painter.css';

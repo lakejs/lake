@@ -4,6 +4,7 @@ import { safeTemplate } from '../utils/safe-template';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { Button } from '../ui/button';
+import { BoxResizer } from '../ui/box-resizer';
 
 function getVideoId(url: string): string {
   const result = /[0-9a-z]+$/i.exec(url || '');
@@ -29,11 +30,11 @@ function showVideo(box: Box): void {
   if (!editor) {
     return;
   }
-  const container = box.getContainer();
+  const boxContainer = box.getContainer();
   const value = box.value;
   const width = value.width || 560;
   const height = value.height || 315;
-  container.css({
+  boxContainer.css({
     width: `${width}px`,
     height: `${height}px`,
   });
@@ -49,7 +50,31 @@ function showVideo(box: Box): void {
       referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
     </iframe>
   `);
-  container.find('.lake-video').append(iframeNode);
+  const videoNode = boxContainer.find('.lake-video');
+  videoNode.append(iframeNode);
+  new BoxResizer({
+    root: videoNode,
+    box,
+    width,
+    height,
+    onResize: (newWidth, newHeight) => {
+      boxContainer.css({
+        width: `${newWidth}px`,
+        height: `${newHeight}px`,
+      });
+      iframeNode.attr({
+        width: newWidth.toString(),
+        height: newHeight.toString(),
+      });
+    },
+    onStop: (newWidth, newHeight) => {
+      box.updateValue({
+        width: newWidth,
+        height: newHeight,
+      });
+      editor.history.save();
+    },
+  }).render();
 }
 
 export const videoBox: BoxComponent = {
@@ -61,10 +86,10 @@ export const videoBox: BoxComponent = {
       return;
     }
     const value = box.value;
-    const container = box.getContainer();
+    const boxContainer = box.getContainer();
     const videoNode = query('<div class="lake-video" />');
-    container.empty();
-    container.append(videoNode);
+    boxContainer.empty();
+    boxContainer.append(videoNode);
     if (!value.url) {
       const formNode = query(safeTemplate`
         <div class="lake-video-form">
