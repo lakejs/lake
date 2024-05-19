@@ -1,6 +1,6 @@
 import { click } from '../utils';
 import { query, debug } from '../../src/utils';
-import { Editor, Nodes, Box } from '../../src';
+import { Editor, Nodes } from '../../src';
 
 const youtubeUrl = 'https://www.youtube.com/watch?v=5sMBhDv4sik';
 
@@ -8,7 +8,6 @@ describe('boxes / video', () => {
 
   let rootNode: Nodes;
   let editor: Editor;
-  let box: Box;
 
   beforeEach(()=> {
     rootNode = query('<div class="lake-root" />');
@@ -18,11 +17,6 @@ describe('boxes / video', () => {
       value: '<p>foo<focus />bar</p>',
     });
     editor.render();
-    box = editor.insertBox('video', {
-      url: youtubeUrl,
-      width: 500,
-      height: 400,
-    });
   });
 
   afterEach(() => {
@@ -30,7 +24,38 @@ describe('boxes / video', () => {
     rootNode.remove();
   });
 
+  it('should embed a video', () => {
+    const box = editor.insertBox('video');
+    const boxNode = box.node;
+    (boxNode.find('input[name="url"]').get(0) as HTMLInputElement).value = youtubeUrl;
+    boxNode.find('button[name="embed"]').emit('click');
+    expect(boxNode.find('iframe').length).to.equal(1);
+  });
+
+  it('should embed a video by using enter key', () => {
+    const box = editor.insertBox('video');
+    const boxNode = box.node;
+    (boxNode.find('input[name="url"]').get(0) as HTMLInputElement).value = youtubeUrl;
+    boxNode.find('input[name="url"]').emit('keydown', new KeyboardEvent('keydown', {
+      key: 'Enter',
+    }));
+    expect(boxNode.find('iframe').length).to.equal(1);
+  });
+
+  it('should not embed a video that URL is invalid', () => {
+    const box = editor.insertBox('video');
+    const boxNode = box.node;
+    (boxNode.find('input[name="url"]').get(0) as HTMLInputElement).value = 'invalid';
+    boxNode.find('button[name="embed"]').emit('click');
+    expect(boxNode.find('iframe').length).to.equal(0);
+  });
+
   it('should remove the box', () => {
+    const box = editor.insertBox('video', {
+      url: youtubeUrl,
+      width: 500,
+      height: 400,
+    });
     const boxNode = box.node;
     boxNode.find('iframe').emit('load');
     click(boxNode.find('.lake-button-remove'));
@@ -40,6 +65,11 @@ describe('boxes / video', () => {
   });
 
   it('should resize the video', () => {
+    const box = editor.insertBox('video', {
+      url: youtubeUrl,
+      width: 500,
+      height: 400,
+    });
     const boxNode = box.node;
     boxNode.find('iframe').emit('load');
     const pointerdownEvent = new PointerEvent('pointerdown', {

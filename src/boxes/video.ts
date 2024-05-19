@@ -1,3 +1,4 @@
+import { createKeybindingsHandler } from 'tinykeys';
 import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
 import { query } from '../utils/query';
@@ -114,6 +115,10 @@ export const videoBox: BoxComponent = {
     const boxContainer = box.getContainer();
     const videoNode = query('<div class="lake-video" />');
     boxContainer.empty();
+    boxContainer.css({
+      width: '',
+      height: '',
+    });
     boxContainer.append(videoNode);
     if (!value.url) {
       if (editor.readonly) {
@@ -134,7 +139,7 @@ export const videoBox: BoxComponent = {
       `);
       const button = new Button({
         root: formNode.find('.lake-button-row'),
-        name: 'save',
+        name: 'embed',
         type: 'primary',
         text: 'Embed video',
         onClick: () => {
@@ -149,6 +154,11 @@ export const videoBox: BoxComponent = {
           showVideo(box);
         },
       });
+      formNode.find('input[name="url"]').on('keydown', createKeybindingsHandler({
+        'Enter': () => {
+          button.node.emit('click');
+        },
+      }));
       button.render();
       videoNode.append(formNode);
       appendButtonGroup(box);
