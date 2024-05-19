@@ -1,4 +1,4 @@
-import type { BoxComponent } from '..';
+import { BoxComponent } from '../types/box';
 
 export const hrBox: BoxComponent = {
   type: 'block',

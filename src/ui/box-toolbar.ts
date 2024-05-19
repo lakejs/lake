@@ -112,7 +112,6 @@ export class BoxToolbar {
 
   // Renders a toolbar for the specified box.
   public render(): void {
-    this.root.empty();
     this.root.append(this.container);
     this.items.forEach(name => {
       if (name === '|') {

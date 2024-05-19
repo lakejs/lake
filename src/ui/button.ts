@@ -5,6 +5,7 @@ import { Nodes } from '../models/nodes';
 type ButtonConfig = {
   root: Nodes;
   name: string;
+  type?: 'primary' | 'default';
   icon?: string;
   text?: string;
   tooltip?: string;
@@ -25,6 +26,9 @@ export class Button {
     this.node = query(safeTemplate`
       <button type="button" name="${config.name}" class="lake-button" />
     `);
+    if (config.type) {
+      this.node.addClass(`lake-${config.type}-button`);
+    }
     if (config.tabIndex !== undefined) {
       this.node.attr('tabindex', config.tabIndex.toString());
     }

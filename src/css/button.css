@@ -52,3 +52,11 @@ button.lake-text-button span {
   line-height: 16px;
   vertical-align: middle;
 }
+button.lake-primary-button {
+  color: #fff;
+  border-color: transparent;
+  background-color: #5672cd;
+}
+button.lake-primary-button.lake-button-hovered {
+  background-color: #3a5ccc;
+}

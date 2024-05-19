@@ -76,4 +76,26 @@ describe('ui / button-ui', () => {
     expect(buttonValue).to.equal('save clicked');
   });
 
+  it('primary button', () => {
+    let buttonValue;
+    const button = new Button({
+      root: rootNode,
+      name: 'save',
+      type: 'primary',
+      text: 'Save',
+      tooltip: 'Save',
+      onClick: () => {
+        buttonValue = 'save clicked';
+      },
+    });
+    button.render();
+    const buttonNode = button.node;
+    buttonNode.emit('mouseenter');
+    expect(buttonNode.hasClass('lake-button-hovered')).to.equal(true);
+    buttonNode.emit('mouseleave');
+    expect(buttonNode.hasClass('lake-button-hovered')).to.equal(false);
+    click(buttonNode);
+    expect(buttonValue).to.equal('save clicked');
+  });
+
 });
