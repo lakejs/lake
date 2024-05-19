@@ -8,7 +8,7 @@ type BoxResizerConfig = {
   box: Box;
   width: number;
   height: number;
-  onResize: (width: number, height: number) => void;
+  onResize?: (width: number, height: number) => void;
   onStop: (width: number, height: number) => void;
 };
 
@@ -43,7 +43,13 @@ export class BoxResizer {
       const newWidth = Math.round(isPlus ? width + diffX : width - diffX);
       const newHeight = Math.round(rate * newWidth);
       infoNode.text(`${newWidth} x ${newHeight}`);
-      this.config.onResize(newWidth, newHeight);
+      boxContainer.css({
+        width: `${newWidth}px`,
+        height: `${newHeight}px`,
+      });
+      if (this.config.onResize) {
+        this.config.onResize(newWidth, newHeight);
+      }
     };
     // start resizing
     const pointerdownListener = (event: Event) => {

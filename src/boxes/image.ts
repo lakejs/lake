@@ -309,12 +309,6 @@ async function renderDone(imageNode: Nodes, box: Box): Promise<void> {
     box,
     width,
     height,
-    onResize: (newWidth, newHeight) => {
-      boxContainer.css({
-        width: `${newWidth}px`,
-        height: `${newHeight}px`,
-      });
-    },
     onStop: (newWidth, newHeight) => {
       box.updateValue({
         width: newWidth,

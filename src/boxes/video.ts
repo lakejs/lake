@@ -71,7 +71,7 @@ function showVideo(box: Box): void {
   // frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
   // referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   const iframeNode = query(safeTemplate`
-    <iframe width="${width}" height="${height}" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player"
+    <iframe width="100%" height="${height}" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player"
       frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   `);
@@ -85,12 +85,7 @@ function showVideo(box: Box): void {
         width,
         height,
         onResize: (newWidth, newHeight) => {
-          boxContainer.css({
-            width: `${newWidth}px`,
-            height: `${newHeight}px`,
-          });
           iframeNode.attr({
-            width: newWidth.toString(),
             height: newHeight.toString(),
           });
         },

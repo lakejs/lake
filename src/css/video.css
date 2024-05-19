@@ -2,6 +2,7 @@
   position: relative;
   line-height: 0;
   box-sizing: content-box;
+  border: 1px solid transparent;
 }
 lake-box[name="video"] .lake-box-hovered .lake-resizer {
   display: block;
