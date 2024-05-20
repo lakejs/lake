@@ -40,7 +40,7 @@ export class BoxToolbar {
   }
 
   private appendDivider(): void {
-    this.container.append('<div class="lake-box-toolbar-divider" />');
+    this.container.append('<div class="lake-toolbar-divider" />');
   }
 
   private appendButton(item: BoxToolbarButtonItem): void {

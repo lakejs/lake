@@ -134,6 +134,8 @@ import './ui/link-popup.test';
 import './ui/link-popup-ui.test';
 import './ui/toolbar.test';
 import './ui/box-resizer.test';
+import './ui/box-toolbar.test';
+import './ui/box-toolbar-ui.test';
 
 // Editor
 import './editor.test';

@@ -152,7 +152,7 @@ export class Box {
   }
 
   // Sets a popup toolbar for the box.
-  public setToolbar(items: BoxToolbarItem[]): void {
+  public setToolbar(items: ('|' | BoxToolbarItem)[]): void {
     const editor = this.getEditor();
     let toolbar: BoxToolbar | null = null;
     const scrollListener = () => {

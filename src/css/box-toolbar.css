@@ -12,6 +12,7 @@
   line-height: normal;
   color: var(--text-color);
   background-color: #fff;
+  box-shadow: 0 2px 0 #00000005;
   padding: 4px;
   display: flex;
   flex-wrap: wrap;

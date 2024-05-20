@@ -5,6 +5,9 @@
   line-height: normal;
   color: var(--text-color);
 }
+.lake-popup button {
+  box-shadow: var(--button-shadow);
+}
 .lake-popup input[type="text"] {
   box-sizing: content-box;
   font-family: var(--font-family);
