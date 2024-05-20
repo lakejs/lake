@@ -1,4 +1,5 @@
 import { BoxComponent } from '../types/box';
+import { query } from '../utils';
 
 export const hrBox: BoxComponent = {
   type: 'block',
@@ -8,13 +9,11 @@ export const hrBox: BoxComponent = {
     if (!editor) {
       return;
     }
-    box.useEffect(() => {
-      const hrNode = box.getContainer().find('.lake-hr');
-      hrNode.on('click', () => {
-        editor.selectBox(box);
-      });
+    const hrNode = query('<div class="lake-hr"><hr /></div>');
+    box.getContainer().append(hrNode);
+    hrNode.on('click', () => {
+      editor.selectBox(box);
     });
-    return '<div class="lake-hr"><hr /></div>';
   },
   html: () => '<hr />',
 };

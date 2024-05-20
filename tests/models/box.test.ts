@@ -11,8 +11,6 @@ describe('models / box', () => {
 
   let container: Nodes;
 
-  let effectCount = 0;
-
   beforeEach(() => {
     boxes.set('inlineBox', {
       type: 'inline',
@@ -28,21 +26,6 @@ describe('models / box', () => {
       render: () => '<hr />',
       html: () => '<hr />',
     });
-    boxes.set('effectBox', {
-      type: 'block',
-      name: 'blockBox',
-      render: box => {
-        box.useEffect(() => {
-          effectCount++;
-          box.node.addClass('effect-setup');
-          return () => {
-            effectCount--;
-            box.node.removeClass('effect-setup');
-          };
-        });
-        return '<hr />';
-      },
-    });
     container = query('<div contenteditable="true"></div>');
     query(document.body).append(container);
     query(document.body).addClass('lake-custom-properties');
@@ -51,7 +34,6 @@ describe('models / box', () => {
   afterEach(() => {
     boxes.delete('inlineBox');
     boxes.delete('blockBox');
-    boxes.delete('effectBox');
     container.remove();
     query(document.body).removeClass('lake-custom-properties');
   });
@@ -107,24 +89,6 @@ describe('models / box', () => {
     });
   });
 
-  it('method: useEffect', () => {
-    container.html('<lake-box type="block" name="effectBox"></lake-box>');
-    const box = new Box(container.find('lake-box'));
-    expect(effectCount).to.equal(0);
-    box.render();
-    expect(effectCount).to.equal(1);
-    expect(container.find('lake-box').hasClass('effect-setup')).to.equal(true);
-    box.unmount();
-    expect(effectCount).to.equal(0);
-    expect(container.find('lake-box').hasClass('effect-setup')).to.equal(false);
-    box.render();
-    expect(effectCount).to.equal(1);
-    expect(container.find('lake-box').hasClass('effect-setup')).to.equal(true);
-    new Box(container.find('lake-box')).unmount();
-    expect(effectCount).to.equal(0);
-    expect(container.find('lake-box').hasClass('effect-setup')).to.equal(false);
-  });
-
   it('method: render', () => {
     container.html('<lake-box type="block" name="blockBox"></lake-box>');
     const box = new Box(container.find('lake-box'));
@@ -149,7 +113,27 @@ describe('models / box', () => {
     expect(box.getHTML()).to.equal('<hr />');
   });
 
-  it('mouse effect', () => {
+  it('event: blur', () => {
+    container.html('<lake-box type="block" name="blockBox"></lake-box>');
+    const box = new Box(container.find('lake-box'));
+    let calledCount = 0;
+    box.render();
+    box.event.on('blur', () => calledCount++);
+    box.unmount();
+    expect(calledCount).to.equal(1);
+  });
+
+  it('event: beforeunmount', () => {
+    container.html('<lake-box type="block" name="blockBox"></lake-box>');
+    const box = new Box(container.find('lake-box'));
+    let calledCount = 0;
+    box.render();
+    box.event.on('beforeunmount', () => calledCount++);
+    box.unmount();
+    expect(calledCount).to.equal(1);
+  });
+
+  it('event: abount mouse', () => {
     container.html('<lake-box type="block" name="blockBox"></lake-box>');
     const box = new Box(container.find('lake-box'));
     box.render();
@@ -170,7 +154,7 @@ describe('models / box', () => {
     boxContainer.emit('mousedown');
   });
 
-  it('should update box', () => {
+  it('should update the value of the box', () => {
     container.html('<p><lake-box type="inline" name="inlineBox"></lake-box></p>');
     const box = new Box(container.find('lake-box'));
     box.render();
@@ -185,22 +169,22 @@ describe('models / box', () => {
     expect(container.find('lake-box img').attr('src')).to.equal('../assets/images/lac-gentau-256.jpg');
   });
 
-  it('should add toolbar', () => {
+  it('should add a toolbar', () => {
     container.html('<p><lake-box type="inline" name="inlineBox"></lake-box></p>');
     const box = new Box(container.find('lake-box'));
     box.render();
-    let clickCount = 0;
+    let calledCount = 0;
     box.setToolbar([{
       name: 'remove',
       type: 'button',
       icon: icons.get('remove'),
       tooltip: 'Remove',
-      onClick: () => clickCount++,
+      onClick: () => calledCount++,
     }]);
     box.event.emit('focus');
     expect(query(document.body).find('.lake-box-toolbar').computedCSS('display')).to.equal('flex');
     click(query(document.body).find('.lake-box-toolbar button[name="remove"]'));
-    expect(clickCount).to.equal(1);
+    expect(calledCount).to.equal(1);
     box.event.emit('blur');
     expect(query(document.body).find('.lake-box-toolbar').length).to.equal(0);
   });

@@ -197,7 +197,7 @@ export const codeBlockBox: BoxComponent = {
       container.css('width', `${editor.container.innerWidth() - 2}px`);
     };
     editor.event.on('resize', resizeListener);
-    box.useEffect(() => () => {
+    box.event.on('beforeunmount', () => {
       codeEditor.destroy();
       editor.event.off('resize', resizeListener);
       debug('CodeMirror destroyed');
