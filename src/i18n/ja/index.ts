@@ -72,6 +72,13 @@ export default {
     download: 'ダウンロード',
     remove: '削除',
   },
+  video: {
+    embed: '動画を埋め込む',
+    remove: '削除',
+    description: '下の入力欄に YouTube リンクを貼り付けてください。',
+    url: 'リンク',
+    urlError: '有効なリンクを入力してください。',
+  },
   codeBlock: {
     langType: 'コード言語を選択',
   },

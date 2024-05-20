@@ -72,6 +72,13 @@ export default {
     download: '다운로드',
     remove: '삭제',
   },
+  video: {
+    embed: '동영상 삽입',
+    remove: '삭제',
+    description: '아래 입력란에 YouTube 링크를 붙여넣으세요.',
+    url: '링크',
+    urlError: '유효한 링크를 입력하세요.',
+  },
   codeBlock: {
     langType: '코드언어 선택',
   },

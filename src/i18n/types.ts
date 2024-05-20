@@ -272,6 +272,28 @@ type RootTranslation = {
 		 */
 		remove: string
 	}
+	video: {
+		/**
+		 * E​m​b​e​d​ ​v​i​d​e​o
+		 */
+		embed: string
+		/**
+		 * D​e​l​e​t​e
+		 */
+		remove: string
+		/**
+		 * P​a​s​t​e​ ​a​ ​l​i​n​k​ ​t​o​ ​e​m​b​e​d​ ​a​ ​v​i​d​e​o​ ​f​r​o​m​ ​Y​o​u​T​u​b​e​.
+		 */
+		description: string
+		/**
+		 * L​i​n​k
+		 */
+		url: string
+		/**
+		 * P​l​e​a​s​e​ ​e​n​t​e​r​ ​a​ ​v​a​l​i​d​ ​l​i​n​k​.
+		 */
+		urlError: string
+	}
 	codeBlock: {
 		/**
 		 * S​e​l​e​c​t​ ​l​a​n​g​u​a​g​e
@@ -536,6 +558,28 @@ export type TranslationFunctions = {
 		 * Delete
 		 */
 		remove: () => LocalizedString
+	}
+	video: {
+		/**
+		 * Embed video
+		 */
+		embed: () => LocalizedString
+		/**
+		 * Delete
+		 */
+		remove: () => LocalizedString
+		/**
+		 * Paste a link to embed a video from YouTube.
+		 */
+		description: () => LocalizedString
+		/**
+		 * Link
+		 */
+		url: () => LocalizedString
+		/**
+		 * Please enter a valid link.
+		 */
+		urlError: () => LocalizedString
 	}
 	codeBlock: {
 		/**

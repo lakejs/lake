@@ -34,7 +34,7 @@ lake-box[name="video"] .lake-box-hovered .lake-resizer {
 .lake-video .lake-row {
   padding-bottom: 8px;
 }
-.lake-video .lake-tip-row {
+.lake-video .lake-desc-row {
   padding-top: 8px;
   padding-bottom: 16px;
   color: var(--secondary-text-color);

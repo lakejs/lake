@@ -72,6 +72,13 @@ export default {
     download: 'Download',
     remove: 'Delete',
   },
+  video: {
+    embed: 'Embed video',
+    remove: 'Delete',
+    description: 'Paste a link to embed a video from YouTube.',
+    url: 'Link',
+    urlError: 'Please enter a valid link.',
+  },
   codeBlock: {
     langType: 'Select language',
   },

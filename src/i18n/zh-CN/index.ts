@@ -72,6 +72,13 @@ export default {
     download: '下载',
     remove: '删除',
   },
+  video: {
+    embed: '嵌入视频',
+    remove: '删除',
+    description: '在下面的输入框里，粘贴 YouTube 链接。',
+    url: '链接',
+    urlError: '请输入有效的链接。',
+  },
   codeBlock: {
     langType: '选择代码语言',
   },

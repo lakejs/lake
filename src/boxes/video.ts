@@ -28,7 +28,7 @@ function appendButtonGroup(box: Box): void {
   const videoNode = boxContainer.find('.lake-video');
   const buttonGroupNode = query(safeTemplate`
     <div class="lake-button-group">
-      <button type="button" tabindex="-1" class="lake-button-remove" title="${editor.locale.image.remove()}"></button>
+      <button type="button" tabindex="-1" class="lake-button-remove" title="${editor.locale.video.remove()}"></button>
     </div>
   `);
   const removeButton = buttonGroupNode.find('.lake-button-remove');
@@ -107,6 +107,7 @@ export const videoBox: BoxComponent = {
     if (!editor) {
       return;
     }
+    const locale = editor.locale;
     const value = box.value;
     const boxContainer = box.getContainer();
     const videoNode = query('<div class="lake-video" />');
@@ -123,10 +124,8 @@ export const videoBox: BoxComponent = {
       }
       const formNode = query(safeTemplate`
         <div class="lake-video-form">
-          <div class="lake-row lake-tip-row">
-            Paste a link to embed a video from YouTube.
-          </div>
-          <div class="lake-row">Link</div>
+          <div class="lake-row lake-desc-row">${locale.video.description()}</div>
+          <div class="lake-row">${locale.video.url()}</div>
           <div class="lake-row">
             <input type="text" name="url" placeholder="https://www.youtube.com/watch?v=..." />
           </div>
@@ -137,11 +136,11 @@ export const videoBox: BoxComponent = {
         root: formNode.find('.lake-button-row'),
         name: 'embed',
         type: 'primary',
-        text: 'Embed video',
+        text: locale.video.embed(),
         onClick: () => {
           const url = getInputValue(formNode, 'url');
           if (url.indexOf('https://www.youtube.com/') < 0 || getVideoId(url) === '') {
-            editor.config.onMessage('error', 'Please enter a valid link.');
+            editor.config.onMessage('error', locale.video.urlError());
             return;
           }
           box.updateValue('url', url);
