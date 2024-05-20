@@ -118,6 +118,14 @@ window.defaultValue = `
 <p>Heaven Lake is a volcanic crater lake atop Changbai Mountain. In Korea, it is known as Paektu Mountain or Baekdu Mountain. It lies on the border between China and North Korea, and is roughly evenly divided between the two countries. It is recognized as the highest volcanic lake in the world by the Shanghai Office of the Guinness World Records.</p>
 <p><br /></p>
 
+<h3>Video</h3>
+<lake-box type="block" name="hr"></lake-box>
+<p><lake-box type="inline" name="video" value="eyJ1cmwiOiJodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PTVzTUJoRHY0c2lrIn0="></lake-box></p>
+<p>Think Different</p>
+<p>Here's to the crazy ones. The misfits. The rebels. The troublemakers. The round pegs in the square holes. The ones who see things differently. They're not fond of rules. And they have no respect for the status quo. You can quote them, disagree with them, glorify or vilify them. About the only thing you can't do is ignore them. Because they change things. They push the human race forward. And while some may see them as the crazy ones, we see genius. Because the people who are crazy enough to think they can change the world, are the ones who do.</p>
+<p>- Apple Inc.</p>
+<p><br /></p>
+
 <h3>File</h3>
 <lake-box type="block" name="hr"></lake-box>
 <p><lake-box type="inline" name="file" value="eyJ1cmwiOiIuLi9hc3NldHMvZmlsZXMvaGVhdmVuLWxha2Utd2lraXBlZGlhLnBkZiIsInN0YXR1cyI6ImRvbmUiLCJuYW1lIjoiSGVhdmVuIExha2UgLSBXaWtpcGVkaWEucGRmIiwic2l6ZSI6NzQ3Mzg1LCJ0eXBlIjoiYXBwbGljYXRpb24vcGRmIiwibGFzdE1vZGlmaWVkIjoxNzE1OTM1MjE1MzA5fQ=="></lake-box></p>
