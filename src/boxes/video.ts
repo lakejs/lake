@@ -150,7 +150,8 @@ export const videoBox: BoxComponent = {
         },
       });
       formNode.find('input[name="url"]').on('keydown', createKeybindingsHandler({
-        'Enter': () => {
+        'Enter': event => {
+          event.preventDefault();
           button.node.emit('click');
         },
       }));
