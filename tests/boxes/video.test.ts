@@ -32,7 +32,7 @@ describe('boxes / video', () => {
     expect(boxNode.find('iframe').length).to.equal(1);
   });
 
-  it('should embed a video by using enter key', () => {
+  it('should embed a video by pressing enter key', () => {
     const box = editor.insertBox('video');
     const boxNode = box.node;
     (boxNode.find('input[name="url"]').get(0) as HTMLInputElement).value = youtubeUrl;

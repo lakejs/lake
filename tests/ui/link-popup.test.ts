@@ -56,6 +56,54 @@ describe('ui / link-popup', () => {
     linkNode.remove();
   });
 
+  it('should save the URL and title by clicking button', () => {
+    const linkNode = query('<a href="http://github.com/">GitHub</a>');
+    query(document.body).append(linkNode);
+    const popup = new LinkPopup({
+      root: rootNode,
+    });
+    popup.show(linkNode);
+    popup.setInputValue('url', 'http://foo.com/');
+    popup.setInputValue('title', 'foo');
+    const saveButton = popup.container.find('button[name="save"]');
+    click(saveButton);
+    expect(linkNode.attr('href')).to.equal('http://foo.com/');
+    expect(linkNode.text()).to.equal('foo');
+    linkNode.remove();
+  });
+
+  it('should save the URL by pressing enter key', () => {
+    const linkNode = query('<a href="http://github.com/">GitHub</a>');
+    query(document.body).append(linkNode);
+    const popup = new LinkPopup({
+      root: rootNode,
+    });
+    popup.show(linkNode);
+    popup.setInputValue('url', 'http://foo.com/');
+    popup.container.find('input[name="url"]').emit('keydown', new KeyboardEvent('keydown', {
+      key: 'Enter',
+    }));
+    expect(linkNode.attr('href')).to.equal('http://foo.com/');
+    expect(linkNode.text()).to.equal('GitHub');
+    linkNode.remove();
+  });
+
+  it('should save the title by pressing enter key', () => {
+    const linkNode = query('<a href="http://github.com/">GitHub</a>');
+    query(document.body).append(linkNode);
+    const popup = new LinkPopup({
+      root: rootNode,
+    });
+    popup.show(linkNode);
+    popup.setInputValue('title', 'foo');
+    popup.container.find('input[name="url"]').emit('keydown', new KeyboardEvent('keydown', {
+      key: 'Enter',
+    }));
+    expect(linkNode.attr('href')).to.equal('http://github.com/');
+    expect(linkNode.text()).to.equal('foo');
+    linkNode.remove();
+  });
+
   it('title should use URL when title is empty', () => {
     const linkNode = query('<a href="http://github.com/">GitHub</a>');
     query(document.body).append(linkNode);
