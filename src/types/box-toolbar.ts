@@ -1,3 +1,4 @@
+import type { Nodes } from '../models/nodes';
 import type { Box } from '../models/box';
 import { TranslationFunctions } from '../i18n/types';
 import { DropdownItem } from './dropdown';
@@ -22,3 +23,13 @@ export type BoxToolbarDropdownItem = DropdownItem & {
 }
 
 export type BoxToolbarItem = BoxToolbarButtonItem | BoxToolbarDropdownItem;
+
+export type BoxToolbarPlacement = 'top' | 'bottom';
+
+export type BoxToolbarConfig = {
+  root: Nodes;
+  box: Box;
+  items: ('|' | BoxToolbarItem)[];
+  locale?: TranslationFunctions;
+  placement?: BoxToolbarPlacement;
+};

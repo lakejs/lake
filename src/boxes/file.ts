@@ -6,7 +6,6 @@ import { safeTemplate } from '../utils/safe-template';
 import { fileSize } from '../utils/file-size';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
-import { BoxToolbar } from '../ui/box-toolbar';
 
 const boxToolbarItems: BoxToolbarItem[] = [
   {
@@ -92,30 +91,8 @@ export const fileBox: BoxComponent = {
       fileNode.on('click', () => {
         editor.selectBox(box);
       });
-      let toolbar: BoxToolbar | null = null;
-      const scrollListener = () => {
-        if (toolbar) {
-          toolbar.updatePosition();
-        }
-      };
-      box.event.on('focus', () => {
-        const items = value.status === 'done' ? boxToolbarItems : boxToolbarItems.filter(item => item.name === 'remove');
-        toolbar = new BoxToolbar({
-          root: editor.popupContainer,
-          editor,
-          box,
-          items,
-        });
-        toolbar.render();
-        editor.root.on('scroll', scrollListener);
-      });
-      box.event.on('blur', () => {
-        if (toolbar) {
-          toolbar.unmount();
-          toolbar = null;
-        }
-        editor.root.off('scroll', scrollListener);
-      });
+      const items = value.status === 'done' ? boxToolbarItems : boxToolbarItems.filter(item => item.name === 'remove');
+      box.setToolbar(items);
     } else {
       fileNode.on('click', () => {
         window.open(value.url);

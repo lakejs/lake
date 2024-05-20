@@ -3,6 +3,7 @@ import EventEmitter from 'eventemitter3';
 import type { Editor } from '../editor';
 import { NativeNode } from '../types/native';
 import { BoxType, BoxValue } from '../types/box';
+import { BoxToolbarItem } from '../types/box-toolbar';
 import { boxes } from '../storage/boxes';
 import { editors } from '../storage/editors';
 import { debug } from '../utils/debug';
@@ -11,6 +12,7 @@ import { encode } from '../utils/encode';
 import { query } from '../utils/query';
 import { morph } from '../utils/morph';
 import { Nodes } from './nodes';
+import { BoxToolbar } from '../ui/box-toolbar';
 
 type CleanupFunction = () => void;
 type SetupFunction = () => CleanupFunction | void;
@@ -163,6 +165,38 @@ export class Box {
 
   public useEffect(setup: SetupFunction): void {
     effectData[this.node.id].setup.push(setup);
+  }
+
+  // Sets a popup toolbar for the box.
+  public setToolbar(items: BoxToolbarItem[]): void {
+    const editor = this.getEditor();
+    let toolbar: BoxToolbar | null = null;
+    const scrollListener = () => {
+      if (toolbar) {
+        toolbar.updatePosition();
+      }
+    };
+    this.event.on('focus', () => {
+      toolbar = new BoxToolbar({
+        root: editor ? editor.popupContainer : query(document.body),
+        box: this,
+        items,
+        locale: editor ? editor.locale : undefined,
+      });
+      toolbar.render();
+      if (editor) {
+        editor.root.on('scroll', scrollListener);
+      }
+    });
+    this.event.on('blur', () => {
+      if (toolbar) {
+        toolbar.unmount();
+        toolbar = null;
+      }
+      if (editor) {
+        editor.root.off('scroll', scrollListener);
+      }
+    });
   }
 
   // Renders the contents of the box.

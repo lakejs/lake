@@ -1,36 +1,27 @@
-import { Editor } from '../editor';
-import { NativeNode } from '../types/native';
-import { BoxToolbarButtonItem, BoxToolbarDropdownItem, BoxToolbarItem } from '../types/box-toolbar';
+import { TranslationFunctions } from '../i18n/types';
+import {
+  BoxToolbarButtonItem, BoxToolbarDropdownItem,
+  BoxToolbarItem, BoxToolbarConfig, BoxToolbarPlacement,
+} from '../types/box-toolbar';
 import { query } from '../utils/query';
 import { nodeAndView } from '../utils/node-and-view';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { Button } from './button';
 import { Dropdown } from './dropdown';
-
-type ToolbarPlacement = 'top' | 'bottom';
-
-type ToolbarConfig = {
-  root: string | Nodes | NativeNode;
-  editor: Editor;
-  box: Box;
-  items: (string | BoxToolbarItem)[];
-  placement?: ToolbarPlacement;
-};
-
-const toolbarItemMap: Map<string, BoxToolbarItem> = new Map();
+import { i18nObject } from '../../src/i18n';
 
 export class BoxToolbar {
 
   private root: Nodes;
 
-  private editor: Editor;
-
   private box: Box;
 
-  private items: (string | BoxToolbarItem)[];
+  private items: ('|' | BoxToolbarItem)[];
 
-  private placement: ToolbarPlacement = 'top';
+  private locale: TranslationFunctions;
+
+  private placement: BoxToolbarPlacement;
 
   private buttonItemList: BoxToolbarButtonItem[] = [];
 
@@ -38,14 +29,12 @@ export class BoxToolbar {
 
   public container: Nodes;
 
-  constructor(config: ToolbarConfig) {
+  constructor(config: BoxToolbarConfig) {
     this.root = query(config.root);
-    this.editor = config.editor;
     this.box = config.box;
     this.items = config.items;
-    if (config.placement) {
-      this.placement = config.placement;
-    }
+    this.locale = config.locale || i18nObject('en-US');
+    this.placement = config.placement || 'top';
     this.container = query('<div class="lake-box-toolbar" />');
     this.root.addClass('lake-custom-properties');
   }
@@ -59,7 +48,7 @@ export class BoxToolbar {
       root: this.container,
       name: item.name,
       icon: item.icon,
-      tooltip: typeof item.tooltip === 'string' ? item.tooltip : item.tooltip(this.editor.locale),
+      tooltip: typeof item.tooltip === 'string' ? item.tooltip : item.tooltip(this.locale),
       tabIndex: -1,
       onClick: () => {
         item.onClick(this.box, item.name);
@@ -71,7 +60,7 @@ export class BoxToolbar {
   private appendDropdown(item: BoxToolbarDropdownItem): void {
     const dropdown = new Dropdown({
       root: this.container,
-      locale: this.editor.locale,
+      locale: this.locale,
       name: item.name,
       icon: item.icon,
       accentIcon: item.accentIcon,
@@ -92,14 +81,14 @@ export class BoxToolbar {
 
   public updatePosition(): void {
     const boxNode = this.box.node;
+    const boxNativeNode = boxNode.get(0) as HTMLElement;
+    const boxRect = boxNativeNode.getBoundingClientRect();
     const position = nodeAndView(boxNode);
-    if (position.left < 0 || position.right < 0 || position.top < 0 || position.bottom < 0) {
+    if (position.top < 0 || position.bottom + boxRect.height < 0) {
       this.container.hide();
       return;
     }
     this.container.show('flex');
-    const boxNativeNode = this.box.node.get(0) as HTMLElement;
-    const boxRect = boxNativeNode.getBoundingClientRect();
     const boxX = boxRect.x + window.scrollX;
     const boxY = boxRect.y + window.scrollY;
     const left = (boxX + boxRect.width / 2 - this.container.width() / 2).toFixed(1);
@@ -113,19 +102,10 @@ export class BoxToolbar {
   // Renders a toolbar for the specified box.
   public render(): void {
     this.root.append(this.container);
-    this.items.forEach(name => {
-      if (name === '|') {
+    this.items.forEach(item => {
+      if (item === '|') {
         this.appendDivider();
         return;
-      }
-      let item;
-      if (typeof name === 'string') {
-        item = toolbarItemMap.get(name);
-        if (!item) {
-          return;
-        }
-      } else {
-        item = name;
       }
       if (item.type === 'button') {
         this.buttonItemList.push(item);

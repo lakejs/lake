@@ -1,4 +1,6 @@
+import { click } from '../utils';
 import { boxes } from '../../src/storage/boxes';
+import { icons } from '../../src/icons';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Box } from '../../src/models/box';
@@ -18,7 +20,7 @@ describe('models / box', () => {
       value: {
         url: imageUrl,
       },
-      render: box => `<img src="${box.value.url}" />`,
+      render: box => `<img src="${box.value.url}" style="width: 256px; height: 186px;" />`,
     });
     boxes.set('blockBox', {
       type: 'block',
@@ -43,6 +45,7 @@ describe('models / box', () => {
     });
     container = query('<div contenteditable="true"></div>');
     query(document.body).append(container);
+    query(document.body).addClass('lake-custom-properties');
   });
 
   afterEach(() => {
@@ -50,15 +53,16 @@ describe('models / box', () => {
     boxes.delete('blockBox');
     boxes.delete('effectBox');
     container.remove();
+    query(document.body).removeClass('lake-custom-properties');
   });
 
-  it('constructor: is a string', () => {
+  it('constructor: a string', () => {
     const box = new Box('blockBox');
     container.append(box.node);
     expect(container.html()).to.equal('<lake-box type="block" name="blockBox"></lake-box>');
   });
 
-  it('constructor: is a native node', () => {
+  it('constructor: a native node', () => {
     container.html('<lake-box type="block" name="blockBox"></lake-box>');
     const box = new Box(container.find('lake-box').get(0));
     expect(box.name).to.equal('blockBox');
@@ -166,7 +170,7 @@ describe('models / box', () => {
     boxContainer.emit('mousedown');
   });
 
-  it('update (re-render) box', () => {
+  it('should update box', () => {
     container.html('<p><lake-box type="inline" name="inlineBox"></lake-box></p>');
     const box = new Box(container.find('lake-box'));
     box.render();
@@ -179,6 +183,26 @@ describe('models / box', () => {
     const newBoxContainer = box.getContainer();
     expect(oldBoxContainer.get(0) === newBoxContainer.get(0)).to.equal(true);
     expect(container.find('lake-box img').attr('src')).to.equal('../assets/images/lac-gentau-256.jpg');
+  });
+
+  it('should add toolbar', () => {
+    container.html('<p><lake-box type="inline" name="inlineBox"></lake-box></p>');
+    const box = new Box(container.find('lake-box'));
+    box.render();
+    let clickCount = 0;
+    box.setToolbar([{
+      name: 'remove',
+      type: 'button',
+      icon: icons.get('remove'),
+      tooltip: 'Remove',
+      onClick: () => clickCount++,
+    }]);
+    box.event.emit('focus');
+    expect(query(document.body).find('.lake-box-toolbar').computedCSS('display')).to.equal('flex');
+    click(query(document.body).find('.lake-box-toolbar button[name="remove"]'));
+    expect(clickCount).to.equal(1);
+    box.event.emit('blur');
+    expect(query(document.body).find('.lake-box-toolbar').length).to.equal(0);
   });
 
 });
