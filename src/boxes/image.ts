@@ -389,7 +389,7 @@ export const imageBox: BoxComponent = {
       box.event.emit('render');
     });
     imageNode.on('click', () => {
-      editor.selectBox(box);
+      editor.selection.selectBox(box);
     });
   },
   html: box => {

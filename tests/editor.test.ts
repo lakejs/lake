@@ -406,21 +406,6 @@ describe('editor', () => {
     expect(editor.container.hasClass('lake-show-placeholder')).to.equal(true);
   });
 
-  it('method: selectBox', () => {
-    const input = '<p>foo<lake-box type="inline" name="inlineBox"></lake-box>bar<focus /></p>';
-    const output = '<p>foo<lake-box type="inline" name="inlineBox" focus="center"></lake-box>bar</p>';
-    const editor = new Editor({
-      root: rootNode,
-    });
-    editor.render();
-    editor.setValue(input);
-    editor.selectBox(editor.container.find('lake-box'));
-    const value = editor.getValue();
-    debug(`output: ${value}`);
-    editor.unmount();
-    expect(value).to.equal(output);
-  });
-
   it('method: insertBox', () => {
     const output = '<p><lake-box type="inline" name="inlineBox" focus="end"></lake-box></p>';
     const editor = new Editor({

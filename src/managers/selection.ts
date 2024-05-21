@@ -3,6 +3,7 @@ import { KeyValue, AppliedItem } from '../types/object';
 import { parseStyle } from '../utils/parse-style';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
+import { Box } from '../models/box';
 import { insertBookmark } from '../operations/insert-bookmark';
 import { toBookmark } from '../operations/to-bookmark';
 import { insertNode } from '../operations/insert-node';
@@ -207,5 +208,16 @@ export class Selection {
 
   public insertLink(value: Parameters<typeof insertLink>[1]): ReturnType<typeof insertLink> {
     return insertLink(this.range, value);
+  }
+
+  // Sets the current range to the center position of the box.
+  public selectBox(box: Box | Nodes): void {
+    let boxNode = box;
+    if (box instanceof Box) {
+      boxNode = box.node;
+    } else {
+      boxNode = box;
+    }
+    this.range.selectBox(boxNode);
   }
 }

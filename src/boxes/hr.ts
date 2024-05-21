@@ -12,7 +12,7 @@ export const hrBox: BoxComponent = {
     const hrNode = query('<div class="lake-hr"><hr /></div>');
     box.getContainer().append(hrNode);
     hrNode.on('click', () => {
-      editor.selectBox(box);
+      editor.selection.selectBox(box);
     });
   },
   html: () => '<hr />',

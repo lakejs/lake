@@ -89,7 +89,7 @@ export const fileBox: BoxComponent = {
     container.append(fileNode);
     if (!editor.readonly) {
       fileNode.on('click', () => {
-        editor.selectBox(box);
+        editor.selection.selectBox(box);
       });
       const items = value.status === 'done' ? boxToolbarItems : boxToolbarItems.filter(item => item.name === 'remove');
       box.setToolbar(items);

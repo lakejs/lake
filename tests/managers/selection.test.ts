@@ -1,5 +1,5 @@
 import { boxes } from '../../src/storage/boxes';
-import { normalizeValue, query } from '../../src/utils';
+import { normalizeValue, query, getBox } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
 import { Selection } from '../../src/managers/selection';
@@ -137,6 +137,28 @@ describe('managers / selection', () => {
     expect(appliedItems[0].name).to.equal('p');
     expect(appliedItems[1].name).to.equal('i');
     expect(appliedItems[2].name).to.equal('strong');
+  });
+
+  it('selectBox method: by box', () => {
+    const content = '<p>foo<lake-box type="inline" name="inlineBox"></lake-box>bar<focus /></p>';
+    const selection = new Selection(container);
+    container.html(normalizeValue(content.trim()));
+    const boxNode = container.find('lake-box');
+    const box = getBox(boxNode);
+    box.render();
+    selection.selectBox(box);
+    expect(selection.range.isBoxCenter).to.equal(true);
+  });
+
+  it('selectBox method: by node', () => {
+    const content = '<p>foo<lake-box type="inline" name="inlineBox"></lake-box>bar<focus /></p>';
+    const selection = new Selection(container);
+    container.html(normalizeValue(content.trim()));
+    const boxNode = container.find('lake-box');
+    const box = getBox(boxNode);
+    box.render();
+    selection.selectBox(boxNode);
+    expect(selection.range.isBoxCenter).to.equal(true);
   });
 
 });
