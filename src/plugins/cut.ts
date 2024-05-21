@@ -25,7 +25,7 @@ export default (editor: Editor) => {
     const box = getBox(boxNode);
     const content = box.getHTML();
     dataTransfer.setData('text/html', content);
-    editor.removeBox();
+    editor.selection.removeBox();
     editor.history.save();
   });
 };

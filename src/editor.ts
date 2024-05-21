@@ -9,9 +9,7 @@ import { editors } from './storage/editors';
 import { denormalizeValue, normalizeValue, query, getBox, debug } from './utils';
 import { i18nObject } from './i18n';
 import { Nodes } from './models/nodes';
-import { Box } from './models/box';
 import { HTMLParser } from './parsers/html-parser';
-import { removeBox } from './operations/remove-box';
 import { Selection } from './managers/selection';
 import { Command } from './managers/command';
 import { History } from './managers/history';
@@ -20,7 +18,7 @@ import { BoxManager } from './managers/box-manager';
 import { Plugin } from './managers/plugin';
 import { Toolbar } from './ui/toolbar';
 
-type OnMessage = (type: 'success' | 'error' | 'warning', message: string) => void;
+type MessageCallback = (type: 'success' | 'error' | 'warning', message: string) => void;
 
 type Config = {
   value: string;
@@ -31,7 +29,7 @@ type Config = {
   indentWithTab: boolean;
   lang: string;
   minChangeSize: number;
-  onMessage: OnMessage;
+  onMessage: MessageCallback;
   [name: string]: any;
 };
 
@@ -46,7 +44,7 @@ type EditorConfig = {
   indentWithTab?: boolean;
   lang?: string;
   minChangeSize?: number;
-  onMessage?: OnMessage;
+  onMessage?: MessageCallback;
   [name: string]: any;
 };
 
@@ -584,19 +582,6 @@ export class Editor {
     value = denormalizeValue(value);
     this.selection.toBookmark(bookmark);
     return value;
-  }
-
-  // Removes the selected box.
-  public removeBox(box: Box | Nodes | null = null): ReturnType<typeof removeBox> {
-    if (box) {
-      this.selection.selectBox(box);
-    }
-    box = removeBox(this.selection.range);
-    if (box) {
-      const instanceMap = this.box.getInstances(this.container);
-      instanceMap.delete(box.node.id);
-    }
-    return box;
   }
 
   // Renders an editor area and set default value to it.

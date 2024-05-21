@@ -69,7 +69,7 @@ export default (editor: Editor) => {
     }
     if (range.isBox) {
       event.preventDefault();
-      editor.removeBox();
+      editor.selection.removeBox();
       editor.history.save();
       return;
     }
@@ -86,7 +86,7 @@ export default (editor: Editor) => {
     const nextNode = range.getNextNode();
     if (nextNode.isBox) {
       event.preventDefault();
-      editor.removeBox(nextNode);
+      editor.selection.removeBox(nextNode);
       editor.history.save();
       return;
     }

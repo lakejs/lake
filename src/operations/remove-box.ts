@@ -1,6 +1,21 @@
+import { getInstanceMap } from '../storage/box-instances';
 import { appendDeepest, query, getBox } from '../utils';
 import { Range } from '../models/range';
 import { Box } from '../models/box';
+
+function unmountBox(box: Box): Box {
+  const container = box.node.closestContainer();
+  box.unmount();
+  box.node.remove();
+  if (container.length > 0) {
+    // move the box instance from permanent map to temporary map
+    const instanceMap = getInstanceMap(container.id);
+    instanceMap.delete(box.node.id);
+    const tempInstanceMap = getInstanceMap(0);
+    tempInstanceMap.set(box.node.id, box);
+  }
+  return box;
+}
 
 export function removeBox(range: Range): Box | null {
   if (range.commonAncestor.isOutside) {
@@ -15,15 +30,12 @@ export function removeBox(range: Range): Box | null {
     const paragraph = query('<p><br /></p>');
     boxNode.before(paragraph);
     range.shrinkAfter(paragraph);
-    box.unmount();
-    boxNode.remove();
-    return box;
+    return unmountBox(box);
   }
   range.setStartBefore(boxNode);
   range.collapseToStart();
   const parentNode = boxNode.parent();
-  box.unmount();
-  boxNode.remove();
+  unmountBox(box);
   if (parentNode.isEmpty) {
     appendDeepest(parentNode, query('<br />'));
     range.shrinkAfter(parentNode);

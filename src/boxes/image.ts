@@ -381,7 +381,7 @@ export const imageBox: BoxComponent = {
           if (xhr) {
             xhr.abort();
           }
-          editor.removeBox(box);
+          editor.selection.removeBox(box);
           editor.history.save();
           editor.selection.sync();
         });

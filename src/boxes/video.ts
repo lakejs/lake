@@ -38,7 +38,7 @@ function appendButtonGroup(box: Box): void {
   }
   buttonGroupNode.find('.lake-button-remove').on('click', event => {
     event.stopPropagation();
-    editor.removeBox(box);
+    editor.selection.removeBox(box);
     editor.history.save();
     editor.selection.sync();
   });

@@ -21,7 +21,8 @@ export function insertBox(range: Range, boxName: string, boxValue?: BoxValue): B
     insertFragment(range, fragment);
     box.render();
     range.selectBoxEnd(box.node);
-    return box;
+    // move the box instance from temporary map to permanent map
+    return getBox(box.node);
   }
   // block box
   const parts = splitBlock(range);
@@ -38,5 +39,6 @@ export function insertBox(range: Range, boxName: string, boxValue?: BoxValue): B
   if (parts.start && parts.start.isEmpty) {
     parts.start.remove();
   }
-  return box;
+  // move the box instance from temporary map to permanent map
+  return getBox(box.node);
 }

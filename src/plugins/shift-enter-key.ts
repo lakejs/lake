@@ -30,7 +30,7 @@ function addBlockOrLineBreakForBox(editor: Editor): void {
       range.collapseToStart();
       addLineBreak(editor);
     } else {
-      editor.removeBox();
+      editor.selection.removeBox();
     }
     return;
   }
@@ -41,7 +41,7 @@ function addBlockOrLineBreakForBox(editor: Editor): void {
     boxNode.after(newBlock);
     range.shrinkAfter(newBlock);
   } else {
-    editor.removeBox();
+    editor.selection.removeBox();
   }
 }
 

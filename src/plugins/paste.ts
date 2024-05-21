@@ -78,7 +78,7 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
         range.setStartAfter(boxNode);
         range.collapseToStart();
       } else {
-        editor.removeBox();
+        editor.selection.removeBox();
       }
     } else {
       const paragraph = query('<p />');
@@ -89,7 +89,7 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
         boxNode.after(paragraph);
         range.shrinkAfter(paragraph);
       } else {
-        editor.removeBox();
+        editor.selection.removeBox();
       }
     }
   }
