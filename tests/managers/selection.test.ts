@@ -1,5 +1,5 @@
 import { boxes } from '../../src/storage/boxes';
-import { boxInstances } from '../../src/storage/box-instances';
+import { getInstanceMap } from '../../src/storage/box-instances';
 import { normalizeValue, query, getBox } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
@@ -170,7 +170,7 @@ describe('managers / selection', () => {
     container.html(normalizeValue(content.trim()));
     selection.updateByBookmark();
     const box = selection.insertBox('inlineBox');
-    expect(boxInstances.get(container.id)?.get(box.node.id)?.name).to.equal('inlineBox');
+    expect(getInstanceMap(container.id).get(box.node.id)?.name).to.equal('inlineBox');
     expect(selection.range.isBoxEnd).to.equal(true);
   });
 
@@ -182,11 +182,11 @@ describe('managers / selection', () => {
     const boxNode = container.find('lake-box');
     const box = getBox(boxNode);
     box.render();
-    expect(boxInstances.get(0)?.get(box.node.id)).to.equal(undefined);
-    expect(boxInstances.get(container.id)?.get(box.node.id) === box).to.equal(true);
+    expect(getInstanceMap(0).get(box.node.id)).to.equal(undefined);
+    expect(getInstanceMap(container.id).get(box.node.id) === box).to.equal(true);
     selection.removeBox();
-    expect(boxInstances.get(0)?.get(box.node.id) === box).to.equal(true);
-    expect(boxInstances.get(container.id)?.get(box.node.id)).to.equal(undefined);
+    expect(getInstanceMap(0).get(box.node.id) === box).to.equal(true);
+    expect(getInstanceMap(container.id).get(box.node.id)).to.equal(undefined);
     expect(container.find('lake-box').length).to.equal(0);
   });
 
@@ -198,11 +198,11 @@ describe('managers / selection', () => {
     const boxNode = container.find('lake-box');
     const box = getBox(boxNode);
     box.render();
-    expect(boxInstances.get(0)?.get(box.node.id)).to.equal(undefined);
-    expect(boxInstances.get(container.id)?.get(box.node.id) === box).to.equal(true);
+    expect(getInstanceMap(0).get(box.node.id)).to.equal(undefined);
+    expect(getInstanceMap(container.id).get(box.node.id) === box).to.equal(true);
     selection.removeBox(boxNode);
-    expect(boxInstances.get(0)?.get(box.node.id) === box).to.equal(true);
-    expect(boxInstances.get(container.id)?.get(box.node.id)).to.equal(undefined);
+    expect(getInstanceMap(0).get(box.node.id) === box).to.equal(true);
+    expect(getInstanceMap(container.id).get(box.node.id)).to.equal(undefined);
     expect(container.find('lake-box').length).to.equal(0);
   });
 
@@ -214,11 +214,11 @@ describe('managers / selection', () => {
     const boxNode = container.find('lake-box');
     const box = getBox(boxNode);
     box.render();
-    expect(boxInstances.get(0)?.get(box.node.id)).to.equal(undefined);
-    expect(boxInstances.get(container.id)?.get(box.node.id) === box).to.equal(true);
+    expect(getInstanceMap(0).get(box.node.id)).to.equal(undefined);
+    expect(getInstanceMap(container.id).get(box.node.id) === box).to.equal(true);
     selection.removeBox(box);
-    expect(boxInstances.get(0)?.get(box.node.id) === box).to.equal(true);
-    expect(boxInstances.get(container.id)?.get(box.node.id)).to.equal(undefined);
+    expect(getInstanceMap(0).get(box.node.id) === box).to.equal(true);
+    expect(getInstanceMap(container.id).get(box.node.id)).to.equal(undefined);
     expect(container.find('lake-box').length).to.equal(0);
   });
 

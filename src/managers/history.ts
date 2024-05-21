@@ -1,7 +1,7 @@
 import md5 from 'blueimp-md5';
 import EventEmitter from 'eventemitter3';
 import { NativeNode } from '../types/native';
-import { boxInstances } from '../storage/box-instances';
+import { getInstanceMap } from '../storage/box-instances';
 import { debug } from '../utils/debug';
 import { morph } from '../utils/morph';
 import { denormalizeValue } from '../utils/denormalize-value';
@@ -81,10 +81,7 @@ export class History {
       afterAttributeUpdated: (attributeName: string, nativeNode: NativeNode) => {
         const node = new Nodes(nativeNode);
         if (attributeName === 'value' && node.name === 'lake-box') {
-          const instanceMap = boxInstances.get(container.id);
-          if (!instanceMap) {
-            return;
-          }
+          const instanceMap = getInstanceMap(container.id);
           instanceMap.delete(node.id);
         }
       },

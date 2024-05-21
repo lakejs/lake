@@ -1,3 +1,4 @@
+import { getInstanceMap } from '../../src/storage/box-instances';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { BoxManager } from '../../src/managers/box-manager';
@@ -49,9 +50,9 @@ describe('managers / box-manager', () => {
     });
     editor.render();
     editor.container.find('lake-box').eq(1).remove();
-    expect(editor.box.getInstances(editor.container).size).to.equal(2);
+    expect(getInstanceMap(editor.container.id).size).to.equal(2);
     editor.box.rectifyInstances(editor.container);
-    expect(editor.box.getInstances(editor.container).size).to.equal(1);
+    expect(getInstanceMap(editor.container.id).size).to.equal(1);
     editor.unmount();
   });
 

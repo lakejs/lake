@@ -1,5 +1,5 @@
 import { boxes } from '../../src/storage/boxes';
-import { boxInstances } from '../../src/storage/box-instances';
+import { getInstanceMap } from '../../src/storage/box-instances';
 import { query, getBox } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 
@@ -26,15 +26,15 @@ describe('utils / get-box', () => {
   it('parameter is a name', () => {
     const box1 = getBox('blockBox');
     expect(box1.name).to.equal('blockBox');
-    expect(boxInstances.get(0)?.get(box1.node.id) === box1).to.equal(true);
+    expect(getInstanceMap(0).get(box1.node.id) === box1).to.equal(true);
     const box2 = getBox('blockBox');
-    expect(boxInstances.get(0)?.get(box2.node.id) === box2).to.equal(true);
+    expect(getInstanceMap(0).get(box2.node.id) === box2).to.equal(true);
     expect(box2 === box1).to.equal(false);
     container.empty();
     container.append(box2.node);
     const box3 = getBox(container.find('lake-box'));
-    expect(boxInstances.get(0)?.get(box2.node.id)).to.equal(undefined);
-    expect(boxInstances.get(container.id)?.get(box2.node.id) === box2).to.equal(true);
+    expect(getInstanceMap(0).get(box2.node.id)).to.equal(undefined);
+    expect(getInstanceMap(container.id).get(box2.node.id) === box2).to.equal(true);
     expect(box3 === box2).to.equal(true);
   });
 
@@ -43,14 +43,14 @@ describe('utils / get-box', () => {
     const boxNode = container.find('lake-box');
     const box1 = getBox(boxNode);
     expect(box1.name).to.equal('blockBox');
-    expect(boxInstances.get(0)?.get(box1.node.id) === box1).to.equal(true);
+    expect(getInstanceMap(0).get(box1.node.id) === box1).to.equal(true);
     const box2 = getBox(boxNode);
-    expect(boxInstances.get(0)?.get(box2.node.id) === box2).to.equal(true);
+    expect(getInstanceMap(0).get(box2.node.id) === box2).to.equal(true);
     expect(box2 === box1).to.equal(true);
     container.attr('contenteditable', 'true');
     const box3 = getBox(boxNode);
-    expect(boxInstances.get(0)?.get(box2.node.id)).to.equal(undefined);
-    expect(boxInstances.get(container.id)?.get(box2.node.id) === box2).to.equal(true);
+    expect(getInstanceMap(0).get(box2.node.id)).to.equal(undefined);
+    expect(getInstanceMap(container.id).get(box2.node.id) === box2).to.equal(true);
     expect(box3 === box2).to.equal(true);
   });
 
@@ -58,9 +58,9 @@ describe('utils / get-box', () => {
     const boxNode = container.find('lake-box');
     const box1 = getBox(boxNode);
     expect(box1.name).to.equal('blockBox');
-    expect(boxInstances.get(container.id)?.get(box1.node.id) === box1).to.equal(true);
+    expect(getInstanceMap(container.id).get(box1.node.id) === box1).to.equal(true);
     const box2 = getBox(boxNode);
-    expect(boxInstances.get(container.id)?.get(box2.node.id) === box2).to.equal(true);
+    expect(getInstanceMap(container.id).get(box2.node.id) === box2).to.equal(true);
     expect(box2 === box1).to.equal(true);
   });
 
@@ -68,9 +68,9 @@ describe('utils / get-box', () => {
     const boxNode = container.find('lake-box');
     const box1 = getBox(boxNode.get(0));
     expect(box1.name).to.equal('blockBox');
-    expect(boxInstances.get(container.id)?.get(box1.node.id) === box1).to.equal(true);
+    expect(getInstanceMap(container.id).get(box1.node.id) === box1).to.equal(true);
     const box2 = getBox(boxNode);
-    expect(boxInstances.get(container.id)?.get(box2.node.id) === box2).to.equal(true);
+    expect(getInstanceMap(container.id).get(box2.node.id) === box2).to.equal(true);
     expect(box2 === box1).to.equal(true);
   });
 
