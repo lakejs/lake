@@ -30,7 +30,7 @@ export default (editor: Editor) => {
   });
   editor.command.add('image', {
     execute: (value: BoxValue) => {
-      editor.insertBox('image', value);
+      editor.selection.insertBox('image', value);
       editor.history.save();
     },
   });

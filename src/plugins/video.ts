@@ -7,7 +7,7 @@ export default (editor: Editor) => {
   }
   editor.command.add('video', {
     execute: (value: BoxValue) => {
-      const box = editor.insertBox('video', value);
+      const box = editor.selection.insertBox('video', value);
       editor.history.save();
       if (box) {
         box.getContainer().find('input[name="url"]').focus();

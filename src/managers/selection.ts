@@ -17,6 +17,7 @@ import { addMark } from '../operations/add-mark';
 import { removeMark } from '../operations/remove-mark';
 import { fixList } from '../operations/fix-list';
 import { insertLink } from '../operations/insert-link';
+import { insertBox } from '../operations/insert-box';
 
 // Returns the attributes of the element as an key-value object.
 function getAttributes(node: Nodes): KeyValue {
@@ -219,5 +220,14 @@ export class Selection {
       boxNode = box;
     }
     this.range.selectBox(boxNode);
+  }
+
+  // Inserts a box into the position of the selection.
+  public insertBox(boxName: Parameters<typeof insertBox>[1], boxValue?: Parameters<typeof insertBox>[2]): Box {
+    const box = insertBox(this.range, boxName, boxValue);
+    if (!box) {
+      throw new Error(`Box '${boxName}' cannot be inserted outside the editor.`);
+    }
+    return box;
   }
 }

@@ -16,7 +16,7 @@ describe('boxes / code-block', () => {
       value: '<p><br /><focus /></p>',
     });
     editor.render();
-    box = editor.insertBox('codeBlock', {
+    box = editor.selection.insertBox('codeBlock', {
       lang: 'css',
       code: '.hello { }',
     });
@@ -67,7 +67,7 @@ describe('boxes / code-block', () => {
   it('error status: should focus on box after clicking', done => {
     const CodeMirror = window.LakeCodeMirror;
     window.LakeCodeMirror = undefined;
-    box = editor.insertBox('codeBlock', {
+    box = editor.selection.insertBox('codeBlock', {
       lang: 'css',
       code: '.hello { }',
     });

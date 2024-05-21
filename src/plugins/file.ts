@@ -28,7 +28,7 @@ export default (editor: Editor) => {
   }
   editor.command.add('file', {
     execute: (value: BoxValue) => {
-      editor.insertBox('file', value);
+      editor.selection.insertBox('file', value);
       editor.history.save();
     },
   });

@@ -16,7 +16,7 @@ describe('boxes / hr', () => {
       value: '<p><br /><focus /></p>',
     });
     editor.render();
-    box = editor.insertBox('hr');
+    box = editor.selection.insertBox('hr');
   });
 
   afterEach(() => {

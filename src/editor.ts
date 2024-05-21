@@ -11,7 +11,6 @@ import { i18nObject } from './i18n';
 import { Nodes } from './models/nodes';
 import { Box } from './models/box';
 import { HTMLParser } from './parsers/html-parser';
-import { insertBox } from './operations/insert-box';
 import { removeBox } from './operations/remove-box';
 import { Selection } from './managers/selection';
 import { Command } from './managers/command';
@@ -585,20 +584,6 @@ export class Editor {
     value = denormalizeValue(value);
     this.selection.toBookmark(bookmark);
     return value;
-  }
-
-  // Inserts a box into the position of the selection.
-  public insertBox(
-    boxName: Parameters<typeof insertBox>[1],
-    boxValue?: Parameters<typeof insertBox>[2],
-  ): Box {
-    const box = insertBox(this.selection.range, boxName, boxValue);
-    if (!box) {
-      throw new Error(`Box '${boxName}' cannot be inserted outside the editor.`);
-    }
-    const instanceMap = this.box.getInstances(this.container);
-    instanceMap.set(box.node.id, box);
-    return box;
   }
 
   // Removes the selected box.

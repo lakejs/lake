@@ -161,4 +161,11 @@ describe('managers / selection', () => {
     expect(selection.range.isBoxCenter).to.equal(true);
   });
 
+  it('method: insertBox', () => {
+    const selection = new Selection(container);
+    selection.range.setStart(container, 0);
+    selection.insertBox('inlineBox');
+    expect(selection.range.isBoxEnd).to.equal(true);
+  });
+
 });

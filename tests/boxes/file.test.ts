@@ -18,7 +18,7 @@ describe('boxes / file', () => {
       value: '<p>foo<focus />bar</p>',
     });
     editor.render();
-    box = editor.insertBox('file', {
+    box = editor.selection.insertBox('file', {
       url: fileUrl,
       status: 'done',
       name: 'heaven-lake-512.png',

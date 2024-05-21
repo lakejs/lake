@@ -19,7 +19,7 @@ describe('boxes / image', () => {
       value: '<p>foo<focus />bar</p>',
     });
     editor.render();
-    box = editor.insertBox('image', {
+    box = editor.selection.insertBox('image', {
       url: mediumUrl,
       originalUrl: mediumOriginalUrl,
       originalWidth: 1024,

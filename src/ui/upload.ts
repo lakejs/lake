@@ -20,7 +20,7 @@ export function uploadFile(config: UploadConfig): Box {
     }
     throw new Error(`Cannot upload file '${file.name}' because its type '${file.type}' is not found in ['${requestTypes.join('\', \'')}'].`);
   }
-  const box = editor.insertBox(name, {
+  const box = editor.selection.insertBox(name, {
     url: URL.createObjectURL(file),
     status: 'uploading',
     name: file.name,

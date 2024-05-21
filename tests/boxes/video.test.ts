@@ -25,7 +25,7 @@ describe('boxes / video', () => {
   });
 
   it('should embed a video', () => {
-    const box = editor.insertBox('video');
+    const box = editor.selection.insertBox('video');
     const boxNode = box.node;
     (boxNode.find('input[name="url"]').get(0) as HTMLInputElement).value = youtubeUrl;
     boxNode.find('button[name="embed"]').emit('click');
@@ -33,7 +33,7 @@ describe('boxes / video', () => {
   });
 
   it('should embed a video by pressing enter key', () => {
-    const box = editor.insertBox('video');
+    const box = editor.selection.insertBox('video');
     const boxNode = box.node;
     (boxNode.find('input[name="url"]').get(0) as HTMLInputElement).value = youtubeUrl;
     boxNode.find('input[name="url"]').emit('keydown', new KeyboardEvent('keydown', {
@@ -43,7 +43,7 @@ describe('boxes / video', () => {
   });
 
   it('should not embed a video that URL is invalid', () => {
-    const box = editor.insertBox('video');
+    const box = editor.selection.insertBox('video');
     const boxNode = box.node;
     (boxNode.find('input[name="url"]').get(0) as HTMLInputElement).value = 'invalid';
     boxNode.find('button[name="embed"]').emit('click');
@@ -51,7 +51,7 @@ describe('boxes / video', () => {
   });
 
   it('should remove the box', () => {
-    const box = editor.insertBox('video', {
+    const box = editor.selection.insertBox('video', {
       url: youtubeUrl,
       width: 500,
       height: 400,
@@ -65,7 +65,7 @@ describe('boxes / video', () => {
   });
 
   it('should resize the video', () => {
-    const box = editor.insertBox('video', {
+    const box = editor.selection.insertBox('video', {
       url: youtubeUrl,
       width: 500,
       height: 400,

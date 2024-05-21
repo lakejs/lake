@@ -137,7 +137,7 @@ export default (editor: Editor) => {
           range.collapseToEnd();
         }
       }
-      editor.insertBox(draggedBox.name, draggedBox.value);
+      editor.selection.insertBox(draggedBox.name, draggedBox.value);
       draggedNode.remove();
       editor.history.save();
     }

@@ -16,7 +16,7 @@ export default (editor: Editor) => {
   });
   editor.command.add('hr', {
     execute: () => {
-      editor.insertBox('hr');
+      editor.selection.insertBox('hr');
       editor.history.save();
     },
   });

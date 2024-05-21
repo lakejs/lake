@@ -97,7 +97,7 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
   if (otherNode.isBlockBox) {
     const box = getBox(otherNode);
     const value = otherNode.attr('value') !== '' ? box.value : undefined;
-    editor.insertBox(box.name, value);
+    editor.selection.insertBox(box.name, value);
     otherNode.remove();
     return;
   }
