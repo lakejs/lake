@@ -25,6 +25,7 @@ lake-box .lake-box-strip ::selection {
 }
 lake-box .lake-box-container {
   display: block;
+  align-self: center;
 }
 lake-box .lake-box-hovered .lake-button-group,
 lake-box .lake-box-focused .lake-button-group,
