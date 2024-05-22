@@ -1,5 +1,7 @@
 .lake-video {
   position: relative;
+  font-size: 14px;
+  font-weight: normal;
   line-height: 0;
   box-sizing: content-box;
   border: 1px solid transparent;
