@@ -33,6 +33,31 @@ describe('plugins / copy', () => {
     );
   });
 
+  it('should adjust the selection when multiple boxes are selected', () => {
+    const content = `
+    <p>foo<lake-box type="inline" name="video"></lake-box></p>
+    <p>bar<lake-box type="inline" name="video"></lake-box></p>
+    `;
+    const output = `
+    <p>foo<anchor /><lake-box type="inline" name="video"></lake-box></p>
+    <p>bar<lake-box type="inline" name="video"></lake-box><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        const range = editor.selection.range;
+        range.setStart(editor.container.find('lake-box').eq(0).find('.lake-box-strip').eq(0), 0);
+        range.setEnd(editor.container.find('lake-box').eq(1).find('.lake-box-strip').eq(1), 0);
+        editor.event.emit('copy', event);
+        expect(range.startNode.name).to.equal('p');
+        expect(range.startOffset).to.equal(1);
+        expect(range.endNode.name).to.equal('p');
+        expect(range.endOffset).to.equal(2);
+      },
+    );
+  });
+
   it('should not copy when cursor is in the box', () => {
     const content = `
     <p>top</p>

@@ -10,6 +10,9 @@ export default (editor: Editor) => {
     if (range.isInsideBox) {
       return;
     }
+    if (!range.isCollapsed) {
+      range.adaptBox();
+    }
     const boxNode = range.startNode.closest('lake-box');
     if (boxNode.length === 0) {
       return;
