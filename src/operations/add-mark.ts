@@ -76,7 +76,7 @@ export function addMark(range: Range, value: string | Nodes): void {
         }
         range.shrinkAfter(newBlock);
       } else {
-        range.adaptBox();
+        range.adjustBox();
       }
     }
     const block = range.startNode.closestBlock();

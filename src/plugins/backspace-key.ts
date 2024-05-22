@@ -80,7 +80,7 @@ export default (editor: Editor) => {
         editor.history.save();
         return;
       }
-      range.adaptBox();
+      range.adjustBox();
     }
     if (range.isBox) {
       event.preventDefault();
@@ -97,7 +97,7 @@ export default (editor: Editor) => {
       editor.history.save();
       return;
     }
-    range.adapt();
+    range.adjust();
     const prevNode = range.getPrevNode();
     if (prevNode.isBox) {
       event.preventDefault();

@@ -208,7 +208,7 @@ export class Editor {
     }
     const range = this.selection.range;
     const clonedRange = range.clone();
-    clonedRange.adaptBox();
+    clonedRange.adjustBox();
     this.container.find('lake-box').each(boxNativeNode => {
       const box = getBox(boxNativeNode);
       const boxContainer = box.getContainer();

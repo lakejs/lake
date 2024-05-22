@@ -10,7 +10,7 @@ export function insertFragment(range: Range, fragment: DocumentFragment): void {
     return;
   }
   if (range.isCollapsed) {
-    range.adaptBox();
+    range.adjustBox();
   } else {
     deleteContents(range);
   }
@@ -19,5 +19,5 @@ export function insertFragment(range: Range, fragment: DocumentFragment): void {
   const bookmark = insertBookmark(range);
   bookmark.focus.before(fragment);
   toBookmark(range, bookmark);
-  range.adaptBlock();
+  range.adjustBlock();
 }

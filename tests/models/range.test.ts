@@ -541,14 +541,14 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(false);
   });
 
-  it('adaptBox method: should move out to the start strip of the box', () => {
+  it('adjustBox method: should move out to the start strip of the box', () => {
     setTestBox(container);
     container.prepend('<p>foo</p>');
     container.append('<p>bar</p>');
     const range = new Range();
     range.setStartAfter(container.find('br').eq(0));
     range.collapseToStart();
-    range.adaptBox();
+    range.adjustBox();
     expect(range.startNode.name).to.equal('div');
     expect(range.endNode.name).to.equal('div');
     expect(range.startOffset).to.equal(1);
@@ -556,14 +556,14 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('adaptBox method: should move out to the end strip of the box', () => {
+  it('adjustBox method: should move out to the end strip of the box', () => {
     setTestBox(container);
     container.prepend('<p>foo</p>');
     container.append('<p>bar</p>');
     const range = new Range();
     range.setStartAfter(container.find('br').eq(1));
     range.collapseToStart();
-    range.adaptBox();
+    range.adjustBox();
     expect(range.startNode.name).to.equal('div');
     expect(range.endNode.name).to.equal('div');
     expect(range.startOffset).to.equal(2);
@@ -571,14 +571,14 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('adaptBox method: should move out to either side of the box', () => {
+  it('adjustBox method: should move out to either side of the box', () => {
     setTestBox(container);
     container.prepend('<p>foo</p>');
     container.append('<p>bar</p>');
     const range = new Range();
     range.setStartAfter(container.find('br').eq(0));
     range.setEndAfter(container.find('br').eq(1));
-    range.adaptBox();
+    range.adjustBox();
     expect(range.startNode.name).to.equal('div');
     expect(range.endNode.name).to.equal('div');
     expect(range.startOffset).to.equal(1);
@@ -586,13 +586,13 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(false);
   });
 
-  it('adaptBox method: should move out to the start strip of the table', () => {
+  it('adjustBox method: should move out to the start strip of the table', () => {
     container.prepend('<p>bar</p>');
     container.append('<table><tr><td>foo</td></tr></table>');
     const range = new Range();
     range.setStart(container.find('p'), 0);
     range.setEnd(container.find('td'), 1);
-    range.adaptTable();
+    range.adjustTable();
     expect(range.startNode.name).to.equal('p');
     expect(range.endNode.name).to.equal('p');
     expect(range.startOffset).to.equal(0);
@@ -600,13 +600,13 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(false);
   });
 
-  it('adaptBox method: should move out to the end strip of the table', () => {
+  it('adjustBox method: should move out to the end strip of the table', () => {
     container.prepend('<table><tr><td>foo</td></tr></table>');
     container.append('<p>bar</p>');
     const range = new Range();
     range.setStart(container.find('td'), 1);
     range.setEnd(container.find('p'), 1);
-    range.adaptTable();
+    range.adjustTable();
     expect(range.startNode.name).to.equal('p');
     expect(range.endNode.name).to.equal('p');
     expect(range.startOffset).to.equal(0);
@@ -614,62 +614,62 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(false);
   });
 
-  it('adaptBlock method: should move into next paragraph', () => {
+  it('adjustBlock method: should move into next paragraph', () => {
     container.prepend('<p>foo</p>');
     container.append('<p>bar</p>');
     const range = new Range();
     range.setStartAfter(container.find('p').eq(0));
     range.collapseToStart();
-    range.adaptBlock();
+    range.adjustBlock();
     expect(range.startNode.name).to.equal('p');
     expect(range.startNode.text()).to.equal('bar');
     expect(range.startOffset).to.equal(0);
     expect(range.isCollapsed).to.equal(true);
   });
 
-  it('adaptBlock method: should move into next box', () => {
+  it('adjustBlock method: should move into next box', () => {
     setTestBox(container);
     container.prepend('<p>foo</p>');
     container.append('<p>bar</p>');
     const range = new Range();
     range.setStartAfter(container.find('p').eq(0));
     range.collapseToStart();
-    range.adaptBlock();
+    range.adjustBlock();
     expect(range.isBoxStart).to.equal(true);
   });
 
-  it('adaptBlock method: should shrink', () => {
+  it('adjustBlock method: should shrink', () => {
     container.html('<h1>foo</h1><ul><li>bar</li></ul><p>one</p>');
     const range = new Range();
     range.setStartBefore(container.find('ul'));
     range.setEndAfter(container.find('ul'));
-    range.adaptBlock();
+    range.adjustBlock();
     expect(range.startNode.name).to.equal('li');
     expect(range.startOffset).to.equal(0);
     expect(range.endNode.name).to.equal('li');
     expect(range.endOffset).to.equal(1);
   });
 
-  it('adaptBlock method: should relocate the end point of the range', () => {
+  it('adjustBlock method: should relocate the end point of the range', () => {
     container.html('<h1>foo</h1><ul><li>bar</li></ul><p>one</p>');
     const range = new Range();
     range.setStartBefore(container.find('h1'));
     range.setEnd(container.find('li'), 0);
-    range.adaptBlock();
+    range.adjustBlock();
     expect(range.startNode.name).to.equal('h1');
     expect(range.startOffset).to.equal(0);
     expect(range.endNode.name).to.equal('h1');
     expect(range.endOffset).to.equal(1);
   });
 
-  it('method: adapt', () => {
+  it('method: adjust', () => {
     setTestBox(container);
     container.prepend('<p>foo</p>');
     container.append('<p>bar</p>');
     const range = new Range();
     range.setStartAfter(container.find('br').eq(0));
     range.collapseToStart();
-    range.adapt();
+    range.adjust();
     expect(range.startNode.name).to.equal('span');
     expect(range.startOffset).to.equal(0);
     expect(range.isCollapsed).to.equal(true);

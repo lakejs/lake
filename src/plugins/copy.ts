@@ -8,7 +8,7 @@ export default (editor: Editor) => {
       return;
     }
     if (!range.isCollapsed) {
-      range.adaptBox();
+      range.adjust();
     }
     const boxNode = range.startNode.closest('lake-box');
     if (boxNode.length === 0) {

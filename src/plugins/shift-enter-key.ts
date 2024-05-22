@@ -61,7 +61,7 @@ export default (editor: Editor) => {
       editor.history.save();
       return;
     }
-    range.adapt();
+    range.adjust();
     if (range.isInoperative) {
       return;
     }

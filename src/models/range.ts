@@ -378,7 +378,7 @@ export class Range {
   }
 
   // Relocates the start and end points of the range for the box.
-  public adaptBox(): void {
+  public adjustBox(): void {
     const startBoxNode = this.startNode.closest('lake-box');
     if (startBoxNode.length > 0) {
       const startRange = this.clone();
@@ -402,7 +402,7 @@ export class Range {
   }
 
   // Relocates the beginning or end position of the range for table.
-  public adaptTable(): void {
+  public adjustTable(): void {
     const startTable = this.startNode.closest('table');
     const endTable = this.endNode.closest('table');
     if (startTable.length === 0 && endTable.length > 0 && endTable.isInside) {
@@ -429,7 +429,7 @@ export class Range {
   // [<p>foo</p><p>]bar</p>
   // to
   // <p>[foo]</p><p>bar</p>
-  public adaptBlock(): void {
+  public adjustBlock(): void {
     if (!this.isCollapsed) {
       // [<p>foo</p><p>]bar</p> to [<p>foo</p>]<p>bar</p>
       if (this.endNode.isElement && this.endOffset === 0) {
@@ -452,10 +452,10 @@ export class Range {
   }
 
   // Relocates the start and end points of the range.
-  public adapt(): void {
-    this.adaptBox();
-    this.adaptTable();
-    this.adaptBlock();
+  public adjust(): void {
+    this.adjustBox();
+    this.adjustTable();
+    this.adjustBlock();
   }
 
   // Returns the previous node of the beginning point of the range.
@@ -496,7 +496,7 @@ export class Range {
     }
     const nodeList: Nodes[] = [];
     const clonedRange = this.clone();
-    clonedRange.adaptBox();
+    clonedRange.adjustBox();
     for (const child of clonedRange.commonAncestor.getWalker()) {
       if (child.isBox && clonedRange.intersectsNode(child)) {
         nodeList.push(child);

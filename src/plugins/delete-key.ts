@@ -65,7 +65,7 @@ export default (editor: Editor) => {
         range.shrinkBefore(nextNode);
         return;
       }
-      range.adaptBox();
+      range.adjustBox();
     }
     if (range.isBox) {
       event.preventDefault();
@@ -82,7 +82,7 @@ export default (editor: Editor) => {
       editor.history.save();
       return;
     }
-    range.adapt();
+    range.adjust();
     const nextNode = range.getNextNode();
     if (nextNode.isBox) {
       event.preventDefault();

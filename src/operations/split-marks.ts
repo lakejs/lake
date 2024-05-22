@@ -58,7 +58,7 @@ export function splitMarks(range: Range, removeEmptyMark: boolean = true): Three
       end: null,
     };
   }
-  range.adaptBox();
+  range.adjustBox();
   if (range.isCollapsed) {
     const parts = splitMarksAtPoint(range.startNode, range.startOffset, removeEmptyMark);
     if (parts.start) {
