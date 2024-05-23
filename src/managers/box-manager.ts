@@ -18,7 +18,7 @@ export class BoxManager {
     return Array.from(boxes.keys());
   }
 
-  public rectifyInstances(container: Nodes) {
+  public removeGarbage(container: Nodes) {
     const instanceMap = getInstanceMap(container.id);
     for (const box of instanceMap.values()) {
       if (!box.node.get(0).isConnected) {
@@ -29,7 +29,7 @@ export class BoxManager {
   }
 
   public renderAll(container: Nodes): void {
-    this.rectifyInstances(container);
+    this.removeGarbage(container);
     const instanceMap = getInstanceMap(container.id);
     container.find('lake-box').each(boxNativeNode => {
       const boxNode = query(boxNativeNode);

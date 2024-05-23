@@ -51,7 +51,7 @@ describe('managers / box-manager', () => {
     editor.render();
     editor.container.find('lake-box').eq(1).remove();
     expect(getInstanceMap(editor.container.id).size).to.equal(2);
-    editor.box.rectifyInstances(editor.container);
+    editor.box.removeGarbage(editor.container);
     expect(getInstanceMap(editor.container.id).size).to.equal(1);
     editor.unmount();
   });

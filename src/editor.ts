@@ -415,7 +415,7 @@ export class Editor {
       this.emitChangeEvent(value);
     });
     this.history.event.on('save', value => {
-      this.box.rectifyInstances(this.container);
+      this.box.removeGarbage(this.container);
       this.emitChangeEvent(value);
     });
   }
