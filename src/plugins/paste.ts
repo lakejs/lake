@@ -210,6 +210,6 @@ export default (editor: Editor) => {
     editor.event.emit('beforepaste', fragment);
     fixClipboardData(fragment);
     pasteFragment(editor, fragment);
-    editor.box.renderAll(editor.container);
+    editor.renderBoxes();
   });
 };

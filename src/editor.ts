@@ -5,6 +5,7 @@ import { version } from '../package.json';
 import { NativeNode } from './types/native';
 import { SelectionState } from './types/object';
 import { Locales, TranslationFunctions } from './i18n/types';
+import { getInstanceMap } from './storage/box-instances';
 import { editors } from './storage/editors';
 import { denormalizeValue, normalizeValue, query, getBox, debug } from './utils';
 import { i18nObject } from './i18n';
@@ -407,15 +408,15 @@ export class Editor {
 
   private bindHistoryEvents(): void {
     this.history.event.on('undo', value => {
-      this.box.renderAll(this.container);
+      this.renderBoxes();
       this.emitChangeEvent(value);
     });
     this.history.event.on('redo', value => {
-      this.box.renderAll(this.container);
+      this.renderBoxes();
       this.emitChangeEvent(value);
     });
     this.history.event.on('save', value => {
-      this.box.removeGarbage(this.container);
+      this.removeBoxGarbage();
       this.emitChangeEvent(value);
     });
   }
@@ -483,15 +484,41 @@ export class Editor {
   }
 
   // Sets default config for a plugin.
-  public setPluginConfig(pluginName: string, pluginConfig: {[key: string]: any}): void {
-    if (!this.config[pluginName]) {
-      this.config[pluginName] = {};
+  public setPluginConfig(name: string, config: {[key: string]: any}): void {
+    if (!this.config[name]) {
+      this.config[name] = {};
     }
-    for (const key of Object.keys(pluginConfig)) {
-      if (this.config[pluginName][key] === undefined) {
-        this.config[pluginName][key] = pluginConfig[key];
+    for (const key of Object.keys(config)) {
+      if (this.config[name][key] === undefined) {
+        this.config[name][key] = config[key];
       }
     }
+  }
+
+  // Removes all unused box instances.
+  public removeBoxGarbage() {
+    const instanceMap = getInstanceMap(this.container.id);
+    for (const box of instanceMap.values()) {
+      if (!box.node.get(0).isConnected) {
+        box.unmount();
+        instanceMap.delete(box.node.id);
+      }
+    }
+  }
+
+  // Renders all boxes that haven't been rendered yet.
+  public renderBoxes(): void {
+    this.removeBoxGarbage();
+    const container = this.container;
+    const instanceMap = getInstanceMap(container.id);
+    container.find('lake-box').each(boxNativeNode => {
+      const boxNode = query(boxNativeNode);
+      if (instanceMap.get(boxNode.id)) {
+        return;
+      }
+      const box = getBox(boxNode);
+      box.render();
+    });
   }
 
   // Sets focus on the editor area.
@@ -571,7 +598,7 @@ export class Editor {
     this.container.empty();
     this.togglePlaceholderClass(htmlParser.getHTML());
     this.container.append(fragment);
-    Editor.box.renderAll(this.container);
+    this.renderBoxes();
     this.selection.updateByBookmark();
   }
 
@@ -601,7 +628,7 @@ export class Editor {
       this.selection.updateByBookmark();
       this.history.save();
     }
-    Editor.box.renderAll(this.container);
+    this.renderBoxes();
     if (this.toolbar) {
       this.toolbar.render(this);
     }

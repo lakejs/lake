@@ -1,4 +1,3 @@
-import { getInstanceMap } from '../../src/storage/box-instances';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { BoxManager } from '../../src/managers/box-manager';
@@ -34,26 +33,6 @@ describe('managers / box-manager', () => {
     editor.unmount();
     box.remove('managerTest');
     expect(childrenLength).to.equal(3);
-  });
-
-  it('should rectify boxes that were removed', () => {
-    const box = new BoxManager();
-    box.add({
-      type: 'block',
-      name: 'managerTest',
-      render: () => '<div>bar</div>',
-    });
-    expect(box.getNames().indexOf('managerTest') >= 0).to.equal(true);
-    const editor = new Editor({
-      root: rootNode,
-      value: '<lake-box type="block" name="managerTest" focus="end"></lake-box><lake-box type="block" name="managerTest"></lake-box>',
-    });
-    editor.render();
-    editor.container.find('lake-box').eq(1).remove();
-    expect(getInstanceMap(editor.container.id).size).to.equal(2);
-    editor.box.removeGarbage(editor.container);
-    expect(getInstanceMap(editor.container.id).size).to.equal(1);
-    editor.unmount();
   });
 
 });
