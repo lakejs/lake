@@ -197,7 +197,7 @@ export class Box {
       newContainer.append(content);
       morph(container, newContainer);
     }
-    debug(`Box '${this.name}' (id = ${this.node.id}) rendered`);
+    debug(`Box '${this.name}' (id: ${this.node.id}) rendered`);
   }
 
   // Destroys a rendered box.
@@ -207,7 +207,7 @@ export class Box {
     boxData[this.node.id] = {};
     this.event.removeAllListeners();
     this.node.empty();
-    debug(`Box '${this.name}' (id = ${this.node.id}) unmounted`);
+    debug(`Box '${this.name}' (id: ${this.node.id}) unmounted`);
   }
 
   // Returns a HTML string of the box.

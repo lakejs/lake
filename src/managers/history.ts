@@ -155,7 +155,7 @@ export class History {
       this.index--;
     }
     this.selection.updateByBookmark();
-    debug(`History undone, the last index is ${this.index}`);
+    debug(`History undone (index: ${this.index})`);
   }
 
   public redo(): void {
@@ -178,7 +178,7 @@ export class History {
       }
     }
     this.selection.updateByBookmark();
-    debug(`History redone, the last index is ${this.index}`);
+    debug(`History redone (index: ${this.index})`);
   }
 
   public continue(): void {
@@ -210,6 +210,6 @@ export class History {
     if (emitSaveEvent) {
       this.event.emit('save', denormalizeValue(value));
     }
-    debug(`History saved, the last index is ${this.index}`);
+    debug(`History saved (index: ${this.index})`);
   }
 }
