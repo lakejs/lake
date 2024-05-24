@@ -157,6 +157,7 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
       parts.end.remove();
     }
     selection.insertFragment(fragment);
+    editor.renderBoxes();
     range.shrinkAfter(lastNode);
   }
   fixNumberedList(editor.container.children().filter(node => node.isBlock));
@@ -210,6 +211,5 @@ export default (editor: Editor) => {
     editor.event.emit('beforepaste', fragment);
     fixClipboardData(fragment);
     pasteFragment(editor, fragment);
-    editor.renderBoxes();
   });
 };

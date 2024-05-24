@@ -662,6 +662,23 @@ describe('plugins / paste', () => {
     );
   });
 
+  it('pastes multiple image boxes into a paragraph', () => {
+    const content = `
+    <p><br /><focus /></p>
+    `;
+    const output = `
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        pasteData(editor, 'text/html', `<p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p><p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>`);
+      },
+    );
+  });
+
   it('pastes image box into an empty paragraph', () => {
     const content = `
     <p><br /><focus /></p>
