@@ -40,7 +40,7 @@ export default (editor: Editor) => {
     if (range.isInsideBox) {
       return;
     }
-    editor.rectifyContent();
+    editor.fixContent();
     if (range.isBoxEnd) {
       const boxNode = range.startNode.closest('lake-box');
       const nextNode = boxNode.next();

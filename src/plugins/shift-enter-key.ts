@@ -54,7 +54,7 @@ export default (editor: Editor) => {
     if (range.isInsideBox) {
       return;
     }
-    editor.rectifyContent();
+    editor.fixContent();
     event.preventDefault();
     if (range.isBox) {
       addBlockOrLineBreakForBox(editor);

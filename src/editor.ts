@@ -302,7 +302,7 @@ export class Editor {
   });
 
   private emitChangeEvent = (value: string) => {
-    this.rectifyContent();
+    this.fixContent();
     this.emitStateChangeEvent();
     this.togglePlaceholderClass(value);
     this.scrollToCaret();
@@ -436,7 +436,7 @@ export class Editor {
   }
 
   // Fixes wrong content, especially empty tag.
-  public rectifyContent(): void {
+  public fixContent(): void {
     let children = this.container.children();
     for (const child of children) {
       if ((child.isBlock || child.isMark) && child.html() === '') {

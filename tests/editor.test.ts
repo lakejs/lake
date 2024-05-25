@@ -195,7 +195,7 @@ describe('editor', () => {
     expect(value).to.equal(output);
   });
 
-  it('rectifyContent method: no content', () => {
+  it('fixContent method: no content', () => {
     const input = '';
     const output = '<p><br /><focus /></p>';
     const editor = new Editor({
@@ -211,7 +211,7 @@ describe('editor', () => {
     expect(value).to.equal(output);
   });
 
-  it('rectifyContent method: br', () => {
+  it('fixContent method: br', () => {
     const input = '<br />';
     const output = '<p><br /><focus /></p>';
     const editor = new Editor({
@@ -227,7 +227,7 @@ describe('editor', () => {
     expect(value).to.equal(output);
   });
 
-  it('rectifyContent method: br and empty mark', () => {
+  it('fixContent method: br and empty mark', () => {
     const input = '<br /><span></span>';
     const output = '<p><br /><focus /></p>';
     const editor = new Editor({
@@ -243,7 +243,7 @@ describe('editor', () => {
     expect(value).to.equal(output);
   });
 
-  it('rectifyContent method: br and empty block', () => {
+  it('fixContent method: br and empty block', () => {
     const input = '<br /><p></p>';
     const output = '<p><br /><focus /></p>';
     const editor = new Editor({
