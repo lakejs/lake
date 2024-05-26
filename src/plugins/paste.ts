@@ -119,6 +119,13 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
     }
     const nextSibling = child.next();
     editor.selection.insertNode(child);
+    if (child.isBox) {
+      getBox(child).render();
+    } else if (child.isElement) {
+      child.find('lake-box').each(node => {
+        getBox(node).render();
+      });
+    }
     child = nextSibling;
   }
   otherNode.remove();

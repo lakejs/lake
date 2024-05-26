@@ -658,6 +658,7 @@ describe('plugins / paste', () => {
       output,
       editor => {
         pasteData(editor, 'text/html', `<lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>`);
+        expect(editor.container.find('lake-box').find('.lake-box-container').length).to.equal(1);
       },
     );
   });
