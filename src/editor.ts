@@ -441,14 +441,14 @@ export class Editor {
     for (const child of children) {
       if ((child.isBlock || child.isMark) && child.html() === '') {
         child.remove();
-        debug('Rectifying content: empty tag was removed');
+        debug('fixContent(): empty tag was removed');
       }
     }
     children = this.container.children();
     if (children.length === 0) {
       this.container.html('<p><br /></p>');
       this.selection.range.shrinkAfter(this.container);
-      debug('Rectifying content: default paragraph was added');
+      debug('fixContent(): default paragraph was added');
       return;
     }
     if (children.length === 1) {
@@ -458,7 +458,7 @@ export class Editor {
         child.before(paragraph);
         paragraph.append(child);
         this.selection.range.shrinkAfter(paragraph);
-        debug('Rectifying content: void element was wrapped in paragraph');
+        debug('fixContent(): void element was wrapped in paragraph');
       }
     }
   }

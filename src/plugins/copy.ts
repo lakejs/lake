@@ -9,8 +9,9 @@ export default (editor: Editor) => {
     }
     if (!range.isCollapsed) {
       range.adjust();
+      return;
     }
-    const boxNode = range.startNode.closest('lake-box');
+    const boxNode = range.commonAncestor.closest('lake-box');
     if (boxNode.length === 0) {
       return;
     }

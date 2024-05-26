@@ -1,19 +1,31 @@
 import type { Editor } from '..';
+import { query } from '../utils';
 import { getBox } from '../utils/get-box';
 
 export default (editor: Editor) => {
   if (editor.readonly) {
     return;
   }
-  editor.event.on('cut', event => {
+  editor.event.on('cut', (event: ClipboardEvent) => {
+    const dataTransfer = event.clipboardData;
+    if (!dataTransfer) {
+      return;
+    }
     const range = editor.selection.range;
     if (range.isInsideBox) {
       return;
     }
     if (!range.isCollapsed) {
-      range.adjust();
+      event.preventDefault();
+      const fragment = editor.selection.range.cloneContents();
+      const tempContainer = query('<div />');
+      tempContainer.append(fragment);
+      dataTransfer.setData('text/html', tempContainer.html());
+      editor.selection.deleteContents();
+      editor.history.save();
+      return;
     }
-    const boxNode = range.startNode.closest('lake-box');
+    const boxNode = range.commonAncestor.closest('lake-box');
     if (boxNode.length === 0) {
       return;
     }
@@ -21,10 +33,6 @@ export default (editor: Editor) => {
       return;
     }
     event.preventDefault();
-    const dataTransfer = (event as ClipboardEvent).clipboardData;
-    if (!dataTransfer) {
-      return;
-    }
     const box = getBox(boxNode);
     const content = box.getHTML();
     dataTransfer.setData('text/html', content);

@@ -53,14 +53,13 @@ describe('plugins / cut', () => {
     );
   });
 
-  it('should adjust the selection when multiple boxes are selected', () => {
+  it('should cut selected content when multiple boxes are selected', () => {
     const content = `
     <p>foo<lake-box type="inline" name="video"></lake-box></p>
     <p>bar<lake-box type="inline" name="video"></lake-box></p>
     `;
     const output = `
-    <p>foo<anchor /><lake-box type="inline" name="video"></lake-box></p>
-    <p>bar<lake-box type="inline" name="video"></lake-box><focus /></p>
+    <p>foo<focus /></p>
     `;
     testPlugin(
       content,
@@ -70,10 +69,6 @@ describe('plugins / cut', () => {
         range.setStart(editor.container.find('lake-box').eq(0).find('.lake-box-strip').eq(0), 0);
         range.setEnd(editor.container.find('lake-box').eq(1).find('.lake-box-strip').eq(1), 0);
         editor.event.emit('cut', event);
-        expect(range.startNode.name).to.equal('p');
-        expect(range.startOffset).to.equal(1);
-        expect(range.endNode.name).to.equal('p');
-        expect(range.endOffset).to.equal(2);
       },
     );
   });
