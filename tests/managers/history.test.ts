@@ -336,4 +336,18 @@ describe('managers / history', () => {
     expect(container.html()).to.equal('ab');
   });
 
+  it('should always keep correct index when undoing', () => {
+    const selection = new Selection(container);
+    const history = new History(selection);
+    container.html('ab');
+    history.save(); // index: 1
+    container.html('abc');
+    history.save(); // index: 2
+    container.html('a');
+    history.undo(); // index: 1
+    container.html('a');
+    history.undo(); // index: 1
+    expect(container.html()).to.equal('ab');
+  });
+
 });

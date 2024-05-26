@@ -143,16 +143,16 @@ export class History {
       if (!prevItem) {
         break;
       }
+      this.index--;
       const prevValue = this.getValue(prevItem);
       if (this.removeBookmark(prevValue) !== this.removeBookmark(value)) {
         this.morphContainer(prevItem);
         this.event.emit('undo', prevValue);
         break;
       }
-      if (this.index === 1) {
-        break;
-      }
-      this.index--;
+    }
+    if (this.index < 1) {
+      this.index = 1;
     }
     this.selection.updateByBookmark();
     debug(`History undone (index: ${this.index})`);
