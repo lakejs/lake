@@ -17,7 +17,7 @@
 }
 .miniature .lake-root {
   border: 1px solid #d9d9d9;
-  height: 100px;
+  height: 200px;
   overflow: auto;
 }
 .miniature .lake-root-focused {

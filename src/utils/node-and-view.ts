@@ -17,21 +17,18 @@ export function nodeAndView(node: Nodes): NodePosition {
   let bottom = rect.bottom;
   let viewportWidth = window.innerWidth;
   let viewportHeight = window.innerHeight;
-  const container = node.closestContainer();
-  if (container.length > 0) {
-    const viewport = container.closestScroller();
-    if (viewport.length > 0) {
-      const nativeViewport = viewport.get(0) as Element;
-      const viewportRect = nativeViewport.getBoundingClientRect();
-      const offsetLeft = viewportRect.x;
-      const offsetTop = viewportRect.y;
-      left -= offsetLeft;
-      right -= offsetLeft;
-      top -= offsetTop;
-      bottom -= offsetTop;
-      viewportWidth = viewportRect.width;
-      viewportHeight = viewportRect.height;
-    }
+  const viewport = node.closestScroller();
+  if (viewport.length > 0) {
+    const nativeViewport = viewport.get(0) as Element;
+    const viewportRect = nativeViewport.getBoundingClientRect();
+    const offsetLeft = viewportRect.x;
+    const offsetTop = viewportRect.y;
+    left -= offsetLeft;
+    right -= offsetLeft;
+    top -= offsetTop;
+    bottom -= offsetTop;
+    viewportWidth = viewportRect.width;
+    viewportHeight = viewportRect.height;
   }
   const position: NodePosition = {
     left,
