@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { query, appendDeepest, mergeNodes, setBlockIndent } from '../utils';
+import { query, getBox, appendDeepest, mergeNodes, setBlockIndent } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
@@ -47,6 +47,15 @@ export default (editor: Editor) => {
   editor.keystroke.setKeydown('backspace', event => {
     const range = editor.selection.range;
     if (range.isInsideBox) {
+      const boxNode = range.commonAncestor.closest('lake-box');
+      const box = getBox(boxNode);
+      const boxValue = box.value;
+      if (box.name === 'codeBlock' && (boxValue.code === undefined || boxValue.code === '')) {
+        event.preventDefault();
+        editor.selection.removeBox(box);
+        editor.history.save();
+        editor.selection.sync();
+      }
       return;
     }
     editor.fixContent();

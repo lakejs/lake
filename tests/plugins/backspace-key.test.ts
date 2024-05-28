@@ -722,4 +722,25 @@ describe('plugins / backspace-key', () => {
     );
   });
 
+  it('should remove empty code block', () => {
+    const content = `
+    <p>foo</p>
+    <lake-box type="block" name="codeBlock" focus="center"></lake-box>
+    `;
+    const output = `
+    <p>foo</p>
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        const boxNode = editor.container.find('lake-box');
+        editor.selection.range.setStart(boxNode.find('.cm-line'), 0);
+        editor.selection.range.collapseToStart();
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
 });
