@@ -33,14 +33,6 @@
   padding: 0;
   margin-bottom: 8px;
 }
-.lake-container a {
-  color: var(--link-color);
-  text-decoration: none;
-}
-.lake-container a:hover {
-  color: var(--link-hover-color);
-  text-decoration: underline;
-}
 .lake-drop-indication {
   position: absolute;
   height: 2px;

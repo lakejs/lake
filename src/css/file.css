@@ -48,7 +48,7 @@ lake-box[name="file"] .lake-box-focused .lake-file {
   width: 16px;
   height: 16px;
   margin: 4px;
-  animation: lakeRotate 1s linear 0s infinite normal none;
+  animation: lakerotate 1s linear 0s infinite normal none;
 }
 .lake-file-uploading .lake-progress .lake-percent {
   line-height: 24px;

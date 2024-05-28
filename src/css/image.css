@@ -53,7 +53,7 @@ lake-box[name="image"] .lake-box-focused .lake-image {
   width: 16px;
   height: 16px;
   margin: 6px;
-  animation: lakeRotate 1s linear 0s infinite normal none;
+  animation: lakerotate 1s linear 0s infinite normal none;
 }
 .lake-image .lake-progress .lake-percent {
   font-size: 14px;
