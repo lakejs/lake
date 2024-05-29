@@ -535,6 +535,9 @@ export class Editor {
   public scrollToCaret(): void {
     // Creates an artificial caret that is the same size as the caret at the current caret position.
     const rangeRect = this.selection.range.getRect();
+    if (rangeRect.x === 0 || rangeRect.y === 0) {
+      return;
+    }
     const containerRect = (this.container.get(0) as Element).getBoundingClientRect();
     const artificialCaret = query('<div class="lake-artificial-caret" />');
     const left = rangeRect.x - containerRect.x;

@@ -208,6 +208,14 @@ describe('models / range', () => {
     rect = range.getRect();
     expect(rect.width).to.equal(1);
     expect(rect.height > 0).to.equal(true);
+    // block includes empty text
+    container.html('<p><code>foo</code></p>');
+    container.find('p').append(document.createTextNode(''));
+    range.setStart(container.find('p'), 2);
+    range.collapseToStart();
+    rect = range.getRect();
+    expect(rect.x === 0).to.equal(true);
+    expect(rect.y === 0).to.equal(true);
   });
 
   it('method: comparePoint', () => {

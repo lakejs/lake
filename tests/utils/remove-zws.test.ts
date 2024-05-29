@@ -14,4 +14,11 @@ describe('utils / remove-zws', () => {
     expect(container.html()).to.equal('<p><strong>\u200B</strong>\u200B</p>');
   });
 
+  it('should remove empty text', () => {
+    const container = query('<div><p><strong>foo</strong></p></div>');
+    container.find('p').append(document.createTextNode(''));
+    removeZWS(container);
+    expect(container.find('p').children().length).to.equal(1);
+  });
+
 });
