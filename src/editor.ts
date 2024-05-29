@@ -400,6 +400,7 @@ export class Editor {
           }
         }
         this.history.save();
+        this.unsavedInputData = '';
         this.event.emit('input', inputEvent);
       }, 0);
     });
