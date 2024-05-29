@@ -207,6 +207,40 @@ describe('plugins / backspace-key', () => {
     );
   });
 
+  it('should remove emtpy mark', () => {
+    const content = `
+    <h1>foo</h1>
+    <p><code><br /><focus /></code></p>
+    `;
+    const output = `
+    <h1>foo<focus /></h1>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should remove emtpy link', () => {
+    const content = `
+    <h1>foo</h1>
+    <p><a href="bar"><br /><focus /></a></p>
+    `;
+    const output = `
+    <h1>foo<focus /></h1>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
   it('should merge heading into paragraph', () => {
     const content = `
     <p>foo</p>
