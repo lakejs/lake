@@ -383,7 +383,6 @@ export const imageBox: BoxComponent = {
           }
           editor.selection.removeBox(box);
           editor.history.save();
-          editor.selection.sync();
         });
       }
       box.event.emit('render');

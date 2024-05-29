@@ -418,6 +418,7 @@ export class Editor {
     this.history.event.on('save', value => {
       this.removeBoxGarbage();
       this.emitChangeEvent(value);
+      this.selection.sync();
     });
   }
 

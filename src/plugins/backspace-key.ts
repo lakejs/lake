@@ -64,7 +64,6 @@ export default (editor: Editor) => {
         event.preventDefault();
         editor.selection.removeBox(box);
         editor.history.save();
-        editor.selection.sync();
       }
       return;
     }

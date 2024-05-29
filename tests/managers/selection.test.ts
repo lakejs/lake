@@ -22,6 +22,7 @@ describe('managers / selection', () => {
     });
     container = query('<div contenteditable="true" />');
     query(document.body).append(container);
+    window.getSelection()?.removeAllRanges();
   });
 
   afterEach(() => {
@@ -60,7 +61,7 @@ describe('managers / selection', () => {
     expect(selection.range.endOffset).to.equal(1);
   });
 
-  it('updateByBookmark method: with ordinary bookmark', () => {
+  it('updateByBookmark method: ordinary bookmark', () => {
     const content = `
     <p><anchor />foo<focus /></p>
     `;
@@ -71,9 +72,14 @@ describe('managers / selection', () => {
     expect(selection.range.startOffset).to.equal(0);
     expect(selection.range.endNode.name).to.equal('p');
     expect(selection.range.endOffset).to.equal(1);
+    const rangeFromSelection = new Range(window.getSelection()?.getRangeAt(0));
+    expect(rangeFromSelection.startNode.name).to.equal('p');
+    expect(rangeFromSelection.startOffset).to.equal(0);
+    expect(rangeFromSelection.endNode.name).to.equal('p');
+    expect(rangeFromSelection.endOffset).to.equal(1);
   });
 
-  it('updateByBookmark method: with box-bookmark', () => {
+  it('updateByBookmark method: box bookmark', () => {
     const content = `
     <lake-box type="block" name="blockBox" focus="end"></lake-box>
     `;
@@ -81,9 +87,11 @@ describe('managers / selection', () => {
     container.html(normalizeValue(content.trim()));
     selection.updateByBookmark();
     expect(selection.range.isBoxEnd).to.equal(true);
+    const rangeFromSelection = new Range(window.getSelection()?.getRangeAt(0));
+    expect(rangeFromSelection.isBoxEnd).to.equal(true);
   });
 
-  it('getAppliedItems method: is a collapsed range', () => {
+  it('getAppliedItems method: collapsed range', () => {
     const content = `
     <p><strong>one<i>tw<focus />o</i>three</strong></p>
     `;
@@ -97,7 +105,7 @@ describe('managers / selection', () => {
     expect(appliedItems[2].name).to.equal('p');
   });
 
-  it('getAppliedItems method: is an expanded range', () => {
+  it('getAppliedItems method: expanded range', () => {
     const content = `
     <p><strong>one<i>tw<anchor />o</i>three</strong><focus /></p>
     `;

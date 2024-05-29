@@ -13,14 +13,12 @@ export default (editor: Editor) => {
       const range = editor.selection.range;
       range.setStartAfter(node);
       range.collapseToStart();
-      editor.selection.sync();
       editor.history.save();
     },
     onRemove: node => {
       const range = editor.selection.range;
       range.setStartAfter(node);
       range.collapseToStart();
-      editor.selection.sync();
       editor.history.save();
     },
   });

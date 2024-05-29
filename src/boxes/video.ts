@@ -40,7 +40,6 @@ function appendButtonGroup(box: Box): void {
     event.stopPropagation();
     editor.selection.removeBox(box);
     editor.history.save();
-    editor.selection.sync();
   });
   videoNode.append(buttonGroupNode);
 }
