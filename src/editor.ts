@@ -83,7 +83,9 @@ export class Editor {
 
   public static plugin = new Plugin();
 
-  private unsavedInputData: string = '';
+  private accumulatedInputData: string = '';
+
+  private accumulatedInputCount: number = 0;
 
   private state: SelectionState = {
     appliedItems: [],
@@ -178,10 +180,6 @@ export class Editor {
       return;
     }
     this.event.emit('paste', event);
-  };
-
-  private beforeunloadListener: EventListener = () => {
-    this.history.save();
   };
 
   private selectionchangeListener: EventListener = () => {
@@ -354,21 +352,6 @@ export class Editor {
     this.container.on('compositionend', () => {
       this.isComposing = false;
     });
-    this.container.on('beforeinput', event => {
-      const inputEvent = event as InputEvent;
-      const range = this.selection.range;
-      if (range.isBoxStart || range.isBoxEnd) {
-        this.commitUnsavedInputData();
-        return;
-      }
-      if (
-        inputEvent.inputType === 'insertText' ||
-        inputEvent.inputType === 'insertCompositionText'
-      ) {
-        return;
-      }
-      this.commitUnsavedInputData();
-    });
     this.container.on('input', event => {
       const inputEvent = event as InputEvent;
       // Here setTimeout is necessary because isComposing is not false after ending composition.
@@ -384,42 +367,53 @@ export class Editor {
         }
         if (range.isBoxStart || range.isBoxEnd) {
           this.inputInBoxStrip();
-          this.history.save();
           this.event.emit('input', inputEvent);
+          this.history.save();
           return;
         }
         if (
           inputEvent.inputType === 'insertText' ||
           inputEvent.inputType === 'insertCompositionText'
         ) {
-          this.unsavedInputData += inputEvent.data ?? '';
-          if (this.unsavedInputData.length < this.config.minChangeSize) {
+          this.accumulatedInputData += inputEvent.data ?? '';
+          this.accumulatedInputCount++;
+          if (this.accumulatedInputData.length < this.config.minChangeSize) {
             this.event.emit('input', inputEvent);
-            this.emitChangeEvent(this.getValue());
+            if (this.accumulatedInputCount === 1) {
+              this.history.save();
+            } else {
+              this.history.save(true);
+            }
             return;
           }
         }
-        this.history.save();
-        this.unsavedInputData = '';
         this.event.emit('input', inputEvent);
+        this.history.save();
       }, 0);
     });
-    this.command.event.on('beforeexecute', () => this.commitUnsavedInputData());
   }
 
   private bindHistoryEvents(): void {
     this.history.event.on('undo', value => {
       this.renderBoxes();
       this.emitChangeEvent(value);
+      this.accumulatedInputData = '';
+      this.accumulatedInputCount = 0;
     });
     this.history.event.on('redo', value => {
       this.renderBoxes();
       this.emitChangeEvent(value);
+      this.accumulatedInputData = '';
+      this.accumulatedInputCount = 0;
     });
-    this.history.event.on('save', value => {
+    this.history.event.on('save', (value, update) => {
       this.removeBoxGarbage();
       this.emitChangeEvent(value);
       this.selection.sync();
+      if (!update) {
+        this.accumulatedInputData = '';
+        this.accumulatedInputCount = 0;
+      }
     });
   }
 
@@ -465,17 +459,8 @@ export class Editor {
     }
   }
 
-  // Saves the input data which is unsaved.
-  public commitUnsavedInputData(): void {
-    if (this.unsavedInputData.length > 0) {
-      this.history.save(false);
-      this.unsavedInputData = '';
-    }
-  }
-
   // Updates some state before custom modifications.
   public prepareOperation(): void {
-    this.commitUnsavedInputData();
     this.history.pause();
   }
 
@@ -615,7 +600,6 @@ export class Editor {
     if (!this.readonly) {
       document.addEventListener('cut', this.cutListener);
       document.addEventListener('paste', this.pasteListener);
-      window.addEventListener('beforeunload', this.beforeunloadListener);
       document.addEventListener('selectionchange', this.selectionchangeListener);
       document.addEventListener('click', this.clickListener);
       window.addEventListener('resize', this.resizeListener);
@@ -627,7 +611,6 @@ export class Editor {
   // Destroys a rendered editor.
   public unmount(): void {
     this.event.removeAllListeners();
-    this.command.event.removeAllListeners();
     this.history.event.removeAllListeners();
     this.root.empty();
     this.popupContainer.remove();
@@ -635,7 +618,6 @@ export class Editor {
     if (!this.readonly) {
       document.removeEventListener('cut', this.cutListener);
       document.removeEventListener('paste', this.pasteListener);
-      window.removeEventListener('beforeunload', this.beforeunloadListener);
       document.removeEventListener('selectionchange', this.selectionchangeListener);
       document.removeEventListener('click', this.clickListener);
       window.removeEventListener('resize', this.resizeListener);

@@ -1,4 +1,3 @@
-import EventEmitter from 'eventemitter3';
 import { AppliedItem } from '../types/object';
 import { debug } from '../utils/debug';
 import { Selection } from './selection';
@@ -14,8 +13,6 @@ export class Command {
   private selection: Selection;
 
   private commandMap: Map<string, CommmandItem> = new Map();
-
-  public event: EventEmitter = new EventEmitter();
 
   constructor(selection: Selection) {
     this.selection = selection;
@@ -74,9 +71,7 @@ export class Command {
 
   public execute(name: string, ...data: any[]): void {
     const commandItem = this.getItem(name);
-    this.event.emit('beforeexecute', name);
     commandItem.execute.apply(this, data);
-    this.event.emit('execute', name);
     debug(`Command '${name}' executed`);
   }
 }

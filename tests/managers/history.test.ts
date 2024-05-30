@@ -281,6 +281,25 @@ describe('managers / history', () => {
     expect(history.count).to.equal(1);
   });
 
+  it('should update the last item', () => {
+    const selection = new Selection(container);
+    const history = new History(selection);
+    let saveValue = '';
+    history.event.on('save', value => {
+      saveValue = value;
+    });
+    container.html('a');
+    history.save();
+    container.html('ab');
+    history.save();
+    expect(history.count).to.equal(2);
+    expect(saveValue).to.equal('ab');
+    container.html('abc');
+    history.save(true);
+    expect(history.count).to.equal(2);
+    expect(saveValue).to.equal('abc');
+  });
+
   it('should trigger events', () => {
     const selection = new Selection(container);
     const history = new History(selection);
@@ -307,18 +326,6 @@ describe('managers / history', () => {
     expect(undoValue).to.equal('ab');
     history.redo();
     expect(redoValue).to.equal('abc');
-  });
-
-  it('should not trigger save event', () => {
-    const selection = new Selection(container);
-    const history = new History(selection);
-    let saveValue = '';
-    history.event.on('save', value => {
-      saveValue = value;
-    });
-    container.html('a');
-    history.save(false);
-    expect(saveValue).to.equal('');
   });
 
   it('can undo when the index is 0', () => {

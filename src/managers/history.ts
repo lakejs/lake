@@ -189,7 +189,7 @@ export class History {
     this.canSave = false;
   }
 
-  public save(emitSaveEvent = true): void {
+  public save(update = false): void {
     if (!this.canSave) {
       return;
     }
@@ -201,15 +201,17 @@ export class History {
     ) {
       return;
     }
-    this.list.splice(this.index, Infinity, item);
-    this.index++;
+    if (update) {
+      this.list.splice(this.index - 1, Infinity, item);
+    } else {
+      this.list.splice(this.index, Infinity, item);
+      this.index++;
+    }
     if (this.list.length > this.limit) {
       this.list.shift();
       this.index = this.list.length;
     }
-    if (emitSaveEvent) {
-      this.event.emit('save', denormalizeValue(value));
-    }
+    this.event.emit('save', denormalizeValue(value), update);
     debug(`History saved (index: ${this.index})`);
   }
 }

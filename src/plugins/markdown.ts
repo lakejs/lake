@@ -250,7 +250,6 @@ function spaceKeyExecutesBlockCommand(editor: Editor, point: Point): boolean {
       // <p>#<focus />foo</p>
       // to
       // <h1><focus />foo</h1>
-      editor.commitUnsavedInputData();
       const bookmark = selection.insertBookmark();
       const node = bookmark.focus.prev();
       node.remove();
@@ -280,7 +279,6 @@ function enterKeyExecutesBlockCommand(editor: Editor, block: Nodes): boolean {
       // <p>---<focus /></p>
       // to
       // <lake-box type="block" name="hr" focus="end"></lake-box>
-      editor.commitUnsavedInputData();
       block.empty();
       fixEmptyBlock(block);
       selection.range.shrinkAfter(block);
