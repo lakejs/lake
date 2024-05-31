@@ -153,6 +153,7 @@ export class History {
       if (this.removeBookmark(prevValue) !== this.removeBookmark(value)) {
         this.morphContainer(prevItem);
         this.event.emit('undo', prevValue);
+        this.index++;
         break;
       }
     }

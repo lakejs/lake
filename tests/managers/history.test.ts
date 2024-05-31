@@ -93,13 +93,16 @@ describe('managers / history', () => {
     history.save();
     container.html('abcd');
     history.save();
+    container.html('abcde');
+    history.save();
+    history.undo();
+    expect(container.html()).to.equal('abcd');
     history.undo();
     expect(container.html()).to.equal('abc');
+    container.html('abce');
+    history.save();
     history.undo();
-    expect(container.html()).to.equal('ab');
-    history.save();
-    container.html('abe');
-    history.save();
+    expect(container.html()).to.equal('abc');
     history.undo();
     expect(container.html()).to.equal('ab');
     history.undo();
@@ -107,7 +110,9 @@ describe('managers / history', () => {
     history.redo();
     expect(container.html()).to.equal('ab');
     history.redo();
-    expect(container.html()).to.equal('abe');
+    expect(container.html()).to.equal('abc');
+    history.redo();
+    expect(container.html()).to.equal('abce');
   });
 
   it('undoes to the first item', () => {
@@ -354,10 +359,10 @@ describe('managers / history', () => {
     container.html('abc');
     history.save(); // index: 2
     container.html('a');
-    history.undo(); // index: 1
+    history.undo(); // index: 2
     container.html('a');
     history.undo(); // index: 1
-    expect(container.html()).to.equal('ab');
+    expect(container.html()).to.equal('abc');
   });
 
 });
