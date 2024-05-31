@@ -295,7 +295,10 @@ describe('managers / history', () => {
     expect(history.count).to.equal(2);
     expect(saveValue).to.equal('ab');
     container.html('abc');
-    history.save(true);
+    history.save({
+      inputType: '',
+      update: true,
+    });
     expect(history.count).to.equal(2);
     expect(saveValue).to.equal('abc');
   });

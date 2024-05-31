@@ -11,6 +11,11 @@ import { HTMLParser } from '../parsers/html-parser';
 import { insertBookmark } from '../operations/insert-bookmark';
 import { Selection } from './selection';
 
+type SaveOptions = {
+  inputType: string;
+  update: boolean;
+};
+
 // Saves and controls the history of the value of the editor.
 // Example:
 // before initialization: value: 'a', list: [], index: 0, canUndo: false
@@ -189,7 +194,10 @@ export class History {
     this.canSave = false;
   }
 
-  public save(update = false): void {
+  public save(options: SaveOptions = {
+    inputType: '',
+    update: false,
+  }): void {
     if (!this.canSave) {
       return;
     }
@@ -201,7 +209,7 @@ export class History {
     ) {
       return;
     }
-    if (update) {
+    if (options.update) {
       this.list.splice(this.index - 1, Infinity, item);
     } else {
       this.list.splice(this.index, Infinity, item);
@@ -211,7 +219,7 @@ export class History {
       this.list.shift();
       this.index = this.list.length;
     }
-    this.event.emit('save', denormalizeValue(value), update);
+    this.event.emit('save', denormalizeValue(value), options);
     debug(`History saved (index: ${this.index})`);
   }
 }

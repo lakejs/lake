@@ -77,15 +77,9 @@ const defaultConfig: Config = {
 };
 
 export class Editor {
-  public static version: string = version;
+  private unsavedInputData: string = '';
 
-  public static box = new BoxManager();
-
-  public static plugin = new Plugin();
-
-  private accumulatedInputData: string = '';
-
-  private accumulatedInputCount: number = 0;
+  private unsavedInputCount: number = 0;
 
   private state: SelectionState = {
     appliedItems: [],
@@ -93,6 +87,12 @@ export class Editor {
     selectedNameMap: new Map(),
     selectedValuesMap: new Map(),
   };
+
+  public static version: string = version;
+
+  public static box = new BoxManager();
+
+  public static plugin = new Plugin();
 
   public root: Nodes;
 
@@ -375,17 +375,22 @@ export class Editor {
           inputEvent.inputType === 'insertText' ||
           inputEvent.inputType === 'insertCompositionText'
         ) {
-          this.accumulatedInputData += inputEvent.data ?? '';
-          this.accumulatedInputCount++;
-          if (this.accumulatedInputData.length < this.config.minChangeSize) {
-            this.event.emit('input', inputEvent);
-            if (this.accumulatedInputCount === 1) {
-              this.history.save();
-            } else {
-              this.history.save(true);
-            }
-            return;
+          this.unsavedInputData += inputEvent.data ?? '';
+          this.unsavedInputCount++;
+          this.event.emit('input', inputEvent);
+          if (this.unsavedInputData.length < this.config.minChangeSize) {
+            this.history.save({
+              inputType: 'insertText',
+              update: this.unsavedInputCount > 1,
+            });
+          } else {
+            this.history.save({
+              inputType: 'insertText',
+              update: true,
+            });
+            this.resetUnsavedInputData();
           }
+          return;
         }
         this.event.emit('input', inputEvent);
         this.history.save();
@@ -393,26 +398,28 @@ export class Editor {
     });
   }
 
+  private resetUnsavedInputData(): void {
+    this.unsavedInputData = '';
+    this.unsavedInputCount = 0;
+  }
+
   private bindHistoryEvents(): void {
     this.history.event.on('undo', value => {
       this.renderBoxes();
       this.emitChangeEvent(value);
-      this.accumulatedInputData = '';
-      this.accumulatedInputCount = 0;
+      this.resetUnsavedInputData();
     });
     this.history.event.on('redo', value => {
       this.renderBoxes();
       this.emitChangeEvent(value);
-      this.accumulatedInputData = '';
-      this.accumulatedInputCount = 0;
+      this.resetUnsavedInputData();
     });
-    this.history.event.on('save', (value, update) => {
+    this.history.event.on('save', (value, options) => {
       this.removeBoxGarbage();
       this.emitChangeEvent(value);
       this.selection.sync();
-      if (!update) {
-        this.accumulatedInputData = '';
-        this.accumulatedInputCount = 0;
+      if (options.inputType !== 'insertText') {
+        this.resetUnsavedInputData();
       }
     });
   }
