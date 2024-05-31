@@ -36,22 +36,30 @@ describe('managers / history', () => {
     container.html('<p>foo</p>');
     expect(history.canUndo).to.equal(false);
     history.save(); // index: 1
+    expect(history.index).to.equal(1);
     expect(history.canUndo).to.equal(false);
     container.find('p').append('<i>one</i>');
     history.save(); // index: 2
+    expect(history.index).to.equal(2);
     expect(history.canUndo).to.equal(true);
     container.find('p').append('<i>two</i>');
     history.save(); // index: 3
+    expect(history.index).to.equal(3);
     container.find('p').append('<i>three</i>');
     history.save(); // index: 4
+    expect(history.index).to.equal(4);
     container.find('p').append('<i>four</i>');
-    history.undo(); // index: 3
+    history.undo(); // index: 4
+    expect(history.index).to.equal(4);
     expect(container.html()).to.equal('<p>foo<i>one</i><i>two</i><i>three</i></p>');
-    history.undo(); // index: 2
+    history.undo(); // index: 3
+    expect(history.index).to.equal(3);
     expect(container.html()).to.equal('<p>foo<i>one</i><i>two</i></p>');
-    history.undo(); // index: 1
+    history.undo(); // index: 2
+    expect(history.index).to.equal(2);
     expect(container.html()).to.equal('<p>foo<i>one</i></p>');
     history.undo(); // index: 1
+    expect(history.index).to.equal(1);
     expect(container.html()).to.equal('<p>foo</p>');
   });
 
@@ -279,11 +287,11 @@ describe('managers / history', () => {
     selection.range.collapseToEnd();
     const history = new History(selection);
     history.save();
-    expect(history.count).to.equal(1);
+    expect(history.list.length).to.equal(1);
     selection.range.setEnd(container.find('p'), 1);
     selection.range.collapseToEnd();
     history.save();
-    expect(history.count).to.equal(1);
+    expect(history.list.length).to.equal(1);
   });
 
   it('should update the last item', () => {
@@ -297,14 +305,14 @@ describe('managers / history', () => {
     history.save();
     container.html('ab');
     history.save();
-    expect(history.count).to.equal(2);
+    expect(history.list.length).to.equal(2);
     expect(saveValue).to.equal('ab');
     container.html('abc');
     history.save({
       inputType: '',
       update: true,
     });
-    expect(history.count).to.equal(2);
+    expect(history.list.length).to.equal(2);
     expect(saveValue).to.equal('abc');
   });
 
@@ -341,13 +349,18 @@ describe('managers / history', () => {
     const history = new History(selection);
     container.html('ab');
     history.save(); // index: 1
+    expect(history.index).to.equal(1);
     container.html('a');
     history.save(); // index: 2
+    expect(history.index).to.equal(2);
     history.undo(); // index: 1
+    expect(history.index).to.equal(1);
     expect(container.html()).to.equal('ab');
     container.html('a');
     history.save(); // index: 2
+    expect(history.index).to.equal(2);
     history.undo(); // index: 1
+    expect(history.index).to.equal(1);
     expect(container.html()).to.equal('ab');
   });
 
@@ -356,12 +369,16 @@ describe('managers / history', () => {
     const history = new History(selection);
     container.html('ab');
     history.save(); // index: 1
+    expect(history.index).to.equal(1);
     container.html('abc');
     history.save(); // index: 2
+    expect(history.index).to.equal(2);
     container.html('a');
     history.undo(); // index: 2
+    expect(history.index).to.equal(2);
     container.html('a');
-    history.undo(); // index: 1
+    history.undo(); // index: 2
+    expect(history.index).to.equal(2);
     expect(container.html()).to.equal('abc');
   });
 

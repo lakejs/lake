@@ -33,13 +33,13 @@ export class History {
 
   private container: Nodes;
 
+  private canSave: boolean = true;
+
   // an array for storing the history items
-  private list: Nodes[] = [];
+  public list: Nodes[] = [];
 
   // the next index of the list
-  private index: number = 0;
-
-  private canSave: boolean = true;
+  public index: number = 0;
 
   public limit: number = 100;
 
@@ -123,10 +123,6 @@ export class History {
     newRange.setEnd(newEndNode, range.endOffset);
     insertBookmark(newRange);
     return newContainer;
-  }
-
-  public get count(): number {
-    return this.list.length;
   }
 
   public get canUndo(): boolean {
