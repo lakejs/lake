@@ -575,10 +575,9 @@ export class Editor {
 
   // Returns the contents from the editor.
   public getValue(): string {
-    const bookmark = this.selection.insertBookmark();
-    let value = new HTMLParser(this.container).getHTML();
+    const item = this.history.cloneContainer();
+    let value = new HTMLParser(item).getHTML();
     value = denormalizeValue(value);
-    this.selection.toBookmark(bookmark);
     return value;
   }
 

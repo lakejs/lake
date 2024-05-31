@@ -101,7 +101,15 @@ export class History {
     this.removeIdfromBoxes(otherContainer);
   }
 
-  private cloneContainer(): Nodes {
+  public get canUndo(): boolean {
+    return this.index > 1 && !!this.list[this.index - 1];
+  }
+
+  public get canRedo(): boolean {
+    return !!this.list[this.index];
+  }
+
+  public cloneContainer(): Nodes {
     const range = this.selection.range;
     const newContainer = this.container.clone(true);
     newContainer.find('lake-box').each(nativeNode => {
@@ -112,6 +120,12 @@ export class History {
       return newContainer;
     }
     if (range.isInsideBox) {
+      const boxNode = range.commonAncestor.closest('lake-box');
+      const boxNodePath = boxNode.path();
+      const newBoxNode = newContainer.find(boxNodePath);
+      const newRange = range.clone();
+      newRange.selectBox(newBoxNode);
+      insertBookmark(newRange);
       return newContainer;
     }
     const startNodePath = range.startNode.path();
@@ -123,14 +137,6 @@ export class History {
     newRange.setEnd(newEndNode, range.endOffset);
     insertBookmark(newRange);
     return newContainer;
-  }
-
-  public get canUndo(): boolean {
-    return this.index > 1 && !!this.list[this.index - 1];
-  }
-
-  public get canRedo(): boolean {
-    return !!this.list[this.index];
   }
 
   public undo(): void {
