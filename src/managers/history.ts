@@ -223,6 +223,7 @@ export class History {
       this.list.shift();
       this.index = this.list.length;
     }
+    debug(`History saved (index: ${this.index}, inputType: "${inputType}", update: ${update}, emitEvent: ${emitEvent})`);
     if (emitEvent) {
       this.event.emit('save', denormalizeValue(value), {
         inputType,
@@ -230,6 +231,5 @@ export class History {
         emitEvent,
       });
     }
-    debug(`History saved (index: ${this.index})`);
   }
 }

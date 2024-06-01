@@ -200,6 +200,13 @@ describe('editor', () => {
     const output = '<p><br /><focus /></p>';
     const editor = new Editor({
       root: rootNode,
+      value: '<p>foo</p>',
+    });
+    let changeCount = 0;
+    let currentValue = '';
+    editor.event.on('change', (value: string) => {
+      currentValue = value;
+      changeCount++;
     });
     editor.render();
     editor.focus();
@@ -210,6 +217,8 @@ describe('editor', () => {
     editor.unmount();
     expect(value).to.equal(output);
     expect(getContainerValue(editor.history.list[editor.history.index - 1])).to.equal(output);
+    expect(changeCount).to.equal(1);
+    expect(currentValue).to.equal(output);
   });
 
   it('fixContent method: br', () => {
@@ -218,6 +227,10 @@ describe('editor', () => {
     const editor = new Editor({
       root: rootNode,
     });
+    let currentValue = '';
+    editor.event.on('change', (value: string) => {
+      currentValue = value;
+    });
     editor.render();
     editor.focus();
     editor.container.html(input);
@@ -227,6 +240,7 @@ describe('editor', () => {
     editor.unmount();
     expect(value).to.equal(output);
     expect(getContainerValue(editor.history.list[editor.history.index - 1])).to.equal(output);
+    expect(currentValue).to.equal(output);
   });
 
   it('fixContent method: br and empty mark', () => {
@@ -235,22 +249,9 @@ describe('editor', () => {
     const editor = new Editor({
       root: rootNode,
     });
-    editor.render();
-    editor.focus();
-    editor.container.html(input);
-    editor.history.save();
-    const value = editor.getValue();
-    debug(`output: ${value}`);
-    editor.unmount();
-    expect(value).to.equal(output);
-    expect(getContainerValue(editor.history.list[editor.history.index - 1])).to.equal(output);
-  });
-
-  it('fixContent method: br and empty block', () => {
-    const input = '<br /><p></p>';
-    const output = '<p><br /><focus /></p>';
-    const editor = new Editor({
-      root: rootNode,
+    let currentValue = '';
+    editor.event.on('change', (value: string) => {
+      currentValue = value;
     });
     editor.render();
     editor.focus();
@@ -261,6 +262,29 @@ describe('editor', () => {
     editor.unmount();
     expect(value).to.equal(output);
     expect(getContainerValue(editor.history.list[editor.history.index - 1])).to.equal(output);
+    expect(currentValue).to.equal(output);
+  });
+
+  it('fixContent method: br and empty block', () => {
+    const input = '<br /><p></p>';
+    const output = '<p><br /><focus /></p>';
+    const editor = new Editor({
+      root: rootNode,
+    });
+    let currentValue = '';
+    editor.event.on('change', (value: string) => {
+      currentValue = value;
+    });
+    editor.render();
+    editor.focus();
+    editor.container.html(input);
+    editor.history.save();
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+    expect(getContainerValue(editor.history.list[editor.history.index - 1])).to.equal(output);
+    expect(currentValue).to.equal(output);
   });
 
   it('setPluginConfig method: plugin config is not set', () => {

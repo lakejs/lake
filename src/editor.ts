@@ -305,6 +305,7 @@ export class Editor {
         update: true,
         emitEvent: false,
       });
+      value = this.getValue();
     }
     this.emitStateChangeEvent();
     this.togglePlaceholderClass(value);
@@ -322,7 +323,8 @@ export class Editor {
     }
   }
 
-  private inputInBoxStrip(): void {
+  // Moves the input text from box strip to normal position.
+  private moveBoxStripText(): void {
     const selection = this.selection;
     const range = selection.range;
     const stripNode = range.startNode.closest('.lake-box-strip');
@@ -371,7 +373,7 @@ export class Editor {
           return;
         }
         if (range.isBoxStart || range.isBoxEnd) {
-          this.inputInBoxStrip();
+          this.moveBoxStripText();
           this.event.emit('input', inputEvent);
           this.history.save();
           return;
@@ -593,7 +595,9 @@ export class Editor {
     Editor.plugin.loadAll(this);
     if (!this.readonly) {
       this.selection.updateByBookmark();
-      this.history.save();
+      this.history.save({
+        emitEvent: false,
+      });
     }
     this.renderBoxes();
     if (this.toolbar) {
