@@ -16,10 +16,10 @@ export default (value: string) => {
     },
   });
   editor.event.on('statechange', () => {
-    console.log('Event \'statechange\' emitted');
+    console.log('Event "statechange" emitted');
   });
   editor.event.on('change', (val: string) => {
-    console.log(`Event 'change' emitted, the length of the value is ${val.length}`);
+    console.log(`Event "change" emitted, the length of the value is ${val.length}`);
   });
   editor.render();
   return editor;

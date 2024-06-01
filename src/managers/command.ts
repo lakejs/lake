@@ -72,6 +72,6 @@ export class Command {
   public execute(name: string, ...data: any[]): void {
     const commandItem = this.getItem(name);
     commandItem.execute.apply(this, data);
-    debug(`Command '${name}' executed`);
+    debug(`Command "${name}" executed`);
   }
 }
