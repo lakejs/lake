@@ -466,17 +466,6 @@ export class Editor {
     }
   }
 
-  // Updates some state before custom modifications.
-  public prepareOperation(): void {
-    this.history.pause();
-  }
-
-  // Saves custom modifications to the history.
-  public commitOperation(): void {
-    this.history.continue();
-    this.history.save();
-  }
-
   // Sets default config for a plugin.
   public setPluginConfig(name: string, config: {[key: string]: any}): void {
     if (!this.config[name]) {
@@ -515,12 +504,12 @@ export class Editor {
     });
   }
 
-  // Sets focus on the editor area.
+  // Sets focus on the editor.
   public focus(): void {
     this.container.focus();
   }
 
-  // Removes focus from the editor area.
+  // Removes focus from the editor.
   public blur(): void {
     this.container.blur();
   }
@@ -561,7 +550,7 @@ export class Editor {
     artificialCaret.remove();
   }
 
-  // Sets the specified HTML string to the editor area.
+  // Sets the specified value to the editor.
   public setValue(value: string): void {
     value = normalizeValue(value);
     const htmlParser = new HTMLParser(value);
@@ -573,7 +562,7 @@ export class Editor {
     this.selection.updateByBookmark();
   }
 
-  // Returns the contents from the editor.
+  // Returns the value of the editor.
   public getValue(): string {
     const item = this.history.cloneContainer();
     let value = new HTMLParser(item).getHTML();
@@ -581,7 +570,7 @@ export class Editor {
     return value;
   }
 
-  // Renders an editor area and set default value to it.
+  // Renders an editor area and sets default value to it.
   public render(): void {
     const value = normalizeValue(this.config.value);
     const htmlParser = new HTMLParser(value);
@@ -614,7 +603,7 @@ export class Editor {
     }
   }
 
-  // Destroys a rendered editor.
+  // Destroys the rendered editor.
   public unmount(): void {
     this.event.removeAllListeners();
     this.history.event.removeAllListeners();

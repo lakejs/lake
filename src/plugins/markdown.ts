@@ -217,7 +217,7 @@ function executeMarkCommand(editor: Editor, point: Point): boolean {
       // <p>foobold\u200B<focus /></p>,
       // to
       // <p>foo[bold]\u200B<focus /></p>, startOffset = 3, endOffset = 7
-      editor.prepareOperation();
+      editor.history.pause();
       const bookmark = selection.insertBookmark();
       const node = bookmark.focus.prev();
       const oldValue = node.text();
@@ -227,7 +227,8 @@ function executeMarkCommand(editor: Editor, point: Point): boolean {
       range.setEnd(node, offset - (oldValue.length - newValue.length) - 1);
       editor.command.execute(commandName, ...parameters);
       selection.toBookmark(bookmark);
-      editor.commitOperation();
+      editor.history.continue();
+      editor.history.save();
       return true;
     }
   }
