@@ -378,6 +378,26 @@ describe('managers / history', () => {
     expect(history.list.length).to.equal(1);
   });
 
+  it('should pass through options', () => {
+    const selection = new Selection(container);
+    const history = new History(selection);
+    let saveOptions = {};
+    history.event.on('save', (value, options) => {
+      saveOptions = options;
+    });
+    container.html('a');
+    history.save({
+      inputType: 'insertText',
+      update: false,
+      emitEvent: true,
+    });
+    expect(saveOptions).to.deep.equal({
+      inputType: 'insertText',
+      update: false,
+      emitEvent: true,
+    });
+  });
+
   it('should update the last item', () => {
     const selection = new Selection(container);
     const history = new History(selection);
@@ -393,7 +413,6 @@ describe('managers / history', () => {
     expect(saveValue).to.equal('ab');
     container.html('abc');
     history.save({
-      inputType: '',
       update: true,
     });
     expect(history.list.length).to.equal(2);
@@ -426,6 +445,20 @@ describe('managers / history', () => {
     expect(undoValue).to.equal('ab');
     history.redo();
     expect(redoValue).to.equal('abc');
+  });
+
+  it('should not trigger save event', () => {
+    const selection = new Selection(container);
+    const history = new History(selection);
+    let saveValue = '';
+    history.event.on('save', value => {
+      saveValue = value;
+    });
+    container.html('a');
+    history.save({
+      emitEvent: false,
+    });
+    expect(saveValue).to.equal('');
   });
 
   it('can undo when the index is 0', () => {

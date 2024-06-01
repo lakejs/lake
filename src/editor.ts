@@ -300,7 +300,12 @@ export class Editor {
   });
 
   private emitChangeEvent = (value: string) => {
-    this.fixContent();
+    if (this.fixContent()) {
+      this.history.save({
+        update: true,
+        emitEvent: false,
+      });
+    }
     this.emitStateChangeEvent();
     this.togglePlaceholderClass(value);
     this.scrollToCaret();
@@ -439,11 +444,13 @@ export class Editor {
   }
 
   // Fixes wrong content, especially empty tag.
-  public fixContent(): void {
+  public fixContent(): boolean {
+    let changed = false;
     let children = this.container.children();
     for (const child of children) {
       if ((child.isBlock || child.isMark) && child.html() === '') {
         child.remove();
+        changed = true;
         debug(`Content fixed: empty tag "${child.name}" was removed`);
       }
     }
@@ -451,19 +458,20 @@ export class Editor {
     if (children.length === 0) {
       this.container.html('<p><br /></p>');
       this.selection.range.shrinkAfter(this.container);
+      changed = true;
       debug('Content fixed: default paragraph was added');
-      return;
-    }
-    if (children.length === 1) {
+    } else if (children.length === 1) {
       const child = children[0];
       if (child.isVoid) {
         const paragraph = query('<p />');
         child.before(paragraph);
         paragraph.append(child);
         this.selection.range.shrinkAfter(paragraph);
+        changed = true;
         debug(`Content fixed: void element "${child.name}" was wrapped in paragraph`);
       }
     }
+    return changed;
   }
 
   // Sets default config for a plugin.

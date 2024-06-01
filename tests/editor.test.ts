@@ -2,7 +2,7 @@ import { getInstanceMap } from '../src/storage/box-instances';
 import { debug, query, getBox, appendDeepest } from '../src/utils';
 import { Nodes } from '../src/models/nodes';
 import { Editor } from '../src/editor';
-import { click } from './utils';
+import { click, getContainerValue } from './utils';
 
 function insertText(editor: Editor, data: string) {
   const event = new InputEvent('input', {
@@ -209,6 +209,7 @@ describe('editor', () => {
     debug(`output: ${value}`);
     editor.unmount();
     expect(value).to.equal(output);
+    expect(getContainerValue(editor.history.list[editor.history.index - 1])).to.equal(output);
   });
 
   it('fixContent method: br', () => {
@@ -225,6 +226,7 @@ describe('editor', () => {
     debug(`output: ${value}`);
     editor.unmount();
     expect(value).to.equal(output);
+    expect(getContainerValue(editor.history.list[editor.history.index - 1])).to.equal(output);
   });
 
   it('fixContent method: br and empty mark', () => {
@@ -241,6 +243,7 @@ describe('editor', () => {
     debug(`output: ${value}`);
     editor.unmount();
     expect(value).to.equal(output);
+    expect(getContainerValue(editor.history.list[editor.history.index - 1])).to.equal(output);
   });
 
   it('fixContent method: br and empty block', () => {
@@ -257,6 +260,7 @@ describe('editor', () => {
     debug(`output: ${value}`);
     editor.unmount();
     expect(value).to.equal(output);
+    expect(getContainerValue(editor.history.list[editor.history.index - 1])).to.equal(output);
   });
 
   it('setPluginConfig method: plugin config is not set', () => {

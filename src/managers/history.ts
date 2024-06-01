@@ -12,8 +12,9 @@ import { insertBookmark } from '../operations/insert-bookmark';
 import { Selection } from './selection';
 
 type SaveOptions = {
-  inputType: string;
-  update: boolean;
+  inputType?: string;
+  update?: boolean;
+  emitEvent?: boolean;
 };
 
 // Saves and controls the history of the value of the editor.
@@ -197,10 +198,10 @@ export class History {
     this.canSave = false;
   }
 
-  public save(options: SaveOptions = {
-    inputType: '',
-    update: false,
-  }): void {
+  public save(options: SaveOptions = {}): void {
+    const inputType = options.inputType ?? '';
+    const update = options.update ?? false;
+    const emitEvent = options.emitEvent ?? true;
     if (!this.canSave) {
       return;
     }
@@ -212,7 +213,7 @@ export class History {
     ) {
       return;
     }
-    if (options.update) {
+    if (update) {
       this.list.splice(this.index - 1, Infinity, item);
     } else {
       this.list.splice(this.index, Infinity, item);
@@ -222,7 +223,13 @@ export class History {
       this.list.shift();
       this.index = this.list.length;
     }
-    this.event.emit('save', denormalizeValue(value), options);
+    if (emitEvent) {
+      this.event.emit('save', denormalizeValue(value), {
+        inputType,
+        update,
+        emitEvent,
+      });
+    }
     debug(`History saved (index: ${this.index})`);
   }
 }
