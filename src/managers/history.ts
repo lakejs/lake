@@ -141,13 +141,13 @@ export class History {
   }
 
   public undo(): void {
-    if (!this.list[this.index - 1]) {
+    if (!this.list[this.index - 2]) {
       return;
     }
     this.selection.insertBookmark();
     const value = this.getValue(this.container);
-    while (this.index > 0) {
-      const prevItem = this.list[this.index - 1];
+    while (this.index > 1) {
+      const prevItem = this.list[this.index - 2];
       if (!prevItem) {
         break;
       }
@@ -156,12 +156,8 @@ export class History {
       if (this.removeBookmark(prevValue) !== this.removeBookmark(value)) {
         this.morphContainer(prevItem);
         this.event.emit('undo', prevValue);
-        this.index++;
         break;
       }
-    }
-    if (this.index < 1) {
-      this.index = 1;
     }
     this.selection.updateByBookmark();
     debug(`History undone (index: ${this.index})`);

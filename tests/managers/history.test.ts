@@ -133,6 +133,8 @@ describe('managers / history', () => {
     history.save(); // index: 4
     expect(history.index).to.equal(4);
     container.find('p').append('<i>four</i>');
+    history.save(); // index: 5
+    expect(history.index).to.equal(5);
     history.undo(); // index: 4
     expect(history.index).to.equal(4);
     expect(container.html()).to.equal('<p>foo<i>one</i><i>two</i><i>three</i></p>');
@@ -491,12 +493,11 @@ describe('managers / history', () => {
     history.save(); // index: 2
     expect(history.index).to.equal(2);
     container.html('a');
-    history.undo(); // index: 2
-    expect(history.index).to.equal(2);
-    container.html('a');
-    history.undo(); // index: 2
-    expect(history.index).to.equal(2);
-    expect(container.html()).to.equal('abc');
+    history.undo(); // index: 1
+    expect(history.index).to.equal(1);
+    history.undo(); // index: 1
+    expect(history.index).to.equal(1);
+    expect(container.html()).to.equal('ab');
   });
 
 });
