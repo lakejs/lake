@@ -200,6 +200,7 @@ export class Editor {
     this.event.emit('resize');
   };
 
+  // Updates the classes of all boxes when the current selection of the editor is changed.
   private updateBoxSelectionStyle = debounce(() => {
     // The editor has been unmounted.
     if (this.root.first().length === 0) {
@@ -250,6 +251,7 @@ export class Editor {
     maxWait: 50,
   });
 
+  // Triggers the statechange event when the current selection of the editor is changed.
   private emitStateChangeEvent = debounce(() => {
     const commandNames = this.command.getNames();
     let appliedItems = this.selection.getAppliedItems();
@@ -299,20 +301,7 @@ export class Editor {
     maxWait: 100,
   });
 
-  private emitChangeEvent = (value: string) => {
-    if (this.fixContent()) {
-      this.history.save({
-        update: true,
-        emitEvent: false,
-      });
-      value = this.getValue();
-    }
-    this.emitStateChangeEvent();
-    this.togglePlaceholderClass(value);
-    this.scrollToCaret();
-    this.event.emit('change', value);
-  };
-
+  // Adds or Removes a placeholder class.
   private togglePlaceholderClass(value: string) {
     value = denormalizeValue(value);
     const className = 'lake-show-placeholder';
@@ -352,6 +341,13 @@ export class Editor {
     selection.insertNode(document.createTextNode(text));
   }
 
+  // Resets the value of unsaved input property.
+  private resetUnsavedInputData(): void {
+    this.unsavedInputData = '';
+    this.unsavedInputCount = 0;
+  }
+
+  // Binds events about input.
   private bindInputEvents(): void {
     this.container.on('compositionstart', () => {
       this.isComposing = true;
@@ -405,25 +401,34 @@ export class Editor {
     });
   }
 
-  private resetUnsavedInputData(): void {
-    this.unsavedInputData = '';
-    this.unsavedInputCount = 0;
-  }
-
+  // Binds events about history.
   private bindHistoryEvents(): void {
+    const executeCommonMethods = (value: string) => {
+      if (this.fixContent()) {
+        this.history.save({
+          update: true,
+          emitEvent: false,
+        });
+        value = this.getValue();
+      }
+      this.emitStateChangeEvent();
+      this.togglePlaceholderClass(value);
+      this.scrollToCaret();
+      this.event.emit('change', value);
+    };
     this.history.event.on('undo', value => {
       this.renderBoxes();
-      this.emitChangeEvent(value);
+      executeCommonMethods(value);
       this.resetUnsavedInputData();
     });
     this.history.event.on('redo', value => {
       this.renderBoxes();
-      this.emitChangeEvent(value);
+      executeCommonMethods(value);
       this.resetUnsavedInputData();
     });
     this.history.event.on('save', (value, options) => {
       this.removeBoxGarbage();
-      this.emitChangeEvent(value);
+      executeCommonMethods(value);
       this.selection.sync();
       if (options.inputType !== 'insertText') {
         this.resetUnsavedInputData();
