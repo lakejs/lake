@@ -370,8 +370,8 @@ export class Editor {
         }
         if (range.isBoxStart || range.isBoxEnd) {
           this.moveBoxStripText();
-          this.event.emit('input', inputEvent);
           this.history.save();
+          this.event.emit('input', inputEvent);
           return;
         }
         if (
@@ -380,7 +380,6 @@ export class Editor {
         ) {
           this.unsavedInputData += inputEvent.data ?? '';
           this.unsavedInputCount++;
-          this.event.emit('input', inputEvent);
           if (this.unsavedInputData.length < this.config.minChangeSize) {
             this.history.save({
               inputType: 'insertText',
@@ -393,10 +392,11 @@ export class Editor {
             });
             this.resetUnsavedInputData();
           }
+          this.event.emit('input', inputEvent);
           return;
         }
-        this.event.emit('input', inputEvent);
         this.history.save();
+        this.event.emit('input', inputEvent);
       }, 0);
     });
   }

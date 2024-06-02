@@ -1,4 +1,3 @@
-import { removeZWS } from '../utils/remove-zws';
 import { getBox } from '../utils/get-box';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
@@ -6,9 +5,8 @@ import { Range } from '../models/range';
 function removeAndNormalizeNode(node: Nodes, range?: Range) {
   const previousNode = node.prev();
   const nextNode = node.next();
-  if (previousNode.isText && nextNode.isText) {
+  if (previousNode.isText || nextNode.isText) {
     const parentNode = node.parent();
-    removeZWS(parentNode);
     node.remove();
     parentNode.get(0).normalize();
   } else if (previousNode.length === 0 && nextNode.length === 0) {

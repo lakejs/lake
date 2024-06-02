@@ -406,7 +406,7 @@ describe('editor', () => {
 
   it('method: getValue', () => {
     const input = '<p><strong>\u200B# <focus />foo</strong></p>';
-    const output = '<p><strong># <focus />foo</strong></p>';
+    const output = '<p><strong>\u200B# <focus />foo</strong></p>';
     const editor = new Editor({
       root: rootNode,
       value: input,
@@ -420,7 +420,7 @@ describe('editor', () => {
 
   it('setValue method: set content', () => {
     const input = '<p><strong>\u200B# <focus />foo</strong></p>';
-    const output = '<p><strong># <focus />foo</strong></p>';
+    const output = '<p><strong>\u200B# <focus />foo</strong></p>';
     const editor = new Editor({
       root: rootNode,
     });
@@ -623,6 +623,25 @@ describe('editor', () => {
       done();
     });
     insertCompositionText(editor, '你好');
+  });
+
+  it('input event: undo and redo', done => {
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p>\u200Bfoo<focus /></p>',
+    });
+    editor.render();
+    editor.event.once('input', () => {
+      editor.history.undo();
+      expect(editor.getValue()).to.equal('<p>\u200Bfoo<focus /></p>');
+      editor.history.redo();
+      expect(editor.getValue()).to.equal('<p>\u200Bfooa<focus /></p>');
+      editor.history.undo();
+      expect(editor.getValue()).to.equal('<p>\u200Bfoo<focus /></p>');
+      editor.unmount();
+      done();
+    });
+    insertText(editor, 'a');
   });
 
   it('statechange event', done => {
