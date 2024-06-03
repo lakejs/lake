@@ -84,12 +84,28 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('should delete the previous text with a length of 1', () => {
+  it('should delete the previous text of length 1', () => {
     const content = `
     <p>f<focus /></p>
     `;
     const output = `
     <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('native behavior: the previous text of length 1 with zero width space', () => {
+    const content = `
+    <p><code>f<focus /></code>\u200B</p>
+    `;
+    const output = `
+    <p><code>f<focus /></code>\u200B</p>
     `;
     testPlugin(
       content,
@@ -486,7 +502,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('should delete the previous text with a length of 1 before box (1)', () => {
+  it('should delete the previous text of length 1 before box (1)', () => {
     const content = `
     <p>f<lake-box type="inline" name="image" value="${imageBoxValue}" focus="start"></lake-box></p>
     `;
@@ -502,7 +518,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('should delete the previous text with a length of 1 before box (2)', () => {
+  it('should delete the previous text of length 1 before box (2)', () => {
     const content = `
     <p>f<focus /><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
     `;

@@ -123,7 +123,7 @@ export default (editor: Editor) => {
       editor.history.save();
       return;
     }
-    if (prevNode.isText && prevNode.text().length === 1) {
+    if (prevNode.isText && prevNode.text().length === 1 && prevNode.parent().isBlock) {
       event.preventDefault();
       const block = prevNode.closestBlock();
       range.setStartBefore(prevNode);
