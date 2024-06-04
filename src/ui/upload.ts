@@ -28,13 +28,14 @@ export function uploadFile(config: UploadConfig): Box {
     type: file.type,
     lastModified: file.lastModified,
   });
-  const xhr = request({
+  let xhr: XMLHttpRequest | null = request({
     onProgress: e => {
       const percentNode = box.node.find('.lake-percent');
       const percent = Math.round(e.percent);
       percentNode.text(`${percent < 100 ? percent : 99} %`);
     },
     onError: (error, body) => {
+      xhr = null;
       debug(error.toString(), body);
       box.updateValue('status', 'error');
       box.render();
@@ -43,6 +44,7 @@ export function uploadFile(config: UploadConfig): Box {
       }
     },
     onSuccess: body => {
+      xhr = null;
       if (!body.url) {
         box.updateValue('status', 'error');
         box.render();
@@ -65,6 +67,11 @@ export function uploadFile(config: UploadConfig): Box {
     action: requestAction,
     method: requestMethod,
   });
-  box.setData('xhr', xhr);
+  box.event.on('beforeunmount', () => {
+    if (xhr) {
+      xhr.abort();
+      debug('Upload canceled');
+    }
+  });
   return box;
 }

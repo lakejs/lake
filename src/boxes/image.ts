@@ -377,10 +377,6 @@ export const imageBox: BoxComponent = {
       } else {
         imageNode.find('.lake-button-remove').on('click', event => {
           event.stopPropagation();
-          const xhr = box.getData('xhr');
-          if (xhr) {
-            xhr.abort();
-          }
           editor.selection.removeBox(box);
           editor.history.save();
         });
