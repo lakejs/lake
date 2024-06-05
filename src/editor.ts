@@ -244,7 +244,6 @@ export class Editor {
       boxContainer.removeClass('lake-box-selected');
       box.event.emit('blur');
     });
-    this.event.emit('boxselectionstylechange');
   }, 50, {
     leading: false,
     trailing: true,

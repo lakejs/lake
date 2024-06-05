@@ -27,7 +27,7 @@ describe('boxes / hr', () => {
   it('should focus on box after clicking', done => {
     const boxContainer = box.getContainer();
     click(boxContainer.find('.lake-hr'));
-    editor.event.once('boxselectionstylechange', () => {
+    box.event.once('focus', () => {
       expect(boxContainer.hasClass('lake-box-focused')).to.equal(true);
       done();
     });

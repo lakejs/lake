@@ -30,7 +30,7 @@ describe('boxes / code-block', () => {
   it('should focus on box after selecting box', done => {
     const boxContainer = box.getContainer();
     editor.selection.selectBox(box);
-    editor.event.once('boxselectionstylechange', () => {
+    box.event.once('focus', () => {
       expect(boxContainer.hasClass('lake-box-focused')).to.equal(true);
       expect(boxContainer.find('.lake-dropdown').computedCSS('display')).to.equal('block');
       done();
@@ -40,7 +40,7 @@ describe('boxes / code-block', () => {
   it('should activate box after clicking', done => {
     const boxContainer = box.getContainer();
     box.getData('codeEditor').focus();
-    editor.event.once('boxselectionstylechange', () => {
+    box.event.once('focus', () => {
       expect(boxContainer.hasClass('lake-box-activated')).to.equal(true);
       expect(boxContainer.find('.lake-dropdown').computedCSS('display')).to.equal('block');
       done();
@@ -53,7 +53,7 @@ describe('boxes / code-block', () => {
     expect(box.value.lang).to.equal('css');
     expect(dropdownNode.computedCSS('display')).to.equal('none');
     box.getData('codeEditor').focus();
-    editor.event.once('boxselectionstylechange', () => {
+    box.event.once('focus', () => {
       expect(dropdownNode.computedCSS('display')).to.equal('block');
       click(dropdownNode.find('button[name="langType"]'));
       expect(dropdownNode.find('.lake-dropdown-menu').computedCSS('display')).to.equal('block');
@@ -73,7 +73,7 @@ describe('boxes / code-block', () => {
     });
     const boxContainer = box.getContainer();
     click(boxContainer.find('.lake-code-block'));
-    editor.event.once('boxselectionstylechange', () => {
+    box.event.once('focus', () => {
       expect(boxContainer.hasClass('lake-box-focused')).to.equal(true);
       window.LakeCodeMirror = CodeMirror;
       done();

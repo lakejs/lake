@@ -481,7 +481,7 @@ describe('editor', () => {
     const box = getBox(boxNode);
     const boxContainer = box.getContainer();
     boxContainer.emit('mouseenter');
-    editor.event.once('boxselectionstylechange', () => {
+    box.event.once('focus', () => {
       const isActivated = boxContainer.hasClass('lake-box-activated');
       const isFocused = boxContainer.hasClass('lake-box-focused');
       const isSelected = boxContainer.hasClass('lake-box-selected');
@@ -508,7 +508,7 @@ describe('editor', () => {
     const box = getBox(boxNode);
     const boxContainer = box.getContainer();
     boxContainer.emit('mouseenter');
-    editor.event.once('boxselectionstylechange', () => {
+    box.event.once('focus', () => {
       const isActivated = boxContainer.hasClass('lake-box-activated');
       const isFocused = boxContainer.hasClass('lake-box-focused');
       const isSelected = boxContainer.hasClass('lake-box-selected');
@@ -534,7 +534,7 @@ describe('editor', () => {
     const boxNode = editor.container.find('lake-box');
     const box = getBox(boxNode);
     const boxContainer = box.getContainer();
-    editor.event.once('boxselectionstylechange', () => {
+    box.event.once('blur', () => {
       const isActivated = boxContainer.hasClass('lake-box-activated');
       const isFocused = boxContainer.hasClass('lake-box-focused');
       const isSelected = boxContainer.hasClass('lake-box-selected');
