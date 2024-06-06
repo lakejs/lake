@@ -192,11 +192,16 @@ export const codeBlockBox: BoxComponent = {
       },
     });
     dropdown.render();
-    box.setData('codeEditor', codeEditor);
     const resizeListener = () => {
       container.css('width', `${editor.container.innerWidth() - 2}px`);
     };
     editor.event.on('resize', resizeListener);
+    codeBlockNode.on('click', () => {
+      if (codeEditor.hasFocus) {
+        return;
+      }
+      codeEditor.focus();
+    });
     box.event.on('beforeunmount', () => {
       codeEditor.destroy();
       editor.event.off('resize', resizeListener);

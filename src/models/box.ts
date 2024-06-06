@@ -14,9 +14,6 @@ import { morph } from '../utils/morph';
 import { Nodes } from './nodes';
 import { BoxToolbar } from '../ui/box-toolbar';
 
-// A key-value object for storing data about box.
-const boxData: { [key: number]: { [key: string]: any } } = {};
-
 const framework = safeTemplate`
   <span class="lake-box-strip"><br /></span>
   <div class="lake-box-container" contenteditable="false"></div>
@@ -50,9 +47,6 @@ export class Box {
       if (component.value && !this.node.hasAttr('value')) {
         this.value = component.value;
       }
-    }
-    if (!boxData[this.node.id]) {
-      boxData[this.node.id] = {};
     }
   }
 
@@ -130,16 +124,6 @@ export class Box {
     this.value = value;
   }
 
-  // Returns data of the box.
-  public getData(key: string): any {
-    return boxData[this.node.id][key];
-  }
-
-  // Updates data of the box.
-  public setData(key: string, value: any): void {
-    boxData[this.node.id][key] = value;
-  }
-
   // Returns the editor instance of the box.
   public getEditor(): Editor | undefined {
     const container = this.node.closest('div[contenteditable]');
@@ -204,7 +188,6 @@ export class Box {
   public unmount(): void {
     this.event.emit('blur');
     this.event.emit('beforeunmount');
-    boxData[this.node.id] = {};
     this.event.removeAllListeners();
     this.node.empty();
     debug(`Box "${this.name}" (id: ${this.node.id}) unmounted`);

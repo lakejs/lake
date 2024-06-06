@@ -37,8 +37,7 @@ export default (editor: Editor) => {
     execute: (value: BoxValue) => {
       const box = editor.selection.insertBox('codeBlock', value);
       editor.history.save();
-      const codeEditor = box.getData('codeEditor');
-      codeEditor.focus();
+      box.getContainer().find('.lake-code-block').emit('click');
     },
   });
 };

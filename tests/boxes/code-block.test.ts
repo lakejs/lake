@@ -29,22 +29,22 @@ describe('boxes / code-block', () => {
 
   it('should focus on box after selecting box', done => {
     const boxContainer = box.getContainer();
-    editor.selection.selectBox(box);
     box.event.once('focus', () => {
       expect(boxContainer.hasClass('lake-box-focused')).to.equal(true);
       expect(boxContainer.find('.lake-dropdown').computedCSS('display')).to.equal('block');
       done();
     });
+    editor.selection.selectBox(box);
   });
 
   it('should activate box after clicking', done => {
     const boxContainer = box.getContainer();
-    box.getData('codeEditor').focus();
     box.event.once('focus', () => {
       expect(boxContainer.hasClass('lake-box-activated')).to.equal(true);
       expect(boxContainer.find('.lake-dropdown').computedCSS('display')).to.equal('block');
       done();
     });
+    click(boxContainer.find('.lake-code-block'));
   });
 
   it('should change language', done => {
@@ -52,7 +52,6 @@ describe('boxes / code-block', () => {
     const dropdownNode = boxContainer.find('.lake-dropdown');
     expect(box.value.lang).to.equal('css');
     expect(dropdownNode.computedCSS('display')).to.equal('none');
-    box.getData('codeEditor').focus();
     box.event.once('focus', () => {
       expect(dropdownNode.computedCSS('display')).to.equal('block');
       click(dropdownNode.find('button[name="langType"]'));
@@ -62,6 +61,7 @@ describe('boxes / code-block', () => {
       expect(box.value.lang).to.equal('html');
       done();
     });
+    click(boxContainer.find('.lake-code-block'));
   });
 
   it('error status: should focus on box after clicking', done => {
