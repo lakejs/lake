@@ -113,7 +113,7 @@ describe('models / box', () => {
     expect(box.getHTML()).to.equal('<hr />');
   });
 
-  it('event: blur', () => {
+  it('event: should emit blur event after the box was unmounted', () => {
     container.html('<lake-box type="block" name="blockBox"></lake-box>');
     const box = new Box(container.find('lake-box'));
     let calledCount = 0;
@@ -123,7 +123,7 @@ describe('models / box', () => {
     expect(calledCount).to.equal(1);
   });
 
-  it('event: beforeunmount', () => {
+  it('event: should emit beforeunmount event after the box was unmounted', () => {
     container.html('<lake-box type="block" name="blockBox"></lake-box>');
     const box = new Box(container.find('lake-box'));
     let calledCount = 0;

@@ -448,7 +448,7 @@ describe('editor', () => {
     expect(editor.container.hasClass('lake-show-placeholder')).to.equal(true);
   });
 
-  it('box class: should not have any class', () => {
+  it('box class: should not have any classes after rendering editor', () => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const editor = new Editor({
       root: rootNode,
@@ -469,7 +469,7 @@ describe('editor', () => {
     expect(isHovered).to.equal(false);
   });
 
-  it('box class: should have activated class', done => {
+  it('box class: should have an activated class', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const editor = new Editor({
       root: rootNode,
@@ -496,7 +496,7 @@ describe('editor', () => {
     range.selectNodeContents(boxContainer);
   });
 
-  it('box class: should have focused class', done => {
+  it('box class: should have a focused class', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const editor = new Editor({
       root: rootNode,
@@ -523,7 +523,7 @@ describe('editor', () => {
     range.selectBox(boxNode);
   });
 
-  it('box class: should have selected class', done => {
+  it('box class: should have a selected class', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const editor = new Editor({
       root: rootNode,
@@ -547,6 +547,33 @@ describe('editor', () => {
       done();
     });
     range.selectNodeContents(editor.container);
+  });
+
+  it('box class: should not have any classes', done => {
+    const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    editor.setValue(input);
+    const range = editor.selection.range;
+    const boxNode = editor.container.find('lake-box');
+    const box = getBox(boxNode);
+    const boxContainer = box.getContainer();
+    box.event.once('blur', () => {
+      const isActivated = boxContainer.hasClass('lake-box-activated');
+      const isFocused = boxContainer.hasClass('lake-box-focused');
+      const isSelected = boxContainer.hasClass('lake-box-selected');
+      const isHovered = boxContainer.hasClass('lake-box-hovered');
+      editor.unmount();
+      expect(isActivated).to.equal(false);
+      expect(isFocused).to.equal(false);
+      expect(isSelected).to.equal(false);
+      expect(isHovered).to.equal(false);
+      done();
+    });
+    range.selectNodeContents(editor.container);
+    range.collapseToStart();
   });
 
   it('box class: should have hovered class', () => {
