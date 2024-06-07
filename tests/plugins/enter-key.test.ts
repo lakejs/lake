@@ -281,6 +281,24 @@ describe('plugins / enter-key', () => {
     );
   });
 
+  it('list: with empty content, should remove indent attribute', () => {
+    const content = `
+    <ul indent="1"><li>foo</li></ul>
+    <ul indent="2"><li><br /><focus /></li></ul>
+    `;
+    const output = `
+    <ul indent="1"><li>foo</li></ul>
+    <p><br /><focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
   it('list: should keep correct number', () => {
     const content = `
     <ol start="1"><li>f<focus />oo</li></ol>

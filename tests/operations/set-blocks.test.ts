@@ -328,6 +328,26 @@ describe('operations / set-blocks', () => {
     );
   });
 
+  it('should remove indent when changing a list to a paragraph', () => {
+    const content = `
+    <p>outer start</p>
+    <ul indent="1"><li>foo<strong>bold</strong><focus /></li></ul>
+    <p>outer end</p>
+    `;
+    const output = `
+    <p>outer start</p>
+    <p>foo<strong>bold</strong><focus /></p>
+    <p>outer end</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, '<p />');
+      },
+    );
+  });
+
   it('should change multi-block to a list', () => {
     const content = `
     <p>outer start</p>

@@ -19,7 +19,7 @@ function splitBlock(editor: Editor, block: Nodes): void {
   }
 }
 
-function addBlockOrSplitBlockForBox(editor: Editor): void {
+function addOrSplitBlockForBox(editor: Editor): void {
   const range = editor.selection.range;
   const boxNode = range.startNode.closest('lake-box');
   const block = boxNode.closestBlock();
@@ -60,7 +60,7 @@ export default (editor: Editor) => {
     event.preventDefault();
     editor.fixContent();
     if (range.isBox) {
-      addBlockOrSplitBlockForBox(editor);
+      addOrSplitBlockForBox(editor);
       editor.history.save();
       return;
     }
@@ -69,7 +69,7 @@ export default (editor: Editor) => {
       return;
     }
     if (range.isBox) {
-      addBlockOrSplitBlockForBox(editor);
+      addOrSplitBlockForBox(editor);
       editor.history.save();
       return;
     }
