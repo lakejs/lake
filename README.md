@@ -6,13 +6,13 @@
 
 ---
 
-Lake is a rich text editor for the web. It has a good user experience and provides easy-to-use programming interface to allow further extension.
+Lake is a rich text editor for the web. It offers an excellent user experience and has an easy-to-use programming interface to allow further extension.
 
 [Examples](https://lakejs.org/examples/) · [Getting started](https://lakejs.org/guide/) · [Reference](https://lakejs.org/reference/)
 
 ## Development
 
-To build Lake or change source code, you need to download the repository and start a development server that contains an HTTP service and real-time bundling.
+To build Lake or modify its source code, you need to download the repository and start a development server that includes an HTTP service and real-time bundling.
 
 ``` bash
 # Clone the repository
@@ -23,11 +23,11 @@ pnpm install
 pnpm dev
 ```
 
-You can now view all demos by visiting `http://localhost:8080/examples/`.
+You can view all the demos by visiting `http://localhost:8080/examples/`.
 
 ## Running tests
 
-Lake uses a lot of browser APIs and therefore it requires a real browser environment to run the tests. You can open `http://localhost:8080/tests/` to run all test cases visibly, or execute `pnpm test` command in your console to run the tests in headless mode.
+Lake relies heavily on browser APIs and therefore requires a real browser environment to run the tests. You can run all test cases visibly by visiting `http://localhost:8080/tests/`. Alternatively, you can execute `pnpm test` command in your console to run the tests in headless mode.
 
 ## License
 
