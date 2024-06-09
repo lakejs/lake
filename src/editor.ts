@@ -30,6 +30,7 @@ type Config = {
   indentWithTab: boolean;
   lang: string;
   minChangeSize: number;
+  historySize: number;
   onMessage: MessageCallback;
   [name: string]: any;
 };
@@ -58,6 +59,7 @@ const defaultConfig: Config = {
   indentWithTab: true,
   lang: 'en-US',
   minChangeSize: 5,
+  historySize: 100,
   onMessage: (type, message) => {
     if (type === 'success') {
       // eslint-disable-next-line no-console
@@ -153,6 +155,7 @@ export class Editor {
     this.selection = new Selection(this.container);
     this.command = new Command(this.selection);
     this.history = new History(this.selection);
+    this.history.limit = this.config.historySize;
     this.keystroke = new Keystroke(this.container);
 
     editors.set(this.container.id, this);

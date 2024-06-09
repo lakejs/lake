@@ -181,6 +181,16 @@ describe('editor', () => {
     editor.unmount();
   });
 
+  it('config: should set historySize', () => {
+    const editor = new Editor({
+      root: rootNode,
+      historySize: 200,
+    });
+    editor.render();
+    expect(editor.history.limit).to.equal(200);
+    editor.unmount();
+  });
+
   it('config: empty default value', () => {
     const input = '';
     const output = '';
