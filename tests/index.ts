@@ -35,6 +35,7 @@ import './utils/get-box.test';
 
 // Network Utils
 import './utils/request.test';
+import './utils/upload-file.test';
 
 // Models
 import './models/nodes.test';
@@ -129,7 +130,6 @@ import './ui/button.test';
 import './ui/button-ui.test';
 import './ui/dropdown.test';
 import './ui/dropdown-ui.test';
-import './ui/upload.test';
 import './ui/link-popup.test';
 import './ui/link-popup-ui.test';
 import './ui/toolbar.test';

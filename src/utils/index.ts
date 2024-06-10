@@ -35,6 +35,7 @@ export * from './get-box';
 
 // Network
 export * from './request';
+export * from './upload-file';
 
 // Other
 export * from './debug';

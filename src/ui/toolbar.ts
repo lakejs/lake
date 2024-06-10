@@ -5,10 +5,10 @@ import { ToolbarButtonItem, ToolbarDropdownItem, ToolbarUploadItem, ToolbarItem 
 import { toolbarItems } from '../config/toolbar-items';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
+import { uploadFile } from '../utils/upload-file';
 import { Nodes } from '../models/nodes';
 import { Button } from './button';
 import { Dropdown } from './dropdown';
-import { uploadFile } from './upload';
 
 type ToolbarPlacement = 'top' | 'bottom';
 

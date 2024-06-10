@@ -3,12 +3,11 @@ import { blockTagNames } from '../config/tag-names';
 import { getElementRules } from '../config/element-rules';
 import {
   wrapNodeList, changeTagName, fixNumberedList,
-  removeBr, query, getBox, normalizeValue,
+  removeBr, query, getBox, normalizeValue, uploadFile,
 } from '../utils';
 import { Nodes } from '../models/nodes';
 import { HTMLParser } from '../parsers/html-parser';
 import { TextParser } from '../parsers/text-parser';
-import { uploadFile } from '../ui/upload';
 
 const blockSelector = Array.from(blockTagNames).join(',');
 
