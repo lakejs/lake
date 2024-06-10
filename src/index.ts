@@ -24,6 +24,8 @@ import { addMark} from './operations/add-mark';
 import { removeMark} from './operations/remove-mark';
 import { fixList} from './operations/fix-list';
 import { insertLink } from './operations/insert-link';
+import { insertBox } from './operations/insert-box';
+import { removeBox } from './operations/remove-box';
 import { Button } from './ui/button';
 import { Dropdown } from './ui/dropdown';
 import { Editor } from './editor';
@@ -145,6 +147,8 @@ export {
   removeMark,
   fixList,
   insertLink,
+  insertBox,
+  removeBox,
   Button,
   Dropdown,
 };
