@@ -1,4 +1,5 @@
 import { NativeNode } from '../types/native';
+import { query } from '../utils/query';
 import { Nodes } from './nodes';
 
 export class Fragment {
@@ -7,6 +8,11 @@ export class Fragment {
 
   constructor(fragment?: DocumentFragment) {
     this.fragment = fragment ?? document.createDocumentFragment();
+  }
+
+  // Gets a native fragment.
+  public get(): DocumentFragment {
+    return this.fragment;
   }
 
   // Returns the descendants of the fragment which are selected by the specified CSS selector.
@@ -27,8 +33,8 @@ export class Fragment {
   }
 
   // Inserts the specified node as the last child.
-  public append(node: Nodes): void {
-    node.each(nativeNode => {
+  public append(node: string | NativeNode | Nodes): void {
+    query(node).each(nativeNode => {
       this.fragment.appendChild(nativeNode);
     });
   }

@@ -52,7 +52,6 @@ import './operations/insert-bookmark.test';
 import './operations/to-bookmark.test';
 import './operations/insert-node.test';
 import './operations/insert-fragment.test';
-import './operations/insert-contents.test';
 import './operations/delete-contents.test';
 import './operations/set-blocks.test';
 import './operations/split-block.test';

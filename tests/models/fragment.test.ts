@@ -11,7 +11,23 @@ describe('models / fragment', () => {
     expect(new Fragment(nativeFragment).find('strong').length).to.equal(1);
   });
 
-  it('method: append', () => {
+  it('append method: string', () => {
+    const fragment = new Fragment();
+    fragment.append('<div>foo</div><div><strong>bar</strong></div>');
+    expect(fragment.find('div').length).to.equal(2);
+    expect(fragment.find('strong').length).to.equal(1);
+  });
+
+  it('append method: native node', () => {
+    const fragment = new Fragment();
+    const nodes = query('<div>foo</div><div><strong>bar</strong></div>');
+    fragment.append(nodes.get(0));
+    fragment.append(nodes.get(1));
+    expect(fragment.find('div').length).to.equal(2);
+    expect(fragment.find('strong').length).to.equal(1);
+  });
+
+  it('append method: nodes', () => {
     const fragment = new Fragment();
     fragment.append(query('<div>foo</div><div><strong>bar</strong></div>'));
     expect(fragment.find('div').length).to.equal(2);

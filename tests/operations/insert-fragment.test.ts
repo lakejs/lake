@@ -1,6 +1,7 @@
 import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
 import { query } from '../../src/utils';
+import { Fragment } from '../../src/models/fragment';
 import { insertFragment } from '../../src/operations/insert-fragment';
 
 describe('operations / insert-fragment', () => {
@@ -34,6 +35,25 @@ describe('operations / insert-fragment', () => {
       content,
       output,
       range => {
+        const fragment = new Fragment();
+        fragment.append('<i>italic</i>');
+        fragment.append(document.createTextNode('text'));
+        insertFragment(range, fragment);
+      },
+    );
+  });
+
+  it('inserts a native fragment when no text is selected', () => {
+    const content = `
+    <strong>foo<focus /></strong>bar
+    `;
+    const output = `
+    <strong>foo<i>italic</i>text<focus /></strong>bar
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
         const fragment = document.createDocumentFragment();
         fragment.appendChild(query('<i>italic</i>').get(0));
         fragment.appendChild(document.createTextNode('text'));
@@ -53,9 +73,9 @@ describe('operations / insert-fragment', () => {
       content,
       output,
       range => {
-        const fragment = document.createDocumentFragment();
-        fragment.appendChild(query('<i>italic</i>').get(0));
-        fragment.appendChild(document.createTextNode('text'));
+        const fragment = new Fragment();
+        fragment.append('<i>italic</i>');
+        fragment.append(document.createTextNode('text'));
         insertFragment(range, fragment);
       },
     );
@@ -75,8 +95,8 @@ describe('operations / insert-fragment', () => {
       content,
       output,
       range => {
-        const fragment = document.createDocumentFragment();
-        fragment.appendChild(query('<p>bar</p>').get(0));
+        const fragment = new Fragment();
+        fragment.append('<p>bar</p>');
         insertFragment(range, fragment);
       },
     );

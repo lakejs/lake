@@ -15,7 +15,6 @@ import { insertBookmark } from './operations/insert-bookmark';
 import { toBookmark } from './operations/to-bookmark';
 import { insertNode } from './operations/insert-node';
 import { insertFragment} from './operations/insert-fragment';
-import { insertContents} from './operations/insert-contents';
 import { deleteContents} from './operations/delete-contents';
 import { setBlocks} from './operations/set-blocks';
 import { splitBlock} from './operations/split-block';
@@ -138,7 +137,6 @@ export {
   toBookmark,
   insertNode,
   insertFragment,
-  insertContents,
   deleteContents,
   setBlocks,
   splitBlock,
