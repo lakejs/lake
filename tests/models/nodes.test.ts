@@ -753,13 +753,11 @@ describe('models / nodes', () => {
     // insert a HTML string
     nodes.prepend('<p>string</p>');
     expect(nodes.html()).to.equal('<p>string</p>one');
-    expect(nodes.eq(1).html()).to.equal('<p>string</p>two');
     nodes.empty();
     // insert a HTML string with multi-element
     nodes.html('foo');
     nodes.prepend('<p>multi-element-one</p>bar<p>multi-element-two</p>');
     expect(nodes.html()).to.equal('<p>multi-element-one</p>bar<p>multi-element-two</p>foo');
-    expect(nodes.eq(1).html()).to.equal('<p>multi-element-one</p>bar<p>multi-element-two</p>foo');
     nodes.empty();
     // insert a native node
     const newElement1 = document.createElement('p');
@@ -788,13 +786,11 @@ describe('models / nodes', () => {
     // insert a HTML string
     nodes.append('<p>foo</p>');
     expect(nodes.html()).to.equal('one<p>foo</p>');
-    expect(nodes.eq(1).html()).to.equal('two<p>foo</p>');
     nodes.empty();
     // insert a HTML string with multi-element
     nodes.html('foo');
     nodes.append('<p>multi-element-one</p>bar<p>multi-element-two</p>');
     expect(nodes.html()).to.equal('foo<p>multi-element-one</p>bar<p>multi-element-two</p>');
-    expect(nodes.eq(1).html()).to.equal('foo<p>multi-element-one</p>bar<p>multi-element-two</p>');
     nodes.empty();
     // insert a native node
     const newElement1 = document.createElement('p');
@@ -823,7 +819,6 @@ describe('models / nodes', () => {
     // insert a HTML string
     nodes.before('<div class="insert-test">a HTML string</div>');
     expect(nodes.prev().html()).to.equal('a HTML string');
-    expect(nodes.eq(1).prev().html()).to.equal('a HTML string');
     query('.insert-test').remove();
     // insert a HTML string with multi-element
     nodes.before('<div class="insert-test">multi-element-one</div><div class="insert-test">multi-element-two</div>');
@@ -854,7 +849,6 @@ describe('models / nodes', () => {
     // insert a HTML string
     nodes.after('<div class="insert-test">a HTML string</div>');
     expect(nodes.next().html()).to.equal('a HTML string');
-    expect(nodes.eq(1).next().html()).to.equal('a HTML string');
     query('.insert-test').remove();
     // insert a HTML string with multi-element
     nodes.after('<div class="insert-test">multi-element-one</div><div class="insert-test">multi-element-two</div>');

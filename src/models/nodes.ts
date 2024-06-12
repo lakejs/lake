@@ -702,21 +702,20 @@ export class Nodes {
     return this;
   }
 
-  // Inserts the specified content as the first child of each element.
+  // Inserts the specified content to the beginning of the first element.
   public prepend(content: string | NativeNode | DocumentFragment | Nodes): this {
-    if (typeof content === 'string') {
-      return this.eachElement(element => {
-        const list = toNodeList(content as string).reverse();
-        list.forEach((node: NativeNode) => {
-          if (element.firstChild) {
-            element.insertBefore(node, element.firstChild);
-          } else {
-            element.appendChild(node);
-          }
-        });
-      });
-    }
     const element = this.get(0);
+    if (typeof content === 'string') {
+      const list = toNodeList(content as string).reverse();
+      for (const node of list) {
+        if (element.firstChild) {
+          element.insertBefore(node, element.firstChild);
+        } else {
+          element.appendChild(node);
+        }
+      }
+      return this;
+    }
     if (content instanceof Nodes) {
       content = content.get(0);
     }
@@ -728,17 +727,16 @@ export class Nodes {
     return this;
   }
 
-  // Inserts the specified content as the last child of each element.
+  // Inserts the specified content to the end of the first element.
   public append(content: string | NativeNode | DocumentFragment | Nodes): this {
-    if (typeof content === 'string') {
-      return this.eachElement(element => {
-        const list = toNodeList(content as string);
-        list.forEach((node: NativeNode) => {
-          element.appendChild(node);
-        });
-      });
-    }
     const element = this.get(0);
+    if (typeof content === 'string') {
+      const list = toNodeList(content as string);
+      for (const node of list) {
+        element.appendChild(node);
+      }
+      return this;
+    }
     if (content instanceof Nodes) {
       content = content.get(0);
     }
@@ -746,53 +744,45 @@ export class Nodes {
     return this;
   }
 
-  // Inserts the specified content before each node.
+  // Inserts the specified content before the first node.
   public before(content: string | NativeNode | DocumentFragment | Nodes): this {
-    if (typeof content === 'string') {
-      return this.each(node => {
-        const list = toNodeList(content as string);
-        list.forEach(target => {
-          if (!node.parentNode) {
-            return;
-          }
-          node.parentNode.insertBefore(target, node);
-        });
-      });
-    }
     const node = this.get(0);
-    if (content instanceof Nodes) {
-      content = content.get(0);
-    }
     if (!node.parentNode) {
       return this;
+    }
+    if (typeof content === 'string') {
+      const list = toNodeList(content as string);
+      for (const target of list) {
+        node.parentNode.insertBefore(target, node);
+      }
+      return this;
+    }
+    if (content instanceof Nodes) {
+      content = content.get(0);
     }
     node.parentNode.insertBefore(content, node);
     return this;
   }
 
-  // Inserts the specified content after each node.
+  // Inserts the specified content after the first node.
   public after(content: string | NativeNode | DocumentFragment | Nodes): this {
-    if (typeof content === 'string') {
-      return this.each(node => {
-        const list = toNodeList(content as string).reverse();
-        list.forEach(target => {
-          if (!node.parentNode) {
-            return;
-          }
-          if (node.nextSibling) {
-            node.parentNode.insertBefore(target, node.nextSibling);
-          } else {
-            node.parentNode.appendChild(target);
-          }
-        });
-      });
-    }
     const node = this.get(0);
-    if (content instanceof Nodes) {
-      content = content.get(0);
-    }
     if (!node.parentNode) {
       return this;
+    }
+    if (typeof content === 'string') {
+      const list = toNodeList(content as string).reverse();
+      for (const target of list) {
+        if (node.nextSibling) {
+          node.parentNode.insertBefore(target, node.nextSibling);
+        } else {
+          node.parentNode.appendChild(target);
+        }
+      }
+      return this;
+    }
+    if (content instanceof Nodes) {
+      content = content.get(0);
     }
     if (node.nextSibling) {
       node.parentNode.insertBefore(content, node.nextSibling);
@@ -802,20 +792,20 @@ export class Nodes {
     return this;
   }
 
-  // Replaces each node with the provided new content.
+  // Replaces the first node with the provided new content.
   public replaceWith(newContent: string | NativeNode | Nodes): this {
-    return this.each(node => {
-      let target: NativeNode;
-      if (newContent instanceof Nodes) {
-        target = newContent.get(0);
-      } else {
-        target = toNodeList(newContent)[0];
-      }
-      if (!node.parentNode) {
-        return;
-      }
-      node.parentNode.replaceChild(target, node);
-    });
+    const node = this.get(0);
+    if (!node.parentNode) {
+      return this;
+    }
+    let target: NativeNode;
+    if (newContent instanceof Nodes) {
+      target = newContent.get(0);
+    } else {
+      target = toNodeList(newContent)[0];
+    }
+    node.parentNode.replaceChild(target, node);
+    return this;
   }
 
   // Removes each node from the DOM.
