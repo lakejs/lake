@@ -30,7 +30,7 @@ export class Box {
     if (typeof node === 'string') {
       const component = boxes.get(node);
       if (component === undefined) {
-        throw new Error(`Box '${node}' has not been defined yet.`);
+        throw new Error(`Box "${node}" has not been defined yet.`);
       }
       const type = encode(component.type);
       const name = encode(component.name);
@@ -42,7 +42,7 @@ export class Box {
       this.node = query(node);
       const component = boxes.get(this.name);
       if (component === undefined) {
-        throw new Error(`Box '${this.name}' has not been defined yet.`);
+        throw new Error(`Box "${this.name}" has not been defined yet.`);
       }
       if (component.value && !this.node.hasAttr('value')) {
         this.value = component.value;

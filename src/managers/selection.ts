@@ -227,7 +227,7 @@ export class Selection {
   public insertBox(boxName: Parameters<typeof insertBox>[1], boxValue?: Parameters<typeof insertBox>[2]): Box {
     const box = insertBox(this.range, boxName, boxValue);
     if (!box) {
-      throw new Error(`Box '${boxName}' cannot be inserted outside the editor.`);
+      throw new Error(`Box "${boxName}" cannot be inserted outside the editor.`);
     }
     return box;
   }

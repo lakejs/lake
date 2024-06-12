@@ -11,13 +11,13 @@ export default (editor: Editor) => {
     }
     event.preventDefault();
     const blocks = editor.selection.range.getBlocks();
-    blocks.forEach(block => {
+    for (const block of blocks) {
       if (block.name !== 'p' || block.css('text-indent') === '2em') {
         setBlockIndent(block, 'increase');
-        return;
+      } else {
+        block.css('text-indent', '2em');
       }
-      block.css('text-indent', '2em');
-    });
+    }
     editor.history.save();
   });
 };

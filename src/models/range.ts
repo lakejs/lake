@@ -268,7 +268,7 @@ export class Range {
   public selectBox(boxNode: Nodes): void {
     const boxContainer = boxNode.find('.lake-box-container');
     if (boxContainer.length === 0) {
-      throw new Error(`The box cannot be selected because the box '${boxNode.attr('name')}' (id=${boxNode.id}) has not been rendered yet.`);
+      throw new Error(`The box cannot be selected because the box "${boxNode.attr('name')}" (id=${boxNode.id}) has not been rendered yet.`);
     }
     this.setStart(boxContainer, 0);
     this.collapseToStart();
@@ -278,7 +278,7 @@ export class Range {
   public selectBoxStart(boxNode: Nodes): void {
     const boxStrip = boxNode.find('.lake-box-strip');
     if (boxStrip.length === 0) {
-      throw new Error(`The box cannot be selected because the box '${boxNode.attr('name')}' (id=${boxNode.id}) has not been rendered yet.`);
+      throw new Error(`The box cannot be selected because the box "${boxNode.attr('name')}" (id=${boxNode.id}) has not been rendered yet.`);
     }
     this.selectNodeContents(boxStrip.eq(0));
     this.collapseToStart();
@@ -288,7 +288,7 @@ export class Range {
   public selectBoxEnd(boxNode: Nodes): void {
     const boxStrip = boxNode.find('.lake-box-strip');
     if (boxStrip.length === 0) {
-      throw new Error(`The box cannot be selected because the box '${boxNode.attr('name')}' (id=${boxNode.id}) has not been rendered yet.`);
+      throw new Error(`The box cannot be selected because the box "${boxNode.attr('name')}" (id=${boxNode.id}) has not been rendered yet.`);
     }
     this.selectNodeContents(boxStrip.eq(1));
     this.collapseToStart();

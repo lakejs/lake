@@ -10,8 +10,8 @@ export class Plugin {
   }
 
   public loadAll(editor: Editor) {
-    this.pluginList.forEach(plugin => {
+    for (const plugin of this.pluginList) {
       plugin(editor);
-    });
+    }
   }
 }

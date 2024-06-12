@@ -42,9 +42,9 @@ const defaultItems: string[] = [
 
 const toolbarItemMap: Map<string, ToolbarItem> = new Map();
 
-toolbarItems.forEach(item => {
+for (const item of toolbarItems) {
   toolbarItemMap.set(item.name, item);
-});
+}
 
 export class Toolbar {
 
@@ -216,34 +216,30 @@ export class Toolbar {
   public render(editor: Editor) {
     this.root.empty();
     this.root.append(this.container);
-    this.items.forEach(name => {
+    for (const name of this.items) {
       if (name === '|') {
         this.appendDivider();
-        return;
-      }
-      let item;
-      if (typeof name === 'string') {
-        item = toolbarItemMap.get(name);
-        if (!item) {
-          return;
-        }
       } else {
-        item = name;
+        let item;
+        if (typeof name === 'string') {
+          item = toolbarItemMap.get(name);
+          if (!item) {
+            throw new Error(`ToolbarItem "${name}" has not been defined yet.`);
+          }
+        } else {
+          item = name;
+        }
+        if (item.type === 'button') {
+          this.buttonItemList.push(item);
+          this.appendButton(editor, item);
+        } else if (item.type === 'dropdown') {
+          this.allMenuMap.set(item.name, Dropdown.getMenuMap(item.menuItems, editor.locale));
+          this.dropdownItemList.push(item);
+          this.appendDropdown(editor, item);
+        } else if (item.type === 'upload') {
+          this.appendUpload(editor, item);
+        }
       }
-      if (item.type === 'button') {
-        this.buttonItemList.push(item);
-        this.appendButton(editor, item);
-        return;
-      }
-      if (item.type === 'dropdown') {
-        this.allMenuMap.set(item.name, Dropdown.getMenuMap(item.menuItems, editor.locale));
-        this.dropdownItemList.push(item);
-        this.appendDropdown(editor, item);
-        return;
-      }
-      if (item.type === 'upload') {
-        this.appendUpload(editor, item);
-      }
-    });
+    }
   }
 }

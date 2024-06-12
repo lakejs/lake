@@ -10,8 +10,8 @@ export function wrapNodeList(nodeList: Nodes[], wrapper?: Nodes): Nodes {
   wrapper = wrapper.clone(true);
   const deepestElement = getDeepest(wrapper);
   nodeList[0].before(wrapper);
-  nodeList.forEach(node => {
+  for (const node of nodeList) {
     deepestElement.append(node);
-  });
+  }
   return wrapper;
 }

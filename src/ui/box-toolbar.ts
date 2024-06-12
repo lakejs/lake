@@ -102,21 +102,17 @@ export class BoxToolbar {
   // Renders a toolbar for the specified box.
   public render(): void {
     this.root.append(this.container);
-    this.items.forEach(item => {
+    for (const item of this.items) {
       if (item === '|') {
         this.appendDivider();
-        return;
-      }
-      if (item.type === 'button') {
+      } else if (item.type === 'button') {
         this.buttonItemList.push(item);
         this.appendButton(item);
-        return;
-      }
-      if (item.type === 'dropdown') {
+      } else if (item.type === 'dropdown') {
         this.dropdownItemList.push(item);
         this.appendDropdown(item);
       }
-    });
+    }
     this.updatePosition();
   }
 

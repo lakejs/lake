@@ -16,9 +16,9 @@ export function uploadFile(config: UploadConfig): Box {
   const { requestMethod, requestAction, requestTypes } = editor.config[name];
   if (requestTypes.indexOf(file.type) < 0) {
     if (onError) {
-      onError(`File '${file.name}' is not allowed for uploading.`);
+      onError(`File "${file.name}" is not allowed for uploading.`);
     }
-    throw new Error(`Cannot upload file '${file.name}' because its type '${file.type}' is not found in ['${requestTypes.join('\', \'')}'].`);
+    throw new Error(`Cannot upload file "${file.name}" because its type "${file.type}" is not found in ['${requestTypes.join('\', \'')}'].`);
   }
   const box = editor.selection.insertBox(name, {
     url: URL.createObjectURL(file),

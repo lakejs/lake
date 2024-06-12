@@ -476,15 +476,16 @@ export class Nodes {
     return this.eachElement(element => {
       const elementId = element.lakeId;
       const eventItems = eventData[elementId] ?? [];
-      eventItems.forEach((item, index) => {
+      for (let i = 0; i < eventItems.length; i++) {
+        const item = eventItems[i];
         if (!type || type === item.type && (!listener || listener === item.listener)) {
           element.removeEventListener(item.type, item.listener, false);
-          eventItems[index] = {
+          eventItems[i] = {
             type: '',
             listener: () => {},
           };
         }
-      });
+      }
       eventData[elementId] = eventItems.filter((item: EventItem) => item.type !== '');
     });
   }
@@ -494,11 +495,11 @@ export class Nodes {
     return this.eachElement(element => {
       const elementId = element.lakeId;
       const eventItems = eventData[elementId];
-      eventItems.forEach(item => {
+      for (const item of eventItems) {
         if (item.type === type) {
           item.listener(event ?? new Event(type));
         }
-      });
+      }
     });
   }
 
@@ -568,9 +569,9 @@ export class Nodes {
 
   public addClass(className: string | string[]): this {
     if (Array.isArray(className)) {
-      className.forEach(name => {
+      for (const name of className) {
         this.addClass(name);
-      });
+      }
       return this;
     }
     return this.eachElement(element => {
@@ -583,9 +584,9 @@ export class Nodes {
 
   public removeClass(className: string | string[]): this {
     if (Array.isArray(className)) {
-      className.forEach(name => {
+      for (const name of className) {
         this.removeClass(name);
-      });
+      }
       return this;
     }
     return this.eachElement(element => {

@@ -1,8 +1,9 @@
 export function camelCase(value: string): string {
   const valueList = value.split('-');
   let camelString = '';
-  valueList.forEach((val, index) => {
-    camelString += (index > 0) ? val.charAt(0).toUpperCase() + val.substring(1) : val;
-  });
+  for (let i = 0; i < valueList.length; i++) {
+    const val = valueList[i];
+    camelString += (i > 0) ? val.charAt(0).toUpperCase() + val.substring(1) : val;
+  }
   return camelString;
 }

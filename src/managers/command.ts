@@ -37,7 +37,7 @@ export class Command {
   public getItem(name: string): CommmandItem {
     const commandItem = this.commandMap.get(name);
     if (commandItem === undefined) {
-      throw new Error(`Command '${name}' does not exist`);
+      throw new Error(`Command "${name}" has not been defined yet.`);
     }
     return commandItem;
   }
