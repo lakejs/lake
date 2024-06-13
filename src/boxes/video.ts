@@ -71,12 +71,12 @@ function showVideo(box: Box): void {
       frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   `);
-  const videoNode = boxContainer.find('.lake-video');
+  const rootNode = boxContainer.find('.lake-video');
   if (!editor.readonly) {
     iframeNode.on('load', () => {
       appendButtonGroup(box);
       new BoxResizer({
-        root: videoNode,
+        root: rootNode,
         box,
         width,
         height,
@@ -95,7 +95,7 @@ function showVideo(box: Box): void {
       }).render();
     });
   }
-  videoNode.append(iframeNode);
+  rootNode.append(iframeNode);
 }
 
 export const videoBox: BoxComponent = {
@@ -109,13 +109,13 @@ export const videoBox: BoxComponent = {
     const locale = editor.locale;
     const value = box.value;
     const boxContainer = box.getContainer();
-    const videoNode = query('<div class="lake-video" />');
+    const rootNode = query('<div class="lake-video" />');
     boxContainer.empty();
     boxContainer.css({
       width: '',
       height: '',
     });
-    boxContainer.append(videoNode);
+    boxContainer.append(rootNode);
     if (!value.url) {
       if (editor.readonly) {
         box.node.hide();
@@ -155,7 +155,7 @@ export const videoBox: BoxComponent = {
         },
       }));
       button.render();
-      videoNode.append(formNode);
+      rootNode.append(formNode);
       appendButtonGroup(box);
     } else {
       showVideo(box);

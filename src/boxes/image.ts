@@ -154,7 +154,7 @@ function openFullScreen(box: Box): void {
 }
 
 // Displays error icon and filename.
-async function renderError(imageNode: Nodes, box: Box): Promise<void> {
+async function renderError(rootNode: Nodes, box: Box): Promise<void> {
   const editor = box.getEditor();
   if (!editor) {
     return;
@@ -184,12 +184,12 @@ async function renderError(imageNode: Nodes, box: Box): Promise<void> {
   if (imageIcon) {
     errorNode.find('.lake-error-icon').append(imageIcon);
   }
-  imageNode.append(buttonGroupNode);
-  imageNode.append(errorNode);
+  rootNode.append(buttonGroupNode);
+  rootNode.append(errorNode);
 }
 
 // Displays an image with uplaoding progress.
-async function renderUploading(imageNode: Nodes, box: Box): Promise<void> {
+async function renderUploading(rootNode: Nodes, box: Box): Promise<void> {
   const editor = box.getEditor();
   if (!editor) {
     return;
@@ -197,7 +197,7 @@ async function renderUploading(imageNode: Nodes, box: Box): Promise<void> {
   const value = box.value;
   const imageInfo = await getImageInfo(value.url);
   if (!imageInfo.width || !imageInfo.height) {
-    await renderError(imageNode, box);
+    await renderError(rootNode, box);
     return;
   }
   const maxWidth = editor.container.innerWidth() - 2;
@@ -242,13 +242,13 @@ async function renderUploading(imageNode: Nodes, box: Box): Promise<void> {
     draggable: 'false',
     alt: value.name,
   });
-  imageNode.append(buttonGroupNode);
-  imageNode.append(progressNode);
-  imageNode.append(imgNode);
+  rootNode.append(buttonGroupNode);
+  rootNode.append(progressNode);
+  rootNode.append(imgNode);
 }
 
 // Displays an image that can be previewed or removed.
-async function renderDone(imageNode: Nodes, box: Box): Promise<void> {
+async function renderDone(rootNode: Nodes, box: Box): Promise<void> {
   const editor = box.getEditor();
   if (!editor) {
     return;
@@ -260,7 +260,7 @@ async function renderDone(imageNode: Nodes, box: Box): Promise<void> {
     return;
   }
   if (!imageInfo.width || !imageInfo.height) {
-    await renderError(imageNode, box);
+    await renderError(rootNode, box);
     return;
   }
   let width = value.width;
@@ -303,9 +303,9 @@ async function renderDone(imageNode: Nodes, box: Box): Promise<void> {
     draggable: 'false',
     alt: value.name,
   });
-  imageNode.append(buttonGroupNode);
+  rootNode.append(buttonGroupNode);
   new BoxResizer({
-    root: imageNode,
+    root: rootNode,
     box,
     width,
     height,
@@ -317,7 +317,7 @@ async function renderDone(imageNode: Nodes, box: Box): Promise<void> {
       editor.history.save();
     },
   }).render();
-  imageNode.append(imgNode);
+  rootNode.append(imgNode);
 }
 
 export const imageBox: BoxComponent = {
@@ -358,24 +358,24 @@ export const imageBox: BoxComponent = {
     if (value.status === 'loading') {
       return;
     }
-    const imageNode = query('<div class="lake-image" />');
-    imageNode.addClass(`lake-image-${value.status}`);
+    const rootNode = query('<div class="lake-image" />');
+    rootNode.addClass(`lake-image-${value.status}`);
     let promise: Promise<void>;
     if (value.status === 'uploading') {
-      promise = renderUploading(imageNode, box);
+      promise = renderUploading(rootNode, box);
     } else if (value.status === 'error') {
-      promise = renderError(imageNode, box);
+      promise = renderError(rootNode, box);
     } else {
-      promise = renderDone(imageNode, box);
+      promise = renderDone(rootNode, box);
     }
     promise.then(() => {
       container.empty();
-      container.append(imageNode);
-      imageNode.find('.lake-button-view').on('click', () => openFullScreen(box));
+      container.append(rootNode);
+      rootNode.find('.lake-button-view').on('click', () => openFullScreen(box));
       if (editor.readonly) {
-        imageNode.find('.lake-button-remove').hide();
+        rootNode.find('.lake-button-remove').hide();
       } else {
-        imageNode.find('.lake-button-remove').on('click', event => {
+        rootNode.find('.lake-button-remove').on('click', event => {
           event.stopPropagation();
           editor.selection.removeBox(box);
           editor.history.save();
@@ -383,7 +383,7 @@ export const imageBox: BoxComponent = {
       }
       box.event.emit('render');
     });
-    imageNode.on('click', () => {
+    rootNode.on('click', () => {
       editor.selection.selectBox(box);
     });
   },

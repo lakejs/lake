@@ -33,7 +33,7 @@ const boxToolbarItems: BoxToolbarItem[] = [
   },
 ];
 
-async function appendContent(fileNode: Nodes, box: Box): Promise<void> {
+async function appendContent(rootNode: Nodes, box: Box): Promise<void> {
   const editor = box.getEditor();
   if (!editor) {
     return;
@@ -64,7 +64,7 @@ async function appendContent(fileNode: Nodes, box: Box): Promise<void> {
       typeNode.append(fileIcon);
     }
   }
-  fileNode.append(infoNode);
+  rootNode.append(infoNode);
 }
 
 export const fileBox: BoxComponent = {
@@ -81,19 +81,19 @@ export const fileBox: BoxComponent = {
       return;
     }
     const container = box.getContainer();
-    const fileNode = query('<div class="lake-file" />');
-    fileNode.addClass(`lake-file-${value.status}`);
-    appendContent(fileNode, box);
+    const rootNode = query('<div class="lake-file" />');
+    rootNode.addClass(`lake-file-${value.status}`);
+    appendContent(rootNode, box);
     container.empty();
-    container.append(fileNode);
+    container.append(rootNode);
     if (!editor.readonly) {
-      fileNode.on('click', () => {
+      rootNode.on('click', () => {
         editor.selection.selectBox(box);
       });
       const items = value.status === 'done' ? boxToolbarItems : boxToolbarItems.filter(item => item.name === 'remove');
       box.setToolbar(items);
     } else {
-      fileNode.on('click', () => {
+      rootNode.on('click', () => {
         window.open(value.url);
       });
     }

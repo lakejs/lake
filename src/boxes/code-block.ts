@@ -90,12 +90,12 @@ export const codeBlockBox: BoxComponent = {
     if (!editor) {
       return;
     }
-    const codeBlockNode = query('<div class="lake-code-block" />');
+    const rootNode = query('<div class="lake-code-block" />');
     const container = box.getContainer();
     container.css('width', `${editor.container.innerWidth() - 2}px`);
     container.empty();
-    container.append(codeBlockNode);
-    const codeBlockNativeNode = codeBlockNode.get(0) as HTMLElement;
+    container.append(rootNode);
+    const codeBlockNativeNode = rootNode.get(0) as HTMLElement;
     if (!codeBlockNativeNode) {
       return;
     }
@@ -106,12 +106,12 @@ export const codeBlockBox: BoxComponent = {
         box.node.hide();
         return;
       }
-      codeBlockNode.addClass('lake-code-block-error');
-      codeBlockNode.text(`
+      rootNode.addClass('lake-code-block-error');
+      rootNode.text(`
         The code cannot be displayed because window.LakeCodeMirror is not found.
         Please check if the "lake-codemirror" library is added to this page.
       `.trim());
-      codeBlockNode.on('click', () => {
+      rootNode.on('click', () => {
         editor.selection.selectBox(box);
       });
       return;
@@ -167,9 +167,9 @@ export const codeBlockBox: BoxComponent = {
         updateListener,
       ],
     });
-    codeBlockNode.find('[contenteditable="true"]').attr('tabindex', '-1');
+    rootNode.find('[contenteditable="true"]').attr('tabindex', '-1');
     const dropdown = new Dropdown({
-      root: codeBlockNode,
+      root: rootNode,
       name: 'langType',
       downIcon: icons.get('down'),
       defaultValue: langItem ? boxValue.lang : codeBlockConfig.defaultLang,
@@ -196,7 +196,7 @@ export const codeBlockBox: BoxComponent = {
       container.css('width', `${editor.container.innerWidth() - 2}px`);
     };
     editor.event.on('resize', resizeListener);
-    codeBlockNode.on('click', () => {
+    rootNode.on('click', () => {
       if (codeEditor.hasFocus) {
         return;
       }
