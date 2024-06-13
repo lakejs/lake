@@ -74,14 +74,16 @@ import './managers/plugin.test';
 // Boxes
 import './boxes/hr.test';
 import './boxes/hr-ui.test';
+import './boxes/code-block.test';
+import './boxes/code-block-ui.test';
 import './boxes/image.test';
 import './boxes/image-ui.test';
 import './boxes/video.test';
 import './boxes/video-ui.test';
 import './boxes/file.test';
 import './boxes/file-ui.test';
-import './boxes/code-block.test';
-import './boxes/code-block-ui.test';
+import './boxes/emoji.test';
+import './boxes/emoji-ui.test';
 
 // Plugins
 import './plugins/copy.test';

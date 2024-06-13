@@ -2,7 +2,12 @@ import { click } from '../utils';
 import { query } from '../../src/utils';
 import { Editor, Nodes, Box } from '../../src';
 
-describe('boxes / hr', () => {
+const emojiValue = {
+  url: '../assets/emojis/face_blowing_a_kiss_color.svg',
+  title: 'Face blowing a kiss',
+};
+
+describe('boxes / emoji', () => {
 
   let rootNode: Nodes;
   let editor: Editor;
@@ -16,7 +21,7 @@ describe('boxes / hr', () => {
       value: '<p><br /><focus /></p>',
     });
     editor.render();
-    box = editor.selection.insertBox('hr');
+    box = editor.selection.insertBox('emoji', emojiValue);
   });
 
   afterEach(() => {
@@ -30,7 +35,7 @@ describe('boxes / hr', () => {
       expect(boxContainer.hasClass('lake-box-focused')).to.equal(true);
       done();
     });
-    click(boxContainer.find('.lake-hr'));
+    click(boxContainer.find('.lake-emoji'));
   });
 
 });
