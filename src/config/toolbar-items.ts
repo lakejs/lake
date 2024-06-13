@@ -275,15 +275,6 @@ export const toolbarItems: ToolbarItem[] = [
     },
   },
   {
-    name: 'emoji',
-    type: 'button',
-    icon: icons.get('emoji'),
-    tooltip: locale => locale.toolbar.emoji(),
-    onClick: (editor, value) => {
-      editor.command.execute(value);
-    },
-  },
-  {
     name: 'heading',
     type: 'dropdown',
     downIcon: icons.get('down'),

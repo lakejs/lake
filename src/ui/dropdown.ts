@@ -146,7 +146,7 @@ export class Dropdown {
       }
     });
     menuNode.css('visibility', 'hidden');
-    menuNode.show(config.menuType === 'color' ? 'flex' : 'block');
+    menuNode.show(config.menuType === 'list' ? 'block' : 'flex');
     const dropdownNativeNode = dropdownNode.get(0) as HTMLElement;
     const dropdownRect = dropdownNativeNode.getBoundingClientRect();
     // A overflow width on the left side, greater than 0 indicates an overflow.

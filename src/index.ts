@@ -3,6 +3,7 @@ import './elements/box';
 import './elements/bookmark';
 import { BoxComponent } from './types/box';
 import { ToolbarItem } from './types/toolbar';
+import { DropdownMenuItem } from './types/dropdown';
 import { icons } from './icons';
 import * as Utils from './utils';
 import { Nodes } from './models/nodes';
@@ -128,6 +129,7 @@ export {
   Editor,
   Toolbar,
   ToolbarItem,
+  DropdownMenuItem,
   BoxComponent,
   icons,
   Utils,

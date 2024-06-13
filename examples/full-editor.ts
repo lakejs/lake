@@ -1,4 +1,42 @@
-import { Editor, Toolbar } from '../src';
+import { Editor, Toolbar, ToolbarItem, DropdownMenuItem, icons } from '../src';
+
+const emojiItems = [
+  { value: 'face_blowing_a_kiss_color.svg', text: 'Face blowing a kiss' },
+  { value: 'face_exhaling_color.svg', text: 'Face exhaling' },
+  { value: 'face_holding_back_tears_color.svg', text: 'Face holding back tears' },
+  { value: 'face_in_clouds_color.svg', text: 'Face in clouds' },
+];
+
+const emojiMenuItems: DropdownMenuItem[] = [];
+for (const item of emojiItems) {
+  emojiMenuItems.push({
+    icon: `<img src="../assets/emojis/${item.value}" alt="${item.text}" title="${item.text}" />`,
+    value: item.value,
+    text: item.text,
+  });
+}
+
+const emoji: ToolbarItem = {
+  name: 'emoji',
+  type: 'dropdown',
+  downIcon: icons.get('down'),
+  icon: icons.get('emoji'),
+  defaultValue: '',
+  tooltip: 'Emoji',
+  width: 'auto',
+  menuType: 'icon',
+  menuItems: emojiMenuItems,
+  onSelect: (editor, value) => {
+    const currentItem = emojiItems.find(item => item.value === value);
+    if (!currentItem) {
+      return;
+    }
+    editor.command.execute('emoji', {
+      url: `../assets/emojis/${currentItem.value}`,
+      title: currentItem.text,
+    });
+  },
+};
 
 const toolbarItems = [
   'undo',
@@ -41,7 +79,7 @@ const toolbarItems = [
   'image',
   'video',
   'file',
-  'emoji',
+  emoji,
   'codeBlock',
   'blockQuote',
   'paragraph',
