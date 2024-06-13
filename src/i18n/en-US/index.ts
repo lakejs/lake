@@ -47,6 +47,7 @@ export default {
     highlight: 'Highlight',
     image: 'Image',
     file: 'File',
+    emoji: 'Emoji',
     removeColor: 'Remove color',
   },
   link: {

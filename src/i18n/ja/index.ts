@@ -47,6 +47,7 @@ export default {
     highlight: '文字の背景',
     image: '画像',
     file: 'ファイル',
+    emoji: '絵文字',
     removeColor: 'デフォルト',
   },
   link: {

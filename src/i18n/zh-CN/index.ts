@@ -47,6 +47,7 @@ export default {
     highlight: '文字背景',
     image: '图片',
     file: '文件',
+    emoji: '表情',
     removeColor: '默认',
   },
   link: {

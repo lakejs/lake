@@ -194,6 +194,10 @@ type RootTranslation = {
 		 */
 		file: string
 		/**
+		 * E​m​o​j​i
+		 */
+		emoji: string
+		/**
 		 * R​e​m​o​v​e​ ​c​o​l​o​r
 		 */
 		removeColor: string
@@ -480,6 +484,10 @@ export type TranslationFunctions = {
 		 * File
 		 */
 		file: () => LocalizedString
+		/**
+		 * Emoji
+		 */
+		emoji: () => LocalizedString
 		/**
 		 * Remove color
 		 */

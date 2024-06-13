@@ -257,6 +257,15 @@ export const toolbarItems: ToolbarItem[] = [
     },
   },
   {
+    name: 'codeBlock',
+    type: 'button',
+    icon: icons.get('codeBlock'),
+    tooltip: locale => locale.toolbar.codeBlock(),
+    onClick: (editor, value) => {
+      editor.command.execute(value);
+    },
+  },
+  {
     name: 'video',
     type: 'button',
     icon: icons.get('video'),
@@ -266,10 +275,10 @@ export const toolbarItems: ToolbarItem[] = [
     },
   },
   {
-    name: 'codeBlock',
+    name: 'emoji',
     type: 'button',
-    icon: icons.get('codeBlock'),
-    tooltip: locale => locale.toolbar.codeBlock(),
+    icon: icons.get('emoji'),
+    tooltip: locale => locale.toolbar.emoji(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },

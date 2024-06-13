@@ -41,6 +41,7 @@ const toolbarItems = [
   'image',
   'video',
   'file',
+  'emoji',
   'codeBlock',
   'blockQuote',
   'paragraph',

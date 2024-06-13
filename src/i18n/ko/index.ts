@@ -47,6 +47,7 @@ export default {
     highlight: '글자 배경',
     image: '이미지',
     file: '파일',
+    emoji: '이모지',
     removeColor: '기본색',
   },
   link: {

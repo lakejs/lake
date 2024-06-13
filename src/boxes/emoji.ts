@@ -18,8 +18,4 @@ export const emojiBox: BoxComponent = {
       editor.selection.selectBox(box);
     });
   },
-  html: box => {
-    const rawValue = box.node.attr('value');
-    return safeTemplate`<img src="${box.value.url}" title="${box.value.title}" data-lake-value="${rawValue}" />`;
-  },
 };
