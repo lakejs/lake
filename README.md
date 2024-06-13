@@ -6,7 +6,7 @@
 
 ---
 
-Lake is a rich text editor for the web. It offers an excellent user experience and has an easy-to-use programming interface to allow further extension.
+Lake is a rich text editor for the web. It aims to be a user-friendly editor, and provides an easy-to-use programming interface to allow further extension.
 
 [Examples](https://lakejs.org/examples/) · [Getting started](https://lakejs.org/guide/) · [Reference](https://lakejs.org/reference/)
 
@@ -23,11 +23,11 @@ pnpm install
 pnpm dev
 ```
 
-You can view all the demos by visiting `http://localhost:8080/examples/`.
+You can now view all the demos by visiting `http://localhost:8080/examples/`.
 
 ## Running tests
 
-Lake relies heavily on browser APIs and therefore requires a real browser environment to run the tests. You can run all test cases visibly by visiting `http://localhost:8080/tests/`. Alternatively, you can execute `pnpm test` command in your console to run the tests in headless mode.
+Lake relies on a lot of browser APIs and ao needs a real browser environment for running the test cases. You can run all tests visibly by visiting `http://localhost:8080/tests/`, or execute `pnpm test` command to run the tests in headless mode.
 
 ## License
 
