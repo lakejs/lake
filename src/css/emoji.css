@@ -1,12 +1,16 @@
 .lake-emoji {
   line-height: 0;
   box-sizing: content-box;
+  border: 1px solid transparent;
+  border-radius: 2px;
 }
 .lake-emoji img {
   border: 0;
+  border-radius: 2px;
   width: 32px;
   height: 32px;
 }
 lake-box[name="emoji"] .lake-box-focused .lake-emoji {
+  border-color: var(--selection-background-color);
   background-color: var(--selection-background-color);
 }
