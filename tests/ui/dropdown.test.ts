@@ -1,7 +1,7 @@
 import { click } from '../utils';
 import { debug, query } from '../../src/utils';
 import { Dropdown } from '../../src/ui/dropdown';
-import { Nodes, icons } from '../../src';
+import { DropdownMenuItem, Nodes, icons } from '../../src';
 
 const  headingMenuItems = [
   {
@@ -64,6 +64,42 @@ const moreStyleMenuItems = [
   },
 ];
 
+const emojiItems = [
+  { value: 'face_blowing_a_kiss_color.svg', text: 'Face blowing a kiss' },
+  { value: 'face_exhaling_color.svg', text: 'Face exhaling' },
+  { value: 'face_holding_back_tears_color.svg', text: 'Face holding back tears' },
+  { value: 'face_in_clouds_color.svg', text: 'Face in clouds' },
+  { value: 'face_savoring_food_color.svg', text: 'Face savoring food' },
+  { value: 'face_screaming_in_fear_color.svg', text: 'Face screaming in fear' },
+  { value: 'face_vomiting_color.svg', text: 'Face vomiting' },
+  { value: 'face_with_diagonal_mouth_color.svg', text: 'Face with diagonal mouth' },
+  { value: 'face_with_hand_over_mouth_color.svg', text: 'Face with hand over mouth' },
+  { value: 'face_with_head-bandage_color.svg', text: 'Face with head-bandage' },
+  { value: 'face_with_medical_mask_color.svg', text: 'Face with medical mask' },
+  { value: 'face_with_monocle_color.svg', text: 'Face with monocle' },
+  { value: 'face_with_open_eyes_and_hand_over_mouth_color.svg', text: 'Face with open eyes and hand over mouth' },
+  { value: 'face_with_open_mouth_color.svg', text: 'Face with open mouth' },
+  { value: 'face_with_peeking_eye_color.svg', text: 'Face with peeking eye' },
+  { value: 'face_with_raised_eyebrow_color.svg', text: 'Face with raised eyebrow' },
+  { value: 'face_with_rolling_eyes_color.svg', text: 'Face with rolling eyes' },
+  { value: 'face_with_spiral_eyes_color.svg', text: 'Face with spiral eyes' },
+  { value: 'face_with_steam_from_nose_color.svg', text: 'Face with steam from nose' },
+  { value: 'face_with_symbols_on_mouth_color.svg', text: 'Face with symbols on mouth' },
+  { value: 'face_with_tears_of_joy_color.svg', text: 'Face with tears of joy' },
+  { value: 'face_with_thermometer_color.svg', text: 'Face with thermometer' },
+  { value: 'face_with_tongue_color.svg', text: 'Face with tongue' },
+  { value: 'face_without_mouth_color.svg', text: 'Face without mouth' },
+];
+
+const emojiMenuItems: DropdownMenuItem[] = [];
+for (const item of emojiItems) {
+  emojiMenuItems.push({
+    icon: `<img src="../assets/emojis/${item.value}" alt="${item.text}" title="${item.text}" />`,
+    value: item.value,
+    text: item.text,
+  });
+}
+
 const colors: string[] = [
   '#E53333', '#E56600', '#FF9900', '#64451D', '#DFC5A4', '#FFE500',
   '#009900', '#006600', '#99BB00', '#B8D100', '#60D978', '#00D5FF',
@@ -96,7 +132,7 @@ describe('ui / dropdown', () => {
     rootNode.remove();
   });
 
-  it('text dropdown: select an item', () => {
+  it('text button with list menu: select an item', () => {
     let dropdownValue;
     const dropdown = new Dropdown({
       root: rootNode,
@@ -126,7 +162,7 @@ describe('ui / dropdown', () => {
     dropdown.unmount();
   });
 
-  it('text dropdown: close menu by clicking document', () => {
+  it('text button with list menu: close menu by clicking document', () => {
     const dropdown = new Dropdown({
       root: rootNode,
       name: 'heading',
@@ -149,7 +185,7 @@ describe('ui / dropdown', () => {
     dropdown.unmount();
   });
 
-  it('text dropdown: should show menu at the top', () => {
+  it('text button with list menu: should show menu at the top', () => {
     const dropdown = new Dropdown({
       root: rootNode,
       name: 'heading',
@@ -173,7 +209,7 @@ describe('ui / dropdown', () => {
     dropdown.unmount();
   });
 
-  it('text dropdown: disabled status', () => {
+  it('text button with list menu: disabled status', () => {
     const dropdown = new Dropdown({
       root: rootNode,
       name: 'heading',
@@ -197,7 +233,7 @@ describe('ui / dropdown', () => {
     dropdown.unmount();
   });
 
-  it('icon dropdown: select an item', () => {
+  it('icon button with list menu: select an item', () => {
     let dropdownValue;
     const dropdown = new Dropdown({
       root: rootNode,
@@ -226,7 +262,7 @@ describe('ui / dropdown', () => {
     dropdown.unmount();
   });
 
-  it('icon dropdown: disabled status', () => {
+  it('icon button with list menu: disabled status', () => {
     const dropdown = new Dropdown({
       root: rootNode,
       name: 'align',
@@ -249,7 +285,7 @@ describe('ui / dropdown', () => {
     dropdown.unmount();
   });
 
-  it('icon dropdown without down icon: select an item', () => {
+  it('icon button without down icon: select an item', () => {
     let dropdownValue;
     const dropdown = new Dropdown({
       root: rootNode,
@@ -273,6 +309,35 @@ describe('ui / dropdown', () => {
     expect(dropdown.node.find('.lake-dropdown-menu').computedCSS('display')).to.equal('block');
     click(dropdown.node.find('li[value="underline"]'));
     expect(dropdownValue).to.equal('underline');
+    expect(dropdown.node.find('.lake-dropdown-menu').computedCSS('display')).to.equal('none');
+    dropdown.unmount();
+  });
+
+  it('icon button with icon menu: select an item', () => {
+    let dropdownValue;
+    const dropdown = new Dropdown({
+      root: rootNode,
+      name: 'emoji',
+      icon: icons.get('emoji'),
+      downIcon: icons.get('down'),
+      tooltip: 'Emoji',
+      menuType: 'icon',
+      menuItems: emojiMenuItems,
+      onSelect: value => {
+        debug(value);
+        dropdownValue = value;
+      },
+    });
+    dropdown.render();
+    const titleNode = dropdown.node.find('.lake-dropdown-title');
+    titleNode.emit('mouseenter');
+    expect(titleNode.hasClass('lake-dropdown-title-hovered')).to.equal(true);
+    titleNode.emit('mouseleave');
+    expect(titleNode.hasClass('lake-dropdown-title-hovered')).to.equal(false);
+    click(titleNode);
+    expect(dropdown.node.find('.lake-dropdown-menu').computedCSS('display')).to.equal('flex');
+    click(dropdown.node.find('li[value="face_blowing_a_kiss_color.svg"]'));
+    expect(dropdownValue).to.equal('face_blowing_a_kiss_color.svg');
     expect(dropdown.node.find('.lake-dropdown-menu').computedCSS('display')).to.equal('none');
     dropdown.unmount();
   });

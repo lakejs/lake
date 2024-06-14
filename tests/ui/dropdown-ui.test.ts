@@ -1,6 +1,6 @@
 import { debug, query } from '../../src/utils';
 import { Dropdown } from '../../src/ui/dropdown';
-import { Nodes, icons } from '../../src';
+import { DropdownMenuItem, Nodes, icons } from '../../src';
 
 const  headingMenuItems = [
   {
@@ -62,6 +62,42 @@ const moreStyleMenuItems = [
     text: 'Strikethrough',
   },
 ];
+
+const emojiItems = [
+  { value: 'face_blowing_a_kiss_color.svg', text: 'Face blowing a kiss' },
+  { value: 'face_exhaling_color.svg', text: 'Face exhaling' },
+  { value: 'face_holding_back_tears_color.svg', text: 'Face holding back tears' },
+  { value: 'face_in_clouds_color.svg', text: 'Face in clouds' },
+  { value: 'face_savoring_food_color.svg', text: 'Face savoring food' },
+  { value: 'face_screaming_in_fear_color.svg', text: 'Face screaming in fear' },
+  { value: 'face_vomiting_color.svg', text: 'Face vomiting' },
+  { value: 'face_with_diagonal_mouth_color.svg', text: 'Face with diagonal mouth' },
+  { value: 'face_with_hand_over_mouth_color.svg', text: 'Face with hand over mouth' },
+  { value: 'face_with_head-bandage_color.svg', text: 'Face with head-bandage' },
+  { value: 'face_with_medical_mask_color.svg', text: 'Face with medical mask' },
+  { value: 'face_with_monocle_color.svg', text: 'Face with monocle' },
+  { value: 'face_with_open_eyes_and_hand_over_mouth_color.svg', text: 'Face with open eyes and hand over mouth' },
+  { value: 'face_with_open_mouth_color.svg', text: 'Face with open mouth' },
+  { value: 'face_with_peeking_eye_color.svg', text: 'Face with peeking eye' },
+  { value: 'face_with_raised_eyebrow_color.svg', text: 'Face with raised eyebrow' },
+  { value: 'face_with_rolling_eyes_color.svg', text: 'Face with rolling eyes' },
+  { value: 'face_with_spiral_eyes_color.svg', text: 'Face with spiral eyes' },
+  { value: 'face_with_steam_from_nose_color.svg', text: 'Face with steam from nose' },
+  { value: 'face_with_symbols_on_mouth_color.svg', text: 'Face with symbols on mouth' },
+  { value: 'face_with_tears_of_joy_color.svg', text: 'Face with tears of joy' },
+  { value: 'face_with_thermometer_color.svg', text: 'Face with thermometer' },
+  { value: 'face_with_tongue_color.svg', text: 'Face with tongue' },
+  { value: 'face_without_mouth_color.svg', text: 'Face without mouth' },
+];
+
+const emojiMenuItems: DropdownMenuItem[] = [];
+for (const item of emojiItems) {
+  emojiMenuItems.push({
+    icon: `<img src="../assets/emojis/${item.value}" alt="${item.text}" title="${item.text}" />`,
+    value: item.value,
+    text: item.text,
+  });
+}
 
 const colors: string[] = [
   '#E53333', '#E56600', '#FF9900', '#64451D', '#DFC5A4', '#FFE500',
@@ -168,6 +204,23 @@ describe('ui / dropdown-ui', () => {
       tooltip: 'More style',
       menuType: 'list',
       menuItems: moreStyleMenuItems,
+      onSelect: value => {
+        debug(value);
+      },
+    });
+    dropdown.render();
+  });
+
+  it('emoji dropdown', () => {
+    const dropdown = new Dropdown({
+      root: rootNode,
+      name: 'emoji',
+      downIcon: icons.get('down'),
+      icon: icons.get('emoji'),
+      tooltip: 'Emoji',
+      menuType: 'icon',
+      menuItems: emojiMenuItems,
+      menuWidth: '264px',
       onSelect: value => {
         debug(value);
       },
