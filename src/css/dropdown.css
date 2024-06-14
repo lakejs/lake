@@ -135,7 +135,6 @@
 .lake-dropdown .lake-icon-dropdown-menu {
   flex-wrap: wrap;
   justify-content: center;
-  width: 296px;
 }
 .lake-dropdown .lake-icon-dropdown-menu li {
   padding: 0;
@@ -166,7 +165,6 @@
 .lake-dropdown .lake-color-dropdown-menu {
   flex-wrap: wrap;
   justify-content: center;
-  width: 296px;
 }
 .lake-dropdown .lake-color-dropdown-menu li {
   position: relative;

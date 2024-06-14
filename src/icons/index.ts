@@ -1,4 +1,4 @@
-// These icons are from open source projects.
+// These icons are sourced from open source projects.
 //
 // Fluent Icons by Microsoft (https://fluenticons.co/).
 // - superscript.svg

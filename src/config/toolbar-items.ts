@@ -292,9 +292,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'dropdown',
     downIcon: icons.get('down'),
     icon: icons.get('list'),
-    defaultValue: '',
     tooltip: locale => locale.toolbar.list(),
-    width: 'auto',
     menuType: 'list',
     menuItems: listMenuItems,
     onSelect: (editor, value) => {
@@ -306,9 +304,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'dropdown',
     downIcon: icons.get('down'),
     icon: icons.get('alignLeft'),
-    defaultValue: '',
     tooltip: locale => locale.toolbar.align(),
-    width: 'auto',
     menuType: 'list',
     menuItems: alignMenuItems,
     onSelect: (editor, value) => {
@@ -320,9 +316,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'dropdown',
     downIcon: icons.get('down'),
     icon: icons.get('increaseIndent'),
-    defaultValue: '',
     tooltip: locale => locale.toolbar.indent(),
-    width: 'auto',
     menuType: 'list',
     menuItems: indentMenuItems,
     onSelect: (editor, value) => {
@@ -359,9 +353,7 @@ export const toolbarItems: ToolbarItem[] = [
     name: 'moreStyle',
     type: 'dropdown',
     icon: icons.get('more'),
-    defaultValue: '',
     tooltip: locale => locale.toolbar.moreStyle(),
-    width: 'auto',
     menuType: 'list',
     menuItems: moreStyleMenuItems,
     selectedValues: appliedItems => {
@@ -386,9 +378,9 @@ export const toolbarItems: ToolbarItem[] = [
     accentIcon: icons.get('fontColorAccent'),
     defaultValue: '#f5222d',
     tooltip: locale => locale.toolbar.fontColor(),
-    width: 'auto',
     menuType: 'color',
     menuItems: colorMenuItems,
+    menuWidth: '296px',
     onSelect: (editor, value) => {
       editor.command.execute('fontColor', value);
     },
@@ -401,9 +393,9 @@ export const toolbarItems: ToolbarItem[] = [
     accentIcon: icons.get('highlightAccent'),
     defaultValue: '#fadb14',
     tooltip: locale => locale.toolbar.highlight(),
-    width: 'auto',
     menuType: 'color',
     menuItems: colorMenuItems,
+    menuWidth: '296px',
     onSelect: (editor, value) => {
       editor.command.execute('highlight', value);
     },

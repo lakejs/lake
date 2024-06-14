@@ -27,7 +27,7 @@ You can now view all the demos by visiting `http://localhost:8080/examples/`.
 
 ## Running tests
 
-Lake relies on a lot of browser APIs and ao needs a real browser environment for running the test cases. You can run all tests visibly by visiting `http://localhost:8080/tests/`, or execute `pnpm test` command to run the tests in headless mode.
+Lake depends on a lot of browser APIs and ao needs a real browser environment for running the test cases. You can run all tests visibly by visiting `http://localhost:8080/tests/`, or execute `pnpm test` command to run the tests in headless mode.
 
 ## License
 

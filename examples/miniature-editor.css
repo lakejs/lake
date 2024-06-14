@@ -9,9 +9,6 @@
   border: 1px solid #d9d9d9;
   border-bottom: none;
 }
-.miniature .lake-editor .lake-toolbar .lake-color-dropdown-menu {
-  width: 156px;
-}
 .miniature .lake-editor .lake-toolbar .lake-color-dropdown-menu li:first-child .lake-dropdown-menu-text {
   text-align: center;
 }

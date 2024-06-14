@@ -132,9 +132,7 @@ describe('ui / dropdown-ui', () => {
       name: 'align',
       icon: icons.get('alignLeft'),
       downIcon: icons.get('down'),
-      defaultValue: '',
       tooltip: 'Alignment',
-      width: 'auto',
       menuType: 'list',
       menuItems: alignMenuItems,
       placement: 'top',
@@ -151,9 +149,7 @@ describe('ui / dropdown-ui', () => {
       name: 'align',
       icon: icons.get('alignLeft'),
       downIcon: icons.get('down'),
-      defaultValue: '',
       tooltip: 'Alignment',
-      width: 'auto',
       menuType: 'list',
       menuItems: alignMenuItems,
       onSelect: value => {
@@ -169,9 +165,7 @@ describe('ui / dropdown-ui', () => {
       root: rootNode,
       name: 'moreStyle',
       icon: icons.get('more'),
-      defaultValue: '',
       tooltip: 'More style',
-      width: 'auto',
       menuType: 'list',
       menuItems: moreStyleMenuItems,
       onSelect: value => {
@@ -190,9 +184,9 @@ describe('ui / dropdown-ui', () => {
       downIcon: icons.get('down'),
       defaultValue: '#e53333',
       tooltip: 'Color',
-      width: 'auto',
       menuType: 'color',
       menuItems: colorMenuItems,
+      menuWidth: '156px',
       onSelect: value => {
         debug(value);
       },
@@ -209,9 +203,9 @@ describe('ui / dropdown-ui', () => {
       downIcon: icons.get('down'),
       defaultValue: '#e53333',
       tooltip: 'Color',
-      width: 'auto',
       menuType: 'color',
       menuItems: colorMenuItems,
+      menuWidth: '156px',
       onSelect: value => {
         debug(value);
       },

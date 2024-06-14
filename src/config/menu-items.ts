@@ -201,7 +201,7 @@ export const moreStyleMenuItems: DropdownMenuItem[] = [
   },
 ];
 
-// These colors are from Ant Design (https://ant.design/docs/spec/colors)
+// These colors are sourced from Ant Design (https://ant.design/docs/spec/colors)
 const colors: string[] = [
   // Dust Red, Volcano, Sunset Orange, Calendula Gold, Sunrise Yellow, Lime, Polar Green, Cyan, Daybreak Blue, Geek Blue, Golden Purple, Magenta
   '#f5222d', '#fa541c', '#fa8c16', '#faad14', '#fadb14', '#a0d911', '#52c41a', '#13c2c2', '#1677ff', '#2f54eb', '#722ed1', '#eb2f96', // color 6

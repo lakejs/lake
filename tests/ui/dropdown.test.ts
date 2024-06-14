@@ -204,9 +204,7 @@ describe('ui / dropdown', () => {
       name: 'align',
       icon: icons.get('alignLeft'),
       downIcon: icons.get('down'),
-      defaultValue: '',
       tooltip: 'Alignment',
-      width: 'auto',
       menuType: 'list',
       menuItems: alignMenuItems,
       onSelect: value => {
@@ -234,9 +232,7 @@ describe('ui / dropdown', () => {
       name: 'align',
       icon: icons.get('alignLeft'),
       downIcon: icons.get('down'),
-      defaultValue: '',
       tooltip: 'Alignment',
-      width: 'auto',
       menuType: 'list',
       menuItems: alignMenuItems,
       onSelect: value => {
@@ -259,9 +255,7 @@ describe('ui / dropdown', () => {
       root: rootNode,
       name: 'moreStyle',
       icon: icons.get('more'),
-      defaultValue: '',
       tooltip: 'More style',
-      width: 'auto',
       menuType: 'list',
       menuItems: moreStyleMenuItems,
       onSelect: value => {
@@ -293,9 +287,9 @@ describe('ui / dropdown', () => {
       downIcon: icons.get('down'),
       defaultValue: '#e53333',
       tooltip: 'Color',
-      width: 'auto',
       menuType: 'color',
       menuItems: colorMenuItems,
+      menuWidth: '156px',
       onSelect: value => {
         debug(value);
         dropdownValue = value;
@@ -334,9 +328,9 @@ describe('ui / dropdown', () => {
       downIcon: icons.get('down'),
       defaultValue: '#e53333',
       tooltip: 'Color',
-      width: 'auto',
       menuType: 'color',
       menuItems: colorMenuItems,
+      menuWidth: '156px',
       onSelect: value => {
         debug(value);
       },

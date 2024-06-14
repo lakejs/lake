@@ -174,7 +174,6 @@ export const codeBlockBox: BoxComponent = {
       downIcon: icons.get('down'),
       defaultValue: langItem ? boxValue.lang : codeBlockConfig.defaultLang,
       tooltip: editor.locale.codeBlock.langType(),
-      width: 'auto',
       menuType: 'list',
       menuItems: langItems.map((item: any) => ({
         value: item.value,

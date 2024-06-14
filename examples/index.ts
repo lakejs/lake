@@ -119,7 +119,6 @@ function renderLanguage(): void {
     icon: '<img src="../assets/icons/globe.svg" />',
     defaultValue: localStorage.getItem(localStorageKey) ?? 'en-US',
     tooltip: 'Select language',
-    width: 'auto',
     menuType: 'list',
     menuItems: languageMenuItems,
     onSelect: value => {
@@ -138,7 +137,6 @@ function renderDirection(): void {
     icon: '<img src="../assets/icons/direction.svg" />',
     defaultValue: localStorage.getItem(localStorageKey) ?? 'en-US',
     tooltip: 'Select writing direction',
-    width: 'auto',
     menuType: 'list',
     menuItems: directionMenuItems,
     onSelect: value => {

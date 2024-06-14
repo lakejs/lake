@@ -11,9 +11,10 @@ export type DropdownItem = {
   icon?: string;
   accentIcon?: string;
   downIcon?: string;
-  defaultValue: string;
+  defaultValue?: string;
   tooltip: string | ((locale: TranslationFunctions) => string);
-  width: string;
+  width?: string;
   menuType: 'list' | 'icon' | 'color';
   menuItems: DropdownMenuItem[];
+  menuWidth?: string;
 };

@@ -39,9 +39,9 @@ const fontColor: ToolbarItem = {
   accentIcon: icons.get('fontColorAccent'),
   defaultValue: '#e53333',
   tooltip: 'Font color',
-  width: 'auto',
   menuType: 'color',
   menuItems: colorMenuItems,
+  menuWidth: '156px',
   selectedValues: appliedItems => {
     const currentValue = appliedItems[0].node.computedCSS('color');
     return [Utils.toHex(currentValue)];
@@ -59,9 +59,9 @@ const highlight: ToolbarItem = {
   accentIcon: icons.get('highlightAccent'),
   defaultValue: '#ffe500',
   tooltip: 'Highlight',
-  width: 'auto',
   menuType: 'color',
   menuItems: colorMenuItems,
+  menuWidth: '156px',
   selectedValues: appliedItems => {
     const currentValue = appliedItems[0].node.computedCSS('background-color');
     return [Utils.toHex(currentValue)];

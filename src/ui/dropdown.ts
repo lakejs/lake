@@ -208,7 +208,7 @@ export class Dropdown {
         if (dropdownNode.attr('disabled')) {
           return;
         }
-        const value = dropdownNode.attr('color') || config.defaultValue;
+        const value = dropdownNode.attr('color') || config.defaultValue || '';
         config.onSelect(value);
       });
     }
@@ -237,12 +237,15 @@ export class Dropdown {
 
   public render(): void {
     const config = this.config;
+    const defaultValue = config.defaultValue ?? '';
     const dropdownNode = this.node;
     const titleNode = dropdownNode.find('.lake-dropdown-title');
     if (!config.downIcon) {
       titleNode.addClass('lake-dropdown-title-no-down');
     }
-    titleNode.css('width', config.width);
+    if (config.width) {
+      titleNode.css('width', config.width);
+    }
     const tooltip = typeof config.tooltip === 'string' ? config.tooltip : config.tooltip(this.locale);
     titleNode.attr('title', tooltip);
     const textNode = titleNode.find('.lake-dropdown-text');
@@ -259,13 +262,16 @@ export class Dropdown {
     }
     const menuNode = query('<ul class="lake-dropdown-menu" />');
     menuNode.addClass(`lake-${config.menuType}-dropdown-menu`);
-    Dropdown.setValue(dropdownNode, [config.defaultValue]);
+    if (config.menuWidth) {
+      menuNode.css('width', config.menuWidth);
+    }
+    Dropdown.setValue(dropdownNode, [defaultValue]);
     if (textNode.length > 0) {
       const menuMap = Dropdown.getMenuMap(config.menuItems, this.locale);
-      textNode.text(menuMap.get(config.defaultValue) ?? config.defaultValue);
+      textNode.text(menuMap.get(defaultValue) ?? defaultValue);
     }
     if (config.menuType === 'color') {
-      this.updateColorAccent(titleNode, config.defaultValue);
+      this.updateColorAccent(titleNode, defaultValue);
     }
     this.apppendMenuItems(menuNode);
     dropdownNode.append(titleNode);

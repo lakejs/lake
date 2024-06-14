@@ -104,6 +104,7 @@ export class Toolbar {
       width: item.width,
       menuType: item.menuType,
       menuItems: item.menuItems,
+      menuWidth: item.menuWidth,
       tabIndex: -1,
       placement: this.placement === 'top' ? 'bottom' : 'top',
       onSelect: value => {
@@ -203,7 +204,7 @@ export class Toolbar {
         Dropdown.setValue(dropdownNode, selectedValues);
         const textNode = dropdownNode.find('.lake-dropdown-text');
         if (textNode.length > 0) {
-          const key = selectedValues[0] || item.defaultValue;
+          const key = selectedValues[0] || item.defaultValue || '';
           const menuMap = this.allMenuMap.get(item.name);
           const text = (menuMap && menuMap.get(key)) ?? key;
           textNode.text(text);
