@@ -14,9 +14,6 @@ import { toHex } from '../utils/to-hex';
 import { toNodeList } from '../utils/to-node-list';
 import { debug } from '../utils/debug';
 
-type EachCallback = (element: NativeNode, index: number) => boolean | void;
-type EachElementCallback = (element: Element, index: number) => boolean | void;
-
 type EventItem = {
   type: string;
   listener: EventListener;
@@ -243,7 +240,7 @@ export class Nodes {
   }
 
   // Iterates over a Nodes object, executing a function for each node.
-  public each(callback: EachCallback): this {
+  public each(callback: (element: NativeNode, index: number) => boolean | void): this {
     const nodes = this.getAll();
     for (let i = 0; i < nodes.length; i++) {
       if (callback(nodes[i], i) === false) {
@@ -254,7 +251,7 @@ export class Nodes {
   }
 
   // Iterates over a Nodes object, executing a function for each element.
-  public eachElement(callback: EachElementCallback): this {
+  public eachElement(callback: (element: Element, index: number) => boolean | void): this {
     const nodes = this.getAll();
     for (let i = 0; i < nodes.length; i++) {
       if (nodes[i].nodeType === NativeNode.ELEMENT_NODE) {

@@ -19,7 +19,7 @@ import { BoxManager } from './managers/box-manager';
 import { Plugin } from './managers/plugin';
 import { Toolbar } from './ui/toolbar';
 
-type MessageCallback = (type: 'success' | 'error' | 'warning', message: string) => void;
+type OnMessage = (type: 'success' | 'error' | 'warning', message: string) => void;
 
 type Config = {
   value: string;
@@ -31,7 +31,7 @@ type Config = {
   lang: string;
   minChangeSize: number;
   historySize: number;
-  onMessage: MessageCallback;
+  onMessage: OnMessage;
   [name: string]: any;
 };
 
@@ -46,7 +46,7 @@ type EditorConfig = {
   indentWithTab?: boolean;
   lang?: string;
   minChangeSize?: number;
-  onMessage?: MessageCallback;
+  onMessage?: OnMessage;
   [name: string]: any;
 };
 
