@@ -4,6 +4,8 @@ import './utils/safe-template.test';
 import './utils/camel-case.test';
 import './utils/in-string.test';
 import './utils/encode.test';
+import './utils/to-base64.test';
+import './utils/from-base64.test';
 import './utils/to-hex.test';
 import './utils/parse-style.test';
 import './utils/normalize-value.test';

@@ -4,6 +4,8 @@ export * from './safe-template';
 export * from './camel-case';
 export * from './in-string';
 export * from './encode';
+export * from './to-base64';
+export * from './from-base64';
 export * from './to-hex';
 export * from './parse-style';
 export * from './normalize-value';

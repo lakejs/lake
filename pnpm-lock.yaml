@@ -17,9 +17,6 @@ dependencies:
   eventemitter3:
     specifier: ^5.0.1
     version: 5.0.1
-  js-base64:
-    specifier: ^3.7.7
-    version: 3.7.7
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
@@ -2990,10 +2987,6 @@ packages:
       '@sideway/formula': 3.0.1
       '@sideway/pinpoint': 2.0.0
     dev: true
-
-  /js-base64@3.7.7:
-    resolution: {integrity: sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==}
-    dev: false
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}

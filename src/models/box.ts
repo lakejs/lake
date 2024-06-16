@@ -1,4 +1,3 @@
-import { Base64 } from 'js-base64';
 import EventEmitter from 'eventemitter3';
 import type { Editor } from '../editor';
 import { NativeNode } from '../types/native';
@@ -9,6 +8,8 @@ import { editors } from '../storage/editors';
 import { debug } from '../utils/debug';
 import { safeTemplate } from '../utils/safe-template';
 import { encode } from '../utils/encode';
+import { toBase64 } from '../utils/to-base64';
+import { fromBase64 } from '../utils/from-base64';
 import { query } from '../utils/query';
 import { morph } from '../utils/morph';
 import { Nodes } from './nodes';
@@ -99,12 +100,12 @@ export class Box {
     if (value === '') {
       return {};
     }
-    return JSON.parse(Base64.decode(value));
+    return JSON.parse(fromBase64(value));
   }
 
   // Sets the value of the box.
   public set value(value: BoxValue) {
-    this.node.attr('value', Base64.encode(JSON.stringify(value)));
+    this.node.attr('value', toBase64(JSON.stringify(value)));
   }
 
   // Updates part of the value of the box.

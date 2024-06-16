@@ -45,7 +45,6 @@
     "@types/lodash": "^4.17.0",
     "blueimp-md5": "^2.19.0",
     "eventemitter3": "^5.0.1",
-    "js-base64": "^3.7.7",
     "lodash": "^4.17.21",
     "photoswipe": "^5.4.3",
     "tinykeys": "^2.1.0",

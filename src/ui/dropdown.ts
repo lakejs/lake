@@ -1,9 +1,10 @@
-import { Base64 } from 'js-base64';
 import { NativeNode } from '../types/native';
 import { TranslationFunctions } from '../i18n/types';
 import { DropdownItem, DropdownMenuItem } from '../types/dropdown';
 import { icons } from '../icons';
 import { encode } from '../utils/encode';
+import { toBase64 } from '../utils/to-base64';
+import { fromBase64 } from '../utils/from-base64';
 import { template } from '../utils/template';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
@@ -52,12 +53,12 @@ export class Dropdown {
     if (value === '') {
       return [];
     }
-    return JSON.parse(Base64.decode(value));
+    return JSON.parse(fromBase64(value));
   }
 
   // Updates the value of the node.
   public static setValue(node: Nodes, value: string[]): void {
-    node.attr('value', Base64.encode(JSON.stringify(value)));
+    node.attr('value', toBase64(JSON.stringify(value)));
   }
 
   public static getMenuMap(menuItems: DropdownMenuItem[], locale: TranslationFunctions): Map<string, string> {
