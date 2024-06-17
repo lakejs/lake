@@ -50,7 +50,7 @@
     "typesafe-i18n": "^5.26.2"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^25.0.8",
+    "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
@@ -79,7 +79,7 @@
     "rollup-plugin-svg-import": "^3.0.0",
     "semver": "^7.6.2",
     "simple-git-hooks": "^2.11.1",
-    "sinon": "^17.0.1",
+    "sinon": "^18.0.0",
     "sort-package-json": "^2.10.0",
     "tslib": "^2.6.3",
     "typescript": "^5.4.5",
