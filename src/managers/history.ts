@@ -1,4 +1,3 @@
-import md5 from 'blueimp-md5';
 import EventEmitter from 'eventemitter3';
 import { NativeNode } from '../types/native';
 import { getInstanceMap } from '../storage/box-instances';
@@ -64,7 +63,7 @@ export class History {
   private addIdToBoxes(node: Nodes): void {
     node.find('lake-box').each(nativeNode => {
       const boxNode = new Nodes(nativeNode);
-      const id = md5(`${boxNode.attr('type')}-${boxNode.attr('name')}-${boxNode.attr('value')}`);
+      const id = `${boxNode.attr('name')}-${boxNode.attr('value')}`;
       boxNode.attr('id', id);
     });
   }

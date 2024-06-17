@@ -43,7 +43,6 @@
   "dependencies": {
     "@types/blueimp-md5": "^2.18.2",
     "@types/lodash": "^4.17.5",
-    "blueimp-md5": "^2.19.0",
     "eventemitter3": "^5.0.1",
     "lodash": "^4.17.21",
     "photoswipe": "^5.4.4",
