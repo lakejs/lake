@@ -8,24 +8,20 @@ import terser from '@rollup/plugin-terser';
 
 function getBundleConfig(type) {
   const globals = {
-    'js-base64': 'Base64',
     eventemitter3: 'EventEmitter3',
     'lodash': 'lodash',
     'photoswipe/lightbox': 'PhotoSwipeLightbox',
     photoswipe: 'PhotoSwipe',
     tinykeys: 'tinykeys',
-    'blueimp-md5': 'md5',
     'typesafe-i18n': 'typesafeI18n',
   };
   const external = [
-    'js-base64',
     'eventemitter3',
     'lodash',
     'photoswipe/style.css',
     'photoswipe/lightbox',
     'photoswipe',
     'tinykeys',
-    'blueimp-md5',
     'typesafe-i18n',
   ];
   if (type === 'tests') {
