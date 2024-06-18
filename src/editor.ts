@@ -533,8 +533,12 @@ export class Editor {
 
   // Scrolls to the caret or the range of the selection.
   public scrollToCaret(): void {
+    const range = this.selection.range;
+    if (range.isBox) {
+      return;
+    }
     // Creates an artificial caret that is the same size as the caret at the current caret position.
-    const rangeRect = this.selection.range.getRect();
+    const rangeRect = range.getRect();
     if (rangeRect.x === 0 || rangeRect.y === 0) {
       return;
     }

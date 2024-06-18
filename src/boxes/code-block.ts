@@ -180,13 +180,12 @@ export const codeBlockBox: BoxComponent = {
         text: item.text,
       })),
       onSelect: value => {
-        const item = langItemMap.get(value);
-        codeEditor.dispatch({
-          effects: language.reconfigure(item && item.component ? item.component() : []),
-        });
         box.updateValue({
           lang: value,
         });
+        box.unmount();
+        box.render();
+        editor.selection.selectBox(box);
         editor.history.save();
       },
     });

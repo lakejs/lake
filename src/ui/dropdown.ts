@@ -220,7 +220,11 @@ export class Dropdown {
     });
     menuNode.on('click', event => {
       event.preventDefault();
+      event.stopPropagation();
       const listItem = query(event.target as NativeNode).closest('li');
+      if (listItem.length === 0) {
+        return;
+      }
       const value = listItem.attr('value');
       Dropdown.setValue(dropdownNode, [value]);
       if (textNode.length > 0) {
