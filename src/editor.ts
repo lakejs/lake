@@ -1,5 +1,5 @@
 import debounce from 'lodash/debounce';
-import isEqual from 'lodash/isEqual';
+import isEqual from 'fast-deep-equal/es6';
 import EventEmitter from 'eventemitter3';
 import { version } from '../package.json';
 import { NativeNode } from './types/native';
