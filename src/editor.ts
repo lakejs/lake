@@ -248,9 +248,8 @@ export class Editor {
       box.event.emit('blur');
     });
   }, 50, {
-    leading: false,
+    leading: true,
     trailing: true,
-    maxWait: 50,
   });
 
   // Triggers the statechange event when the current selection of the editor is changed.
@@ -297,10 +296,9 @@ export class Editor {
     }
     this.event.emit('statechange', state);
     this.state = state;
-  }, 100, {
-    leading: false,
+  }, 50, {
+    leading: true,
     trailing: true,
-    maxWait: 100,
   });
 
   // Adds or Removes a placeholder class.
