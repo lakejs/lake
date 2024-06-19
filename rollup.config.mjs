@@ -8,21 +8,13 @@ import terser from '@rollup/plugin-terser';
 
 function getBundleConfig(type) {
   const globals = {
-    eventemitter3: 'EventEmitter3',
-    'lodash': 'lodash',
     'photoswipe/lightbox': 'PhotoSwipeLightbox',
     photoswipe: 'PhotoSwipe',
-    tinykeys: 'tinykeys',
-    'typesafe-i18n': 'typesafeI18n',
   };
   const external = [
-    'eventemitter3',
-    'lodash',
     'photoswipe/style.css',
     'photoswipe/lightbox',
     'photoswipe',
-    'tinykeys',
-    'typesafe-i18n',
   ];
   if (type === 'tests') {
     globals.sinon = 'sinon';

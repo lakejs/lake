@@ -1,4 +1,4 @@
-import debounce from 'lodash/debounce';
+import debounce from 'debounce';
 import isEqual from 'fast-deep-equal/es6';
 import EventEmitter from 'eventemitter3';
 import { version } from '../package.json';
@@ -248,8 +248,7 @@ export class Editor {
       box.event.emit('blur');
     });
   }, 50, {
-    leading: true,
-    trailing: true,
+    immediate: true,
   });
 
   // Triggers the statechange event when the current selection of the editor is changed.
@@ -297,8 +296,7 @@ export class Editor {
     this.event.emit('statechange', state);
     this.state = state;
   }, 50, {
-    leading: true,
-    trailing: true,
+    immediate: false,
   });
 
   // Adds or Removes a placeholder class.
