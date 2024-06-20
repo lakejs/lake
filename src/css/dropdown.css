@@ -25,7 +25,8 @@
   cursor: default;
 }
 .lake-dropdown.lake-list-dropdown button.lake-dropdown-title-hovered,
-.lake-dropdown.lake-icon-dropdown button.lake-dropdown-title-hovered {
+.lake-dropdown.lake-icon-dropdown button.lake-dropdown-title-hovered,
+.lake-dropdown.lake-character-dropdown button.lake-dropdown-title-hovered {
   background-color: var(--background-hover-color);
 }
 .lake-dropdown button.lake-dropdown-title.lake-dropdown-title-no-down {

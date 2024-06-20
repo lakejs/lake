@@ -274,7 +274,7 @@ export class Dropdown {
       menuNode.css('width', config.menuWidth);
     }
     if (config.menuHeight) {
-      menuNode.addClass(`lake-dropdown-menu-with-scroll`);
+      menuNode.addClass('lake-dropdown-menu-with-scroll');
       menuNode.css('height', config.menuHeight);
     }
     Dropdown.setValue(dropdownNode, [defaultValue]);
