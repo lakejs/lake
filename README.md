@@ -35,11 +35,10 @@ Lake is released under the [MIT](https://github.com/lakejs/lake/blob/main/LICENS
 
 | Package  | License |
 | ------------- | ------------- |
+| [codemirror](https://github.com/codemirror/dev)  | MIT  |
 | [debounce](https://github.com/sindresorhus/debounce)  | MIT  |
 | [eventemitter3](https://github.com/primus/eventemitter3)  | MIT  |
 | [fast-deep-equal](https://github.com/epoberezkin/fast-deep-equal)  | MIT  |
 | [photoswipe](https://github.com/dimsemenov/Photoswipe)  | MIT  |
 | [tinykeys](https://github.com/jamiebuilds/tinykeys)  | MIT  |
 | [typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n)  | MIT  |
-
-> this list was generated using the `pnpm licenses list -prod` command.
