@@ -27,7 +27,7 @@ You can now view all the demos by visiting `http://localhost:8080/examples/`.
 
 ## Running tests
 
-Lake depends on a lot of browser APIs and ao needs a real browser environment for running the test cases. You can run all tests visibly by visiting `http://localhost:8080/tests/`, or execute `pnpm test` command to run the tests in headless mode.
+Lake depends on a lot of browser APIs and ao needs a real browser environment for running the test cases. You can run all tests visibly by visiting `http://localhost:8080/tests/`, or execute the `pnpm test` command to run the tests in headless mode.
 
 ## License
 
@@ -41,3 +41,5 @@ Lake is released under the [MIT](https://github.com/lakejs/lake/blob/main/LICENS
 | [photoswipe](https://github.com/dimsemenov/Photoswipe)  | MIT  |
 | [tinykeys](https://github.com/jamiebuilds/tinykeys)  | MIT  |
 | [typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n)  | MIT  |
+
+> this list was generated using the `pnpm licenses list -prod` command.
