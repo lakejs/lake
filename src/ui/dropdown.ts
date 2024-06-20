@@ -93,7 +93,10 @@ export class Dropdown {
       `;
       const listNode = query(listContent);
       menuNode.append(listNode);
-      if (config.menuType === 'color') {
+      if (config.menuType === 'character') {
+        listNode.attr('title', menuText);
+        listNode.find('.lake-dropdown-menu-text').text(menuItem.value);
+      } else if (config.menuType === 'color') {
         listNode.attr('title', menuText);
         listNode.find('.lake-dropdown-menu-text').css('background-color', menuItem.value);
       }
@@ -269,6 +272,10 @@ export class Dropdown {
     menuNode.addClass(`lake-${config.menuType}-dropdown-menu`);
     if (config.menuWidth) {
       menuNode.css('width', config.menuWidth);
+    }
+    if (config.menuHeight) {
+      menuNode.addClass(`lake-dropdown-menu-with-scroll`);
+      menuNode.css('height', config.menuHeight);
     }
     Dropdown.setValue(dropdownNode, [defaultValue]);
     if (textNode.length > 0) {

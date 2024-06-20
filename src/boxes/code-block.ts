@@ -175,6 +175,7 @@ export const codeBlockBox: BoxComponent = {
       defaultValue: langItem ? boxValue.lang : codeBlockConfig.defaultLang,
       tooltip: editor.locale.codeBlock.langType(),
       menuType: 'list',
+      menuHeight: '200px',
       menuItems: langItems.map((item: any) => ({
         value: item.value,
         text: item.text,

@@ -105,6 +105,7 @@ export class Toolbar {
       menuType: item.menuType,
       menuItems: item.menuItems,
       menuWidth: item.menuWidth,
+      menuHeight: item.menuHeight,
       tabIndex: -1,
       placement: this.placement === 'top' ? 'bottom' : 'top',
       onSelect: value => {

@@ -14,7 +14,8 @@ export type DropdownItem = {
   defaultValue?: string;
   tooltip: string | ((locale: TranslationFunctions) => string);
   width?: string;
-  menuType: 'list' | 'icon' | 'color';
+  menuType: 'list' | 'icon' | 'character' | 'color';
   menuItems: DropdownMenuItem[];
   menuWidth?: string;
+  menuHeight?: string;
 };
