@@ -31,4 +31,13 @@ Lake depends on a lot of browser APIs and ao needs a real browser environment fo
 
 ## License
 
-[MIT](https://github.com/lakejs/lake/blob/main/LICENSE)
+Lake is released under the [MIT](https://github.com/lakejs/lake/blob/main/LICENSE) license. For the licenses of its dependencies, see the following table:
+
+| Package  | License |
+| ------------- | ------------- |
+| debounce  | MIT  |
+| eventemitter3  | MIT  |
+| fast-deep-equal  | MIT  |
+| photoswipe  | MIT  |
+| tinykeys  | MIT  |
+| typesafe-i18n  | MIT  |
