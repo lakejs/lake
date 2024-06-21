@@ -120,6 +120,7 @@ import './plugins/image.test';
 import './plugins/video.test';
 import './plugins/file.test';
 import './plugins/emoji.test';
+import './plugins/special-character.test';
 import './plugins/markdown.test';
 import './plugins/enter-key.test';
 import './plugins/shift-enter-key.test';

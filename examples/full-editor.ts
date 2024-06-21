@@ -187,8 +187,7 @@ const specialCharacter: ToolbarItem = {
   menuWidth: '270px',
   menuHeight: '180px',
   onSelect: (editor, value) => {
-    editor.selection.insertNode(document.createTextNode(value));
-    editor.history.save();
+    editor.command.execute('specialCharacter', value);
   },
 };
 
