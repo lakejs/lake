@@ -31,7 +31,7 @@ Lake depends on a lot of browser APIs and ao needs a real browser environment fo
 
 ## License
 
-Lake is released under the [MIT](https://github.com/lakejs/lake/blob/main/LICENSE) license. For the licenses of its dependencies, see the following table:
+Lake is released under the [MIT](https://github.com/lakejs/lake/blob/main/LICENSE) license. The licenses of its dependencies are:
 
 | Package  | License |
 | ------------- | ------------- |

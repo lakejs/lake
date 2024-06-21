@@ -167,53 +167,84 @@ describe('models / range', () => {
     expect(range.get().startContainer).to.equal(document);
   });
 
-  it('method: getRect', () => {
-    let rect;
+  it('getRect method: expanded range', () => {
     container.html('<strong>foo</strong>bar');
     const range = new Range();
-    //  expanded range
     range.setStart(container.find('strong'), 0);
     range.setEnd(container.find('strong'), 1);
-    rect = range.getRect();
+    const rect = range.getRect();
     expect(rect.width > 0).to.equal(true);
     expect(rect.height > 0).to.equal(true);
-    // collapsed range (at the beginning of an element)
+  });
+
+  it('getRect method: collapsed range (at the beginning of an element)', () => {
+    container.html('<strong>foo</strong>bar');
+    const range = new Range();
     range.setStart(container.find('strong'), 0);
     range.collapseToStart();
-    rect = range.getRect();
+    const rect = range.getRect();
     expect(rect.width).to.equal(1);
     expect(rect.height > 0).to.equal(true);
-    // collapsed range (at the end of an element)
+  });
+
+  it('getRect method: collapsed range (at the end of an element)', () => {
+    container.html('<strong>foo</strong>bar');
+    const range = new Range();
     range.setStart(container.find('strong'), 1);
     range.collapseToStart();
-    rect = range.getRect();
+    const rect = range.getRect();
     expect(rect.width).to.equal(1);
     expect(rect.height > 0).to.equal(true);
-    // collapsed range (at the beginning of a text)
+  });
+
+  it('getRect method: collapsed range (at the beginning of a text)', () => {
+    container.html('<strong>foo</strong>bar');
+    const range = new Range();
     range.setStart(container.find('strong').first(), 0);
     range.collapseToStart();
-    rect = range.getRect();
+    const rect = range.getRect();
     expect(rect.width).to.equal(1);
     expect(rect.height > 0).to.equal(true);
-    // collapsed range (at the end of a text)
+  });
+
+  it('getRect method: collapsed range (at the end of a text)', () => {
+    container.html('<strong>foo</strong>bar');
+    const range = new Range();
     range.setStart(container.find('strong').first(), 3);
     range.collapseToStart();
-    rect = range.getRect();
+    const rect = range.getRect();
     expect(rect.width).to.equal(1);
     expect(rect.height > 0).to.equal(true);
-    // empty block
+  });
+
+  it('getRect method: empty block', () => {
     container.html('<p></p>');
+    const range = new Range();
     range.setStart(container.find('p'), 0);
     range.collapseToStart();
-    rect = range.getRect();
+    const rect = range.getRect();
     expect(rect.width).to.equal(1);
     expect(rect.height > 0).to.equal(true);
-    // block includes empty text
+  });
+
+  it('getRect method: block includes empty text (1)', () => {
     container.html('<p><code>foo</code></p>');
+    const range = new Range();
     container.find('p').append(document.createTextNode(''));
     range.setStart(container.find('p'), 2);
     range.collapseToStart();
-    rect = range.getRect();
+    const rect = range.getRect();
+    expect(rect.x === 0).to.equal(true);
+    expect(rect.y === 0).to.equal(true);
+  });
+
+  it('getRect method: block includes empty text (2)', () => {
+    container.html('<p>foo</p>');
+    const range = new Range();
+    container.find('p').prepend(document.createTextNode(''));
+    range.setStart(container.find('p').first(), 0);
+    range.collapseToStart();
+    const rect = range.getRect();
     expect(rect.x === 0).to.equal(true);
     expect(rect.y === 0).to.equal(true);
   });

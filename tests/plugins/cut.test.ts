@@ -15,6 +15,40 @@ describe('plugins / cut', () => {
     });
   });
 
+  it('should cut a text (startNode is a text)', () => {
+    const content = `
+    <p><anchor />f<focus />oo</p>
+    `;
+    const output = `
+    <p><focus />oo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.event.emit('cut', event);
+        expect(dataTransfer.getData('text/html')).to.equal('f');
+      },
+    );
+  });
+
+  it('should cut a text (startNode is a block)', () => {
+    const content = `
+    <anchor /><p>f<focus />oo</p>
+    `;
+    const output = `
+    <p><focus />oo</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.event.emit('cut', event);
+        expect(dataTransfer.getData('text/html')).to.equal('<p>f</p>');
+      },
+    );
+  });
+
   it('should cut image box', () => {
     const content = `
     <p>f<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>oo</p>
