@@ -851,7 +851,7 @@ export class Nodes {
   }
 
   // Prints information of the first node.
-  public debug(): void {
+  public info(): void {
     debug(this.toString());
   }
 }

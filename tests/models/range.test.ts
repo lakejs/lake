@@ -154,7 +154,6 @@ describe('models / range', () => {
     expect(range.isInoperative).to.equal(false);
     range.setStart(container.find('td').eq(0), 0);
     range.setEnd(container.find('td').eq(1), 1);
-    range.debug();
     expect(range.isInoperative).to.equal(true);
     range.setStart(container.parent(), 0);
     range.collapseToStart();
@@ -1079,6 +1078,13 @@ describe('models / range', () => {
     range.selectNode(container.find('strong'));
     const fragment = range.cloneContents();
     expect(new Nodes(fragment.firstChild).name).to.equal('strong');
+  });
+
+  it('method: info', () => {
+    container.html('<strong>foo</strong>bar');
+    const range = new Range();
+    range.selectNode(container.find('strong'));
+    range.info();
   });
 
 });

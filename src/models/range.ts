@@ -641,7 +641,7 @@ export class Range {
   }
 
   // Prints information of the range.
-  public debug(): void {
+  public info(): void {
     debug('--- range information ---');
     debug('start node:', this.startNode.toString(), ', offset:', this.startOffset);
     debug('end node:', this.endNode.toString(), ', offset:', this.endOffset);

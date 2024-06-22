@@ -404,7 +404,7 @@ describe('models / nodes', () => {
     expect(childList[6].name).to.equal('i');
   });
 
-  it('event methods: an event', () => {
+  it('event method: an event', () => {
     const nodes = new Nodes([element, document.body]);
     const listener = () => {
       element.innerHTML = 'click event';
@@ -425,7 +425,7 @@ describe('models / nodes', () => {
     expect(nodes.getEventListeners(1).length).to.equal(0);
   });
 
-  it('event methods: multi-event', () => {
+  it('event method: multi-event', () => {
     const nodes = new Nodes([element, document.body]);
     const clickListener = () => {
       element.innerHTML = 'click event';
@@ -459,7 +459,7 @@ describe('models / nodes', () => {
     expect(element.innerHTML).to.equal('one');
   });
 
-  it('event methods: multi-event with the same type', () => {
+  it('event method: multi-event with the same type', () => {
     const nodes = new Nodes(element);
     let clickCount = 0;
     const clickListenerOne = () => {
@@ -488,7 +488,7 @@ describe('models / nodes', () => {
     nodes.off();
   });
 
-  it('event methods: an element with multi-element-instance', () => {
+  it('event method: an element with multi-element-instance', () => {
     const nodesOne = new Nodes(element);
     let clickCount = 0;
     const clickListenerOne = () => {
@@ -512,7 +512,7 @@ describe('models / nodes', () => {
     expect(nodesOne.getEventListeners(0).length).to.equal(0);
   });
 
-  it('event methods: emit has event parameter', () => {
+  it('event method: emit has event parameter', () => {
     const nodesOne = new Nodes(element);
     const clickListenerOne = (event: Event) => {
       element.innerHTML = `click event one: ${event.type}`;
@@ -525,7 +525,7 @@ describe('models / nodes', () => {
     expect(element.innerHTML).to.equal('click event one: click');
   });
 
-  it('event methods: no event binding', () => {
+  it('event method: no event binding', () => {
     const nodesOne = new Nodes(element);
     nodesOne.off();
     expect(nodesOne.getEventListeners(0).length).to.equal(0);
@@ -548,7 +548,7 @@ describe('models / nodes', () => {
     expect(node.clone(true).html()).to.equal(node.html());
   });
 
-  it('attribute methods: single key', () => {
+  it('attribute method: single key', () => {
     const nodes = new Nodes([element, document.body]);
     nodes.attr('class', 'my-class');
     expect(nodes.attr('class')).to.equal('my-class');
@@ -560,7 +560,7 @@ describe('models / nodes', () => {
     expect(nodes.hasAttr('class')).to.equal(false);
   });
 
-  it('attribute methods: multi-key', () => {
+  it('attribute method: multi-key', () => {
     const nodes = new Nodes([element, document.body]);
     nodes.attr({
       id: 'my-id',
@@ -588,7 +588,7 @@ describe('models / nodes', () => {
     expect(nodes.hasAttr('data-one')).to.equal(false);
   });
 
-  it('class methods: a string', () => {
+  it('class method: a string', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.addClass('class-one');
     expect(nodes.hasClass('class-one')).to.equal(true);
@@ -604,7 +604,7 @@ describe('models / nodes', () => {
     expect(nodes.hasClass('class-two')).to.equal(false);
   });
 
-  it('class methods: an array', () => {
+  it('class method: an array', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.addClass(['class-one', 'class-two']);
     expect(nodes.hasClass('class-one')).to.equal(true);
@@ -628,7 +628,7 @@ describe('models / nodes', () => {
     expect(node.computedCSS('text-align') === '').to.equal(false);
   });
 
-  it('css methods: a string', () => {
+  it('css method: a string', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.css('background-color', '#ff0000');
     nodes.css('border', '1px solid #0000ff');
@@ -646,7 +646,7 @@ describe('models / nodes', () => {
     expect(nodes.css('text-align')).to.equal('');
   });
 
-  it('css methods: an array', () => {
+  it('css method: an array', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.css({
       'background-color': '#ff0000',
@@ -657,7 +657,7 @@ describe('models / nodes', () => {
     expect(nodes.css('border-color')).to.equal('#0000ff');
   });
 
-  it('css methods: remove style attribute', () => {
+  it('css method: remove style attribute', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.css({
       'background-color': '#ff0000',
@@ -903,6 +903,11 @@ describe('models / nodes', () => {
     const newNode = node.splitText(3);
     expect(node.get(0).nodeValue).to.equal('foo');
     expect(newNode.get(0).nodeValue).to.equal('bar');
+  });
+
+  it('method: info', () => {
+    const node = new Nodes([element, elementTwo]);
+    node.info();
   });
 
 });
