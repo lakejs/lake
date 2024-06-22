@@ -2,7 +2,6 @@ import debounce from 'debounce';
 import isEqual from 'fast-deep-equal/es6';
 import EventEmitter from 'eventemitter3';
 import { version } from '../package.json';
-import { NativeNode } from './types/native';
 import { SelectionState } from './types/object';
 import { Locales, TranslationFunctions } from './i18n/types';
 import { getInstanceMap } from './storage/box-instances';
@@ -36,7 +35,7 @@ type Config = {
 };
 
 type EditorConfig = {
-  root: string | Nodes | NativeNode;
+  root: string | Node | Nodes;
   toolbar?: Toolbar;
   value?: string;
   readonly?: boolean;

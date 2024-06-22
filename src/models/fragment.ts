@@ -1,4 +1,3 @@
-import { NativeNode } from '../types/native';
 import { query } from '../utils/query';
 import { Nodes } from './nodes';
 
@@ -17,7 +16,7 @@ export class Fragment {
 
   // Returns the descendants of the fragment which are selected by the specified CSS selector.
   public find(selector: string): Nodes {
-    const nodeList: NativeNode[] = [];
+    const nodeList: Node[] = [];
     let child = new Nodes(this.fragment.firstChild);
     while (child.length > 0) {
       if (child.matches(selector)) {
@@ -33,7 +32,7 @@ export class Fragment {
   }
 
   // Inserts the specified node as the last child.
-  public append(node: string | NativeNode | Nodes): void {
+  public append(node: string | Node | Nodes): void {
     query(node).each(nativeNode => {
       this.fragment.appendChild(nativeNode);
     });

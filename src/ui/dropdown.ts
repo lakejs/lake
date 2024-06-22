@@ -1,4 +1,3 @@
-import { NativeNode } from '../types/native';
 import { TranslationFunctions } from '../i18n/types';
 import { DropdownItem, DropdownMenuItem } from '../types/dropdown';
 import { icons } from '../icons';
@@ -224,7 +223,7 @@ export class Dropdown {
     menuNode.on('click', event => {
       event.preventDefault();
       event.stopPropagation();
-      const listItem = query(event.target as NativeNode).closest('li');
+      const listItem = query(event.target as Node).closest('li');
       if (listItem.length === 0) {
         return;
       }

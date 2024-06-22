@@ -1,6 +1,5 @@
 import EventEmitter from 'eventemitter3';
 import type { Editor } from '../editor';
-import { NativeNode } from '../types/native';
 import { BoxType, BoxValue } from '../types/box';
 import { BoxToolbarItem } from '../types/box-toolbar';
 import { boxes } from '../storage/boxes';
@@ -27,7 +26,7 @@ export class Box {
 
   public event: EventEmitter = new EventEmitter();
 
-  constructor(node: string | Nodes | NativeNode) {
+  constructor(node: string | Node | Nodes) {
     if (typeof node === 'string') {
       const component = boxes.get(node);
       if (component === undefined) {

@@ -1,7 +1,5 @@
-import { NativeNode } from '../types/native';
-
-export function toNodeList(content: string | NativeNode, valueType?: 'text' | 'html'): NativeNode[] {
-  const nodeList: NativeNode[] = [];
+export function toNodeList(content: string | Node, valueType?: 'text' | 'html'): Node[] {
+  const nodeList: Node[] = [];
   // a node
   if (typeof content !== 'string') {
     nodeList.push(content);

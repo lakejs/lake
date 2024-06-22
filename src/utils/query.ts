@@ -1,8 +1,7 @@
-import { NativeNode } from '../types/native';
 import { toNodeList } from './to-node-list';
 import { Nodes } from '../models/nodes';
 
-export function query(content: string | NativeNode | Nodes): Nodes {
+export function query(content: string | Node | Nodes): Nodes {
   if (content instanceof Nodes) {
     return content;
   }

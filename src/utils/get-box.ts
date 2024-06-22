@@ -1,11 +1,10 @@
-import { NativeNode } from '../types/native';
 import { getInstanceMap } from '../storage/box-instances';
 import { query } from './query';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 
 // Returns an already generated box instance or generates a new instance if it does not exist.
-export function getBox(boxNode: string | Nodes | NativeNode): Box {
+export function getBox(boxNode: string | Node | Nodes): Box {
   const tempInstanceMap = getInstanceMap(0);
   // boxNode is a name
   if (typeof boxNode === 'string') {

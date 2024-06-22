@@ -1,5 +1,4 @@
 import EventEmitter from 'eventemitter3';
-import { NativeNode } from '../types/native';
 import { getInstanceMap } from '../storage/box-instances';
 import { debug } from '../utils/debug';
 import { morph } from '../utils/morph';
@@ -78,12 +77,12 @@ export class History {
   private morphContainer(sourceItem: Nodes): void {
     const container = this.container;
     const callbacks = {
-      beforeChildrenUpdated: (oldNode: NativeNode) => {
+      beforeChildrenUpdated: (oldNode: Node) => {
         if (new Nodes(oldNode).name === 'lake-box') {
           return false;
         }
       },
-      afterAttributeUpdated: (attributeName: string, nativeNode: NativeNode) => {
+      afterAttributeUpdated: (attributeName: string, nativeNode: Node) => {
         const node = new Nodes(nativeNode);
         if (attributeName === 'value' && node.name === 'lake-box') {
           const instanceMap = getInstanceMap(container.id);

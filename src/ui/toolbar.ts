@@ -1,5 +1,4 @@
 import type { Editor } from '../editor';
-import { NativeNode } from '../types/native';
 import { SelectionState } from '../types/object';
 import { ToolbarButtonItem, ToolbarDropdownItem, ToolbarUploadItem, ToolbarItem } from '../types/toolbar';
 import { toolbarItems } from '../config/toolbar-items';
@@ -13,7 +12,7 @@ import { Dropdown } from './dropdown';
 type ToolbarPlacement = 'top' | 'bottom';
 
 type ToolbarConfig = {
-  root: string | Nodes | NativeNode;
+  root: string | Node | Nodes;
   items?: (string | ToolbarItem)[];
   placement?: ToolbarPlacement;
 };

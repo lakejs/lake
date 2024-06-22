@@ -1,7 +1,4 @@
 import { KeyValue } from '../types/object';
-import {
-  NativeNode,
-} from '../types/native';
 import { NodePath } from '../types/node';
 import {
   blockTagNames, markTagNames, voidTagNames,
@@ -27,12 +24,12 @@ let lastNodeId = 0;
 
 export class Nodes {
   // Returns native nodes that includes element, text node.
-  private nodeList: NativeNode[];
+  private nodeList: Node[];
 
   // Represents the number of nodes in nodeList.
   public length: number;
 
-  constructor(node?: NativeNode | NativeNode[] | null) {
+  constructor(node?: Node | Node[] | null) {
     node = node ?? [];
     this.nodeList = Array.isArray(node) ? node : [node];
     for (let i = 0; i < this.nodeList.length; i++) {
@@ -66,7 +63,7 @@ export class Nodes {
       return false;
     }
     const node = this.get(0);
-    return node.nodeType === NativeNode.ELEMENT_NODE;
+    return node.nodeType === Node.ELEMENT_NODE;
   }
 
   // Returns a boolean value indicating whether the node is a text node.
@@ -75,7 +72,7 @@ export class Nodes {
       return false;
     }
     const node = this.get(0);
-    return node.nodeType === NativeNode.TEXT_NODE;
+    return node.nodeType === Node.TEXT_NODE;
   }
 
   // Returns a boolean value indicating whether the node is a block element.
@@ -224,12 +221,12 @@ export class Nodes {
   }
 
   // Gets a native node at the specified index.
-  public get(index: number): NativeNode {
+  public get(index: number): Node {
     return this.nodeList[index];
   }
 
   // Gets all native nodes
-  public getAll(): NativeNode[] {
+  public getAll(): Node[] {
     return this.nodeList;
   }
 
@@ -240,7 +237,7 @@ export class Nodes {
   }
 
   // Iterates over a Nodes object, executing a function for each node.
-  public each(callback: (element: NativeNode, index: number) => boolean | void): this {
+  public each(callback: (element: Node, index: number) => boolean | void): this {
     const nodes = this.getAll();
     for (let i = 0; i < nodes.length; i++) {
       if (callback(nodes[i], i) === false) {
@@ -254,7 +251,7 @@ export class Nodes {
   public eachElement(callback: (element: Element, index: number) => boolean | void): this {
     const nodes = this.getAll();
     for (let i = 0; i < nodes.length; i++) {
-      if (nodes[i].nodeType === NativeNode.ELEMENT_NODE) {
+      if (nodes[i].nodeType === Node.ELEMENT_NODE) {
         if (callback(nodes[i] as Element, i) === false) {
           return this;
         }
@@ -394,7 +391,7 @@ export class Nodes {
   // Returns a number indicating the position of the first node relative to its sibling nodes.
   public index(): number {
     let i = -1;
-    let sibling: NativeNode | null = this.get(0);
+    let sibling: Node | null = this.get(0);
     while (sibling) {
       i++;
       sibling = sibling.previousSibling;
@@ -701,7 +698,7 @@ export class Nodes {
   }
 
   // Inserts the specified content to the beginning of the first element.
-  public prepend(content: string | NativeNode | DocumentFragment | Nodes): this {
+  public prepend(content: string | Node | DocumentFragment | Nodes): this {
     const element = this.get(0);
     if (typeof content === 'string') {
       const list = toNodeList(content as string).reverse();
@@ -726,7 +723,7 @@ export class Nodes {
   }
 
   // Inserts the specified content to the end of the first element.
-  public append(content: string | NativeNode | DocumentFragment | Nodes): this {
+  public append(content: string | Node | DocumentFragment | Nodes): this {
     const element = this.get(0);
     if (typeof content === 'string') {
       const list = toNodeList(content as string);
@@ -743,7 +740,7 @@ export class Nodes {
   }
 
   // Inserts the specified content before the first node.
-  public before(content: string | NativeNode | DocumentFragment | Nodes): this {
+  public before(content: string | Node | DocumentFragment | Nodes): this {
     const node = this.get(0);
     if (!node.parentNode) {
       return this;
@@ -763,7 +760,7 @@ export class Nodes {
   }
 
   // Inserts the specified content after the first node.
-  public after(content: string | NativeNode | DocumentFragment | Nodes): this {
+  public after(content: string | Node | DocumentFragment | Nodes): this {
     const node = this.get(0);
     if (!node.parentNode) {
       return this;
@@ -791,12 +788,12 @@ export class Nodes {
   }
 
   // Replaces the first node with the provided new content.
-  public replaceWith(newContent: string | NativeNode | Nodes): this {
+  public replaceWith(newContent: string | Node | Nodes): this {
     const node = this.get(0);
     if (!node.parentNode) {
       return this;
     }
-    let target: NativeNode;
+    let target: Node;
     if (newContent instanceof Nodes) {
       target = newContent.get(0);
     } else {

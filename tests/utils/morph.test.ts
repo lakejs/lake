@@ -1,4 +1,3 @@
-import { NativeNode } from '../../src/types/native';
 import { query, morph, debug } from '../../src/utils';
 
 function testFidelity(start: string, end: string) {
@@ -15,10 +14,10 @@ function morphTest(node: ReturnType<typeof query>, otherNode: ReturnType<typeof 
   const removedNodeList: ReturnType<typeof query>[] = [];
   morph(node, otherNode, {
     callbacks: {
-      afterNodeAdded: (nativeNode: NativeNode) => {
+      afterNodeAdded: (nativeNode: Node) => {
         addedNodeList.push(query(nativeNode));
       },
-      afterNodeRemoved: (nativeNode: NativeNode) => {
+      afterNodeRemoved: (nativeNode: Node) => {
         removedNodeList.push(query(nativeNode));
       },
     },
@@ -203,7 +202,7 @@ describe('utils / morph', () => {
     const otherNode = query('<div><h1>foo</h1><ul><li>list</li></ul><p>bar</p></div>');
     morph(node, otherNode, {
       callbacks: {
-        beforeNodeAdded: (nativeNode: NativeNode) => {
+        beforeNodeAdded: (nativeNode: Node) => {
           if (query(nativeNode).name === 'ul') {
             return false;
           }
@@ -220,7 +219,7 @@ describe('utils / morph', () => {
     const otherNode = query('<div><h1>foo</h1><p>bar</p></div>');
     morph(node, otherNode, {
       callbacks: {
-        beforeNodeRemoved: (nativeNode: NativeNode) => {
+        beforeNodeRemoved: (nativeNode: Node) => {
           if (query(nativeNode).name === 'ul') {
             return false;
           }
@@ -237,7 +236,7 @@ describe('utils / morph', () => {
     const otherNode = query('<div><p>a2</p><h1><strong>b2</strong></h1><p>c2</p></div>');
     morph(node, otherNode, {
       callbacks: {
-        beforeChildrenUpdated: (oldNode: NativeNode) => {
+        beforeChildrenUpdated: (oldNode: Node) => {
           if (query(oldNode).name === 'h1') {
             return false;
           }
