@@ -84,7 +84,8 @@ export class History {
       },
       afterAttributeUpdated: (attributeName: string, nativeNode: Node) => {
         const node = new Nodes(nativeNode);
-        if (attributeName === 'value' && node.name === 'lake-box') {
+        if (['name', 'value'].indexOf(attributeName) >= 0 && node.name === 'lake-box') {
+          getBox(node).unmount();
           const instanceMap = getInstanceMap(container.id);
           instanceMap.delete(node.id);
         }
