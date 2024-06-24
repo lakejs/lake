@@ -102,7 +102,7 @@ export class History {
   }
 
   public get canUndo(): boolean {
-    return this.index > 1 && !!this.list[this.index - 1];
+    return this.index > 1 && !!this.list[this.index - 2];
   }
 
   public get canRedo(): boolean {

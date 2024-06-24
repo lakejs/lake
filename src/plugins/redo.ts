@@ -5,6 +5,7 @@ export default (editor: Editor) => {
     return;
   }
   editor.command.add('redo', {
+    isDisabled: () => !editor.history.canRedo,
     execute: () => {
       editor.history.redo();
     },

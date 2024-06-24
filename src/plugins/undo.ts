@@ -5,6 +5,7 @@ export default (editor: Editor) => {
     return;
   }
   editor.command.add('undo', {
+    isDisabled: () => !editor.history.canUndo,
     execute: () => {
       editor.history.undo();
     },
