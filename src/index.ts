@@ -133,6 +133,8 @@ export {
   ToolbarItem,
   DropdownMenuItem,
   BoxComponent,
+  Button,
+  Dropdown,
   icons,
   Utils,
   Nodes,
@@ -155,6 +157,4 @@ export {
   insertLink,
   insertBox,
   removeBox,
-  Button,
-  Dropdown,
 };
