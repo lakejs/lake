@@ -91,10 +91,10 @@ export const codeBlockBox: BoxComponent = {
       return;
     }
     const rootNode = query('<div class="lake-code-block" />');
-    const container = box.getContainer();
-    container.css('width', `${editor.container.innerWidth() - 2}px`);
-    container.empty();
-    container.append(rootNode);
+    const boxContainer = box.getContainer();
+    boxContainer.css('width', `${editor.container.innerWidth() - 2}px`);
+    boxContainer.empty();
+    boxContainer.append(rootNode);
     const codeBlockNativeNode = rootNode.get(0) as HTMLElement;
     if (!codeBlockNativeNode) {
       return;
@@ -192,7 +192,7 @@ export const codeBlockBox: BoxComponent = {
     });
     dropdown.render();
     const resizeListener = () => {
-      container.css('width', `${editor.container.innerWidth() - 2}px`);
+      boxContainer.css('width', `${editor.container.innerWidth() - 2}px`);
     };
     editor.event.on('resize', resizeListener);
     rootNode.on('click', () => {

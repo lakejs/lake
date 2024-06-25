@@ -10,7 +10,6 @@ import { encode } from '../utils/encode';
 import { toBase64 } from '../utils/to-base64';
 import { fromBase64 } from '../utils/from-base64';
 import { query } from '../utils/query';
-import { morph } from '../utils/morph';
 import { Nodes } from './nodes';
 import { BoxToolbar } from '../ui/box-toolbar';
 
@@ -173,13 +172,14 @@ export class Box {
     if (component === undefined) {
       return;
     }
+    this.event.emit('beforeunmount');
+    this.event.removeAllListeners();
     this.addFramework();
     const content = component.render(this);
     if (content !== undefined) {
       const container = this.getContainer();
-      const newContainer = container.clone(false);
-      newContainer.append(content);
-      morph(container, newContainer);
+      container.empty();
+      container.append(content);
     }
     debug(`Box "${this.name}" (id: ${this.node.id}) rendered`);
   }

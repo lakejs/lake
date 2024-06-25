@@ -10,10 +10,12 @@ export const emojiBox: BoxComponent = {
       return;
     }
     const value = box.value;
+    const boxContainer = box.getContainer();
     const rootNode = query(safeTemplate`
       <div class="lake-emoji"><img src="${value.url}" title="${value.title}" /></div>
     `);
-    box.getContainer().append(rootNode);
+    boxContainer.empty();
+    boxContainer.append(rootNode);
     rootNode.on('click', () => {
       editor.selection.selectBox(box);
     });

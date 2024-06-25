@@ -80,12 +80,12 @@ export const fileBox: BoxComponent = {
       box.node.hide();
       return;
     }
-    const container = box.getContainer();
+    const boxContainer = box.getContainer();
     const rootNode = query('<div class="lake-file" />');
     rootNode.addClass(`lake-file-${value.status}`);
     appendContent(rootNode, box);
-    container.empty();
-    container.append(rootNode);
+    boxContainer.empty();
+    boxContainer.append(rootNode);
     if (!editor.readonly) {
       rootNode.on('click', () => {
         editor.selection.selectBox(box);

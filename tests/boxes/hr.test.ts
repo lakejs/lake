@@ -33,4 +33,11 @@ describe('boxes / hr', () => {
     click(boxContainer.find('.lake-hr'));
   });
 
+  it('should re-render a box correctly', () => {
+    box.render();
+    box.render();
+    const boxContainer = box.getContainer();
+    expect(boxContainer.find('.lake-hr').length).to.equal(1);
+  });
+
 });

@@ -333,26 +333,26 @@ export const imageBox: BoxComponent = {
       box.node.hide();
       return;
     }
-    const container = box.getContainer();
-    if (value.width && value.height && container.find('.lake-progress').length === 0) {
-      container.css({
+    const boxContainer = box.getContainer();
+    if (value.width && value.height && boxContainer.find('.lake-progress').length === 0) {
+      boxContainer.css({
         width: `${value.width}px`,
         height: `${value.height}px`,
       });
-      container.empty();
+      boxContainer.empty();
       const placeholderNode = query('<div class="lake-image-placeholder" />');
-      container.append(placeholderNode);
+      boxContainer.append(placeholderNode);
       const imageIcon = icons.get('image');
       if (imageIcon) {
         placeholderNode.append(imageIcon);
       }
     }
-    if (container.first().length === 0) {
+    if (boxContainer.first().length === 0) {
       // The following code is for unit testing because some test cases need to
       // select the content of the box before it is completely loaded.
       // Example:
       // range.setStart(box.getContainer(), 1);
-      container.append('<div />');
+      boxContainer.append('<div />');
     }
     // for test
     if (value.status === 'loading') {
@@ -369,8 +369,8 @@ export const imageBox: BoxComponent = {
       promise = renderDone(rootNode, box);
     }
     promise.then(() => {
-      container.empty();
-      container.append(rootNode);
+      boxContainer.empty();
+      boxContainer.append(rootNode);
       rootNode.find('.lake-button-view').on('click', () => openFullScreen(box));
       if (editor.readonly) {
         rootNode.find('.lake-button-remove').hide();

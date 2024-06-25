@@ -9,8 +9,10 @@ export const hrBox: BoxComponent = {
     if (!editor) {
       return;
     }
+    const boxContainer = box.getContainer();
     const rootNode = query('<div class="lake-hr"><hr /></div>');
-    box.getContainer().append(rootNode);
+    boxContainer.empty();
+    boxContainer.append(rootNode);
     rootNode.on('click', () => {
       editor.selection.selectBox(box);
     });

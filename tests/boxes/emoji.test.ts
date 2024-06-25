@@ -38,4 +38,11 @@ describe('boxes / emoji', () => {
     click(boxContainer.find('.lake-emoji'));
   });
 
+  it('should re-render a box correctly', () => {
+    box.render();
+    box.render();
+    const boxContainer = box.getContainer();
+    expect(boxContainer.find('.lake-emoji').length).to.equal(1);
+  });
+
 });
