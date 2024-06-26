@@ -1,0 +1,26 @@
+.lake-equation {
+  position: relative;
+  font-weight: normal;
+  box-sizing: content-box;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 0 6px;
+}
+.lake-container[contenteditable="true"] .lake-equation {
+  user-select: none;
+}
+lake-box[name="equation"] .lake-box-strip {
+  align-self: center;
+}
+lake-box[name="equation"] .lake-box-selected .lake-equation {
+  background-color: var(--selection-background-color);
+}
+lake-box[name="equation"] .lake-box-focused .lake-equation {
+  background-color: var(--selection-background-color);
+}
+/* error status */
+.lake-equation-error {
+  font-size: 14px;
+  color: var(--error-color);
+  background-color: var(--box-background-color);
+}

@@ -19,4 +19,5 @@ import './image.css';
 import './video.css';
 import './file.css';
 import './emoji.css';
+import './equation.css';
 import './toolbar.css';

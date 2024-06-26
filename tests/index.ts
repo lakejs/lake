@@ -86,6 +86,7 @@ import './boxes/file.test';
 import './boxes/file-ui.test';
 import './boxes/emoji.test';
 import './boxes/emoji-ui.test';
+import './boxes/equation-ui.test';
 
 // Plugins
 import './plugins/copy.test';

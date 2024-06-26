@@ -36,6 +36,7 @@ import { imageBox } from './boxes/image';
 import { videoBox } from './boxes/video';
 import { fileBox } from './boxes/file';
 import { emojiBox } from './boxes/emoji';
+import { equationBox } from './boxes/equation';
 import copy from './plugins/copy';
 import cut from './plugins/cut';
 import paste from './plugins/paste';
@@ -84,6 +85,7 @@ Editor.box.add(imageBox);
 Editor.box.add(videoBox);
 Editor.box.add(fileBox);
 Editor.box.add(emojiBox);
+Editor.box.add(equationBox);
 
 Editor.plugin.add(copy);
 Editor.plugin.add(cut);

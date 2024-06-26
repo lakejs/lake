@@ -6,6 +6,7 @@ declare global {
     LAKE_TEST: boolean;
     LAKE_ERROR: boolean;
     LakeCodeMirror: any;
+    katex: any;
   }
 
   interface Element {

@@ -67,6 +67,7 @@
     "eslint-config-prettier": "^9.1.0",
     "execa": "^8.0.1",
     "express": "^4.19.2",
+    "katex": "^0.16.10",
     "lake-codemirror": "^2.0.0",
     "mocha": "^10.4.0",
     "multer": "1.4.5-lts.1",

@@ -15,6 +15,9 @@
   cursor: pointer;
   user-select: auto;
 }
+lake-box[name="file"] .lake-box-strip {
+  align-self: center;
+}
 .lake-file .lake-file-info {
   display: flex;
   align-items: center;

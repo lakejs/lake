@@ -79,6 +79,7 @@ import video from './video.svg';
 import attachment from './attachment.svg';
 import emoji from './emoji.svg';
 import specialCharacter from './special-character.svg';
+import equation from './equation.svg';
 import table from './table.svg';
 
 export const icons: Map<string, string> = new Map([
@@ -145,5 +146,6 @@ export const icons: Map<string, string> = new Map([
   ['attachment', attachment],
   ['emoji', emoji],
   ['specialCharacter', specialCharacter],
+  ['equation', equation],
   ['table', table],
 ]);
