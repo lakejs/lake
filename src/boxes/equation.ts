@@ -33,7 +33,7 @@ export const equationBox: BoxComponent = {
       });
       return;
     }
-    const defaultCode = box.value.code || '';
+    const defaultCode = (box.value.code || '').trim();
     const viewNode = query('<div class="lake-equation-view" />');
     rootNode.append(viewNode);
     viewNode.html(window.katex.renderToString(defaultCode || defaultExpression, {
@@ -55,10 +55,11 @@ export const equationBox: BoxComponent = {
     const textareaNativeNode = (textareaNode.get(0) as HTMLTextAreaElement);
     textareaNativeNode.value = defaultCode;
     textareaNode.on('input', () => {
-      viewNode.html(window.katex.renderToString(textareaNativeNode.value || defaultExpression, {
+      const code = textareaNativeNode.value.trim();
+      viewNode.html(window.katex.renderToString(code || defaultExpression, {
         throwOnError: false,
       }));
-      box.updateValue('code', textareaNativeNode.value);
+      box.updateValue('code', code);
     });
     const button = new Button({
       root: formNode.find('.lake-button-row'),
