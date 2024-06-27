@@ -1,10 +1,5 @@
 .lake-equation {
   position: relative;
-  font-weight: normal;
-  box-sizing: content-box;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  padding: 0 6px;
 }
 .lake-container[contenteditable="true"] .lake-equation {
   user-select: none;
@@ -17,6 +12,50 @@ lake-box[name="equation"] .lake-box-selected .lake-equation {
 }
 lake-box[name="equation"] .lake-box-focused .lake-equation {
   background-color: var(--selection-background-color);
+}
+.lake-equation .lake-equation-view {
+  font-weight: normal;
+  box-sizing: content-box;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 0 6px;
+}
+.lake-equation .lake-equation-form {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  z-index: 1;
+  box-sizing: content-box;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 16px;
+  width: fit-content;
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--text-color);
+  background-color: #fff;
+  box-shadow: var(--popup-shadow);
+  display: none;
+}
+lake-box[name="equation"] .lake-box-focused .lake-equation-form,
+lake-box[name="equation"] .lake-box-activated .lake-equation-form {
+  display: flex;
+}
+.lake-equation .lake-equation-form textarea {
+  border: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--text-color);
+  border: 0;
+  padding: 0;
+  margin-right: 8px;
+  width: 300px;
+  height: 80px;
+  resize: none;
+}
+.lake-equation .lake-equation-form textarea:focus-visible {
+  outline: 0;
 }
 /* error status */
 .lake-equation-error {

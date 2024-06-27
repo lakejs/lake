@@ -48,6 +48,7 @@ export default {
     image: '画像',
     file: 'ファイル',
     emoji: '絵文字',
+    equation: '公式',
     removeColor: 'デフォルト',
   },
   link: {
@@ -82,5 +83,9 @@ export default {
   },
   codeBlock: {
     langType: 'コード言語を選択',
+  },
+  equation: {
+    save: '確認',
+    placeholder: 'TeX 公式を入力してください。',
   },
 } satisfies Translation;

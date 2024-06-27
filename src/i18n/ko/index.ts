@@ -48,6 +48,7 @@ export default {
     image: '이미지',
     file: '파일',
     emoji: '이모지',
+    equation: '수식',
     removeColor: '기본색',
   },
   link: {
@@ -82,5 +83,9 @@ export default {
   },
   codeBlock: {
     langType: '코드언어 선택',
+  },
+  equation: {
+    save: '확인',
+    placeholder: 'TeX 수식을 입력하세요',
   },
 } satisfies Translation;

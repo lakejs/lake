@@ -48,6 +48,7 @@ export default {
     image: 'Image',
     file: 'File',
     emoji: 'Emoji',
+    equation: 'Equation',
     removeColor: 'Remove color',
   },
   link: {
@@ -82,5 +83,9 @@ export default {
   },
   codeBlock: {
     langType: 'Select language',
+  },
+  equation: {
+    save: 'Done',
+    placeholder: 'Type a TeX expression',
   },
 } satisfies BaseTranslation;

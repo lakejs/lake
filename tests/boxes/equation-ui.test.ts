@@ -1,6 +1,6 @@
 import { showBox } from '../utils';
 
-const code = 'c = \\pm\\sqrt{a^2 + b^2}';
+const code = String.raw`c = \pm\sqrt{a^2 + b^2}`;
 
 describe('boxes / equation-ui', () => {
 
@@ -8,6 +8,7 @@ describe('boxes / equation-ui', () => {
     showBox('equation', {
       code,
     }, box => {
+      box.node.closest('.lake-root').css('height', '200px');
       expect(box.name).to.equal('equation');
     });
   });

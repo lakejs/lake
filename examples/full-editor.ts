@@ -235,6 +235,7 @@ const toolbarItems = [
   emoji,
   specialCharacter,
   'codeBlock',
+  'equation',
   'blockQuote',
   'paragraph',
   'hr',

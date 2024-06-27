@@ -1,6 +1,7 @@
 import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
-import { debug, query } from '../utils';
+import { debug } from '../utils/debug';
+import { query } from '../utils/query';
 import { Dropdown } from '../ui/dropdown';
 
 const config = {

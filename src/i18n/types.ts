@@ -198,6 +198,10 @@ type RootTranslation = {
 		 */
 		emoji: string
 		/**
+		 * E​q​u​a​t​i​o​n
+		 */
+		equation: string
+		/**
 		 * R​e​m​o​v​e​ ​c​o​l​o​r
 		 */
 		removeColor: string
@@ -303,6 +307,16 @@ type RootTranslation = {
 		 * S​e​l​e​c​t​ ​l​a​n​g​u​a​g​e
 		 */
 		langType: string
+	}
+	equation: {
+		/**
+		 * D​o​n​e
+		 */
+		save: string
+		/**
+		 * T​y​p​e​ ​a​n​ ​e​x​p​r​e​s​s​i​o​n
+		 */
+		placeholder: string
 	}
 }
 
@@ -489,6 +503,10 @@ export type TranslationFunctions = {
 		 */
 		emoji: () => LocalizedString
 		/**
+		 * Equation
+		 */
+		equation: () => LocalizedString
+		/**
 		 * Remove color
 		 */
 		removeColor: () => LocalizedString
@@ -594,6 +612,16 @@ export type TranslationFunctions = {
 		 * Select language
 		 */
 		langType: () => LocalizedString
+	}
+	equation: {
+		/**
+		 * Done
+		 */
+		save: () => LocalizedString
+		/**
+		 * Type an expression
+		 */
+		placeholder: () => LocalizedString
 	}
 }
 

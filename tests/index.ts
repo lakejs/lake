@@ -86,6 +86,7 @@ import './boxes/file.test';
 import './boxes/file-ui.test';
 import './boxes/emoji.test';
 import './boxes/emoji-ui.test';
+import './boxes/equation.test';
 import './boxes/equation-ui.test';
 
 // Plugins
@@ -121,6 +122,7 @@ import './plugins/image.test';
 import './plugins/video.test';
 import './plugins/file.test';
 import './plugins/emoji.test';
+import './plugins/equation.test';
 import './plugins/special-character.test';
 import './plugins/markdown.test';
 import './plugins/enter-key.test';

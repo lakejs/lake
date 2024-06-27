@@ -1,5 +1,5 @@
 import { BoxComponent } from '../types/box';
-import { query } from '../utils';
+import { query } from '../utils/query';
 
 export const hrBox: BoxComponent = {
   type: 'block',

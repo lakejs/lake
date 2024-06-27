@@ -275,6 +275,15 @@ export const toolbarItems: ToolbarItem[] = [
     },
   },
   {
+    name: 'equation',
+    type: 'button',
+    icon: icons.get('equation'),
+    tooltip: locale => locale.toolbar.equation(),
+    onClick: (editor, value) => {
+      editor.command.execute(value);
+    },
+  },
+  {
     name: 'heading',
     type: 'dropdown',
     downIcon: icons.get('down'),

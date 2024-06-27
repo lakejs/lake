@@ -1,5 +1,6 @@
 import { BoxComponent } from '../types/box';
-import { query, safeTemplate } from '../utils';
+import { query } from '../utils/query';
+import { safeTemplate } from '../utils/safe-template';
 
 export const emojiBox: BoxComponent = {
   type: 'inline',

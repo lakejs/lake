@@ -48,6 +48,7 @@ export default {
     image: '图片',
     file: '文件',
     emoji: '表情',
+    equation: '公式',
     removeColor: '默认',
   },
   link: {
@@ -82,5 +83,9 @@ export default {
   },
   codeBlock: {
     langType: '选择代码语言',
+  },
+  equation: {
+    save: '确定',
+    placeholder: '输入 TeX 公式',
   },
 } satisfies Translation;
