@@ -37,6 +37,42 @@ describe('boxes / equation', () => {
     click(boxContainer.find('.lake-equation-view'));
   });
 
+  it('should update current expression', () => {
+    const boxContainer = box.getContainer();
+    click(boxContainer.find('.lake-equation-view'));
+    const event = new InputEvent('input', {
+      data: 'x^2',
+      inputType: 'insertText',
+      isComposing: false,
+    });
+    (boxContainer.find('textarea').get(0) as HTMLTextAreaElement).value = 'x^2';
+    boxContainer.find('textarea').emit('input', event);
+    expect(box.value.code).to.equal('x^2');
+  });
+
+  it('should save current expression', () => {
+    const boxContainer = box.getContainer();
+    click(boxContainer.find('.lake-equation-view'));
+    const event = new InputEvent('input', {
+      data: 'x^2',
+      inputType: 'insertText',
+      isComposing: false,
+    });
+    (boxContainer.find('textarea').get(0) as HTMLTextAreaElement).value = 'x^2';
+    boxContainer.find('textarea').emit('input', event);
+    click(boxContainer.find('button[name="save"]'));
+    expect(box.value.code).to.equal('x^2');
+    expect(boxContainer.find('.lake-equation-form').computedCSS('display')).to.equal('none');
+  });
+
+  it('should hide the textarea', () => {
+    const boxContainer = box.getContainer();
+    const boxNode = box.node;
+    click(boxContainer.find('.lake-equation-view'));
+    editor.selection.range.selectBoxEnd(boxNode);
+    expect(boxContainer.find('.lake-equation-form').computedCSS('display')).to.equal('none');
+  });
+
   it('should re-render a box correctly', () => {
     box.render();
     box.render();

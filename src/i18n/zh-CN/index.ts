@@ -86,6 +86,6 @@ export default {
   },
   equation: {
     save: '确定',
-    placeholder: '输入 TeX 公式',
+    placeholder: '请输入 TeX 公式',
   },
 } satisfies Translation;

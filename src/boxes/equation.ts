@@ -62,7 +62,7 @@ export const equationBox: BoxComponent = {
     });
     const button = new Button({
       root: formNode.find('.lake-button-row'),
-      name: 'done',
+      name: 'save',
       type: 'primary',
       text: editor.locale.equation.save(),
       onClick: () => {

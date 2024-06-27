@@ -9,6 +9,7 @@ button.lake-button {
   padding: 0;
   margin: 0 1px;
   line-height: 0;
+  white-space: nowrap;
   cursor: pointer;
   user-select: none;
 }

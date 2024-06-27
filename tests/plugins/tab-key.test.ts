@@ -106,7 +106,23 @@ describe('plugins / tab-key', () => {
     );
   });
 
-  it('block box: the focus i', () => {
+  it('should become native behavior when cursor is in the box', () => {
+    const content = `
+    <p>foo<lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box>bar</p>
+    `;
+    const output = content;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        const range = editor.selection.range;
+        range.setStart(range.startNode, 1);
+        editor.keystroke.keydown('tab');
+      },
+    );
+  });
+
+  it('block box: the focus is on the start', () => {
     const content = `
     <p>foo</p>
     <lake-box type="block" name="hr" focus="start"></lake-box>
