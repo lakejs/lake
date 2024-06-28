@@ -257,6 +257,9 @@ export default (value: string) => {
       if (type === 'error') {
         // eslint-disable-next-line no-alert
         window.alert(message);
+      } if (type === 'warning') {
+        // eslint-disable-next-line no-console
+        console.warn(message);
       } else {
         // eslint-disable-next-line no-console
         console.log(message);

@@ -13,6 +13,7 @@ export const equationBox: BoxComponent = {
     if (!editor) {
       return;
     }
+    const defaultCode = (box.value.code || '').trim();
     const rootNode = query('<div class="lake-equation" />');
     const boxContainer = box.getContainer();
     boxContainer.empty();
@@ -24,16 +25,16 @@ export const equationBox: BoxComponent = {
         return;
       }
       rootNode.addClass('lake-equation-error');
-      rootNode.text(`
-        The equation cannot be displayed because window.katex is not found.
-        Please check if the "katex" library is added to this page.
-      `.trim());
+      rootNode.text(defaultCode);
       rootNode.on('click', () => {
         editor.selection.selectBox(box);
       });
+      editor.config.onMessage('warning', `
+        The box "${box.name}" (id: ${box.node.id}) failed to display because window.katex was not found.
+        Please check if the "katex" library is added to this page.
+      `.trim());
       return;
     }
-    const defaultCode = (box.value.code || '').trim();
     const viewNode = query('<div class="lake-equation-view" />');
     rootNode.append(viewNode);
     viewNode.html(window.katex.renderToString(defaultCode || defaultExpression, {

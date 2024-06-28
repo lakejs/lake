@@ -2,6 +2,9 @@ import type { Editor } from '..';
 import { BoxValue } from '../types/box';
 
 export default (editor: Editor) => {
+  if (!window.katex) {
+    return;
+  }
   if (editor.readonly) {
     return;
   }

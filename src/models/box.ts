@@ -29,7 +29,7 @@ export class Box {
     if (typeof node === 'string') {
       const component = boxes.get(node);
       if (component === undefined) {
-        throw new Error(`Box "${node}" has not been defined yet.`);
+        throw new Error(`The box "${node}" has not been defined yet.`);
       }
       const type = encode(component.type);
       const name = encode(component.name);
@@ -41,7 +41,7 @@ export class Box {
       this.node = query(node);
       const component = boxes.get(this.name);
       if (component === undefined) {
-        throw new Error(`Box "${this.name}" has not been defined yet.`);
+        throw new Error(`The box "${this.name}" has not been defined yet.`);
       }
       if (component.value && !this.node.hasAttr('value')) {
         this.value = component.value;
@@ -74,7 +74,7 @@ export class Box {
       container.removeClass('lake-box-hovered');
     });
     container.on('click', () => {
-      debug(`Box "${this.name}" (id = ${this.node.id}) value:`);
+      debug(`The box "${this.name}" (id = ${this.node.id}) value:`);
       debug(this.value);
     });
     if (this.type === 'block' && this.node.isContentEditable) {
@@ -181,7 +181,7 @@ export class Box {
       container.empty();
       container.append(content);
     }
-    debug(`Box "${this.name}" (id: ${this.node.id}) rendered`);
+    debug(`The box "${this.name}" (id: ${this.node.id}) rendered`);
   }
 
   // Destroys a rendered box.
@@ -190,7 +190,7 @@ export class Box {
     this.event.emit('beforeunmount');
     this.event.removeAllListeners();
     this.node.empty();
-    debug(`Box "${this.name}" (id: ${this.node.id}) unmounted`);
+    debug(`The box "${this.name}" (id: ${this.node.id}) unmounted`);
   }
 
   // Returns a HTML string of the box.
