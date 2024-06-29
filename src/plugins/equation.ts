@@ -11,8 +11,8 @@ export default (editor: Editor) => {
   editor.command.add('equation', {
     execute: (value: BoxValue) => {
       const box = editor.selection.insertBox('equation', value);
+      editor.selection.selectBox(box);
       editor.history.save();
-      box.getContainer().find('.lake-equation-view').emit('click');
     },
   });
 };
