@@ -1,9 +1,32 @@
 import { BoxComponent } from '../types/box';
 import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
+import { Box } from '../models/box';
 import { Button } from '../ui/button';
 
 const defaultExpression = String.raw`\sqrt{x}`;
+
+function renderError(box: Box): void {
+  const editor = box.getEditor();
+  if (!editor) {
+    return;
+  }
+  if (editor.readonly) {
+    box.node.hide();
+    return;
+  }
+  const defaultCode = (box.value.code || '').trim();
+  const rootNode = box.getContainer().find('.lake-equation');
+  rootNode.addClass('lake-equation-error');
+  rootNode.text(defaultCode);
+  rootNode.on('click', () => {
+    editor.selection.selectBox(box);
+  });
+  editor.config.onMessage('warning', `
+    The box "${box.name}" (id: ${box.node.id}) failed to display because window.katex was not found.
+    Please check if the "katex" library is added to this page.
+  `.trim());
+}
 
 export const equationBox: BoxComponent = {
   type: 'inline',
@@ -13,28 +36,16 @@ export const equationBox: BoxComponent = {
     if (!editor) {
       return;
     }
-    const defaultCode = (box.value.code || '').trim();
     const rootNode = query('<div class="lake-equation" />');
     const boxContainer = box.getContainer();
     boxContainer.empty();
     boxContainer.append(rootNode);
     const katex = window.katex;
     if (!katex) {
-      if (editor.readonly) {
-        box.node.hide();
-        return;
-      }
-      rootNode.addClass('lake-equation-error');
-      rootNode.text(defaultCode);
-      rootNode.on('click', () => {
-        editor.selection.selectBox(box);
-      });
-      editor.config.onMessage('warning', `
-        The box "${box.name}" (id: ${box.node.id}) failed to display because window.katex was not found.
-        Please check if the "katex" library is added to this page.
-      `.trim());
+      renderError(box);
       return;
     }
+    const defaultCode = (box.value.code || '').trim();
     const viewNode = query('<div class="lake-equation-view" />');
     rootNode.append(viewNode);
     viewNode.html(window.katex.renderToString(defaultCode || defaultExpression, {

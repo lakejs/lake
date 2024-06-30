@@ -1,5 +1,8 @@
 .lake-equation {
   position: relative;
+  font-weight: normal;
+  border: 1px solid transparent;
+  border-radius: 4px;
 }
 .lake-container[contenteditable="true"] .lake-equation {
   user-select: none;
@@ -14,10 +17,6 @@ lake-box[name="equation"] .lake-box-focused .lake-equation {
   background-color: var(--selection-background-color);
 }
 .lake-equation .lake-equation-view {
-  font-weight: normal;
-  box-sizing: content-box;
-  border: 1px solid transparent;
-  border-radius: 4px;
   padding: 0 6px;
 }
 .lake-equation .lake-equation-form {
@@ -56,6 +55,7 @@ lake-box[name="equation"] .lake-box-activated .lake-equation-form {
 }
 /* error status */
 .lake-equation-error {
+  padding: 0 6px;
   font-size: 14px;
   color: var(--error-color);
   background-color: var(--box-background-color);
