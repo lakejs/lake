@@ -33,9 +33,7 @@ export function setContainerValue(container: Nodes, value: string): Range {
   container.empty();
   value = normalizeValue(value);
   const htmlParser = new HTMLParser(value);
-  for (const node of htmlParser.getNodeList()) {
-    container.append(node);
-  }
+  container.append(htmlParser.getFragment());
   const range = new Range();
   const boxFocus = container.find('lake-box[focus]');
   if (boxFocus.length > 0) {

@@ -169,14 +169,7 @@ export class HTMLParser {
     return html.trim();
   }
 
-  // Returns the result as node list.
-  public getNodeList(): Nodes[] {
-    const html = this.getHTML();
-    const body = this.parseHTML(html);
-    return body.children();
-  }
-
-  // Returns the result as document fragment.
+  // Returns a document fragment.
   public getFragment(): DocumentFragment {
     const html = this.getHTML();
     const body = this.parseHTML(html);

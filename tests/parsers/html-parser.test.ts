@@ -223,15 +223,6 @@ describe('parsers / html-parser', () => {
     expect(htmlParser.getHTML()).to.equal(output);
   });
 
-  it('getNodeList method: should remove comment', () => {
-    container.html('<!-- StartFragment --><p>foo</p><!-- EndFragment -->');
-    const htmlParser = new HTMLParser(container);
-    const nodeList = htmlParser.getNodeList();
-    expect(nodeList.length).to.equal(1);
-    expect(nodeList[0].name).to.equal('p');
-    expect(nodeList[0].html()).to.equal('foo');
-  });
-
   it('getHTML method: should remove all the nodes in the box element', () => {
     const input = '<lake-box type="block" name="image"><h1>\nheading1</h1><b>foo</b></lake-box>';
     const output = '<lake-box type="block" name="image"></lake-box>';
