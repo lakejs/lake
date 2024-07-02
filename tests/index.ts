@@ -140,6 +140,7 @@ import './ui/dropdown.test';
 import './ui/dropdown-ui.test';
 import './ui/link-popup.test';
 import './ui/link-popup-ui.test';
+import './ui/commands-popup.test';
 import './ui/toolbar.test';
 import './ui/box-resizer.test';
 import './ui/box-toolbar.test';

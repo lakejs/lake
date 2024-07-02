@@ -1,0 +1,52 @@
+.lake-commands-popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  box-sizing: content-box;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 4px 8px;
+  width: fit-content;
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--text-color);
+  background-color: #fff;
+  box-shadow: var(--popup-shadow);
+  display: none;
+  height: 380px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+.lake-commands-popup .lake-commands-item {
+  display: flex;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 5px;
+}
+.lake-commands-popup .lake-commands-item-selected {
+  background-color: var(--background-active-color);
+}
+.lake-commands-popup .lake-commands-icon {
+  margin-right: 8px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  background-color: #fff;
+}
+.lake-commands-popup .lake-commands-icon svg {
+  width: 32px;
+  height: 32px;
+  margin: 6px;
+}
+.lake-commands-popup .lake-commands-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.lake-commands-popup .lake-commands-title {
+  font-weight: 500;
+  color: var(--text-color);
+}
+.lake-commands-popup .lake-commands-description {
+  color: var(--secondary-text-color);
+}
