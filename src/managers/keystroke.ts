@@ -1,5 +1,4 @@
-import { createKeybindingsHandler } from 'tinykeys';
-import { camelCase } from '../utils/camel-case';
+import { isKeyHotkey } from 'is-hotkey';
 import { Nodes } from '../models/nodes';
 
 type EventItem = {
@@ -7,8 +6,12 @@ type EventItem = {
   listener: (event: Event) => void | boolean;
 };
 
-const shortenedTypeMap = new Map([
+const aliasMap = new Map([
   ['#', 'shift+#'],
+  ['arrow-left', 'left'],
+  ['arrow-right', 'right'],
+  ['arrow-up', 'up'],
+  ['arrow-down', 'down'],
 ]);
 
 export class Keystroke {
@@ -20,42 +23,47 @@ export class Keystroke {
 
   constructor(container: Nodes) {
     this.container = container;
+    this.container.on('keydown', event => {
+      for (const item of this.keydownEventList) {
+        if (isKeyHotkey(item.type, event as KeyboardEvent)) {
+          if (item.listener(event) === false) {
+            break;
+          }
+        }
+      }
+    });
+    this.container.on('keyup', event => {
+      for (const item of this.keyupEventList) {
+        if (isKeyHotkey(item.type, event as KeyboardEvent)) {
+          if (item.listener(event) === false) {
+            break;
+          }
+        }
+      }
+    });
   }
 
   private normalizeType(type: string) {
-    type = shortenedTypeMap.get(type) ?? type;
-    type = type.replace(/(^|\+|\s)mod(\+|\s|$)/g, '$1$mod$2').
-      replace(/shift|control|alt|meta|enter|tab|backspace|delete|space|escape|arrow-left|arrow-right|arrow-up|arrow-down/,
-        (match: string) => match.charAt(0).toUpperCase() + camelCase(match.substring(1))).
-      replace(/(^|\+|\s)([a-z])(\+|\s|$)/g,
-        (match: string, p1: string, p2: string, p3: string) => `${p1}Key${p2.toUpperCase()}${p3}`);
+    type = aliasMap.get(type) ?? type;
     return type;
   }
 
   // Sets a keydown shortcut.
   public setKeydown(type: string, listener: EventListener) {
     type = this.normalizeType(type);
-    const handler = createKeybindingsHandler({
-      [type]: event => listener(event),
-    });
     this.keydownEventList.push({
       type,
       listener,
     });
-    this.container.on('keydown', handler);
   }
 
   // Sets a keyup shortcut.
   public setKeyup(type: string, listener: EventListener) {
     type = this.normalizeType(type);
-    const handler = createKeybindingsHandler({
-      [type]: event => listener(event),
-    });
     this.keyupEventList.push({
       type,
       listener,
     });
-    this.container.on('keyup', handler);
   }
 
   // Executes the keydown shortcuts.

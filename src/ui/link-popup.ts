@@ -1,4 +1,4 @@
-import { createKeybindingsHandler } from 'tinykeys';
+import { isKeyHotkey } from 'is-hotkey';
 import { TranslationFunctions } from '../i18n/types';
 import { icons } from '../icons';
 import { safeTemplate } from '../utils/safe-template';
@@ -151,18 +151,18 @@ export class LinkPopup {
       },
     });
     button.render();
-    this.container.find('input[name="url"]').on('keydown', createKeybindingsHandler({
-      'Enter': event => {
+    this.container.find('input[name="url"]').on('keydown', event => {
+      if (isKeyHotkey('enter', event as KeyboardEvent)) {
         event.preventDefault();
         button.node.emit('click');
-      },
-    }));
-    this.container.find('input[name="title"]').on('keydown', createKeybindingsHandler({
-      'Enter': event => {
+      }
+    });
+    this.container.find('input[name="title"]').on('keydown', event => {
+      if (isKeyHotkey('enter', event as KeyboardEvent)) {
         event.preventDefault();
         button.node.emit('click');
-      },
-    }));
+      }
+    });
   }
 
   // Remove link

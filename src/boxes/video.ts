@@ -1,4 +1,4 @@
-import { createKeybindingsHandler } from 'tinykeys';
+import { isKeyHotkey } from 'is-hotkey';
 import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
 import { query } from '../utils/query';
@@ -148,12 +148,12 @@ export const videoBox: BoxComponent = {
           showVideo(box);
         },
       });
-      formNode.find('input[name="url"]').on('keydown', createKeybindingsHandler({
-        'Enter': event => {
+      formNode.find('input[name="url"]').on('keydown', event => {
+        if (isKeyHotkey('enter', event as KeyboardEvent)) {
           event.preventDefault();
           button.node.emit('click');
-        },
-      }));
+        }
+      });
       button.render();
       rootNode.append(formNode);
       appendButtonGroup(box);

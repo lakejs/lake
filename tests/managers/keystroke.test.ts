@@ -21,18 +21,12 @@ describe('managers / keystroke', () => {
     keystroke.setKeydown('mod+b', () => container.html('mod+b'));
     keystroke.keydown('mod+b');
     expect(container.html()).to.equal('mod+b');
-    container.html('<p>foo</p>');
-    keystroke.keydown('$mod+KeyB');
-    expect(container.html()).to.equal('mod+b');
   });
 
   it('sets mod+shift+x and then emits it', () => {
     const keystroke = new Keystroke(container);
     keystroke.setKeydown('mod+shift+x', () => container.html('mod+shift+x'));
     keystroke.keydown('mod+shift+x');
-    expect(container.html()).to.equal('mod+shift+x');
-    container.html('<p>foo</p>');
-    keystroke.keydown('$mod+Shift+KeyX');
     expect(container.html()).to.equal('mod+shift+x');
   });
 
@@ -41,17 +35,11 @@ describe('managers / keystroke', () => {
     keystroke.setKeydown('enter', () => container.html('enter'));
     keystroke.keydown('enter');
     expect(container.html()).to.equal('enter');
-    container.html('<p>foo</p>');
-    keystroke.keydown('Enter');
-    expect(container.html()).to.equal('enter');
   });
 
   it('sets arrow-left and then emits it', () => {
     const keystroke = new Keystroke(container);
     keystroke.setKeydown('arrow-left', () => container.html('arrow-left'));
-    keystroke.keydown('arrow-left');
-    expect(container.html()).to.equal('arrow-left');
-    container.html('<p>foo</p>');
     keystroke.keydown('arrow-left');
     expect(container.html()).to.equal('arrow-left');
   });
@@ -60,9 +48,6 @@ describe('managers / keystroke', () => {
     const keystroke = new Keystroke(container);
     keystroke.setKeydown('mod+]', () => container.html('mod+]'));
     keystroke.keydown('mod+]');
-    expect(container.html()).to.equal('mod+]');
-    container.html('<p>foo</p>');
-    keystroke.keydown('$mod+]');
     expect(container.html()).to.equal('mod+]');
   });
 
