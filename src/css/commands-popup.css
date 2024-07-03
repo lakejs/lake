@@ -21,7 +21,7 @@
 .lake-commands-popup .lake-commands-item {
   display: flex;
   cursor: pointer;
-  padding: 8px 16px;
+  padding: 4px 8px;
   border-radius: 5px;
 }
 .lake-commands-popup .lake-commands-item-selected {
@@ -41,7 +41,7 @@
 .lake-commands-popup .lake-commands-text {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 .lake-commands-popup .lake-commands-title {
   font-weight: 500;
