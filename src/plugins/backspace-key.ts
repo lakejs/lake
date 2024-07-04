@@ -136,7 +136,8 @@ export default (editor: Editor) => {
       editor.history.save();
       return;
     }
-    if (prevNode.name === 'br' && prevNode.prev().length > 0) {
+    const nextNode = range.getNextNode();
+    if (prevNode.name === 'br' && nextNode.length > 0) {
       event.preventDefault();
       range.setStartBefore(prevNode);
       range.collapseToStart();

@@ -671,7 +671,7 @@ describe('plugins / backspace-key', () => {
     `;
     const output = `
     <p>foo</p>
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus /></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus /><br /></p>
     `;
     testPlugin(
       content,
