@@ -3,7 +3,7 @@ import { Nodes } from '../models/nodes';
 
 type EventItem = {
   type: string;
-  listener: (event: Event) => void | boolean;
+  listener: (event: KeyboardEvent) => void | boolean;
 };
 
 const aliasMap = new Map([
@@ -24,18 +24,20 @@ export class Keystroke {
   constructor(container: Nodes) {
     this.container = container;
     this.container.on('keydown', event => {
+      const keyboardEvent = event as KeyboardEvent;
       for (const item of this.keydownEventList) {
-        if (isKeyHotkey(item.type, event as KeyboardEvent)) {
-          if (item.listener(event) === false) {
+        if (isKeyHotkey(item.type, keyboardEvent)) {
+          if (item.listener(keyboardEvent) === false) {
             break;
           }
         }
       }
     });
     this.container.on('keyup', event => {
+      const keyboardEvent = event as KeyboardEvent;
       for (const item of this.keyupEventList) {
-        if (isKeyHotkey(item.type, event as KeyboardEvent)) {
-          if (item.listener(event) === false) {
+        if (isKeyHotkey(item.type, keyboardEvent)) {
+          if (item.listener(keyboardEvent) === false) {
             break;
           }
         }
@@ -71,7 +73,7 @@ export class Keystroke {
     type = this.normalizeType(type);
     for (const item of this.keydownEventList) {
       if (item.type === type) {
-        if (item.listener(new Event(type)) === false) {
+        if (item.listener(new KeyboardEvent(type)) === false) {
           break;
         }
       }
@@ -83,7 +85,7 @@ export class Keystroke {
     type = this.normalizeType(type);
     for (const item of this.keyupEventList) {
       if (item.type === type) {
-        if (item.listener(new Event(type)) === false) {
+        if (item.listener(new KeyboardEvent(type)) === false) {
           break;
         }
       }
