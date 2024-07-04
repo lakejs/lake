@@ -125,7 +125,7 @@ describe('editor', () => {
       placeholder: 'Add your Add your comment here...',
     });
     editor.render();
-    expect(editor.container.hasClass('lake-show-placeholder')).to.equal(true);
+    expect(editor.container.hasClass('lake-placeholder')).to.equal(true);
     editor.unmount();
   });
 
@@ -136,7 +136,7 @@ describe('editor', () => {
       placeholder: 'Add your Add your comment here...',
     });
     editor.render();
-    expect(editor.container.hasClass('lake-show-placeholder')).to.equal(true);
+    expect(editor.container.hasClass('lake-placeholder')).to.equal(true);
     editor.unmount();
   });
 
@@ -147,7 +147,7 @@ describe('editor', () => {
       placeholder: 'Add your Add your comment here...',
     });
     editor.render();
-    expect(editor.container.hasClass('lake-show-placeholder')).to.equal(false);
+    expect(editor.container.hasClass('lake-placeholder')).to.equal(false);
     editor.unmount();
   });
 
@@ -440,7 +440,7 @@ describe('editor', () => {
     debug(`output: ${value}`);
     editor.unmount();
     expect(value).to.equal(output);
-    expect(editor.container.hasClass('lake-show-placeholder')).to.equal(false);
+    expect(editor.container.hasClass('lake-placeholder')).to.equal(false);
   });
 
   it('setValue method: set empty content', () => {
@@ -455,7 +455,7 @@ describe('editor', () => {
     debug(`output: ${value}`);
     editor.unmount();
     expect(value).to.equal(output);
-    expect(editor.container.hasClass('lake-show-placeholder')).to.equal(true);
+    expect(editor.container.hasClass('lake-placeholder')).to.equal(true);
   });
 
   it('box class: should not have any classes after rendering editor', () => {
@@ -751,18 +751,18 @@ describe('editor', () => {
       value: '<p><br /><focus /></p>',
     });
     editor.render();
-    expect(editor.container.hasClass('lake-show-placeholder')).to.equal(true);
+    expect(editor.container.hasClass('lake-placeholder')).to.equal(true);
     let calledCount = 0;
     editor.event.on('change', (value: string) => {
       calledCount++;
       if (calledCount === 1) {
         expect(value).to.equal('<p>a<focus /></p>');
-        expect(editor.container.hasClass('lake-show-placeholder')).to.equal(false);
+        expect(editor.container.hasClass('lake-placeholder')).to.equal(false);
         deleteContentBackward(editor);
       }
       if (calledCount === 2) {
         expect(value).to.equal('<p><br /><focus /></p>');
-        expect(editor.container.hasClass('lake-show-placeholder')).to.equal(true);
+        expect(editor.container.hasClass('lake-placeholder')).to.equal(true);
         editor.unmount();
         done();
       }

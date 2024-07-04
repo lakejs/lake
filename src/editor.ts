@@ -301,7 +301,7 @@ export class Editor {
   // Adds or Removes a placeholder class.
   private togglePlaceholderClass(value: string) {
     value = denormalizeValue(value);
-    const className = 'lake-show-placeholder';
+    const className = 'lake-placeholder';
     if (value.replace('<focus />', '') === '<p><br /></p>') {
       this.container.addClass(className);
     } else {
@@ -362,6 +362,9 @@ export class Editor {
         }
         // isComposing is false after ending composition because compositionend event has been emitted.
         if (this.isComposing) {
+          if (inputEvent.inputType === 'insertCompositionText') {
+            this.container.removeClass('lake-placeholder');
+          }
           this.event.emit('input', inputEvent);
           return;
         }
