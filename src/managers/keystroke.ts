@@ -7,7 +7,6 @@ type EventItem = {
 };
 
 const aliasMap = new Map([
-  ['#', 'shift+#'],
   ['arrow-left', 'left'],
   ['arrow-right', 'right'],
   ['arrow-up', 'up'],
