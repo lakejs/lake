@@ -155,7 +155,7 @@ describe('plugins / markdown', () => {
     <p>#<focus /></p>
     `;
     const output = `
-    <h1><br /><focus /></h1>
+    <h1><focus /><br /></h1>
     `;
     testPlugin(
       content,
@@ -171,7 +171,7 @@ describe('plugins / markdown', () => {
     <p>#<focus /></p>
     `;
     const output = `
-    <h1><br /><focus /></h1>
+    <h1><focus /><br /></h1>
     `;
     testPlugin(
       content,
@@ -525,7 +525,7 @@ describe('plugins / markdown', () => {
     <p>:::info<focus /></p>
     `;
     const output = `
-    <blockquote type="info"><br /><focus /></blockquote>
+    <blockquote type="info"><focus /><br /></blockquote>
     `;
     testPlugin(
       content,
@@ -541,7 +541,7 @@ describe('plugins / markdown', () => {
     <p>:::tip<focus /></p>
     `;
     const output = `
-    <blockquote type="tip"><br /><focus /></blockquote>
+    <blockquote type="tip"><focus /><br /></blockquote>
     `;
     testPlugin(
       content,
@@ -557,7 +557,7 @@ describe('plugins / markdown', () => {
     <p>:::warning<focus /></p>
     `;
     const output = `
-    <blockquote type="warning"><br /><focus /></blockquote>
+    <blockquote type="warning"><focus /><br /></blockquote>
     `;
     testPlugin(
       content,
@@ -573,7 +573,7 @@ describe('plugins / markdown', () => {
     <p>:::danger<focus /></p>
     `;
     const output = `
-    <blockquote type="danger"><br /><focus /></blockquote>
+    <blockquote type="danger"><focus /><br /></blockquote>
     `;
     testPlugin(
       content,
@@ -589,7 +589,7 @@ describe('plugins / markdown', () => {
     <p>:::invalid<focus /></p>
     `;
     const output = `
-    <blockquote><br /><focus /></blockquote>
+    <blockquote><focus /><br /></blockquote>
     `;
     testPlugin(
       content,
@@ -605,7 +605,7 @@ describe('plugins / markdown', () => {
     <p>::::info<focus /></p>
     `;
     const output = `
-    <blockquote type="info"><br /><focus /></blockquote>
+    <blockquote type="info"><focus /><br /></blockquote>
     `;
     testPlugin(
       content,
@@ -622,7 +622,7 @@ describe('plugins / markdown', () => {
     `;
     const output = `
     <p>::info</p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -671,7 +671,7 @@ describe('plugins / markdown', () => {
     `;
     const output = `
     <p>--</p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -704,7 +704,7 @@ describe('plugins / markdown', () => {
     `;
     const output = `
     <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box>---</p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -721,7 +721,7 @@ describe('plugins / markdown', () => {
     `;
     const output = `
     <blockquote>---</blockquote>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -765,7 +765,7 @@ describe('plugins / markdown', () => {
 
   it('keystroke: should not insert codeBlock when codeBlock command does not exist', () => {
     const content = '<p>```<focus /></p>';
-    const output = '<p>```</p><p><br /><focus /></p>';
+    const output = '<p>```</p><p><focus /><br /></p>';
     testPlugin(
       content,
       output,
@@ -834,7 +834,7 @@ describe('plugins / markdown', () => {
     const content = '<p>``js<focus /></p>';
     const output = `
     <p>\`\`js</p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,

@@ -207,7 +207,7 @@ describe('editor', () => {
 
   it('fixContent method: no content', () => {
     const input = '';
-    const output = '<p><br /><focus /></p>';
+    const output = '<p><focus /><br /></p>';
     const editor = new Editor({
       root: rootNode,
       value: '<p>foo</p>',
@@ -233,7 +233,7 @@ describe('editor', () => {
 
   it('fixContent method: br', () => {
     const input = '<br />';
-    const output = '<p><br /><focus /></p>';
+    const output = '<p><focus /><br /></p>';
     const editor = new Editor({
       root: rootNode,
     });
@@ -255,7 +255,7 @@ describe('editor', () => {
 
   it('fixContent method: br and empty mark', () => {
     const input = '<br /><span></span>';
-    const output = '<p><br /><focus /></p>';
+    const output = '<p><focus /><br /></p>';
     const editor = new Editor({
       root: rootNode,
     });
@@ -277,7 +277,7 @@ describe('editor', () => {
 
   it('fixContent method: br and empty block', () => {
     const input = '<br /><p></p>';
-    const output = '<p><br /><focus /></p>';
+    const output = '<p><focus /><br /></p>';
     const editor = new Editor({
       root: rootNode,
     });
@@ -295,6 +295,23 @@ describe('editor', () => {
     expect(value).to.equal(output);
     expect(getContainerValue(editor.history.list[editor.history.index - 1])).to.equal(output);
     expect(currentValue).to.equal(output);
+  });
+
+  it('fixContent method: caret', () => {
+    const input = '<p><br /><focus /></p>';
+    const output = '<p><focus /><br /></p>';
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p>foo</p>',
+    });
+    editor.render();
+    editor.focus();
+    editor.setValue(input);
+    editor.history.save();
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
   });
 
   it('setPluginConfig method: plugin config is not set', () => {

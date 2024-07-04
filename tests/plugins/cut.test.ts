@@ -74,7 +74,7 @@ describe('plugins / cut', () => {
     `;
     const output = `
     <p>top</p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     <p>bottom</p>
     `;
     testPlugin(

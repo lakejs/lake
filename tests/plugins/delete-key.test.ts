@@ -9,7 +9,7 @@ describe('plugins / delete-key', () => {
     <focus />
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -25,7 +25,7 @@ describe('plugins / delete-key', () => {
     <focus /><br /><p></p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -38,10 +38,10 @@ describe('plugins / delete-key', () => {
 
   it('empty paragraph', () => {
     const content = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -86,11 +86,11 @@ describe('plugins / delete-key', () => {
 
   it('merges empty paragraphs', () => {
     const content = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     <p><br /></p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -172,7 +172,7 @@ describe('plugins / delete-key', () => {
 
   it('should remove empty paragraph when the next block is a box', () => {
     const content = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     <lake-box type="block" name="hr"></lake-box>
     `;
     const output = `
@@ -210,7 +210,7 @@ describe('plugins / delete-key', () => {
     <p>foo</p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     <p>foo</p>
     `;
     testPlugin(
@@ -246,7 +246,7 @@ describe('plugins / delete-key', () => {
     <p>foo</p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     <p>foo</p>
     `;
     testPlugin(
@@ -323,7 +323,7 @@ describe('plugins / delete-key', () => {
     `;
     const output = `
     <p>foo</p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -341,7 +341,7 @@ describe('plugins / delete-key', () => {
     `;
     const output = `
     <p>foo</p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -391,7 +391,7 @@ describe('plugins / delete-key', () => {
     <anchor /><p>foo</p><focus />
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,

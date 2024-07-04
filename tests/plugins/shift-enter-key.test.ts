@@ -9,7 +9,7 @@ describe('plugins / shift-enter-key', () => {
     <focus />
     `;
     const output = `
-    <p><br /><br /><focus /></p>
+    <p><br /><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -25,7 +25,7 @@ describe('plugins / shift-enter-key', () => {
     <focus /><br /><p></p>
     `;
     const output = `
-    <p><br /><br /><focus /></p>
+    <p><br /><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -41,7 +41,7 @@ describe('plugins / shift-enter-key', () => {
     <p><br /><focus /></p>
     `;
     const output = `
-    <p><br /><br /><focus /></p>
+    <p><br /><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -73,7 +73,7 @@ describe('plugins / shift-enter-key', () => {
     <p>foo<focus /></p>
     `;
     const output = `
-    <p>foo<br /><br /><focus /></p>
+    <p>foo<br /><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -86,10 +86,10 @@ describe('plugins / shift-enter-key', () => {
 
   it('the focus is at the end of the text (2)', () => {
     const content = `
-    <p>foo<br /><br /><focus /></p>
+    <p>foo<br /><focus /><br /></p>
     `;
     const output = `
-    <p>foo<br /><br /><br /><focus /></p>
+    <p>foo<br /><br /><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -142,7 +142,7 @@ describe('plugins / shift-enter-key', () => {
     `;
     const output = `
     <lake-box type="block" name="hr"></lake-box>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -177,7 +177,7 @@ describe('plugins / shift-enter-key', () => {
     <p>foo</p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     <p>foo</p>
     `;
     testPlugin(
@@ -210,7 +210,7 @@ describe('plugins / shift-enter-key', () => {
     <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="end"></lake-box></p>
     `;
     const output = `
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><br /><br /><focus /></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><br /><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -226,7 +226,7 @@ describe('plugins / shift-enter-key', () => {
     <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><focus /></p>
     `;
     const output = `
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><br /><br /><focus /></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><br /><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -242,7 +242,7 @@ describe('plugins / shift-enter-key', () => {
     <p><lake-box type="inline" name="image" value="${imageBoxValue}" focus="center"></lake-box></p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,

@@ -355,7 +355,7 @@ export class Editor {
     this.container.on('beforeinput', event => {
       const inputEvent = event as InputEvent;
       // <p><br /><focus /></p>
-      // When the caret is positioned behind a br tag, the input event is triggered twice after inserting a sharp(#) in composition mode.
+      // When the caret is positioned behind a <br> tag, the input event is triggered twice after inserting a sharp(#) in composition mode.
       if (this.isComposing && inputEvent.inputType === 'insertText') {
         inputEvent.preventDefault();
         this.isComposing = false;
@@ -464,6 +464,7 @@ export class Editor {
 
   // Fixes wrong content, especially empty tag.
   public fixContent(): boolean {
+    const range = this.selection.range;
     let changed = false;
     let children = this.container.children();
     for (const child of children) {
@@ -476,7 +477,7 @@ export class Editor {
     children = this.container.children();
     if (children.length === 0) {
       this.container.html('<p><br /></p>');
-      this.selection.range.shrinkAfter(this.container);
+      range.shrinkAfter(this.container);
       changed = true;
       debug('Content fixed: default paragraph was added');
     } else if (children.length === 1) {
@@ -485,9 +486,21 @@ export class Editor {
         const paragraph = query('<p />');
         child.before(paragraph);
         paragraph.append(child);
-        this.selection.range.shrinkAfter(paragraph);
+        range.shrinkAfter(paragraph);
         changed = true;
         debug(`Content fixed: void element "${child.name}" was wrapped in paragraph`);
+      }
+    }
+    // In composition mode (e.g., when a user starts entering a Chinese character using a Pinyin IME),
+    // uncompleted text is inserted if the caret is positioned behind a <br> tag.
+    // To fix this bug, the caret needs to be moved to the front of the <br> tag.
+    if (range.isCollapsed) {
+      const prevNode = range.getPrevNode();
+      const nextNode = range.getNextNode();
+      if (prevNode.name === 'br' && nextNode.length === 0) {
+        range.setStartBefore(prevNode);
+        range.collapseToStart();
+        debug('Range fixed: the caret has been moved to the front of the <br> tag');
       }
     }
     return changed;

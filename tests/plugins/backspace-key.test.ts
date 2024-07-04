@@ -9,7 +9,7 @@ describe('plugins / backspace-key', () => {
     <focus />
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -25,7 +25,7 @@ describe('plugins / backspace-key', () => {
     <focus /><br /><p></p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -38,10 +38,10 @@ describe('plugins / backspace-key', () => {
 
   it('empty paragraph', () => {
     const content = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -54,10 +54,10 @@ describe('plugins / backspace-key', () => {
 
   it('should delete br without text', () => {
     const content = `
-    <p><br /><br /><focus /></p>
+    <p><br /><focus /><br /></p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -73,7 +73,7 @@ describe('plugins / backspace-key', () => {
     <p>foo<br /><br /><focus /></p>
     `;
     const output = `
-    <p>foo<br /><focus /></p>
+    <p>foo<focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -89,7 +89,7 @@ describe('plugins / backspace-key', () => {
     <p>f<focus /></p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -121,7 +121,7 @@ describe('plugins / backspace-key', () => {
     <h1><br /><focus /></h1>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -175,10 +175,10 @@ describe('plugins / backspace-key', () => {
   it('merges empty paragraphs', () => {
     const content = `
     <p><br /></p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -209,7 +209,7 @@ describe('plugins / backspace-key', () => {
   it('merges empty paragraph into heading', () => {
     const content = `
     <h1>foo</h1>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     const output = `
     <h1>foo<focus /></h1>
@@ -316,7 +316,7 @@ describe('plugins / backspace-key', () => {
     `;
     const output = `
     <p>foo</p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -403,7 +403,7 @@ describe('plugins / backspace-key', () => {
     <p><focus /><br /></p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -435,7 +435,7 @@ describe('plugins / backspace-key', () => {
   it('should remove empty paragraph when the previous block is a box', () => {
     const content = `
     <lake-box type="block" name="hr"></lake-box>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     const output = `
     <lake-box type="block" name="hr" focus="end"></lake-box>
@@ -541,7 +541,7 @@ describe('plugins / backspace-key', () => {
     `;
     const output = `
     <p>foo</p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -559,7 +559,7 @@ describe('plugins / backspace-key', () => {
     `;
     const output = `
     <p>foo</p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -635,7 +635,7 @@ describe('plugins / backspace-key', () => {
     `;
     const output = `
     <p>foo</p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -653,7 +653,7 @@ describe('plugins / backspace-key', () => {
     `;
     const output = `
     <p>foo</p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -667,7 +667,7 @@ describe('plugins / backspace-key', () => {
   it('should remove br after inline box', () => {
     const content = `
     <p>foo</p>
-    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><br /><focus /></p>
+    <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box><br /><focus /><br /></p>
     `;
     const output = `
     <p>foo</p>
@@ -703,7 +703,7 @@ describe('plugins / backspace-key', () => {
     <anchor /><p>foo</p><focus />
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -779,7 +779,7 @@ describe('plugins / backspace-key', () => {
     `;
     const output = `
     <p>foo</p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,

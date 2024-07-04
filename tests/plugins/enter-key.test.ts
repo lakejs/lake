@@ -10,7 +10,7 @@ describe('plugins / enter-key', () => {
     `;
     const output = `
     <p><br /></p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -27,7 +27,7 @@ describe('plugins / enter-key', () => {
     `;
     const output = `
     <p><br /></p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -40,11 +40,11 @@ describe('plugins / enter-key', () => {
 
   it('paragraph: empty paragraph', () => {
     const content = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     const output = `
     <p><br /></p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -95,7 +95,7 @@ describe('plugins / enter-key', () => {
     `;
     const output = `
     <p>foo</p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -129,7 +129,7 @@ describe('plugins / enter-key', () => {
     `;
     const output = `
     <h1>foo</h1>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -163,7 +163,7 @@ describe('plugins / enter-key', () => {
     `;
     const output = `
     <h1><br /></h1>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -181,7 +181,7 @@ describe('plugins / enter-key', () => {
     `;
     const output = `
     <h1><br /></h1>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     <h2>bar</h2>
     `;
     testPlugin(
@@ -200,7 +200,7 @@ describe('plugins / enter-key', () => {
     `;
     const output = `
     <h1><br /></h1>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     <h2>bar</h2>
     `;
     testPlugin(
@@ -218,7 +218,7 @@ describe('plugins / enter-key', () => {
     `;
     const output = `
     <blockquote>foo</blockquote>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -266,11 +266,11 @@ describe('plugins / enter-key', () => {
   it('list: empty content', () => {
     const content = `
     <ul><li>foo</li></ul>
-    <ul><li><br /><focus /></li></ul>
+    <ul><li><focus /><br /></li></ul>
     `;
     const output = `
     <ul><li>foo</li></ul>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -284,11 +284,11 @@ describe('plugins / enter-key', () => {
   it('list: with empty content, should remove indent attribute', () => {
     const content = `
     <ul indent="1"><li>foo</li></ul>
-    <ul indent="2"><li><br /><focus /></li></ul>
+    <ul indent="2"><li><focus /><br /></li></ul>
     `;
     const output = `
     <ul indent="1"><li>foo</li></ul>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -322,7 +322,7 @@ describe('plugins / enter-key', () => {
     `;
     const output = `
     <ul type="checklist"><li value="true">foo</li></ul>
-    <ul type="checklist"><li value="false"><br /><focus /></li></ul>
+    <ul type="checklist"><li value="false"><focus /><br /></li></ul>
     `;
     testPlugin(
       content,
@@ -375,7 +375,7 @@ describe('plugins / enter-key', () => {
     `;
     const output = `
     <lake-box type="block" name="hr"></lake-box>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -430,7 +430,7 @@ describe('plugins / enter-key', () => {
     <p>foo</p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     <p>foo</p>
     `;
     testPlugin(
@@ -485,7 +485,7 @@ describe('plugins / enter-key', () => {
     `;
     const output = `
     <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
@@ -522,7 +522,7 @@ describe('plugins / enter-key', () => {
     `;
     const output = `
     <p><lake-box type="inline" name="image" value="${imageBoxValue}"></lake-box></p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     <p>foo</p>
     `;
     testPlugin(
@@ -540,7 +540,7 @@ describe('plugins / enter-key', () => {
     <p>foo</p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     <p>foo</p>
     `;
     testPlugin(

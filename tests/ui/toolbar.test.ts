@@ -71,7 +71,7 @@ describe('ui / toolbar', () => {
     editor = new Editor({
       root: rootNode.find('.lake-root'),
       toolbar,
-      value: '<p><br /><focus /></p>',
+      value: '<p><focus /><br /></p>',
     });
     editor.render();
   });
@@ -83,7 +83,7 @@ describe('ui / toolbar', () => {
 
   it('undo: clicks button', () => {
     editor.command.execute('heading', 'h2');
-    expect(editor.getValue()).to.equal('<h2><br /><focus /></h2>');
+    expect(editor.getValue()).to.equal('<h2><focus /><br /></h2>');
     const buttonNode = toolbar.container.find('button[name="undo"]');
     buttonNode.emit('mouseenter');
     expect(buttonNode.hasClass('lake-button-hovered')).to.equal(true);
@@ -92,17 +92,17 @@ describe('ui / toolbar', () => {
     click(buttonNode);
     const value = editor.getValue();
     debug(`output: ${value}`);
-    expect(value).to.equal('<p><br /><focus /></p>');
+    expect(value).to.equal('<p><focus /><br /></p>');
   });
 
   it('redo: clicks button', () => {
     editor.command.execute('heading', 'h2');
-    expect(editor.getValue()).to.equal('<h2><br /><focus /></h2>');
+    expect(editor.getValue()).to.equal('<h2><focus /><br /></h2>');
     click(toolbar.container.find('button[name="undo"]'));
     click(toolbar.container.find('button[name="redo"]'));
     const value = editor.getValue();
     debug(`output: ${value}`);
-    expect(value).to.equal('<h2><br /><focus /></h2>');
+    expect(value).to.equal('<h2><focus /><br /></h2>');
   });
 
   it('heading: selects an item and updates state', done => {
@@ -123,23 +123,23 @@ describe('ui / toolbar', () => {
     click(toolbar.container.find('div[name="heading"] li[value="h3"]'));
     const value = editor.getValue();
     debug(`output: ${value}`);
-    expect(value).to.equal('<h3><br /><focus /></h3>');
+    expect(value).to.equal('<h3><focus /><br /></h3>');
   });
 
   it('paragraph: clicks button', () => {
-    editor.setValue('<h3><br /><focus /></h3>');
+    editor.setValue('<h3><focus /><br /></h3>');
     click(toolbar.container.find('button[name="paragraph"]'));
     const value = editor.getValue();
     debug(`output: ${value}`);
-    expect(value).to.equal('<p><br /><focus /></p>');
+    expect(value).to.equal('<p><focus /><br /></p>');
   });
 
   it('blockQuote: clicks button', () => {
-    editor.setValue('<p><br /><focus /></p>');
+    editor.setValue('<p><focus /><br /></p>');
     click(toolbar.container.find('button[name="blockQuote"]'));
     const value = editor.getValue();
     debug(`output: ${value}`);
-    expect(value).to.equal('<blockquote><br /><focus /></blockquote>');
+    expect(value).to.equal('<blockquote><focus /><br /></blockquote>');
   });
 
   it('fontFamily: selects an item and updates state', done => {
@@ -482,7 +482,7 @@ describe('ui / toolbar', () => {
   });
 
   it('hr: clicks button', () => {
-    editor.setValue('<p><br /><focus /></p>');
+    editor.setValue('<p><focus /><br /></p>');
     click(toolbar.container.find('button[name="hr"]'));
     const value = editor.getValue();
     debug(`output: ${value}`);
@@ -490,7 +490,7 @@ describe('ui / toolbar', () => {
   });
 
   it('video: clicks button', () => {
-    editor.setValue('<p><br /><focus /></p>');
+    editor.setValue('<p><focus /><br /></p>');
     click(toolbar.container.find('button[name="video"]'));
     const value = editor.getValue();
     debug(`output: ${value}`);
@@ -498,7 +498,7 @@ describe('ui / toolbar', () => {
   });
 
   it('codeBlock: clicks button', () => {
-    editor.setValue('<p><br /><focus /></p>');
+    editor.setValue('<p><focus /><br /></p>');
     click(toolbar.container.find('button[name="codeBlock"]'));
     const value = editor.getValue();
     debug(`output: ${value}`);

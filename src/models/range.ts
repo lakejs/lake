@@ -149,7 +149,7 @@ export class Range {
           range.setStart(range.startNode, range.startOffset - 1);
           reference = 'right';
         }
-      } else {
+      } else if (range.startNode.isText) {
         const text = range.startNode.text();
         if (range.startOffset < text.length) {
           range.setEnd(range.startNode, range.startOffset + 1);
