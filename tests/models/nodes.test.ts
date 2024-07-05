@@ -172,14 +172,28 @@ describe('models / nodes', () => {
     expect(container.find('p').isIndivisible).to.equal(false);
   });
 
-  it('property: isEmpty', () => {
-    const container = query('<div contenteditable="true"><strong></strong><i>\u200B</i><u>\u2060</u><lake-box><div class="lake-box-container"><hr /></div></lake-box><p><lake-box></lake-box></p></div>');
+  it('isEmpty property: mark or text', () => {
+    const container = query('<div contenteditable="true"><strong></strong><i>\u200B</i><u>\u2060</u></div>');
     expect(container.find('strong').isEmpty).to.equal(true);
     expect(container.find('i').isEmpty).to.equal(true);
     expect(container.find('i').first().isEmpty).to.equal(true);
     expect(container.find('u').isEmpty).to.equal(true);
+  });
+
+  it('isEmpty property: box', () => {
+    const container = query('<div contenteditable="true"><lake-box><div class="lake-box-container"><hr /></div></lake-box></div>');
     expect(container.find('lake-box').isEmpty).to.equal(false);
+  });
+
+  it('isEmpty property: block includes a box', () => {
+    const container = query('<div contenteditable="true"><p><lake-box></lake-box></p></div>');
     expect(container.find('p').isEmpty).to.equal(false);
+  });
+
+  it('isEmpty property: block includes br nodes', () => {
+    const container = query('<div contenteditable="true"><p><br /></p><p><br /><br /></p></div>');
+    expect(container.find('p').eq(0).isEmpty).to.equal(true);
+    expect(container.find('p').eq(1).isEmpty).to.equal(false);
   });
 
   it('method: isSibling', () => {

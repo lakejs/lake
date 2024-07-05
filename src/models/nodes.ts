@@ -205,10 +205,18 @@ export class Nodes {
     }
     const nodeText = this.text();
     const isEmptyText = nodeText === '' || /^[\r\n\u200B\u2060]+$/.test(nodeText);
-    if (this.isElement && isEmptyText) {
-      return this.find('lake-box').length === 0;
+    if (!isEmptyText) {
+      return false;
     }
-    return isEmptyText;
+    if (this.isElement) {
+      if (this.find('lake-box').length > 0) {
+        return false;
+      }
+      if (this.find('br').length > 1) {
+        return false;
+      }
+    }
+    return true;
   }
 
   // Returns a boolean value indicating whether the node and the target node are siblings.
