@@ -52,7 +52,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('should delete br without text', () => {
+  it('should delete a br without text', () => {
     const content = `
     <p><br /><focus /><br /></p>
     `;
@@ -68,12 +68,79 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('should delete br with text', () => {
+  it('should delete a br with text', () => {
     const content = `
-    <p>foo<br /><br /><focus /></p>
+    <p>foo<br /><focus /><br /></p>
     `;
     const output = `
     <p>foo<focus /><br /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should delete a br that is part of a sequence of br nodes (1)', () => {
+    const content = `
+    <p>foo<br /><br /><focus /><br /></p>
+    `;
+    const output = `
+    <p>foo<br /><focus /><br /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should delete a br that is part of a sequence of br nodes (2)', () => {
+    const content = `
+    <p>foo<br /><br /><br /><focus /><br /><br /></p>
+    `;
+    const output = `
+    <p>foo<br /><br /><focus /><br /><br /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should delete a br that is part of a sequence of br nodes (3)', () => {
+    const content = `
+    <h1>foo</h1>
+    <p><focus /><br /><br /></p>
+    `;
+    const output = `
+    <h1>foo<focus /></h1>
+    <p><br /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should delete a br that is part of a sequence of br nodes (4)', () => {
+    const content = `
+    <p>foo</p>
+    <p><focus /><br /><br /></p>
+    `;
+    const output = `
+    <p>foo<focus /><br /><br /></p>
     `;
     testPlugin(
       content,
@@ -116,9 +183,9 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('sets heading to paragraph', () => {
+  it('should set heading to paragraph', () => {
     const content = `
-    <h1><br /><focus /></h1>
+    <h1><focus /><br /></h1>
     `;
     const output = `
     <p><focus /><br /></p>
@@ -132,7 +199,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('sets list to paragraph', () => {
+  it('should set list to paragraph', () => {
     const content = `
     <h1>heading</h1>
     <ul><li><focus />foo</li></ul>
@@ -152,7 +219,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('sets blockquote to paragraph', () => {
+  it('should set blockquote to paragraph', () => {
     const content = `
     <h1>heading</h1>
     <blockquote><focus />foo</blockquote>
@@ -172,7 +239,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('merges empty paragraphs', () => {
+  it('should merge two empty paragraphs', () => {
     const content = `
     <p><br /></p>
     <p><focus /><br /></p>
@@ -189,7 +256,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('merges paragraph into heading', () => {
+  it('should merge a paragraph into a heading', () => {
     const content = `
     <h1>foo</h1>
     <p><focus />bar</p>
@@ -206,7 +273,24 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('merges empty paragraph into heading', () => {
+  it('should merge an empty paragraph into a paragraph', () => {
+    const content = `
+    <p>foo</p>
+    <p><focus /><br /></p>
+    `;
+    const output = `
+    <p>foo<focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should merge an empty paragraph into a heading', () => {
     const content = `
     <h1>foo</h1>
     <p><focus /><br /></p>
@@ -226,7 +310,7 @@ describe('plugins / backspace-key', () => {
   it('should remove emtpy mark', () => {
     const content = `
     <h1>foo</h1>
-    <p><code><br /><focus /></code></p>
+    <p><code><focus /><br /></code></p>
     `;
     const output = `
     <h1>foo<focus /></h1>
@@ -243,7 +327,7 @@ describe('plugins / backspace-key', () => {
   it('should remove emtpy link', () => {
     const content = `
     <h1>foo</h1>
-    <p><a href="bar"><br /><focus /></a></p>
+    <p><a href="bar"><focus /><br /></a></p>
     `;
     const output = `
     <h1>foo<focus /></h1>
@@ -714,7 +798,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('paragraph: decreases text indent', () => {
+  it('paragraph: should decrease text indent', () => {
     const content = `
     <p>foo</p>
     <p style="text-indent: 2em;"><focus />heading</p>
@@ -734,7 +818,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('paragraph: decreases indent', () => {
+  it('paragraph: should decrease indent', () => {
     const content = `
     <p>foo</p>
     <p style="text-indent: 2em; margin-left: 40px;"><focus />heading</p>
@@ -754,7 +838,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('list: decreases indent', () => {
+  it('list: should decrease indent', () => {
     const content = `
     <ul indent="1"><li><focus />foo</li></ul>
     <p>bar</p>

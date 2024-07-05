@@ -44,6 +44,12 @@ function mergeWithPreviousBlock(editor: Editor, block: Nodes): void {
     return;
   }
   removeEmptyMarks(range);
+  const nextNode = range.getNextNode();
+  if (nextNode.name === 'br' && prevBlock.name !== 'p') {
+    nextNode.remove();
+    range.shrinkAfter(prevBlock);
+    return;
+  }
   const bookmark = editor.selection.insertBookmark();
   mergeNodes(prevBlock, block);
   editor.selection.toBookmark(bookmark);

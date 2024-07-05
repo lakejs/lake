@@ -38,7 +38,7 @@ describe('plugins / shift-enter-key', () => {
 
   it('paragraph: empty paragraph', () => {
     const content = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     const output = `
     <p><br /><focus /><br /></p>
