@@ -33,20 +33,17 @@ Lake depends on a lot of browser APIs and so needs a real browser environment fo
 
 Lake is released under the [MIT](https://github.com/lakejs/lake/blob/main/LICENSE) license. The licenses of its dependencies are:
 
-| Icon dependency  | License |
+| Dependency | License |
 | -------------  | ------------- |
-| [Phosphor](https://phosphoricons.com/)  | MIT  |
-| [Fluent](https://fluenticons.co/)  | MIT  |
-
-| JS dependency  | License |
-| -------------  | ------------- |
-| [codemirror](https://github.com/codemirror/dev)  | MIT  |
-| [debounce](https://github.com/sindresorhus/debounce)  | MIT  |
-| [eventemitter3](https://github.com/primus/eventemitter3)  | MIT  |
-| [fast-deep-equal](https://github.com/epoberezkin/fast-deep-equal)  | MIT  |
-| [idiomorph](https://github.com/bigskysoftware/idiomorph)  | BSD 2-Clause  |
-| [is-hotkey](https://github.com/ianstormtaylor/is-hotkey)  | MIT  |
-| [katex](https://github.com/katex/katex)  | MIT  |
-| [rc-upload](https://github.com/react-component/upload)  | MIT  |
-| [photoswipe](https://github.com/dimsemenov/photoswipe)  | MIT  |
-| [typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n)  | MIT  |
+| [Phosphor Icons](https://phosphoricons.com/) | MIT |
+| [Fluent Icons](https://fluenticons.co/) | MIT |
+| [CodeMirror](https://codemirror.net/) | MIT |
+| [debounce](https://github.com/sindresorhus/debounce) | MIT |
+| [EventEmitter3](https://github.com/primus/eventemitter3) | MIT |
+| [fast-deep-equal](https://github.com/epoberezkin/fast-deep-equal) | MIT |
+| [Idiomorph](https://github.com/bigskysoftware/idiomorph) | BSD 2-Clause |
+| [is-hotkey](https://github.com/ianstormtaylor/is-hotkey) | MIT |
+| [KaTeX](https://katex.org/) | MIT |
+| [rc-upload](https://github.com/react-component/upload) | MIT |
+| [PhotoSwipe](https://photoswipe.com/) | MIT |
+| [typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n) | MIT |
