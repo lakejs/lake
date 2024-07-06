@@ -183,7 +183,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('should set heading to paragraph', () => {
+  it('should set a heading without previous block to a paragraph', () => {
     const content = `
     <h1><focus /><br /></h1>
     `;
@@ -199,7 +199,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('should set list to paragraph', () => {
+  it('should set a list to a paragraph', () => {
     const content = `
     <h1>heading</h1>
     <ul><li><focus />foo</li></ul>
@@ -219,7 +219,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('should set blockquote to paragraph', () => {
+  it('should set a blockquote to a paragraph', () => {
     const content = `
     <h1>heading</h1>
     <blockquote><focus />foo</blockquote>

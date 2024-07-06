@@ -24,6 +24,9 @@ export class Keystroke {
     this.container = container;
     this.container.on('keydown', event => {
       const keyboardEvent = event as KeyboardEvent;
+      if (keyboardEvent.isComposing) {
+        return;
+      }
       for (const item of this.keydownEventList) {
         if (isKeyHotkey(item.type, keyboardEvent)) {
           if (item.listener(keyboardEvent) === false) {
@@ -34,6 +37,9 @@ export class Keystroke {
     });
     this.container.on('keyup', event => {
       const keyboardEvent = event as KeyboardEvent;
+      if (keyboardEvent.isComposing) {
+        return;
+      }
       for (const item of this.keyupEventList) {
         if (isKeyHotkey(item.type, keyboardEvent)) {
           if (item.listener(keyboardEvent) === false) {

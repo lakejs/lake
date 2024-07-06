@@ -2,6 +2,8 @@ import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Keystroke } from '../../src/managers/keystroke';
 
+const isMac = navigator.userAgent.indexOf('Mac OS X') >= 0;
+
 describe('managers / keystroke', () => {
 
   let container: Nodes;
@@ -16,39 +18,77 @@ describe('managers / keystroke', () => {
     container.remove();
   });
 
-  it('sets mod+b and then emits it', () => {
+  it('keydown: should trigger mod+b', () => {
     const keystroke = new Keystroke(container);
     keystroke.setKeydown('mod+b', () => container.html('mod+b'));
-    keystroke.keydown('mod+b');
+    container.emit('keydown', new KeyboardEvent('keydown', {
+      ctrlKey: !isMac,
+      metaKey: isMac,
+      key: 'b',
+    }));
     expect(container.html()).to.equal('mod+b');
   });
 
-  it('sets mod+shift+x and then emits it', () => {
+  it('keydown: should trigger mod+shift+x', () => {
     const keystroke = new Keystroke(container);
     keystroke.setKeydown('mod+shift+x', () => container.html('mod+shift+x'));
-    keystroke.keydown('mod+shift+x');
+    container.emit('keydown', new KeyboardEvent('keydown', {
+      ctrlKey: !isMac,
+      metaKey: isMac,
+      shiftKey: true,
+      key: 'x',
+    }));
     expect(container.html()).to.equal('mod+shift+x');
   });
 
-  it('sets enter and then emits it', () => {
-    const keystroke = new Keystroke(container);
-    keystroke.setKeydown('enter', () => container.html('enter'));
-    keystroke.keydown('enter');
-    expect(container.html()).to.equal('enter');
-  });
-
-  it('sets arrow-left and then emits it', () => {
+  it('keydown: should trigger arrow-left', () => {
     const keystroke = new Keystroke(container);
     keystroke.setKeydown('arrow-left', () => container.html('arrow-left'));
-    keystroke.keydown('arrow-left');
+    container.emit('keydown', new KeyboardEvent('keydown', {
+      key: 'ArrowLeft',
+    }));
     expect(container.html()).to.equal('arrow-left');
   });
 
-  it('sets mod+] and then emits it', () => {
+  it('keydown: should trigger mod+]', () => {
     const keystroke = new Keystroke(container);
     keystroke.setKeydown('mod+]', () => container.html('mod+]'));
-    keystroke.keydown('mod+]');
+    container.emit('keydown', new KeyboardEvent('keydown', {
+      ctrlKey: !isMac,
+      metaKey: isMac,
+      key: ']',
+    }));
     expect(container.html()).to.equal('mod+]');
+  });
+
+  it('keydown: should trigger enter', () => {
+    const keystroke = new Keystroke(container);
+    keystroke.setKeydown('enter', () => container.html('enter'));
+    container.emit('keydown', new KeyboardEvent('keydown', {
+      key: 'Enter',
+      isComposing: false,
+    }));
+    expect(container.html()).to.equal('enter');
+  });
+
+  it('keydown: should not trigger enter in composition mode', () => {
+    const keystroke = new Keystroke(container);
+    keystroke.setKeydown('enter', () => container.html('enter'));
+    container.emit('keydown', new KeyboardEvent('keydown', {
+      key: 'Enter',
+      isComposing: true,
+    }));
+    expect(container.html()).to.equal('<p>foo</p>');
+  });
+
+  it('keyup: should trigger enter', () => {
+    const keystroke = new Keystroke(container);
+    keystroke.setKeyup('enter', () => container.html('enter'));
+    container.emit('keyup', new KeyboardEvent('keyup', {
+      key: 'Enter',
+      isComposing: false,
+    }));
+    expect(container.html()).to.equal('enter');
   });
 
 });
