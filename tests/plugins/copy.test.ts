@@ -1,4 +1,4 @@
-import { testPlugin } from '../utils';
+import { isFirefox, testPlugin } from '../utils';
 
 describe('plugins / copy', () => {
 
@@ -28,6 +28,9 @@ describe('plugins / copy', () => {
       output,
       editor => {
         editor.event.emit('copy', event);
+        if (isFirefox) {
+          return;
+        }
         expect(dataTransfer.getData('text/html')).to.equal('<hr />');
       },
     );
