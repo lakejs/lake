@@ -1,4 +1,4 @@
-import { click, removeBoxValueFromHTML } from '../utils';
+import { isFirefox, click, removeBoxValueFromHTML } from '../utils';
 import { query, debug } from '../../src/utils';
 import { Editor, Nodes, Box } from '../../src';
 
@@ -65,22 +65,23 @@ describe('boxes / image', () => {
   });
 
   it('should resize the image', done => {
+    const pointerId = isFirefox ? 0 : 1;
     const boxNode = box.node;
     box.event.once('render', () => {
       click(boxNode.find('.lake-image-img'));
       const oldWidth = boxNode.width();
       const pointerdownEvent = new PointerEvent('pointerdown', {
-        pointerId: 1,
+        pointerId,
         clientX: 500,
         clientY: 500,
       });
       const pointermoveEvent = new PointerEvent('pointermove', {
-        pointerId: 1,
+        pointerId,
         clientX: 300,
         clientY: 300,
       });
       const pointerupEvent = new PointerEvent('pointerup', {
-        pointerId: 1,
+        pointerId,
         clientX: 300,
         clientY: 300,
       });

@@ -1,4 +1,4 @@
-import { click } from '../utils';
+import { isFirefox, click } from '../utils';
 import { query, debug } from '../../src/utils';
 import { Editor, Nodes } from '../../src';
 
@@ -65,6 +65,7 @@ describe('boxes / video', () => {
   });
 
   it('should resize the video', () => {
+    const pointerId = isFirefox ? 0 : 1;
     const box = editor.selection.insertBox('video', {
       url: youtubeUrl,
       width: 500,
@@ -73,17 +74,17 @@ describe('boxes / video', () => {
     const boxNode = box.node;
     boxNode.find('iframe').emit('load');
     const pointerdownEvent = new PointerEvent('pointerdown', {
-      pointerId: 1,
+      pointerId,
       clientX: 500,
       clientY: 500,
     });
     const pointermoveEvent = new PointerEvent('pointermove', {
-      pointerId: 1,
+      pointerId,
       clientX: 300,
       clientY: 300,
     });
     const pointerupEvent = new PointerEvent('pointerup', {
-      pointerId: 1,
+      pointerId,
       clientX: 300,
       clientY: 300,
     });

@@ -1,3 +1,4 @@
+import { isFirefox } from '../utils';
 import { boxes } from '../../src/storage/boxes';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
@@ -57,22 +58,23 @@ describe('ui / box-resizer', () => {
   });
 
   it('should resize the box', () => {
+    const pointerId = isFirefox ? 0 : 1;
     const box = new Box('inlineBox');
     container.append(box.node);
     box.render();
     const boxNode = box.node;
     const pointerdownEvent = new PointerEvent('pointerdown', {
-      pointerId: 1,
+      pointerId,
       clientX: 500,
       clientY: 500,
     });
     const pointermoveEvent = new PointerEvent('pointermove', {
-      pointerId: 1,
+      pointerId,
       clientX: 300,
       clientY: 300,
     });
     const pointerupEvent = new PointerEvent('pointerup', {
-      pointerId: 1,
+      pointerId,
       clientX: 300,
       clientY: 300,
     });

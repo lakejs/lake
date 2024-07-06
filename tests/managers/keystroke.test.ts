@@ -1,8 +1,7 @@
+import { isMac } from '../utils';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Keystroke } from '../../src/managers/keystroke';
-
-const isMac = navigator.userAgent.indexOf('Mac OS X') >= 0;
 
 describe('managers / keystroke', () => {
 

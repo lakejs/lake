@@ -8,6 +8,12 @@ import { insertBookmark } from '../src/operations/insert-bookmark';
 import { toBookmark } from '../src/operations/to-bookmark';
 import { Editor } from '../src';
 
+// Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/600.8.9 (KHTML, like Gecko) Version/8.0.8 Safari/600.8.9
+export const isMac = navigator.userAgent.indexOf('Mac OS X') >= 0;
+
+// Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0
+export const isFirefox = navigator.userAgent.indexOf('Firefox/') >= 0;
+
 export function click(node: Nodes): void {
   (node.get(0) as HTMLElement).click();
 }
