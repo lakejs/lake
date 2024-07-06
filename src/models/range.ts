@@ -173,7 +173,7 @@ export class Range {
     const height = rect.height;
     return DOMRect.fromRect({
       x,
-      y: rect.y,
+      y: height > 0 ? rect.y : 0,
       width: width > 0 ? width : 1,
       height: height > 0 ? height : 1,
     });
