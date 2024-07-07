@@ -347,6 +347,7 @@ export class Range {
       this.setEnd(child, child.children().length);
     }
     this.collapseToEnd();
+    this.adjustBr();
   }
 
   // Reduces the boundary of the range.

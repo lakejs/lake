@@ -168,7 +168,7 @@ describe('operations / split-block', () => {
     `;
     const output = `
     <p>foo</p>
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     `;
     testOperation(
       content,

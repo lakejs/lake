@@ -44,7 +44,7 @@ describe('operations / remove-box', () => {
     <p>foo</p>
     `;
     const output = `
-    <p><br /><focus /></p>
+    <p><focus /><br /></p>
     <p>foo</p>
     `;
     testOperation(

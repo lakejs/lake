@@ -778,7 +778,7 @@ describe('editor', () => {
         deleteContentBackward(editor);
       }
       if (calledCount === 2) {
-        expect(value).to.equal('<p><br /><focus /></p>');
+        expect(value).to.equal('<p><focus /><br /></p>');
         expect(editor.container.hasClass('lake-placeholder')).to.equal(true);
         editor.unmount();
         done();
