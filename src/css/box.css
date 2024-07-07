@@ -2,13 +2,13 @@ lake-box {
   margin: 0;
   padding: 0;
   text-indent: 0;
-  grid-template-columns: 1px 1fr 1px;
 }
 lake-box[type="inline"] {
-  display: inline grid;
+  display: inline flex;
 }
 lake-box[type="block"] {
   display: block grid;
+  grid-template-columns: 1px 1fr 1px;
 }
 lake-box .lake-box-strip {
   display: block;
