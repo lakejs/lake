@@ -352,18 +352,6 @@ export class Editor {
     this.container.on('compositionend', () => {
       this.isComposing = false;
     });
-    this.container.on('beforeinput', event => {
-      const inputEvent = event as InputEvent;
-      // <p><br /><focus /></p>
-      // When the caret is positioned behind a <br> tag, the input event is triggered twice after inserting a sharp(#) in composition mode.
-      if (this.isComposing && inputEvent.inputType === 'insertText') {
-        inputEvent.preventDefault();
-        this.isComposing = false;
-        this.history.save({
-          inputType: 'insertText',
-        });
-      }
-    });
     this.container.on('input', event => {
       const inputEvent = event as InputEvent;
       // Here setTimeout is necessary because isComposing is not false after ending composition.
