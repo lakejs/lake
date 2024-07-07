@@ -491,18 +491,7 @@ export class Editor {
         debug(`Content fixed: void element "${child.name}" was wrapped in paragraph`);
       }
     }
-    // In composition mode (e.g., when a user starts entering a Chinese character using a Pinyin IME),
-    // uncompleted text is inserted if the caret is positioned behind a <br> tag.
-    // To fix this bug, the caret needs to be moved to the front of the <br> tag.
-    if (range.isCollapsed) {
-      const prevNode = range.getPrevNode();
-      const nextNode = range.getNextNode();
-      if (prevNode.name === 'br' && nextNode.length === 0) {
-        range.setStartBefore(prevNode);
-        range.collapseToStart();
-        debug('Range fixed: the caret has been moved to the front of the <br> tag');
-      }
-    }
+    range.adjustBr();
     return changed;
   }
 

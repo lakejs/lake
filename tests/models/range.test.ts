@@ -713,6 +713,20 @@ describe('models / range', () => {
     expect(range.isCollapsed).to.equal(true);
   });
 
+  it('method: adjustBr', () => {
+    container.html('<p><br /></p>');
+    const range = new Range();
+    range.setStartAfter(container.find('br'));
+    range.collapseToStart();
+    expect(range.startNode.name).to.equal('p');
+    expect(range.startOffset).to.equal(1);
+    expect(range.isCollapsed).to.equal(true);
+    range.adjustBr();
+    expect(range.startNode.name).to.equal('p');
+    expect(range.startOffset).to.equal(0);
+    expect(range.isCollapsed).to.equal(true);
+  });
+
   it('getPrevNode method: startNode is a text, startOffset = 0', () => {
     container.html('<p>foo<strong>bold</strong>bar</p>');
     const range = new Range();
