@@ -331,7 +331,8 @@ export class Editor {
       } else {
         boxNode.after(paragraph);
       }
-      range.shrinkAfter(paragraph);
+      range.setStart(paragraph, 0);
+      range.collapseToStart();
     }
     const text = stripNode.text();
     stripNode.html('<br />');
@@ -465,7 +466,7 @@ export class Editor {
     children = this.container.children();
     if (children.length === 0) {
       this.container.html('<p><br /></p>');
-      range.shrinkAfter(this.container);
+      range.shrinkBefore(this.container);
       changed = true;
       debug('Content fixed: default paragraph was added');
     } else if (children.length === 1) {
