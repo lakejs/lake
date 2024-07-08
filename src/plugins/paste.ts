@@ -3,7 +3,7 @@ import { blockTagNames } from '../config/tag-names';
 import { getElementRules } from '../config/element-rules';
 import {
   wrapNodeList, changeTagName, fixNumberedList,
-  removeBr, query, getBox, normalizeValue, uploadFile,
+  removeBreak, query, getBox, normalizeValue, uploadFile,
 } from '../utils';
 import { Nodes } from '../models/nodes';
 import { HTMLParser } from '../parsers/html-parser';
@@ -101,7 +101,7 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
     return;
   }
   if (otherNode.first().length > 0) {
-    removeBr(block);
+    removeBreak(block);
   }
   if (block.isEmpty && block.name === 'p') {
     block.replaceWith(otherNode);

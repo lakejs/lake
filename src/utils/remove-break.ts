@@ -1,7 +1,11 @@
 import type { Nodes } from '../models/nodes';
 
-// Removes The <br /> element in the specified block which is empty.
-export function removeBr(block: Nodes): void {
+// Removes a line break in the specified empty block.
+// Example:
+// case 1: <p><br /></p> to <p></p>
+// case 2: <p><br /><focus /></p> to <p><focus /></p>
+// case 3: <p><focus /><br /></p> to <p><focus /></p>
+export function removeBreak(block: Nodes): void {
   if (block.length === 0) {
     return;
   }

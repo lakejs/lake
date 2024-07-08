@@ -1,5 +1,5 @@
 import { query } from '../utils/query';
-import { removeBr } from '../utils/remove-br';
+import { removeBreak } from '../utils/remove-break';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertNode } from './insert-node';
@@ -18,7 +18,7 @@ export function insertLink(range: Range, value: string | Nodes): Nodes | null {
     if (linkNode.length === 0) {
       linkNode = valueNode.clone(true);
       const block = range.startNode.closestBlock();
-      removeBr(block);
+      removeBreak(block);
       insertNode(range, linkNode);
       return linkNode;
     }

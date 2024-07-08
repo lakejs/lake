@@ -1,4 +1,4 @@
-import { removeBr } from '../utils/remove-br';
+import { removeBreak } from '../utils/remove-break';
 import { Range } from '../models/range';
 import { Fragment } from '../models/fragment';
 import { deleteContents } from './delete-contents';
@@ -19,7 +19,7 @@ export function insertFragment(range: Range, fragment: DocumentFragment | Fragme
     deleteContents(range);
   }
   const block = range.startNode.closestBlock();
-  removeBr(block);
+  removeBreak(block);
   const bookmark = insertBookmark(range);
   bookmark.focus.before(fragment);
   toBookmark(range, bookmark);

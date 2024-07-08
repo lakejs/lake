@@ -1,8 +1,8 @@
 import type { Nodes } from '../models/nodes';
-import { Range } from '../models/range';
 import { appendDeepest } from './append-deepest';
 import { query } from './query';
-import { removeBr } from './remove-br';
+import { removeBreak } from './remove-break';
+import { Range } from '../models/range';
 
 // Returns a point after the specified node.
 function getAfterPoint(node: Nodes): { node: Nodes, offset: number } {
@@ -45,8 +45,8 @@ export function mergeNodes(node: Nodes, otherNode: Nodes): { node: Nodes, offset
   if (node.isText || otherNode.isText || node.isVoid || otherNode.isVoid) {
     return getAfterPoint(node);
   }
-  removeBr(node);
-  removeBr(otherNode);
+  removeBreak(node);
+  removeBreak(otherNode);
   if (node.isBlock && node.isEmpty && otherNode.isEmpty) {
     appendDeepest(node, query('<br />'));
   }

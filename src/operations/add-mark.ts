@@ -1,4 +1,4 @@
-import { parseStyle, query, getBox, appendDeepest, removeBr } from '../utils';
+import { parseStyle, query, getBox, appendDeepest, removeBreak } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertBookmark } from './insert-bookmark';
@@ -80,7 +80,7 @@ export function addMark(range: Range, value: string | Nodes): void {
       }
     }
     const block = range.startNode.closestBlock();
-    removeBr(block);
+    removeBreak(block);
     // https://en.wikipedia.org/wiki/Zero-width_space
     const zeroWidthSpace = new Nodes(document.createTextNode('\u200B'));
     const parts = splitMarks(range);
