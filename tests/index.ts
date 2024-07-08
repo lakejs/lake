@@ -27,6 +27,7 @@ import './utils/append-deepest.test';
 import './utils/remove-zws.test';
 import './utils/change-tag-name.test';
 import './utils/fix-numbered-list.test';
+import './utils/append-break.test';
 import './utils/remove-break.test';
 import './utils/set-block-indent.test';
 import './utils/morph.test';

@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { query, getBox, appendDeepest, mergeNodes, setBlockIndent } from '../utils';
+import { getBox, appendBreak, mergeNodes, setBlockIndent } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
@@ -8,8 +8,9 @@ function removeEmptyMarks(range: Range): void {
   const block = range.getBlocks()[0];
   if (block && block.isEmpty && block.first().name !== 'br') {
     block.empty();
-    appendDeepest(block, query('<br />'));
-    range.shrinkAfter(block);
+    const breakNode = appendBreak(block);
+    range.setStartBefore(breakNode);
+    range.collapseToStart();
   }
 }
 
@@ -136,8 +137,9 @@ export default (editor: Editor) => {
       range.collapseToStart();
       prevNode.remove();
       if (block.isEmpty) {
-        appendDeepest(block, query('<br />'));
-        range.shrinkAfter(block);
+        const breakNode = appendBreak(block);
+        range.setStartBefore(breakNode);
+        range.collapseToStart();
       }
       editor.history.save();
       return;

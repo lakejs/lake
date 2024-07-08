@@ -1,5 +1,5 @@
 import { TwoParts } from '../types/object';
-import { query, splitNodes, appendDeepest } from '../utils';
+import { splitNodes, appendBreak } from '../utils';
 import { Range } from '../models/range';
 import { fixList } from './fix-list';
 import { deleteContents } from './delete-contents';
@@ -50,15 +50,13 @@ export function splitBlock(range: Range): TwoParts {
     }
   }
   if (start && start.isEmpty) {
-    appendDeepest(start, query('<br />'));
+    appendBreak(start);
   }
   if (end) {
     if (end.isEmpty) {
-      appendDeepest(end, query('<br />'));
-      range.shrinkAfter(end);
-    } else {
-      range.shrinkBefore(end);
+      appendBreak(end);
     }
+    range.shrinkBefore(end);
   }
   fixList(range);
   return {

@@ -1,5 +1,5 @@
 import { getInstanceMap } from '../src/storage/box-instances';
-import { debug, query, getBox, appendDeepest } from '../src/utils';
+import { debug, query, getBox, appendBreak } from '../src/utils';
 import { Nodes } from '../src/models/nodes';
 import { Editor } from '../src/editor';
 import { click, getContainerValue } from './utils';
@@ -51,8 +51,9 @@ function deleteContentBackward(editor: Editor) {
   nativeRange.deleteContents();
   const block = range.getBlocks()[0];
   if (block && block.isEmpty) {
-    appendDeepest(block, query('<br />'));
-    range.shrinkAfter(block);
+    const breakNode = appendBreak(block);
+    range.setStartBefore(breakNode);
+    range.collapseToStart();
   }
   editor.container.emit('input', event);
 }

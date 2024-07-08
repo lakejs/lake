@@ -1,6 +1,5 @@
 import type { Nodes } from '../models/nodes';
-import { appendDeepest } from './append-deepest';
-import { query } from './query';
+import { appendBreak } from './append-break';
 import { removeBreak } from './remove-break';
 import { Range } from '../models/range';
 
@@ -48,7 +47,7 @@ export function mergeNodes(node: Nodes, otherNode: Nodes): { node: Nodes, offset
   removeBreak(node);
   removeBreak(otherNode);
   if (node.isBlock && node.isEmpty && otherNode.isEmpty) {
-    appendDeepest(node, query('<br />'));
+    appendBreak(node);
   }
   const nextNode = node.last();
   const nextOtherNode = otherNode.first();

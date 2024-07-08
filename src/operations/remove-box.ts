@@ -1,5 +1,5 @@
 import { getInstanceMap } from '../storage/box-instances';
-import { appendDeepest, query, getBox } from '../utils';
+import { appendBreak, query, getBox } from '../utils';
 import { Range } from '../models/range';
 import { Box } from '../models/box';
 
@@ -37,8 +37,9 @@ export function removeBox(range: Range): Box | null {
   const parentNode = boxNode.parent();
   unmountBox(box);
   if (parentNode.isEmpty) {
-    appendDeepest(parentNode, query('<br />'));
-    range.shrinkAfter(parentNode);
+    const breakNode = appendBreak(parentNode);
+    range.setStartBefore(breakNode);
+    range.collapseToStart();
   }
   return box;
 }

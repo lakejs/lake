@@ -1,5 +1,4 @@
-import { query } from '../utils/query';
-import { appendDeepest } from '../utils/append-deepest';
+import { appendBreak } from '../utils/append-break';
 import { mergeNodes } from '../utils/merge-nodes';
 import { Range } from '../models/range';
 import { fixList } from './fix-list';
@@ -25,8 +24,9 @@ export function deleteContents(range: Range): void {
   if (noMerge) {
     const block = range.getBlocks()[0];
     if (block && block.isEmpty) {
-      appendDeepest(block, query('<br />'));
-      range.shrinkAfter(block);
+      const breakNode = appendBreak(block);
+      range.setStartBefore(breakNode);
+      range.collapseToStart();
     }
     return;
   }

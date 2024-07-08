@@ -1,5 +1,5 @@
 import { KeyValue } from '../types/object';
-import { query, getDeepest, wrapNodeList, appendDeepest } from '../utils';
+import { query, getDeepest, wrapNodeList, appendBreak } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertBookmark } from './insert-bookmark';
@@ -93,7 +93,8 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
   toBookmark(range, bookmark);
   fixList(range);
   if (block.isEmpty) {
-    appendDeepest(block, query('<br />'));
-    range.shrinkAfter(block);
+    const breakNode = appendBreak(block);
+    range.setStartBefore(breakNode);
+    range.collapseToStart();
   }
 }
