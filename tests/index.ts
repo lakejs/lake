@@ -23,7 +23,6 @@ import './utils/split-nodes.test';
 import './utils/merge-nodes.test';
 import './utils/wrap-node-list.test';
 import './utils/get-deepest.test';
-import './utils/append-deepest.test';
 import './utils/remove-zws.test';
 import './utils/change-tag-name.test';
 import './utils/fix-numbered-list.test';

@@ -1,4 +1,4 @@
-import { appendDeepest, query, removeZWS } from '../utils';
+import { getDeepest, query, removeZWS } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertBookmark } from './insert-bookmark';
@@ -82,7 +82,8 @@ export function removeMark(range: Range, value?: string): void {
       range.collapseToStart();
       return;
     }
-    appendDeepest(newMark, zeroWidthSpace);
+    const deepestMark = getDeepest(newMark);
+    deepestMark.append(zeroWidthSpace);
     parts.start.after(newMark);
     removeEmptyMarks(parts.start);
     range.shrinkAfter(newMark);

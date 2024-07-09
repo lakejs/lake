@@ -1,4 +1,4 @@
-import { parseStyle, query, getBox, appendDeepest, removeBreak } from '../utils';
+import { parseStyle, query, getBox, getDeepest, removeBreak } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertBookmark } from './insert-bookmark';
@@ -91,7 +91,8 @@ export function addMark(range: Range, value: string | Nodes): void {
           newMark.css(cssProperties);
           valueNode = newMark;
         } else {
-          appendDeepest(newMark, zeroWidthSpace);
+          const deepestMark = getDeepest(newMark);
+          deepestMark.append(zeroWidthSpace);
           valueNode.append(newMark);
         }
       }
