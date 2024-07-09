@@ -22,7 +22,7 @@ import './utils/query.test';
 import './utils/split-nodes.test';
 import './utils/merge-nodes.test';
 import './utils/wrap-node-list.test';
-import './utils/get-deepest.test';
+import './utils/get-deep-element.test';
 import './utils/remove-zws.test';
 import './utils/change-tag-name.test';
 import './utils/fix-numbered-list.test';

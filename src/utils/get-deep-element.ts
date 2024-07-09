@@ -1,7 +1,7 @@
 import type { Nodes } from '../models/nodes';
 
 // Returns the deepest element of the specified element.
-export function getDeepest(element: Nodes): Nodes {
+export function getDeepElement(element: Nodes): Nodes {
   let child = element;
   while (child.length > 0) {
     let firstChild = child.first();

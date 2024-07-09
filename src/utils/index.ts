@@ -22,7 +22,7 @@ export * from './query';
 export * from './split-nodes';
 export * from './merge-nodes';
 export * from './wrap-node-list';
-export * from './get-deepest';
+export * from './get-deep-element';
 export * from './remove-zws';
 export * from './change-tag-name';
 export * from './fix-numbered-list';

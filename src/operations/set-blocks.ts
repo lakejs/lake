@@ -1,5 +1,5 @@
 import { KeyValue } from '../types/object';
-import { query, getDeepest, wrapNodeList, appendBreak } from '../utils';
+import { query, getDeepElement, wrapNodeList, appendBreak } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertBookmark } from './insert-bookmark';
@@ -69,7 +69,7 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
         if (block.isList && node.isList && node.attr('indent') !== '') {
           block.attr('indent', node.attr('indent'));
         }
-        const deepestBlock = getDeepest(block);
+        const deepestBlock = getDeepElement(block);
         let child = node.first();
         while(child.length > 0) {
           const nextNode = child.next();
