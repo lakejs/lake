@@ -1,6 +1,6 @@
 const blockAttributeRules: any = {
   id: /^[\w-]+$/,
-  class: /^[\w-]+$/,
+  class: /^[\w- ]+$/,
   style: {
     'text-align': ['left', 'center', 'right', 'justify', 'start', 'end'],
     'margin-left': /^-?\d+px$/i,
@@ -99,7 +99,7 @@ export function getElementRules(): any {
       },
     },
     span: {
-      class: /^[\w-]+$/,
+      class: /^[\w- ]+$/,
       style: {
         color: /^[^"]+$/,
         'background-color': /^[^"]+$/,
@@ -117,7 +117,7 @@ export function getElementRules(): any {
     sup: {},
     code: {},
     a: {
-      class: /^[\w-]+$/,
+      class: /^[\w- ]+$/,
       name: /^[\w-]+$/,
       href: /^[^"]+$/,
       target: /^[\w-]+$/,

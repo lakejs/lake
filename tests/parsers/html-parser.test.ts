@@ -92,6 +92,13 @@ describe('parsers / html-parser', () => {
     expect(htmlParser.getHTML()).to.equal(output);
   });
 
+  it('getHTML method: should keep class="a b"', () => {
+    const input = '<h1 class="one">foo</h1><p class="a b"><span class="a b">bar</span></p>';
+    const output = '<h1 class="one">foo</h1><p class="a b"><span class="a b">bar</span></p>';
+    const htmlParser = new HTMLParser(input);
+    expect(htmlParser.getHTML()).to.equal(output);
+  });
+
   it('getHTML method: should keep href', () => {
     const input = '<a href="http://url/">foo</a>';
     const output = input;
