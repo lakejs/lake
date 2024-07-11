@@ -196,12 +196,6 @@ describe('models / nodes', () => {
     expect(container.find('p').eq(1).isEmpty).to.equal(false);
   });
 
-  it('method: isSibling', () => {
-    const container = query('<div contenteditable="true"><h1><p>foo</p>bar</h1>end</div>');
-    expect(container.find('h1').isSibling(container.find('p'))).to.equal(false);
-    expect(container.find('h1').isSibling(container.find('h1').next())).to.equal(true);
-  });
-
   it('method: get', () => {
     const nodes = new Nodes([element, elementTwo, document.body]);
     expect(nodes.eq(1).html()).to.equal('two');
@@ -279,6 +273,22 @@ describe('models / nodes', () => {
     expect(node.matches('body')).to.equal(true);
     expect(node.find('.class1').matches('.class1')).to.equal(true);
     expect(node.find('.class1').matches('.class2')).to.equal(false);
+  });
+
+  it('method: contains', () => {
+    const container = query('<div contenteditable="true"><h1><p>foo</p>bar</h1>end</div>');
+    expect(container.contains(container)).to.equal(true);
+    expect(container.contains(container.find('h1'))).to.equal(true);
+    expect(container.contains(container.find('h1').get(0))).to.equal(true);
+    expect(container.contains(container.find('p').first())).to.equal(true);
+    expect(container.find('h1').contains(container)).to.equal(false);
+    expect(container.find('p').first().contains(container.find('p'))).to.equal(false);
+  });
+
+  it('method: isSibling', () => {
+    const container = query('<div contenteditable="true"><h1><p>foo</p>bar</h1>end</div>');
+    expect(container.find('h1').isSibling(container.find('p'))).to.equal(false);
+    expect(container.find('h1').isSibling(container.find('h1').next())).to.equal(true);
   });
 
   it('find method: by selector', () => {

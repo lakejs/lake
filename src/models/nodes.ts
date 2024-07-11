@@ -219,15 +219,6 @@ export class Nodes {
     return true;
   }
 
-  // Returns a boolean value indicating whether the node and the target node are siblings.
-  public isSibling(target: Nodes): boolean {
-    if (this.length === 0) {
-      return false;
-    }
-    const parent = this.get(0).parentNode as HTMLElement;
-    return parent && parent === target.parent().get(0);
-  }
-
   // Gets a native node at the specified index.
   public get(index: number): Node {
     return this.nodeList[index];
@@ -281,6 +272,25 @@ export class Nodes {
     }
     const element = this.get(0) as Element;
     return element.matches(selector);
+  }
+
+  // Returns a boolean value indicating whether a node is a descendant of a given node, that is the node itself,
+  // one of its direct children (childNodes), one of the children's direct children, and so on.
+  public contains(otherNode: Node | Nodes): boolean {
+    if (otherNode instanceof Nodes) {
+      otherNode = otherNode.get(0);
+    }
+    const element = this.get(0) as Element;
+    return element.contains(otherNode);
+  }
+
+  // Returns a boolean value indicating whether the node and the target node are siblings.
+  public isSibling(target: Nodes): boolean {
+    if (this.length === 0) {
+      return false;
+    }
+    const parent = this.get(0).parentNode as HTMLElement;
+    return parent && parent === target.parent().get(0);
   }
 
   // Returns the descendants of the first element which are selected by the specified CSS selector.
