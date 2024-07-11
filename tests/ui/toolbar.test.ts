@@ -489,6 +489,15 @@ describe('ui / toolbar', () => {
     expect(value).to.equal('<lake-box type="block" name="hr" focus="end"></lake-box>');
   });
 
+  it('hr: should insert a box into the end of the content', () => {
+    editor.setValue('<p>foo</p>');
+    editor.selection.range.setStart(query(document.body), 0);
+    click(toolbar.container.find('button[name="hr"]'));
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    expect(value).to.equal('<p>foo</p><lake-box type="block" name="hr" focus="end"></lake-box>');
+  });
+
   it('video: clicks button', () => {
     editor.setValue('<p><focus /><br /></p>');
     click(toolbar.container.find('button[name="video"]'));
