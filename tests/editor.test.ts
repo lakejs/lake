@@ -850,4 +850,22 @@ describe('editor', () => {
     expect(clickCount).to.equal(1);
   });
 
+  it('multi-editor: should not throw an error', () => {
+    const rootNode2 = query('<div class="lake-root" />');
+    query(document.body).append(rootNode2);
+    const editor = new Editor({
+      root: rootNode,
+      value: '<strong>foo</strong>bar<focus />',
+    });
+    editor.render();
+    const editor2 = new Editor({
+      root: rootNode2,
+      value: 'bar',
+    });
+    editor2.render();
+    editor.unmount();
+    editor2.unmount();
+    rootNode2.remove();
+  });
+
 });
