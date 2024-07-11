@@ -116,10 +116,7 @@ export class History {
       const box = getBox(nativeNode);
       box.getContainer().empty();
     });
-    if (
-      range.commonAncestor.isOutside ||
-      range.commonAncestor.closestContainer().get(0) !== this.container.get(0)
-    ) {
+    if (!this.container.contains(range.commonAncestor)) {
       return newContainer;
     }
     if (range.isInsideBox) {

@@ -37,11 +37,7 @@ export default (editor: Editor) => {
       popup.hide();
       return;
     }
-    if (
-      linkNode.isOutside ||
-      linkNode.closestContainer().get(0) !== editor.container.get(0) ||
-      linkNode.closest('lake-box').length > 0
-    ) {
+    if (!editor.container.contains(linkNode) || linkNode.closest('lake-box').length > 0) {
       popup.hide();
       return;
     }

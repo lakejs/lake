@@ -162,7 +162,7 @@ export class Editor {
 
   private copyListener: EventListener = event => {
     const range = this.selection.range;
-    if (range.commonAncestor.closestContainer().get(0) !== this.container.get(0)) {
+    if (!this.container.contains(range.commonAncestor)) {
       return;
     }
     this.event.emit('copy', event);
@@ -170,7 +170,7 @@ export class Editor {
 
   private cutListener: EventListener = event => {
     const range = this.selection.range;
-    if (range.commonAncestor.closestContainer().get(0) !== this.container.get(0)) {
+    if (!this.container.contains(range.commonAncestor)) {
       return;
     }
     this.event.emit('cut', event);
@@ -178,7 +178,7 @@ export class Editor {
 
   private pasteListener: EventListener = event => {
     const range = this.selection.range;
-    if (range.commonAncestor.closestContainer().get(0) !== this.container.get(0)) {
+    if (!this.container.contains(range.commonAncestor)) {
       return;
     }
     this.event.emit('paste', event);
@@ -254,10 +254,7 @@ export class Editor {
   private emitStateChangeEvent = debounce(() => {
     const commandNames = this.command.getNames();
     let appliedItems = this.selection.getAppliedItems();
-    if (
-      appliedItems.length > 0 &&
-      appliedItems[0].node.closestContainer().get(0) !== this.container.get(0)
-    ) {
+    if (appliedItems.length > 0 && !this.container.contains(appliedItems[0].node)) {
       appliedItems = [];
     }
     const disabledNameMap: Map<string, boolean> = new Map();

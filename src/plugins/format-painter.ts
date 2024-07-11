@@ -31,11 +31,11 @@ export default (editor: Editor) => {
     markList = [];
     editor.history.save();
   });
-  editor.event.on('click', (tagetNode: Nodes) => {
-    if (tagetNode.isInside && tagetNode.closestContainer().get(0) === editor.container.get(0)) {
+  editor.event.on('click', (targetNode: Nodes) => {
+    if (editor.container.contains(targetNode)) {
       return;
     }
-    const buttonNode = tagetNode.closest('button[name="formatPainter"]');
+    const buttonNode = targetNode.closest('button[name="formatPainter"]');
     if (buttonNode.length > 0) {
       return;
     }
