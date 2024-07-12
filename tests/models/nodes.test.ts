@@ -311,6 +311,8 @@ describe('models / nodes', () => {
     node.html('<p>foo</p><p>bar</p>');
     expect(node.find('p').closest('div').html()).to.equal('<p>foo</p><p>bar</p>');
     expect(node.find('p').first().closest('div').html()).to.equal('<p>foo</p><p>bar</p>');
+    expect(node.find('p').first().closest('p').html()).to.equal('foo');
+    expect(node.find('p').closest('p').html()).to.equal('foo');
     expect(new Nodes(document).closest('div').length).to.equal(0);
   });
 
