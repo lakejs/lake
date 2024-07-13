@@ -10,7 +10,6 @@ function insertText(editor: Editor, data: string) {
     inputType: 'insertText',
     isComposing: false,
   });
-  editor.container.emit('beforeinput', event);
   const nativeRange = editor.selection.range.get();
   const textNode = document.createTextNode(data);
   nativeRange.insertNode(textNode);
@@ -29,7 +28,6 @@ function insertCompositionText(editor: Editor, data: string) {
     inputType: 'insertCompositionText',
     isComposing: true,
   });
-  editor.container.emit('beforeinput', event);
   const nativeRange = editor.selection.range.get();
   nativeRange.insertNode(document.createTextNode(data));
   nativeRange.collapse(false);
@@ -192,7 +190,7 @@ describe('editor', () => {
     editor.unmount();
   });
 
-  it('config: empty default value', () => {
+  it('config: default value is empty', () => {
     const input = '';
     const output = '';
     const editor = new Editor({
@@ -232,7 +230,7 @@ describe('editor', () => {
     expect(currentValue).to.equal(output);
   });
 
-  it('fixContent method: br', () => {
+  it('fixContent method: should fix line break', () => {
     const input = '<br />';
     const output = '<p><focus /><br /></p>';
     const editor = new Editor({
@@ -254,7 +252,7 @@ describe('editor', () => {
     expect(currentValue).to.equal(output);
   });
 
-  it('fixContent method: br and empty mark', () => {
+  it('fixContent method: should fix line break and empty mark', () => {
     const input = '<br /><span></span>';
     const output = '<p><focus /><br /></p>';
     const editor = new Editor({
@@ -276,7 +274,7 @@ describe('editor', () => {
     expect(currentValue).to.equal(output);
   });
 
-  it('fixContent method: br and empty block', () => {
+  it('fixContent method: should fix line break and empty block', () => {
     const input = '<br /><p></p>';
     const output = '<p><focus /><br /></p>';
     const editor = new Editor({
@@ -298,7 +296,7 @@ describe('editor', () => {
     expect(currentValue).to.equal(output);
   });
 
-  it('fixContent method: caret', () => {
+  it('fixContent method: should fix caret', () => {
     const input = '<p><br /><focus /></p>';
     const output = '<p><focus /><br /></p>';
     const editor = new Editor({
@@ -446,7 +444,7 @@ describe('editor', () => {
     expect(value).to.equal(output);
   });
 
-  it('setValue method: set content', () => {
+  it('setValue method: should set content', () => {
     const input = '<p><strong>\u200B# <focus />foo</strong></p>';
     const output = '<p><strong>\u200B# <focus />foo</strong></p>';
     const editor = new Editor({
@@ -461,7 +459,7 @@ describe('editor', () => {
     expect(editor.container.hasClass('lake-placeholder')).to.equal(false);
   });
 
-  it('setValue method: set empty content', () => {
+  it('setValue method: should set empty content', () => {
     const input = '<p><br></p>';
     const output = '<p><br /></p>';
     const editor = new Editor({
@@ -626,7 +624,7 @@ describe('editor', () => {
     expect(isHovered).to.equal(true);
   });
 
-  it('input event: input text in the start strip of inline box', done => {
+  it('input event: when inputting text at the start of inline box', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const output = '<p>fooa<focus /><lake-box type="inline" name="inlineBox"></lake-box>bar</p>';
     const editor = new Editor({
@@ -634,7 +632,7 @@ describe('editor', () => {
     });
     editor.render();
     editor.setValue(input);
-    editor.event.once('input', () => {
+    editor.event.once('change', () => {
       const value = editor.getValue();
       debug(`output: ${value}`);
       editor.unmount();
@@ -644,7 +642,7 @@ describe('editor', () => {
     insertText(editor, 'a');
   });
 
-  it('input event: input text in the end strip of inline box', done => {
+  it('input event: when inputting text at the end of inline box', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="end"></lake-box>bar</p>';
     const output = '<p>foo<lake-box type="inline" name="inlineBox"></lake-box>a<focus />bar</p>';
     const editor = new Editor({
@@ -652,7 +650,7 @@ describe('editor', () => {
     });
     editor.render();
     editor.setValue(input);
-    editor.event.once('input', () => {
+    editor.event.once('change', () => {
       const value = editor.getValue();
       debug(`output: ${value}`);
       editor.unmount();
@@ -662,7 +660,7 @@ describe('editor', () => {
     insertText(editor, 'a');
   });
 
-  it('input event: input composition text in the start strip of inline box', done => {
+  it('input event: when inputting composition text at the start of inline box', done => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const output = '<p>foo你好<focus /><lake-box type="inline" name="inlineBox"></lake-box>bar</p>';
     const editor = new Editor({
@@ -670,7 +668,7 @@ describe('editor', () => {
     });
     editor.render();
     editor.setValue(input);
-    editor.event.once('input', () => {
+    editor.event.once('change', () => {
       const value = editor.getValue();
       debug(`output: ${value}`);
       editor.unmount();
@@ -686,7 +684,7 @@ describe('editor', () => {
       value: '<p>\u200Bfoo<focus /></p>',
     });
     editor.render();
-    editor.event.once('input', () => {
+    editor.event.once('change', () => {
       editor.history.undo();
       expect(editor.getValue()).to.equal('<p>\u200Bfoo<focus /></p>');
       editor.history.redo();
@@ -713,7 +711,7 @@ describe('editor', () => {
     editor.command.execute('heading', 'h1');
   });
 
-  it('change event: execute command', done => {
+  it('change event: when executing command', done => {
     const editor = new Editor({
       root: rootNode,
       value: '<p><br /><focus /></p>',
@@ -727,7 +725,7 @@ describe('editor', () => {
     editor.command.execute('heading', 'h1');
   });
 
-  it('change event: input data', done => {
+  it('change event: when inputting data', done => {
     const editor = new Editor({
       root: rootNode,
       value: '<p>foo<focus /></p>',
@@ -741,7 +739,7 @@ describe('editor', () => {
     insertText(editor, 'a');
   });
 
-  it('change event: input and delete data', done => {
+  it('change event: when inputting and deleting data', done => {
     const editor = new Editor({
       root: rootNode,
       value: '<p>foo<focus /></p>',
@@ -763,7 +761,7 @@ describe('editor', () => {
     insertText(editor, 'a');
   });
 
-  it('change event: show or hide placeholder', done => {
+  it('change event: should show and hide placeholder', done => {
     const editor = new Editor({
       root: rootNode,
       value: '<p><br /><focus /></p>',
@@ -788,7 +786,7 @@ describe('editor', () => {
     insertText(editor, 'a');
   });
 
-  it('single editor: click event', () => {
+  it('single editor: should trigger click event', () => {
     const editor = new Editor({
       root: rootNode,
     });
@@ -804,7 +802,7 @@ describe('editor', () => {
     editor.unmount();
   });
 
-  it('multi-editor: click event', () => {
+  it('multi-editor: should trigger click event', () => {
     const rootNode2 = query('<div class="lake-root" />');
     query(document.body).append(rootNode2);
     const editor = new Editor({

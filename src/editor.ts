@@ -369,13 +369,11 @@ export class Editor {
           if (inputEvent.inputType === 'insertCompositionText') {
             this.container.removeClass('lake-placeholder');
           }
-          this.event.emit('input', inputEvent);
           return;
         }
         if (range.isBoxStart || range.isBoxEnd) {
           this.moveBoxStripText();
           this.history.save();
-          this.event.emit('input', inputEvent);
           return;
         }
         if (
@@ -396,11 +394,9 @@ export class Editor {
             });
             this.resetUnsavedInputData();
           }
-          this.event.emit('input', inputEvent);
           return;
         }
         this.history.save();
-        this.event.emit('input', inputEvent);
       }, 0);
     });
   }
