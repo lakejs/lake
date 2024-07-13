@@ -31,7 +31,7 @@ describe('managers / selection', () => {
     container.remove();
   });
 
-  it('sync method: sets the saved range to the selection', () => {
+  it('sync method: should set the native selection using the saved range', () => {
     const selection = new Selection(container);
     const range = new Range();
     container.html('<p>foo</p>');
@@ -45,20 +45,40 @@ describe('managers / selection', () => {
     expect(rangeFromSelection.endOffset).to.equal(1);
   });
 
-  it('updateByRange method: with the current selected range from the selection', () => {
-    const selection = new Selection(container);
-    const range = new Range();
+  it('updateByRange method: should set the saved range using the native selection', () => {
     container.html('<p>foo</p>');
-    range.selectNodeContents(container.find('p'));
-    selection.range = range;
-    selection.sync();
+    // set the native selection
+    const nativeRange = document.createRange();
+    nativeRange.selectNodeContents(container.find('p').get(0));
+    const nativeSelection = window.getSelection();
+    nativeSelection?.removeAllRanges();
+    nativeSelection?.addRange(nativeRange);
+    const selection = new Selection(container);
+    // initiate the saved range
     selection.range = new Range();
     expect(selection.range.startNode.get(0)).to.equal(document);
+    // set the saved range using the native selection
     selection.updateByRange();
     expect(selection.range.startNode.name).to.equal('p');
     expect(selection.range.startOffset).to.equal(0);
     expect(selection.range.endNode.name).to.equal('p');
     expect(selection.range.endOffset).to.equal(1);
+  });
+
+  it('updateByRange method: the saved range should not be set by the native selection that is outside the container', () => {
+    container.html('<p>foo</p>');
+    // set the native selection
+    const nativeRange = document.createRange();
+    nativeRange.selectNodeContents(container.parent().get(0));
+    const nativeSelection = window.getSelection();
+    nativeSelection?.removeAllRanges();
+    nativeSelection?.addRange(nativeRange);
+    const selection = new Selection(container);
+    // initiate the saved range
+    selection.range = new Range();
+    expect(selection.range.startNode.get(0)).to.equal(document);
+    selection.updateByRange();
+    expect(selection.range.startNode.get(0)).to.equal(document);
   });
 
   it('updateByBookmark method: ordinary bookmark', () => {

@@ -185,7 +185,7 @@ export class Editor {
   };
 
   private selectionchangeListener: EventListener = () => {
-    this.selection.updateByRange();
+    this.updateSelectionRange();
     this.updateBoxSelectionStyle();
     this.emitStateChangeEvent();
   };
@@ -201,6 +201,12 @@ export class Editor {
   private resizeListener: EventListener = () => {
     this.event.emit('resize');
   };
+
+  private updateSelectionRange = debounce(() => {
+    this.selection.updateByRange();
+  }, 1, {
+    immediate: true,
+  });
 
   // Updates the classes of all boxes when the current selection of the editor is changed.
   private updateBoxSelectionStyle = debounce(() => {

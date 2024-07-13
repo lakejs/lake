@@ -124,6 +124,9 @@ export class Selection {
   // Updates the saved range with the range of the native selection.
   public updateByRange(): void {
     const newRange = this.getRangeFromNativeSelection();
+    if (!this.container.contains(newRange.commonAncestor)) {
+      return;
+    }
     if (
       this.range.startNode.get(0) === newRange.startNode.get(0) &&
       this.range.startOffset === newRange.startOffset &&
