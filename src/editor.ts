@@ -433,8 +433,8 @@ export class Editor {
     this.history.event.on('save', (value, options) => {
       this.removeBoxGarbage();
       executeCommonMethods(value);
-      this.selection.sync();
       if (options.inputType !== 'insertText') {
+        this.selection.sync();
         this.resetUnsavedInputData();
       }
     });
