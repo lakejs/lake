@@ -5,7 +5,7 @@ import { Editor } from '../src/editor';
 import { click, getContainerValue } from './utils';
 
 function insertText(editor: Editor, data: string) {
-  const event = new InputEvent('input', {
+  const inputEvent = new InputEvent('input', {
     data,
     inputType: 'insertText',
     isComposing: false,
@@ -18,21 +18,24 @@ function insertText(editor: Editor, data: string) {
   if (prevNode.length > 0 && prevNode.name === 'br') {
     prevNode.remove();
   }
-  editor.container.emit('input', event);
+  editor.container.emit('input', inputEvent);
 }
 
 function insertCompositionText(editor: Editor, data: string) {
   editor.container.emit('compositionstart');
-  const event = new InputEvent('input', {
+  const inputEvent = new InputEvent('input', {
     data,
     inputType: 'insertCompositionText',
     isComposing: true,
   });
+  const compositionEvent = new CompositionEvent('compositionend', {
+    data,
+  });
   const nativeRange = editor.selection.range.get();
   nativeRange.insertNode(document.createTextNode(data));
   nativeRange.collapse(false);
-  editor.container.emit('input', event);
-  editor.container.emit('compositionend');
+  editor.container.emit('input', inputEvent);
+  editor.container.emit('compositionend', compositionEvent);
 }
 
 function deleteContentBackward(editor: Editor) {

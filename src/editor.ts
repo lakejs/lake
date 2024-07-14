@@ -348,56 +348,64 @@ export class Editor {
     this.unsavedInputCount = 0;
   }
 
-  // Binds events about input.
+  // Handles input event.
+  private handleInputEvent(event: InputEvent | CompositionEvent) {
+    this.selection.updateByRange();
+    const range = this.selection.range;
+    if (range.isInsideBox) {
+      return;
+    }
+    if (range.isBoxStart || range.isBoxEnd) {
+      this.moveBoxStripText();
+      this.history.save();
+      return;
+    }
+    const inputType = event instanceof CompositionEvent ? 'insertText' : event.inputType;
+    if (inputType === 'insertText') {
+      const inputData = event.data ?? '';
+      if (inputData.length > 1) {
+        this.history.save({
+          inputType: 'insertText',
+          update: false,
+        });
+        return;
+      }
+      this.unsavedInputData += inputData;
+      this.unsavedInputCount++;
+      if (this.unsavedInputData.length < this.config.minChangeSize) {
+        this.history.save({
+          inputType: 'insertText',
+          update: this.unsavedInputCount > 1,
+        });
+      } else {
+        this.history.save({
+          inputType: 'insertText',
+          update: true,
+        });
+        this.resetUnsavedInputData();
+      }
+      return;
+    }
+    this.history.save();
+  }
+
+  // Binds events about inputting text.
   private bindInputEvents(): void {
     this.container.on('compositionstart', () => {
       this.isComposing = true;
+      this.container.removeClass('lake-placeholder');
     });
-    this.container.on('compositionend', () => {
+    this.container.on('compositionend', event => {
       this.isComposing = false;
+      this.handleInputEvent(event as CompositionEvent);
     });
     this.container.on('input', event => {
       const inputEvent = event as InputEvent;
-      // Here setTimeout is necessary because isComposing is not false after ending composition.
-      window.setTimeout(() => {
-        const range = this.selection.range;
-        if (range.isInsideBox) {
-          return;
-        }
-        // isComposing is false after ending composition because compositionend event has been emitted.
-        if (this.isComposing) {
-          if (inputEvent.inputType === 'insertCompositionText') {
-            this.container.removeClass('lake-placeholder');
-          }
-          return;
-        }
-        if (range.isBoxStart || range.isBoxEnd) {
-          this.moveBoxStripText();
-          this.history.save();
-          return;
-        }
-        if (
-          inputEvent.inputType === 'insertText' ||
-          inputEvent.inputType === 'insertCompositionText'
-        ) {
-          this.unsavedInputData += inputEvent.data ?? '';
-          this.unsavedInputCount++;
-          if (this.unsavedInputData.length < this.config.minChangeSize) {
-            this.history.save({
-              inputType: 'insertText',
-              update: this.unsavedInputCount > 1,
-            });
-          } else {
-            this.history.save({
-              inputType: 'insertText',
-              update: true,
-            });
-            this.resetUnsavedInputData();
-          }
-          return;
-        }
-        this.history.save();
-      }, 0);
+      this.isComposing = inputEvent.isComposing;
+      if (this.isComposing) {
+        return;
+      }
+      this.handleInputEvent(event as InputEvent);
     });
   }
 
