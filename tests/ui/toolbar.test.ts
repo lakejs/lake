@@ -203,6 +203,24 @@ describe('ui / toolbar', () => {
     expect(value).to.equal('<p><anchor /><strong>bar</strong><focus /></p>');
   });
 
+  it('bold: should execute bold at the correct position after selecting outer text', done => {
+    editor.setValue('<p><anchor />bar<focus /></p>');
+    editor.event.once('statechange', () => {
+      const isSelected = toolbar.container.find('button[name="bold"].lake-button-selected').length > 0;
+      expect(isSelected).to.equal(true);
+      done();
+    });
+    const nativeRange = document.createRange();
+    nativeRange.setStart(document.body, 0);
+    const nativeSelection = window.getSelection();
+    nativeSelection?.removeAllRanges();
+    nativeSelection?.addRange(nativeRange);
+    click(toolbar.container.find('button[name="bold"]'));
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    expect(value).to.equal('<p><anchor /><strong>bar</strong><focus /></p>');
+  });
+
   it('italic: clicks button', () => {
     editor.setValue('<p><anchor />bar<focus /></p>');
     click(toolbar.container.find('button[name="italic"]'));
