@@ -627,7 +627,7 @@ describe('editor', () => {
     expect(isHovered).to.equal(true);
   });
 
-  it('input event: when inputting text at the start of inline box', done => {
+  it('input text: when inputting text at the start of inline box', () => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const output = '<p>fooa<focus /><lake-box type="inline" name="inlineBox"></lake-box>bar</p>';
     const editor = new Editor({
@@ -635,17 +635,14 @@ describe('editor', () => {
     });
     editor.render();
     editor.setValue(input);
-    editor.event.once('change', () => {
-      const value = editor.getValue();
-      debug(`output: ${value}`);
-      editor.unmount();
-      expect(value).to.equal(output);
-      done();
-    });
     insertText(editor, 'a');
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
   });
 
-  it('input event: when inputting text at the end of inline box', done => {
+  it('input text: when inputting text at the end of inline box', () => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="end"></lake-box>bar</p>';
     const output = '<p>foo<lake-box type="inline" name="inlineBox"></lake-box>a<focus />bar</p>';
     const editor = new Editor({
@@ -653,17 +650,14 @@ describe('editor', () => {
     });
     editor.render();
     editor.setValue(input);
-    editor.event.once('change', () => {
-      const value = editor.getValue();
-      debug(`output: ${value}`);
-      editor.unmount();
-      expect(value).to.equal(output);
-      done();
-    });
     insertText(editor, 'a');
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
   });
 
-  it('input event: when inputting composition text at the start of inline box', done => {
+  it('input text: when inputting composition text at the start of inline box', () => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const output = '<p>foo你好<focus /><lake-box type="inline" name="inlineBox"></lake-box>bar</p>';
     const editor = new Editor({
@@ -671,33 +665,27 @@ describe('editor', () => {
     });
     editor.render();
     editor.setValue(input);
-    editor.event.once('change', () => {
-      const value = editor.getValue();
-      debug(`output: ${value}`);
-      editor.unmount();
-      expect(value).to.equal(output);
-      done();
-    });
     insertCompositionText(editor, '你好');
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
   });
 
-  it('input event: undo and redo', done => {
+  it('input text: undo and redo', () => {
     const editor = new Editor({
       root: rootNode,
       value: '<p>\u200Bfoo<focus /></p>',
     });
     editor.render();
-    editor.event.once('change', () => {
-      editor.history.undo();
-      expect(editor.getValue()).to.equal('<p>\u200Bfoo<focus /></p>');
-      editor.history.redo();
-      expect(editor.getValue()).to.equal('<p>\u200Bfooa<focus /></p>');
-      editor.history.undo();
-      expect(editor.getValue()).to.equal('<p>\u200Bfoo<focus /></p>');
-      editor.unmount();
-      done();
-    });
     insertText(editor, 'a');
+    editor.history.undo();
+    expect(editor.getValue()).to.equal('<p>\u200Bfoo<focus /></p>');
+    editor.history.redo();
+    expect(editor.getValue()).to.equal('<p>\u200Bfooa<focus /></p>');
+    editor.history.undo();
+    expect(editor.getValue()).to.equal('<p>\u200Bfoo<focus /></p>');
+    editor.unmount();
   });
 
   it('statechange event', done => {
