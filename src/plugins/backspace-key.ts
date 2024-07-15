@@ -67,7 +67,10 @@ export default (editor: Editor) => {
       const boxNode = range.commonAncestor.closest('lake-box');
       const box = getBox(boxNode);
       const boxValue = box.value;
-      if (box.name === 'codeBlock' && (boxValue.code === undefined || boxValue.code === '')) {
+      if (
+        range.isCollapsed && box.name === 'codeBlock' &&
+        (boxValue.code === undefined || boxValue.code === '')
+      ) {
         event.preventDefault();
         editor.selection.removeBox(box);
         editor.history.save();

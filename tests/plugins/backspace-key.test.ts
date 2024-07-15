@@ -856,7 +856,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('should remove empty code block', () => {
+  it('should remove empty code block when selected range is collapsed', () => {
     const content = `
     <p>foo</p>
     <lake-box type="block" name="codeBlock" focus="center"></lake-box>
@@ -872,6 +872,27 @@ describe('plugins / backspace-key', () => {
         const boxNode = editor.container.find('lake-box');
         editor.selection.range.setStart(boxNode.find('.cm-line'), 0);
         editor.selection.range.collapseToStart();
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should not remove empty code block when selected range is expanded', () => {
+    const content = `
+    <p>foo</p>
+    <lake-box type="block" name="codeBlock" focus="center"></lake-box>
+    `;
+    const output = `
+    <p>foo</p>
+    <lake-box type="block" name="codeBlock" focus="center"></lake-box>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        const boxNode = editor.container.find('lake-box');
+        boxNode.find('.cm-line').text('foo');
+        editor.selection.range.selectNodeContents(boxNode.find('.cm-line'));
         editor.keystroke.keydown('backspace');
       },
     );
