@@ -1,3 +1,4 @@
+import debounce from 'debounce';
 import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
 import { debug } from '../utils/debug';
@@ -135,16 +136,16 @@ export const codeBlockBox: BoxComponent = {
     const boxValue = box.value;
     const langItem = langItemMap.get(boxValue.lang);
     const language = new Compartment();
-    const changeHandler = (value: string) => {
-      // Here setTimeout is necessary because isComposing is not false after ending composition.
-      window.setTimeout(() => {
-        if (editor.isComposing) {
-          return;
-        }
-        box.updateValue('code', value);
-        editor.history.save();
-      }, 0);
-    };
+    const changeHandler = debounce((value: string) => {
+      editor.selection.updateByRange();
+      if (editor.isComposing) {
+        return;
+      }
+      box.updateValue('code', value);
+      editor.history.save();
+    }, 1, {
+      immediate: false,
+    });
     const updateListener = EditorView.updateListener.of((update: any) => {
       if (!update.docChanged) {
         return;
