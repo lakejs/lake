@@ -7,7 +7,6 @@ import { query } from '../utils/query';
 import { getBox } from '../utils/get-box';
 import { safeTemplate } from '../utils/safe-template';
 import { Nodes } from '../models/nodes';
-import { Range } from '../models/range';
 import { Box } from '../models/box';
 import { BoxResizer } from '../ui/box-resizer';
 
@@ -134,20 +133,11 @@ function openFullScreen(box: Box): void {
     }
     return placeholderSrc;
   });
-  let savedRange: Range;
   lightbox.on('openingAnimationEnd', () => {
-    savedRange = editor.selection.range;
     box.event.emit('openfullscreen');
   });
   lightbox.on('destroy', () => {
-    window.setTimeout(() => {
-      if (savedRange) {
-        // fix(image): lose focus when zooming in the iOS
-        editor.selection.range = savedRange;
-        editor.selection.sync();
-      }
-      box.event.emit('closefullscreen');
-    }, 0);
+    box.event.emit('closefullscreen');
   });
   lightbox.init();
   lightbox.loadAndOpen(currentIndex);
