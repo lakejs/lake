@@ -203,7 +203,7 @@ describe('ui / toolbar', () => {
     expect(value).to.equal('<p><anchor /><strong>bar</strong><focus /></p>');
   });
 
-  it('bold: should execute bold at the correct position after selecting outer text', done => {
+  it('bold: should execute bold at the correct position after selecting outside the container', done => {
     editor.setValue('<p><anchor />bar<focus /></p>');
     editor.event.once('statechange', () => {
       const isSelected = toolbar.container.find('button[name="bold"].lake-button-selected').length > 0;
@@ -507,13 +507,17 @@ describe('ui / toolbar', () => {
     expect(value).to.equal('<lake-box type="block" name="hr" focus="end"></lake-box>');
   });
 
-  it('hr: should insert a box into the end of the content', () => {
-    editor.setValue('<p>foo</p>');
-    editor.selection.range.setStart(query(document.body), 0);
+  it('hr: should insert a box after selecting ouside the editor', () => {
+    editor.setValue('<p>foo<focus />bar</p>');
+    const nativeRange = document.createRange();
+    nativeRange.setStart(document.body, 0);
+    const nativeSelection = window.getSelection();
+    nativeSelection?.removeAllRanges();
+    nativeSelection?.addRange(nativeRange);
     click(toolbar.container.find('button[name="hr"]'));
     const value = editor.getValue();
     debug(`output: ${value}`);
-    expect(value).to.equal('<p>foo</p><lake-box type="block" name="hr" focus="end"></lake-box>');
+    expect(value).to.equal('<p>foo</p><lake-box type="block" name="hr" focus="end"></lake-box><p>bar</p>');
   });
 
   it('video: clicks button', () => {

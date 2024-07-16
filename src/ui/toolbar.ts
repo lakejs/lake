@@ -84,10 +84,6 @@ export class Toolbar {
       tabIndex: -1,
       onClick: () => {
         editor.focus();
-        const range = editor.selection.range;
-        if (!editor.container.contains(range.commonAncestor)) {
-          range.shrinkAfter(editor.container);
-        }
         item.onClick(editor, item.name);
       },
     });
