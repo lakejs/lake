@@ -68,6 +68,8 @@ export class CommandsPopup {
 
   private range: Range | null = null;
 
+  private noMouseEvent: boolean = false;
+
   public container: Nodes;
 
   constructor(config: CommandsPopupConfig) {
@@ -104,6 +106,15 @@ export class CommandsPopup {
     return selectedItemNode;
   }
 
+  private selectItemNode(itemNode: Nodes): void {
+    (itemNode.get(0) as HTMLElement).scrollIntoView({
+      behavior: 'instant',
+      block: 'center',
+    });
+    this.container.find('.lake-commands-item').removeClass('lake-commands-item-selected');
+    itemNode.addClass('lake-commands-item-selected');
+  }
+
   private appendButton(item: CommandButtonItem): void {
     const itemNode = query(safeTemplate`
       <div class="lake-commands-item" name="${item.name}">
@@ -120,6 +131,10 @@ export class CommandsPopup {
     }
     this.container.append(itemNode);
     itemNode.on('mouseenter', () => {
+      if (this.noMouseEvent) {
+        return;
+      }
+      this.container.find('.lake-commands-item').removeClass('lake-commands-item-selected');
       itemNode.addClass('lake-commands-item-selected');
     });
     itemNode.on('mouseleave', () => {
@@ -131,23 +146,22 @@ export class CommandsPopup {
     });
   }
 
-  private keydownListener = (event: KeyboardEvent) => {
+  private documentKeydownListener = (event: KeyboardEvent) => {
+    this.noMouseEvent = true;
     const selectedItemNode = this.getSelectedItemNode();
     if (isKeyHotkey('down', event)) {
       let nextItemNode = selectedItemNode.next();
       if (nextItemNode.length === 0) {
         nextItemNode = this.container.find('.lake-commands-item').eq(0);
       }
-      selectedItemNode.removeClass('lake-commands-item-selected');
-      nextItemNode.addClass('lake-commands-item-selected');
+      this.selectItemNode(nextItemNode);
     } else if (isKeyHotkey('up', event)) {
       let prevItemNode = selectedItemNode.prev();
       if (prevItemNode.length === 0) {
         const itemNode = this.container.find('.lake-commands-item');
         prevItemNode = itemNode.eq(itemNode.length - 1);
       }
-      selectedItemNode.removeClass('lake-commands-item-selected');
-      prevItemNode.addClass('lake-commands-item-selected');
+      this.selectItemNode(prevItemNode);
     } else if (isKeyHotkey('enter', event)) {
       this.editor.focus();
       const itemName = selectedItemNode.attr('name');
@@ -156,6 +170,9 @@ export class CommandsPopup {
         item.onClick(this.editor, item.name);
       }
     }
+    window.setTimeout(() => {
+      this.noMouseEvent = false;
+    }, 50);
   };
 
   public updatePosition(): void {
@@ -212,12 +229,17 @@ export class CommandsPopup {
     this.container.show();
     this.updatePosition();
     this.container.css('visibility', '');
-    document.addEventListener('keydown', this.keydownListener);
+    document.addEventListener('keydown', this.documentKeydownListener);
   }
 
   public hide(): void {
     this.range = null;
     this.container.hide();
-    document.removeEventListener('keydown', this.keydownListener);
+    document.removeEventListener('keydown', this.documentKeydownListener);
+  }
+
+  public unmount(): void {
+    this.container.remove();
+    document.removeEventListener('keydown', this.documentKeydownListener);
   }
 }
