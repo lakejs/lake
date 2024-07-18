@@ -12,7 +12,6 @@ describe('ui / link-popup-ui', () => {
       root: container,
     });
     popup.show(linkNode);
-    container.find('.lake-link-popup').css('position', 'static');
     expect(container.find('.lake-link-popup').length).to.equal(1);
   });
 

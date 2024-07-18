@@ -79,24 +79,6 @@ export class CommandsPopup {
     this.container = query('<div class="lake-commands-popup" />');
   }
 
-  private findItem(itemName: string): CommandItem | null {
-    for (const name of this.items) {
-      let item;
-      if (typeof name === 'string') {
-        item = commandItemMap.get(name);
-        if (!item) {
-          throw new Error(`CommandItem "${name}" has not been defined yet.`);
-        }
-      } else {
-        item = name;
-      }
-      if (item.name === itemName) {
-        return item;
-      }
-    }
-    return null;
-  }
-
   private getSelectedItemNode(): Nodes {
     let selectedItemNode = this.container.find('.lake-commands-item-selected');
     if (selectedItemNode.length === 0) {
@@ -143,6 +125,7 @@ export class CommandsPopup {
     itemNode.on('click', () => {
       this.editor.focus();
       item.onClick(this.editor, item.name);
+      this.hide();
     });
   }
 
@@ -163,16 +146,19 @@ export class CommandsPopup {
       }
       this.selectItemNode(prevItemNode);
     } else if (isKeyHotkey('enter', event)) {
-      this.editor.focus();
-      const itemName = selectedItemNode.attr('name');
-      const item = this.findItem(itemName);
-      if (item && item.type === 'button') {
-        item.onClick(this.editor, item.name);
-      }
+      selectedItemNode.emit('click');
     }
     window.setTimeout(() => {
       this.noMouseEvent = false;
     }, 50);
+  };
+
+  private documentClickListener = (event: Event) => {
+    const targetNode = new Nodes(event.target as Element);
+    if (this.container.contains(targetNode)) {
+      return;
+    }
+    this.hide();
   };
 
   public updatePosition(): void {
@@ -230,16 +216,18 @@ export class CommandsPopup {
     this.updatePosition();
     this.container.css('visibility', '');
     document.addEventListener('keydown', this.documentKeydownListener);
+    document.addEventListener('click', this.documentClickListener);
   }
 
   public hide(): void {
     this.range = null;
     this.container.hide();
     document.removeEventListener('keydown', this.documentKeydownListener);
+    document.removeEventListener('click', this.documentClickListener);
   }
 
   public unmount(): void {
+    this.hide();
     this.container.remove();
-    document.removeEventListener('keydown', this.documentKeydownListener);
   }
 }

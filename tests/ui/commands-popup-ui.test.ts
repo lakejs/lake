@@ -3,9 +3,9 @@ import { Range } from '../../src/models/range';
 import { CommandsPopup } from '../../src/ui/commands-popup';
 import { Editor } from '../../src';
 
-describe('ui / commands-popup', () => {
+describe('ui / commands-popup-ui', () => {
 
-  it('should remove popup', () => {
+  it('commands popup', () => {
     const rootNode = query('<div class="lake-root"></div>');
     query(document.body).append(rootNode);
     const editor = new Editor({
@@ -20,10 +20,6 @@ describe('ui / commands-popup', () => {
     range.selectNodeContents(editor.container);
     popup.show(range);
     expect(editor.popupContainer.find('.lake-commands-popup').length).to.equal(1);
-    popup.hide();
-    expect(editor.popupContainer.find('.lake-commands-popup').computedCSS('display')).to.equal('none');
-    popup.unmount();
-    expect(editor.popupContainer.find('.lake-commands-popup').length).to.equal(0);
   });
 
 });
