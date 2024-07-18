@@ -8,7 +8,7 @@ describe('plugins / equation', () => {
     <p>foo<focus />bar</p>
     `;
     const output = `
-    <p>foo<lake-box type="inline" name="equation" focus="center"></lake-box>bar</p>
+    <p>foo<lake-box type="inline" name="equation" focus="end"></lake-box>bar</p>
     `;
     testPlugin(
       content,
@@ -24,7 +24,7 @@ describe('plugins / equation', () => {
     <p>foo<focus /></p>
     `;
     const output = `
-    <p>foo<lake-box type="inline" name="equation" focus="center"></lake-box></p>
+    <p>foo<lake-box type="inline" name="equation" focus="end"></lake-box></p>
     `;
     testPlugin(
       content,
