@@ -120,6 +120,9 @@ export class CommandsPopup {
       itemNode.addClass('lake-commands-item-selected');
     });
     itemNode.on('mouseleave', () => {
+      if (this.noMouseEvent) {
+        return;
+      }
       itemNode.removeClass('lake-commands-item-selected');
     });
     itemNode.on('click', () => {
@@ -133,12 +136,14 @@ export class CommandsPopup {
     this.noMouseEvent = true;
     const selectedItemNode = this.getSelectedItemNode();
     if (isKeyHotkey('down', event)) {
+      event.preventDefault();
       let nextItemNode = selectedItemNode.next();
       if (nextItemNode.length === 0) {
         nextItemNode = this.container.find('.lake-commands-item').eq(0);
       }
       this.selectItemNode(nextItemNode);
     } else if (isKeyHotkey('up', event)) {
+      event.preventDefault();
       let prevItemNode = selectedItemNode.prev();
       if (prevItemNode.length === 0) {
         const itemNode = this.container.find('.lake-commands-item');
@@ -146,6 +151,7 @@ export class CommandsPopup {
       }
       this.selectItemNode(prevItemNode);
     } else if (isKeyHotkey('enter', event)) {
+      event.preventDefault();
       selectedItemNode.emit('click');
     }
     window.setTimeout(() => {
