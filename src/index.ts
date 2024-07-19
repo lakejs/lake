@@ -79,6 +79,7 @@ import deleteKey from './plugins/delete-key';
 import tabKey from './plugins/tab-key';
 import arrowKeys from './plugins/arrow-keys';
 import escapeKey from './plugins/escape-key';
+import commands from './plugins/commands';
 
 Editor.box.add(hrBox);
 Editor.box.add(codeBlockBox);
@@ -130,6 +131,7 @@ Editor.plugin.add(deleteKey);
 Editor.plugin.add(tabKey);
 Editor.plugin.add(arrowKeys);
 Editor.plugin.add(escapeKey);
+Editor.plugin.add(commands);
 
 export {
   Editor,

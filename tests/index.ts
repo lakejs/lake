@@ -132,6 +132,7 @@ import './plugins/delete-key.test';
 import './plugins/tab-key.test';
 import './plugins/arrow-keys.test';
 import './plugins/escape-key.test';
+import './plugins/commands.test';
 
 // UI
 import './ui/button.test';
