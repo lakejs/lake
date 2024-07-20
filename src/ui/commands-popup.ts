@@ -1,9 +1,9 @@
 import { isKeyHotkey } from 'is-hotkey';
 import type { Editor } from '../editor';
-import { TranslationFunctions } from '../i18n/types';
 import { CommandButtonItem, CommandItem } from '../types/commands';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
+import { appendBreak } from '../utils/append-break';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { icons } from '../icons';
@@ -54,7 +54,6 @@ const defaultItems: string[] = [
 
 type CommandsPopupConfig = {
   editor: Editor;
-  locale?: TranslationFunctions;
   items?: (string | CommandItem)[];
 };
 
@@ -98,6 +97,7 @@ export class CommandsPopup {
   }
 
   private appendButton(item: CommandButtonItem): void {
+    const editor = this.editor;
     const itemNode = query(safeTemplate`
       <div class="lake-commands-item" name="${item.name}">
         <div class="lake-commands-icon"></div>
@@ -126,8 +126,13 @@ export class CommandsPopup {
       itemNode.removeClass('lake-commands-item-selected');
     });
     itemNode.on('click', () => {
-      this.editor.focus();
-      item.onClick(this.editor, item.name);
+      editor.focus();
+      const range = editor.selection.range;
+      const prevNode = range.getPrevNode();
+      const block = prevNode.closestBlock();
+      prevNode.remove();
+      appendBreak(block);
+      item.onClick(editor, item.name);
       this.hide();
     });
   }
