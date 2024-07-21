@@ -13,7 +13,7 @@ export default (editor: Editor) => {
       const box = editor.selection.insertBox('equation', value);
       editor.history.save();
       const boxContainer = box.getContainer();
-      boxContainer.find('.lake-equation-form').show('flex');
+      boxContainer.addClass('lake-box-activated');
       boxContainer.find('textarea').focus();
     },
   });
