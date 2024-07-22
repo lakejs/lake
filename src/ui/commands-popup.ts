@@ -172,6 +172,10 @@ export class CommandsPopup {
     this.hide();
   };
 
+  public get visible(): boolean {
+    return this.container.computedCSS('display') !== 'none';
+  }
+
   public updatePosition(): void {
     if (!this.range) {
       return;
@@ -226,14 +230,14 @@ export class CommandsPopup {
     this.container.show();
     this.updatePosition();
     this.container.css('visibility', '');
-    document.addEventListener('keydown', this.documentKeydownListener);
+    document.addEventListener('keydown', this.documentKeydownListener, true);
     document.addEventListener('click', this.documentClickListener);
   }
 
   public hide(): void {
     this.range = null;
     this.container.hide();
-    document.removeEventListener('keydown', this.documentKeydownListener);
+    document.removeEventListener('keydown', this.documentKeydownListener, true);
     document.removeEventListener('click', this.documentClickListener);
   }
 

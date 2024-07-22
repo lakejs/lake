@@ -1,3 +1,4 @@
+import { isKeyHotkey } from 'is-hotkey';
 import type { Editor } from '..';
 import { CommandsPopup } from '../ui/commands-popup';
 
@@ -35,16 +36,42 @@ export default (editor: Editor) => {
     if (range.isInsideBox) {
       return;
     }
-    const startText = range.getStartText();
-    if (startText !== '/') {
+    if (!range.isCollapsed) {
+      return;
+    }
+    let block = range.getBlocks()[0];
+    if (!block) {
+      editor.selection.setBlocks('<p />');
+      block = range.getBlocks()[0];
+    }
+    if (block.find('lake-box').length > 0) {
+      return;
+    }
+    let text = block.text().trim();
+    text = text.replace(/[\u200B\u2060]/g, '');
+    if (text !== '/') {
       return;
     }
     const slashRange = range.clone();
-    slashRange.setStart(range.startNode, range.startOffset - 1);
+    slashRange.selectNodeContents(block);
     slashRange.info();
     popup.show(slashRange);
   });
-  editor.container.on('keydown', () => {
+  editor.container.on('keydown', event => {
+    const keyboardEvent = event as KeyboardEvent;
+    if (!popup.visible) {
+      return;
+    }
+    if (
+      isKeyHotkey('left', keyboardEvent) ||
+      isKeyHotkey('right', keyboardEvent) ||
+      isKeyHotkey('up', keyboardEvent) ||
+      isKeyHotkey('down', keyboardEvent) ||
+      isKeyHotkey('enter', keyboardEvent)
+    ) {
+      keyboardEvent.preventDefault();
+      return;
+    }
     popup.hide();
   });
 };
