@@ -119,4 +119,17 @@ describe('managers / command', () => {
     expect(status).to.equal('align: center');
   });
 
+  it('the selection should be moved to the end of the content', () => {
+    const container = query('<div contenteditable="true" />');
+    container.html('foo');
+    const selection = new Selection(container);
+    const command = new Command(selection);
+    command.add('bold', {
+      execute: () => {},
+    });
+    command.execute('bold');
+    expect(selection.range.startNode.get(0)).to.equal(container.get(0));
+    expect(selection.range.startOffset).to.equal(1);
+  });
+
 });

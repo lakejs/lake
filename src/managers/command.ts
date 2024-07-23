@@ -70,6 +70,11 @@ export class Command {
   }
 
   public execute(name: string, ...data: any[]): void {
+    const container = this.selection.container;
+    const range = this.selection.range;
+    if (!container.contains(range.commonAncestor)) {
+      range.shrinkAfter(container);
+    }
     const commandItem = this.getItem(name);
     commandItem.execute.apply(this, data);
     debug(`Command "${name}" executed`);
