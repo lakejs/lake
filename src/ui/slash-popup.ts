@@ -1,35 +1,13 @@
 import { isKeyHotkey } from 'is-hotkey';
 import type { Editor } from '../editor';
 import { SlashButtonItem, SlashItem } from '../types/slash';
+import { slashItems } from '../config/slash-items';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { appendBreak } from '../utils/append-break';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { icons } from '../icons';
-
-const slashItems: SlashItem[] = [
-  {
-    name: 'codeBlock',
-    type: 'button',
-    icon: icons.get('codeBlock'),
-    title: 'Code block',
-    description: 'Insert a code block.',
-    onClick: (editor, value) => {
-      editor.command.execute(value);
-    },
-  },
-  {
-    name: 'equation',
-    type: 'button',
-    icon: icons.get('equation'),
-    title: 'Equation',
-    description: 'Insert TeX expression in text.',
-    onClick: (editor, value) => {
-      editor.command.execute(value);
-    },
-  },
-];
 
 const slashItemMap: Map<string, SlashItem> = new Map();
 
@@ -38,17 +16,20 @@ for (const item of slashItems) {
 }
 
 const defaultItems: string[] = [
+  'heading1',
+  'heading2',
+  'heading3',
+  'heading4',
+  'heading5',
+  'heading6',
+  'paragraph',
+  'blockQuote',
+  'numberedList',
+  'bulletedList',
+  'checklist',
+  'hr',
   'codeBlock',
-  'equation',
-  'codeBlock',
-  'equation',
-  'codeBlock',
-  'equation',
-  'codeBlock',
-  'equation',
-  'codeBlock',
-  'equation',
-  'codeBlock',
+  'video',
   'equation',
 ];
 
