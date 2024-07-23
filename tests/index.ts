@@ -132,7 +132,7 @@ import './plugins/delete-key.test';
 import './plugins/tab-key.test';
 import './plugins/arrow-keys.test';
 import './plugins/escape-key.test';
-import './plugins/commands.test';
+import './plugins/slash.test';
 
 // UI
 import './ui/button.test';
@@ -141,8 +141,8 @@ import './ui/dropdown.test';
 import './ui/dropdown-ui.test';
 import './ui/link-popup.test';
 import './ui/link-popup-ui.test';
-import './ui/commands-popup.test';
-import './ui/commands-popup-ui.test';
+import './ui/slash-popup.test';
+import './ui/slash-popup-ui.test';
 import './ui/toolbar.test';
 import './ui/box-resizer.test';
 import './ui/box-toolbar.test';

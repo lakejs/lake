@@ -1,6 +1,6 @@
 import { isKeyHotkey } from 'is-hotkey';
 import type { Editor } from '../editor';
-import { CommandButtonItem, CommandItem } from '../types/commands';
+import { SlashButtonItem, SlashItem } from '../types/slash';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { appendBreak } from '../utils/append-break';
@@ -8,7 +8,7 @@ import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { icons } from '../icons';
 
-const commandItems: CommandItem[] = [
+const slashItems: SlashItem[] = [
   {
     name: 'codeBlock',
     type: 'button',
@@ -31,10 +31,10 @@ const commandItems: CommandItem[] = [
   },
 ];
 
-const commandItemMap: Map<string, CommandItem> = new Map();
+const slashItemMap: Map<string, SlashItem> = new Map();
 
-for (const item of commandItems) {
-  commandItemMap.set(item.name, item);
+for (const item of slashItems) {
+  slashItemMap.set(item.name, item);
 }
 
 const defaultItems: string[] = [
@@ -52,16 +52,16 @@ const defaultItems: string[] = [
   'equation',
 ];
 
-type CommandsPopupConfig = {
+type SlashPopupConfig = {
   editor: Editor;
-  items?: (string | CommandItem)[];
+  items?: (string | SlashItem)[];
 };
 
-export class CommandsPopup {
+export class SlashPopup {
 
   private editor: Editor;
 
-  private items: (string | CommandItem)[];
+  private items: (string | SlashItem)[];
 
   private root: Nodes;
 
@@ -71,18 +71,18 @@ export class CommandsPopup {
 
   public container: Nodes;
 
-  constructor(config: CommandsPopupConfig) {
+  constructor(config: SlashPopupConfig) {
     this.editor = config.editor;
     this.items = config.items || defaultItems;
     this.root = config.editor.popupContainer;
-    this.container = query('<div class="lake-commands-popup" />');
+    this.container = query('<div class="lake-slash-popup" />');
   }
 
   private getSelectedItemNode(): Nodes {
-    let selectedItemNode = this.container.find('.lake-commands-item-selected');
+    let selectedItemNode = this.container.find('.lake-slash-item-selected');
     if (selectedItemNode.length === 0) {
-      selectedItemNode = this.container.find('.lake-commands-item').eq(0);
-      selectedItemNode.addClass('lake-commands-item-selected');
+      selectedItemNode = this.container.find('.lake-slash-item').eq(0);
+      selectedItemNode.addClass('lake-slash-item-selected');
     }
     return selectedItemNode;
   }
@@ -92,38 +92,38 @@ export class CommandsPopup {
       behavior: 'instant',
       block: 'center',
     });
-    this.container.find('.lake-commands-item').removeClass('lake-commands-item-selected');
-    itemNode.addClass('lake-commands-item-selected');
+    this.container.find('.lake-slash-item').removeClass('lake-slash-item-selected');
+    itemNode.addClass('lake-slash-item-selected');
   }
 
-  private appendButton(item: CommandButtonItem): void {
+  private appendButton(item: SlashButtonItem): void {
     const editor = this.editor;
     const itemNode = query(safeTemplate`
-      <div class="lake-commands-item" name="${item.name}">
-        <div class="lake-commands-icon"></div>
-        <div class="lake-commands-text">
-          <div class="lake-commands-title">${item.title}</div>
-          <div class="lake-commands-description">${item.description}</div>
+      <div class="lake-slash-item" name="${item.name}">
+        <div class="lake-slash-icon"></div>
+        <div class="lake-slash-text">
+          <div class="lake-slash-title">${item.title}</div>
+          <div class="lake-slash-description">${item.description}</div>
         </div>
       </div>
     `);
     const icon = icons.get(item.name);
     if (icon) {
-      itemNode.find('.lake-commands-icon').append(icon);
+      itemNode.find('.lake-slash-icon').append(icon);
     }
     this.container.append(itemNode);
     itemNode.on('mouseenter', () => {
       if (this.noMouseEvent) {
         return;
       }
-      this.container.find('.lake-commands-item').removeClass('lake-commands-item-selected');
-      itemNode.addClass('lake-commands-item-selected');
+      this.container.find('.lake-slash-item').removeClass('lake-slash-item-selected');
+      itemNode.addClass('lake-slash-item-selected');
     });
     itemNode.on('mouseleave', () => {
       if (this.noMouseEvent) {
         return;
       }
-      itemNode.removeClass('lake-commands-item-selected');
+      itemNode.removeClass('lake-slash-item-selected');
     });
     itemNode.on('click', () => {
       editor.focus();
@@ -144,14 +144,14 @@ export class CommandsPopup {
       event.preventDefault();
       let nextItemNode = selectedItemNode.next();
       if (nextItemNode.length === 0) {
-        nextItemNode = this.container.find('.lake-commands-item').eq(0);
+        nextItemNode = this.container.find('.lake-slash-item').eq(0);
       }
       this.selectItemNode(nextItemNode);
     } else if (isKeyHotkey('up', event)) {
       event.preventDefault();
       let prevItemNode = selectedItemNode.prev();
       if (prevItemNode.length === 0) {
-        const itemNode = this.container.find('.lake-commands-item');
+        const itemNode = this.container.find('.lake-slash-item');
         prevItemNode = itemNode.eq(itemNode.length - 1);
       }
       this.selectItemNode(prevItemNode);
@@ -205,9 +205,9 @@ export class CommandsPopup {
     for (const name of this.items) {
       let item;
       if (typeof name === 'string') {
-        item = commandItemMap.get(name);
+        item = slashItemMap.get(name);
         if (!item) {
-          throw new Error(`CommandItem "${name}" has not been defined yet.`);
+          throw new Error(`SlashItem "${name}" has not been defined yet.`);
         }
       } else {
         item = name;
@@ -222,7 +222,7 @@ export class CommandsPopup {
   }
 
   public show(range: Range): void {
-    if (this.root.find('.lake-commands-popup').length === 0) {
+    if (this.root.find('.lake-slash-popup').length === 0) {
       this.render();
     }
     this.range = range;

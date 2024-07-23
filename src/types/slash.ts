@@ -1,7 +1,7 @@
 import type { Editor } from '../editor';
 import { TranslationFunctions } from '../i18n/types';
 
-export type CommandButtonItem = {
+export type SlashButtonItem = {
   name: string;
   type: 'button';
   icon?: string;
@@ -10,7 +10,7 @@ export type CommandButtonItem = {
   onClick: (editor: Editor, value: string) => void;
 };
 
-export type CommandUploadItem = {
+export type SlashUploadItem = {
   name: string;
   type: 'upload';
   icon: string;
@@ -20,4 +20,4 @@ export type CommandUploadItem = {
   multiple?: boolean;
 };
 
-export type CommandItem = CommandButtonItem | CommandUploadItem;
+export type SlashItem = SlashButtonItem | SlashUploadItem;

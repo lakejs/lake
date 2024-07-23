@@ -1,8 +1,8 @@
 import { isKeyHotkey } from 'is-hotkey';
 import type { Editor } from '..';
-import { CommandsPopup } from '../ui/commands-popup';
+import { SlashPopup } from '../ui/slash-popup';
 
-const commandItems: string[] = [
+const slashItems: string[] = [
   'codeBlock',
   'equation',
   'codeBlock',
@@ -21,9 +21,9 @@ export default (editor: Editor) => {
   if (editor.readonly) {
     return;
   }
-  const popup = new CommandsPopup({
+  const popup = new SlashPopup({
     editor,
-    items: commandItems,
+    items: slashItems,
   });
   editor.root.on('scroll', () => {
     popup.updatePosition();

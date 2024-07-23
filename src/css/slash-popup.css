@@ -1,4 +1,4 @@
-.lake-commands-popup {
+.lake-slash-popup {
   position: absolute;
   top: 0;
   left: 0;
@@ -18,35 +18,35 @@
   overflow-y: scroll;
   scrollbar-width: thin;
 }
-.lake-commands-popup .lake-commands-item {
+.lake-slash-popup .lake-slash-item {
   display: flex;
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 5px;
 }
-.lake-commands-popup .lake-commands-item-selected {
+.lake-slash-popup .lake-slash-item-selected {
   background-color: var(--background-active-color);
 }
-.lake-commands-popup .lake-commands-icon {
+.lake-slash-popup .lake-slash-icon {
   margin-right: 8px;
   border-radius: 5px;
   border: 1px solid var(--border-color);
   background-color: #fff;
 }
-.lake-commands-popup .lake-commands-icon svg {
+.lake-slash-popup .lake-slash-icon svg {
   width: 32px;
   height: 32px;
   margin: 6px;
 }
-.lake-commands-popup .lake-commands-text {
+.lake-slash-popup .lake-slash-text {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.lake-commands-popup .lake-commands-title {
+.lake-slash-popup .lake-slash-title {
   font-weight: 500;
   color: var(--text-color);
 }
-.lake-commands-popup .lake-commands-description {
+.lake-slash-popup .lake-slash-description {
   color: var(--secondary-text-color);
 }
