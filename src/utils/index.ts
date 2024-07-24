@@ -31,6 +31,7 @@ export * from './remove-break';
 export * from './set-block-indent';
 export * from './morph';
 export * from './node-and-view';
+export * from './scroll-to-node';
 
 // Box
 export * from './get-box';

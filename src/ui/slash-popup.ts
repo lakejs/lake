@@ -5,17 +5,10 @@ import { slashItems } from '../config/slash-items';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { appendBreak } from '../utils/append-break';
-import { nodeAndView } from '../utils/node-and-view';
+import { scrollToNode } from '../utils/scroll-to-node';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { icons } from '../icons';
-
-function scrollIntoViewIfNeeded(node: Nodes, options: ScrollIntoViewOptions): void {
-  const position = nodeAndView(node);
-  if (position.left < 0 || position.right < 0 || position.top < 0 || position.bottom < 0) {
-    (node.get(0) as Element).scrollIntoView(options);
-  }
-}
 
 const slashItemMap: Map<string, SlashItem> = new Map();
 
@@ -118,7 +111,7 @@ export class SlashPopup {
     const selectedItemNode = this.container.find('.lake-slash-item-selected');
     if (selectedItemNode.length === 0) {
       const firstItem = this.container.find('.lake-slash-item').eq(0);
-      scrollIntoViewIfNeeded(firstItem, {
+      scrollToNode(firstItem, {
         behavior: 'instant',
         block: 'start',
       });
@@ -132,7 +125,7 @@ export class SlashPopup {
       if (nextItemNode.length === 0) {
         nextItemNode = this.container.find('.lake-slash-item').eq(0);
       }
-      scrollIntoViewIfNeeded(nextItemNode, {
+      scrollToNode(nextItemNode, {
         behavior: 'instant',
         block: 'end',
       });
@@ -145,7 +138,7 @@ export class SlashPopup {
         const itemNode = this.container.find('.lake-slash-item');
         prevItemNode = itemNode.eq(itemNode.length - 1);
       }
-      scrollIntoViewIfNeeded(prevItemNode, {
+      scrollToNode(prevItemNode, {
         behavior: 'instant',
         block: 'start',
       });

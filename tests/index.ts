@@ -31,6 +31,7 @@ import './utils/remove-break.test';
 import './utils/set-block-indent.test';
 import './utils/morph.test';
 import './utils/node-and-view.test';
+import './utils/scroll-to-node.test';
 
 // Box Utils
 import './utils/get-box.test';
