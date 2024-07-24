@@ -23,6 +23,7 @@
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 5px;
+  scroll-margin: 4px 0;
 }
 .lake-slash-popup .lake-slash-item-selected {
   background-color: var(--background-active-color);

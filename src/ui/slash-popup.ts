@@ -5,9 +5,17 @@ import { slashItems } from '../config/slash-items';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { appendBreak } from '../utils/append-break';
+import { nodeAndView } from '../utils/node-and-view';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { icons } from '../icons';
+
+function scrollIntoViewIfNeeded(node: Nodes, options: ScrollIntoViewOptions): void {
+  const position = nodeAndView(node);
+  if (position.left < 0 || position.right < 0 || position.top < 0 || position.bottom < 0) {
+    (node.get(0) as Element).scrollIntoView(options);
+  }
+}
 
 const slashItemMap: Map<string, SlashItem> = new Map();
 
@@ -59,24 +67,6 @@ export class SlashPopup {
     this.container = query('<div class="lake-slash-popup" />');
   }
 
-  private getSelectedItemNode(): Nodes {
-    let selectedItemNode = this.container.find('.lake-slash-item-selected');
-    if (selectedItemNode.length === 0) {
-      selectedItemNode = this.container.find('.lake-slash-item').eq(0);
-      selectedItemNode.addClass('lake-slash-item-selected');
-    }
-    return selectedItemNode;
-  }
-
-  private selectItemNode(itemNode: Nodes): void {
-    (itemNode.get(0) as HTMLElement).scrollIntoView({
-      behavior: 'instant',
-      block: 'center',
-    });
-    this.container.find('.lake-slash-item').removeClass('lake-slash-item-selected');
-    itemNode.addClass('lake-slash-item-selected');
-  }
-
   private appendButton(item: SlashButtonItem): void {
     const editor = this.editor;
     const itemNode = query(safeTemplate`
@@ -119,24 +109,49 @@ export class SlashPopup {
   }
 
   private documentKeydownListener = (event: KeyboardEvent) => {
+    const isDownKey = isKeyHotkey('down', event);
+    const isUpKey = isKeyHotkey('up', event);
+    const isEnterKey = isKeyHotkey('enter', event);
+    if (!isDownKey && !isUpKey && !isEnterKey) {
+      return;
+    }
+    const selectedItemNode = this.container.find('.lake-slash-item-selected');
+    if (selectedItemNode.length === 0) {
+      const firstItem = this.container.find('.lake-slash-item').eq(0);
+      scrollIntoViewIfNeeded(firstItem, {
+        behavior: 'instant',
+        block: 'start',
+      });
+      firstItem.addClass('lake-slash-item-selected');
+      return;
+    }
     this.noMouseEvent = true;
-    const selectedItemNode = this.getSelectedItemNode();
-    if (isKeyHotkey('down', event)) {
+    if (isDownKey) {
       event.preventDefault();
       let nextItemNode = selectedItemNode.next();
       if (nextItemNode.length === 0) {
         nextItemNode = this.container.find('.lake-slash-item').eq(0);
       }
-      this.selectItemNode(nextItemNode);
-    } else if (isKeyHotkey('up', event)) {
+      scrollIntoViewIfNeeded(nextItemNode, {
+        behavior: 'instant',
+        block: 'end',
+      });
+      this.container.find('.lake-slash-item').removeClass('lake-slash-item-selected');
+      nextItemNode.addClass('lake-slash-item-selected');
+    } else if (isUpKey) {
       event.preventDefault();
       let prevItemNode = selectedItemNode.prev();
       if (prevItemNode.length === 0) {
         const itemNode = this.container.find('.lake-slash-item');
         prevItemNode = itemNode.eq(itemNode.length - 1);
       }
-      this.selectItemNode(prevItemNode);
-    } else if (isKeyHotkey('enter', event)) {
+      scrollIntoViewIfNeeded(prevItemNode, {
+        behavior: 'instant',
+        block: 'start',
+      });
+      this.container.find('.lake-slash-item').removeClass('lake-slash-item-selected');
+      prevItemNode.addClass('lake-slash-item-selected');
+    } else if (isEnterKey) {
       event.preventDefault();
       selectedItemNode.emit('click');
     }
@@ -199,7 +214,10 @@ export class SlashPopup {
         // this.appendUpload(item);
       }
     }
-    this.getSelectedItemNode();
+    const selectedItemNode = this.container.find('.lake-slash-item-selected');
+    if (selectedItemNode.length === 0) {
+      this.container.find('.lake-slash-item').eq(0).addClass('lake-slash-item-selected');
+    }
   }
 
   public show(range: Range): void {
