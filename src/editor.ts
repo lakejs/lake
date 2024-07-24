@@ -6,7 +6,7 @@ import { SelectionState } from './types/object';
 import { Locales, TranslationFunctions } from './i18n/types';
 import { getInstanceMap } from './storage/box-instances';
 import { editors } from './storage/editors';
-import { denormalizeValue, normalizeValue, query, getBox, nodeAndView, debug } from './utils';
+import { denormalizeValue, normalizeValue, query, getBox, scrollToNode, debug } from './utils';
 import { i18nObject } from './i18n';
 import { Nodes } from './models/nodes';
 import { HTMLParser } from './parsers/html-parser';
@@ -565,17 +565,11 @@ export class Editor {
     });
     this.overlayContainer.find('.lake-artificial-caret').remove();
     this.overlayContainer.append(artificialCaret);
-    const position = nodeAndView(artificialCaret);
-    // Scrolls the artificial caret element into the visible area of the browser window
-    // if it's not already within the visible area of the browser window.
-    // If the element is already within the visibposition.rightle area of the browser window, then no scrolling takes place.
-    if (position.left < 0 || position.right < 0 || position.top < 0 || position.bottom < 0) {
-      (artificialCaret.get(0) as Element).scrollIntoView({
-        behavior: 'instant',
-        block: 'center',
-        inline: 'nearest',
-      });
-    }
+    scrollToNode(artificialCaret, {
+      behavior: 'instant',
+      block: 'center',
+      inline: 'nearest',
+    });
     artificialCaret.remove();
   }
 
