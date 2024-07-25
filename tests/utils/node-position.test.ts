@@ -1,6 +1,6 @@
-import { nodeAndView, query, safeTemplate } from '../../src/utils';
+import { nodePosition, query, safeTemplate } from '../../src/utils';
 
-describe('utils / node-and-view', () => {
+describe('utils / node-position', () => {
 
   it('the node is visible', () => {
     const rootNode = query(safeTemplate`
@@ -17,7 +17,7 @@ describe('utils / node-and-view', () => {
     </div>
     `);
     query(document.body).append(rootNode);
-    const position = nodeAndView(rootNode.find('p').eq(0));
+    const position = nodePosition(rootNode.find('p').eq(0));
     expect(position.left > 0).to.equal(true);
     expect(position.right > 0).to.equal(true);
     expect(position.top > 0).to.equal(true);
@@ -41,7 +41,7 @@ describe('utils / node-and-view', () => {
     `);
     query(document.body).append(rootNode);
     (rootNode.get(0) as Element).scrollTo(0, 50);
-    const position = nodeAndView(rootNode.find('p').eq(0));
+    const position = nodePosition(rootNode.find('p').eq(0));
     expect(position.left > 0).to.equal(true);
     expect(position.right > 0).to.equal(true);
     expect(position.top > 0).to.equal(false);
@@ -64,7 +64,7 @@ describe('utils / node-and-view', () => {
     </div>
     `);
     query(document.body).append(rootNode);
-    const position = nodeAndView(rootNode.find('p').eq(4));
+    const position = nodePosition(rootNode.find('p').eq(4));
     expect(position.left > 0).to.equal(true);
     expect(position.right > 0).to.equal(true);
     expect(position.top > 0).to.equal(true);
@@ -88,7 +88,7 @@ describe('utils / node-and-view', () => {
     `);
     query(document.body).append(rootNode);
     (rootNode.get(0) as Element).scrollTo(100, 0);
-    const position = nodeAndView(rootNode.find('.lake-container > div').eq(0));
+    const position = nodePosition(rootNode.find('.lake-container > div').eq(0));
     expect(position.left > 0).to.equal(false);
     expect(position.right > 0).to.equal(false);
     expect(position.top > 0).to.equal(true);
@@ -111,7 +111,7 @@ describe('utils / node-and-view', () => {
     </div>
     `);
     query(document.body).append(rootNode);
-    const position = nodeAndView(rootNode.find('.lake-container > div').eq(0));
+    const position = nodePosition(rootNode.find('.lake-container > div').eq(0));
     expect(position.left > 0).to.equal(true);
     expect(position.right > 0).to.equal(false);
     expect(position.top > 0).to.equal(true);

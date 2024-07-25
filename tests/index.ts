@@ -30,7 +30,7 @@ import './utils/append-break.test';
 import './utils/remove-break.test';
 import './utils/set-block-indent.test';
 import './utils/morph.test';
-import './utils/node-and-view.test';
+import './utils/node-position.test';
 import './utils/scroll-to-node.test';
 
 // Box Utils

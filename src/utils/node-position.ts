@@ -8,7 +8,7 @@ type NodePosition = {
 };
 
 // Returns an object that indicates the specified node's position relative to the viewport.
-export function nodeAndView(node: Nodes): NodePosition {
+export function nodePosition(node: Nodes): NodePosition {
   const nativeNode = node.get(0) as Element;
   const rect = nativeNode.getBoundingClientRect();
   let left = rect.left;

@@ -4,7 +4,7 @@ import {
   BoxToolbarItem, BoxToolbarConfig, BoxToolbarPlacement,
 } from '../types/box-toolbar';
 import { query } from '../utils/query';
-import { nodeAndView } from '../utils/node-and-view';
+import { nodePosition } from '../utils/node-position';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { Button } from './button';
@@ -83,7 +83,7 @@ export class BoxToolbar {
     const boxNode = this.box.node;
     const boxNativeNode = boxNode.get(0) as HTMLElement;
     const boxRect = boxNativeNode.getBoundingClientRect();
-    const position = nodeAndView(boxNode);
+    const position = nodePosition(boxNode);
     if (position.top < 0 || position.bottom + boxRect.height < 0) {
       this.container.hide();
       return;

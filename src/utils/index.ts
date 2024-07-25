@@ -30,7 +30,7 @@ export * from './append-break';
 export * from './remove-break';
 export * from './set-block-indent';
 export * from './morph';
-export * from './node-and-view';
+export * from './node-position';
 export * from './scroll-to-node';
 
 // Box

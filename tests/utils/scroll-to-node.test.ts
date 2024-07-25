@@ -1,4 +1,4 @@
-import { scrollToNode, nodeAndView, query, safeTemplate } from '../../src/utils';
+import { scrollToNode, nodePosition, query, safeTemplate } from '../../src/utils';
 
 describe('utils / scroll-to-node', () => {
 
@@ -19,13 +19,13 @@ describe('utils / scroll-to-node', () => {
     query(document.body).append(rootNode);
     (rootNode.get(0) as Element).scrollTo(0, 50);
     const node = rootNode.find('p').eq(0);
-    const position = nodeAndView(node);
+    const position = nodePosition(node);
     expect(position.left > 0).to.equal(true);
     expect(position.right > 0).to.equal(true);
     expect(position.top > 0).to.equal(false);
     expect(position.bottom > 0).to.equal(true);
     scrollToNode(node);
-    const newPosition = nodeAndView(node);
+    const newPosition = nodePosition(node);
     expect(newPosition.left > 0).to.equal(true);
     expect(newPosition.right > 0).to.equal(true);
     expect(newPosition.top > 0).to.equal(true);
