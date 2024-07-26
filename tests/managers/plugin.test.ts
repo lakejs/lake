@@ -32,4 +32,22 @@ describe('managers / plugin', () => {
     expect(editorValue).to.equal('<p>foo</p>');
   });
 
+  it('should not load a plugin', () => {
+    const plugin = new Plugin();
+    let editorValue = '';
+    const myPlugin = (editor: Editor) => {
+      editorValue = editor.getValue();
+    };
+    plugin.add(myPlugin);
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p>foo</p>',
+      myPlugin: false,
+    });
+    editor.render();
+    plugin.loadAll(editor);
+    editor.unmount();
+    expect(editorValue).to.equal('');
+  });
+
 });

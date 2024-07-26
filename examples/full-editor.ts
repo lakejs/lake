@@ -276,6 +276,7 @@ export default (value: string) => {
     codeBlock: {
       // langList: ['text', 'html'],
     },
+    // slash: false,
   });
   editor.render();
   return editor;

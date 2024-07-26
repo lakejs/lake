@@ -11,7 +11,10 @@ export class Plugin {
 
   public loadAll(editor: Editor) {
     for (const plugin of this.pluginList) {
-      plugin(editor);
+      const pluginName = plugin.name.replace(/^(\w+).*$/, '$1');
+      if (editor.config[pluginName] !== false) {
+        plugin(editor);
+      }
     }
   }
 }
