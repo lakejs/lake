@@ -57,19 +57,19 @@ export class SlashPopup {
     this.editor = config.editor;
     this.items = config.items || defaultItems;
     this.root = config.editor.popupContainer;
-    this.container = query('<div class="lake-slash-popup" />');
+    this.container = query('<ul class="lake-slash-popup" />');
   }
 
   private appendButton(item: SlashButtonItem): void {
     const editor = this.editor;
     const itemNode = query(safeTemplate`
-      <div class="lake-slash-item" name="${item.name}">
+      <li class="lake-slash-item" name="${item.name}">
         <div class="lake-slash-icon"></div>
         <div class="lake-slash-text">
           <div class="lake-slash-title">${item.title}</div>
           <div class="lake-slash-description">${item.description}</div>
         </div>
-      </div>
+      </li>
     `);
     const icon = icons.get(item.name);
     if (icon) {

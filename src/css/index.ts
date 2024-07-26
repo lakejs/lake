@@ -21,4 +21,4 @@ import './file.css';
 import './emoji.css';
 import './equation.css';
 import './toolbar.css';
-import './slash-popup.css';
+import './slash.css';

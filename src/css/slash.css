@@ -3,9 +3,11 @@
   top: 0;
   left: 0;
   z-index: 1;
+  list-style: none;
   box-sizing: content-box;
   border: 1px solid var(--border-color);
   border-radius: 5px;
+  margin: 0;
   padding: 4px 8px;
   width: fit-content;
   font-family: var(--font-family);
@@ -22,6 +24,7 @@
   display: flex;
   cursor: pointer;
   padding: 4px 8px;
+  margin: 0;
   border-radius: 5px;
   scroll-margin: 4px 0;
 }
