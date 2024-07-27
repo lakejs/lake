@@ -19,7 +19,7 @@ describe('managers / plugin', () => {
   it('should load a plugin', () => {
     const plugin = new Plugin();
     let editorValue = '';
-    plugin.add((editor: Editor) => {
+    plugin.add('myPlugin1', (editor: Editor) => {
       editorValue = editor.getValue();
     });
     const editor = new Editor({
@@ -35,14 +35,13 @@ describe('managers / plugin', () => {
   it('should not load a plugin', () => {
     const plugin = new Plugin();
     let editorValue = '';
-    const myPlugin = (editor: Editor) => {
+    plugin.add('myPlugin2', (editor: Editor) => {
       editorValue = editor.getValue();
-    };
-    plugin.add(myPlugin);
+    });
     const editor = new Editor({
       root: rootNode,
       value: '<p>foo</p>',
-      myPlugin: false,
+      myPlugin2: false,
     });
     editor.render();
     plugin.loadAll(editor);
