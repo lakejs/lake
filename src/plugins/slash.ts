@@ -38,7 +38,6 @@ export default (editor: Editor) => {
     }
     const slashRange = range.clone();
     slashRange.selectNodeContents(block);
-    slashRange.info();
     popup.show(slashRange);
   });
   editor.container.on('keydown', event => {

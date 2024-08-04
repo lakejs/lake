@@ -32,7 +32,7 @@
   background-color: var(--background-active-color);
 }
 .lake-slash-popup .lake-slash-icon {
-  margin-right: 8px;
+  margin-inline-end: 8px;
   border-radius: 5px;
   border: 1px solid var(--border-color);
   background-color: #fff;

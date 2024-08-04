@@ -1,5 +1,4 @@
 import { query } from '../../src/utils';
-import { Range } from '../../src/models/range';
 import { SlashPopup } from '../../src/ui/slash-popup';
 import { Editor } from '../../src';
 
@@ -16,9 +15,9 @@ describe('ui / slash-popup-ui', () => {
     const popup = new SlashPopup({
       editor,
     });
-    const range = new Range();
-    range.selectNodeContents(editor.container);
-    popup.show(range);
+    const slashRange = editor.selection.range.clone();
+    slashRange.selectNodeContents(editor.container);
+    popup.show(slashRange);
     expect(editor.popupContainer.find('.lake-slash-popup').length).to.equal(1);
   });
 

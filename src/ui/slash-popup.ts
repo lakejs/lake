@@ -183,9 +183,9 @@ export class SlashPopup {
     // range.y + range.height + popup.height > window.height
     if (rangeRect.y + rangeRect.height + this.container.height() > window.innerHeight) {
       // range.y + window.scrollY - popup.height
-      this.container.css('top', `${rangeY - this.container.height()}px`);
+      this.container.css('top', `${rangeY - this.container.height() - 5}px`);
     } else {
-      this.container.css('top', `${rangeY + rangeRect.height}px`);
+      this.container.css('top', `${rangeY + rangeRect.height + 5}px`);
     }
   }
 
