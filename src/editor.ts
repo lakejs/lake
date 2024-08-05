@@ -630,10 +630,17 @@ export class Editor {
 
   // Destroys the rendered editor.
   public unmount(): void {
+    this.removeBoxGarbage();
+    this.container.find('lake-box').each(boxNativeNode => {
+      const boxNode = query(boxNativeNode);
+      const box = getBox(boxNode);
+      box.unmount();
+    });
     this.event.removeAllListeners();
     this.history.event.removeAllListeners();
     this.root.empty();
     this.popupContainer.remove();
+    this.root.off();
     document.removeEventListener('copy', this.copyListener);
     if (!this.readonly) {
       document.removeEventListener('cut', this.cutListener);
