@@ -102,6 +102,11 @@ export class SlashPopup {
   }
 
   private documentKeydownListener = (event: KeyboardEvent) => {
+    if (isKeyHotkey('escape', event)) {
+      event.preventDefault();
+      this.hide();
+      return;
+    }
     const isDownKey = isKeyHotkey('down', event);
     const isUpKey = isKeyHotkey('up', event);
     const isEnterKey = isKeyHotkey('enter', event);

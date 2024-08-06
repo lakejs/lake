@@ -46,8 +46,6 @@ export default (editor: Editor) => {
       return;
     }
     if (
-      isKeyHotkey('left', keyboardEvent) ||
-      isKeyHotkey('right', keyboardEvent) ||
       isKeyHotkey('up', keyboardEvent) ||
       isKeyHotkey('down', keyboardEvent) ||
       isKeyHotkey('enter', keyboardEvent)
@@ -55,6 +53,8 @@ export default (editor: Editor) => {
       keyboardEvent.preventDefault();
       return;
     }
-    popup.hide();
+    if (isKeyHotkey('space', keyboardEvent)) {
+      popup.hide();
+    }
   });
 };
