@@ -43,8 +43,6 @@ export class SlashPopup {
 
   private editor: Editor;
 
-  private items: (string | SlashItem)[];
-
   private root: Nodes;
 
   private range: Range | null = null;
@@ -55,7 +53,6 @@ export class SlashPopup {
 
   constructor(config: SlashPopupConfig) {
     this.editor = config.editor;
-    this.items = config.items || defaultItems;
     this.root = config.editor.popupContainer;
     this.container = query('<ul class="lake-slash-popup" />');
   }
@@ -170,6 +167,17 @@ export class SlashPopup {
     return this.container.computedCSS('display') !== 'none';
   }
 
+  public search(keyword: string): string[] {
+    keyword = keyword.toLowerCase();
+    const items: string[] = [];
+    for (const item of slashItems) {
+      if (typeof item.title === 'string' && item.title.toLowerCase().indexOf(keyword) >= 0) {
+        items.push(item.name);
+      }
+    }
+    return items;
+  }
+
   public updatePosition(): void {
     if (!this.range) {
       return;
@@ -196,7 +204,13 @@ export class SlashPopup {
 
   public render(): void {
     this.root.append(this.container);
-    for (const name of this.items) {
+    this.update();
+  }
+
+  public update(keyword?: string): void {
+    this.container.empty();
+    const items = keyword ? this.search(keyword) : defaultItems;
+    for (const name of items) {
       let item;
       if (typeof name === 'string') {
         item = slashItemMap.get(name);
@@ -226,6 +240,7 @@ export class SlashPopup {
     this.container.css('visibility', 'hidden');
     this.container.show();
     this.updatePosition();
+    this.container.css('width', `${this.container.width()}px`);
     this.container.css('visibility', '');
     document.addEventListener('keydown', this.documentKeydownListener, true);
     document.addEventListener('click', this.documentClickListener);

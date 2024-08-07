@@ -16,7 +16,7 @@
   background-color: #fff;
   box-shadow: var(--popup-shadow);
   display: none;
-  height: 380px;
+  max-height: 380px;
   overflow-y: scroll;
   scrollbar-width: thin;
 }

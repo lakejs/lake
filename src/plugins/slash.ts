@@ -1,4 +1,3 @@
-import { isKeyHotkey } from 'is-hotkey';
 import type { Editor } from '..';
 import { SlashPopup } from '../ui/slash-popup';
 
@@ -23,10 +22,9 @@ export default (editor: Editor) => {
     if (!range.isCollapsed) {
       return;
     }
-    let block = range.getBlocks()[0];
+    const block = range.getBlocks()[0];
     if (!block) {
-      editor.selection.setBlocks('<p />');
-      block = range.getBlocks()[0];
+      return;
     }
     if (block.find('lake-box').length > 0) {
       return;
@@ -40,21 +38,32 @@ export default (editor: Editor) => {
     slashRange.selectNodeContents(block);
     popup.show(slashRange);
   });
-  editor.container.on('keydown', event => {
-    const keyboardEvent = event as KeyboardEvent;
+  let prevKeyword = '';
+  editor.container.on('keyup', () => {
     if (!popup.visible) {
       return;
     }
-    if (
-      isKeyHotkey('up', keyboardEvent) ||
-      isKeyHotkey('down', keyboardEvent) ||
-      isKeyHotkey('enter', keyboardEvent)
-    ) {
-      keyboardEvent.preventDefault();
+    const range = editor.selection.range;
+    const block = range.getBlocks()[0];
+    if (!block) {
       return;
     }
-    if (isKeyHotkey('space', keyboardEvent)) {
+    let text = block.text().trim();
+    text = text.replace(/[\u200B\u2060]/g, '');
+    if (text === '') {
       popup.hide();
+      return;
     }
+    const keyword = text.substring(1);
+    if (keyword === prevKeyword) {
+      return;
+    }
+    const items = popup.search(keyword);
+    if (items.length === 0) {
+      popup.hide();
+      return;
+    }
+    popup.update(keyword);
+    prevKeyword = keyword;
   });
 };
