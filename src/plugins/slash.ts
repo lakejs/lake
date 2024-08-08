@@ -9,10 +9,10 @@ export default (editor: Editor) => {
     editor,
   });
   editor.root.on('scroll', () => {
-    popup.updatePosition();
+    popup.position();
   });
   editor.event.on('resize', () => {
-    popup.updatePosition();
+    popup.position();
   });
   editor.keystroke.setKeyup('/', () => {
     const range = editor.selection.range;

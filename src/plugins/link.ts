@@ -23,10 +23,10 @@ export default (editor: Editor) => {
     },
   });
   editor.root.on('scroll', () => {
-    popup.updatePosition();
+    popup.position();
   });
   editor.event.on('resize', () => {
-    popup.updatePosition();
+    popup.position();
   });
   editor.event.on('click', (targetNode: Nodes) => {
     if (targetNode.closest('button[name="link"]').length > 0) {

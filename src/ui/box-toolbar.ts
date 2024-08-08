@@ -79,7 +79,7 @@ export class BoxToolbar {
     dropdown.render();
   }
 
-  public updatePosition(): void {
+  public position(): void {
     const boxNode = this.box.node;
     const boxNativeNode = boxNode.get(0) as HTMLElement;
     const boxRect = boxNativeNode.getBoundingClientRect();
@@ -113,7 +113,7 @@ export class BoxToolbar {
         this.appendDropdown(item);
       }
     }
-    this.updatePosition();
+    this.position();
   }
 
   public unmount(): void {

@@ -216,7 +216,7 @@ export class LinkPopup {
     this.linkNode.text(title);
   }
 
-  public updatePosition(): void {
+  public position(): void {
     if (!this.linkNode) {
       return;
     }
@@ -271,7 +271,7 @@ export class LinkPopup {
     }
     this.container.css('visibility', 'hidden');
     this.container.show();
-    this.updatePosition();
+    this.position();
     this.container.css('visibility', '');
     this.container.find('input[name="url"]').focus();
   }

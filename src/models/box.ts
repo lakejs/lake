@@ -140,7 +140,7 @@ export class Box {
     let toolbar: BoxToolbar | null = null;
     const scrollListener = () => {
       if (toolbar) {
-        toolbar.updatePosition();
+        toolbar.position();
       }
     };
     this.event.on('focus', () => {

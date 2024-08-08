@@ -178,7 +178,7 @@ export class SlashPopup {
     return items;
   }
 
-  public updatePosition(): void {
+  public position(): void {
     if (!this.range) {
       return;
     }
@@ -239,7 +239,7 @@ export class SlashPopup {
     this.range = range;
     this.container.css('visibility', 'hidden');
     this.container.show();
-    this.updatePosition();
+    this.position();
     this.container.css('width', `${this.container.width()}px`);
     this.container.css('visibility', '');
     document.addEventListener('keydown', this.documentKeydownListener, true);
