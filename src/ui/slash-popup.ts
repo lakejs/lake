@@ -240,6 +240,7 @@ export class SlashPopup {
     this.container.css('visibility', 'hidden');
     this.container.show();
     this.position();
+    this.container.css('width', '');
     this.container.css('width', `${this.container.width()}px`);
     this.container.css('visibility', '');
     document.addEventListener('keydown', this.documentKeydownListener, true);
