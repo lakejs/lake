@@ -46,14 +46,13 @@ export default (editor: Editor) => {
   editor.event.on('resize', () => {
     popup.position();
   });
-  let prevKeyword = '';
   editor.container.on('keyup', event => {
     const keyboardEvent = event as KeyboardEvent;
-    if (isKeyHotkey('/', keyboardEvent)) {
-      showPopup(editor, popup);
-      return;
-    }
     if (!popup.visible) {
+      if (isKeyHotkey('/', keyboardEvent)) {
+        showPopup(editor, popup);
+        return;
+      }
       if (isKeyHotkey('backspace', keyboardEvent)) {
         showPopup(editor, popup);
       } else {
@@ -70,15 +69,6 @@ export default (editor: Editor) => {
       popup.hide();
       return;
     }
-    if (keyword === prevKeyword) {
-      return;
-    }
-    const items = popup.search(keyword);
-    if (items.length === 0) {
-      popup.hide();
-      return;
-    }
     popup.update(keyword);
-    prevKeyword = keyword;
   });
 };

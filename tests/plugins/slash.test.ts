@@ -54,6 +54,14 @@ describe('plugins / slash', () => {
     expect(editor.popupContainer.find('.lake-slash-popup').length).to.equal(0);
   });
 
+  it('should not show a popup box when the search result is empty', () => {
+    editor.setValue('<p>//<focus /></p>');
+    editor.container.emit('keyup', new KeyboardEvent('keyup', {
+      key: '/',
+    }));
+    expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('none');
+  });
+
   it('should set current block to heading 1', () => {
     editor.setValue('<p>/heading<focus /></p>');
     const event = new KeyboardEvent('keyup', {

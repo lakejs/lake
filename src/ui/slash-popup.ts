@@ -49,6 +49,8 @@ export class SlashPopup {
 
   private noMouseEvent: boolean = false;
 
+  private keyword: string | null = null;
+
   public container: Nodes;
 
   constructor(config: SlashPopupConfig) {
@@ -164,7 +166,7 @@ export class SlashPopup {
   };
 
   public get visible(): boolean {
-    return this.container.computedCSS('display') !== 'none';
+    return this.container.get(0).isConnected && this.container.computedCSS('display') !== 'none';
   }
 
   public search(keyword: string): string[] {
@@ -207,9 +209,17 @@ export class SlashPopup {
     this.update();
   }
 
-  public update(keyword?: string): void {
+  public update(keyword: string | null = null): void {
+    if (keyword !== null && this.keyword === keyword) {
+      return;
+    }
+    const items = keyword !== null ? this.search(keyword) : defaultItems;
+    if (items.length === 0) {
+      this.hide();
+      return;
+    }
+    this.keyword = keyword;
     this.container.empty();
-    const items = keyword ? this.search(keyword) : defaultItems;
     for (const name of items) {
       let item;
       if (typeof name === 'string') {
