@@ -1,7 +1,7 @@
 import { click } from '../utils';
 import { query } from '../../src/utils';
+import { Nodes } from '../../src/models/nodes';
 import { LinkPopup } from '../../src/ui/link-popup';
-import { Nodes } from '../../src';
 
 describe('ui / link-popup', () => {
 

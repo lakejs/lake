@@ -232,16 +232,22 @@ export class SlashPopup {
     }
   }
 
-  public show(range: Range): void {
+  public show(range: Range, keyword?: string): void {
     if (this.root.find('.lake-slash-popup').length === 0) {
       this.render();
+    } else {
+      this.update();
     }
     this.range = range;
     this.container.css('visibility', 'hidden');
     this.container.show();
     this.position();
+    // for fixing the container's width
     this.container.css('width', '');
     this.container.css('width', `${this.container.width()}px`);
+    if (keyword) {
+      this.update(keyword);
+    }
     this.container.css('visibility', '');
     document.addEventListener('keydown', this.documentKeydownListener, true);
     document.addEventListener('click', this.documentClickListener);
