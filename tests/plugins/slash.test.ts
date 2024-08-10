@@ -85,6 +85,28 @@ describe('plugins / slash', () => {
     expect(value).to.equal('<h6><focus /><br /></h6>');
   });
 
+  it('should insert an equation', () => {
+    editor.setValue('<p>/equation<focus /></p>');
+    editor.container.emit('keyup', new KeyboardEvent('keyup', {
+      key: '/',
+    }));
+    click(editor.popupContainer.find('.lake-slash-item').eq(0));
+    expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('none');
+    const value = editor.getValue();
+    expect(value).to.equal('<p><lake-box type="inline" name="equation" focus="end"></lake-box></p>');
+  });
+
+  it('should remove marks', () => {
+    editor.setValue('<p><strong>/heading 6<focus /></strong></p>');
+    editor.container.emit('keyup', new KeyboardEvent('keyup', {
+      key: '/',
+    }));
+    click(editor.popupContainer.find('.lake-slash-item').eq(0));
+    expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('none');
+    const value = editor.getValue();
+    expect(value).to.equal('<h6><focus /><br /></h6>');
+  });
+
   it('should update items when backspace key is entered', () => {
     editor.setValue('<p>/heading 6<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {

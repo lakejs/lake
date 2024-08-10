@@ -91,9 +91,8 @@ export class SlashPopup {
     itemNode.on('click', () => {
       editor.focus();
       const range = editor.selection.range;
-      const prevNode = range.getPrevNode();
-      const block = prevNode.closestBlock();
-      prevNode.remove();
+      const block = range.commonAncestor.closestBlock();
+      block.empty();
       appendBreak(block);
       item.onClick(editor, item.name);
       this.hide();
