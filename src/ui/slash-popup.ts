@@ -175,8 +175,13 @@ export class SlashPopup {
     keyword = keyword.toLowerCase();
     const items: string[] = [];
     for (const item of slashItems) {
-      if (typeof item.title === 'string' && item.title.toLowerCase().indexOf(keyword) >= 0) {
-        items.push(item.name);
+      if (typeof item.title === 'string') {
+        if (
+          item.title.toLowerCase().indexOf(keyword) >= 0 ||
+          item.title.toLowerCase().replace(/\s+/g, '').indexOf(keyword) >= 0
+        ) {
+          items.push(item.name);
+        }
       }
     }
     return items;
