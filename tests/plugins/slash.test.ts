@@ -2,6 +2,24 @@ import { click } from '../utils';
 import { query } from '../../src/utils';
 import { Editor, Nodes } from '../../src';
 
+const defaultItems: string[] = [
+  'heading1',
+  'heading2',
+  'heading3',
+  'heading4',
+  'heading5',
+  'heading6',
+  'paragraph',
+  'blockQuote',
+  'numberedList',
+  'bulletedList',
+  'checklist',
+  'hr',
+  'codeBlock',
+  'video',
+  'equation',
+];
+
 describe('plugins / slash', () => {
 
   let rootNode: Nodes;
@@ -13,6 +31,9 @@ describe('plugins / slash', () => {
     editor = new Editor({
       root: rootNode.find('.lake-root'),
       value: '<p><br /><focus /></p>',
+      slash: {
+        items: defaultItems,
+      },
     });
     editor.render();
   });
@@ -20,6 +41,10 @@ describe('plugins / slash', () => {
   afterEach(() => {
     editor.unmount();
     rootNode.remove();
+  });
+
+  it('should return correct config', () => {
+    expect(editor.config.slash.items).to.deep.equal(defaultItems);
   });
 
   it('should show a popup box', () => {

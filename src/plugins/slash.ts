@@ -34,11 +34,15 @@ function showPopup(editor: Editor, popup: SlashPopup): void {
 }
 
 export default (editor: Editor) => {
+  editor.setPluginConfig('slash', {
+    items: undefined,
+  });
   if (editor.readonly) {
     return;
   }
   const popup = new SlashPopup({
     editor,
+    items: editor.config.slash.items,
   });
   editor.root.on('scroll', () => {
     popup.position();

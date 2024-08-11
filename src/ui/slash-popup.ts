@@ -43,6 +43,8 @@ export class SlashPopup {
 
   private editor: Editor;
 
+  private items: (string | SlashItem)[];
+
   private root: Nodes;
 
   private range: Range | null = null;
@@ -55,6 +57,7 @@ export class SlashPopup {
 
   constructor(config: SlashPopupConfig) {
     this.editor = config.editor;
+    this.items = config.items || defaultItems;
     this.root = config.editor.popupContainer;
     this.container = query('<ul class="lake-slash-popup" />');
   }
@@ -212,7 +215,7 @@ export class SlashPopup {
     if (keyword !== null && this.keyword === keyword) {
       return;
     }
-    const items = keyword !== null ? this.search(keyword) : defaultItems;
+    const items = keyword !== null ? this.search(keyword) : this.items;
     if (items.length === 0) {
       this.hide();
       return;
