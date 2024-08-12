@@ -6,8 +6,8 @@ export const slashItems: SlashItem[] = [
     name: 'heading1',
     type: 'button',
     icon: icons.get('heading1'),
-    title: 'Heading 1',
-    description: 'Create a heading level 1',
+    title: locale => locale.slash.heading1(),
+    description: locale => locale.slash.heading1Desc(),
     onClick: editor => {
       editor.command.execute('heading', 'h1');
     },
@@ -16,8 +16,8 @@ export const slashItems: SlashItem[] = [
     name: 'heading2',
     type: 'button',
     icon: icons.get('heading2'),
-    title: 'Heading 2',
-    description: 'Create a heading level 2',
+    title: locale => locale.slash.heading2(),
+    description: locale => locale.slash.heading2Desc(),
     onClick: editor => {
       editor.command.execute('heading', 'h2');
     },
@@ -26,8 +26,8 @@ export const slashItems: SlashItem[] = [
     name: 'heading3',
     type: 'button',
     icon: icons.get('heading3'),
-    title: 'Heading 3',
-    description: 'Create a heading level 3',
+    title: locale => locale.slash.heading3(),
+    description: locale => locale.slash.heading3Desc(),
     onClick: editor => {
       editor.command.execute('heading', 'h3');
     },
@@ -36,8 +36,8 @@ export const slashItems: SlashItem[] = [
     name: 'heading4',
     type: 'button',
     icon: icons.get('heading4'),
-    title: 'Heading 4',
-    description: 'Create a heading level 4',
+    title: locale => locale.slash.heading4(),
+    description: locale => locale.slash.heading4Desc(),
     onClick: editor => {
       editor.command.execute('heading', 'h4');
     },
@@ -46,8 +46,8 @@ export const slashItems: SlashItem[] = [
     name: 'heading5',
     type: 'button',
     icon: icons.get('heading5'),
-    title: 'Heading 5',
-    description: 'Create a heading level 5',
+    title: locale => locale.slash.heading5(),
+    description: locale => locale.slash.heading5Desc(),
     onClick: editor => {
       editor.command.execute('heading', 'h5');
     },
@@ -56,8 +56,8 @@ export const slashItems: SlashItem[] = [
     name: 'heading6',
     type: 'button',
     icon: icons.get('heading6'),
-    title: 'Heading 6',
-    description: 'Create a heading level 6',
+    title: locale => locale.slash.heading6(),
+    description: locale => locale.slash.heading6Desc(),
     onClick: editor => {
       editor.command.execute('heading', 'h6');
     },
@@ -66,8 +66,8 @@ export const slashItems: SlashItem[] = [
     name: 'paragraph',
     type: 'button',
     icon: icons.get('paragraph'),
-    title: 'Paragraph',
-    description: 'Create a paragraph',
+    title: locale => locale.slash.paragraph(),
+    description: locale => locale.slash.paragraphDesc(),
     onClick: editor => {
       editor.command.execute('heading', 'p');
     },
@@ -76,8 +76,8 @@ export const slashItems: SlashItem[] = [
     name: 'blockQuote',
     type: 'button',
     icon: icons.get('blockQuote'),
-    title: 'Block quote',
-    description: 'Create a block quote',
+    title: locale => locale.slash.blockQuote(),
+    description: locale => locale.slash.blockQuoteDesc(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -86,8 +86,8 @@ export const slashItems: SlashItem[] = [
     name: 'numberedList',
     type: 'button',
     icon: icons.get('numberedList'),
-    title: 'Numbered list',
-    description: 'Create a numbered list',
+    title: locale => locale.slash.numberedList(),
+    description: locale => locale.slash.numberedListDesc(),
     onClick: editor => {
       editor.command.execute('list', 'numbered');
     },
@@ -96,8 +96,8 @@ export const slashItems: SlashItem[] = [
     name: 'bulletedList',
     type: 'button',
     icon: icons.get('bulletedList'),
-    title: 'Bulleted list',
-    description: 'Create a bulleted list',
+    title: locale => locale.slash.bulletedList(),
+    description: locale => locale.slash.bulletedListDesc(),
     onClick: editor => {
       editor.command.execute('list', 'bulleted');
     },
@@ -106,8 +106,8 @@ export const slashItems: SlashItem[] = [
     name: 'checklist',
     type: 'button',
     icon: icons.get('checklist'),
-    title: 'Checklist',
-    description: 'Create a checklist',
+    title: locale => locale.slash.checklist(),
+    description: locale => locale.slash.checklistDesc(),
     onClick: editor => {
       editor.command.execute('list', 'checklist');
     },
@@ -116,8 +116,8 @@ export const slashItems: SlashItem[] = [
     name: 'hr',
     type: 'button',
     icon: icons.get('hr'),
-    title: 'Horizontal line',
-    description: 'Insert a horizontal line',
+    title: locale => locale.slash.hr(),
+    description: locale => locale.slash.hrDesc(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -126,8 +126,8 @@ export const slashItems: SlashItem[] = [
     name: 'codeBlock',
     type: 'button',
     icon: icons.get('codeBlock'),
-    title: 'Code block',
-    description: 'Insert a code block',
+    title: locale => locale.slash.codeBlock(),
+    description: locale => locale.slash.codeBlockDesc(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -136,8 +136,8 @@ export const slashItems: SlashItem[] = [
     name: 'video',
     type: 'button',
     icon: icons.get('video'),
-    title: 'Video',
-    description: 'Insert a video from YouTube',
+    title: locale => locale.slash.video(),
+    description: locale => locale.slash.videoDesc(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -146,8 +146,8 @@ export const slashItems: SlashItem[] = [
     name: 'equation',
     type: 'button',
     icon: icons.get('equation'),
-    title: 'Equation',
-    description: 'Insert TeX expression in text',
+    title: locale => locale.slash.equation(),
+    description: locale => locale.slash.equationDesc(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },

@@ -9,6 +9,7 @@ import { scrollToNode } from '../utils/scroll-to-node';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { icons } from '../icons';
+import { i18nObject } from '../../src/i18n';
 
 const slashItemMap: Map<string, SlashItem> = new Map();
 
@@ -64,12 +65,14 @@ export class SlashPopup {
 
   private appendButton(item: SlashButtonItem): void {
     const editor = this.editor;
+    const itemTitle = typeof item.title === 'string' ? item.title : item.title(editor.locale);
+    const itemDescription = typeof item.description === 'string' ? item.description : item.description(editor.locale);
     const itemNode = query(safeTemplate`
       <li class="lake-slash-item" name="${item.name}">
         <div class="lake-slash-icon"></div>
         <div class="lake-slash-text">
-          <div class="lake-slash-title">${item.title}</div>
-          <div class="lake-slash-description">${item.description}</div>
+          <div class="lake-slash-title">${itemTitle}</div>
+          <div class="lake-slash-description">${itemDescription}</div>
         </div>
       </li>
     `);
@@ -172,16 +175,22 @@ export class SlashPopup {
   }
 
   public search(keyword: string): string[] {
+    const editor = this.editor;
+    const localeEnglish = i18nObject('en-US');
     keyword = keyword.toLowerCase();
     const items: string[] = [];
     for (const item of slashItems) {
-      if (typeof item.title === 'string') {
-        if (
-          item.title.toLowerCase().indexOf(keyword) >= 0 ||
-          item.title.toLowerCase().replace(/\s+/g, '').indexOf(keyword) >= 0
-        ) {
-          items.push(item.name);
-        }
+      let itemTitle = typeof item.title === 'string' ? item.title : item.title(editor.locale);
+      itemTitle = itemTitle.toLowerCase();
+      let itemTitleEnglish = typeof item.title === 'string' ? item.title : item.title(localeEnglish);
+      itemTitleEnglish = itemTitleEnglish.toLowerCase();
+      if (
+        itemTitle.indexOf(keyword) >= 0 ||
+        itemTitle.replace(/\s+/g, '').indexOf(keyword) >= 0 ||
+        itemTitleEnglish.indexOf(keyword) >= 0 ||
+        itemTitleEnglish.replace(/\s+/g, '').indexOf(keyword) >= 0
+      ) {
+        items.push(item.name);
       }
     }
     return items;
@@ -217,6 +226,9 @@ export class SlashPopup {
   }
 
   public update(keyword: string | null = null): void {
+    if (this.editor.isComposing) {
+      return;
+    }
     if (keyword !== null && this.keyword === keyword) {
       return;
     }

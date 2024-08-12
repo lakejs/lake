@@ -206,6 +206,128 @@ type RootTranslation = {
 		 */
 		removeColor: string
 	}
+	slash: {
+		/**
+		 * H​e​a​d​i​n​g​ ​1
+		 */
+		heading1: string
+		/**
+		 * C​r​e​a​t​e​ ​a​ ​h​e​a​d​i​n​g​ ​l​e​v​e​l​ ​1
+		 */
+		heading1Desc: string
+		/**
+		 * H​e​a​d​i​n​g​ ​2
+		 */
+		heading2: string
+		/**
+		 * C​r​e​a​t​e​ ​a​ ​h​e​a​d​i​n​g​ ​l​e​v​e​l​ ​2
+		 */
+		heading2Desc: string
+		/**
+		 * H​e​a​d​i​n​g​ ​3
+		 */
+		heading3: string
+		/**
+		 * C​r​e​a​t​e​ ​a​ ​h​e​a​d​i​n​g​ ​l​e​v​e​l​ ​3
+		 */
+		heading3Desc: string
+		/**
+		 * H​e​a​d​i​n​g​ ​4
+		 */
+		heading4: string
+		/**
+		 * C​r​e​a​t​e​ ​a​ ​h​e​a​d​i​n​g​ ​l​e​v​e​l​ ​4
+		 */
+		heading4Desc: string
+		/**
+		 * H​e​a​d​i​n​g​ ​5
+		 */
+		heading5: string
+		/**
+		 * C​r​e​a​t​e​ ​a​ ​h​e​a​d​i​n​g​ ​l​e​v​e​l​ ​5
+		 */
+		heading5Desc: string
+		/**
+		 * H​e​a​d​i​n​g​ ​6
+		 */
+		heading6: string
+		/**
+		 * C​r​e​a​t​e​ ​a​ ​h​e​a​d​i​n​g​ ​l​e​v​e​l​ ​6
+		 */
+		heading6Desc: string
+		/**
+		 * P​a​r​a​g​r​a​p​h
+		 */
+		paragraph: string
+		/**
+		 * C​r​e​a​t​e​ ​a​ ​p​a​r​a​g​r​a​p​h
+		 */
+		paragraphDesc: string
+		/**
+		 * B​l​o​c​k​ ​q​u​o​t​a​t​i​o​n
+		 */
+		blockQuote: string
+		/**
+		 * C​r​e​a​t​e​ ​a​ ​b​l​o​c​k​ ​q​u​o​t​a​t​i​o​n
+		 */
+		blockQuoteDesc: string
+		/**
+		 * N​u​m​b​e​r​e​d​ ​l​i​s​t
+		 */
+		numberedList: string
+		/**
+		 * C​r​e​a​t​e​ ​a​ ​n​u​m​b​e​r​e​d​ ​l​i​s​t
+		 */
+		numberedListDesc: string
+		/**
+		 * B​u​l​l​e​t​e​d​ ​l​i​s​t
+		 */
+		bulletedList: string
+		/**
+		 * C​r​e​a​t​e​ ​a​ ​b​u​l​l​e​t​e​d​ ​l​i​s​t
+		 */
+		bulletedListDesc: string
+		/**
+		 * C​h​e​c​k​l​i​s​t
+		 */
+		checklist: string
+		/**
+		 * C​r​e​a​t​e​ ​a​ ​c​h​e​c​k​l​i​s​t
+		 */
+		checklistDesc: string
+		/**
+		 * H​o​r​i​z​o​n​t​a​l​ ​l​i​n​e
+		 */
+		hr: string
+		/**
+		 * I​n​s​e​r​t​ ​a​ ​h​o​r​i​z​o​n​t​a​l​ ​l​i​n​e
+		 */
+		hrDesc: string
+		/**
+		 * C​o​d​e​ ​b​l​o​c​k
+		 */
+		codeBlock: string
+		/**
+		 * I​n​s​e​r​t​ ​a​ ​c​o​d​e​ ​b​l​o​c​k
+		 */
+		codeBlockDesc: string
+		/**
+		 * V​i​d​e​o
+		 */
+		video: string
+		/**
+		 * I​n​s​e​r​t​ ​a​ ​v​i​d​e​o​ ​f​r​o​m​ ​Y​o​u​T​u​b​e
+		 */
+		videoDesc: string
+		/**
+		 * E​q​u​a​t​i​o​n
+		 */
+		equation: string
+		/**
+		 * I​n​s​e​r​t​ ​T​e​X​ ​e​x​p​r​e​s​s​i​o​n​ ​i​n​ ​t​e​x​t
+		 */
+		equationDesc: string
+	}
 	link: {
 		/**
 		 * N​e​w​ ​l​i​n​k
@@ -314,7 +436,7 @@ type RootTranslation = {
 		 */
 		save: string
 		/**
-		 * T​y​p​e​ ​a​n​ ​e​x​p​r​e​s​s​i​o​n
+		 * T​y​p​e​ ​a​ ​T​e​X​ ​e​x​p​r​e​s​s​i​o​n
 		 */
 		placeholder: string
 	}
@@ -511,6 +633,128 @@ export type TranslationFunctions = {
 		 */
 		removeColor: () => LocalizedString
 	}
+	slash: {
+		/**
+		 * Heading 1
+		 */
+		heading1: () => LocalizedString
+		/**
+		 * Create a heading level 1
+		 */
+		heading1Desc: () => LocalizedString
+		/**
+		 * Heading 2
+		 */
+		heading2: () => LocalizedString
+		/**
+		 * Create a heading level 2
+		 */
+		heading2Desc: () => LocalizedString
+		/**
+		 * Heading 3
+		 */
+		heading3: () => LocalizedString
+		/**
+		 * Create a heading level 3
+		 */
+		heading3Desc: () => LocalizedString
+		/**
+		 * Heading 4
+		 */
+		heading4: () => LocalizedString
+		/**
+		 * Create a heading level 4
+		 */
+		heading4Desc: () => LocalizedString
+		/**
+		 * Heading 5
+		 */
+		heading5: () => LocalizedString
+		/**
+		 * Create a heading level 5
+		 */
+		heading5Desc: () => LocalizedString
+		/**
+		 * Heading 6
+		 */
+		heading6: () => LocalizedString
+		/**
+		 * Create a heading level 6
+		 */
+		heading6Desc: () => LocalizedString
+		/**
+		 * Paragraph
+		 */
+		paragraph: () => LocalizedString
+		/**
+		 * Create a paragraph
+		 */
+		paragraphDesc: () => LocalizedString
+		/**
+		 * Block quotation
+		 */
+		blockQuote: () => LocalizedString
+		/**
+		 * Create a block quotation
+		 */
+		blockQuoteDesc: () => LocalizedString
+		/**
+		 * Numbered list
+		 */
+		numberedList: () => LocalizedString
+		/**
+		 * Create a numbered list
+		 */
+		numberedListDesc: () => LocalizedString
+		/**
+		 * Bulleted list
+		 */
+		bulletedList: () => LocalizedString
+		/**
+		 * Create a bulleted list
+		 */
+		bulletedListDesc: () => LocalizedString
+		/**
+		 * Checklist
+		 */
+		checklist: () => LocalizedString
+		/**
+		 * Create a checklist
+		 */
+		checklistDesc: () => LocalizedString
+		/**
+		 * Horizontal line
+		 */
+		hr: () => LocalizedString
+		/**
+		 * Insert a horizontal line
+		 */
+		hrDesc: () => LocalizedString
+		/**
+		 * Code block
+		 */
+		codeBlock: () => LocalizedString
+		/**
+		 * Insert a code block
+		 */
+		codeBlockDesc: () => LocalizedString
+		/**
+		 * Video
+		 */
+		video: () => LocalizedString
+		/**
+		 * Insert a video from YouTube
+		 */
+		videoDesc: () => LocalizedString
+		/**
+		 * Equation
+		 */
+		equation: () => LocalizedString
+		/**
+		 * Insert TeX expression in text
+		 */
+		equationDesc: () => LocalizedString
+	}
 	link: {
 		/**
 		 * New link
@@ -619,7 +863,7 @@ export type TranslationFunctions = {
 		 */
 		save: () => LocalizedString
 		/**
-		 * Type an expression
+		 * Type a TeX expression
 		 */
 		placeholder: () => LocalizedString
 	}
