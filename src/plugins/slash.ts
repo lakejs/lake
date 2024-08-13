@@ -52,6 +52,13 @@ export default (editor: Editor) => {
   });
   editor.container.on('keyup', event => {
     const keyboardEvent = event as KeyboardEvent;
+    if (
+      isKeyHotkey('down', keyboardEvent) ||
+      isKeyHotkey('up', keyboardEvent) ||
+      isKeyHotkey('enter', keyboardEvent)
+    ) {
+      return;
+    }
     if (!popup.visible) {
       if (isKeyHotkey('/', keyboardEvent)) {
         showPopup(editor, popup);
