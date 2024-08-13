@@ -66,6 +66,17 @@ export class SlashPopup {
     this.container = query('<ul class="lake-slash-popup" />');
   }
 
+  private getItem(name: string | SlashItem): SlashItem {
+    if (typeof name !== 'string') {
+      return name;
+    }
+    const item = slashItemMap.get(name);
+    if (!item) {
+      throw new Error(`SlashItem "${name}" has not been defined yet.`);
+    }
+    return item;
+  }
+
   private emptyBlock(): void {
     const range = this.editor.selection.range;
     const block = range.commonAncestor.closestBlock();
@@ -216,7 +227,8 @@ export class SlashPopup {
     const localeEnglish = i18nObject('en-US');
     keyword = keyword.toLowerCase();
     const items: string[] = [];
-    for (const item of slashItems) {
+    for (const name of this.items) {
+      const item = this.getItem(name);
       let itemTitle = typeof item.title === 'string' ? item.title : item.title(editor.locale);
       itemTitle = itemTitle.toLowerCase();
       let itemTitleEnglish = typeof item.title === 'string' ? item.title : item.title(localeEnglish);
@@ -277,15 +289,7 @@ export class SlashPopup {
     this.keyword = keyword;
     this.container.empty();
     for (const name of items) {
-      let item;
-      if (typeof name === 'string') {
-        item = slashItemMap.get(name);
-        if (!item) {
-          throw new Error(`SlashItem "${name}" has not been defined yet.`);
-        }
-      } else {
-        item = name;
-      }
+      const item = this.getItem(name);
       this.appendItem(item);
     }
     const selectedItemNode = this.container.find('.lake-slash-item-selected');
