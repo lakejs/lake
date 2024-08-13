@@ -19,6 +19,7 @@
   max-height: 380px;
   overflow-y: scroll;
   scrollbar-width: thin;
+  user-select: none;
 }
 .lake-slash-popup .lake-slash-item {
   display: flex;

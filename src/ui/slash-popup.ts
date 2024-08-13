@@ -83,6 +83,7 @@ export class SlashPopup {
     this.hide();
     block.empty();
     appendBreak(block);
+    range.shrinkBefore(block);
   }
 
   private appendItem(item: SlashItem): void {
