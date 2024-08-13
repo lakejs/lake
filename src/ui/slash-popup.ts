@@ -1,11 +1,12 @@
 import { isKeyHotkey } from 'is-hotkey';
 import type { Editor } from '../editor';
-import { SlashButtonItem, SlashItem } from '../types/slash';
+import { SlashItem } from '../types/slash';
 import { slashItems } from '../config/slash-items';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { appendBreak } from '../utils/append-break';
 import { scrollToNode } from '../utils/scroll-to-node';
+import { uploadFile } from '../utils/upload-file';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { icons } from '../icons';
@@ -18,6 +19,8 @@ for (const item of slashItems) {
 }
 
 const defaultItems: string[] = [
+  'image',
+  'file',
   'heading1',
   'heading2',
   'heading3',
@@ -63,7 +66,15 @@ export class SlashPopup {
     this.container = query('<ul class="lake-slash-popup" />');
   }
 
-  private appendButton(item: SlashButtonItem): void {
+  private emptyBlock(): void {
+    const range = this.editor.selection.range;
+    const block = range.commonAncestor.closestBlock();
+    this.hide();
+    block.empty();
+    appendBreak(block);
+  }
+
+  private appendItem(item: SlashItem): void {
     const editor = this.editor;
     const itemTitle = typeof item.title === 'string' ? item.title : item.title(editor.locale);
     const itemDescription = typeof item.description === 'string' ? item.description : item.description(editor.locale);
@@ -94,15 +105,41 @@ export class SlashPopup {
       }
       itemNode.removeClass('lake-slash-item-selected');
     });
-    itemNode.on('click', () => {
-      editor.focus();
-      const range = editor.selection.range;
-      const block = range.commonAncestor.closestBlock();
-      block.empty();
-      appendBreak(block);
-      item.onClick(editor, item.name);
-      this.hide();
-    });
+    if (item.type === 'upload') {
+      itemNode.append('<input type="file" />');
+      const fileNode = itemNode.find('input[type="file"]');
+      const fileNativeNode = fileNode.get(0) as HTMLInputElement;
+      if (item.accept) {
+        fileNode.attr('accept', item.accept);
+      }
+      if (item.multiple === true) {
+        fileNode.attr('multiple', 'true');
+      }
+      fileNode.on('click', event => event.stopPropagation());
+      fileNode.on('change', event => {
+        editor.focus();
+        this.emptyBlock();
+        const target = event.target as HTMLInputElement;
+        const files = target.files || [];
+        for (const file of files) {
+          uploadFile({
+            editor,
+            name: item.name,
+            file,
+            onError: error => editor.config.onMessage('error', error),
+          });
+        }
+      });
+      itemNode.on('click', () => {
+        fileNativeNode.click();
+      });
+    } else {
+      itemNode.on('click', () => {
+        editor.focus();
+        this.emptyBlock();
+        item.onClick(editor, item.name);
+      });
+    }
   }
 
   private documentKeydownListener = (event: KeyboardEvent) => {
@@ -249,11 +286,7 @@ export class SlashPopup {
       } else {
         item = name;
       }
-      if (item.type === 'button') {
-        this.appendButton(item);
-      } else if (item.type === 'upload') {
-        // this.appendUpload(item);
-      }
+      this.appendItem(item);
     }
     const selectedItemNode = this.container.find('.lake-slash-item-selected');
     if (selectedItemNode.length === 0) {

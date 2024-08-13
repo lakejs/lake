@@ -13,7 +13,7 @@ export type SlashButtonItem = {
 export type SlashUploadItem = {
   name: string;
   type: 'upload';
-  icon: string;
+  icon?: string;
   title: string | ((locale: TranslationFunctions) => string);
   description: string | ((locale: TranslationFunctions) => string);
   accept?: string;

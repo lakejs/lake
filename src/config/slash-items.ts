@@ -152,4 +152,22 @@ export const slashItems: SlashItem[] = [
       editor.command.execute(value);
     },
   },
+  {
+    name: 'image',
+    type: 'upload',
+    icon: icons.get('image'),
+    title: locale => locale.toolbar.image(),
+    description: 'Upload an image',
+    accept: 'image/*',
+    multiple: true,
+  },
+  {
+    name: 'file',
+    type: 'upload',
+    icon: icons.get('attachment'),
+    title: locale => locale.toolbar.file(),
+    description: 'Upload a file',
+    accept: '*',
+    multiple: true,
+  },
 ];

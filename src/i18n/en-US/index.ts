@@ -82,6 +82,10 @@ export default {
     videoDesc: 'Insert a video from YouTube',
     equation: 'Equation',
     equationDesc: 'Insert TeX expression in text',
+    image: 'Image',
+    imageDesc: 'Upload an image',
+    file: 'File',
+    fileDesc: 'Upload a file',
   },
   link: {
     newLink: 'New link',
