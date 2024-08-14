@@ -75,7 +75,7 @@ export class Toolbar {
     this.container.append('<div class="lake-toolbar-divider" />');
   }
 
-  private appendButton(editor: Editor, item: ToolbarButtonItem): void {
+  private appendNormalButton(editor: Editor, item: ToolbarButtonItem): void {
     const button = new Button({
       root: this.container,
       name: item.name,
@@ -115,7 +115,7 @@ export class Toolbar {
     dropdown.render();
   }
 
-  private appendUpload(editor: Editor, item: ToolbarUploadItem): void {
+  private appendUploadButton(editor: Editor, item: ToolbarUploadItem): void {
     const uploadNode = query(safeTemplate`
       <div class="lake-upload" name="${item.name}">
         <input type="file" />
@@ -232,13 +232,13 @@ export class Toolbar {
         }
         if (item.type === 'button') {
           this.buttonItemList.push(item);
-          this.appendButton(editor, item);
+          this.appendNormalButton(editor, item);
         } else if (item.type === 'dropdown') {
           this.allMenuMap.set(item.name, Dropdown.getMenuMap(item.menuItems, editor.locale));
           this.dropdownItemList.push(item);
           this.appendDropdown(editor, item);
         } else if (item.type === 'upload') {
-          this.appendUpload(editor, item);
+          this.appendUploadButton(editor, item);
         }
       }
     }
