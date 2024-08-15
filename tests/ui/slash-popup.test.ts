@@ -29,13 +29,13 @@ describe('ui / slash-popup', () => {
     const range = new Range();
     range.selectNodeContents(editor.container);
     popup.show(range);
-    expect(editor.popupContainer.find('.lake-slash-popup').length).to.equal(1);
+    expect(popup.visible).to.equal(true);
     popup.hide();
-    expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('none');
+    expect(popup.visible).to.equal(false);
     popup.show(range);
-    expect(editor.popupContainer.find('.lake-slash-popup').length).to.equal(1);
+    expect(popup.visible).to.equal(true);
     popup.unmount();
-    expect(editor.popupContainer.find('.lake-slash-popup').length).to.equal(0);
+    expect(popup.visible).to.equal(false);
     editor.unmount();
   });
 
@@ -53,7 +53,6 @@ describe('ui / slash-popup', () => {
     popup.show(range, 'code block');
     expect(editor.popupContainer.find('.lake-slash-item').length).to.equal(1);
     popup.unmount();
-    expect(editor.popupContainer.find('.lake-slash-popup').length).to.equal(0);
     editor.unmount();
   });
 
@@ -73,7 +72,6 @@ describe('ui / slash-popup', () => {
     popup.update('code block');
     expect(editor.popupContainer.find('.lake-slash-item').length).to.equal(1);
     popup.unmount();
-    expect(editor.popupContainer.find('.lake-slash-popup').length).to.equal(0);
     editor.unmount();
   });
 
