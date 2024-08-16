@@ -30,6 +30,11 @@ describe('ui / slash-popup', () => {
     range.selectNodeContents(editor.container);
     popup.show(range);
     expect(popup.visible).to.equal(true);
+    const firstItem = editor.popupContainer.find('.lake-slash-item').eq(0);
+    firstItem.emit('mouseenter');
+    expect(firstItem.hasClass('lake-slash-item-selected')).to.equal(true);
+    firstItem.emit('mouseleave');
+    expect(firstItem.hasClass('lake-slash-item-selected')).to.equal(false);
     popup.hide();
     expect(popup.visible).to.equal(false);
     popup.show(range);
