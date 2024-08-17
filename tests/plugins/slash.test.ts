@@ -184,6 +184,26 @@ describe('plugins / slash', () => {
     expect(editor.popupContainer.find('.lake-slash-item').length).to.equal(1);
   });
 
+  it('should show popup when delete key is entered', () => {
+    editor.setValue('<p>/heading 6<focus /></p>');
+    editor.container.emit('keyup', new KeyboardEvent('keyup', {
+      key: '/',
+    }));
+    expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('block');
+    expect(editor.popupContainer.find('.lake-slash-item').length).to.equal(1);
+    editor.setValue('<p>/heading 61<focus /></p>');
+    editor.container.emit('keyup', new KeyboardEvent('keyup', {
+      key: '1',
+    }));
+    expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('none');
+    editor.setValue('<p>/heading 6<focus /></p>');
+    editor.container.emit('keyup', new KeyboardEvent('keyup', {
+      key: 'Delete',
+    }));
+    expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('block');
+    expect(editor.popupContainer.find('.lake-slash-item').length).to.equal(1);
+  });
+
   it('image: should upload images', () => {
     const xhr = sinon.useFakeXMLHttpRequest();
     const requests: sinon.SinonFakeXMLHttpRequest[] = [];

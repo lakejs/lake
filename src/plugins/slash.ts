@@ -46,11 +46,7 @@ export default (editor: Editor) => {
   });
   editor.container.on('keyup', event => {
     const keyboardEvent = event as KeyboardEvent;
-    if (
-      isKeyHotkey('down', keyboardEvent) ||
-      isKeyHotkey('up', keyboardEvent) ||
-      isKeyHotkey('enter', keyboardEvent)
-    ) {
+    if (isKeyHotkey(['down' ,'up', 'enter'], keyboardEvent)) {
       return;
     }
     if (!popup.visible) {
@@ -58,7 +54,7 @@ export default (editor: Editor) => {
         showPopup(editor, popup);
         return;
       }
-      if (isKeyHotkey('backspace', keyboardEvent)) {
+      if (isKeyHotkey(['backspace', 'delete'], keyboardEvent)) {
         showPopup(editor, popup);
       } else {
         return;
