@@ -331,7 +331,7 @@ export class SlashPopup {
     this.range = null;
     this.container.hide();
     document.removeEventListener('keydown', this.keydownListener, true);
-    editor.event.on('click', this.clickListener);
+    editor.event.off('click', this.clickListener);
     editor.event.off('scroll', this.scrollListener);
     editor.event.off('resize', this.resizeListener);
   }

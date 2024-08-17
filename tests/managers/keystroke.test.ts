@@ -40,13 +40,13 @@ describe('managers / keystroke', () => {
     expect(container.html()).to.equal('mod+shift+x');
   });
 
-  it('setKeydown method: should trigger arrow-left', () => {
+  it('setKeydown method: should trigger left', () => {
     const keystroke = new Keystroke(container);
-    keystroke.setKeydown('arrow-left', () => container.html('arrow-left'));
+    keystroke.setKeydown('left', () => container.html('left'));
     container.emit('keydown', new KeyboardEvent('keydown', {
       key: 'ArrowLeft',
     }));
-    expect(container.html()).to.equal('arrow-left');
+    expect(container.html()).to.equal('left');
   });
 
   it('setKeydown method: should trigger mod+]', () => {

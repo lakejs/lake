@@ -6,13 +6,6 @@ type EventItem = {
   listener: (event: KeyboardEvent) => void | boolean;
 };
 
-const aliasMap = new Map([
-  ['arrow-left', 'left'],
-  ['arrow-right', 'right'],
-  ['arrow-up', 'up'],
-  ['arrow-down', 'down'],
-]);
-
 export class Keystroke {
   private container: Nodes;
 
@@ -56,14 +49,8 @@ export class Keystroke {
     });
   }
 
-  private normalizeType(type: string) {
-    type = aliasMap.get(type) ?? type;
-    return type;
-  }
-
   // Sets a keydown shortcut.
   public setKeydown(type: string, listener: EventListener) {
-    type = this.normalizeType(type);
     this.keydownEventList.push({
       type,
       listener,
@@ -72,7 +59,6 @@ export class Keystroke {
 
   // Sets a keyup shortcut.
   public setKeyup(type: string, listener: EventListener) {
-    type = this.normalizeType(type);
     this.keyupEventList.push({
       type,
       listener,
@@ -81,7 +67,6 @@ export class Keystroke {
 
   // Executes the keydown shortcuts.
   public keydown(type: string) {
-    type = this.normalizeType(type);
     for (const item of this.keydownEventList) {
       if (item.type === type) {
         if (item.listener(new KeyboardEvent(type)) === false) {
@@ -93,7 +78,6 @@ export class Keystroke {
 
   // Executes the keyup shortcuts.
   public keyup(type: string) {
-    type = this.normalizeType(type);
     for (const item of this.keyupEventList) {
       if (item.type === type) {
         if (item.listener(new KeyboardEvent(type)) === false) {

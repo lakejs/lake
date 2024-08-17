@@ -4,7 +4,7 @@ export default (editor: Editor) => {
   if (editor.readonly) {
     return;
   }
-  editor.keystroke.setKeydown('arrow-left', event => {
+  editor.keystroke.setKeydown('left', event => {
     const range = editor.selection.range;
     if (range.isInsideBox) {
       return;
@@ -44,7 +44,7 @@ export default (editor: Editor) => {
       range.selectBox(prevNode);
     }
   });
-  editor.keystroke.setKeydown('arrow-right', event => {
+  editor.keystroke.setKeydown('right', event => {
     const range = editor.selection.range;
     if (range.isInsideBox) {
       return;
@@ -84,7 +84,7 @@ export default (editor: Editor) => {
       range.selectBox(nextNode);
     }
   });
-  editor.keystroke.setKeydown('arrow-up', event => {
+  editor.keystroke.setKeydown('up', event => {
     const range = editor.selection.range;
     if (range.isInsideBox) {
       return;
@@ -103,7 +103,7 @@ export default (editor: Editor) => {
       range.collapseToStart();
     }
   });
-  editor.keystroke.setKeydown('arrow-down', event => {
+  editor.keystroke.setKeydown('down', event => {
     const range = editor.selection.range;
     if (range.isInsideBox) {
       return;

@@ -17,7 +17,7 @@ describe('plugins / arrow-keys', () => {
       editor => {
         const range = editor.selection.range;
         range.setStart(range.startNode, 1);
-        editor.keystroke.keydown('arrow-left');
+        editor.keystroke.keydown('left');
       },
     );
   });
@@ -33,7 +33,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-left');
+        editor.keystroke.keydown('left');
       },
     );
   });
@@ -49,7 +49,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-left');
+        editor.keystroke.keydown('left');
       },
     );
   });
@@ -65,7 +65,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-left');
+        editor.keystroke.keydown('left');
       },
     );
   });
@@ -81,7 +81,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-left');
+        editor.keystroke.keydown('left');
       },
     );
   });
@@ -101,7 +101,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-left');
+        editor.keystroke.keydown('left');
       },
     );
   });
@@ -121,7 +121,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-left');
+        editor.keystroke.keydown('left');
       },
     );
   });
@@ -141,7 +141,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-left');
+        editor.keystroke.keydown('left');
       },
     );
   });
@@ -157,7 +157,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-left');
+        editor.keystroke.keydown('left');
       },
     );
   });
@@ -175,7 +175,7 @@ describe('plugins / arrow-keys', () => {
       editor => {
         const range = editor.selection.range;
         range.setStart(range.startNode, 1);
-        editor.keystroke.keydown('arrow-right');
+        editor.keystroke.keydown('right');
       },
     );
   });
@@ -191,7 +191,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-right');
+        editor.keystroke.keydown('right');
       },
     );
   });
@@ -207,7 +207,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-right');
+        editor.keystroke.keydown('right');
       },
     );
   });
@@ -223,7 +223,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-right');
+        editor.keystroke.keydown('right');
       },
     );
   });
@@ -239,7 +239,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-right');
+        editor.keystroke.keydown('right');
       },
     );
   });
@@ -259,7 +259,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-right');
+        editor.keystroke.keydown('right');
       },
     );
   });
@@ -279,7 +279,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-right');
+        editor.keystroke.keydown('right');
       },
     );
   });
@@ -299,7 +299,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-right');
+        editor.keystroke.keydown('right');
       },
     );
   });
@@ -315,7 +315,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-right');
+        editor.keystroke.keydown('right');
       },
     );
   });
@@ -333,7 +333,7 @@ describe('plugins / arrow-keys', () => {
       editor => {
         const range = editor.selection.range;
         range.setStart(range.startNode, 1);
-        editor.keystroke.keydown('arrow-up');
+        editor.keystroke.keydown('up');
       },
     );
   });
@@ -349,7 +349,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-up');
+        editor.keystroke.keydown('up');
       },
     );
   });
@@ -369,7 +369,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-up');
+        editor.keystroke.keydown('up');
       },
     );
   });
@@ -387,7 +387,7 @@ describe('plugins / arrow-keys', () => {
       editor => {
         const range = editor.selection.range;
         range.setStart(range.startNode, 1);
-        editor.keystroke.keydown('arrow-down');
+        editor.keystroke.keydown('down');
       },
     );
   });
@@ -403,7 +403,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-down');
+        editor.keystroke.keydown('down');
       },
     );
   });
@@ -423,7 +423,7 @@ describe('plugins / arrow-keys', () => {
       content,
       output,
       editor => {
-        editor.keystroke.keydown('arrow-down');
+        editor.keystroke.keydown('down');
       },
     );
   });
