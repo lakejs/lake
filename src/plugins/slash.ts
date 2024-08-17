@@ -44,12 +44,6 @@ export default (editor: Editor) => {
     editor,
     items: editor.config.slash.items,
   });
-  editor.root.on('scroll', () => {
-    popup.position();
-  });
-  editor.event.on('resize', () => {
-    popup.position();
-  });
   editor.container.on('keyup', event => {
     const keyboardEvent = event as KeyboardEvent;
     if (

@@ -638,9 +638,9 @@ export class Editor {
     });
     this.event.removeAllListeners();
     this.history.event.removeAllListeners();
+    this.root.off();
     this.root.empty();
     this.popupContainer.remove();
-    this.root.off();
     document.removeEventListener('copy', this.copyListener);
     if (!this.readonly) {
       document.removeEventListener('cut', this.cutListener);

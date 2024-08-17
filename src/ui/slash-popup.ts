@@ -154,7 +154,7 @@ export class SlashPopup {
     }
   }
 
-  private documentKeydownListener = (event: KeyboardEvent) => {
+  private keydownListener = (event: KeyboardEvent) => {
     if (isKeyHotkey('escape', event)) {
       event.preventDefault();
       this.hide();
@@ -211,13 +211,17 @@ export class SlashPopup {
     }, 50);
   };
 
-  private documentClickListener = (event: Event) => {
+  private clickListener = (event: Event) => {
     const targetNode = new Nodes(event.target as Element);
     if (this.container.contains(targetNode)) {
       return;
     }
     this.hide();
   };
+
+  private scrollListener = () =>this.position();
+
+  private resizeListener = () =>this.position();
 
   public get visible(): boolean {
     return this.container.get(0).isConnected && this.container.computedCSS('display') !== 'none';
@@ -300,6 +304,7 @@ export class SlashPopup {
   }
 
   public show(range: Range, keyword?: string): void {
+    const editor = this.editor;
     if (this.root.find('.lake-slash-popup').length === 0) {
       this.render();
     } else {
@@ -316,15 +321,20 @@ export class SlashPopup {
       this.update(keyword);
     }
     this.container.css('visibility', '');
-    document.addEventListener('keydown', this.documentKeydownListener, true);
-    document.addEventListener('click', this.documentClickListener);
+    document.addEventListener('keydown', this.keydownListener, true);
+    document.addEventListener('click', this.clickListener);
+    editor.root.on('scroll', this.scrollListener);
+    editor.event.on('resize', this.resizeListener);
   }
 
   public hide(): void {
+    const editor = this.editor;
     this.range = null;
     this.container.hide();
-    document.removeEventListener('keydown', this.documentKeydownListener, true);
-    document.removeEventListener('click', this.documentClickListener);
+    document.removeEventListener('keydown', this.keydownListener, true);
+    document.removeEventListener('click', this.clickListener);
+    editor.root.off('scroll', this.scrollListener);
+    editor.event.off('resize', this.resizeListener);
   }
 
   public unmount(): void {
