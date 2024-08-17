@@ -202,6 +202,10 @@ export class Editor {
     this.event.emit('resize');
   };
 
+  private scrollListener: EventListener = () => {
+    this.event.emit('scroll');
+  };
+
   private updateSelectionRange = debounce(() => {
     this.selection.updateByRange();
   }, 1, {
@@ -616,13 +620,14 @@ export class Editor {
     if (this.toolbar) {
       this.toolbar.render(this);
     }
+    this.root.on('scroll', this.scrollListener);
     document.addEventListener('copy', this.copyListener);
+    window.addEventListener('resize', this.resizeListener);
     if (!this.readonly) {
       document.addEventListener('cut', this.cutListener);
       document.addEventListener('paste', this.pasteListener);
       document.addEventListener('selectionchange', this.selectionchangeListener);
       document.addEventListener('click', this.clickListener);
-      window.addEventListener('resize', this.resizeListener);
       this.bindInputEvents();
       this.bindHistoryEvents();
     }
@@ -642,12 +647,12 @@ export class Editor {
     this.root.empty();
     this.popupContainer.remove();
     document.removeEventListener('copy', this.copyListener);
+    window.removeEventListener('resize', this.resizeListener);
     if (!this.readonly) {
       document.removeEventListener('cut', this.cutListener);
       document.removeEventListener('paste', this.pasteListener);
       document.removeEventListener('selectionchange', this.selectionchangeListener);
       document.removeEventListener('click', this.clickListener);
-      window.removeEventListener('resize', this.resizeListener);
     }
   }
 }

@@ -211,8 +211,7 @@ export class SlashPopup {
     }, 50);
   };
 
-  private clickListener = (event: Event) => {
-    const targetNode = new Nodes(event.target as Element);
+  private clickListener = (targetNode: Nodes) => {
     if (this.container.contains(targetNode)) {
       return;
     }
@@ -322,8 +321,8 @@ export class SlashPopup {
     }
     this.container.css('visibility', '');
     document.addEventListener('keydown', this.keydownListener, true);
-    document.addEventListener('click', this.clickListener);
-    editor.root.on('scroll', this.scrollListener);
+    editor.event.on('click', this.clickListener);
+    editor.event.on('scroll', this.scrollListener);
     editor.event.on('resize', this.resizeListener);
   }
 
@@ -332,8 +331,8 @@ export class SlashPopup {
     this.range = null;
     this.container.hide();
     document.removeEventListener('keydown', this.keydownListener, true);
-    document.removeEventListener('click', this.clickListener);
-    editor.root.off('scroll', this.scrollListener);
+    editor.event.on('click', this.clickListener);
+    editor.event.off('scroll', this.scrollListener);
     editor.event.off('resize', this.resizeListener);
   }
 
