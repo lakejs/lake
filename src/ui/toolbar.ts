@@ -243,4 +243,10 @@ export class Toolbar {
       }
     }
   }
+
+  // Destroys the toolbar.
+  public unmount(): void {
+    this.root.removeClass('lake-custom-properties');
+    this.root.empty();
+  }
 }

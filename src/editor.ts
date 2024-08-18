@@ -633,8 +633,11 @@ export class Editor {
     }
   }
 
-  // Destroys the rendered editor.
+  // Destroys the editor.
   public unmount(): void {
+    if (this.toolbar) {
+      this.toolbar.unmount();
+    }
     this.removeBoxGarbage();
     this.container.find('lake-box').each(boxNativeNode => {
       const boxNode = query(boxNativeNode);
@@ -644,6 +647,7 @@ export class Editor {
     this.event.removeAllListeners();
     this.history.event.removeAllListeners();
     this.root.off();
+    this.root.removeClass('lake-custom-properties');
     this.root.empty();
     this.popupContainer.remove();
     document.removeEventListener('copy', this.copyListener);

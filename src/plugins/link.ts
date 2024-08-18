@@ -22,7 +22,7 @@ export default (editor: Editor) => {
       editor.history.save();
     },
   });
-  editor.root.on('scroll', () => {
+  editor.event.on('scroll', () => {
     popup.position();
   });
   editor.event.on('resize', () => {
