@@ -57,7 +57,10 @@ export class BoxResizer {
       const pointerNativeNode = pointerNode.get(0) as Element;
       // The capture will be implicitly released after a pointerup or pointercancel event.
       // https://developer.mozilla.org/en-US/docs/Web/API/Element/setPointerCapture
-      pointerNativeNode.setPointerCapture(pointerEvent.pointerId);
+      try {
+        // Test case throws an exception on Firefox.
+        pointerNativeNode.setPointerCapture(pointerEvent.pointerId);
+      } catch(e) { /* empty */ }
       clientX = pointerEvent.clientX;
       width = boxContainer.width();
       infoNode.show();
