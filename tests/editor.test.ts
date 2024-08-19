@@ -1,6 +1,7 @@
 import { getInstanceMap } from '../src/storage/box-instances';
 import { debug, query, getBox, appendBreak } from '../src/utils';
 import { Nodes } from '../src/models/nodes';
+import { Toolbar } from '../src/ui/toolbar';
 import { Editor } from '../src/editor';
 import { click, getContainerValue } from './utils';
 
@@ -367,19 +368,11 @@ describe('editor', () => {
     const editor = new Editor({
       root: rootNode,
     });
-    editor.container.on('focusin', ()=> {
-      editor.root.addClass('lake-root-focused');
-    });
-    editor.container.on('focusout', ()=> {
-      editor.root.removeClass('lake-root-focused');
-    });
     editor.render();
     editor.focus();
     expect(editor.hasFocus).to.equal(true);
-    expect(rootNode.hasClass('lake-root-focused')).to.equal(true);
     editor.blur();
     expect(editor.hasFocus).to.equal(false);
-    expect(rootNode.hasClass('lake-root-focused')).to.equal(false);
     editor.unmount();
   });
 
@@ -837,6 +830,32 @@ describe('editor', () => {
     editor.unmount();
     editor.event.emit('click');
     expect(clickCount).to.equal(1);
+  });
+
+  it('unmount method: should remove toolbar', () => {
+    const toolbarNode = rootNode.before('<div class="lake-toolbar-root" />');
+    const toolbar = new Toolbar({
+      root: toolbarNode,
+    });
+    const editor = new Editor({
+      root: rootNode,
+      toolbar,
+    });
+    editor.render();
+    expect(toolbar.root.hasClass('lake-custom-properties')).to.equal(true);
+    editor.unmount();
+    expect(toolbar.root.hasClass('lake-custom-properties')).to.equal(false);
+    toolbarNode.remove();
+  });
+
+  it('unmount method: should remove class', () => {
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    expect(editor.root.hasClass('lake-custom-properties')).to.equal(true);
+    editor.unmount();
+    expect(editor.root.hasClass('lake-custom-properties')).to.equal(false);
   });
 
   it('multi-editor: should not throw an error', () => {

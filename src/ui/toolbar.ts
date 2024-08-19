@@ -47,7 +47,7 @@ for (const item of toolbarItems) {
 
 export class Toolbar {
 
-  private root: Nodes;
+  public root: Nodes;
 
   private items: (string | ToolbarItem)[];
 
