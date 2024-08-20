@@ -82,6 +82,10 @@ export default {
     videoDesc: '插入 YouTube 视频',
     equation: '公式',
     equationDesc: '支持 TeX 语法',
+    image: '图片',
+    imageDesc: '上传图片',
+    file: '文件',
+    fileDesc: '上传文件',
   },
   link: {
     newLink: '新链接',

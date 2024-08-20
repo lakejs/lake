@@ -327,6 +327,22 @@ type RootTranslation = {
 		 * I​n​s​e​r​t​ ​T​e​X​ ​e​x​p​r​e​s​s​i​o​n​ ​i​n​ ​t​e​x​t
 		 */
 		equationDesc: string
+		/**
+		 * I​m​a​g​e
+		 */
+		image: string
+		/**
+		 * U​p​l​o​a​d​ ​a​n​ ​i​m​a​g​e
+		 */
+		imageDesc: string
+		/**
+		 * F​i​l​e
+		 */
+		file: string
+		/**
+		 * U​p​l​o​a​d​ ​a​ ​f​i​l​e
+		 */
+		fileDesc: string
 	}
 	link: {
 		/**
@@ -754,6 +770,22 @@ export type TranslationFunctions = {
 		 * Insert TeX expression in text
 		 */
 		equationDesc: () => LocalizedString
+		/**
+		 * Image
+		 */
+		image: () => LocalizedString
+		/**
+		 * Upload an image
+		 */
+		imageDesc: () => LocalizedString
+		/**
+		 * File
+		 */
+		file: () => LocalizedString
+		/**
+		 * Upload a file
+		 */
+		fileDesc: () => LocalizedString
 	}
 	link: {
 		/**
