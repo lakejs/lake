@@ -279,9 +279,6 @@ export class SlashPopup {
   }
 
   public update(keyword: string | null = null): void {
-    if (this.editor.isComposing) {
-      return;
-    }
     if (keyword !== null && this.keyword === keyword) {
       return;
     }

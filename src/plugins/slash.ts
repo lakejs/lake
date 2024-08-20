@@ -45,6 +45,9 @@ export default (editor: Editor) => {
     items: editor.config.slash.items,
   });
   editor.container.on('keyup', event => {
+    if (editor.isComposing) {
+      return;
+    }
     const keyboardEvent = event as KeyboardEvent;
     if (isKeyHotkey(['down' ,'up', 'enter'], keyboardEvent)) {
       return;
