@@ -116,12 +116,10 @@ export class Dropdown {
   private documentClickListener = (event: Event) => {
     const targetNode = new Nodes(event.target as Element);
     const titleNode = this.node.find('.lake-dropdown-title');
-    const menuNode = this.node.find('.lake-dropdown-menu');
     if (targetNode.closest('.lake-dropdown-title').get(0) === titleNode.get(0)) {
       return;
     }
-    menuNode.hide();
-    document.removeEventListener('click', this.documentClickListener);
+    this.hideMenu();
   };
 
   private showMenu(): void {
@@ -165,6 +163,13 @@ export class Dropdown {
     }
     menuNode.css('visibility', '');
     document.addEventListener('click', this.documentClickListener);
+  }
+
+  private hideMenu(): void {
+    const dropdownNode = this.node;
+    const menuNode = dropdownNode.find('.lake-dropdown-menu');
+    menuNode.hide();
+    document.removeEventListener('click', this.documentClickListener);
   }
 
   private bindEvents(): void {
@@ -237,8 +242,7 @@ export class Dropdown {
         this.updateColorAccent(titleNode, value);
       }
       config.onSelect(value);
-      menuNode.hide();
-      document.removeEventListener('click', this.documentClickListener);
+      this.hideMenu();
     });
   }
 
@@ -292,7 +296,7 @@ export class Dropdown {
   }
 
   public unmount(): void {
+    this.hideMenu();
     this.node.remove();
-    document.removeEventListener('click', this.documentClickListener);
   }
 }
