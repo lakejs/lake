@@ -59,6 +59,8 @@ export class Toolbar {
 
   private dropdownItemList: ToolbarDropdownItem[] = [];
 
+  private dropdownList: Dropdown[] = [];
+
   public container: Nodes;
 
   constructor(config: ToolbarConfig) {
@@ -113,6 +115,7 @@ export class Toolbar {
       },
     });
     dropdown.render();
+    this.dropdownList.push(dropdown);
   }
 
   private appendUploadButton(editor: Editor, item: ToolbarUploadItem): void {
@@ -246,6 +249,9 @@ export class Toolbar {
 
   // Destroys the toolbar.
   public unmount(): void {
+    for (const dropdown of this.dropdownList) {
+      dropdown.unmount();
+    }
     this.root.removeClass('lake-custom-properties');
     this.root.empty();
   }
