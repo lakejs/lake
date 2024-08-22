@@ -162,6 +162,9 @@ export class Toolbar {
 
   // Updates state of each item such as disabled, selected.
   public updateState(state: SelectionState) {
+    if (!this.container.get(0).isConnected) {
+      return;
+    }
     const { appliedItems, disabledNameMap, selectedNameMap, selectedValuesMap } = state;
     for (const item of this.buttonItemList) {
       const selectedClass = 'lake-button-selected';
