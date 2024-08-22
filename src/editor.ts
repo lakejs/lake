@@ -3,6 +3,7 @@ import isEqual from 'fast-deep-equal/es6';
 import EventEmitter from 'eventemitter3';
 import { version } from '../package.json';
 import { SelectionState } from './types/object';
+import { UnmountPlugin } from './types/plugin';
 import { Locales, TranslationFunctions } from './i18n/types';
 import { getInstanceMap } from './storage/box-instances';
 import { editors } from './storage/editors';
@@ -88,6 +89,8 @@ export class Editor {
     selectedNameMap: new Map(),
     selectedValuesMap: new Map(),
   };
+
+  private unmountPluginMap: Map<string, UnmountPlugin> = new Map();
 
   public static version: string = version;
 
@@ -609,7 +612,7 @@ export class Editor {
     query(document.body).append(this.popupContainer);
     this.togglePlaceholderClass(htmlParser.getHTML());
     this.container.append(fragment);
-    Editor.plugin.loadAll(this);
+    this.unmountPluginMap = Editor.plugin.loadAll(this);
     if (!this.readonly) {
       this.selection.updateByBookmark();
       this.history.save({
@@ -635,6 +638,13 @@ export class Editor {
 
   // Destroys the editor.
   public unmount(): void {
+    for (const name of this.unmountPluginMap.keys()) {
+      const unmountPlugin = this.unmountPluginMap.get(name);
+      if (unmountPlugin) {
+        unmountPlugin();
+        debug(`The plugin "${name}" unmounted`);
+      }
+    }
     if (this.toolbar) {
       this.toolbar.unmount();
     }

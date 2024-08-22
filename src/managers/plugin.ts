@@ -1,11 +1,10 @@
 import type { Editor } from '../editor';
-
-type PluginFunction = (editor: Editor) => void;
+import { InitializePlugin, UnmountPlugin } from '../types/plugin';
 
 export class Plugin {
-  private pluginMap: Map<string, PluginFunction> = new Map();
+  private pluginMap: Map<string, InitializePlugin> = new Map();
 
-  public add(name: string, plugin: PluginFunction) {
+  public add(name: string, plugin: InitializePlugin) {
     if (this.pluginMap.get(name)) {
       throw new Error(`Plugin "${name}" is already defined.`);
     }
@@ -13,11 +12,16 @@ export class Plugin {
   }
 
   public loadAll(editor: Editor) {
+    const unmountPluginMap: Map<string, UnmountPlugin> = new Map();
     for (const name of this.pluginMap.keys()) {
       const plugin = this.pluginMap.get(name);
       if (plugin && editor.config[name] !== false) {
-        plugin(editor);
+        const result = plugin(editor);
+        if (result) {
+          unmountPluginMap.set(name, result);
+        }
       }
     }
+    return unmountPluginMap;
   }
 }

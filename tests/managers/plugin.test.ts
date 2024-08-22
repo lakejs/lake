@@ -49,4 +49,29 @@ describe('managers / plugin', () => {
     expect(editorValue).to.equal('');
   });
 
+  it('should unmount a plugin', () => {
+    const plugin = new Plugin();
+    let editorValue = '';
+    plugin.add('myPlugin1', (editor: Editor) => {
+      editorValue = editor.getValue();
+      return () => {
+        editorValue = '<p>bar</p>';
+      };
+    });
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p>foo</p>',
+    });
+    expect(editorValue).to.equal('');
+    editor.render();
+    const unmountPluginMap = plugin.loadAll(editor);
+    expect(editorValue).to.equal('<p>foo</p>');
+    const unmountPlugin = unmountPluginMap.get('myPlugin1');
+    if (unmountPlugin) {
+      unmountPlugin();
+    }
+    editor.unmount();
+    expect(editorValue).to.equal('<p>bar</p>');
+  });
+
 });

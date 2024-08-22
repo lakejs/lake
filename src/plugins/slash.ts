@@ -75,4 +75,5 @@ export default (editor: Editor) => {
     }
     popup.update(keyword);
   });
+  return () => popup.unmount();
 };
