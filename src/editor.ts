@@ -638,9 +638,10 @@ export class Editor {
 
   // Destroys the editor.
   public unmount(): void {
-    this.updateSelectionRange.clear();
-    this.updateBoxSelectionStyle.clear();
-    this.emitStateChangeEvent.clear();
+    // Executes delayed executions immediately.
+    this.updateSelectionRange.flush();
+    this.updateBoxSelectionStyle.flush();
+    this.emitStateChangeEvent.flush();
     for (const name of this.unmountPluginMap.keys()) {
       const unmountPlugin = this.unmountPluginMap.get(name);
       if (unmountPlugin) {
