@@ -218,7 +218,6 @@ export class Toolbar {
 
   // Renders a toolbar for the specified editor.
   public render(editor: Editor) {
-    this.root.empty();
     this.root.append(this.container);
     for (const name of this.items) {
       if (name === '|') {
@@ -253,6 +252,6 @@ export class Toolbar {
       dropdown.unmount();
     }
     this.root.removeClass('lake-custom-properties');
-    this.root.empty();
+    this.container.remove();
   }
 }

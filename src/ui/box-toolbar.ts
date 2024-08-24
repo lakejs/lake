@@ -27,6 +27,8 @@ export class BoxToolbar {
 
   private dropdownItemList: BoxToolbarDropdownItem[] = [];
 
+  private dropdownList: Dropdown[] = [];
+
   public container: Nodes;
 
   constructor(config: BoxToolbarConfig) {
@@ -77,6 +79,7 @@ export class BoxToolbar {
       },
     });
     dropdown.render();
+    this.dropdownList.push(dropdown);
   }
 
   public position(): void {
@@ -116,7 +119,12 @@ export class BoxToolbar {
     this.position();
   }
 
+  // Destroys the toolbar.
   public unmount(): void {
+    for (const dropdown of this.dropdownList) {
+      dropdown.unmount();
+    }
+    this.root.removeClass('lake-custom-properties');
     this.container.remove();
   }
 }
