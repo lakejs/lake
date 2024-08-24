@@ -204,6 +204,7 @@ export const codeBlockBox: BoxComponent = {
       codeEditor.focus();
     });
     box.event.on('beforeunmount', () => {
+      dropdown.unmount();
       codeEditor.destroy();
       editor.event.off('resize', resizeListener);
       debug('CodeMirror destroyed');
