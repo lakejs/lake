@@ -12,6 +12,7 @@ describe('plugins / escape-key', () => {
       content,
       output,
       editor => {
+        editor.focus();
         expect(editor.hasFocus).to.equal(true);
         editor.keystroke.keydown('escape');
         expect(editor.hasFocus).to.equal(false);

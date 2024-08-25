@@ -102,6 +102,20 @@ describe('plugins / slash', () => {
     expect(value).to.equal('<h1><focus /><br /></h1>');
   });
 
+  it('should set current block to heading 1 using enter key', () => {
+    editor.setValue('<p>/heading<focus /></p>');
+    const event = new KeyboardEvent('keyup', {
+      key: '/',
+    });
+    editor.container.emit('keyup', event);
+    document.dispatchEvent(new KeyboardEvent('keydown', {
+      key: 'Enter',
+    }));
+    expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('none');
+    const value = editor.getValue();
+    expect(value).to.equal('<h1><focus /><br /></h1>');
+  });
+
   it('should set current block to heading 6', () => {
     editor.setValue('<p>/heading 6<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {

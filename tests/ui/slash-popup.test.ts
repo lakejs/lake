@@ -30,7 +30,7 @@ describe('ui / slash-popup', () => {
     range.selectNodeContents(editor.container);
     popup.show(range);
     expect(popup.visible).to.equal(true);
-    const firstItem = editor.popupContainer.find('.lake-slash-item').eq(0);
+    const firstItem = popup.container.find('.lake-slash-item').eq(0);
     firstItem.emit('mouseenter');
     expect(firstItem.hasClass('lake-slash-item-selected')).to.equal(true);
     firstItem.emit('mouseleave');
@@ -41,6 +41,38 @@ describe('ui / slash-popup', () => {
     expect(popup.visible).to.equal(true);
     popup.unmount();
     expect(popup.visible).to.equal(false);
+    editor.unmount();
+  });
+
+  it('keydown event: should select an item using keyboard', () => {
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p>/<focus /></p>',
+    });
+    editor.render();
+    const popup = new SlashPopup({
+      editor,
+    });
+    const range = new Range();
+    range.selectNodeContents(editor.container);
+    popup.show(range);
+    document.dispatchEvent(new KeyboardEvent('keydown', {
+      key: 'ArrowDown',
+    }));
+    document.dispatchEvent(new KeyboardEvent('keydown', {
+      key: 'ArrowDown',
+    }));
+    expect(popup.container.find('.lake-slash-item').eq(2).hasClass('lake-slash-item-selected')).to.equal(true);
+    document.dispatchEvent(new KeyboardEvent('keydown', {
+      key: 'ArrowUp',
+    }));
+    expect(popup.container.find('.lake-slash-item').eq(1).hasClass('lake-slash-item-selected')).to.equal(true);
+    expect(popup.visible).to.equal(true);
+    document.dispatchEvent(new KeyboardEvent('keydown', {
+      key: 'Escape',
+    }));
+    expect(popup.visible).to.equal(false);
+    popup.unmount();
     editor.unmount();
   });
 
@@ -56,7 +88,7 @@ describe('ui / slash-popup', () => {
     const range = new Range();
     range.selectNodeContents(editor.container);
     popup.show(range, 'code block');
-    expect(editor.popupContainer.find('.lake-slash-item').length).to.equal(1);
+    expect(popup.container.find('.lake-slash-item').length).to.equal(1);
     popup.unmount();
     editor.unmount();
   });
@@ -73,9 +105,9 @@ describe('ui / slash-popup', () => {
     const range = new Range();
     range.selectNodeContents(editor.container);
     popup.show(range);
-    expect(editor.popupContainer.find('.lake-slash-item').length > 1).to.equal(true);
+    expect(popup.container.find('.lake-slash-item').length > 1).to.equal(true);
     popup.update('code block');
-    expect(editor.popupContainer.find('.lake-slash-item').length).to.equal(1);
+    expect(popup.container.find('.lake-slash-item').length).to.equal(1);
     popup.unmount();
     editor.unmount();
   });
