@@ -8,6 +8,9 @@ import documentEditor from './document-editor';
 import miniatureEditor from './miniature-editor';
 import headlessEditor from './headless-editor';
 import readonlyEditor from './readonly-editor';
+import helloWorld from './plugins/hello-world';
+
+Editor.plugin.add('helloWorld', helloWorld);
 
 const { query, safeTemplate } = Utils;
 

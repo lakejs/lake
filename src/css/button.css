@@ -20,7 +20,8 @@ button.lake-button[disabled] {
   opacity: 0.25;
   cursor: default;
 }
-button.lake-button svg {
+button.lake-button svg,
+button.lake-button img {
   display: inline-block;
   width: 16px;
   height: 16px;

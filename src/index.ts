@@ -1,7 +1,7 @@
 import './css';
 import './elements/box';
 import './elements/bookmark';
-import { BoxComponent } from './types/box';
+import { BoxComponent, BoxValue } from './types/box';
 import { ToolbarItem } from './types/toolbar';
 import { DropdownMenuItem } from './types/dropdown';
 import { icons } from './icons';
@@ -139,6 +139,7 @@ export {
   ToolbarItem,
   DropdownMenuItem,
   BoxComponent,
+  BoxValue,
   Button,
   Dropdown,
   icons,

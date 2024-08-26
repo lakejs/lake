@@ -191,6 +191,18 @@ const specialCharacter: ToolbarItem = {
   },
 };
 
+const helloWorld: ToolbarItem = {
+  name: 'helloWorld',
+  type: 'button',
+  icon: '<img src="../assets/icons/hand-waving.svg" />',
+  tooltip: 'Hello World',
+  onClick: editor => {
+    editor.command.execute('helloWorld', {
+      number: 0,
+    });
+  },
+};
+
 const toolbarItems = [
   'undo',
   'redo',
@@ -241,6 +253,7 @@ const toolbarItems = [
   'hr',
   '|',
   'selectAll',
+  helloWorld,
 ];
 
 export default (value: string) => {

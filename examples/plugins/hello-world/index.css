@@ -1,0 +1,15 @@
+.lake-hello-world {
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 0 12px;
+  user-select: none;
+}
+lake-box[name="helloWorld"] .lake-box-hovered .lake-hello-world {
+  background-color: #f6f8fa;
+}
+lake-box[name="helloWorld"] .lake-box-selected .lake-hello-world {
+  background-color: #1ba2e333;
+}
+lake-box[name="helloWorld"] .lake-box-focused .lake-hello-world {
+  background-color: #1ba2e333;
+}
