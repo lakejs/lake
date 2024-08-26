@@ -197,9 +197,7 @@ const helloWorld: ToolbarItem = {
   icon: '<img src="../assets/icons/hand-waving.svg" />',
   tooltip: 'Hello World',
   onClick: editor => {
-    editor.command.execute('helloWorld', {
-      number: 0,
-    });
+    editor.command.execute('helloWorld');
   },
 };
 

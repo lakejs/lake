@@ -5,6 +5,9 @@ const { query, safeTemplate } = Utils;
 export const helloWorldBox: BoxComponent = {
   type: 'inline',
   name: 'helloWorld',
+  value: {
+    number: 0,
+  },
   render: box => {
     const editor = box.getEditor();
     if (!editor) {
