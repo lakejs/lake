@@ -9,7 +9,6 @@ import { scrollToNode } from '../utils/scroll-to-node';
 import { uploadFile } from '../utils/upload-file';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
-import { icons } from '../icons';
 import { i18nObject } from '../../src/i18n';
 
 const slashItemMap: Map<string, SlashItem> = new Map();
@@ -19,8 +18,6 @@ for (const item of slashItems) {
 }
 
 const defaultItems: string[] = [
-  'image',
-  'file',
   'heading1',
   'heading2',
   'heading3',
@@ -33,9 +30,6 @@ const defaultItems: string[] = [
   'bulletedList',
   'checklist',
   'hr',
-  'codeBlock',
-  'video',
-  'equation',
 ];
 
 type SlashPopupConfig = {
@@ -99,7 +93,7 @@ export class SlashPopup {
         </div>
       </li>
     `);
-    const icon = icons.get(item.name);
+    const icon = item.icon;
     if (icon) {
       itemNode.find('.lake-slash-icon').append(icon);
     }

@@ -76,6 +76,7 @@ const defaultConfig: Config = {
       console.error(message);
     }
   },
+  slash: false,
 };
 
 export class Editor {

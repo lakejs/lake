@@ -1,4 +1,4 @@
-import { Editor, Toolbar, ToolbarItem, DropdownMenuItem, icons } from '../src';
+import { Editor, Toolbar, ToolbarItem, DropdownMenuItem, SlashItem, icons } from '../src';
 
 // These emojis are sourced from Fluent Emoji.
 // https://github.com/microsoft/fluentui-emoji
@@ -201,6 +201,17 @@ const helloWorld: ToolbarItem = {
   },
 };
 
+const helloWorldSlashItem: SlashItem = {
+  name: 'helloWorld',
+  type: 'button',
+  icon: '<img src="../assets/icons/hand-waving.svg" />',
+  title: 'Hello World',
+  description: 'Insert an example box',
+  onClick: (editor, value) => {
+    editor.command.execute(value);
+  },
+};
+
 const toolbarItems = [
   'undo',
   'redo',
@@ -254,6 +265,27 @@ const toolbarItems = [
   helloWorld,
 ];
 
+const slashItems: (SlashItem | string)[] = [
+  helloWorldSlashItem,
+  'image',
+  'file',
+  'heading1',
+  'heading2',
+  'heading3',
+  'heading4',
+  'heading5',
+  'heading6',
+  'paragraph',
+  'blockQuote',
+  'numberedList',
+  'bulletedList',
+  'checklist',
+  'hr',
+  'codeBlock',
+  'video',
+  'equation',
+];
+
 export default (value: string) => {
   const toolbar = new Toolbar({
     root: '.lake-toolbar-root',
@@ -287,7 +319,9 @@ export default (value: string) => {
     codeBlock: {
       // langList: ['text', 'html'],
     },
-    // slash: false,
+    slash: {
+      items: slashItems,
+    },
   });
   editor.render();
   return editor;

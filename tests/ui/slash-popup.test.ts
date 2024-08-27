@@ -4,6 +4,26 @@ import { Range } from '../../src/models/range';
 import { SlashPopup } from '../../src/ui/slash-popup';
 import { Editor } from '../../src';
 
+const defaultItems: string[] = [
+  'image',
+  'file',
+  'heading1',
+  'heading2',
+  'heading3',
+  'heading4',
+  'heading5',
+  'heading6',
+  'paragraph',
+  'blockQuote',
+  'numberedList',
+  'bulletedList',
+  'checklist',
+  'hr',
+  'codeBlock',
+  'video',
+  'equation',
+];
+
 describe('ui / slash-popup', () => {
 
   let rootNode: Nodes;
@@ -25,6 +45,7 @@ describe('ui / slash-popup', () => {
     editor.render();
     const popup = new SlashPopup({
       editor,
+      items: defaultItems,
     });
     const range = new Range();
     range.selectNodeContents(editor.container);
@@ -52,6 +73,7 @@ describe('ui / slash-popup', () => {
     editor.render();
     const popup = new SlashPopup({
       editor,
+      items: defaultItems,
     });
     const range = new Range();
     range.selectNodeContents(editor.container);
@@ -84,6 +106,7 @@ describe('ui / slash-popup', () => {
     editor.render();
     const popup = new SlashPopup({
       editor,
+      items: defaultItems,
     });
     const range = new Range();
     range.selectNodeContents(editor.container);
@@ -101,6 +124,7 @@ describe('ui / slash-popup', () => {
     editor.render();
     const popup = new SlashPopup({
       editor,
+      items: defaultItems,
     });
     const range = new Range();
     range.selectNodeContents(editor.container);
@@ -120,6 +144,7 @@ describe('ui / slash-popup', () => {
     editor.render();
     const popup = new SlashPopup({
       editor,
+      items: defaultItems,
     });
     const range = new Range();
     range.selectNodeContents(editor.container);
@@ -138,6 +163,7 @@ describe('ui / slash-popup', () => {
     editor.render();
     const popup = new SlashPopup({
       editor,
+      items: defaultItems,
     });
     const range = new Range();
     range.selectNodeContents(editor.container);

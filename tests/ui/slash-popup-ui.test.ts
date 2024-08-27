@@ -2,6 +2,26 @@ import { query } from '../../src/utils';
 import { SlashPopup } from '../../src/ui/slash-popup';
 import { Editor } from '../../src';
 
+const defaultItems: string[] = [
+  'image',
+  'file',
+  'heading1',
+  'heading2',
+  'heading3',
+  'heading4',
+  'heading5',
+  'heading6',
+  'paragraph',
+  'blockQuote',
+  'numberedList',
+  'bulletedList',
+  'checklist',
+  'hr',
+  'codeBlock',
+  'video',
+  'equation',
+];
+
 describe('ui / slash-popup-ui', () => {
 
   it('slash popup', () => {
@@ -14,6 +34,7 @@ describe('ui / slash-popup-ui', () => {
     editor.render();
     const popup = new SlashPopup({
       editor,
+      items: defaultItems,
     });
     const slashRange = editor.selection.range.clone();
     slashRange.selectNodeContents(editor.container);

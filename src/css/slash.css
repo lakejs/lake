@@ -41,7 +41,8 @@
   border: 1px solid var(--border-color);
   background-color: #fff;
 }
-.lake-slash-popup .lake-slash-icon svg {
+.lake-slash-popup .lake-slash-icon svg,
+.lake-slash-popup .lake-slash-icon img {
   width: 32px;
   height: 32px;
   margin: 6px;

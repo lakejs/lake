@@ -4,6 +4,7 @@ import './elements/bookmark';
 import { BoxComponent, BoxValue } from './types/box';
 import { ToolbarItem } from './types/toolbar';
 import { DropdownMenuItem } from './types/dropdown';
+import { SlashItem } from './types/slash';
 import { icons } from './icons';
 import * as Utils from './utils';
 import { Nodes } from './models/nodes';
@@ -138,6 +139,7 @@ export {
   Toolbar,
   ToolbarItem,
   DropdownMenuItem,
+  SlashItem,
   BoxComponent,
   BoxValue,
   Button,
