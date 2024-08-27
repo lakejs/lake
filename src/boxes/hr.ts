@@ -6,9 +6,6 @@ export default {
   name: 'hr',
   render: box => {
     const editor = box.getEditor();
-    if (!editor) {
-      return;
-    }
     const boxContainer = box.getContainer();
     const rootNode = query('<div class="lake-hr"><hr /></div>');
     boxContainer.empty();

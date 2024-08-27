@@ -21,9 +21,6 @@ function getInputValue(videoNode: Nodes, name: string): string {
 
 function appendButtonGroup(box: Box): void {
   const editor = box.getEditor();
-  if (!editor) {
-    return;
-  }
   const boxContainer = box.getContainer();
   const videoNode = boxContainer.find('.lake-video');
   const buttonGroupNode = query(safeTemplate`
@@ -46,9 +43,6 @@ function appendButtonGroup(box: Box): void {
 
 function showVideo(box: Box): void {
   const editor = box.getEditor();
-  if (!editor) {
-    return;
-  }
   const boxContainer = box.getContainer();
   const value = box.value;
   const width = value.width || 560;
@@ -103,9 +97,6 @@ export default {
   name: 'video',
   render: box => {
     const editor = box.getEditor();
-    if (!editor) {
-      return;
-    }
     const locale = editor.locale;
     const value = box.value;
     const boxContainer = box.getContainer();

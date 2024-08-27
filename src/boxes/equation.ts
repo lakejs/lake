@@ -8,9 +8,6 @@ const defaultExpression = String.raw`\sqrt{x}`;
 
 function renderError(box: Box): void {
   const editor = box.getEditor();
-  if (!editor) {
-    return;
-  }
   if (editor.readonly) {
     box.node.hide();
     return;
@@ -33,9 +30,6 @@ export default {
   name: 'equation',
   render: box => {
     const editor = box.getEditor();
-    if (!editor) {
-      return;
-    }
     const rootNode = query('<div class="lake-equation" />');
     const boxContainer = box.getContainer();
     boxContainer.empty();

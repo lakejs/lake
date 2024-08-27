@@ -53,9 +53,6 @@ async function getImageInfo(url: string): Promise<ImageInfo> {
 // Opens full screen view.
 function openFullScreen(box: Box): void {
   const editor = box.getEditor();
-  if (!editor) {
-    return;
-  }
   const dataSource: DataSource = [];
   let currentIndex = 0;
   const allImageBox = editor.container.find('lake-box[name="image"]');
@@ -146,9 +143,6 @@ function openFullScreen(box: Box): void {
 // Displays error icon and filename.
 async function renderError(rootNode: Nodes, box: Box): Promise<void> {
   const editor = box.getEditor();
-  if (!editor) {
-    return;
-  }
   const value = box.value;
   box.getContainer().css({
     width: '',
@@ -181,9 +175,6 @@ async function renderError(rootNode: Nodes, box: Box): Promise<void> {
 // Displays an image with uplaoding progress.
 async function renderUploading(rootNode: Nodes, box: Box): Promise<void> {
   const editor = box.getEditor();
-  if (!editor) {
-    return;
-  }
   const value = box.value;
   const imageInfo = await getImageInfo(value.url);
   if (!imageInfo.width || !imageInfo.height) {
@@ -240,9 +231,6 @@ async function renderUploading(rootNode: Nodes, box: Box): Promise<void> {
 // Displays an image that can be previewed or removed.
 async function renderDone(rootNode: Nodes, box: Box): Promise<void> {
   const editor = box.getEditor();
-  if (!editor) {
-    return;
-  }
   const boxContainer = box.getContainer();
   const value = box.value;
   const imageInfo = await getImageInfo(value.url);
@@ -315,9 +303,6 @@ export default {
   name: 'image',
   render: box => {
     const editor = box.getEditor();
-    if (!editor) {
-      return;
-    }
     const value = box.value;
     if (editor.readonly && ['uploading', 'loading', 'error'].indexOf(value.status) >= 0) {
       box.node.hide();

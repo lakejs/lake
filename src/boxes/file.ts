@@ -24,9 +24,6 @@ const boxToolbarItems: BoxToolbarItem[] = [
     tooltip: locale => locale.file.remove(),
     onClick: box => {
       const editor = box.getEditor();
-      if (!editor) {
-        return;
-      }
       editor.selection.removeBox(box);
       editor.history.save();
     },
@@ -34,10 +31,6 @@ const boxToolbarItems: BoxToolbarItem[] = [
 ];
 
 async function appendContent(rootNode: Nodes, box: Box): Promise<void> {
-  const editor = box.getEditor();
-  if (!editor) {
-    return;
-  }
   const value = box.value;
   const infoNode = query(safeTemplate`
     <div class="lake-file-info">
@@ -72,9 +65,6 @@ export default {
   name: 'file',
   render: box => {
     const editor = box.getEditor();
-    if (!editor) {
-      return;
-    }
     const value = box.value;
     if (editor.readonly && ['uploading', 'error'].indexOf(value.status) >= 0) {
       box.node.hide();

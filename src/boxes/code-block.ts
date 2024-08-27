@@ -89,9 +89,6 @@ export default {
   name: 'codeBlock',
   render: box => {
     const editor = box.getEditor();
-    if (!editor) {
-      return;
-    }
     const rootNode = query('<div class="lake-code-block" />');
     const boxContainer = box.getContainer();
     boxContainer.css('width', `${editor.container.innerWidth() - 2}px`);

@@ -10,9 +10,6 @@ export default {
   },
   render: box => {
     const editor = box.getEditor();
-    if (!editor) {
-      return;
-    }
     const value = box.value;
     const boxContainer = box.getContainer();
     const rootNode = query(safeTemplate`

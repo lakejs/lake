@@ -124,9 +124,13 @@ export class Box {
   }
 
   // Returns an instance of the editor that includes the box.
-  public getEditor(): Editor | undefined {
+  public getEditor(): Editor {
     const container = this.node.closest('div[contenteditable]');
-    return container.length > 0 ? editors.get(container.id) : undefined;
+    const editor = container.length > 0 ? editors.get(container.id) : undefined;
+    if (!editor) {
+      throw new Error(`The box "${this.name}" (id=${this.node.id}) is not rendered in the editor.`);
+    }
+    return editor;
   }
 
   // Returns the container node of the box.
@@ -136,7 +140,10 @@ export class Box {
 
   // Sets a popup toolbar for the box.
   public setToolbar(items: ('|' | BoxToolbarItem)[]): void {
-    const editor = this.getEditor();
+    let editor: Editor | undefined;
+    try {
+      editor = this.getEditor();
+    } catch(e) { /* empty */ }
     let toolbar: BoxToolbar | null = null;
     const scrollListener = () => {
       if (toolbar) {
