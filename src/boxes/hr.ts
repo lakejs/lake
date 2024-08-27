@@ -1,7 +1,7 @@
 import { BoxComponent } from '../types/box';
 import { query } from '../utils/query';
 
-export const hrBox: BoxComponent = {
+export default {
   type: 'block',
   name: 'hr',
   render: box => {
@@ -18,4 +18,4 @@ export const hrBox: BoxComponent = {
     });
   },
   html: () => '<hr />',
-};
+} as BoxComponent;

@@ -310,7 +310,7 @@ async function renderDone(rootNode: Nodes, box: Box): Promise<void> {
   rootNode.append(imgNode);
 }
 
-export const imageBox: BoxComponent = {
+export default {
   type: 'inline',
   name: 'image',
   render: box => {
@@ -381,4 +381,4 @@ export const imageBox: BoxComponent = {
     const rawValue = box.node.attr('value');
     return safeTemplate`<img src="${box.value.url}" data-lake-value="${rawValue}" />`;
   },
-};
+} as BoxComponent;

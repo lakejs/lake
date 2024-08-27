@@ -1,6 +1,6 @@
 import './index.css';
 import { BoxValue, Editor } from '../../../src';
-import { helloWorldBox } from './box';
+import helloWorldBox from './box';
 
 Editor.box.add(helloWorldBox);
 

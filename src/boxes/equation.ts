@@ -28,7 +28,7 @@ function renderError(box: Box): void {
   `.trim());
 }
 
-export const equationBox: BoxComponent = {
+export default {
   type: 'inline',
   name: 'equation',
   render: box => {
@@ -86,4 +86,4 @@ export const equationBox: BoxComponent = {
     });
     button.render();
   },
-};
+} as BoxComponent;

@@ -2,7 +2,7 @@ import { BoxComponent, Utils } from '../../../src';
 
 const { query, safeTemplate } = Utils;
 
-export const helloWorldBox: BoxComponent = {
+export default {
   type: 'inline',
   name: 'helloWorld',
   value: {
@@ -31,4 +31,4 @@ export const helloWorldBox: BoxComponent = {
       editor.selection.selectBox(box);
     });
   },
-};
+} as BoxComponent;

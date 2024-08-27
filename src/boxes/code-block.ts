@@ -84,7 +84,7 @@ function getHighlightStyle(CodeMirror: any) {
   ]);
 }
 
-export const codeBlockBox: BoxComponent = {
+export default {
   type: 'block',
   name: 'codeBlock',
   render: box => {
@@ -210,4 +210,4 @@ export const codeBlockBox: BoxComponent = {
       debug('CodeMirror destroyed');
     });
   },
-};
+} as BoxComponent;

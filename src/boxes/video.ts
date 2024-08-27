@@ -98,7 +98,7 @@ function showVideo(box: Box): void {
   rootNode.append(iframeNode);
 }
 
-export const videoBox: BoxComponent = {
+export default {
   type: 'inline',
   name: 'video',
   render: box => {
@@ -161,4 +161,4 @@ export const videoBox: BoxComponent = {
       showVideo(box);
     }
   },
-};
+} as BoxComponent;

@@ -2,7 +2,7 @@ import { BoxComponent } from '../types/box';
 import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
 
-export const emojiBox: BoxComponent = {
+export default {
   type: 'inline',
   name: 'emoji',
   render: box => {
@@ -21,4 +21,4 @@ export const emojiBox: BoxComponent = {
       editor.selection.selectBox(box);
     });
   },
-};
+} as BoxComponent;

@@ -67,7 +67,7 @@ async function appendContent(rootNode: Nodes, box: Box): Promise<void> {
   rootNode.append(infoNode);
 }
 
-export const fileBox: BoxComponent = {
+export default {
   type: 'inline',
   name: 'file',
   render: box => {
@@ -98,4 +98,4 @@ export const fileBox: BoxComponent = {
       });
     }
   },
-};
+} as BoxComponent;
