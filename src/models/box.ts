@@ -143,7 +143,7 @@ export class Box {
     let editor: Editor | undefined;
     try {
       editor = this.getEditor();
-    } catch(e) { /* empty */ }
+    } catch { /* empty */ }
     let toolbar: BoxToolbar | null = null;
     const scrollListener = () => {
       if (toolbar) {

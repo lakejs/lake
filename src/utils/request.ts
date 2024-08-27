@@ -43,7 +43,7 @@ function getBody(xhr: XMLHttpRequest) {
 
   try {
     return JSON.parse(text);
-  } catch (e) {
+  } catch {
     return text;
   }
 }

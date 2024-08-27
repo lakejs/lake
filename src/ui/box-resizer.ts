@@ -60,7 +60,7 @@ export class BoxResizer {
       try {
         // Test case throws an exception on Firefox.
         pointerNativeNode.setPointerCapture(pointerEvent.pointerId);
-      } catch(e) { /* empty */ }
+      } catch { /* empty */ }
       clientX = pointerEvent.clientX;
       width = boxContainer.width();
       infoNode.show();

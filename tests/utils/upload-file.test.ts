@@ -59,7 +59,7 @@ describe('utils / upload-file', () => {
         name: 'image',
         file,
       });
-    } catch(e) {
+    } catch (e) {
       expect(`${e}`.toLowerCase().indexOf('cannot upload') >= 0).to.equal(true);
     }
     expect(editor.container.find('lake-box').length).to.equal(0);
