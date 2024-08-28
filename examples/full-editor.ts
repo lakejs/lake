@@ -265,7 +265,7 @@ const toolbarItems = [
   helloWorld,
 ];
 
-const slashItems: (SlashItem | string)[] = [
+const slashItems: (string | SlashItem)[] = [
   helloWorldSlashItem,
   'image',
   'file',

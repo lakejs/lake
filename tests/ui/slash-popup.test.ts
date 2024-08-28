@@ -1,10 +1,20 @@
 import { query } from '../../src/utils';
-import { Nodes } from '../../src/models/nodes';
-import { Range } from '../../src/models/range';
 import { SlashPopup } from '../../src/ui/slash-popup';
-import { Editor } from '../../src';
+import { Editor, Nodes, Range, SlashItem, icons } from '../../src';
 
-const slashItems: string[] = [
+const boldSlashItem: SlashItem = {
+  name: 'bold',
+  type: 'button',
+  icon: icons.get('bold'),
+  title: 'Bold',
+  description: 'Toggle bold',
+  onClick: (editor, value) => {
+    editor.command.execute(value);
+  },
+};
+
+const slashItems: (string | SlashItem)[] = [
+  boldSlashItem,
   'image',
   'file',
   'heading1',

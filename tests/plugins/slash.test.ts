@@ -1,9 +1,21 @@
 import sinon from 'sinon';
 import { click, removeBoxValueFromHTML } from '../utils';
 import { query, debug, getBox } from '../../src/utils';
-import { Editor, Nodes } from '../../src';
+import { Editor, Nodes, SlashItem, icons } from '../../src';
 
-const defaultItems: string[] = [
+const boldSlashItem: SlashItem = {
+  name: 'bold',
+  type: 'button',
+  icon: icons.get('bold'),
+  title: 'Bold',
+  description: 'Toggle bold',
+  onClick: (editor, value) => {
+    editor.command.execute(value);
+  },
+};
+
+const slashItems: (string | SlashItem)[] = [
+  boldSlashItem,
   'image',
   'file',
   'heading1',
@@ -35,7 +47,7 @@ describe('plugins / slash', () => {
       root: rootNode.find('.lake-root'),
       value: '<p><br /><focus /></p>',
       slash: {
-        items: defaultItems,
+        items: slashItems,
       },
     });
     editor.render();
@@ -47,7 +59,7 @@ describe('plugins / slash', () => {
   });
 
   it('should return correct config', () => {
-    expect(editor.config.slash.items).to.deep.equal(defaultItems);
+    expect(editor.config.slash.items).to.deep.equal(slashItems);
   });
 
   it('should show a popup box', () => {
@@ -58,7 +70,15 @@ describe('plugins / slash', () => {
     expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('block');
   });
 
-  it('should not show a popup box when there is no block', () => {
+  it('should search for a custom item', () => {
+    editor.setValue('<p>/bold<focus /></p>');
+    editor.container.emit('keyup', new KeyboardEvent('keyup', {
+      key: 'Backspace',
+    }));
+    expect(editor.popupContainer.find('.lake-slash-popup').find('.lake-slash-item').length).to.equal(1);
+  });
+
+  it('should hide a popup box when there is no block', () => {
     editor.setValue('/<focus />');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '/',
@@ -66,7 +86,7 @@ describe('plugins / slash', () => {
     expect(editor.popupContainer.find('.lake-slash-popup').length).to.equal(0);
   });
 
-  it('should not show a popup box when the block contains a box', () => {
+  it('should hide a popup box when the block contains a box', () => {
     editor.setValue('<p>/<focus /><lake-box type="inline" name="equation"></lake-box></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '/',
@@ -74,7 +94,7 @@ describe('plugins / slash', () => {
     expect(editor.popupContainer.find('.lake-slash-popup').length).to.equal(0);
   });
 
-  it('should not show a popup box when there is no slash', () => {
+  it('should hide a popup box when there is no slash', () => {
     editor.setValue('<p>code<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: 'e',
@@ -82,7 +102,7 @@ describe('plugins / slash', () => {
     expect(editor.popupContainer.find('.lake-slash-popup').length).to.equal(0);
   });
 
-  it('should not show a popup box when the search result is empty', () => {
+  it('should hide a popup box when the search result is empty', () => {
     editor.setValue('<p>//<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '/',

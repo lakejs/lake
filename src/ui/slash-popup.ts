@@ -205,11 +205,11 @@ export class SlashPopup {
     return this.container.get(0).isConnected && this.container.computedCSS('display') !== 'none';
   }
 
-  public search(keyword: string): string[] {
+  public search(keyword: string): (string | SlashItem)[] {
     const editor = this.editor;
     const localeEnglish = i18nObject('en-US');
     keyword = keyword.toLowerCase();
-    const items: string[] = [];
+    const items: (string | SlashItem)[] = [];
     for (const name of this.items) {
       const item = this.getItem(name);
       let itemTitle = typeof item.title === 'string' ? item.title : item.title(editor.locale);
@@ -222,7 +222,7 @@ export class SlashPopup {
         itemTitleEnglish.indexOf(keyword) >= 0 ||
         itemTitleEnglish.replace(/\s+/g, '').indexOf(keyword) >= 0
       ) {
-        items.push(item.name);
+        items.push(typeof name === 'string' ? item.name : name);
       }
     }
     return items;
