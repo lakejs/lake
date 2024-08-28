@@ -4,7 +4,6 @@
   left: 0;
   z-index: 1;
   list-style: none;
-  box-sizing: content-box;
   border: 1px solid var(--border-color);
   border-radius: 5px;
   margin: 0;

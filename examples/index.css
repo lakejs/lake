@@ -7,7 +7,6 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
   font-weight: normal;
   line-height: normal;
-  box-sizing: border-box;
   display: grid;
   grid-template-columns: 44px 1fr 38px 38px 36px;
   align-items: center;

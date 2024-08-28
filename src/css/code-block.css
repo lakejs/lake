@@ -22,7 +22,6 @@ lake-box[name="codeBlock"] .lake-box-activated .lake-code-block {
 }
 .lake-code-block {
   position: relative;
-  box-sizing: border-box;
   border: 1px solid transparent;
   border-radius: 5px;
 }

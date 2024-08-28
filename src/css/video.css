@@ -3,21 +3,18 @@
   font-size: 14px;
   font-weight: normal;
   line-height: 0;
-  box-sizing: content-box;
   border: 1px solid transparent;
 }
 lake-box[name="video"] .lake-box-hovered .lake-resizer {
   display: block;
 }
 .lake-video .lake-video-form {
-  box-sizing: content-box;
   padding: 16px;
   line-height: normal;
   border: 1px solid var(--box-border-color);
   border-radius: 4px;
 }
 .lake-video input[type="text"] {
-  box-sizing: border-box;
   font-family: var(--font-family);
   font-size: 14px;
   color: var(--text-color);
@@ -45,6 +42,5 @@ lake-box[name="video"] .lake-box-hovered .lake-resizer {
   padding-top: 16px;
 }
 .lake-video .lake-button-row button {
-  box-sizing: border-box;
   width: 100%;
 }

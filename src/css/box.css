@@ -72,7 +72,6 @@ lake-box .lake-button-group button svg {
   top: 0;
   left: 0;
   z-index: 1;
-  box-sizing: content-box;
   border: 1px solid var(--border-color);
   border-radius: 5px;
   font-family: var(--font-family);
@@ -88,7 +87,6 @@ lake-box .lake-button-group button svg {
   align-items: center;
 }
 .lake-box-toolbar .lake-toolbar-divider {
-  box-sizing: content-box;
   width: 1px;
   height: 20px;
   margin: 0 4px;

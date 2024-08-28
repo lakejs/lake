@@ -1,4 +1,5 @@
 .lake-toolbar {
+  box-sizing: border-box;
   font-family: var(--font-family);
   font-size: 14px;
   font-weight: normal;
@@ -8,8 +9,12 @@
   flex-wrap: wrap;
   align-items: center;
 }
+.lake-toolbar *,
+.lake-toolbar ::before,
+.lake-toolbar ::after {
+  box-sizing: border-box;
+}
 .lake-toolbar .lake-toolbar-divider {
-  box-sizing: content-box;
   width: 1px;
   height: 20px;
   margin: 0 4px;

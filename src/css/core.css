@@ -2,7 +2,7 @@
   position: relative;
 }
 .lake-container {
-  box-sizing: content-box;
+  box-sizing: border-box;
   font-family: var(--font-family);
   font-size: 16px;
   font-weight: normal;
@@ -16,6 +16,11 @@
 .lake-container ::selection {
   color: inherit;
   background: var(--selection-background-color);
+}
+.lake-container *,
+.lake-container ::before,
+.lake-container ::after {
+  box-sizing: border-box;
 }
 .lake-container.lake-placeholder::before {
   position: absolute;

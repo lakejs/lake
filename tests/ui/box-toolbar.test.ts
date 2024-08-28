@@ -11,6 +11,7 @@ const imageUrl = '../assets/images/heaven-lake-256.png';
 describe('ui / box-toolbar', () => {
 
   let container: Nodes;
+  let popupContainer: Nodes;
 
   beforeEach(() => {
     boxes.set('inlineBox', {
@@ -23,12 +24,14 @@ describe('ui / box-toolbar', () => {
     });
     container = query('<div contenteditable="true"></div>');
     query(document.body).append(container);
-    query(document.body).addClass('lake-custom-properties');
+    popupContainer = query('<div class="lake-popup lake-custom-properties"></div>');
+    query(document.body).append(popupContainer);
   });
 
   afterEach(() => {
     boxes.delete('inlineBox');
     container.remove();
+    popupContainer.remove();
   });
 
   it('should add a toolbar', () => {
@@ -37,7 +40,7 @@ describe('ui / box-toolbar', () => {
     box.render();
     let calledCount = 0;
     const boxToolbar = new BoxToolbar({
-      root: query(document.body),
+      root: popupContainer,
       box,
       items: [
         {

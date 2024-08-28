@@ -24,7 +24,6 @@ lake-box[name="equation"] .lake-box-focused .lake-equation {
   top: 28px;
   left: 0;
   z-index: 1;
-  box-sizing: content-box;
   border: 1px solid var(--border-color);
   border-radius: 5px;
   padding: 16px;
@@ -39,7 +38,6 @@ lake-box[name="equation"] .lake-box-activated .lake-equation-form {
 }
 .lake-equation .lake-equation-form textarea {
   border: 0;
-  box-sizing: border-box;
   font-family: Consolas, Courier, monospace;
   font-size: 14px;
   color: var(--text-color);

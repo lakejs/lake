@@ -5,7 +5,6 @@ lake-box[name="helloWorld"] {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-sizing: border-box;
   border: 1px solid transparent;
   border-radius: 5px;
   background-color: #f6f8fa;

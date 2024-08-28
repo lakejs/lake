@@ -6,7 +6,6 @@
   user-select: none;
 }
 .lake-dropdown button.lake-dropdown-title {
-  box-sizing: content-box;
   border-radius: 5px;
   border: 0;
   font-family: Arial;

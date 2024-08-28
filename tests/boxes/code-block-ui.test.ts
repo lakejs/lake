@@ -12,7 +12,6 @@ const htmlCode = `
     <script src="../dist/lake.min.js"></script>
     <style>
       .lake-editor {
-        box-sizing: border-box;
         padding: 0 8px;
         margin: 0 auto;
         min-width: 300px;

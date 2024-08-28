@@ -11,7 +11,6 @@
   top: 0;
   left: 0;
   z-index: 1;
-  box-sizing: content-box;
   border: 1px solid var(--border-color);
   border-radius: 5px;
   padding: 16px;
@@ -34,7 +33,7 @@
   justify-content: space-between;
 }
 .lake-link-popup input[type="text"] {
-  width: 200px;
+  width: 220px;
   margin-right: 4px;
 }
 .lake-link-popup button[name="copy"] svg:first-child {

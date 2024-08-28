@@ -5,11 +5,15 @@
   line-height: normal;
   color: var(--text-color);
 }
+.lake-popup *,
+.lake-popup ::before,
+.lake-popup ::after {
+  box-sizing: border-box;
+}
 .lake-popup button {
   box-shadow: var(--button-shadow);
 }
 .lake-popup input[type="text"] {
-  box-sizing: content-box;
   font-family: var(--font-family);
   font-size: 14px;
   color: var(--text-color);

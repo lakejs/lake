@@ -8,7 +8,6 @@
   z-index: 3;
 }
 .document .lake-editor {
-  box-sizing: border-box;
   padding: 0;
   margin: 0 auto;
   max-width: none;

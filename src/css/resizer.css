@@ -6,7 +6,6 @@
 .lake-resizer-top-right,
 .lake-resizer-bottom-left,
 .lake-resizer-bottom-right {
-  box-sizing: border-box;
   position: absolute;
   width: 12px;
   height: 12px;
