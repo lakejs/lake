@@ -1,15 +1,27 @@
+lake-box[name="helloWorld"] {
+  margin-bottom: 8px;
+}
 .lake-hello-world {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
   border: 1px solid transparent;
   border-radius: 5px;
-  padding: 0 12px;
+  background-color: #f6f8fa;
+  padding: 12px 24px;
   user-select: none;
 }
-lake-box[name="helloWorld"] .lake-box-hovered .lake-hello-world {
-  background-color: #f6f8fa;
-}
-lake-box[name="helloWorld"] .lake-box-selected .lake-hello-world {
-  background-color: #1ba2e333;
-}
+lake-box[name="helloWorld"] .lake-box-selected .lake-hello-world,
 lake-box[name="helloWorld"] .lake-box-focused .lake-hello-world {
-  background-color: #1ba2e333;
+  border-color: #d9d9d9;
+}
+.lake-hello-world .lake-button {
+  margin: 0 12px;
+  border: 0;
+  background-color: #5672cd;
+  color: #fff;
+}
+.lake-hello-world .lake-button:hover {
+  background-color: #3a5ccc;
 }
