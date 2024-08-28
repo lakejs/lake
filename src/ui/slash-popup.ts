@@ -17,24 +17,9 @@ for (const item of slashItems) {
   slashItemMap.set(item.name, item);
 }
 
-const defaultItems: string[] = [
-  'heading1',
-  'heading2',
-  'heading3',
-  'heading4',
-  'heading5',
-  'heading6',
-  'paragraph',
-  'blockQuote',
-  'numberedList',
-  'bulletedList',
-  'checklist',
-  'hr',
-];
-
 type SlashPopupConfig = {
   editor: Editor;
-  items?: (string | SlashItem)[];
+  items: (string | SlashItem)[];
 };
 
 export class SlashPopup {
@@ -55,7 +40,7 @@ export class SlashPopup {
 
   constructor(config: SlashPopupConfig) {
     this.editor = config.editor;
-    this.items = config.items || defaultItems;
+    this.items = config.items;
     this.root = config.editor.popupContainer;
     this.container = query('<ul class="lake-slash-popup" />');
   }

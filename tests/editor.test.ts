@@ -351,6 +351,22 @@ describe('editor', () => {
     editor.unmount();
   });
 
+  it('setPluginConfig method: plugin config is true', () => {
+    const editor = new Editor({
+      root: rootNode,
+      testPlugin: true,
+    });
+    editor.render();
+    editor.setPluginConfig('testPlugin', {
+      key2: 'bb',
+      key3: 'cc',
+    });
+    expect(editor.config.testPlugin.key1).to.equal(undefined);
+    expect(editor.config.testPlugin.key2).to.equal('bb');
+    expect(editor.config.testPlugin.key3).to.equal('cc');
+    editor.unmount();
+  });
+
   it('method: removeBoxGarbage', () => {
     const editor = new Editor({
       root: rootNode,

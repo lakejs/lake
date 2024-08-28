@@ -3,6 +3,21 @@ import type { Editor } from '..';
 import type { Nodes } from '../models/nodes';
 import { SlashPopup } from '../ui/slash-popup';
 
+const defaultItems: string[] = [
+  'heading1',
+  'heading2',
+  'heading3',
+  'heading4',
+  'heading5',
+  'heading6',
+  'paragraph',
+  'blockQuote',
+  'numberedList',
+  'bulletedList',
+  'checklist',
+  'hr',
+];
+
 function getKeyword(block: Nodes): string | null {
   let text = block.text().trim();
   text = text.replace(/[\u200B\u2060]/g, '');
@@ -35,7 +50,7 @@ function showPopup(editor: Editor, popup: SlashPopup): void {
 
 export default (editor: Editor) => {
   editor.setPluginConfig('slash', {
-    items: undefined,
+    items: defaultItems,
   });
   if (editor.readonly) {
     return;

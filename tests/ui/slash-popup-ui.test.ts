@@ -2,7 +2,7 @@ import { query } from '../../src/utils';
 import { SlashPopup } from '../../src/ui/slash-popup';
 import { Editor } from '../../src';
 
-const defaultItems: string[] = [
+const slashItems: string[] = [
   'image',
   'file',
   'heading1',
@@ -34,7 +34,7 @@ describe('ui / slash-popup-ui', () => {
     editor.render();
     const popup = new SlashPopup({
       editor,
-      items: defaultItems,
+      items: slashItems,
     });
     const slashRange = editor.selection.range.clone();
     slashRange.selectNodeContents(editor.container);

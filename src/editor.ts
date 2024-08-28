@@ -501,7 +501,7 @@ export class Editor {
 
   // Sets default config for a plugin.
   public setPluginConfig(name: string, config: {[key: string]: any}): void {
-    if (!this.config[name]) {
+    if (typeof this.config[name] !== 'object') {
       this.config[name] = {};
     }
     for (const key of Object.keys(config)) {
