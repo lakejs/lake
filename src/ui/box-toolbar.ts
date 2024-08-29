@@ -38,7 +38,6 @@ export class BoxToolbar {
     this.locale = config.locale || i18nObject('en-US');
     this.placement = config.placement || 'top';
     this.container = query('<div class="lake-box-toolbar" />');
-    this.root.addClass('lake-custom-properties');
   }
 
   private appendDivider(): void {
@@ -124,7 +123,6 @@ export class BoxToolbar {
     for (const dropdown of this.dropdownList) {
       dropdown.unmount();
     }
-    this.root.removeClass('lake-custom-properties');
     this.container.remove();
   }
 }

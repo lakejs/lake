@@ -67,6 +67,7 @@ describe('ui / box-toolbar', () => {
     click(query(document.body).find('.lake-box-toolbar button[name="remove"]'));
     expect(calledCount).to.equal(2);
     boxToolbar.unmount();
+    expect(popupContainer.hasClass('lake-custom-properties')).to.equal(true);
     expect(query(document.body).find('.lake-box-toolbar').length).to.equal(0);
   });
 
