@@ -165,7 +165,7 @@ export class Editor {
   }
 
   private copyListener: EventListener = event => {
-    const range = this.selection.range;
+    const range = this.selection.getCurrentRange();
     if (!this.container.contains(range.commonAncestor)) {
       return;
     }
@@ -173,7 +173,7 @@ export class Editor {
   };
 
   private cutListener: EventListener = event => {
-    const range = this.selection.range;
+    const range = this.selection.getCurrentRange();
     if (!this.container.contains(range.commonAncestor)) {
       return;
     }
@@ -181,7 +181,7 @@ export class Editor {
   };
 
   private pasteListener: EventListener = event => {
-    const range = this.selection.range;
+    const range = this.selection.getCurrentRange();
     if (!this.container.contains(range.commonAncestor)) {
       return;
     }

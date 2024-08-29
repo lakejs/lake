@@ -103,11 +103,11 @@ export class Selection {
     }
     this.selection = selection;
     this.container = container;
-    this.range = this.getRangeFromNativeSelection();
+    this.range = this.getCurrentRange();
   }
 
-  // Returns the current selected range from the native selection.
-  private getRangeFromNativeSelection(): Range {
+  // Returns a range object currently selected.
+  public getCurrentRange(): Range {
     if (this.selection.rangeCount > 0) {
       const range = this.selection.getRangeAt(0);
       return new Range(range);
@@ -123,7 +123,7 @@ export class Selection {
 
   // Updates the saved range with the range of the native selection.
   public updateByRange(): void {
-    const newRange = this.getRangeFromNativeSelection();
+    const newRange = this.getCurrentRange();
     if (!this.container.contains(newRange.commonAncestor)) {
       return;
     }
