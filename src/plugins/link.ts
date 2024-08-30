@@ -29,15 +29,22 @@ export default (editor: Editor) => {
     popup.position();
   });
   editor.event.on('click', (targetNode: Nodes) => {
+    if (popup.container.contains(targetNode)) {
+      return;
+    }
     if (targetNode.closest('button[name="link"]').length > 0) {
       return;
     }
     const linkNode = targetNode.closest('a');
-    if (linkNode.length === 0) {
-      popup.hide();
-      return;
-    }
-    if (!editor.container.contains(linkNode) || linkNode.closest('lake-box').length > 0) {
+    if (
+      linkNode.length === 0 ||
+      !editor.container.contains(linkNode) ||
+      linkNode.closest('lake-box').length > 0
+    ) {
+      if (!popup.visible) {
+        return;
+      }
+      editor.selection.sync();
       popup.hide();
       return;
     }

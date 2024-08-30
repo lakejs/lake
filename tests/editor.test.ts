@@ -798,7 +798,7 @@ describe('editor', () => {
     click(rootNode);
     expect(clickCount).to.equal(1);
     click(query(editor.popupContainer));
-    expect(clickCount).to.equal(1);
+    expect(clickCount).to.equal(2);
     editor.unmount();
   });
 
@@ -825,8 +825,8 @@ describe('editor', () => {
     expect(clickCount).to.equal(1);
     expect(clickCount2).to.equal(1);
     click(query(editor.popupContainer));
-    expect(clickCount).to.equal(1);
-    expect(clickCount2).to.equal(1);
+    expect(clickCount).to.equal(2);
+    expect(clickCount2).to.equal(2);
     editor.unmount();
     editor2.unmount();
     rootNode2.remove();

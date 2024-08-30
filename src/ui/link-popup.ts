@@ -187,6 +187,10 @@ export class LinkPopup {
     button.render();
   }
 
+  public get visible(): boolean {
+    return this.container.get(0).isConnected && this.container.computedCSS('display') !== 'none';
+  }
+
   public getInputValue(name: string): string {
     const inputElement = this.container.find(`input[name="${name}"]`);
     const nativeInputElement = inputElement.get(0) as HTMLInputElement;

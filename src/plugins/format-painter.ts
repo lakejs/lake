@@ -35,8 +35,7 @@ export default (editor: Editor) => {
     if (editor.container.contains(targetNode)) {
       return;
     }
-    const buttonNode = targetNode.closest('button[name="formatPainter"]');
-    if (buttonNode.length > 0) {
+    if (targetNode.closest('button[name="formatPainter"]').length > 0) {
       return;
     }
     editor.container.removeClass(formatPainterClassName);
