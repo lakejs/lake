@@ -92,6 +92,15 @@ export class Dropdown {
       `;
       const listNode = query(listContent);
       menuNode.append(listNode);
+      listNode.on('mouseenter', () => {
+        if (listNode.hasClass('lake-dropdown-item-selected')) {
+          return;
+        }
+        listNode.addClass('lake-dropdown-item-hovered');
+      });
+      listNode.on('mouseleave', () => {
+        listNode.removeClass('lake-dropdown-item-hovered');
+      });
       if (config.menuType === 'character') {
         listNode.attr('title', menuText);
         listNode.find('.lake-dropdown-menu-text').text(menuItem.value);
@@ -133,15 +142,6 @@ export class Dropdown {
     menuNode.find('.lake-dropdown-menu-check').css('visibility', 'hidden');
     menuNode.find('li').each(node => {
       const listNode = query(node);
-      listNode.on('mouseenter', () => {
-        if (listNode.hasClass('lake-dropdown-item-selected')) {
-          return;
-        }
-        listNode.addClass('lake-dropdown-item-hovered');
-      });
-      listNode.on('mouseleave', () => {
-        listNode.removeClass('lake-dropdown-item-hovered');
-      });
       if (currentValues.indexOf(listNode.attr('value')) >= 0) {
         listNode.find('.lake-dropdown-menu-check').css('visibility', 'visible');
       }
