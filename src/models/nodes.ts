@@ -704,6 +704,20 @@ export class Nodes {
     });
   }
 
+  public value(): string;
+
+  public value(value: string): this;
+
+  public value(value?: string): any {
+    if (value === undefined) {
+      const inputElement = this.get(0) as HTMLInputElement;
+      return inputElement.value;
+    }
+    return this.eachElement(element => {
+      (element as HTMLInputElement).value = value;
+    });
+  }
+
   public outerHTML(): string {
     const element = this.get(0) as Element;
     return element.outerHTML;

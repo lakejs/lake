@@ -759,6 +759,15 @@ describe('models / nodes', () => {
     expect(node.html()).to.equal('foo<br>bar');
   });
 
+  it('method: value', () => {
+    const inputElement = document.createElement('input');
+    const inputElementTwo = document.createElement('input');
+    const node = new Nodes([inputElement, inputElementTwo]);
+    node.value('foo');
+    expect(node.value()).to.equal('foo');
+    expect(node.eq(1).value()).to.equal('foo');
+  });
+
   it('method: outerHTML', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.html('<p>foo</p>');
