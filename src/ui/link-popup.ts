@@ -77,7 +77,7 @@ export class LinkPopup {
         if (!this.linkNode) {
           return;
         }
-        const url = this.getInputValue('url');
+        const url = this.container.find('input[name="url"]').value();
         this.writeClipboardText(url).then((error: boolean) => {
           const svgNode = this.container.find('button[name="copy"] svg');
           svgNode.hide();
@@ -124,7 +124,7 @@ export class LinkPopup {
         if (!this.linkNode) {
           return;
         }
-        const url = this.getInputValue('url');
+        const url = this.container.find('input[name="url"]').value();
         window.open(url);
       },
     });
@@ -191,24 +191,12 @@ export class LinkPopup {
     return this.container.get(0).isConnected && this.container.computedCSS('display') !== 'none';
   }
 
-  public getInputValue(name: string): string {
-    const inputElement = this.container.find(`input[name="${name}"]`);
-    const nativeInputElement = inputElement.get(0) as HTMLInputElement;
-    return nativeInputElement.value;
-  }
-
-  public setInputValue(name: string, value: string): void {
-    const inputElement = this.container.find(`input[name="${name}"]`);
-    const nativeInputElement = inputElement.get(0) as HTMLInputElement;
-    nativeInputElement.value = value;
-  }
-
   public save(): void {
     if (!this.linkNode) {
       return;
     }
-    const url = this.getInputValue('url');
-    let title = this.getInputValue('title');
+    const url = this.container.find('input[name="url"]').value();
+    let title = this.container.find('input[name="title"]').value();
     if (url === '' && title === '') {
       this.linkNode.remove();
       return;
@@ -269,9 +257,9 @@ export class LinkPopup {
     this.linkNode = linkNode;
     const url = linkNode.attr('href');
     const title = linkNode.text();
-    this.setInputValue('url', url);
+    this.container.find('input[name="url"]').value(url);
     if (title !== url) {
-      this.setInputValue('title', title);
+      this.container.find('input[name="title"]').value(title);
     }
     this.container.css('visibility', 'hidden');
     this.container.show();

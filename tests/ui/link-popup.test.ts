@@ -63,8 +63,8 @@ describe('ui / link-popup', () => {
       root: rootNode,
     });
     popup.show(linkNode);
-    popup.setInputValue('url', 'http://foo.com/');
-    popup.setInputValue('title', 'foo');
+    popup.container.find('input[name="url"]').value('http://foo.com/');
+    popup.container.find('input[name="title"]').value('foo');
     const saveButton = popup.container.find('button[name="save"]');
     click(saveButton);
     expect(linkNode.attr('href')).to.equal('http://foo.com/');
@@ -79,7 +79,7 @@ describe('ui / link-popup', () => {
       root: rootNode,
     });
     popup.show(linkNode);
-    popup.setInputValue('url', 'http://foo.com/');
+    popup.container.find('input[name="url"]').value('http://foo.com/');
     popup.container.find('input[name="url"]').emit('keydown', new KeyboardEvent('keydown', {
       key: 'Enter',
     }));
@@ -95,7 +95,7 @@ describe('ui / link-popup', () => {
       root: rootNode,
     });
     popup.show(linkNode);
-    popup.setInputValue('title', 'foo');
+    popup.container.find('input[name="title"]').value('foo');
     popup.container.find('input[name="url"]').emit('keydown', new KeyboardEvent('keydown', {
       key: 'Enter',
     }));
@@ -111,7 +111,7 @@ describe('ui / link-popup', () => {
       root: rootNode,
     });
     popup.show(linkNode);
-    popup.setInputValue('title', '');
+    popup.container.find('input[name="title"]').value('');
     const saveButton = popup.container.find('button[name="save"]');
     click(saveButton);
     expect(linkNode.text()).to.equal('http://github.com/');
@@ -125,7 +125,7 @@ describe('ui / link-popup', () => {
       root: rootNode,
     });
     popup.show(linkNode);
-    expect(popup.getInputValue('title')).to.equal('');
+    expect(popup.container.find('input[name="title"]').value()).to.equal('');
     linkNode.remove();
   });
 
@@ -136,8 +136,8 @@ describe('ui / link-popup', () => {
       root: rootNode,
     });
     popup.show(linkNode);
-    popup.setInputValue('url', '');
-    popup.setInputValue('title', '');
+    popup.container.find('input[name="url"]').value('');
+    popup.container.find('input[name="title"]').value('');
     const saveButton = popup.container.find('button[name="save"]');
     click(saveButton);
     expect(linkNode.parent().length).to.equal(0);
