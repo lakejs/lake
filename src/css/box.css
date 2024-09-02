@@ -5,7 +5,6 @@ lake-box {
 }
 lake-box[type="inline"] {
   display: inline flex;
-  vertical-align: middle;
 }
 lake-box[type="block"] {
   display: block grid;
