@@ -27,7 +27,7 @@ describe('boxes / video', () => {
   it('should embed a video', () => {
     const box = editor.selection.insertBox('video');
     const boxNode = box.node;
-    (boxNode.find('input[name="url"]').get(0) as HTMLInputElement).value = youtubeUrl;
+    boxNode.find('input[name="url"]').value(youtubeUrl);
     boxNode.find('button[name="embed"]').emit('click');
     expect(boxNode.find('iframe').length).to.equal(1);
   });
@@ -35,7 +35,7 @@ describe('boxes / video', () => {
   it('should embed a video by pressing enter key', () => {
     const box = editor.selection.insertBox('video');
     const boxNode = box.node;
-    (boxNode.find('input[name="url"]').get(0) as HTMLInputElement).value = youtubeUrl;
+    boxNode.find('input[name="url"]').value(youtubeUrl);
     boxNode.find('input[name="url"]').emit('keydown', new KeyboardEvent('keydown', {
       key: 'Enter',
     }));
@@ -45,7 +45,7 @@ describe('boxes / video', () => {
   it('should not embed a video that URL is invalid', () => {
     const box = editor.selection.insertBox('video');
     const boxNode = box.node;
-    (boxNode.find('input[name="url"]').get(0) as HTMLInputElement).value = 'invalid';
+    boxNode.find('input[name="url"]').value('invalid');
     boxNode.find('button[name="embed"]').emit('click');
     expect(boxNode.find('iframe').length).to.equal(0);
   });

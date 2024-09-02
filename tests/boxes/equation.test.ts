@@ -45,7 +45,7 @@ describe('boxes / equation', () => {
       inputType: 'insertText',
       isComposing: false,
     });
-    (boxContainer.find('textarea').get(0) as HTMLTextAreaElement).value = 'x^2';
+    boxContainer.find('textarea').value('x^2');
     boxContainer.find('textarea').emit('input', event);
     expect(box.value.code).to.equal('x^2');
   });
@@ -58,7 +58,7 @@ describe('boxes / equation', () => {
       inputType: 'insertText',
       isComposing: false,
     });
-    (boxContainer.find('textarea').get(0) as HTMLTextAreaElement).value = 'x^2';
+    boxContainer.find('textarea').value('x^2');
     boxContainer.find('textarea').emit('input', event);
     click(boxContainer.find('button[name="save"]'));
     expect(box.value.code).to.equal('x^2');

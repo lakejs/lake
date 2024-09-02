@@ -58,10 +58,9 @@ export default {
     `);
     rootNode.append(formNode);
     const textareaNode = formNode.find('textarea');
-    const textareaNativeNode = (textareaNode.get(0) as HTMLTextAreaElement);
-    textareaNativeNode.value = defaultCode;
+    textareaNode.value(defaultCode);
     textareaNode.on('input', () => {
-      const code = textareaNativeNode.value.trim();
+      const code = textareaNode.value().trim();
       viewNode.html(window.katex.renderToString(code || defaultExpression, {
         throwOnError: false,
       }));

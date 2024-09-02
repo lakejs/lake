@@ -3,7 +3,6 @@ import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
 import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
-import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { Button } from '../ui/button';
 import { BoxResizer } from '../ui/box-resizer';
@@ -11,12 +10,6 @@ import { BoxResizer } from '../ui/box-resizer';
 function getVideoId(url: string): string {
   const result = /\w+$/i.exec(url || '');
   return result ? result[0] : '';
-}
-
-function getInputValue(videoNode: Nodes, name: string): string {
-  const inputElement = videoNode.find(`input[name="${name}"]`);
-  const nativeInputElement = inputElement.get(0) as HTMLInputElement;
-  return nativeInputElement.value;
 }
 
 function appendButtonGroup(box: Box): void {
@@ -128,7 +121,7 @@ export default {
         type: 'primary',
         text: locale.video.embed(),
         onClick: () => {
-          const url = getInputValue(formNode, 'url');
+          const url = formNode.find('input[name="url"]').value();
           if (url.indexOf('https://www.youtube.com/') < 0 || getVideoId(url) === '') {
             editor.config.onMessage('error', locale.video.urlError());
             return;
