@@ -276,6 +276,7 @@ export class SlashPopup {
     if (selectedItemNode.length === 0) {
       this.container.find('.lake-slash-item').eq(0).addClass('lake-slash-item-selected');
     }
+    this.position();
   }
 
   public show(range: Range, keyword?: string): void {
