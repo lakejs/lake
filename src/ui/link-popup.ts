@@ -219,20 +219,15 @@ export class LinkPopup {
     }
     this.container.css('visibility', '');
     const linkNativeNode = this.linkNode.get(0) as HTMLElement;
-    // Returns a DOMRect object providing information about the size of an element and its position relative to the viewport.
     const linkRect = linkNativeNode.getBoundingClientRect();
     const linkX = linkRect.x + window.scrollX;
     const linkY = linkRect.y + window.scrollY;
-    // link.x + popup.width > window.width
     if (linkRect.x + this.container.width() > window.innerWidth) {
-      // link.x + window.scrollX - (popup.width - link.width)
       this.container.css('left', `${linkX - this.container.width() + linkRect.width}px`);
     } else {
       this.container.css('left', `${linkX}px`);
     }
-    // link.y + link.height + popup.height > window.height
     if (linkRect.y + linkRect.height + this.container.height() > window.innerHeight) {
-      // link.y + window.scrollY - popup.height
       this.container.css('top', `${linkY - this.container.height()}px`);
     } else {
       this.container.css('top', `${linkY + linkRect.height}px`);

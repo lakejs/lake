@@ -236,16 +236,12 @@ export class SlashPopup {
     const rangeRect = this.range.get().getBoundingClientRect();
     const rangeX = rangeRect.x + window.scrollX;
     const rangeY = rangeRect.y + window.scrollY;
-    // range.x + popup.width > window.width
     if (rangeRect.x + this.container.width() > window.innerWidth) {
-      // range.x + window.scrollX - (popup.width - range.width)
       this.container.css('left', `${rangeX - this.container.width() + rangeRect.width}px`);
     } else {
       this.container.css('left', `${rangeX}px`);
     }
-    // range.y + range.height + popup.height > window.height
     if (rangeRect.y + rangeRect.height + this.container.height() > window.innerHeight) {
-      // range.y + window.scrollY - popup.height
       this.container.css('top', `${rangeY - this.container.height() - 5}px`);
     } else {
       this.container.css('top', `${rangeY + rangeRect.height + 5}px`);
