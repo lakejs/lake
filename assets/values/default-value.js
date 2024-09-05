@@ -156,6 +156,14 @@ window.defaultValue = `
 <blockquote type="tip">This feature is based on <a href="https://codemirror.net/">CodeMirror</a>.</blockquote>
 <p><br /></p>
 
+<h3>Mathematical formula</h3>
+<lake-box type="block" name="hr"></lake-box>
+<ul>
+  <li>Difference of squares: <lake-box type="inline" name="equation" value="eyJjb2RlIjoiYV4yLWJeMj0oYStiKShhLWIpIn0="></lake-box></li>
+  <li>Difference of cubes: <lake-box type="inline" name="equation" value="eyJjb2RlIjoiYV4zLWJeMz0oYS1iKShhXjIrYWIrYl4yKSJ9"></lake-box></li>
+</ul>
+<p><br /></p>
+
 <h3>Table</h3>
 <lake-box type="block" name="hr"></lake-box>
 <p>Lake does not support advanced table editing now, but we plan to add this feature in the next major version.</p>

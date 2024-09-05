@@ -48,7 +48,7 @@ export default {
     image: '图片',
     file: '文件',
     emoji: '表情',
-    equation: '公式',
+    equation: '数学公式',
     removeColor: '默认',
   },
   slash: {
@@ -80,7 +80,7 @@ export default {
     codeBlockDesc: '插入代码块',
     video: '视频',
     videoDesc: '插入 YouTube 视频',
-    equation: '公式',
+    equation: '数学公式',
     equationDesc: '支持 TeX 语法',
     image: '图片',
     imageDesc: '上传图片',
@@ -122,6 +122,6 @@ export default {
   },
   equation: {
     save: '确定',
-    placeholder: '请输入 TeX 公式',
+    placeholder: '请输入 TeX 表达式',
   },
 } satisfies Translation;

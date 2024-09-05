@@ -48,7 +48,7 @@ export default {
     image: '画像',
     file: 'ファイル',
     emoji: '絵文字',
-    equation: '公式',
+    equation: '数学公式',
     removeColor: 'デフォルト',
   },
   slash: {
@@ -80,8 +80,8 @@ export default {
     codeBlockDesc: 'コードブロックを挿入',
     video: '動画',
     videoDesc: 'YouTube から動画を挿入',
-    equation: '公式',
-    equationDesc: 'TeX 式を挿入',
+    equation: '数学公式',
+    equationDesc: 'TeX 数式を挿入',
     image: '画像',
     imageDesc: '画像をアップロード',
     file: 'ファイル',
@@ -122,6 +122,6 @@ export default {
   },
   equation: {
     save: '確認',
-    placeholder: 'TeX 公式を入力してください。',
+    placeholder: 'TeX 数式を入力してください。',
   },
 } satisfies Translation;
