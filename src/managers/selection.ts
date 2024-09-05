@@ -117,6 +117,9 @@ export class Selection {
 
   // Adds the saved range to the native selection.
   public sync(): void {
+    if (!this.container.contains(this.range.commonAncestor)) {
+      return;
+    }
     this.selection.removeAllRanges();
     this.selection.addRange(this.range.get());
   }

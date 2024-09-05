@@ -45,6 +45,25 @@ describe('managers / selection', () => {
     expect(rangeFromSelection.endOffset).to.equal(1);
   });
 
+  it('sync method: should not set the native selection using the saved range', () => {
+    const selection = new Selection(container);
+    const range = new Range();
+    container.html('<p>foo</p>');
+    range.selectNodeContents(container.find('p'));
+    selection.range = range;
+    selection.sync();
+    const range2 = new Range();
+    range2.selectNodeContents(container.parent());
+    range2.collapseToEnd();
+    selection.range = range2;
+    selection.sync();
+    const rangeFromSelection = new Range(window.getSelection()?.getRangeAt(0));
+    expect(rangeFromSelection.startNode.name).to.equal('p');
+    expect(rangeFromSelection.startOffset).to.equal(0);
+    expect(rangeFromSelection.endNode.name).to.equal('p');
+    expect(rangeFromSelection.endOffset).to.equal(1);
+  });
+
   it('updateByRange method: should set the saved range using the native selection', () => {
     container.html('<p>foo</p>');
     // set the native selection
