@@ -31,7 +31,7 @@ const step = (msg) => console.log(pc.cyan(msg));
   // Launche a browser and run test cases
   step('Launching a browser instance');
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: 'shell',
   });
   const page = await browser.newPage();
   let failures = 0;
