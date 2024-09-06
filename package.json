@@ -30,7 +30,7 @@
     "dev:lib": "rollup --watch --config rollup.config.mjs --es",
     "build": "rimraf ./dist ./lib && rollup --config rollup.config.mjs --iife --es",
     "i18n": "typesafe-i18n --no-watch",
-    "cost": "bundle-phobia debounce eventemitter3 fast-deep-equal photoswipe tinykeys typesafe-i18n",
+    "cost": "bundle-phobia debounce eventemitter3 fast-deep-equal is-hotkey photoswipe typesafe-i18n",
     "sort:package": "sort-package-json",
     "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,.mjs\"",
     "test": "node ./scripts/run-tests.mjs",
@@ -66,7 +66,7 @@
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.1.0",
-    "execa": "^8.0.1",
+    "execa": "^9.3.1",
     "express": "^4.19.2",
     "katex": "^0.16.11",
     "lake-codemirror": "^2.0.0",
@@ -76,7 +76,7 @@
     "picocolors": "^1.1.0",
     "prompts": "^2.4.2",
     "puppeteer": "^23.3.0",
-    "rimraf": "^5.0.10",
+    "rimraf": "^6.0.1",
     "rollup": "^4.21.2",
     "rollup-plugin-import-css": "^3.5.1",
     "rollup-plugin-svg-import": "^3.0.0",
@@ -86,7 +86,7 @@
     "sort-package-json": "^2.10.1",
     "tslib": "^2.7.0",
     "typescript": "^5.5.4",
-    "wait-on": "^7.2.0"
+    "wait-on": "^8.0.0"
   },
   "packageManager": "pnpm@9.9.0"
 }

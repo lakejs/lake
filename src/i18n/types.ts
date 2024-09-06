@@ -198,7 +198,7 @@ type RootTranslation = {
 		 */
 		emoji: string
 		/**
-		 * E​q​u​a​t​i​o​n
+		 * M​a​t​h​e​m​a​t​i​c​a​l​ ​f​o​r​m​u​l​a
 		 */
 		equation: string
 		/**
@@ -320,11 +320,11 @@ type RootTranslation = {
 		 */
 		videoDesc: string
 		/**
-		 * E​q​u​a​t​i​o​n
+		 * M​a​t​h​e​m​a​t​i​c​a​l​ ​f​o​r​m​u​l​a
 		 */
 		equation: string
 		/**
-		 * I​n​s​e​r​t​ ​T​e​X​ ​e​x​p​r​e​s​s​i​o​n​ ​i​n​ ​t​e​x​t
+		 * I​n​s​e​r​t​ ​a​ ​T​e​X​ ​e​x​p​r​e​s​s​i​o​n
 		 */
 		equationDesc: string
 		/**
@@ -641,7 +641,7 @@ export type TranslationFunctions = {
 		 */
 		emoji: () => LocalizedString
 		/**
-		 * Equation
+		 * Mathematical formula
 		 */
 		equation: () => LocalizedString
 		/**
@@ -763,11 +763,11 @@ export type TranslationFunctions = {
 		 */
 		videoDesc: () => LocalizedString
 		/**
-		 * Equation
+		 * Mathematical formula
 		 */
 		equation: () => LocalizedString
 		/**
-		 * Insert TeX expression in text
+		 * Insert a TeX expression
 		 */
 		equationDesc: () => LocalizedString
 		/**
