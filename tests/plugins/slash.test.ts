@@ -148,7 +148,7 @@ describe('plugins / slash', () => {
   });
 
   it('should insert an equation', () => {
-    editor.setValue('<p>/equation<focus /></p>');
+    editor.setValue('<p>/formula<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '/',
     }));
