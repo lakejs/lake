@@ -27,7 +27,7 @@ jobs:
         run: pnpm install
 
       - name: Install Puppeteer
-        run: npx puppeteer browsers install chrome
+        run: pnpm rebuild
 
       - name: Find problems
         run: pnpm lint
