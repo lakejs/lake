@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Install Puppeteer
+      - name: Build dependencies
         run: pnpm rebuild
 
       - name: Find problems
