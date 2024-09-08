@@ -6,7 +6,7 @@
 
 ---
 
-Lake is a rich text editor for the web. It aims to be a user-friendly editor, and provides an easy-to-use programming interface to allow further extension.
+Lake is a browser-based rich text editor designed for creating content like blogs, comments, and emails. Lake provides an easy-to-use programming interface that supports further extension.
 
 [Examples](https://lakejs.org/examples/) · [Getting started](https://lakejs.org/guide/) · [Reference](https://lakejs.org/reference/)
 
@@ -31,7 +31,7 @@ Lake depends on a lot of browser APIs, so running its test cases needs a real br
 
 ## License
 
-Lake is released under the [MIT](https://github.com/lakejs/lake/blob/main/LICENSE) license. The following table is a list of the licenses for the packages that Lake depends on.
+Lake is released under the [MIT](https://github.com/lakejs/lake/blob/main/LICENSE) license. The following table shows the licenses of the packages that Lake depends on.
 
 | Dependency | License |
 | -------------  | ------------- |
