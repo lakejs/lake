@@ -121,7 +121,13 @@ export class SlashPopup {
             editor,
             name: item.name,
             file,
-            onError: error => editor.config.onMessage('error', error),
+            onError: error => {
+              fileNativeNode.value = '';
+              editor.config.onMessage('error', error);
+            },
+            onSuccess: () => {
+              fileNativeNode.value = '';
+            },
           });
         }
       });
