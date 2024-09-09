@@ -14,6 +14,7 @@
 // @ts-nocheck
 // basic
 import plus from './plus.svg';
+import question from './question.svg';
 import more from './more.svg';
 import left from './left.svg';
 import right from './right.svg';
@@ -84,6 +85,7 @@ import table from './table.svg';
 
 export const icons: Map<string, string> = new Map([
   ['plus', plus],
+  ['question', question],
   ['more', more],
   ['left', left],
   ['right', right],

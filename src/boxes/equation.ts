@@ -1,4 +1,5 @@
 import { BoxComponent } from '../types/box';
+import { icons } from '../icons';
 import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
 import { Box } from '../models/box';
@@ -39,6 +40,7 @@ export default {
       renderError(box);
       return;
     }
+    const equationConfig = editor.config.equation;
     const defaultCode = (box.value.code || '').trim();
     const viewNode = query('<div class="lake-equation-view" />');
     rootNode.append(viewNode);
@@ -66,7 +68,7 @@ export default {
       }));
       box.updateValue('code', code);
     });
-    const button = new Button({
+    const saveButton = new Button({
       root: formNode.find('.lake-button-row'),
       name: 'save',
       type: 'primary',
@@ -77,6 +79,16 @@ export default {
         editor.history.save();
       },
     });
-    button.render();
+    saveButton.render();
+    const helpButton = new Button({
+      root: formNode.find('.lake-button-row'),
+      name: 'help',
+      icon: icons.get('question'),
+      tooltip: editor.locale.equation.help(),
+      onClick: () => {
+        window.open(equationConfig.helpUrl);
+      },
+    });
+    helpButton.render();
   },
 } as BoxComponent;

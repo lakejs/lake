@@ -51,6 +51,12 @@ lake-box[name="equation"] .lake-box-activated .lake-equation-form {
 .lake-equation .lake-equation-form textarea:focus-visible {
   outline: 0;
 }
+.lake-equation .lake-equation-form .lake-button-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
 /* error status */
 .lake-equation-error {
   padding: 0 6px;

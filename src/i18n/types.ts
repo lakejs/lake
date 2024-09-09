@@ -452,6 +452,10 @@ type RootTranslation = {
 		 */
 		save: string
 		/**
+		 * H​e​l​p
+		 */
+		help: string
+		/**
 		 * T​y​p​e​ ​a​ ​T​e​X​ ​e​x​p​r​e​s​s​i​o​n
 		 */
 		placeholder: string
@@ -894,6 +898,10 @@ export type TranslationFunctions = {
 		 * Done
 		 */
 		save: () => LocalizedString
+		/**
+		 * Help
+		 */
+		help: () => LocalizedString
 		/**
 		 * Type a TeX expression
 		 */

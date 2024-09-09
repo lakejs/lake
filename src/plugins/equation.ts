@@ -5,6 +5,9 @@ export default (editor: Editor) => {
   if (!window.katex) {
     return;
   }
+  editor.setPluginConfig('equation', {
+    helpUrl: 'https://katex.org/docs/supported',
+  });
   if (editor.readonly) {
     return;
   }

@@ -122,6 +122,7 @@ export default {
   },
   equation: {
     save: '确定',
+    help: '支持的功能',
     placeholder: '请输入 TeX 表达式',
   },
 } satisfies Translation;

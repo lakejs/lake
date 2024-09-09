@@ -122,6 +122,7 @@ export default {
   },
   equation: {
     save: '確認',
+    help: 'サポートされている機能',
     placeholder: 'TeX 数式を入力してください。',
   },
 } satisfies Translation;

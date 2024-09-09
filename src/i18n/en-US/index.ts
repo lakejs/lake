@@ -122,6 +122,7 @@ export default {
   },
   equation: {
     save: 'Done',
+    help: 'Supported Functions',
     placeholder: 'Type a TeX expression',
   },
 } satisfies BaseTranslation;

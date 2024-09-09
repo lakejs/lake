@@ -3,6 +3,16 @@ import { getBox } from '../../src/utils';
 
 describe('plugins / equation', () => {
 
+  it('should return correct config', () => {
+    testPlugin(
+      '',
+      '',
+      editor => {
+        expect(editor.config.equation.helpUrl).to.equal('https://katex.org/docs/supported');
+      },
+    );
+  });
+
   it('should insert an equation', () => {
     const content = `
     <p>foo<focus />bar</p>
