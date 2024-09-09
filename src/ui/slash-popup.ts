@@ -36,6 +36,10 @@ export class SlashPopup {
 
   private keyword: string | null = null;
 
+  private horizontalDirection: 'left' | 'right' = 'right';
+
+  private verticalDirection: 'top' | 'bottom' = 'bottom';
+
   public container: Nodes;
 
   constructor(config: SlashPopupConfig) {
@@ -228,7 +232,7 @@ export class SlashPopup {
     return items;
   }
 
-  public position(): void {
+  public position(keepDirection: boolean = false): void {
     if (!this.range) {
       return;
     }
@@ -236,12 +240,24 @@ export class SlashPopup {
     const rangeRect = this.range.get().getBoundingClientRect();
     const rangeX = rangeRect.x + window.scrollX;
     const rangeY = rangeRect.y + window.scrollY;
-    if (rangeRect.x + this.container.width() > window.innerWidth) {
+    if (!keepDirection) {
+      if (rangeRect.x + this.container.width() > window.innerWidth) {
+        this.horizontalDirection = 'left';
+      } else {
+        this.horizontalDirection = 'right';
+      }
+      if (rangeRect.y + rangeRect.height + this.container.height() > window.innerHeight) {
+        this.verticalDirection = 'top';
+      } else {
+        this.verticalDirection = 'bottom';
+      }
+    }
+    if (this.horizontalDirection === 'left') {
       this.container.css('left', `${rangeX - this.container.width() + rangeRect.width}px`);
     } else {
       this.container.css('left', `${rangeX}px`);
     }
-    if (rangeRect.y + rangeRect.height + this.container.height() > window.innerHeight) {
+    if (this.verticalDirection === 'top') {
       this.container.css('top', `${rangeY - this.container.height() - 5}px`);
     } else {
       this.container.css('top', `${rangeY + rangeRect.height + 5}px`);
@@ -272,7 +288,7 @@ export class SlashPopup {
     if (selectedItemNode.length === 0) {
       this.container.find('.lake-slash-item').eq(0).addClass('lake-slash-item-selected');
     }
-    this.position();
+    this.position(true);
   }
 
   public show(range: Range, keyword?: string): void {
