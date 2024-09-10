@@ -307,7 +307,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('should remove emtpy mark', () => {
+  it('should remove empty mark (1)', () => {
     const content = `
     <h1>foo</h1>
     <p><code><focus /><br /></code></p>
@@ -324,13 +324,45 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('should remove emtpy link', () => {
+  it('should remove empty mark (2)', () => {
+    const content = `
+    <p><strong></strong><focus /><br /></p>
+    `;
+    const output = `
+    <p><focus /><br /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should remove empty link (1)', () => {
     const content = `
     <h1>foo</h1>
     <p><a href="bar"><focus /><br /></a></p>
     `;
     const output = `
     <h1>foo<focus /></h1>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('should remove empty link (2)', () => {
+    const content = `
+    <p><a href="#"></a><focus /><br /></p>
+    `;
+    const output = `
+    <p><focus /><br /></p>
     `;
     testPlugin(
       content,
