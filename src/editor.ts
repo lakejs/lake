@@ -647,7 +647,7 @@ export class Editor {
       const unmountPlugin = this.unmountPluginMap.get(name);
       if (unmountPlugin) {
         unmountPlugin();
-        debug(`The plugin "${name}" unmounted`);
+        debug(`Plugin "${name}" unmounted`);
       }
     }
     if (this.toolbar) {

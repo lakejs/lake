@@ -29,7 +29,7 @@ export class Box {
     if (typeof node === 'string') {
       const component = boxes.get(node);
       if (component === undefined) {
-        throw new Error(`The box "${node}" has not been defined yet.`);
+        throw new Error(`Box "${node}" has not been defined yet.`);
       }
       const type = encode(component.type);
       const name = encode(component.name);
@@ -41,7 +41,7 @@ export class Box {
       this.node = query(node);
       const component = boxes.get(this.name);
       if (component === undefined) {
-        throw new Error(`The box "${this.name}" has not been defined yet.`);
+        throw new Error(`Box "${this.name}" has not been defined yet.`);
       }
       if (component.value && !this.node.hasAttr('value')) {
         this.value = component.value;
@@ -74,7 +74,7 @@ export class Box {
       container.removeClass('lake-box-hovered');
     });
     container.on('click', () => {
-      debug(`The box "${this.name}" (id = ${this.node.id}) value:`);
+      debug(`Box "${this.name}" (id = ${this.node.id}) value:`);
       debug(this.value);
     });
     if (this.type === 'block' && this.node.isContentEditable) {
@@ -128,7 +128,7 @@ export class Box {
     const container = this.node.closest('div[contenteditable]');
     const editor = container.length > 0 ? editors.get(container.id) : undefined;
     if (!editor) {
-      throw new Error(`The box "${this.name}" (id=${this.node.id}) is not rendered in the editor.`);
+      throw new Error(`Box "${this.name}" (id=${this.node.id}) is not rendered in the editor.`);
     }
     return editor;
   }
@@ -188,7 +188,7 @@ export class Box {
       container.empty();
       container.append(content);
     }
-    debug(`The box "${this.name}" (id: ${this.node.id}) rendered`);
+    debug(`Box "${this.name}" (id: ${this.node.id}) rendered`);
   }
 
   // Destroys a rendered box.
@@ -197,7 +197,7 @@ export class Box {
     this.event.emit('beforeunmount');
     this.event.removeAllListeners();
     this.node.empty();
-    debug(`The box "${this.name}" (id: ${this.node.id}) unmounted`);
+    debug(`Box "${this.name}" (id: ${this.node.id}) unmounted`);
   }
 
   // Returns a HTML string of the box.

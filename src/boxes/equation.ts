@@ -21,7 +21,7 @@ function renderError(box: Box): void {
     editor.selection.selectBox(box);
   });
   editor.config.onMessage('warning', `
-    The box "${box.name}" (id: ${box.node.id}) failed to display because window.katex was not found.
+    Box "${box.name}" (id: ${box.node.id}) failed to display because window.katex was not found.
     Please check if the "katex" library is added to this page.
   `.trim());
 }
