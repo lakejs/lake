@@ -4,6 +4,8 @@
 }
 .readonly .lake-root {
   border: 0;
-  height: auto;
   overflow: visible;
+}
+.readonly .lake-container {
+  height: auto;
 }
