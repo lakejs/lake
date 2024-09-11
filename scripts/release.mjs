@@ -116,10 +116,8 @@ async function main() {
   await run('pnpm', ['build']);
 
   // Generate the changelog.
-  /*
   step('\nGenerating the changelog...');
   await run('pnpm', ['changelog']);
-  await run('pnpm', ['prettier', '--write', 'CHANGELOG.md']);
 
   const { yes: changelogOk } = await prompts({
     type: 'confirm',
@@ -130,7 +128,6 @@ async function main() {
   if (!changelogOk) {
     return;
   }
-  */
 
   // Commit changes to the Git and create a tag.
   step('\nCommitting changes...');
