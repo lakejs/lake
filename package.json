@@ -1,6 +1,6 @@
 {
   "name": "lakelib",
-  "version": "0.1.25",
+  "version": "0.2.0",
   "description": "Rich text editor based on the browser",
   "keywords": [
     "rich text",
