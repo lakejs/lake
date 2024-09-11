@@ -39,7 +39,8 @@
     "release": "node ./scripts/release.mjs"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm sort:package && pnpm lint"
+    "pre-commit": "pnpm sort:package && pnpm lint",
+    "commit-msg": "node ./scripts/verify-commit.mjs"
   },
   "dependencies": {
     "@types/is-hotkey": "^0.1.10",
