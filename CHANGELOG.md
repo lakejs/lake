@@ -1,3 +1,19 @@
+# [0.2.0](https://github.com/lakejs/lake/compare/0.1.25...0.2.0) (2024-09-11)
+
+
+### Bug Fixes
+
+* **backspace:** empty tags before the caret cannot be removed ([141a384](https://github.com/lakejs/lake/commit/141a384277e0160e41c6cdacd91164fc1396e257))
+* **slash:** the popup's direction should not be changed while searching items ([fc24489](https://github.com/lakejs/lake/commit/fc24489c3923e6513210c3c65e67c7b8f0974604))
+* **upload:** choosing the same file does not trigger change event ([ba11177](https://github.com/lakejs/lake/commit/ba111777b59b8c4b329428ac25255ab4379116c9))
+
+
+### Features
+
+* **equation:** add help icon ([bad6ed8](https://github.com/lakejs/lake/commit/bad6ed8714aaeef71195551ea6ea6a21598185ae))
+
+
+
 ## [0.1.25](https://github.com/lakejs/lake/compare/0.1.24...0.1.25) (2024-09-07)
 
 
