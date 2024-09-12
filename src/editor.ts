@@ -222,7 +222,7 @@ export class Editor {
     if (this.root.first().length === 0) {
       return;
     }
-    const range = this.selection.range;
+    const range = this.selection.getCurrentRange();
     const clonedRange = range.clone();
     clonedRange.adjustBox();
     this.container.find('lake-box').each(boxNativeNode => {
