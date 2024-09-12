@@ -575,7 +575,7 @@ export class Editor {
     this.overlayContainer.append(artificialCaret);
     scrollToNode(artificialCaret, {
       behavior: 'instant',
-      block: 'center',
+      block: 'nearest',
       inline: 'nearest',
     });
     artificialCaret.remove();
