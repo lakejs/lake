@@ -227,6 +227,7 @@ export class Selection {
       boxNode = box;
     }
     this.range.selectBox(boxNode);
+    this.sync();
   }
 
   // Inserts a box into the position of the selection.
