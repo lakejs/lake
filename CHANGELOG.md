@@ -1,3 +1,14 @@
+## [0.2.1](https://github.com/lakejs/lake/compare/0.2.0...0.2.1) (2024-09-13)
+
+
+### Bug Fixes
+
+* **box:** cannot deselect a selected box when clicking outside the editor ([e1fde85](https://github.com/lakejs/lake/commit/e1fde8521ac47925bc91f5b2c35e5c42662f9eb1))
+* **box:** cannot select a box when current selection is outside the editor ([2036cee](https://github.com/lakejs/lake/commit/2036ceef3e1330b8293d898ac3474bf9d6d4ed58))
+* **scroll:** should be aligned to the nearest edge of the visible area ([bad77de](https://github.com/lakejs/lake/commit/bad77dea20773a059712156d69383c90c99dcc1e))
+
+
+
 # [0.2.0](https://github.com/lakejs/lake/compare/0.1.25...0.2.0) (2024-09-11)
 
 
