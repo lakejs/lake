@@ -7,7 +7,7 @@
 Messages must be matched by the following regex:
 
 ```regexp
-/^(revert: )?(feat|fix|perf|refactor|test|build|chore|release)(\(.+\))?: .{1,50}/
+/^(revert: )?(feat|fix|perf|style|refactor|test|chore|release)(\(.+\))?: .{1,50}/
 ```
 
 #### Examples
@@ -67,10 +67,10 @@ Must be one of the following:
 * feat: A new feature
 * fix: A bug fix
 * perf: A code change that improves performance
+* style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
 * refactor: A code change that neither fixes a bug nor adds a feature
 * test: Adding missing tests or correcting existing tests
-* build: A change that affect the build system or external dependencies (example scopes: pnpm, ci, lint)
-* chore: A small change such as examples, comments, and docs
+* chore: Changes to the build process or auxiliary tools and libraries such as documentation generation (example scopes: pnpm, ci, lint, examples)
 * release: A new version
 
 If the prefix is `feat`, `fix` or `perf`, it will appear in the changelog. However, if there is any [BREAKING CHANGE](#footer), the commit will always appear in the changelog.

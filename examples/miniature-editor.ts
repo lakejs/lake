@@ -110,6 +110,7 @@ export default (value: string) => {
     image: {
       requestAction: '/upload',
     },
+    slash: true,
   });
   editor.container.on('focusin', ()=> {
     editor.root.addClass('lake-root-focused');
