@@ -1,0 +1,52 @@
+.lake-mention-popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  list-style: none;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  margin: 0;
+  padding: 4px 8px;
+  width: fit-content;
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--text-color);
+  background-color: #fff;
+  box-shadow: var(--popup-shadow);
+  display: none;
+  max-height: 380px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  user-select: none;
+}
+.lake-mention-popup .lake-mention-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 4px 8px;
+  margin: 0;
+  border-radius: 5px;
+  scroll-margin: 4px 0;
+}
+.lake-mention-popup .lake-mention-item-selected {
+  background-color: var(--background-active-color);
+}
+.lake-mention-popup .lake-mention-avartar {
+  margin-inline-end: 8px;
+  line-height: 0;
+}
+.lake-mention-popup .lake-mention-avartar img {
+  border-radius: 100%;
+  width: 32px;
+  height: 32px;
+}
+.lake-mention-popup .lake-mention-nickname {
+  margin-inline-end: 4px;
+  font-weight: 500;
+  color: var(--text-color);
+  white-space: nowrap;
+}
+.lake-mention-popup .lake-mention-name {
+  color: #8c8c8c;
+}

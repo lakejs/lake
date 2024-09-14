@@ -20,5 +20,6 @@ import './video.css';
 import './file.css';
 import './emoji.css';
 import './equation.css';
-import './toolbar.css';
+import './mention.css';
 import './slash.css';
+import './toolbar.css';
