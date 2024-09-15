@@ -1,3 +1,15 @@
+.lake-mention {
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+.lake-container[data-readonly="false"] .lake-mention a:hover {
+  color: var(--link-color);
+  text-decoration: none;
+}
+lake-box[name="mention"] .lake-box-focused .lake-mention {
+  border-color: var(--selection-background-color);
+  background-color: var(--selection-background-color);
+}
 .lake-mention-popup {
   position: absolute;
   top: 0;
@@ -15,7 +27,7 @@
   background-color: #fff;
   box-shadow: var(--popup-shadow);
   display: none;
-  max-height: 380px;
+  max-height: 180px;
   overflow-y: scroll;
   scrollbar-width: thin;
   user-select: none;
@@ -24,19 +36,19 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 4px 8px;
   margin: 0;
+  padding: 4px 8px;
   border-radius: 5px;
   scroll-margin: 4px 0;
 }
 .lake-mention-popup .lake-mention-item-selected {
   background-color: var(--background-active-color);
 }
-.lake-mention-popup .lake-mention-avartar {
+.lake-mention-popup .lake-mention-avatar {
   margin-inline-end: 8px;
   line-height: 0;
 }
-.lake-mention-popup .lake-mention-avartar img {
+.lake-mention-popup .lake-mention-avatar img {
   border-radius: 100%;
   width: 32px;
   height: 32px;

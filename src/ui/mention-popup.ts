@@ -1,17 +1,11 @@
 import { isKeyHotkey } from 'is-hotkey';
+import { MentionItem } from '../types/mention';
 import type { Editor } from '../editor';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { scrollToNode } from '../utils/scroll-to-node';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
-
-type MentionItem = {
-  id: string;
-  name: string;
-  nickname: string;
-  avatar: string;
-};
 
 type MentionPopupConfig = {
   editor: Editor;
@@ -48,14 +42,19 @@ export class MentionPopup {
   private appendItem(item: MentionItem): void {
     const itemNode = query(safeTemplate`
       <li class="lake-mention-item" item-id="${item.id}">
-        <div class="lake-mention-avartar"></div>
-        <div class="lake-mention-nickname">${item.nickname}</div>
+        <div class="lake-mention-avatar"></div>
+        <div class="lake-mention-nickname">${item.nickname ?? item.name}</div>
         <div class="lake-mention-name">(${item.name})</div>
       </li>
     `);
-    const avatar = item.avatar;
-    if (avatar) {
-      itemNode.find('.lake-mention-avartar').append(avatar);
+    const avatarNode = itemNode.find('.lake-mention-avatar');
+    if (item.avatar) {
+      avatarNode.append(item.avatar);
+    } else {
+      avatarNode.remove();
+    }
+    if (!item.nickname) {
+      itemNode.find('.lake-mention-name').remove();
     }
     this.container.append(itemNode);
     itemNode.on('mouseenter', () => {
@@ -149,9 +148,11 @@ export class MentionPopup {
     keyword = keyword.toLowerCase();
     const items: MentionItem[] = [];
     for (const item of this.items) {
+      const nickname = item.nickname ?? item.name;
       if (
         item.name.toLowerCase().indexOf(keyword) >= 0 ||
-        item.nickname.toLowerCase().indexOf(keyword) >= 0
+        nickname.toLowerCase().indexOf(keyword) >= 0 ||
+        nickname.replace(/\s+/g, '').indexOf(keyword) >= 0
       ) {
         items.push(item);
       }

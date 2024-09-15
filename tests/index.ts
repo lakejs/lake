@@ -89,6 +89,7 @@ import './boxes/emoji.test';
 import './boxes/emoji-ui.test';
 import './boxes/equation.test';
 import './boxes/equation-ui.test';
+import './boxes/mention-ui.test';
 
 // Plugins
 import './plugins/copy.test';

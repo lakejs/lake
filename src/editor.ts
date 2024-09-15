@@ -150,6 +150,7 @@ export class Editor {
       contenteditable: this.readonly ? 'false' : 'true',
       spellcheck: this.config.spellcheck ? 'true' : 'false',
       tabindex: this.config.tabIndex.toString(),
+      'data-readonly': this.readonly ? 'true' : 'false',
     });
     if (this.config.placeholder !== '') {
       this.container.attr('placeholder', this.config.placeholder);
