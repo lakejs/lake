@@ -9,7 +9,7 @@ export default {
     const editor = box.getEditor();
     const mentionConfig = editor.config.mention;
     const value = box.value;
-    const url = mentionConfig.getUrl(value);
+    const url = mentionConfig.getUrl ? mentionConfig.getUrl(value) : '#';
     const boxContainer = box.getContainer();
     const rootNode = query(safeTemplate`
       <div class="lake-mention"><a href="${url}">@${value.name}</a></div>

@@ -322,6 +322,7 @@ export default (value: string) => {
     slash: {
       items: slashItems,
     },
+    mention: true,
   });
   editor.render();
   return editor;

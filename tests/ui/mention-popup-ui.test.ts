@@ -3,7 +3,7 @@ import { query } from '../../src/utils';
 import { MentionPopup } from '../../src/ui/mention-popup';
 import { Editor } from '../../src';
 
-const memtionItems: MentionItem[] = [
+const mentionItems: MentionItem[] = [
   {
     id: '1',
     name: 'luolonghao',
@@ -90,7 +90,7 @@ describe('ui / mention-popup-ui', () => {
     editor.render();
     const popup = new MentionPopup({
       editor,
-      items: memtionItems,
+      items: mentionItems,
     });
     const mentionRange = editor.selection.range.clone();
     mentionRange.selectNodeContents(editor.container);
@@ -108,7 +108,7 @@ describe('ui / mention-popup-ui', () => {
     editor.render();
     const popup = new MentionPopup({
       editor,
-      items: memtionItems.map(item => ({
+      items: mentionItems.map(item => ({
         id: item.id,
         name: item.name,
         nickname: item.nickname,
@@ -130,7 +130,7 @@ describe('ui / mention-popup-ui', () => {
     editor.render();
     const popup = new MentionPopup({
       editor,
-      items: memtionItems.map(item => ({
+      items: mentionItems.map(item => ({
         id: item.id,
         name: item.name,
         avatar: item.avatar,

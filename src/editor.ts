@@ -77,6 +77,7 @@ const defaultConfig: Config = {
     }
   },
   slash: false,
+  mention: false,
 };
 
 export class Editor {

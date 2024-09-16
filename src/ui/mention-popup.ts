@@ -12,6 +12,33 @@ type MentionPopupConfig = {
   items: MentionItem[];
 };
 
+export function getTargetRange(range: Range): Range | null {
+  const targetRange = range.clone();
+  targetRange.shrink();
+  if (targetRange.startNode.isElement) {
+    if (targetRange.startOffset === 0) {
+      return null;
+    }
+    const textNode = targetRange.startNode.children()[targetRange.startOffset - 1];
+    targetRange.setEnd(textNode, targetRange.startNode.text().length);
+    targetRange.collapseToEnd();
+  }
+  const textNode = targetRange.startNode;
+  const text = textNode.text();
+  const lastIndexOfNormalSpaceAt = text.lastIndexOf(' @');
+  const lastIndexOfNoBreakSpaceAt = text.lastIndexOf('\xA0@');
+  if (text.indexOf('@') === 0) {
+    targetRange.setStart(textNode, 0);
+  } else if (lastIndexOfNormalSpaceAt >= 0) {
+    targetRange.setStart(textNode, lastIndexOfNormalSpaceAt + 1);
+  } else if (lastIndexOfNoBreakSpaceAt >= 0) {
+    targetRange.setStart(textNode, lastIndexOfNoBreakSpaceAt + 1);
+  } else {
+    return null;
+  }
+  return targetRange;
+}
+
 export class MentionPopup {
 
   private editor: Editor;
@@ -40,6 +67,7 @@ export class MentionPopup {
   }
 
   private appendItem(item: MentionItem): void {
+    const editor = this.editor;
     const itemNode = query(safeTemplate`
       <li class="lake-mention-item" item-id="${item.id}">
         <div class="lake-mention-avatar"></div>
@@ -69,6 +97,16 @@ export class MentionPopup {
         return;
       }
       itemNode.removeClass('lake-mention-item-selected');
+    });
+    itemNode.on('click', () => {
+      this.hide();
+      editor.focus();
+      const targetRange = getTargetRange(editor.selection.range);
+      if (targetRange) {
+        targetRange.get().deleteContents();
+      }
+      editor.selection.insertBox('mention', item);
+      editor.history.save();
     });
   }
 

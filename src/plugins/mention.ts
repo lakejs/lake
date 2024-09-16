@@ -1,16 +1,91 @@
 import { isKeyHotkey } from 'is-hotkey';
 import { MentionItem } from '../types/mention';
 import type { Editor, Range } from '..';
-import { MentionPopup } from '../ui/mention-popup';
+import { MentionPopup, getTargetRange } from '../ui/mention-popup';
+
+const mentionItems: MentionItem[] = [
+  {
+    id: '1',
+    name: 'luolonghao',
+    nickname: 'Roddy',
+    avatar: '<img src="../assets/images/universal-studios-240.jpg" />',
+  },
+  {
+    id: '2',
+    name: 'heavenlake',
+    nickname: 'Heaven Lake',
+    avatar: '<img src="../assets/images/heaven-lake-256.png" />',
+  },
+  {
+    id: '3',
+    name: 'lacgentau',
+    nickname: 'Lac Gentau',
+    avatar: '<img src="../assets/images/lac-gentau-256.jpg" />',
+  },
+  {
+    id: '4',
+    name: 'universalstudios',
+    nickname: 'Universal Studios',
+    avatar: '<img src="../assets/images/universal-studios-240.jpg" />',
+  },
+  {
+    id: '5',
+    name: 'luolonghao',
+    nickname: 'Roddy',
+    avatar: '<img src="../assets/images/universal-studios-240.jpg" />',
+  },
+  {
+    id: '6',
+    name: 'heavenlake',
+    nickname: 'Heaven Lake',
+    avatar: '<img src="../assets/images/heaven-lake-256.png" />',
+  },
+  {
+    id: '7',
+    name: 'lacgentau',
+    nickname: 'Lac Gentau',
+    avatar: '<img src="../assets/images/lac-gentau-256.jpg" />',
+  },
+  {
+    id: '8',
+    name: 'universalstudios',
+    nickname: 'Universal Studios',
+    avatar: '<img src="../assets/images/universal-studios-240.jpg" />',
+  },
+  {
+    id: '9',
+    name: 'luolonghao',
+    nickname: 'Roddy',
+    avatar: '<img src="../assets/images/universal-studios-240.jpg" />',
+  },
+  {
+    id: '10',
+    name: 'heavenlake',
+    nickname: 'Heaven Lake',
+    avatar: '<img src="../assets/images/heaven-lake-256.png" />',
+  },
+  {
+    id: '11',
+    name: 'lacgentau',
+    nickname: 'Lac Gentau',
+    avatar: '<img src="../assets/images/lac-gentau-256.jpg" />',
+  },
+  {
+    id: '12',
+    name: 'universalstudios',
+    nickname: 'Universal Studios',
+    avatar: '<img src="../assets/images/universal-studios-240.jpg" />',
+  },
+];
 
 function getKeyword(range: Range): string | null {
-  // TODO
-  let text = range.startNode.text().slice(-1);
-  text = text.replace(/[\u200B\u2060]/g, '');
-  if (!/^\//.test(text)) {
+  const targetRange = getTargetRange(range);
+  if (targetRange === null) {
     return null;
   }
-  return text.substring(1);
+  let text = targetRange.startNode.text().slice(targetRange.startOffset + 1, targetRange.endOffset);
+  text = text.replace(/[\u200B\u2060]/g, '');
+  return text;
 }
 
 function showPopup(editor: Editor, popup: MentionPopup): void {
@@ -18,30 +93,20 @@ function showPopup(editor: Editor, popup: MentionPopup): void {
   if (!range.isCollapsed) {
     return;
   }
-  const block = range.getBlocks()[0];
-  if (!block) {
-    return;
-  }
-  if (block.find('lake-box').length > 0) {
+  const targetRange = getTargetRange(range);
+  if (targetRange === null) {
     return;
   }
   const keyword = getKeyword(range);
   if (keyword === null) {
     return;
   }
-  const slashRange = range.clone();
-  slashRange.selectNodeContents(block);
-  popup.show(slashRange, keyword);
+  popup.show(targetRange, keyword);
 }
 
 export default (editor: Editor) => {
   editor.setPluginConfig('mention', {
-    items: [{
-      id: '1',
-      name: 'luolonghao',
-      nickname: 'Roddy',
-      avatar: '<img src="../assets/images/universal-studios-240.jpg" />',
-    }],
+    items: mentionItems,
     getUrl:  (value: MentionItem) => `/${value.name}`,
   });
   if (editor.readonly) {
@@ -60,7 +125,7 @@ export default (editor: Editor) => {
       return;
     }
     if (!popup.visible) {
-      if (isKeyHotkey('@', keyboardEvent)) {
+      if (keyboardEvent.key === '@') {
         showPopup(editor, popup);
         return;
       }
@@ -71,10 +136,6 @@ export default (editor: Editor) => {
       }
     }
     const range = editor.selection.range;
-    const block = range.getBlocks()[0];
-    if (!block) {
-      return;
-    }
     const keyword = getKeyword(range);
     if (keyword === null) {
       popup.hide();

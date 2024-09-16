@@ -600,7 +600,7 @@ export class Range {
   }
 
   // Returns the text of the start part of the closest block divided into two parts by the start point of the range.
-  // "<p>one<anchor />two<focus />three</p>" returns "three".
+  // "<p>one<anchor />two<focus />three</p>" returns "one".
   public getStartText(): string {
     const node = this.startNode;
     const offset = this.startOffset;
