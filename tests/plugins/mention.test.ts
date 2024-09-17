@@ -56,6 +56,7 @@ describe('plugins / mention', () => {
   it('should return correct config', () => {
     expect(editor.config.mention.requestMethod).to.equal('GET');
     expect(editor.config.mention.items).to.deep.equal(mentionItems);
+    expect(editor.config.mention.getProfileUrl({name: 'foo'})).to.equal('/foo');
   });
 
   it('should show a popup box', () => {

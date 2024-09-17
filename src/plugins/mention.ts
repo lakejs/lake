@@ -18,7 +18,7 @@ export default (editor: Editor) => {
   editor.setPluginConfig('mention', {
     requestMethod: 'GET',
     items: [],
-    getUrl:  (value: MentionItem) => `/${value.name}`,
+    getProfileUrl:  (value: MentionItem) => `/${value.name}`,
   });
   if (editor.readonly) {
     return;

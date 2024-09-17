@@ -7,9 +7,9 @@ export default {
   name: 'mention',
   render: box => {
     const editor = box.getEditor();
-    const { getUrl } = editor.config.mention;
+    const { getProfileUrl } = editor.config.mention;
     const value = box.value;
-    const url = getUrl ? getUrl(value) : '#';
+    const url = getProfileUrl ? getProfileUrl(value) : '#';
     const boxContainer = box.getContainer();
     const rootNode = query(safeTemplate`
       <div class="lake-mention"><a href="${url}">@${value.name}</a></div>
