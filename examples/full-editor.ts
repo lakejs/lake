@@ -1,4 +1,4 @@
-import { Editor, Toolbar, ToolbarItem, DropdownMenuItem, SlashItem, icons } from '../src';
+import { Editor, Toolbar, ToolbarItem, DropdownMenuItem, MentionItem,  SlashItem, icons } from '../src';
 
 // These emojis are sourced from Fluent Emoji.
 // https://github.com/microsoft/fluentui-emoji
@@ -286,6 +286,33 @@ const slashItems: (string | SlashItem)[] = [
   'equation',
 ];
 
+const mentionItems: MentionItem[] = [
+  {
+    id: '1',
+    name: 'luolonghao',
+    nickname: 'Roddy',
+    avatar: '<img src="../assets/images/universal-studios-240.jpg" />',
+  },
+  {
+    id: '2',
+    name: 'heavenlake',
+    nickname: 'Heaven Lake',
+    avatar: '<img src="../assets/images/heaven-lake-256.png" />',
+  },
+  {
+    id: '3',
+    name: 'lacgentau',
+    nickname: 'Lac Gentau',
+    avatar: '<img src="../assets/images/lac-gentau-256.jpg" />',
+  },
+  {
+    id: '4',
+    name: 'universalstudios',
+    nickname: 'Universal Studios',
+    avatar: '<img src="../assets/images/universal-studios-240.jpg" />',
+  },
+];
+
 export default (value: string) => {
   const toolbar = new Toolbar({
     root: '.lake-toolbar-root',
@@ -322,7 +349,11 @@ export default (value: string) => {
     slash: {
       items: slashItems,
     },
-    mention: true,
+    mention: {
+      items: mentionItems,
+      requestMethod: 'GET',
+      requestAction: '../assets/json/mention.json',
+    },
   });
   editor.render();
   return editor;

@@ -1,6 +1,6 @@
 export type BeforeUploadFileType = File | Blob | boolean | string;
 
-export type UploadRequestMethod = 'POST' | 'PUT' | 'PATCH' | 'post' | 'put' | 'patch';
+export type UploadRequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH';
 
 export type UploadRequestHeader = Record<string, string>;
 
@@ -13,7 +13,7 @@ export interface UploadRequestError extends Error {
 export interface UploadRequestOption<T = any> {
   method: UploadRequestMethod;
   action: string;
-  file: Exclude<BeforeUploadFileType, File | boolean> | File;
+  file?: Exclude<BeforeUploadFileType, File | boolean> | File;
   onSuccess?: (body: T, xhr?: XMLHttpRequest) => void;
   onProgress?: (event: ProgressEvent) => void;
   onError?: (event: UploadRequestError | ProgressEvent, body?: T) => void;

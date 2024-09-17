@@ -54,6 +54,7 @@ describe('plugins / mention', () => {
   });
 
   it('should return correct config', () => {
+    expect(editor.config.mention.requestMethod).to.equal('GET');
     expect(editor.config.mention.items).to.deep.equal(mentionItems);
   });
 

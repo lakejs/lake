@@ -5,8 +5,8 @@
   margin-bottom: 4px;
   padding: 0;
 }
-.lake-container ol lake-box[type="inline"],
-.lake-container ul lake-box[type="inline"] {
+.lake-container ol lake-box[name="emoji"],
+.lake-container ul lake-box[name="emoji"] {
   vertical-align: middle;
 }
 .lake-container ol[indent="1"],

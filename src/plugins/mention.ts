@@ -1,82 +1,8 @@
 import { isKeyHotkey } from 'is-hotkey';
 import { MentionItem } from '../types/mention';
 import type { Editor, Range } from '..';
+import { request } from '../utils/request';
 import { MentionPopup, getTargetRange } from '../ui/mention-popup';
-
-const mentionItems: MentionItem[] = [
-  {
-    id: '1',
-    name: 'luolonghao',
-    nickname: 'Roddy',
-    avatar: '<img src="../assets/images/universal-studios-240.jpg" />',
-  },
-  {
-    id: '2',
-    name: 'heavenlake',
-    nickname: 'Heaven Lake',
-    avatar: '<img src="../assets/images/heaven-lake-256.png" />',
-  },
-  {
-    id: '3',
-    name: 'lacgentau',
-    nickname: 'Lac Gentau',
-    avatar: '<img src="../assets/images/lac-gentau-256.jpg" />',
-  },
-  {
-    id: '4',
-    name: 'universalstudios',
-    nickname: 'Universal Studios',
-    avatar: '<img src="../assets/images/universal-studios-240.jpg" />',
-  },
-  {
-    id: '5',
-    name: 'luolonghao',
-    nickname: 'Roddy',
-    avatar: '<img src="../assets/images/universal-studios-240.jpg" />',
-  },
-  {
-    id: '6',
-    name: 'heavenlake',
-    nickname: 'Heaven Lake',
-    avatar: '<img src="../assets/images/heaven-lake-256.png" />',
-  },
-  {
-    id: '7',
-    name: 'lacgentau',
-    nickname: 'Lac Gentau',
-    avatar: '<img src="../assets/images/lac-gentau-256.jpg" />',
-  },
-  {
-    id: '8',
-    name: 'universalstudios',
-    nickname: 'Universal Studios',
-    avatar: '<img src="../assets/images/universal-studios-240.jpg" />',
-  },
-  {
-    id: '9',
-    name: 'luolonghao',
-    nickname: 'Roddy',
-    avatar: '<img src="../assets/images/universal-studios-240.jpg" />',
-  },
-  {
-    id: '10',
-    name: 'heavenlake',
-    nickname: 'Heaven Lake',
-    avatar: '<img src="../assets/images/heaven-lake-256.png" />',
-  },
-  {
-    id: '11',
-    name: 'lacgentau',
-    nickname: 'Lac Gentau',
-    avatar: '<img src="../assets/images/lac-gentau-256.jpg" />',
-  },
-  {
-    id: '12',
-    name: 'universalstudios',
-    nickname: 'Universal Studios',
-    avatar: '<img src="../assets/images/universal-studios-240.jpg" />',
-  },
-];
 
 function getKeyword(range: Range): string | null {
   const targetRange = getTargetRange(range);
@@ -88,34 +14,57 @@ function getKeyword(range: Range): string | null {
   return text;
 }
 
-function showPopup(editor: Editor, popup: MentionPopup): void {
-  const range = editor.selection.range;
-  if (!range.isCollapsed) {
-    return;
-  }
-  const targetRange = getTargetRange(range);
-  if (targetRange === null) {
-    return;
-  }
-  const keyword = getKeyword(range);
-  if (keyword === null) {
-    return;
-  }
-  popup.show(targetRange, keyword);
-}
-
 export default (editor: Editor) => {
   editor.setPluginConfig('mention', {
-    items: mentionItems,
+    requestMethod: 'GET',
+    items: [],
     getUrl:  (value: MentionItem) => `/${value.name}`,
   });
   if (editor.readonly) {
     return;
   }
-  const popup = new MentionPopup({
-    editor,
-    items: editor.config.mention.items,
-  });
+  const { requestAction, requestMethod, items } = editor.config.mention;
+  let popup: MentionPopup | null = null;
+  const showPopup = () => {
+    const range = editor.selection.range;
+    if (!range.isCollapsed) {
+      return;
+    }
+    const targetRange = getTargetRange(range);
+    if (targetRange === null) {
+      return;
+    }
+    const keyword = getKeyword(range);
+    if (keyword === null) {
+      return;
+    }
+    if (!popup) {
+      if (requestAction) {
+        request({
+          onSuccess: body => {
+            if (!body.data) {
+              return;
+            }
+            popup = new MentionPopup({
+              editor,
+              items: body.data,
+            });
+            popup.show(targetRange, keyword);
+          },
+          action: requestAction,
+          method: requestMethod,
+        });
+      } else {
+        popup = new MentionPopup({
+          editor,
+          items,
+        });
+        popup.show(targetRange, keyword);
+      }
+      return;
+    }
+    popup.show(targetRange, keyword);
+  };
   editor.container.on('keyup', event => {
     if (editor.isComposing) {
       return;
@@ -124,13 +73,13 @@ export default (editor: Editor) => {
     if (isKeyHotkey(['down' ,'up', 'enter'], keyboardEvent)) {
       return;
     }
-    if (!popup.visible) {
+    if (!popup || !popup.visible) {
       if (keyboardEvent.key === '@') {
-        showPopup(editor, popup);
+        showPopup();
         return;
       }
       if (isKeyHotkey(['backspace', 'delete'], keyboardEvent)) {
-        showPopup(editor, popup);
+        showPopup();
       } else {
         return;
       }
@@ -138,10 +87,18 @@ export default (editor: Editor) => {
     const range = editor.selection.range;
     const keyword = getKeyword(range);
     if (keyword === null) {
-      popup.hide();
+      if (popup) {
+        popup.hide();
+      }
       return;
     }
-    popup.update(keyword);
+    if (popup) {
+      popup.update(keyword);
+    }
   });
-  return () => popup.unmount();
+  return () => {
+    if (popup) {
+      popup.unmount();
+    }
+  };
 };
