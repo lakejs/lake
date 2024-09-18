@@ -6,6 +6,7 @@ import './box.css';
 import './button.css';
 import './dropdown.css';
 import './popup.css';
+import './menu.css';
 import './resizer.css';
 import './format-painter.css';
 import './heading.css';

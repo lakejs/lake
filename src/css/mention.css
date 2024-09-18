@@ -10,40 +10,6 @@ lake-box[name="mention"] .lake-box-focused .lake-mention {
   border-color: var(--selection-background-color);
   background-color: var(--selection-background-color);
 }
-.lake-mention-popup {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  list-style: none;
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  margin: 0;
-  padding: 4px 8px;
-  width: fit-content;
-  font-family: var(--font-family);
-  font-size: 14px;
-  color: var(--text-color);
-  background-color: #fff;
-  box-shadow: var(--popup-shadow);
-  display: none;
-  max-height: 180px;
-  overflow-y: scroll;
-  scrollbar-width: thin;
-  user-select: none;
-}
-.lake-mention-popup .lake-mention-item {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  margin: 0;
-  padding: 4px 8px;
-  border-radius: 5px;
-  scroll-margin: 4px 0;
-}
-.lake-mention-popup .lake-mention-item-selected {
-  background-color: var(--background-active-color);
-}
 .lake-mention-popup .lake-mention-avatar {
   margin-inline-end: 8px;
   line-height: 0;
