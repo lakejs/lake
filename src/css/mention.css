@@ -10,24 +10,24 @@ lake-box[name="mention"] .lake-box-focused .lake-mention {
   border-color: var(--selection-background-color);
   background-color: var(--selection-background-color);
 }
-.lake-mention-popup {
+.lake-mention-menu {
   max-height: 180px;
 }
-.lake-mention-popup .lake-mention-avatar {
+.lake-mention-menu .lake-mention-avatar {
   margin-inline-end: 8px;
   line-height: 0;
 }
-.lake-mention-popup .lake-mention-avatar img {
+.lake-mention-menu .lake-mention-avatar img {
   border-radius: 100%;
   width: 32px;
   height: 32px;
 }
-.lake-mention-popup .lake-mention-nickname {
+.lake-mention-menu .lake-mention-nickname {
   margin-inline-end: 4px;
   font-weight: 500;
   color: var(--text-color);
   white-space: nowrap;
 }
-.lake-mention-popup .lake-mention-name {
+.lake-mention-menu .lake-mention-name {
   color: #8c8c8c;
 }

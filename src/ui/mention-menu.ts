@@ -4,11 +4,11 @@ import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { Menu, MenuConfig } from './menu';
 
-export class MentionPopup extends Menu<MentionItem> {
+export class MentionMenu extends Menu<MentionItem> {
 
   constructor(config: MenuConfig<MentionItem>) {
     super(config);
-    this.container.addClass('lake-mention-popup');
+    this.container.addClass('lake-mention-menu');
   }
 
   protected getItemNode(item: MentionItem): Nodes {

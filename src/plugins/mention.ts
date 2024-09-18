@@ -2,7 +2,7 @@ import { isKeyHotkey } from 'is-hotkey';
 import { MentionItem } from '../types/mention';
 import type { Editor, Range } from '..';
 import { request } from '../utils/request';
-import { MentionPopup } from '../ui/mention-popup';
+import { MentionMenu } from '../ui/mention-menu';
 
 function getKeyword(range: Range): string | null {
   const targetRange = range.getCharacterRange('@');
@@ -24,7 +24,7 @@ export default (editor: Editor) => {
     return;
   }
   const { requestAction, requestMethod, items } = editor.config.mention;
-  let popup: MentionPopup | null = null;
+  let popup: MentionMenu | null = null;
   const showPopup = () => {
     const range = editor.selection.range;
     if (!range.isCollapsed) {
@@ -45,7 +45,7 @@ export default (editor: Editor) => {
             if (!body.data) {
               return;
             }
-            popup = new MentionPopup({
+            popup = new MentionMenu({
               editor,
               items: body.data,
             });
@@ -55,7 +55,7 @@ export default (editor: Editor) => {
           method: requestMethod,
         });
       } else {
-        popup = new MentionPopup({
+        popup = new MentionMenu({
           editor,
           items,
         });

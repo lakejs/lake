@@ -146,7 +146,7 @@ import './ui/link-popup.test';
 import './ui/link-popup-ui.test';
 import './ui/slash-popup.test';
 import './ui/slash-popup-ui.test';
-import './ui/mention-popup-ui.test';
+import './ui/mention-menu-ui.test';
 import './ui/toolbar.test';
 import './ui/box-resizer.test';
 import './ui/box-toolbar.test';

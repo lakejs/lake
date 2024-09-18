@@ -1,6 +1,6 @@
 import { MentionItem } from '../../src/types/mention';
 import { query } from '../../src/utils';
-import { MentionPopup } from '../../src/ui/mention-popup';
+import { MentionMenu } from '../../src/ui/mention-menu';
 import { Editor } from '../../src';
 
 const mentionItems: MentionItem[] = [
@@ -78,7 +78,7 @@ const mentionItems: MentionItem[] = [
   },
 ];
 
-describe('ui / mention-popup-ui', () => {
+describe('ui / mention-menu-ui', () => {
 
   it('with avatar', () => {
     const rootNode = query('<div class="lake-root"></div>');
@@ -88,14 +88,14 @@ describe('ui / mention-popup-ui', () => {
       value: '<p>@<focus /></p>',
     });
     editor.render();
-    const popup = new MentionPopup({
+    const menu = new MentionMenu({
       editor,
       items: mentionItems,
     });
     const mentionRange = editor.selection.range.clone();
     mentionRange.selectNodeContents(editor.container);
-    popup.show(mentionRange);
-    expect(editor.popupContainer.find('.lake-mention-popup').length).to.equal(1);
+    menu.show(mentionRange);
+    expect(editor.popupContainer.find('.lake-mention-menu').length).to.equal(1);
   });
 
   it('without avatar', () => {
@@ -106,7 +106,7 @@ describe('ui / mention-popup-ui', () => {
       value: '<p>@<focus /></p>',
     });
     editor.render();
-    const popup = new MentionPopup({
+    const menu = new MentionMenu({
       editor,
       items: mentionItems.map(item => ({
         id: item.id,
@@ -116,8 +116,8 @@ describe('ui / mention-popup-ui', () => {
     });
     const mentionRange = editor.selection.range.clone();
     mentionRange.selectNodeContents(editor.container);
-    popup.show(mentionRange);
-    expect(editor.popupContainer.find('.lake-mention-popup').length).to.equal(1);
+    menu.show(mentionRange);
+    expect(editor.popupContainer.find('.lake-mention-menu').length).to.equal(1);
   });
 
   it('without nickname', () => {
@@ -128,7 +128,7 @@ describe('ui / mention-popup-ui', () => {
       value: '<p>@<focus /></p>',
     });
     editor.render();
-    const popup = new MentionPopup({
+    const menu = new MentionMenu({
       editor,
       items: mentionItems.map(item => ({
         id: item.id,
@@ -138,8 +138,8 @@ describe('ui / mention-popup-ui', () => {
     });
     const mentionRange = editor.selection.range.clone();
     mentionRange.selectNodeContents(editor.container);
-    popup.show(mentionRange);
-    expect(editor.popupContainer.find('.lake-mention-popup').length).to.equal(1);
+    menu.show(mentionRange);
+    expect(editor.popupContainer.find('.lake-mention-menu').length).to.equal(1);
   });
 
 });
