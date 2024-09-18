@@ -61,11 +61,11 @@ describe('ui / slash-popup', () => {
     range.selectNodeContents(editor.container);
     popup.show(range);
     expect(popup.visible).to.equal(true);
-    const firstItem = popup.container.find('.lake-slash-item').eq(0);
+    const firstItem = popup.container.find('.lake-menu-item').eq(0);
     firstItem.emit('mouseenter');
-    expect(firstItem.hasClass('lake-slash-item-selected')).to.equal(true);
+    expect(firstItem.hasClass('lake-menu-item-selected')).to.equal(true);
     firstItem.emit('mouseleave');
-    expect(firstItem.hasClass('lake-slash-item-selected')).to.equal(false);
+    expect(firstItem.hasClass('lake-menu-item-selected')).to.equal(false);
     popup.hide();
     expect(popup.visible).to.equal(false);
     popup.show(range);
@@ -94,11 +94,11 @@ describe('ui / slash-popup', () => {
     document.dispatchEvent(new KeyboardEvent('keydown', {
       key: 'ArrowDown',
     }));
-    expect(popup.container.find('.lake-slash-item').eq(2).hasClass('lake-slash-item-selected')).to.equal(true);
+    expect(popup.container.find('.lake-menu-item').eq(2).hasClass('lake-menu-item-selected')).to.equal(true);
     document.dispatchEvent(new KeyboardEvent('keydown', {
       key: 'ArrowUp',
     }));
-    expect(popup.container.find('.lake-slash-item').eq(1).hasClass('lake-slash-item-selected')).to.equal(true);
+    expect(popup.container.find('.lake-menu-item').eq(1).hasClass('lake-menu-item-selected')).to.equal(true);
     expect(popup.visible).to.equal(true);
     document.dispatchEvent(new KeyboardEvent('keydown', {
       key: 'Escape',
@@ -121,7 +121,7 @@ describe('ui / slash-popup', () => {
     const range = new Range();
     range.selectNodeContents(editor.container);
     popup.show(range, 'code block');
-    expect(popup.container.find('.lake-slash-item').length).to.equal(1);
+    expect(popup.container.find('.lake-menu-item').length).to.equal(1);
     popup.unmount();
     editor.unmount();
   });
@@ -139,9 +139,9 @@ describe('ui / slash-popup', () => {
     const range = new Range();
     range.selectNodeContents(editor.container);
     popup.show(range);
-    expect(popup.container.find('.lake-slash-item').length > 1).to.equal(true);
+    expect(popup.container.find('.lake-menu-item').length > 1).to.equal(true);
     popup.update('code block');
-    expect(popup.container.find('.lake-slash-item').length).to.equal(1);
+    expect(popup.container.find('.lake-menu-item').length).to.equal(1);
     popup.unmount();
     editor.unmount();
   });

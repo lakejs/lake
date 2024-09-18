@@ -75,7 +75,7 @@ describe('plugins / slash', () => {
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: 'Backspace',
     }));
-    expect(editor.popupContainer.find('.lake-slash-popup').find('.lake-slash-item').length).to.equal(1);
+    expect(editor.popupContainer.find('.lake-slash-popup').find('.lake-menu-item').length).to.equal(1);
   });
 
   it('should hide a popup box when there is no block', () => {
@@ -116,7 +116,7 @@ describe('plugins / slash', () => {
       key: '/',
     });
     editor.container.emit('keyup', event);
-    click(editor.popupContainer.find('.lake-slash-item').eq(0));
+    click(editor.popupContainer.find('.lake-menu-item').eq(0));
     expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('none');
     const value = editor.getValue();
     expect(value).to.equal('<h1><focus /><br /></h1>');
@@ -141,7 +141,7 @@ describe('plugins / slash', () => {
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '/',
     }));
-    click(editor.popupContainer.find('.lake-slash-item').eq(0));
+    click(editor.popupContainer.find('.lake-menu-item').eq(0));
     expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('none');
     const value = editor.getValue();
     expect(value).to.equal('<h6><focus /><br /></h6>');
@@ -152,7 +152,7 @@ describe('plugins / slash', () => {
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '/',
     }));
-    click(editor.popupContainer.find('.lake-slash-item').eq(0));
+    click(editor.popupContainer.find('.lake-menu-item').eq(0));
     expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('none');
     const value = editor.getValue();
     expect(value).to.equal('<p><lake-box type="inline" name="equation" focus="end"></lake-box></p>');
@@ -163,7 +163,7 @@ describe('plugins / slash', () => {
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '/',
     }));
-    click(editor.popupContainer.find('.lake-slash-item').eq(0));
+    click(editor.popupContainer.find('.lake-menu-item').eq(0));
     expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('none');
     const value = editor.getValue();
     expect(value).to.equal('<h6><focus /><br /></h6>');
@@ -175,13 +175,13 @@ describe('plugins / slash', () => {
       key: '/',
     }));
     expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('block');
-    expect(editor.popupContainer.find('.lake-slash-item').length).to.equal(1);
+    expect(editor.popupContainer.find('.lake-menu-item').length).to.equal(1);
     editor.setValue('<p>/heading <focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: 'Backspace',
     }));
     expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('block');
-    expect(editor.popupContainer.find('.lake-slash-item').length).to.equal(6);
+    expect(editor.popupContainer.find('.lake-menu-item').length).to.equal(6);
   });
 
   it('should hide popup when the search result is empty', () => {
@@ -190,7 +190,7 @@ describe('plugins / slash', () => {
       key: '/',
     }));
     expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('block');
-    expect(editor.popupContainer.find('.lake-slash-item').length).to.equal(1);
+    expect(editor.popupContainer.find('.lake-menu-item').length).to.equal(1);
     editor.setValue('<p>/heading 61<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '1',
@@ -204,7 +204,7 @@ describe('plugins / slash', () => {
       key: '/',
     }));
     expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('block');
-    expect(editor.popupContainer.find('.lake-slash-item').length).to.equal(1);
+    expect(editor.popupContainer.find('.lake-menu-item').length).to.equal(1);
     editor.setValue('<p>/heading 61<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '1',
@@ -215,7 +215,7 @@ describe('plugins / slash', () => {
       key: 'Backspace',
     }));
     expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('block');
-    expect(editor.popupContainer.find('.lake-slash-item').length).to.equal(1);
+    expect(editor.popupContainer.find('.lake-menu-item').length).to.equal(1);
   });
 
   it('should show popup when delete key is entered', () => {
@@ -224,7 +224,7 @@ describe('plugins / slash', () => {
       key: '/',
     }));
     expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('block');
-    expect(editor.popupContainer.find('.lake-slash-item').length).to.equal(1);
+    expect(editor.popupContainer.find('.lake-menu-item').length).to.equal(1);
     editor.setValue('<p>/heading 61<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '1',
@@ -235,7 +235,7 @@ describe('plugins / slash', () => {
       key: 'Delete',
     }));
     expect(editor.popupContainer.find('.lake-slash-popup').computedCSS('display')).to.equal('block');
-    expect(editor.popupContainer.find('.lake-slash-item').length).to.equal(1);
+    expect(editor.popupContainer.find('.lake-menu-item').length).to.equal(1);
   });
 
   it('image: should upload images', () => {

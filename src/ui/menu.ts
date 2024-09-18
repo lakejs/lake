@@ -191,7 +191,7 @@ export abstract class Menu<Type> {
 
   public show(range: Range, keyword?: string): void {
     const editor = this.editor;
-    if (this.root.find('.lake-menu-popup').length === 0) {
+    if (!this.container.get(0).isConnected) {
       this.render();
     } else {
       this.update();

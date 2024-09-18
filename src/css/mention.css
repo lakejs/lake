@@ -10,6 +10,9 @@ lake-box[name="mention"] .lake-box-focused .lake-mention {
   border-color: var(--selection-background-color);
   background-color: var(--selection-background-color);
 }
+.lake-mention-popup {
+  max-height: 180px;
+}
 .lake-mention-popup .lake-mention-avatar {
   margin-inline-end: 8px;
   line-height: 0;
