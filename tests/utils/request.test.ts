@@ -1,9 +1,6 @@
 import sinon from 'sinon';
 import { request } from '../../src/utils/request';
 
-let xhr: sinon.SinonFakeXMLHttpRequestStatic;
-let requests: any[];
-
 const empty = () => {};
 
 const option: any = {
@@ -17,6 +14,9 @@ const option: any = {
 };
 
 describe('utils / request', () => {
+
+  let xhr: sinon.SinonFakeXMLHttpRequestStatic;
+  let requests: any[];
 
   beforeEach(() => {
     xhr = sinon.useFakeXMLHttpRequest();

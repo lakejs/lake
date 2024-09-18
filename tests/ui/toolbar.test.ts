@@ -59,6 +59,8 @@ describe('ui / toolbar', () => {
   let rootNode: Nodes;
   let editor: Editor;
   let toolbar: Toolbar;
+  let xhr: sinon.SinonFakeXMLHttpRequestStatic;
+  let requests: sinon.SinonFakeXMLHttpRequest[];
 
   before(() => {
     rootNode = query('<div class="lake-editor"><div class="lake-toolbar-root"></div><div class="lake-root"></div></div>');
@@ -77,8 +79,8 @@ describe('ui / toolbar', () => {
   });
 
   after(() => {
-    editor.unmount();
-    rootNode.remove();
+    // editor.unmount();
+    // rootNode.remove();
   });
 
   it('undo: clicks button', () => {
@@ -544,53 +546,9 @@ describe('ui / toolbar', () => {
     expect(value).to.equal('<p><anchor />foo<focus /></p>');
   });
 
-  it('image: upload images', () => {
-    const xhr = sinon.useFakeXMLHttpRequest();
-    const requests: sinon.SinonFakeXMLHttpRequest[] = [];
-    xhr.onCreate = req => requests.push(req);
-    const files = [
-      new File(['foo'], 'heaven-lake-512.png', {
-        type: 'image/png',
-      }),
-      new File(['foo'], 'lac-gentau-256.jpg', {
-        type: 'image/png',
-      }),
-    ];
-    const event = {
-      ...new Event('change'),
-      target: {
-        ...new EventTarget(),
-        files,
-      },
-    };
-    editor.setValue('<p>foo<focus /></p>');
-    const buttonNode = toolbar.container.find('button[name="image"]');
-    buttonNode.emit('mouseenter');
-    expect(buttonNode.hasClass('lake-button-hovered')).to.equal(true);
-    buttonNode.emit('mouseleave');
-    expect(buttonNode.hasClass('lake-button-hovered')).to.equal(false);
-    buttonNode.parent().find('input[type="file"]').emit('change', event as Event);
-    requests[0].respond(200, {}, JSON.stringify({
-      url: '../assets/images/heaven-lake-512.png',
-    }));
-    requests[1].respond(200, {}, JSON.stringify({
-      url: '../assets/images/lac-gentau-256.jpg',
-    }));
-    xhr.restore();
-    const value = removeBoxValueFromHTML(editor.getValue());
-    debug(`output: ${value}`);
-    expect(value).to.equal('<p>foo<lake-box type="inline" name="image"></lake-box><lake-box type="inline" name="image" focus="end"></lake-box></p>');
-    const box1 = getBox(editor.container.find('lake-box').eq(0));
-    const box2 = getBox(editor.container.find('lake-box').eq(1));
-    expect(box1.value.status).to.equal('done');
-    expect(box1.value.url).to.equal('../assets/images/heaven-lake-512.png');
-    expect(box2.value.status).to.equal('done');
-    expect(box2.value.url).to.equal('../assets/images/lac-gentau-256.jpg');
-  });
-
   it('file: upload files', () => {
-    const xhr = sinon.useFakeXMLHttpRequest();
-    const requests: sinon.SinonFakeXMLHttpRequest[] = [];
+    xhr = sinon.useFakeXMLHttpRequest();
+    requests = [];
     xhr.onCreate = req => requests.push(req);
     const files = [
       new File(['foo'], 'heaven-lake-64.png', {
@@ -620,7 +578,6 @@ describe('ui / toolbar', () => {
     requests[1].respond(200, {}, JSON.stringify({
       url: '../assets/files/heaven-lake-wikipedia.pdf',
     }));
-    xhr.restore();
     const value = removeBoxValueFromHTML(editor.getValue());
     debug(`output: ${value}`);
     expect(value).to.equal('<p>foo<lake-box type="inline" name="file"></lake-box><lake-box type="inline" name="file" focus="end"></lake-box></p>');
@@ -630,6 +587,51 @@ describe('ui / toolbar', () => {
     expect(box1.value.url).to.equal('../assets/images/heaven-lake-64.png');
     expect(box2.value.status).to.equal('done');
     expect(box2.value.url).to.equal('../assets/files/heaven-lake-wikipedia.pdf');
+    xhr.restore();
+  });
+
+  it('image: upload images', () => {
+    xhr = sinon.useFakeXMLHttpRequest();
+    requests = [];
+    xhr.onCreate = req => requests.push(req);
+    const files = [
+      new File(['foo'], 'heaven-lake-512.png', {
+        type: 'image/png',
+      }),
+      new File(['foo'], 'lac-gentau-256.jpg', {
+        type: 'image/png',
+      }),
+    ];
+    const event = {
+      ...new Event('change'),
+      target: {
+        ...new EventTarget(),
+        files,
+      },
+    };
+    editor.setValue('<p>foo<focus /></p>');
+    const buttonNode = toolbar.container.find('button[name="image"]');
+    buttonNode.emit('mouseenter');
+    expect(buttonNode.hasClass('lake-button-hovered')).to.equal(true);
+    buttonNode.emit('mouseleave');
+    expect(buttonNode.hasClass('lake-button-hovered')).to.equal(false);
+    buttonNode.parent().find('input[type="file"]').emit('change', event as Event);
+    requests[0].respond(200, {}, JSON.stringify({
+      url: '../assets/images/heaven-lake-512.png',
+    }));
+    requests[1].respond(200, {}, JSON.stringify({
+      url: '../assets/images/lac-gentau-256.jpg',
+    }));
+    const value = removeBoxValueFromHTML(editor.getValue());
+    debug(`output: ${value}`);
+    expect(value).to.equal('<p>foo<lake-box type="inline" name="image"></lake-box><lake-box type="inline" name="image" focus="end"></lake-box></p>');
+    const box1 = getBox(editor.container.find('lake-box').eq(0));
+    const box2 = getBox(editor.container.find('lake-box').eq(1));
+    expect(box1.value.status).to.equal('done');
+    expect(box1.value.url).to.equal('../assets/images/heaven-lake-512.png');
+    expect(box2.value.status).to.equal('done');
+    expect(box2.value.url).to.equal('../assets/images/lac-gentau-256.jpg');
+    xhr.restore();
   });
 
 });

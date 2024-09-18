@@ -849,9 +849,10 @@ describe('editor', () => {
   });
 
   it('unmount method: should remove toolbar', () => {
-    const toolbarNode = rootNode.before('<div class="lake-toolbar-root" />');
+    const toolbarRoot = query('<div class="lake-toolbar-root" />');
+    rootNode.before(toolbarRoot);
     const toolbar = new Toolbar({
-      root: toolbarNode,
+      root: toolbarRoot,
     });
     const editor = new Editor({
       root: rootNode,
@@ -861,7 +862,7 @@ describe('editor', () => {
     expect(toolbar.root.hasClass('lake-custom-properties')).to.equal(true);
     editor.unmount();
     expect(toolbar.root.hasClass('lake-custom-properties')).to.equal(false);
-    toolbarNode.remove();
+    toolbarRoot.remove();
   });
 
   it('unmount method: should remove class', () => {

@@ -3,12 +3,12 @@ import { query } from '../../src/utils';
 import { Editor, Nodes } from '../../src';
 import { uploadFile } from '../../src/utils/upload-file';
 
-let xhr: sinon.SinonFakeXMLHttpRequestStatic;
-let requests: sinon.SinonFakeXMLHttpRequest[];
-let rootNode: Nodes;
-let editor: Editor;
-
 describe('utils / upload-file', () => {
+
+  let xhr: sinon.SinonFakeXMLHttpRequestStatic;
+  let requests: sinon.SinonFakeXMLHttpRequest[];
+  let rootNode: Nodes;
+  let editor: Editor;
 
   beforeEach(() => {
     xhr = sinon.useFakeXMLHttpRequest();
