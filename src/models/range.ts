@@ -647,6 +647,39 @@ export class Range {
     return text;
   }
 
+  // Returns a new text range from the specified character to the beginning of the current range.
+  // The specified character must be preceded by a whitespace or be at the beginning of a paragraph,
+  // without being adjacent to other characters. If these conditions are not met, it returns null.
+  public getCharacterRange(character: string): Range | null {
+    const newRange = this.clone();
+    newRange.shrink();
+    if (newRange.startOffset === 0) {
+      return null;
+    }
+    if (newRange.startNode.isElement) {
+      const textNode = newRange.startNode.children()[newRange.startOffset - 1];
+      if (!textNode.isText) {
+        return null;
+      }
+      newRange.setEnd(textNode, newRange.startNode.text().length);
+      newRange.collapseToEnd();
+    }
+    const textNode = newRange.startNode;
+    const text = textNode.text().slice(0, newRange.startOffset);
+    const lastIndexOfNormalSpace = text.lastIndexOf(` ${character}`);
+    const lastIndexOfNoBreakSpace = text.lastIndexOf(`\xA0${character}`);
+    if (text.indexOf(character) === 0) {
+      newRange.setStart(textNode, 0);
+    } else if (lastIndexOfNormalSpace >= 0) {
+      newRange.setStart(textNode, lastIndexOfNormalSpace + 1);
+    } else if (lastIndexOfNoBreakSpace >= 0) {
+      newRange.setStart(textNode, lastIndexOfNoBreakSpace + 1);
+    } else {
+      return null;
+    }
+    return newRange;
+  }
+
   // Returns a range object with boundary points identical to the cloned range.
   public clone(): Range {
     return new Range(this.range.cloneRange());

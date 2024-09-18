@@ -12,33 +12,6 @@ type MentionPopupConfig = {
   items: MentionItem[];
 };
 
-export function getTargetRange(range: Range): Range | null {
-  const targetRange = range.clone();
-  targetRange.shrink();
-  if (targetRange.startNode.isElement) {
-    if (targetRange.startOffset === 0) {
-      return null;
-    }
-    const textNode = targetRange.startNode.children()[targetRange.startOffset - 1];
-    targetRange.setEnd(textNode, targetRange.startNode.text().length);
-    targetRange.collapseToEnd();
-  }
-  const textNode = targetRange.startNode;
-  const text = textNode.text();
-  const lastIndexOfNormalSpaceAt = text.lastIndexOf(' @');
-  const lastIndexOfNoBreakSpaceAt = text.lastIndexOf('\xA0@');
-  if (text.indexOf('@') === 0) {
-    targetRange.setStart(textNode, 0);
-  } else if (lastIndexOfNormalSpaceAt >= 0) {
-    targetRange.setStart(textNode, lastIndexOfNormalSpaceAt + 1);
-  } else if (lastIndexOfNoBreakSpaceAt >= 0) {
-    targetRange.setStart(textNode, lastIndexOfNoBreakSpaceAt + 1);
-  } else {
-    return null;
-  }
-  return targetRange;
-}
-
 export class MentionPopup {
 
   private editor: Editor;
@@ -101,7 +74,7 @@ export class MentionPopup {
     itemNode.on('click', () => {
       this.hide();
       editor.focus();
-      const targetRange = getTargetRange(editor.selection.range);
+      const targetRange = editor.selection.range.getCharacterRange('@');
       if (targetRange) {
         targetRange.get().deleteContents();
       }

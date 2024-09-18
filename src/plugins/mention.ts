@@ -2,10 +2,10 @@ import { isKeyHotkey } from 'is-hotkey';
 import { MentionItem } from '../types/mention';
 import type { Editor, Range } from '..';
 import { request } from '../utils/request';
-import { MentionPopup, getTargetRange } from '../ui/mention-popup';
+import { MentionPopup } from '../ui/mention-popup';
 
 function getKeyword(range: Range): string | null {
-  const targetRange = getTargetRange(range);
+  const targetRange = range.getCharacterRange('@');
   if (targetRange === null) {
     return null;
   }
@@ -30,7 +30,7 @@ export default (editor: Editor) => {
     if (!range.isCollapsed) {
       return;
     }
-    const targetRange = getTargetRange(range);
+    const targetRange = range.getCharacterRange('@');
     if (targetRange === null) {
       return;
     }

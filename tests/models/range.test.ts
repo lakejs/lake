@@ -1073,6 +1073,129 @@ describe('models / range', () => {
     expect(range.getEndText()).to.equal('');
   });
 
+  it('getCharacterRange method: the character is at the beginning of a paragraph (1)', () => {
+    container.html('<div contenteditable="true"><p>@foo</p></div>');
+    const range = new Range();
+    const paragraphNode = container.find('p');
+    const textNode = paragraphNode.first();
+    range.setStart(paragraphNode, 1);
+    const newRange = range.getCharacterRange('@');
+    expect(newRange === null).to.equal(false);
+    if (newRange) {
+      expect(newRange.startNode.id).to.equal(textNode.id);
+      expect(newRange.startOffset).to.equal(0);
+      expect(newRange.endNode.id).to.equal(textNode.id);
+      expect(newRange.endOffset).to.equal(textNode.text().length);
+    }
+  });
+
+  it('getCharacterRange method: the character is at the beginning of a paragraph (2)', () => {
+    container.html('<div contenteditable="true"><p>@foo</p></div>');
+    const range = new Range();
+    const paragraphNode = container.find('p');
+    const textNode = paragraphNode.first();
+    range.setStart(textNode, 2);
+    const newRange = range.getCharacterRange('@');
+    expect(newRange === null).to.equal(false);
+    if (newRange) {
+      expect(newRange.startNode.id).to.equal(textNode.id);
+      expect(newRange.startOffset).to.equal(0);
+      expect(newRange.endNode.id).to.equal(textNode.id);
+      expect(newRange.endOffset).to.equal(2);
+    }
+  });
+
+  it('getCharacterRange method: the character is preceded by a whitespace (1)', () => {
+    container.html('<div contenteditable="true"><p>foo @bar</p></div>');
+    const range = new Range();
+    const paragraphNode = container.find('p');
+    const textNode = paragraphNode.first();
+    range.setStart(paragraphNode, 1);
+    const newRange = range.getCharacterRange('@');
+    expect(newRange === null).to.equal(false);
+    if (newRange) {
+      expect(newRange.startNode.id).to.equal(textNode.id);
+      expect(newRange.startOffset).to.equal(4);
+      expect(newRange.endNode.id).to.equal(textNode.id);
+      expect(newRange.endOffset).to.equal(textNode.text().length);
+    }
+  });
+
+  it('getCharacterRange method: the character is preceded by a whitespace (2)', () => {
+    container.html('<div contenteditable="true"><p>foo @bar</p></div>');
+    const range = new Range();
+    const paragraphNode = container.find('p');
+    const textNode = paragraphNode.first();
+    range.setStart(textNode, 6);
+    const newRange = range.getCharacterRange('@');
+    expect(newRange === null).to.equal(false);
+    if (newRange) {
+      expect(newRange.startNode.id).to.equal(textNode.id);
+      expect(newRange.startOffset).to.equal(4);
+      expect(newRange.endNode.id).to.equal(textNode.id);
+      expect(newRange.endOffset).to.equal(6);
+    }
+  });
+
+  it('getCharacterRange method: with two specified characters (1)', () => {
+    container.html('<div contenteditable="true"><p>@foo @</p></div>');
+    const range = new Range();
+    const paragraphNode = container.find('p');
+    const textNode = paragraphNode.first();
+    range.setStart(textNode, 2);
+    const newRange = range.getCharacterRange('@');
+    expect(newRange === null).to.equal(false);
+    if (newRange) {
+      expect(newRange.startNode.id).to.equal(textNode.id);
+      expect(newRange.startOffset).to.equal(0);
+      expect(newRange.endNode.id).to.equal(textNode.id);
+      expect(newRange.endOffset).to.equal(2);
+    }
+  });
+
+  it('getCharacterRange method: with two specified characters (2)', () => {
+    container.html('<div contenteditable="true"><p>foo @bar @</p></div>');
+    const range = new Range();
+    const paragraphNode = container.find('p');
+    const textNode = paragraphNode.first();
+    range.setStart(textNode, 6);
+    const newRange = range.getCharacterRange('@');
+    expect(newRange === null).to.equal(false);
+    if (newRange) {
+      expect(newRange.startNode.id).to.equal(textNode.id);
+      expect(newRange.startOffset).to.equal(4);
+      expect(newRange.endNode.id).to.equal(textNode.id);
+      expect(newRange.endOffset).to.equal(6);
+    }
+  });
+
+  it('getCharacterRange method: the character is not preceded by a whitespace', () => {
+    container.html('<div contenteditable="true"><p>foo@bar</p></div>');
+    const range = new Range();
+    const paragraphNode = container.find('p');
+    range.setStart(paragraphNode, 1);
+    const newRange = range.getCharacterRange('@');
+    expect(newRange === null).to.equal(true);
+  });
+
+  it('getCharacterRange method: no the specified character', () => {
+    container.html('<div contenteditable="true"><p>foo</p></div>');
+    const range = new Range();
+    const paragraphNode = container.find('p');
+    range.setStart(paragraphNode, 1);
+    const newRange = range.getCharacterRange('@');
+    expect(newRange === null).to.equal(true);
+  });
+
+  it('getCharacterRange method: no text', () => {
+    container.html('<div contenteditable="true"><p><br /></p></div>');
+    const range = new Range();
+    const paragraphNode = container.find('p');
+    range.setStart(paragraphNode, 1);
+    const newRange = range.getCharacterRange('@');
+    expect(newRange === null).to.equal(true);
+  });
+
   it('method: clone', () => {
     container.html('<strong>foo</strong>bar');
     const range = new Range();
