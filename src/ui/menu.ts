@@ -199,6 +199,7 @@ export abstract class Menu<Type> {
     this.range = range;
     this.container.css('visibility', 'hidden');
     this.container.show();
+    (this.container.get(0) as Element).scrollTo(0, 0);
     this.position();
     // for fixing the container's width
     this.container.css('width', '');
