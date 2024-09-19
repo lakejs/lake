@@ -6,7 +6,7 @@ import { query } from '../utils/query';
 import { nodePosition } from '../utils/node-position';
 import { Nodes } from '../models/nodes';
 import { Button } from './button';
-import { i18nObject } from '../../src/i18n';
+import { i18nObject } from '../i18n';
 
 type LinkPopupConfig = {
   root: Nodes;

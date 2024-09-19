@@ -9,7 +9,7 @@ import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { Button } from './button';
 import { Dropdown } from './dropdown';
-import { i18nObject } from '../../src/i18n';
+import { i18nObject } from '../i18n';
 
 export class BoxToolbar {
 

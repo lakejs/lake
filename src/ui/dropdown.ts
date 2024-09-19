@@ -8,7 +8,7 @@ import { template } from '../utils/template';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
-import { i18nObject } from '../../src/i18n';
+import { i18nObject } from '../i18n';
 
 type DropdownConfig = DropdownItem & {
   root: Nodes;
