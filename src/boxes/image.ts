@@ -175,8 +175,12 @@ async function renderError(rootNode: Nodes, box: Box): Promise<void> {
 // Displays an image with uplaoding progress.
 async function renderUploading(rootNode: Nodes, box: Box): Promise<void> {
   const editor = box.getEditor();
+  const boxContainer = box.getContainer();
   const value = box.value;
   const imageInfo = await getImageInfo(value.url);
+  if (!boxContainer.get(0).isConnected) {
+    return;
+  }
   if (!imageInfo.width || !imageInfo.height) {
     await renderError(rootNode, box);
     return;

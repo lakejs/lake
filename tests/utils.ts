@@ -14,6 +14,17 @@ export const isMac = navigator.userAgent.indexOf('Mac OS X') >= 0;
 // Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0
 export const isFirefox = navigator.userAgent.indexOf('Firefox/') >= 0;
 
+// Helper function to convert a base64 data string to binary format
+export function base64ToArrayBuffer(base64: string) {
+  const binaryString = window.atob(base64); // Decode base64
+  const len = binaryString.length;
+  const bytes = new Uint8Array(len);
+  for (let i = 0; i < len; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  return bytes.buffer;
+}
+
 export function click(node: Nodes): void {
   (node.get(0) as HTMLElement).click();
 }

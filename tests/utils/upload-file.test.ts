@@ -1,7 +1,10 @@
 import sinon from 'sinon';
+import { base64ToArrayBuffer } from '../utils';
 import { query } from '../../src/utils';
 import { Editor, Nodes } from '../../src';
 import { uploadFile } from '../../src/utils/upload-file';
+
+const imgBuffer = base64ToArrayBuffer('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAwAB/orejrsAAAAASUVORK5CYII=');
 
 describe('utils / upload-file', () => {
 
@@ -30,7 +33,7 @@ describe('utils / upload-file', () => {
   });
 
   it('uploadImage: upload successful', done => {
-    const file = new File(['foo'], 'foo.png', {
+    const file = new File([imgBuffer], 'foo.png', {
       type: 'image/png',
     });
     const box = uploadFile({
@@ -66,7 +69,7 @@ describe('utils / upload-file', () => {
   });
 
   it('uploadImage: server error with status 500', done => {
-    const file = new File(['foo'], 'foo.png', {
+    const file = new File([imgBuffer], 'foo.png', {
       type: 'image/png',
     });
     const box = uploadFile({
@@ -86,7 +89,7 @@ describe('utils / upload-file', () => {
   });
 
   it('uploadImage: server error with status 200', done => {
-    const file = new File(['foo'], 'foo.png', {
+    const file = new File([imgBuffer], 'foo.png', {
       type: 'image/png',
     });
     const box = uploadFile({

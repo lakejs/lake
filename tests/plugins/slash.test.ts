@@ -1,7 +1,9 @@
 import sinon from 'sinon';
-import { click, removeBoxValueFromHTML } from '../utils';
+import { click, removeBoxValueFromHTML, base64ToArrayBuffer } from '../utils';
 import { query, debug, getBox } from '../../src/utils';
 import { Editor, Nodes, SlashItem, icons } from '../../src';
+
+const imgBuffer = base64ToArrayBuffer('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAwAB/orejrsAAAAASUVORK5CYII=');
 
 const boldSlashItem: SlashItem = {
   name: 'bold',
@@ -243,10 +245,10 @@ describe('plugins / slash', () => {
     const requests: sinon.SinonFakeXMLHttpRequest[] = [];
     xhr.onCreate = req => requests.push(req);
     const files = [
-      new File(['foo'], 'heaven-lake-512.png', {
+      new File([imgBuffer], 'heaven-lake-512.png', {
         type: 'image/png',
       }),
-      new File(['foo'], 'lac-gentau-256.jpg', {
+      new File([imgBuffer], 'lac-gentau-256.jpg', {
         type: 'image/png',
       }),
     ];
@@ -285,10 +287,10 @@ describe('plugins / slash', () => {
     const requests: sinon.SinonFakeXMLHttpRequest[] = [];
     xhr.onCreate = req => requests.push(req);
     const files = [
-      new File(['foo'], 'heaven-lake-64.png', {
+      new File([imgBuffer], 'heaven-lake-64.png', {
         type: 'image/png',
       }),
-      new File(['bar'], 'heaven-lake-wikipedia.pdf', {
+      new File(['foo'], 'heaven-lake-wikipedia.pdf', {
         type: 'application/pdf',
       }),
     ];

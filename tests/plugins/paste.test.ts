@@ -1,10 +1,11 @@
 import sinon from 'sinon';
-import { testPlugin } from '../utils';
+import { testPlugin, base64ToArrayBuffer } from '../utils';
 import { Editor } from '../../src';
 import { getBox } from '../../src/utils';
 
 const imageUrl = '../assets/images/heaven-lake-256.png';
 const imageBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTI1Ni5wbmciLCJzdGF0dXMiOiJkb25lIn0=';
+const imgBuffer = base64ToArrayBuffer('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAwAB/orejrsAAAAASUVORK5CYII=');
 
 function pasteData(editor: Editor, format: string, data: string) {
   const event = new ClipboardEvent('paste', {
@@ -1042,7 +1043,7 @@ describe('plugins / paste', () => {
     const requests: sinon.SinonFakeXMLHttpRequest[] = [];
     xhr.onCreate = req => requests.push(req);
     const files = [
-      new File(['foo'], 'heaven-lake-512.png', {
+      new File([imgBuffer], 'heaven-lake-512.png', {
         type: 'image/png',
       }),
     ];
