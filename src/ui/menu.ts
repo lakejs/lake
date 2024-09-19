@@ -34,7 +34,7 @@ export abstract class Menu<Type> {
     this.editor = config.editor;
     this.root = config.editor.popupContainer;
     this.items = config.items;
-    this.container = query('<ul class="lake-menu-popup" />');
+    this.container = query('<ul class="lake-menu" />');
   }
 
   protected abstract getItemNode(item: Type): Nodes;

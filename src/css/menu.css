@@ -1,4 +1,4 @@
-.lake-menu-popup {
+.lake-menu {
   position: absolute;
   top: 0;
   left: 0;
@@ -20,7 +20,7 @@
   scrollbar-width: thin;
   user-select: none;
 }
-.lake-menu-popup .lake-menu-item {
+.lake-menu .lake-menu-item {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -29,6 +29,6 @@
   border-radius: 5px;
   scroll-margin: 4px 0;
 }
-.lake-menu-popup .lake-menu-item-selected {
+.lake-menu .lake-menu-item-selected {
   background-color: var(--background-active-color);
 }
