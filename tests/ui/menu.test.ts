@@ -1,5 +1,5 @@
 import { query } from '../../src/utils';
-import { SlashPopup } from '../../src/ui/slash-popup';
+import { SlashMenu } from '../../src/ui/slash-menu';
 import { Editor, Nodes, Range, SlashItem, icons } from '../../src';
 
 const boldSlashItem: SlashItem = {
@@ -47,31 +47,31 @@ describe('ui / menu', () => {
     rootNode.remove();
   });
 
-  it('should show and hide popup', () => {
+  it('should show and hide menu', () => {
     const editor = new Editor({
       root: rootNode,
       value: '<p>/<focus /></p>',
     });
     editor.render();
-    const popup = new SlashPopup({
+    const menu = new SlashMenu({
       editor,
       items: slashItems,
     });
     const range = new Range();
     range.selectNodeContents(editor.container);
-    popup.show(range);
-    expect(popup.visible).to.equal(true);
-    const firstItem = popup.container.find('.lake-menu-item').eq(0);
+    menu.show(range);
+    expect(menu.visible).to.equal(true);
+    const firstItem = menu.container.find('.lake-menu-item').eq(0);
     firstItem.emit('mouseenter');
     expect(firstItem.hasClass('lake-menu-item-selected')).to.equal(true);
     firstItem.emit('mouseleave');
     expect(firstItem.hasClass('lake-menu-item-selected')).to.equal(false);
-    popup.hide();
-    expect(popup.visible).to.equal(false);
-    popup.show(range);
-    expect(popup.visible).to.equal(true);
-    popup.unmount();
-    expect(popup.visible).to.equal(false);
+    menu.hide();
+    expect(menu.visible).to.equal(false);
+    menu.show(range);
+    expect(menu.visible).to.equal(true);
+    menu.unmount();
+    expect(menu.visible).to.equal(false);
     editor.unmount();
   });
 
@@ -81,30 +81,30 @@ describe('ui / menu', () => {
       value: '<p>/<focus /></p>',
     });
     editor.render();
-    const popup = new SlashPopup({
+    const menu = new SlashMenu({
       editor,
       items: slashItems,
     });
     const range = new Range();
     range.selectNodeContents(editor.container);
-    popup.show(range);
+    menu.show(range);
     document.dispatchEvent(new KeyboardEvent('keydown', {
       key: 'ArrowDown',
     }));
     document.dispatchEvent(new KeyboardEvent('keydown', {
       key: 'ArrowDown',
     }));
-    expect(popup.container.find('.lake-menu-item').eq(2).hasClass('lake-menu-item-selected')).to.equal(true);
+    expect(menu.container.find('.lake-menu-item').eq(2).hasClass('lake-menu-item-selected')).to.equal(true);
     document.dispatchEvent(new KeyboardEvent('keydown', {
       key: 'ArrowUp',
     }));
-    expect(popup.container.find('.lake-menu-item').eq(1).hasClass('lake-menu-item-selected')).to.equal(true);
-    expect(popup.visible).to.equal(true);
+    expect(menu.container.find('.lake-menu-item').eq(1).hasClass('lake-menu-item-selected')).to.equal(true);
+    expect(menu.visible).to.equal(true);
     document.dispatchEvent(new KeyboardEvent('keydown', {
       key: 'Escape',
     }));
-    expect(popup.visible).to.equal(false);
-    popup.unmount();
+    expect(menu.visible).to.equal(false);
+    menu.unmount();
     editor.unmount();
   });
 
@@ -114,15 +114,15 @@ describe('ui / menu', () => {
       value: '<p>/<focus /></p>',
     });
     editor.render();
-    const popup = new SlashPopup({
+    const menu = new SlashMenu({
       editor,
       items: slashItems,
     });
     const range = new Range();
     range.selectNodeContents(editor.container);
-    popup.show(range, 'code block');
-    expect(popup.container.find('.lake-menu-item').length).to.equal(1);
-    popup.unmount();
+    menu.show(range, 'code block');
+    expect(menu.container.find('.lake-menu-item').length).to.equal(1);
+    menu.unmount();
     editor.unmount();
   });
 
@@ -132,17 +132,17 @@ describe('ui / menu', () => {
       value: '<p>/<focus /></p>',
     });
     editor.render();
-    const popup = new SlashPopup({
+    const menu = new SlashMenu({
       editor,
       items: slashItems,
     });
     const range = new Range();
     range.selectNodeContents(editor.container);
-    popup.show(range);
-    expect(popup.container.find('.lake-menu-item').length > 1).to.equal(true);
-    popup.update('code block');
-    expect(popup.container.find('.lake-menu-item').length).to.equal(1);
-    popup.unmount();
+    menu.show(range);
+    expect(menu.container.find('.lake-menu-item').length > 1).to.equal(true);
+    menu.update('code block');
+    expect(menu.container.find('.lake-menu-item').length).to.equal(1);
+    menu.unmount();
     editor.unmount();
   });
 

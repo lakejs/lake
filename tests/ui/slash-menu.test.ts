@@ -1,5 +1,5 @@
 import { query } from '../../src/utils';
-import { SlashPopup } from '../../src/ui/slash-popup';
+import { SlashMenu } from '../../src/ui/slash-menu';
 import { Editor, Nodes, Range, SlashItem, icons } from '../../src';
 
 const boldSlashItem: SlashItem = {
@@ -34,7 +34,7 @@ const slashItems: (string | SlashItem)[] = [
   'equation',
 ];
 
-describe('ui / slash-popup', () => {
+describe('ui / slash-menu', () => {
 
   let rootNode: Nodes;
 
@@ -53,16 +53,16 @@ describe('ui / slash-popup', () => {
       value: '<p>/<focus /></p>',
     });
     editor.render();
-    const popup = new SlashPopup({
+    const menu = new SlashMenu({
       editor,
       items: slashItems,
     });
     const range = new Range();
     range.selectNodeContents(editor.container);
-    popup.show(range);
-    const items = popup.search('code block');
+    menu.show(range);
+    const items = menu.search('code block');
     expect(items).to.deep.equal(['codeBlock']);
-    popup.unmount();
+    menu.unmount();
     editor.unmount();
   });
 
@@ -72,16 +72,16 @@ describe('ui / slash-popup', () => {
       value: '<p>/<focus /></p>',
     });
     editor.render();
-    const popup = new SlashPopup({
+    const menu = new SlashMenu({
       editor,
       items: slashItems,
     });
     const range = new Range();
     range.selectNodeContents(editor.container);
-    popup.show(range);
-    const items = popup.search('codeblock');
+    menu.show(range);
+    const items = menu.search('codeblock');
     expect(items).to.deep.equal(['codeBlock']);
-    popup.unmount();
+    menu.unmount();
     editor.unmount();
   });
 

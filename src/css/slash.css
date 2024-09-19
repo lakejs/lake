@@ -1,30 +1,30 @@
-.lake-slash-popup {
+.lake-slash-menu {
   max-height: 380px;
 }
-.lake-slash-popup .lake-menu-item input[type="file"] {
+.lake-slash-menu .lake-menu-item input[type="file"] {
   display: none;
 }
-.lake-slash-popup .lake-slash-icon {
+.lake-slash-menu .lake-slash-icon {
   margin-inline-end: 8px;
   border-radius: 5px;
   border: 1px solid var(--border-color);
   background-color: #fff;
 }
-.lake-slash-popup .lake-slash-icon svg,
-.lake-slash-popup .lake-slash-icon img {
+.lake-slash-menu .lake-slash-icon svg,
+.lake-slash-menu .lake-slash-icon img {
   width: 32px;
   height: 32px;
   margin: 6px;
 }
-.lake-slash-popup .lake-slash-text {
+.lake-slash-menu .lake-slash-text {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.lake-slash-popup .lake-slash-title {
+.lake-slash-menu .lake-slash-title {
   font-weight: 500;
   color: var(--text-color);
 }
-.lake-slash-popup .lake-slash-description {
+.lake-slash-menu .lake-slash-description {
   color: #8c8c8c;
 }

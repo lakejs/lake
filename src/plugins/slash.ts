@@ -1,7 +1,7 @@
 import { isKeyHotkey } from 'is-hotkey';
 import type { Editor } from '..';
 import type { Nodes } from '../models/nodes';
-import { SlashPopup } from '../ui/slash-popup';
+import { SlashMenu } from '../ui/slash-menu';
 
 const defaultItems: string[] = [
   'heading1',
@@ -27,7 +27,7 @@ function getKeyword(block: Nodes): string | null {
   return text.substring(1);
 }
 
-function showPopup(editor: Editor, popup: SlashPopup): void {
+function showPopup(editor: Editor, menu: SlashMenu): void {
   const range = editor.selection.range;
   if (!range.isCollapsed) {
     return;
@@ -45,7 +45,7 @@ function showPopup(editor: Editor, popup: SlashPopup): void {
   }
   const slashRange = range.clone();
   slashRange.selectNodeContents(block);
-  popup.show(slashRange, keyword);
+  menu.show(slashRange, keyword);
 }
 
 export default (editor: Editor) => {
@@ -55,7 +55,7 @@ export default (editor: Editor) => {
   if (editor.readonly) {
     return;
   }
-  const popup = new SlashPopup({
+  const menu = new SlashMenu({
     editor,
     items: editor.config.slash.items,
   });
@@ -67,13 +67,13 @@ export default (editor: Editor) => {
     if (isKeyHotkey(['down' ,'up', 'enter'], keyboardEvent)) {
       return;
     }
-    if (!popup.visible) {
+    if (!menu.visible) {
       if (isKeyHotkey('/', keyboardEvent)) {
-        showPopup(editor, popup);
+        showPopup(editor, menu);
         return;
       }
       if (isKeyHotkey(['backspace', 'delete'], keyboardEvent)) {
-        showPopup(editor, popup);
+        showPopup(editor, menu);
       } else {
         return;
       }
@@ -85,10 +85,10 @@ export default (editor: Editor) => {
     }
     const keyword = getKeyword(block);
     if (keyword === null) {
-      popup.hide();
+      menu.hide();
       return;
     }
-    popup.update(keyword);
+    menu.update(keyword);
   });
-  return () => popup.unmount();
+  return () => menu.unmount();
 };

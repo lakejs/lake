@@ -24,7 +24,7 @@ export default (editor: Editor) => {
     return;
   }
   const { requestAction, requestMethod, items } = editor.config.mention;
-  let popup: MentionMenu | null = null;
+  let menu: MentionMenu | null = null;
   const showPopup = () => {
     const range = editor.selection.range;
     if (!range.isCollapsed) {
@@ -38,32 +38,32 @@ export default (editor: Editor) => {
     if (keyword === null) {
       return;
     }
-    if (!popup) {
+    if (!menu) {
       if (requestAction) {
         request({
           onSuccess: body => {
             if (!body.data) {
               return;
             }
-            popup = new MentionMenu({
+            menu = new MentionMenu({
               editor,
               items: body.data,
             });
-            popup.show(targetRange, keyword);
+            menu.show(targetRange, keyword);
           },
           action: requestAction,
           method: requestMethod,
         });
       } else {
-        popup = new MentionMenu({
+        menu = new MentionMenu({
           editor,
           items,
         });
-        popup.show(targetRange, keyword);
+        menu.show(targetRange, keyword);
       }
       return;
     }
-    popup.show(targetRange, keyword);
+    menu.show(targetRange, keyword);
   };
   editor.container.on('keyup', event => {
     if (editor.isComposing) {
@@ -73,7 +73,7 @@ export default (editor: Editor) => {
     if (isKeyHotkey(['down' ,'up', 'enter'], keyboardEvent)) {
       return;
     }
-    if (!popup || !popup.visible) {
+    if (!menu || !menu.visible) {
       if (keyboardEvent.key === '@') {
         showPopup();
         return;
@@ -87,18 +87,18 @@ export default (editor: Editor) => {
     const range = editor.selection.range;
     const keyword = getKeyword(range);
     if (keyword === null) {
-      if (popup) {
-        popup.hide();
+      if (menu) {
+        menu.hide();
       }
       return;
     }
-    if (popup) {
-      popup.update(keyword);
+    if (menu) {
+      menu.update(keyword);
     }
   });
   return () => {
-    if (popup) {
-      popup.unmount();
+    if (menu) {
+      menu.unmount();
     }
   };
 };

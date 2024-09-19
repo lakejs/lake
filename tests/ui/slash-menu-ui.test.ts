@@ -1,5 +1,5 @@
 import { query } from '../../src/utils';
-import { SlashPopup } from '../../src/ui/slash-popup';
+import { SlashMenu } from '../../src/ui/slash-menu';
 import { Editor, SlashItem, icons } from '../../src';
 
 const boldSlashItem: SlashItem = {
@@ -34,9 +34,9 @@ const slashItems: (string | SlashItem)[] = [
   'equation',
 ];
 
-describe('ui / slash-popup-ui', () => {
+describe('ui / slash-menu-ui', () => {
 
-  it('slash popup', () => {
+  it('slash menu', () => {
     const rootNode = query('<div class="lake-root"></div>');
     query(document.body).append(rootNode);
     const editor = new Editor({
@@ -44,14 +44,14 @@ describe('ui / slash-popup-ui', () => {
       value: '<p>/<focus /></p>',
     });
     editor.render();
-    const popup = new SlashPopup({
+    const menu = new SlashMenu({
       editor,
       items: slashItems,
     });
     const slashRange = editor.selection.range.clone();
     slashRange.selectNodeContents(editor.container);
-    popup.show(slashRange);
-    expect(editor.popupContainer.find('.lake-slash-popup').length).to.equal(1);
+    menu.show(slashRange);
+    expect(editor.popupContainer.find('.lake-slash-menu').length).to.equal(1);
   });
 
 });

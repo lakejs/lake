@@ -14,11 +14,11 @@ for (const item of slashItems) {
   slashItemMap.set(item.name, item);
 }
 
-export class SlashPopup extends Menu<string | SlashItem> {
+export class SlashMenu extends Menu<string | SlashItem> {
 
   constructor(config: MenuConfig<string | SlashItem>) {
     super(config);
-    this.container.addClass('lake-slash-popup');
+    this.container.addClass('lake-slash-menu');
   }
 
   private getItem(name: string | SlashItem): SlashItem {
