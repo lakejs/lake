@@ -27,8 +27,6 @@ export abstract class Menu<Type> {
 
   protected noMouseEvent: boolean = false;
 
-  protected keyword: string | null = null;
-
   public container: Nodes;
 
   constructor(config: MenuConfig<Type>) {
@@ -40,7 +38,7 @@ export abstract class Menu<Type> {
 
   protected abstract getItemNode(item: Type): Nodes;
 
-  public appendItem(itemNode: Nodes): void {
+  private appendItemNode(itemNode: Nodes): void {
     itemNode.on('mouseenter', () => {
       if (this.noMouseEvent) {
         return;
@@ -55,6 +53,22 @@ export abstract class Menu<Type> {
       itemNode.removeClass('lake-menu-item-selected');
     });
     this.container.append(itemNode);
+  }
+
+  private appendItems(items: Type[]): void {
+    this.container.empty();
+    for (const item of items) {
+      const itemNode = this.getItemNode(item);
+      itemNode.addClass('lake-menu-item');
+      this.appendItemNode(itemNode);
+    }
+  }
+
+  private selectFirstItemNodeIfNeeded(): void {
+    const selectedItemNode = this.container.find('.lake-menu-item-selected');
+    if (selectedItemNode.length === 0) {
+      this.container.find('.lake-menu-item').eq(0).addClass('lake-menu-item-selected');
+    }
   }
 
   private keydownListener = (event: KeyboardEvent) => {
@@ -121,9 +135,9 @@ export abstract class Menu<Type> {
     this.hide();
   };
 
-  private scrollListener = () =>this.position();
+  private scrollListener = () => this.position();
 
-  private resizeListener = () =>this.position();
+  private resizeListener = () => this.position();
 
   public get visible(): boolean {
     return this.container.get(0).isConnected && this.container.computedCSS('display') !== 'none';
@@ -163,47 +177,34 @@ export abstract class Menu<Type> {
     }
   }
 
-  public render(): void {
-    this.root.append(this.container);
-    this.update();
-  }
-
-  public update(keyword: string | null = null): void {
-    if (keyword !== null && this.keyword === keyword) {
-      return;
-    }
-    const items = keyword !== null ? this.search(keyword) : this.items;
+  public update(keyword: string): void {
+    const items = this.search(keyword);
     if (items.length === 0) {
       this.hide();
       return;
     }
-    this.keyword = keyword;
-    this.container.empty();
-    for (const item of items) {
-      const itemNode = this.getItemNode(item);
-      itemNode.addClass('lake-menu-item');
-      this.appendItem(itemNode);
-    }
-    const selectedItemNode = this.container.find('.lake-menu-item-selected');
-    if (selectedItemNode.length === 0) {
-      this.container.find('.lake-menu-item').eq(0).addClass('lake-menu-item-selected');
-    }
+    this.appendItems(items);
+    this.selectFirstItemNodeIfNeeded();
     this.position(true);
   }
 
   public show(range: Range, keyword?: string): void {
     const editor = this.editor;
-    if (!this.container.get(0).isConnected) {
-      this.render();
-    } else {
-      this.update();
+    if (this.items.length === 0) {
+      return;
     }
+    if (!this.container.get(0).isConnected) {
+      this.root.append(this.container);
+    }
+    // append all items for fixing the container's width
+    this.appendItems(this.items);
+    this.selectFirstItemNodeIfNeeded();
     this.range = range;
     this.container.css('visibility', 'hidden');
     this.container.show();
     (this.container.get(0) as Element).scrollTo(0, 0);
     this.position();
-    // for fixing the container's width
+    // fix the container's width
     this.container.css('width', '');
     this.container.css('width', `${this.container.width()}px`);
     if (keyword) {

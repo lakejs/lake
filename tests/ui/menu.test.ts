@@ -76,6 +76,25 @@ describe('ui / menu', () => {
     editor.unmount();
   });
 
+  it('should not show menu with empty items', () => {
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p>/<focus /></p>',
+    });
+    editor.render();
+    const menu = new SlashMenu({
+      editor,
+      root: editor.popupContainer,
+      items: [],
+    });
+    const range = new Range();
+    range.selectNodeContents(editor.container);
+    menu.show(range);
+    expect(menu.visible).to.equal(false);
+    menu.unmount();
+    editor.unmount();
+  });
+
   it('keydown event: should select an item using keyboard', () => {
     const editor = new Editor({
       root: rootNode,
