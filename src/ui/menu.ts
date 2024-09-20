@@ -7,6 +7,7 @@ import { Range } from '../models/range';
 
 export type MenuConfig<Type> = {
   editor: Editor;
+  root: Nodes;
   items: Type[];
 };
 
@@ -32,7 +33,7 @@ export abstract class Menu<Type> {
 
   constructor(config: MenuConfig<Type>) {
     this.editor = config.editor;
-    this.root = config.editor.popupContainer;
+    this.root = config.root;
     this.items = config.items;
     this.container = query('<ul class="lake-menu" />');
   }

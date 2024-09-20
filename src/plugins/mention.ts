@@ -47,6 +47,7 @@ export default (editor: Editor) => {
             }
             menu = new MentionMenu({
               editor,
+              root: editor.popupContainer,
               items: body.data,
             });
             menu.show(targetRange, keyword);
@@ -57,6 +58,7 @@ export default (editor: Editor) => {
       } else {
         menu = new MentionMenu({
           editor,
+          root: editor.popupContainer,
           items,
         });
         menu.show(targetRange, keyword);

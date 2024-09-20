@@ -46,6 +46,7 @@ describe('ui / slash-menu-ui', () => {
     editor.render();
     const menu = new SlashMenu({
       editor,
+      root: editor.popupContainer,
       items: slashItems,
     });
     const slashRange = editor.selection.range.clone();

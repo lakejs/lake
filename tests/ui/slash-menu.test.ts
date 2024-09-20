@@ -55,6 +55,7 @@ describe('ui / slash-menu', () => {
     editor.render();
     const menu = new SlashMenu({
       editor,
+      root: editor.popupContainer,
       items: slashItems,
     });
     const range = new Range();
@@ -74,6 +75,7 @@ describe('ui / slash-menu', () => {
     editor.render();
     const menu = new SlashMenu({
       editor,
+      root: editor.popupContainer,
       items: slashItems,
     });
     const range = new Range();

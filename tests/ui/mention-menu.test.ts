@@ -50,6 +50,7 @@ describe('ui / mention-menu', () => {
     editor.render();
     const menu = new MentionMenu({
       editor,
+      root: editor.popupContainer,
       items: mentionItems,
     });
     const range = new Range();
@@ -69,6 +70,7 @@ describe('ui / mention-menu', () => {
     editor.render();
     const menu = new MentionMenu({
       editor,
+      root: editor.popupContainer,
       items: mentionItems,
     });
     const range = new Range();

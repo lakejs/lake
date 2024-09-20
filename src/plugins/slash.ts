@@ -57,6 +57,7 @@ export default (editor: Editor) => {
   }
   const menu = new SlashMenu({
     editor,
+    root: editor.popupContainer,
     items: editor.config.slash.items,
   });
   editor.container.on('keyup', event => {

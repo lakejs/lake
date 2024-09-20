@@ -90,6 +90,7 @@ describe('ui / mention-menu-ui', () => {
     editor.render();
     const menu = new MentionMenu({
       editor,
+      root: editor.popupContainer,
       items: mentionItems,
     });
     const mentionRange = editor.selection.range.clone();
@@ -108,6 +109,7 @@ describe('ui / mention-menu-ui', () => {
     editor.render();
     const menu = new MentionMenu({
       editor,
+      root: editor.popupContainer,
       items: mentionItems.map(item => ({
         id: item.id,
         name: item.name,
@@ -130,6 +132,7 @@ describe('ui / mention-menu-ui', () => {
     editor.render();
     const menu = new MentionMenu({
       editor,
+      root: editor.popupContainer,
       items: mentionItems.map(item => ({
         id: item.id,
         name: item.name,
