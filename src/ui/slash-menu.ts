@@ -47,7 +47,7 @@ export class SlashMenu extends Menu<string | SlashItem> {
     const itemTitle = typeof item.title === 'string' ? item.title : item.title(editor.locale);
     const itemDescription = typeof item.description === 'string' ? item.description : item.description(editor.locale);
     const itemNode = query(safeTemplate`
-      <li class="lake-menu-item" name="${item.name}">
+      <li name="${item.name}">
         <div class="lake-slash-icon"></div>
         <div class="lake-slash-text">
           <div class="lake-slash-title">${itemTitle}</div>

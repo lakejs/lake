@@ -181,6 +181,7 @@ export abstract class Menu<Type> {
     this.container.empty();
     for (const item of items) {
       const itemNode = this.getItemNode(item);
+      itemNode.addClass('lake-menu-item');
       this.appendItem(itemNode);
     }
     const selectedItemNode = this.container.find('.lake-menu-item-selected');

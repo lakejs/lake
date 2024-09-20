@@ -14,7 +14,7 @@ export class MentionMenu extends Menu<MentionItem> {
   protected getItemNode(item: MentionItem): Nodes {
     const editor = this.editor;
     const itemNode = query(safeTemplate`
-      <li class="lake-menu-item" item-id="${item.id}">
+      <li>
         <div class="lake-mention-avatar"></div>
         <div class="lake-mention-nickname">${item.nickname ?? item.name}</div>
         <div class="lake-mention-name">(${item.name})</div>
