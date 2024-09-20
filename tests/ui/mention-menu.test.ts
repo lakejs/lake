@@ -32,22 +32,24 @@ const mentionItems: MentionItem[] = [
 describe('ui / mention-menu', () => {
 
   let rootNode: Nodes;
+  let editor: Editor;
 
   beforeEach(()=> {
     rootNode = query('<div class="lake-root"></div>');
     query(document.body).append(rootNode);
+    editor = new Editor({
+      root: rootNode,
+      value: '<p>@<focus /></p>',
+    });
+    editor.render();
   });
 
   afterEach(() => {
+    editor.unmount();
     rootNode.remove();
   });
 
-  it('search method: should search an item', () => {
-    const editor = new Editor({
-      root: rootNode,
-      value: '<p>@<focus /></p>',
-    });
-    editor.render();
+  it('show method: should search an item', () => {
     const menu = new MentionMenu({
       editor,
       root: editor.popupContainer,
@@ -55,19 +57,12 @@ describe('ui / mention-menu', () => {
     });
     const range = new Range();
     range.selectNodeContents(editor.container);
-    menu.show(range);
-    const items = menu.search('Heaven');
-    expect(items.length).to.deep.equal(1);
+    menu.show(range, 'heaven');
+    expect(menu.container.find('.lake-menu-item').length).to.equal(1);
     menu.unmount();
-    editor.unmount();
   });
 
-  it('search method: should search an item using a keyword without spaces', () => {
-    const editor = new Editor({
-      root: rootNode,
-      value: '<p>@<focus /></p>',
-    });
-    editor.render();
+  it('update method: should update items', () => {
     const menu = new MentionMenu({
       editor,
       root: editor.popupContainer,
@@ -76,10 +71,10 @@ describe('ui / mention-menu', () => {
     const range = new Range();
     range.selectNodeContents(editor.container);
     menu.show(range);
-    const items = menu.search('HeavenLake');
-    expect(items.length).to.deep.equal(1);
+    expect(menu.container.find('.lake-menu-item').length > 1).to.equal(true);
+    menu.update('heavenlake');
+    expect(menu.container.find('.lake-menu-item').length).to.equal(1);
     menu.unmount();
-    editor.unmount();
   });
 
 });

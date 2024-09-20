@@ -36,7 +36,7 @@ const slashItems: (string | SlashItem)[] = [
 
 describe('ui / slash-menu-ui', () => {
 
-  it('slash menu', () => {
+  it('should show slash menu', () => {
     const rootNode = query('<div class="lake-root"></div>');
     query(document.body).append(rootNode);
     const editor = new Editor({

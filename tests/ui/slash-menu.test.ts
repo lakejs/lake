@@ -37,22 +37,24 @@ const slashItems: (string | SlashItem)[] = [
 describe('ui / slash-menu', () => {
 
   let rootNode: Nodes;
+  let editor: Editor;
 
   beforeEach(()=> {
     rootNode = query('<div class="lake-root"></div>');
     query(document.body).append(rootNode);
+    editor = new Editor({
+      root: rootNode,
+      value: '<p>/<focus /></p>',
+    });
+    editor.render();
   });
 
   afterEach(() => {
+    editor.unmount();
     rootNode.remove();
   });
 
-  it('search method: should search an item', () => {
-    const editor = new Editor({
-      root: rootNode,
-      value: '<p>/<focus /></p>',
-    });
-    editor.render();
+  it('show method: should search an item', () => {
     const menu = new SlashMenu({
       editor,
       root: editor.popupContainer,
@@ -60,19 +62,12 @@ describe('ui / slash-menu', () => {
     });
     const range = new Range();
     range.selectNodeContents(editor.container);
-    menu.show(range);
-    const items = menu.search('code block');
-    expect(items).to.deep.equal(['codeBlock']);
+    menu.show(range, 'code block');
+    expect(menu.container.find('.lake-menu-item').length).to.equal(1);
     menu.unmount();
-    editor.unmount();
   });
 
-  it('search method: should search an item using a keyword without spaces', () => {
-    const editor = new Editor({
-      root: rootNode,
-      value: '<p>/<focus /></p>',
-    });
-    editor.render();
+  it('update method: should update items', () => {
     const menu = new SlashMenu({
       editor,
       root: editor.popupContainer,
@@ -81,10 +76,10 @@ describe('ui / slash-menu', () => {
     const range = new Range();
     range.selectNodeContents(editor.container);
     menu.show(range);
-    const items = menu.search('codeblock');
-    expect(items).to.deep.equal(['codeBlock']);
+    expect(menu.container.find('.lake-menu-item').length > 1).to.equal(true);
+    menu.update('codeblock');
+    expect(menu.container.find('.lake-menu-item').length).to.equal(1);
     menu.unmount();
-    editor.unmount();
   });
 
 });

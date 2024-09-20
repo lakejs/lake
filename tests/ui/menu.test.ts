@@ -37,22 +37,24 @@ const slashItems: (string | SlashItem)[] = [
 describe('ui / menu', () => {
 
   let rootNode: Nodes;
+  let editor: Editor;
 
   beforeEach(()=> {
     rootNode = query('<div class="lake-root"></div>');
     query(document.body).append(rootNode);
-  });
-
-  afterEach(() => {
-    rootNode.remove();
-  });
-
-  it('should show and hide menu', () => {
-    const editor = new Editor({
+    editor = new Editor({
       root: rootNode,
       value: '<p>/<focus /></p>',
     });
     editor.render();
+  });
+
+  afterEach(() => {
+    editor.unmount();
+    rootNode.remove();
+  });
+
+  it('should show and hide menu', () => {
     const menu = new SlashMenu({
       editor,
       root: editor.popupContainer,
@@ -73,15 +75,9 @@ describe('ui / menu', () => {
     expect(menu.visible).to.equal(true);
     menu.unmount();
     expect(menu.visible).to.equal(false);
-    editor.unmount();
   });
 
   it('should not show menu with empty items', () => {
-    const editor = new Editor({
-      root: rootNode,
-      value: '<p>/<focus /></p>',
-    });
-    editor.render();
     const menu = new SlashMenu({
       editor,
       root: editor.popupContainer,
@@ -92,15 +88,9 @@ describe('ui / menu', () => {
     menu.show(range);
     expect(menu.visible).to.equal(false);
     menu.unmount();
-    editor.unmount();
   });
 
   it('keydown event: should select an item using keyboard', () => {
-    const editor = new Editor({
-      root: rootNode,
-      value: '<p>/<focus /></p>',
-    });
-    editor.render();
     const menu = new SlashMenu({
       editor,
       root: editor.popupContainer,
@@ -126,47 +116,6 @@ describe('ui / menu', () => {
     }));
     expect(menu.visible).to.equal(false);
     menu.unmount();
-    editor.unmount();
-  });
-
-  it('show method: should search an item', () => {
-    const editor = new Editor({
-      root: rootNode,
-      value: '<p>/<focus /></p>',
-    });
-    editor.render();
-    const menu = new SlashMenu({
-      editor,
-      root: editor.popupContainer,
-      items: slashItems,
-    });
-    const range = new Range();
-    range.selectNodeContents(editor.container);
-    menu.show(range, 'code block');
-    expect(menu.container.find('.lake-menu-item').length).to.equal(1);
-    menu.unmount();
-    editor.unmount();
-  });
-
-  it('update method: should update items', () => {
-    const editor = new Editor({
-      root: rootNode,
-      value: '<p>/<focus /></p>',
-    });
-    editor.render();
-    const menu = new SlashMenu({
-      editor,
-      root: editor.popupContainer,
-      items: slashItems,
-    });
-    const range = new Range();
-    range.selectNodeContents(editor.container);
-    menu.show(range);
-    expect(menu.container.find('.lake-menu-item').length > 1).to.equal(true);
-    menu.update('code block');
-    expect(menu.container.find('.lake-menu-item').length).to.equal(1);
-    menu.unmount();
-    editor.unmount();
   });
 
 });

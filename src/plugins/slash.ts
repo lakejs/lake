@@ -27,27 +27,6 @@ function getKeyword(block: Nodes): string | null {
   return text.substring(1);
 }
 
-function showPopup(editor: Editor, menu: SlashMenu): void {
-  const range = editor.selection.range;
-  if (!range.isCollapsed) {
-    return;
-  }
-  const block = range.getBlocks()[0];
-  if (!block) {
-    return;
-  }
-  if (block.find('lake-box').length > 0) {
-    return;
-  }
-  const keyword = getKeyword(block);
-  if (keyword === null) {
-    return;
-  }
-  const slashRange = range.clone();
-  slashRange.selectNodeContents(block);
-  menu.show(slashRange, keyword);
-}
-
 export default (editor: Editor) => {
   editor.setPluginConfig('slash', {
     items: defaultItems,
@@ -60,6 +39,26 @@ export default (editor: Editor) => {
     root: editor.popupContainer,
     items: editor.config.slash.items,
   });
+  const showPopup = () => {
+    const range = editor.selection.range;
+    if (!range.isCollapsed) {
+      return;
+    }
+    const block = range.getBlocks()[0];
+    if (!block) {
+      return;
+    }
+    if (block.find('lake-box').length > 0) {
+      return;
+    }
+    const keyword = getKeyword(block);
+    if (keyword === null) {
+      return;
+    }
+    const slashRange = range.clone();
+    slashRange.selectNodeContents(block);
+    menu.show(slashRange, keyword);
+  };
   editor.container.on('keyup', event => {
     if (editor.isComposing) {
       return;
@@ -70,11 +69,11 @@ export default (editor: Editor) => {
     }
     if (!menu.visible) {
       if (isKeyHotkey('/', keyboardEvent)) {
-        showPopup(editor, menu);
+        showPopup();
         return;
       }
       if (isKeyHotkey(['backspace', 'delete'], keyboardEvent)) {
-        showPopup(editor, menu);
+        showPopup();
       } else {
         return;
       }

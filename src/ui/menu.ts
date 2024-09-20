@@ -38,6 +38,8 @@ export abstract class Menu<Type> {
 
   protected abstract getItemNode(item: Type): Nodes;
 
+  protected abstract search(keyword: string): Type[];
+
   private appendItemNode(itemNode: Nodes): void {
     itemNode.on('mouseenter', () => {
       if (this.noMouseEvent) {
@@ -142,8 +144,6 @@ export abstract class Menu<Type> {
   public get visible(): boolean {
     return this.container.get(0).isConnected && this.container.computedCSS('display') !== 'none';
   }
-
-  public abstract search(keyword: string): Type[];
 
   public position(keepDirection: boolean = false): void {
     if (!this.range) {

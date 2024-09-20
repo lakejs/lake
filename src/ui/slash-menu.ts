@@ -103,7 +103,7 @@ export class SlashMenu extends Menu<string | SlashItem> {
     return itemNode;
   }
 
-  public search(keyword: string): (string | SlashItem)[] {
+  protected search(keyword: string): (string | SlashItem)[] {
     const editor = this.editor;
     const localeEnglish = i18nObject('en-US');
     keyword = keyword.toLowerCase();

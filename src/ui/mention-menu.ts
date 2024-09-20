@@ -42,7 +42,7 @@ export class MentionMenu extends Menu<MentionItem> {
     return itemNode;
   }
 
-  public search(keyword: string): MentionItem[] {
+  protected search(keyword: string): MentionItem[] {
     keyword = keyword.toLowerCase();
     const items: MentionItem[] = [];
     for (const item of this.items) {

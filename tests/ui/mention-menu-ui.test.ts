@@ -80,7 +80,7 @@ const mentionItems: MentionItem[] = [
 
 describe('ui / mention-menu-ui', () => {
 
-  it('with avatar', () => {
+  it('should show mention menu with avatar', () => {
     const rootNode = query('<div class="lake-root"></div>');
     query(document.body).append(rootNode);
     const editor = new Editor({
@@ -99,7 +99,7 @@ describe('ui / mention-menu-ui', () => {
     expect(editor.popupContainer.find('.lake-mention-menu').length).to.equal(1);
   });
 
-  it('without avatar', () => {
+  it('should show mention menu without avatar', () => {
     const rootNode = query('<div class="lake-root"></div>');
     query(document.body).append(rootNode);
     const editor = new Editor({
@@ -122,7 +122,7 @@ describe('ui / mention-menu-ui', () => {
     expect(editor.popupContainer.find('.lake-mention-menu').length).to.equal(1);
   });
 
-  it('without nickname', () => {
+  it('should show mention menu without nickname', () => {
     const rootNode = query('<div class="lake-root"></div>');
     query(document.body).append(rootNode);
     const editor = new Editor({
