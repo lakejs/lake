@@ -12,7 +12,7 @@ export default {
     const url = getProfileUrl ? getProfileUrl(value) : '#';
     const boxContainer = box.getContainer();
     const rootNode = query(safeTemplate`
-      <div class="lake-mention"><a href="${url}">@${value.name}</a></div>
+      <div class="lake-mention"><a href="${url}">@${value.nickname ?? value.name}</a></div>
     `);
     boxContainer.empty();
     boxContainer.append(rootNode);
