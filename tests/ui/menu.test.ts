@@ -90,6 +90,20 @@ describe('ui / menu', () => {
     menu.unmount();
   });
 
+  it('should not show menu with collapsed range', () => {
+    const menu = new SlashMenu({
+      editor,
+      root: editor.popupContainer,
+      items: slashItems,
+    });
+    const range = new Range();
+    range.selectNodeContents(editor.container);
+    range.collapseToStart();
+    menu.show(range, 'heading');
+    expect(menu.visible).to.equal(false);
+    menu.unmount();
+  });
+
   it('keydown event: should select an item using keyboard', () => {
     const menu = new SlashMenu({
       editor,

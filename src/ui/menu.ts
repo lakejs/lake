@@ -146,10 +146,9 @@ export abstract class Menu<Type> {
   }
 
   public position(keepDirection: boolean = false): void {
-    if (!this.range) {
+    if (!this.range || this.range.isCollapsed) {
       return;
     }
-    this.container.css('visibility', '');
     const rangeRect = this.range.get().getBoundingClientRect();
     const rangeX = rangeRect.x + window.scrollX;
     const rangeY = rangeRect.y + window.scrollY;
@@ -186,10 +185,14 @@ export abstract class Menu<Type> {
     this.appendItems(items);
     this.selectFirstItemNodeIfNeeded();
     this.position(true);
+    this.container.css('visibility', '');
   }
 
   public show(range: Range, keyword?: string): void {
     const editor = this.editor;
+    if (range.isCollapsed) {
+      return;
+    }
     if (this.items.length === 0) {
       return;
     }
@@ -207,13 +210,14 @@ export abstract class Menu<Type> {
     // fix the container's width
     this.container.css('width', '');
     this.container.css('width', `${this.container.width()}px`);
-    this.container.css('visibility', '');
     document.addEventListener('keydown', this.keydownListener, true);
     editor.event.on('click', this.clickListener);
     editor.event.on('scroll', this.scrollListener);
     editor.event.on('resize', this.resizeListener);
     if (keyword) {
       this.update(keyword);
+    } else {
+      this.container.css('visibility', '');
     }
   }
 
