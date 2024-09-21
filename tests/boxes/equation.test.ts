@@ -37,6 +37,13 @@ describe('boxes / equation', () => {
     click(boxContainer.find('.lake-equation-view'));
   });
 
+  it('should re-render a box correctly', () => {
+    box.render();
+    box.render();
+    const boxContainer = box.getContainer();
+    expect(boxContainer.find('.lake-equation').length).to.equal(1);
+  });
+
   it('should update current expression', () => {
     const boxContainer = box.getContainer();
     click(boxContainer.find('.lake-equation-view'));
@@ -71,13 +78,6 @@ describe('boxes / equation', () => {
     click(boxContainer.find('.lake-equation-view'));
     editor.selection.range.selectBoxEnd(boxNode);
     expect(boxContainer.find('.lake-equation-form').computedCSS('display')).to.equal('none');
-  });
-
-  it('should re-render a box correctly', () => {
-    box.render();
-    box.render();
-    const boxContainer = box.getContainer();
-    expect(boxContainer.find('.lake-equation').length).to.equal(1);
   });
 
 });
