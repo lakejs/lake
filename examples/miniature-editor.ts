@@ -111,6 +111,9 @@ export default (value: string) => {
       requestAction: '/upload',
     },
     slash: true,
+    mention: {
+      requestAction: '../assets/json/mention.json',
+    },
   });
   editor.container.on('focusin', ()=> {
     editor.root.addClass('lake-root-focused');
