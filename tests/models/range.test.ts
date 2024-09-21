@@ -1169,6 +1169,22 @@ describe('models / range', () => {
     }
   });
 
+  it('getCharacterRange method: with multiple specified characters', () => {
+    container.html('<div contenteditable="true"><p>@@@ @bar</p></div>');
+    const range = new Range();
+    const paragraphNode = container.find('p');
+    const textNode = paragraphNode.first();
+    range.setStart(textNode, 6);
+    const newRange = range.getCharacterRange('@');
+    expect(newRange === null).to.equal(false);
+    if (newRange) {
+      expect(newRange.startNode.id).to.equal(textNode.id);
+      expect(newRange.startOffset).to.equal(4);
+      expect(newRange.endNode.id).to.equal(textNode.id);
+      expect(newRange.endOffset).to.equal(6);
+    }
+  });
+
   it('getCharacterRange method: the character is not preceded by a whitespace', () => {
     container.html('<div contenteditable="true"><p>foo@bar</p></div>');
     const range = new Range();

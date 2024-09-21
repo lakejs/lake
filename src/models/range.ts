@@ -661,19 +661,19 @@ export class Range {
       if (!textNode.isText) {
         return null;
       }
-      newRange.setEnd(textNode, newRange.startNode.text().length);
+      newRange.setEnd(textNode, textNode.text().length);
       newRange.collapseToEnd();
     }
     const textNode = newRange.startNode;
     const text = textNode.text().slice(0, newRange.startOffset);
     const lastIndexOfNormalSpace = text.lastIndexOf(` ${character}`);
     const lastIndexOfNoBreakSpace = text.lastIndexOf(`\xA0${character}`);
-    if (text.indexOf(character) === 0) {
-      newRange.setStart(textNode, 0);
-    } else if (lastIndexOfNormalSpace >= 0) {
+    if (lastIndexOfNormalSpace >= 0) {
       newRange.setStart(textNode, lastIndexOfNormalSpace + 1);
     } else if (lastIndexOfNoBreakSpace >= 0) {
       newRange.setStart(textNode, lastIndexOfNoBreakSpace + 1);
+    } else if (text.indexOf(character) === 0) {
+      newRange.setStart(textNode, 0);
     } else {
       return null;
     }

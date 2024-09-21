@@ -64,7 +64,7 @@ describe('plugins / slash', () => {
     expect(editor.config.slash.items).to.deep.equal(slashItems);
   });
 
-  it('should show a popup box', () => {
+  it('should show a popup menu', () => {
     editor.setValue('<p>/<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '/',
@@ -80,7 +80,7 @@ describe('plugins / slash', () => {
     expect(editor.popupContainer.find('.lake-slash-menu').find('.lake-menu-item').length).to.equal(1);
   });
 
-  it('should hide a popup box when there is no block', () => {
+  it('should hide a popup menu when there is no block', () => {
     editor.setValue('/<focus />');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '/',
@@ -96,7 +96,7 @@ describe('plugins / slash', () => {
     expect(editor.popupContainer.find('.lake-slash-menu').length).to.equal(0);
   });
 
-  it('should hide a popup box when there is no slash', () => {
+  it('should hide a popup menu when there is no slash', () => {
     editor.setValue('<p>code<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: 'e',
@@ -186,7 +186,7 @@ describe('plugins / slash', () => {
     expect(editor.popupContainer.find('.lake-menu-item').length).to.equal(6);
   });
 
-  it('should hide popup when the search result is empty', () => {
+  it('should hide popup menu when the search result is empty', () => {
     editor.setValue('<p>/heading 6<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '/',
@@ -200,7 +200,7 @@ describe('plugins / slash', () => {
     expect(editor.popupContainer.find('.lake-slash-menu').computedCSS('display')).to.equal('none');
   });
 
-  it('should show popup when backspace key is entered', () => {
+  it('should show popup menu when backspace key is entered', () => {
     editor.setValue('<p>/heading 6<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '/',
@@ -220,7 +220,7 @@ describe('plugins / slash', () => {
     expect(editor.popupContainer.find('.lake-menu-item').length).to.equal(1);
   });
 
-  it('should show popup when delete key is entered', () => {
+  it('should show popup menu when delete key is entered', () => {
     editor.setValue('<p>/heading 6<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '/',
