@@ -207,14 +207,14 @@ export abstract class Menu<Type> {
     // fix the container's width
     this.container.css('width', '');
     this.container.css('width', `${this.container.width()}px`);
-    if (keyword) {
-      this.update(keyword);
-    }
     this.container.css('visibility', '');
     document.addEventListener('keydown', this.keydownListener, true);
     editor.event.on('click', this.clickListener);
     editor.event.on('scroll', this.scrollListener);
     editor.event.on('resize', this.resizeListener);
+    if (keyword) {
+      this.update(keyword);
+    }
   }
 
   public hide(): void {
