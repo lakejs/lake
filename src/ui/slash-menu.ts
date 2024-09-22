@@ -43,7 +43,6 @@ export class SlashMenu extends Menu<string | SlashItem> {
   private emptyBlock(): void {
     const range = this.editor.selection.range;
     const block = range.commonAncestor.closestBlock();
-    this.hide();
     block.empty();
     appendBreak(block);
     range.shrinkBefore(block);
@@ -80,6 +79,7 @@ export class SlashMenu extends Menu<string | SlashItem> {
       fileNode.on('click', event => event.stopPropagation());
       fileNode.on('change', event => {
         editor.focus();
+        this.hide();
         this.emptyBlock();
         const target = event.target as HTMLInputElement;
         const files = target.files || [];
@@ -104,6 +104,7 @@ export class SlashMenu extends Menu<string | SlashItem> {
     } else {
       itemNode.on('click', () => {
         editor.focus();
+        this.hide();
         this.emptyBlock();
         item.onClick(editor, item.name);
       });

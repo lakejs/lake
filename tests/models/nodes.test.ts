@@ -352,6 +352,7 @@ describe('models / nodes', () => {
   it('method: closestScroller', () => {
     const scroller = query('<div class="scroller" style="overflow: auto"><div contenteditable="true"><p>foo</p>bar</div></div>');
     expect(scroller.find('p').closestScroller().hasClass('scroller')).to.equal(true);
+    expect(scroller.find('p').first().closestScroller().hasClass('scroller')).to.equal(true);
     expect(scroller.closestScroller().hasClass('scroller')).to.equal(true);
     expect(scroller.parent().closestScroller().length).to.equal(0);
     scroller.css('overflow', 'scroll');

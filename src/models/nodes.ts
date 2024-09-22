@@ -367,8 +367,8 @@ export class Nodes {
   // Traverses the first node and its parents until it finds an element which can scroll.
   public closestScroller(): Nodes {
     let parent = this.eq(0);
-    while(parent.length > 0 && parent.isElement) {
-      if (['scroll', 'auto'].indexOf(parent.computedCSS('overflow-y')) >= 0) {
+    while(parent.length > 0) {
+      if (parent.isElement && ['scroll', 'auto'].indexOf(parent.computedCSS('overflow-y')) >= 0) {
         return parent;
       }
       parent = parent.parent();
