@@ -1,13 +1,21 @@
+import type { Editor } from '../editor';
 import { MentionItem } from '../types/mention';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { Menu, MenuConfig } from './menu';
 
+type MentionMenuConfig = MenuConfig<MentionItem> & {
+  editor: Editor,
+};
+
 export class MentionMenu extends Menu<MentionItem> {
 
-  constructor(config: MenuConfig<MentionItem>) {
+  private editor: Editor;
+
+  constructor(config: MentionMenuConfig) {
     super(config);
+    this.editor = config.editor;
     this.container.addClass('lake-mention-menu');
   }
 

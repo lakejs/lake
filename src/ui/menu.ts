@@ -1,12 +1,10 @@
 import { isKeyHotkey } from 'is-hotkey';
-import type { Editor } from '../editor';
 import { query } from '../utils/query';
 import { scrollToNode } from '../utils/scroll-to-node';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
 export type MenuConfig<Type> = {
-  editor: Editor;
   root: Nodes;
   items: Type[];
 };
@@ -16,8 +14,6 @@ export abstract class Menu<Type> {
   private horizontalDirection: 'left' | 'right' = 'right';
 
   private verticalDirection: 'top' | 'bottom' = 'bottom';
-
-  protected editor: Editor;
 
   protected root: Nodes;
 
@@ -30,7 +26,6 @@ export abstract class Menu<Type> {
   public container: Nodes;
 
   constructor(config: MenuConfig<Type>) {
-    this.editor = config.editor;
     this.root = config.root;
     this.items = config.items;
     this.container = query('<ul class="lake-menu" />');
@@ -130,7 +125,11 @@ export abstract class Menu<Type> {
     }, 50);
   };
 
-  private clickListener = (targetNode: Nodes) => {
+  private clickListener: EventListener = event => {
+    const targetNode = new Nodes(event.target as Element);
+    if (!targetNode.get(0).isConnected) {
+      return;
+    }
     if (this.container.contains(targetNode)) {
       return;
     }
@@ -189,7 +188,6 @@ export abstract class Menu<Type> {
   }
 
   public show(range: Range, keyword?: string): void {
-    const editor = this.editor;
     if (range.isCollapsed) {
       return;
     }
@@ -210,10 +208,13 @@ export abstract class Menu<Type> {
     // fix the container's width
     this.container.css('width', '');
     this.container.css('width', `${this.container.width()}px`);
+    const viewport = range.commonAncestor.closestScroller();
+    if (viewport.length > 0) {
+      viewport.on('scroll', this.scrollListener);
+    }
     document.addEventListener('keydown', this.keydownListener, true);
-    editor.event.on('click', this.clickListener);
-    editor.event.on('scroll', this.scrollListener);
-    editor.event.on('resize', this.resizeListener);
+    document.addEventListener('click', this.clickListener);
+    window.addEventListener('resize', this.resizeListener);
     if (keyword) {
       this.update(keyword);
     } else {
@@ -222,13 +223,17 @@ export abstract class Menu<Type> {
   }
 
   public hide(): void {
-    const editor = this.editor;
+    if (this.range) {
+      const viewport = this.range.commonAncestor.closestScroller();
+      if (viewport.length > 0) {
+        viewport.off('scroll', this.scrollListener);
+      }
+    }
     this.range = null;
     this.container.hide();
     document.removeEventListener('keydown', this.keydownListener, true);
-    editor.event.off('click', this.clickListener);
-    editor.event.off('scroll', this.scrollListener);
-    editor.event.off('resize', this.resizeListener);
+    document.removeEventListener('click', this.clickListener);
+    window.removeEventListener('resize', this.resizeListener);
   }
 
   public unmount(): void {

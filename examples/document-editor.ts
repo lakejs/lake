@@ -13,6 +13,10 @@ export default (value: string) => {
     image: {
       requestAction: '/upload',
     },
+    slash: true,
+    mention: {
+      requestAction: '../assets/json/mention.json',
+    },
   });
   editor.render();
   return editor;

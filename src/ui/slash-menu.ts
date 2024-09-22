@@ -1,3 +1,4 @@
+import type { Editor } from '../editor';
 import { SlashItem } from '../types/slash';
 import { slashItems } from '../config/slash-items';
 import { safeTemplate } from '../utils/safe-template';
@@ -8,6 +9,10 @@ import { Nodes } from '../models/nodes';
 import { Menu, MenuConfig } from './menu';
 import { i18nObject } from '../i18n';
 
+type SlashMenuConfig = MenuConfig<string | SlashItem> & {
+  editor: Editor,
+};
+
 const slashItemMap: Map<string, SlashItem> = new Map();
 
 for (const item of slashItems) {
@@ -16,8 +21,11 @@ for (const item of slashItems) {
 
 export class SlashMenu extends Menu<string | SlashItem> {
 
-  constructor(config: MenuConfig<string | SlashItem>) {
+  private editor: Editor;
+
+  constructor(config: SlashMenuConfig) {
     super(config);
+    this.editor = config.editor;
     this.container.addClass('lake-slash-menu');
   }
 
