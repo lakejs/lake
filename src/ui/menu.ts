@@ -4,12 +4,12 @@ import { scrollToNode } from '../utils/scroll-to-node';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
-export type MenuConfig<Type> = {
+export type MenuConfig<Item> = {
   root: Nodes;
-  items: Type[];
+  items: Item[];
 };
 
-export abstract class Menu<Type> {
+export abstract class Menu<Item> {
 
   private horizontalDirection: 'left' | 'right' = 'right';
 
@@ -17,7 +17,7 @@ export abstract class Menu<Type> {
 
   protected root: Nodes;
 
-  protected items: Type[];
+  protected items: Item[];
 
   protected range: Range | null = null;
 
@@ -25,15 +25,15 @@ export abstract class Menu<Type> {
 
   public container: Nodes;
 
-  constructor(config: MenuConfig<Type>) {
+  constructor(config: MenuConfig<Item>) {
     this.root = config.root;
     this.items = config.items;
     this.container = query('<ul class="lake-menu" />');
   }
 
-  protected abstract getItemNode(item: Type): Nodes;
+  protected abstract getItemNode(item: Item): Nodes;
 
-  protected abstract search(keyword: string): Type[];
+  protected abstract search(keyword: string): Item[];
 
   private appendItemNode(itemNode: Nodes): void {
     itemNode.on('mouseenter', () => {
@@ -52,7 +52,7 @@ export abstract class Menu<Type> {
     this.container.append(itemNode);
   }
 
-  private appendItems(items: Type[]): void {
+  private appendItems(items: Item[]): void {
     this.container.empty();
     for (const item of items) {
       const itemNode = this.getItemNode(item);
