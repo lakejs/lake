@@ -24,12 +24,6 @@ export default (editor: Editor) => {
       editor.history.save();
     },
   });
-  editor.event.on('scroll', () => {
-    popup.position();
-  });
-  editor.event.on('resize', () => {
-    popup.position();
-  });
   editor.event.on('click', (targetNode: Nodes) => {
     if (popup.container.contains(targetNode)) {
       return;
@@ -62,4 +56,5 @@ export default (editor: Editor) => {
       popup.show(linkNode);
     },
   });
+  return () => popup.unmount();
 };

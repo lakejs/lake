@@ -187,6 +187,10 @@ export class LinkPopup {
     button.render();
   }
 
+  private scrollListener = () => this.position();
+
+  private resizeListener = () => this.position();
+
   public get visible(): boolean {
     return this.container.get(0).isConnected && this.container.computedCSS('display') !== 'none';
   }
@@ -261,10 +265,27 @@ export class LinkPopup {
     this.position();
     this.container.css('visibility', '');
     this.container.find('input[name="url"]').focus();
+    const viewport = linkNode.closestScroller();
+    if (viewport.length > 0) {
+      viewport.on('scroll', this.scrollListener);
+    }
+    window.addEventListener('resize', this.resizeListener);
   }
 
   public hide(): void {
+    if (this.linkNode) {
+      const viewport = this.linkNode.closestScroller();
+      if (viewport.length > 0) {
+        viewport.off('scroll', this.scrollListener);
+      }
+    }
     this.linkNode = null;
     this.container.hide();
+    window.removeEventListener('resize', this.resizeListener);
+  }
+
+  public unmount(): void {
+    this.hide();
+    this.container.remove();
   }
 }
