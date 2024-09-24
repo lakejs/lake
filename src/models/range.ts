@@ -668,10 +668,13 @@ export class Range {
     const text = textNode.text().slice(0, newRange.startOffset);
     const lastIndexOfNormalSpace = text.lastIndexOf(` ${character}`);
     const lastIndexOfNoBreakSpace = text.lastIndexOf(`\xA0${character}`);
+    const lastIndexOfZeroWidthSpace = text.lastIndexOf(`\u200B${character}`);
     if (lastIndexOfNormalSpace >= 0) {
       newRange.setStart(textNode, lastIndexOfNormalSpace + 1);
     } else if (lastIndexOfNoBreakSpace >= 0) {
       newRange.setStart(textNode, lastIndexOfNoBreakSpace + 1);
+    } else if (lastIndexOfZeroWidthSpace >= 0) {
+      newRange.setStart(textNode, lastIndexOfZeroWidthSpace + 1);
     } else if (text.indexOf(character) === 0) {
       newRange.setStart(textNode, 0);
     } else {
