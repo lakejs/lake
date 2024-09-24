@@ -2,6 +2,7 @@ import { BoxValue } from '../types/box';
 import { getBox } from '../utils/get-box';
 import { Range } from '../models/range';
 import { Box } from '../models/box';
+import { splitMarks } from './split-marks';
 import { insertFragment } from './insert-fragment';
 import { splitBlock } from './split-block';
 
@@ -18,6 +19,7 @@ export function insertBox(range: Range, boxName: string, boxValue?: BoxValue): B
   fragment.appendChild(box.node.get(0));
   // inline box
   if (box.type === 'inline') {
+    splitMarks(range);
     insertFragment(range, fragment);
     box.render();
     range.selectBoxEnd(box.node);
