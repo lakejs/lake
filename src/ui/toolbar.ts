@@ -108,6 +108,7 @@ export class Toolbar {
       menuWidth: item.menuWidth,
       menuHeight: item.menuHeight,
       tabIndex: -1,
+      location: 'local',
       placement: this.placement === 'top' ? 'bottom' : 'top',
       onSelect: value => {
         editor.focus();

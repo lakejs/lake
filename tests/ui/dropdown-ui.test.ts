@@ -252,6 +252,7 @@ describe('ui / dropdown-ui', () => {
       defaultValue: 'p',
       tooltip: 'Heading',
       width: '100px',
+      location: 'global',
       menuType: 'list',
       menuItems: headingMenuItems,
       onSelect: value => {
@@ -286,9 +287,10 @@ describe('ui / dropdown-ui', () => {
       icon: icons.get('alignLeft'),
       downIcon: icons.get('down'),
       tooltip: 'Alignment',
+      location: 'global',
+      placement: 'top',
       menuType: 'list',
       menuItems: alignMenuItems,
-      placement: 'top',
       onSelect: value => {
         debug(value);
       },

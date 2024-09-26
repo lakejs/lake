@@ -14,6 +14,7 @@ type DropdownConfig = DropdownItem & {
   root: Nodes;
   locale?: TranslationFunctions;
   tabIndex?: number;
+  location?: 'local' | 'global';
   placement?: 'top' | 'bottom';
   onSelect: (value: string) => void;
 }
@@ -25,12 +26,17 @@ export class Dropdown {
 
   private locale: TranslationFunctions;
 
+  private location: 'local' | 'global';
+
+  private menuNode: Nodes;
+
   public node: Nodes;
 
   constructor(config: DropdownConfig) {
     this.config = config;
     this.root = config.root;
     this.locale = config.locale || i18nObject('en-US');
+    this.location = config.location || 'local';
     const placement = config.placement || 'bottom';
     this.node = query(safeTemplate`
       <div class="lake-dropdown lake-${config.menuType}-dropdown" name="${config.name}" placement="${placement}">
@@ -40,6 +46,7 @@ export class Dropdown {
         </button>
       </div>
     `);
+    this.menuNode = query('<ul class="lake-dropdown-menu lake-custom-properties" />');
     if (config.tabIndex !== undefined) {
       const titleNode = this.node.find('.lake-dropdown-title');
       titleNode.attr('tabindex', config.tabIndex.toString());
@@ -122,7 +129,7 @@ export class Dropdown {
     }
   }
 
-  private documentClickListener = (event: Event) => {
+  private clickListener = (event: Event) => {
     const targetNode = new Nodes(event.target as Element);
     const titleNode = this.node.find('.lake-dropdown-title');
     if (targetNode.closest('.lake-dropdown-title').get(0) === titleNode.get(0)) {
@@ -131,12 +138,15 @@ export class Dropdown {
     this.hideMenu();
   };
 
-  private createMenu(): Nodes {
+  private scrollListener = () => this.updatePosition();
+
+  private resizeListener = () => this.updatePosition();
+
+  private appendMenu(): void {
     const config = this.config;
-    const dropdownNode = this.node;
-    const titleNode = dropdownNode.find('.lake-dropdown-title');
+    const menuNode = this.menuNode;
+    const titleNode = this.node.find('.lake-dropdown-title');
     const textNode = titleNode.find('.lake-dropdown-text');
-    const menuNode = query('<ul class="lake-dropdown-menu" />');
     menuNode.addClass(`lake-${config.menuType}-dropdown-menu`);
     if (config.menuWidth) {
       menuNode.css('width', config.menuWidth);
@@ -146,7 +156,11 @@ export class Dropdown {
       menuNode.css('height', config.menuHeight);
     }
     this.apppendMenuItems(menuNode);
-    dropdownNode.append(menuNode);
+    if (this.location === 'local') {
+      this.node.append(menuNode);
+    } else {
+      query(document.body).append(menuNode);
+    }
     menuNode.on('click', event => {
       event.preventDefault();
       event.stopPropagation();
@@ -155,31 +169,64 @@ export class Dropdown {
         return;
       }
       const value = listItem.attr('value');
-      Dropdown.setValue(dropdownNode, [value]);
+      Dropdown.setValue(this.node, [value]);
       if (textNode.length > 0) {
         textNode.text(listItem.text());
       }
       if (config.menuType === 'color' && value !== '') {
-        dropdownNode.attr('color', value);
+        this.node.attr('color', value);
         this.updateColorAccent(titleNode, value);
       }
       config.onSelect(value);
       this.hideMenu();
     });
-    return menuNode;
+  }
+
+  private updatePosition(): void {
+    const menuNode = this.menuNode;
+    const dropdownNativeNode = this.node.get(0) as HTMLElement;
+    const dropdownRect = dropdownNativeNode.getBoundingClientRect();
+    // A overflow width on the left side, greater than 0 indicates an overflow.
+    const leftOverflow = menuNode.width() - (dropdownRect.x + dropdownRect.width);
+    // A overflow width on the right side, greater than 0 indicates an overflow.
+    const rightOverflow = dropdownRect.x + menuNode.width() - window.innerWidth;
+    const rightToLeft = rightOverflow + 50 > 0 && (leftOverflow < 0 || leftOverflow < rightOverflow);
+    if (this.location === 'local') {
+      if (rightToLeft) {
+        menuNode.css('left', 'auto');
+        menuNode.css('right', '0');
+      } else {
+        menuNode.css('left', '');
+        menuNode.css('right', '');
+      }
+      return;
+    }
+    // A overflow width on the bottom side, greater than 0 indicates an overflow.
+    const bottomOverflow = dropdownRect.y + dropdownRect.height + menuNode.height() - window.innerHeight;
+    const dropdownX = dropdownRect.x + window.scrollX;
+    const dropdownY = dropdownRect.y + window.scrollY;
+    if (rightToLeft) {
+      menuNode.css('left', `${dropdownX - menuNode.width() + dropdownRect.width}px`);
+    } else {
+      menuNode.css('left', `${dropdownX}px`);
+    }
+    if (bottomOverflow > 0) {
+      menuNode.css('top', `${dropdownY - menuNode.height()}px`);
+    } else {
+      menuNode.css('top', `${dropdownY + dropdownRect.height}px`);
+    }
   }
 
   private showMenu(): void {
     const config = this.config;
-    const dropdownNode = this.node;
-    let menuNode = dropdownNode.find('.lake-dropdown-menu');
-    if (menuNode.length === 0) {
-      menuNode = this.createMenu();
+    const menuNode = this.menuNode;
+    if (!menuNode.get(0).isConnected) {
+      this.appendMenu();
     }
-    if (dropdownNode.attr('disabled')) {
+    if (this.node.attr('disabled')) {
       return;
     }
-    const currentValues = Dropdown.getValue(dropdownNode);
+    const currentValues = Dropdown.getValue(this.node);
     menuNode.find('.lake-dropdown-menu-check').css('visibility', 'hidden');
     menuNode.find('li').each(node => {
       const listNode = query(node);
@@ -189,88 +236,30 @@ export class Dropdown {
     });
     menuNode.css('visibility', 'hidden');
     menuNode.show(config.menuType === 'list' ? 'block' : 'flex');
-    const dropdownNativeNode = dropdownNode.get(0) as HTMLElement;
-    const dropdownRect = dropdownNativeNode.getBoundingClientRect();
-    // A overflow width on the left side, greater than 0 indicates an overflow.
-    const leftOverflow = menuNode.width() - (dropdownRect.x + dropdownRect.width);
-    // A overflow width on the right side, greater than 0 indicates an overflow.
-    const rightOverflow = dropdownRect.x + menuNode.width() - window.innerWidth;
-    if (rightOverflow + 50 > 0 && (leftOverflow < 0 || leftOverflow < rightOverflow)) {
-      menuNode.css('left', 'auto');
-      menuNode.css('right', '0');
-    } else {
-      menuNode.css('left', '');
-      menuNode.css('right', '');
+    this.updatePosition();
+    const viewport = this.node.closestScroller();
+    if (viewport.length > 0) {
+      viewport.on('scroll', this.scrollListener);
     }
+    document.addEventListener('click', this.clickListener);
+    window.addEventListener('resize', this.resizeListener);
     menuNode.css('visibility', '');
-    document.addEventListener('click', this.documentClickListener);
   }
 
   private hideMenu(): void {
-    const dropdownNode = this.node;
-    const menuNode = dropdownNode.find('.lake-dropdown-menu');
-    menuNode.hide();
-    document.removeEventListener('click', this.documentClickListener);
-  }
-
-  private bindEvents(): void {
-    const config = this.config;
-    const dropdownNode = this.node;
-    const titleNode = dropdownNode.find('.lake-dropdown-title');
-    const iconNode = titleNode.find('.lake-dropdown-icon');
-    const downIconNode = titleNode.find('.lake-dropdown-down-icon');
-    if (config.menuType === 'color') {
-      iconNode.on('mouseenter', () => {
-        if (dropdownNode.attr('disabled')) {
-          return;
-        }
-        iconNode.addClass('lake-dropdown-icon-hovered');
-      });
-      iconNode.on('mouseleave', () => {
-        iconNode.removeClass('lake-dropdown-icon-hovered');
-      });
-      downIconNode.on('mouseenter', () => {
-        if (dropdownNode.attr('disabled')) {
-          return;
-        }
-        downIconNode.addClass('lake-dropdown-down-icon-hovered');
-      });
-      downIconNode.on('mouseleave', () => {
-        downIconNode.removeClass('lake-dropdown-down-icon-hovered');
-      });
-    } else {
-      titleNode.on('mouseenter', () => {
-        if (dropdownNode.attr('disabled')) {
-          return;
-        }
-        titleNode.addClass('lake-dropdown-title-hovered');
-      });
-      titleNode.on('mouseleave', () => {
-        titleNode.removeClass('lake-dropdown-title-hovered');
-      });
+    this.menuNode.hide();
+    const viewport = this.node.closestScroller();
+    if (viewport.length > 0) {
+      viewport.off('scroll', this.scrollListener);
     }
-    if (config.menuType === 'color') {
-      iconNode.on('click', event => {
-        event.preventDefault();
-        if (dropdownNode.attr('disabled')) {
-          return;
-        }
-        const value = dropdownNode.attr('color') || config.defaultValue || '';
-        config.onSelect(value);
-      });
-    }
-    const triggerNode = (config.menuType === 'color' && downIconNode) ? downIconNode : titleNode;
-    triggerNode.on('click', event => {
-      event.preventDefault();
-      this.showMenu();
-    });
+    document.removeEventListener('click', this.clickListener);
+    window.removeEventListener('resize', this.resizeListener);
   }
 
   public render(): void {
     const config = this.config;
     const defaultValue = config.defaultValue ?? '';
-    const dropdownNode = this.node;
-    const titleNode = dropdownNode.find('.lake-dropdown-title');
+    const titleNode = this.node.find('.lake-dropdown-title');
     if (!config.downIcon) {
       titleNode.addClass('lake-dropdown-title-no-down');
     }
@@ -291,7 +280,7 @@ export class Dropdown {
     if (config.downIcon) {
       downIconNode.append(config.downIcon);
     }
-    Dropdown.setValue(dropdownNode, [defaultValue]);
+    Dropdown.setValue(this.node, [defaultValue]);
     if (textNode.length > 0) {
       const menuMap = Dropdown.getMenuMap(config.menuItems, this.locale);
       textNode.text(menuMap.get(defaultValue) ?? defaultValue);
@@ -299,9 +288,53 @@ export class Dropdown {
     if (config.menuType === 'color') {
       this.updateColorAccent(titleNode, defaultValue);
     }
-    dropdownNode.append(titleNode);
-    this.root.append(dropdownNode);
-    this.bindEvents();
+    this.node.append(titleNode);
+    this.root.append(this.node);
+    if (config.menuType === 'color') {
+      iconNode.on('mouseenter', () => {
+        if (this.node.attr('disabled')) {
+          return;
+        }
+        iconNode.addClass('lake-dropdown-icon-hovered');
+      });
+      iconNode.on('mouseleave', () => {
+        iconNode.removeClass('lake-dropdown-icon-hovered');
+      });
+      downIconNode.on('mouseenter', () => {
+        if (this.node.attr('disabled')) {
+          return;
+        }
+        downIconNode.addClass('lake-dropdown-down-icon-hovered');
+      });
+      downIconNode.on('mouseleave', () => {
+        downIconNode.removeClass('lake-dropdown-down-icon-hovered');
+      });
+    } else {
+      titleNode.on('mouseenter', () => {
+        if (this.node.attr('disabled')) {
+          return;
+        }
+        titleNode.addClass('lake-dropdown-title-hovered');
+      });
+      titleNode.on('mouseleave', () => {
+        titleNode.removeClass('lake-dropdown-title-hovered');
+      });
+    }
+    if (config.menuType === 'color') {
+      iconNode.on('click', event => {
+        event.preventDefault();
+        if (this.node.attr('disabled')) {
+          return;
+        }
+        const value = this.node.attr('color') || config.defaultValue || '';
+        config.onSelect(value);
+      });
+    }
+    const triggerNode = (config.menuType === 'color' && downIconNode) ? downIconNode : titleNode;
+    triggerNode.on('click', event => {
+      event.preventDefault();
+      this.showMenu();
+    });
   }
 
   public unmount(): void {

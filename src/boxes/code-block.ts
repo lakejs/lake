@@ -173,6 +173,7 @@ export default {
       downIcon: icons.get('down'),
       defaultValue: langItem ? boxValue.lang : codeBlockConfig.defaultLang,
       tooltip: editor.locale.codeBlock.langType(),
+      location: 'global',
       menuType: 'list',
       menuHeight: '200px',
       menuItems: langItems.map((item: any) => ({
