@@ -312,7 +312,7 @@ describe('ui / dropdown', () => {
       width: '100px',
       menuType: 'list',
       menuItems: headingMenuItems,
-      placement: 'top',
+      direction: 'top',
       onSelect: value => {
         debug(value);
       },
@@ -320,7 +320,7 @@ describe('ui / dropdown', () => {
     dropdown.render();
     const titleNode = dropdown.node.find('.lake-dropdown-title');
     click(titleNode);
-    expect(Number.parseInt(dropdown.node.find('.lake-dropdown-menu').computedCSS('top'), 10) < 0).to.equal(true);
+    expect(dropdown.node.find('.lake-dropdown-menu').computedCSS('top')).to.equal('auto');
     click(query(document.body));
     expect(dropdown.node.find('.lake-dropdown-menu').computedCSS('display')).to.equal('none');
     dropdown.unmount();

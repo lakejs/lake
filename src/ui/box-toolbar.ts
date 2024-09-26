@@ -72,7 +72,7 @@ export class BoxToolbar {
       menuType: item.menuType,
       menuItems: item.menuItems,
       tabIndex: -1,
-      placement: this.placement === 'top' ? 'bottom' : 'top',
+      direction: this.placement === 'top' ? 'bottom' : 'top',
       onSelect: value => {
         item.onSelect(this.box, value);
       },

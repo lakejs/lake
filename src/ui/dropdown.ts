@@ -10,12 +10,16 @@ import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { i18nObject } from '../i18n';
 
+type DropdownLocation = 'local' | 'global';
+
+type DropdownDirection = 'top' | 'bottom' | 'auto';
+
 type DropdownConfig = DropdownItem & {
   root: Nodes;
   locale?: TranslationFunctions;
   tabIndex?: number;
-  location?: 'local' | 'global';
-  placement?: 'top' | 'bottom';
+  location?: DropdownLocation;
+  direction?: DropdownDirection;
   onSelect: (value: string) => void;
 }
 
@@ -26,7 +30,9 @@ export class Dropdown {
 
   private locale: TranslationFunctions;
 
-  private location: 'local' | 'global';
+  private location: DropdownLocation;
+
+  private direction: DropdownDirection;
 
   private menuNode: Nodes;
 
@@ -37,9 +43,9 @@ export class Dropdown {
     this.root = config.root;
     this.locale = config.locale || i18nObject('en-US');
     this.location = config.location || 'local';
-    const placement = config.placement || 'bottom';
+    this.direction = config.direction || 'auto';
     this.node = query(safeTemplate`
-      <div class="lake-dropdown lake-${config.menuType}-dropdown" name="${config.name}" placement="${placement}">
+      <div class="lake-dropdown lake-${config.menuType}-dropdown" name="${config.name}">
         <button type="button" name="${config.name}" class="lake-dropdown-title">
           <div class="lake-dropdown-${config.icon ? 'icon' : 'text'}"></div>
           <div class="lake-dropdown-down-icon"></div>
@@ -198,6 +204,10 @@ export class Dropdown {
       } else {
         menuNode.css('left', '');
         menuNode.css('right', '');
+      }
+      if (this.direction === 'top') {
+        menuNode.css('top', 'auto');
+        menuNode.css('bottom', `${dropdownRect.height}px`);
       }
       return;
     }

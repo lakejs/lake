@@ -95,10 +95,6 @@
   box-shadow: var(--popup-shadow);
   display: none;
 }
-.lake-dropdown[placement="top"] .lake-dropdown-menu {
-  top: auto;
-  bottom: 30px;
-}
 .lake-dropdown-menu.lake-dropdown-menu-with-scroll {
   overflow-y: scroll;
   scrollbar-width: thin;

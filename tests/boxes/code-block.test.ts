@@ -55,9 +55,11 @@ describe('boxes / code-block', () => {
     box.event.once('focus', () => {
       expect(dropdownNode.computedCSS('display')).to.equal('block');
       click(dropdownNode.find('button[name="langType"]'));
-      expect(dropdownNode.find('.lake-dropdown-menu').computedCSS('display')).to.equal('block');
-      click(dropdownNode.find('li[value="html"]'));
-      expect(dropdownNode.find('.lake-dropdown-menu').computedCSS('display')).to.equal('none');
+      const menuNodes = query(document.body).find('.lake-dropdown-menu');
+      const menuNode = menuNodes.eq(menuNodes.length - 1);
+      expect(menuNode.computedCSS('display')).to.equal('block');
+      click(menuNode.find('li[value="html"]'));
+      expect(menuNode.computedCSS('display')).to.equal('none');
       expect(box.value.lang).to.equal('html');
       done();
     });

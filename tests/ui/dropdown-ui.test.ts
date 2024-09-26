@@ -280,7 +280,7 @@ describe('ui / dropdown-ui', () => {
     dropdown.node.attr('disabled', 'true');
   });
 
-  it('align dropdown: placement is top', () => {
+  it('align dropdown: direction is top', () => {
     const dropdown = new Dropdown({
       root: rootNode,
       name: 'align',
@@ -288,7 +288,7 @@ describe('ui / dropdown-ui', () => {
       downIcon: icons.get('down'),
       tooltip: 'Alignment',
       location: 'global',
-      placement: 'top',
+      direction: 'top',
       menuType: 'list',
       menuItems: alignMenuItems,
       onSelect: value => {
