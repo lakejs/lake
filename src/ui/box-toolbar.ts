@@ -1,7 +1,7 @@
 import { TranslationFunctions } from '../i18n/types';
 import {
   BoxToolbarButtonItem, BoxToolbarDropdownItem,
-  BoxToolbarItem, BoxToolbarConfig, BoxToolbarPlacement,
+  BoxToolbarItem, BoxToolbarPlacement,
 } from '../types/box-toolbar';
 import { query } from '../utils/query';
 import { nodePosition } from '../utils/node-position';
@@ -10,6 +10,14 @@ import { Box } from '../models/box';
 import { Button } from './button';
 import { Dropdown } from './dropdown';
 import { i18nObject } from '../i18n';
+
+type BoxToolbarConfig = {
+  root: Nodes;
+  box: Box;
+  items: ('|' | BoxToolbarItem)[];
+  locale?: TranslationFunctions;
+  placement?: BoxToolbarPlacement;
+};
 
 export class BoxToolbar {
 

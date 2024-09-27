@@ -1,5 +1,8 @@
 import { TranslationFunctions } from '../i18n/types';
-import { DropdownItem, DropdownMenuItem } from '../types/dropdown';
+import {
+  DropdownLocation, DropdownDirection,
+  DropdownItem, DropdownMenuItem,
+} from '../types/dropdown';
 import { icons } from '../icons';
 import { encode } from '../utils/encode';
 import { toBase64 } from '../utils/to-base64';
@@ -9,10 +12,6 @@ import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { i18nObject } from '../i18n';
-
-type DropdownLocation = 'local' | 'global';
-
-type DropdownDirection = 'top' | 'bottom' | 'auto';
 
 type DropdownConfig = DropdownItem & {
   root: Nodes;
