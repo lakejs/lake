@@ -10,7 +10,6 @@ const imageUrl = '../assets/images/heaven-lake-256.png';
 describe('ui / box-toolbar-ui', () => {
 
   let container: Nodes;
-  let popupContainer: Nodes;
 
   before(() => {
     boxes.set('boxToolbarUiTestBox', {
@@ -25,8 +24,6 @@ describe('ui / box-toolbar-ui', () => {
     const rootNode = query('<div class="lake-root lake-custom-properties"></div>');
     rootNode.append(container);
     query(document.body).append(rootNode);
-    popupContainer = query('<div class="lake-popup lake-custom-properties"></div>');
-    query(document.body).append(popupContainer);
   });
 
   it('box toolbar', () => {
@@ -34,7 +31,6 @@ describe('ui / box-toolbar-ui', () => {
     const box = new Box(container.find('lake-box'));
     box.render();
     const boxToolbar = new BoxToolbar({
-      root: popupContainer,
       box,
       items: [
         {

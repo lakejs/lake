@@ -12,7 +12,6 @@ import { Dropdown } from './dropdown';
 import { i18nObject } from '../i18n';
 
 type BoxToolbarConfig = {
-  root: Nodes;
   box: Box;
   items: ('|' | BoxToolbarItem)[];
   locale?: TranslationFunctions;
@@ -20,8 +19,6 @@ type BoxToolbarConfig = {
 };
 
 export class BoxToolbar {
-
-  private root: Nodes;
 
   private box: Box;
 
@@ -40,7 +37,6 @@ export class BoxToolbar {
   public container: Nodes;
 
   constructor(config: BoxToolbarConfig) {
-    this.root = query(config.root);
     this.box = config.box;
     this.items = config.items;
     this.locale = config.locale || i18nObject('en-US');
@@ -115,7 +111,7 @@ export class BoxToolbar {
 
   // Renders a toolbar for the specified box.
   public render(): void {
-    this.root.append(this.container);
+    query(document.body).append(this.container);
     for (const item of this.items) {
       if (item === '|') {
         this.appendDivider();

@@ -147,7 +147,6 @@ export class Box {
     let toolbar: BoxToolbar | null = null;
     this.event.on('focus', () => {
       toolbar = new BoxToolbar({
-        root: query(document.body),
         box: this,
         items,
         locale: editor ? editor.locale : undefined,
