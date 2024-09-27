@@ -136,15 +136,11 @@ export abstract class Menu<Item> {
     this.hide();
   };
 
-  private scrollListener = () => this.position();
+  private scrollListener = () => this.updatePosition();
 
-  private resizeListener = () => this.position();
+  private resizeListener = () => this.updatePosition();
 
-  public get visible(): boolean {
-    return this.container.get(0).isConnected && this.container.computedCSS('display') !== 'none';
-  }
-
-  public position(keepDirection: boolean = false): void {
+  private updatePosition(keepDirection: boolean = false): void {
     if (!this.range || this.range.isCollapsed) {
       return;
     }
@@ -175,6 +171,10 @@ export abstract class Menu<Item> {
     }
   }
 
+  public get visible(): boolean {
+    return this.container.get(0).isConnected && this.container.computedCSS('display') !== 'none';
+  }
+
   public update(keyword: string): void {
     const items = this.search(keyword);
     if (items.length === 0) {
@@ -183,7 +183,7 @@ export abstract class Menu<Item> {
     }
     this.appendItems(items);
     this.selectFirstItemNodeIfNeeded();
-    this.position(true);
+    this.updatePosition(true);
     this.container.css('visibility', '');
   }
 
@@ -204,7 +204,7 @@ export abstract class Menu<Item> {
     this.container.css('visibility', 'hidden');
     this.container.show();
     (this.container.get(0) as Element).scrollTo(0, 0);
-    this.position();
+    this.updatePosition();
     // fix the container's width
     this.container.css('width', '');
     this.container.css('width', `${this.container.width()}px`);
