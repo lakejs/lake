@@ -145,30 +145,19 @@ export class Box {
       editor = this.getEditor();
     } catch { /* empty */ }
     let toolbar: BoxToolbar | null = null;
-    const scrollListener = () => {
-      if (toolbar) {
-        toolbar.position();
-      }
-    };
     this.event.on('focus', () => {
       toolbar = new BoxToolbar({
-        root: editor ? editor.popupContainer : query(document.body),
+        root: query(document.body),
         box: this,
         items,
         locale: editor ? editor.locale : undefined,
       });
       toolbar.render();
-      if (editor) {
-        editor.root.on('scroll', scrollListener);
-      }
     });
     this.event.on('blur', () => {
       if (toolbar) {
         toolbar.unmount();
         toolbar = null;
-      }
-      if (editor) {
-        editor.root.off('scroll', scrollListener);
       }
     });
   }

@@ -78,8 +78,10 @@
 /* menu */
 .lake-dropdown-menu {
   font-family: var(--font-family);
-  color: var(--text-color);
   font-size: 14px;
+  font-weight: normal;
+  line-height: normal;
+  color: var(--text-color);
   user-select: none;
   box-sizing: content-box;
   position: absolute;

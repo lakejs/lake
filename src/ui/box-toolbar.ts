@@ -45,7 +45,7 @@ export class BoxToolbar {
     this.items = config.items;
     this.locale = config.locale || i18nObject('en-US');
     this.placement = config.placement || 'top';
-    this.container = query('<div class="lake-box-toolbar" />');
+    this.container = query('<div class="lake-box-toolbar lake-custom-properties" />');
   }
 
   private appendDivider(): void {
@@ -89,7 +89,11 @@ export class BoxToolbar {
     this.dropdownList.push(dropdown);
   }
 
-  public position(): void {
+  private scrollListener = () => this.updatePosition();
+
+  private resizeListener = () => this.updatePosition();
+
+  public updatePosition(): void {
     const boxNode = this.box.node;
     const boxNativeNode = boxNode.get(0) as HTMLElement;
     const boxRect = boxNativeNode.getBoundingClientRect();
@@ -123,7 +127,12 @@ export class BoxToolbar {
         this.appendDropdown(item);
       }
     }
-    this.position();
+    this.updatePosition();
+    const viewport = this.box.node.closestScroller();
+    if (viewport.length > 0) {
+      viewport.on('scroll', this.scrollListener);
+    }
+    window.addEventListener('resize', this.resizeListener);
   }
 
   // Destroys the toolbar.
@@ -131,6 +140,11 @@ export class BoxToolbar {
     for (const dropdown of this.dropdownList) {
       dropdown.unmount();
     }
+    const viewport = this.box.node.closestScroller();
+    if (viewport.length > 0) {
+      viewport.off('scroll', this.scrollListener);
+    }
+    window.removeEventListener('resize', this.resizeListener);
     this.container.remove();
   }
 }
