@@ -45,6 +45,7 @@ export default (editor: Editor) => {
     return;
   }
   const menu = new SlashMenu({
+    locale: editor.locale,
     items: editor.config.slash.items,
     onSelect: (event, item, fileNode) => {
       if (menu) {
