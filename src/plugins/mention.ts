@@ -37,6 +37,12 @@ export default (editor: Editor) => {
     editor.selection.insertBox('mention', item);
     editor.history.save();
   };
+  const showListener = () => {
+    editor.popup = menu;
+  };
+  const hideListener = () => {
+    editor.popup = null;
+  };
   const showMenu = () => {
     const range = editor.selection.range;
     if (!range.isCollapsed) {
@@ -60,8 +66,9 @@ export default (editor: Editor) => {
             menu = new MentionMenu({
               items: body.data,
               onClick: clickListener,
+              onShow: showListener,
+              onHide: hideListener,
             });
-            editor.popup = menu;
             menu.show(targetRange, keyword);
           },
           action: requestAction,
@@ -71,8 +78,9 @@ export default (editor: Editor) => {
         menu = new MentionMenu({
           items,
           onClick: clickListener,
+          onShow: showListener,
+          onHide: hideListener,
         });
-        editor.popup = menu;
         menu.show(targetRange, keyword);
       }
       return;
@@ -113,7 +121,6 @@ export default (editor: Editor) => {
   return () => {
     if (menu) {
       menu.unmount();
-      editor.popup = null;
     }
   };
 };

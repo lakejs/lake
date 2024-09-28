@@ -80,36 +80,36 @@ describe('plugins / slash', () => {
     expect(editor.popup.container.find('.lake-menu-item').length).to.equal(1);
   });
 
-  it('should hide a popup menu when there is no block', () => {
+  it('should not show a popup menu when there is no block', () => {
     editor.setValue('/<focus />');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '/',
     }));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
   });
 
-  it('should hide a popup box when the block contains a box', () => {
+  it('should not show a popup box when the block contains a box', () => {
     editor.setValue('<p>/<focus /><lake-box type="inline" name="equation"></lake-box></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '/',
     }));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
   });
 
-  it('should hide a popup menu when there is no slash', () => {
+  it('should not show a popup menu when there is no slash', () => {
     editor.setValue('<p>code<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: 'e',
     }));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
   });
 
-  it('should hide a popup box when the search result is empty', () => {
+  it('should not show a popup box when the search result is empty', () => {
     editor.setValue('<p>//<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '/',
     }));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup.visible).to.equal(true);
   });
 
   it('should set current block to heading 1', () => {

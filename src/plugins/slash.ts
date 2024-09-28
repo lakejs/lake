@@ -38,8 +38,7 @@ export default (editor: Editor) => {
     editor,
     items: editor.config.slash.items,
   });
-  editor.popup = menu;
-  const showPopup = () => {
+  const showMenu = () => {
     const range = editor.selection.range;
     if (!range.isCollapsed) {
       return;
@@ -57,6 +56,7 @@ export default (editor: Editor) => {
     }
     const slashRange = range.clone();
     slashRange.selectNodeContents(block);
+    editor.popup = menu;
     menu.show(slashRange, keyword);
   };
   editor.container.on('keyup', event => {
@@ -69,11 +69,11 @@ export default (editor: Editor) => {
     }
     if (!menu.visible) {
       if (isKeyHotkey('/', keyboardEvent)) {
-        showPopup();
+        showMenu();
         return;
       }
       if (isKeyHotkey(['backspace', 'delete'], keyboardEvent)) {
-        showPopup();
+        showMenu();
       } else {
         return;
       }

@@ -4,17 +4,21 @@ import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { Menu, MenuConfig } from './menu';
 
+type OnClick = (item: MentionItem) => void;
+
 type MentionMenuConfig = MenuConfig<MentionItem> & {
-  onClick?: (item: MentionItem) => void,
+  onClick?: OnClick;
 };
+
+const emptyCallback = () => {};
 
 export class MentionMenu extends Menu<MentionItem> {
 
-  private config: MentionMenuConfig;
+  private onClick: OnClick;
 
   constructor(config: MentionMenuConfig) {
     super(config);
-    this.config = config;
+    this.onClick = config.onClick || emptyCallback;
     this.container.addClass('lake-mention-menu');
   }
 
@@ -35,11 +39,7 @@ export class MentionMenu extends Menu<MentionItem> {
     if (!item.nickname) {
       itemNode.find('.lake-mention-name').remove();
     }
-    itemNode.on('click', () => {
-      if (this.config.onClick) {
-        this.config.onClick(item);
-      }
-    });
+    itemNode.on('click', () => this.onClick(item));
     return itemNode;
   }
 

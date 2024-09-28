@@ -112,13 +112,13 @@ describe('plugins / mention', () => {
     expect(editor.popup).to.equal(null);
   });
 
-  it('should hide a popup menu when the search result is empty', () => {
+  it('should not show a popup menu when the search result is empty', () => {
     editor.setValue('<p>@roddy2<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       shiftKey: true,
       key: '@',
     }));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
   });
 
   it('should insert an mention box by clicking', () => {
@@ -128,7 +128,7 @@ describe('plugins / mention', () => {
       key: '@',
     }));
     click(editor.popup.container.find('.lake-menu-item').eq(0));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
     const value = removeBoxValueFromHTML(editor.getValue());
     expect(value).to.equal('<p><lake-box type="inline" name="mention" focus="end"></lake-box></p>');
   });
@@ -143,7 +143,7 @@ describe('plugins / mention', () => {
     document.dispatchEvent(new KeyboardEvent('keydown', {
       key: 'Enter',
     }));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
     const value = removeBoxValueFromHTML(editor.getValue());
     expect(value).to.equal('<p><lake-box type="inline" name="mention" focus="end"></lake-box></p>');
   });
@@ -164,7 +164,7 @@ describe('plugins / mention', () => {
     expect(editor.popup.container.find('.lake-menu-item').length).to.equal(2);
   });
 
-  it('should hide popup menu when the search result is empty', () => {
+  it('should hide a popup menu when the search result is empty', () => {
     editor.setValue('<p>@roddy<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       shiftKey: true,
@@ -176,10 +176,10 @@ describe('plugins / mention', () => {
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '1',
     }));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
   });
 
-  it('should show popup menu when backspace key is entered', () => {
+  it('should show a popup menu when backspace key is entered', () => {
     editor.setValue('<p>@roddy<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       shiftKey: true,
@@ -191,7 +191,7 @@ describe('plugins / mention', () => {
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '1',
     }));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
     editor.setValue('<p>@roddy<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: 'Backspace',
@@ -200,7 +200,7 @@ describe('plugins / mention', () => {
     expect(editor.popup.container.find('.lake-menu-item').length).to.equal(1);
   });
 
-  it('should show popup menu when delete key is entered', () => {
+  it('should show a popup menu when delete key is entered', () => {
     editor.setValue('<p>@roddy<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       shiftKey: true,
@@ -212,7 +212,7 @@ describe('plugins / mention', () => {
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '1',
     }));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
     editor.setValue('<p>@roddy<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: 'Delete',

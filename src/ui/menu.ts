@@ -6,13 +6,21 @@ import { Range } from '../models/range';
 
 export type MenuConfig<Item> = {
   items: Item[];
+  onShow?: () => void;
+  onHide?: () => void;
 };
+
+const emptyCallback = () => {};
 
 export abstract class Menu<Item> {
 
   private horizontalDirection: 'left' | 'right' = 'right';
 
   private verticalDirection: 'top' | 'bottom' = 'bottom';
+
+  private onShow: () => void;
+
+  private onHide: () => void;
 
   protected items: Item[];
 
@@ -24,6 +32,8 @@ export abstract class Menu<Item> {
 
   constructor(config: MenuConfig<Item>) {
     this.items = config.items;
+    this.onShow = config.onShow || emptyCallback;
+    this.onHide = config.onHide || emptyCallback;
     this.container = query('<ul class="lake-menu lake-custom-properties" />');
   }
 
@@ -212,10 +222,16 @@ export abstract class Menu<Item> {
     document.addEventListener('click', this.clickListener);
     window.addEventListener('resize', this.resizeListener);
     if (keyword) {
-      this.update(keyword);
-    } else {
-      this.container.css('visibility', '');
+      const items = this.search(keyword);
+      if (items.length === 0) {
+        return;
+      }
+      this.appendItems(items);
+      this.selectFirstItemNodeIfNeeded();
+      this.updatePosition(true);
     }
+    this.container.css('visibility', '');
+    this.onShow();
   }
 
   public hide(): void {
@@ -230,6 +246,7 @@ export abstract class Menu<Item> {
     document.removeEventListener('keydown', this.keydownListener, true);
     document.removeEventListener('click', this.clickListener);
     window.removeEventListener('resize', this.resizeListener);
+    this.onHide();
   }
 
   public unmount(): void {
