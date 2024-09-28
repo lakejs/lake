@@ -1,6 +1,8 @@
 import { isKeyHotkey } from 'is-hotkey';
 import type { Editor } from '..';
-import type { Nodes } from '../models/nodes';
+import { appendBreak } from '../utils/append-break';
+import { uploadFile } from '../utils/upload-file';
+import { Nodes } from '../models/nodes';
 import { SlashMenu } from '../ui/slash-menu';
 
 const defaultItems: string[] = [
@@ -27,6 +29,14 @@ function getKeyword(block: Nodes): string | null {
   return text.substring(1);
 }
 
+function emptyBlock(editor: Editor): void {
+  const range = editor.selection.range;
+  const block = range.commonAncestor.closestBlock();
+  block.empty();
+  appendBreak(block);
+  range.shrinkBefore(block);
+}
+
 export default (editor: Editor) => {
   editor.setPluginConfig('slash', {
     items: defaultItems,
@@ -35,8 +45,44 @@ export default (editor: Editor) => {
     return;
   }
   const menu = new SlashMenu({
-    editor,
     items: editor.config.slash.items,
+    onSelect: (event, item, fileNode) => {
+      if (menu) {
+        menu.hide();
+      }
+      editor.focus();
+      emptyBlock(editor);
+      if (item.type === 'upload') {
+        if (!fileNode) {
+          return;
+        }
+        const target = event.target as HTMLInputElement;
+        const fileNativeNode = fileNode.get(0) as HTMLInputElement;
+        const files = target.files || [];
+        for (const file of files) {
+          uploadFile({
+            editor,
+            name: item.name,
+            file,
+            onError: error => {
+              fileNativeNode.value = '';
+              editor.config.onMessage('error', error);
+            },
+            onSuccess: () => {
+              fileNativeNode.value = '';
+            },
+          });
+        }
+      } else {
+        item.onClick(editor, item.name);
+      }
+    },
+    onShow: () => {
+      editor.popup = menu;
+    },
+    onHide: () => {
+      editor.popup = null;
+    },
   });
   const showMenu = () => {
     const range = editor.selection.range;
@@ -56,7 +102,6 @@ export default (editor: Editor) => {
     }
     const slashRange = range.clone();
     slashRange.selectNodeContents(block);
-    editor.popup = menu;
     menu.show(slashRange, keyword);
   };
   editor.container.on('keyup', event => {
@@ -92,6 +137,5 @@ export default (editor: Editor) => {
   });
   return () => {
     menu.unmount();
-    editor.popup = null;
   };
 };

@@ -109,7 +109,7 @@ describe('plugins / slash', () => {
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '/',
     }));
-    expect(editor.popup.visible).to.equal(true);
+    expect(editor.popup).to.equal(null);
   });
 
   it('should set current block to heading 1', () => {
@@ -119,7 +119,7 @@ describe('plugins / slash', () => {
     });
     editor.container.emit('keyup', event);
     click(editor.popup.container.find('.lake-menu-item').eq(0));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
     const value = editor.getValue();
     expect(value).to.equal('<h1><focus /><br /></h1>');
   });
@@ -133,7 +133,7 @@ describe('plugins / slash', () => {
     document.dispatchEvent(new KeyboardEvent('keydown', {
       key: 'Enter',
     }));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
     const value = editor.getValue();
     expect(value).to.equal('<h1><focus /><br /></h1>');
   });
@@ -144,7 +144,7 @@ describe('plugins / slash', () => {
       key: '/',
     }));
     click(editor.popup.container.find('.lake-menu-item').eq(0));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
     const value = editor.getValue();
     expect(value).to.equal('<h6><focus /><br /></h6>');
   });
@@ -155,7 +155,7 @@ describe('plugins / slash', () => {
       key: '/',
     }));
     click(editor.popup.container.find('.lake-menu-item').eq(0));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
     const value = editor.getValue();
     expect(value).to.equal('<p><lake-box type="inline" name="equation" focus="end"></lake-box></p>');
   });
@@ -166,7 +166,7 @@ describe('plugins / slash', () => {
       key: '/',
     }));
     click(editor.popup.container.find('.lake-menu-item').eq(0));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
     const value = editor.getValue();
     expect(value).to.equal('<h6><focus /><br /></h6>');
   });
@@ -197,7 +197,7 @@ describe('plugins / slash', () => {
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '1',
     }));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
   });
 
   it('should show popup menu when backspace key is entered', () => {
@@ -211,7 +211,7 @@ describe('plugins / slash', () => {
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '1',
     }));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
     editor.setValue('<p>/heading 6<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: 'Backspace',
@@ -231,7 +231,7 @@ describe('plugins / slash', () => {
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: '1',
     }));
-    expect(editor.popup.visible).to.equal(false);
+    expect(editor.popup).to.equal(null);
     editor.setValue('<p>/heading 6<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {
       key: 'Delete',

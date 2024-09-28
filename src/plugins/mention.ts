@@ -25,7 +25,7 @@ export default (editor: Editor) => {
   }
   const { requestAction, requestMethod, items } = editor.config.mention;
   let menu: MentionMenu | null = null;
-  const clickListener = (item: MentionItem) => {
+  const selectListener = (event: Event, item: MentionItem) => {
     if (menu) {
       menu.hide();
     }
@@ -65,7 +65,7 @@ export default (editor: Editor) => {
             }
             menu = new MentionMenu({
               items: body.data,
-              onClick: clickListener,
+              onSelect: selectListener,
               onShow: showListener,
               onHide: hideListener,
             });
@@ -77,7 +77,7 @@ export default (editor: Editor) => {
       } else {
         menu = new MentionMenu({
           items,
-          onClick: clickListener,
+          onSelect: selectListener,
           onShow: showListener,
           onHide: hideListener,
         });

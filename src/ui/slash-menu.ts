@@ -1,17 +1,24 @@
-import type { Editor } from '../editor';
+import { TranslationFunctions } from '../i18n/types';
 import { SlashItem } from '../types/slash';
 import { slashItems } from '../config/slash-items';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
-import { appendBreak } from '../utils/append-break';
-import { uploadFile } from '../utils/upload-file';
 import { Nodes } from '../models/nodes';
 import { Menu, MenuConfig } from './menu';
 import { i18nObject } from '../i18n';
 
+type OnSelect = (
+  event: Event,
+  item: SlashItem,
+  fileNode?: Nodes,
+) => void;
+
 type SlashMenuConfig = MenuConfig<string | SlashItem> & {
-  editor: Editor,
+  locale?: TranslationFunctions;
+  onSelect?: OnSelect;
 };
+
+const emptyCallback = () => {};
 
 const slashItemMap: Map<string, SlashItem> = new Map();
 
@@ -21,11 +28,14 @@ for (const item of slashItems) {
 
 export class SlashMenu extends Menu<string | SlashItem> {
 
-  private editor: Editor;
+  private locale: TranslationFunctions;
+
+  private onSelect: OnSelect;
 
   constructor(config: SlashMenuConfig) {
     super(config);
-    this.editor = config.editor;
+    this.locale = config.locale || i18nObject('en-US');
+    this.onSelect = config.onSelect || emptyCallback;
     this.container.addClass('lake-slash-menu');
   }
 
@@ -40,19 +50,10 @@ export class SlashMenu extends Menu<string | SlashItem> {
     return item;
   }
 
-  private emptyBlock(): void {
-    const range = this.editor.selection.range;
-    const block = range.commonAncestor.closestBlock();
-    block.empty();
-    appendBreak(block);
-    range.shrinkBefore(block);
-  }
-
   protected getItemNode(name: string | SlashItem): Nodes {
-    const editor = this.editor;
     const item = this.getItem(name);
-    const itemTitle = typeof item.title === 'string' ? item.title : item.title(editor.locale);
-    const itemDescription = typeof item.description === 'string' ? item.description : item.description(editor.locale);
+    const itemTitle = typeof item.title === 'string' ? item.title : item.title(this.locale);
+    const itemDescription = typeof item.description === 'string' ? item.description : item.description(this.locale);
     const itemNode = query(safeTemplate`
       <li name="${item.name}">
         <div class="lake-slash-icon"></div>
@@ -77,49 +78,21 @@ export class SlashMenu extends Menu<string | SlashItem> {
         fileNode.attr('multiple', 'true');
       }
       fileNode.on('click', event => event.stopPropagation());
-      fileNode.on('change', event => {
-        editor.focus();
-        this.hide();
-        this.emptyBlock();
-        const target = event.target as HTMLInputElement;
-        const files = target.files || [];
-        for (const file of files) {
-          uploadFile({
-            editor,
-            name: item.name,
-            file,
-            onError: error => {
-              fileNativeNode.value = '';
-              editor.config.onMessage('error', error);
-            },
-            onSuccess: () => {
-              fileNativeNode.value = '';
-            },
-          });
-        }
-      });
-      itemNode.on('click', () => {
-        fileNativeNode.click();
-      });
+      fileNode.on('change', event => this.onSelect(event, item, fileNode));
+      itemNode.on('click', () => fileNativeNode.click());
     } else {
-      itemNode.on('click', () => {
-        editor.focus();
-        this.hide();
-        this.emptyBlock();
-        item.onClick(editor, item.name);
-      });
+      itemNode.on('click', event => this.onSelect(event, item));
     }
     return itemNode;
   }
 
   protected search(keyword: string): (string | SlashItem)[] {
-    const editor = this.editor;
     const localeEnglish = i18nObject('en-US');
     keyword = keyword.toLowerCase();
     const items: (string | SlashItem)[] = [];
     for (const name of this.items) {
       const item = this.getItem(name);
-      let itemTitle = typeof item.title === 'string' ? item.title : item.title(editor.locale);
+      let itemTitle = typeof item.title === 'string' ? item.title : item.title(this.locale);
       itemTitle = itemTitle.toLowerCase();
       let itemTitleEnglish = typeof item.title === 'string' ? item.title : item.title(localeEnglish);
       itemTitleEnglish = itemTitleEnglish.toLowerCase();
