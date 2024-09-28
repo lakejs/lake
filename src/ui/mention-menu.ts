@@ -1,4 +1,3 @@
-import type { Editor } from '../editor';
 import { MentionItem } from '../types/mention';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
@@ -6,21 +5,20 @@ import { Nodes } from '../models/nodes';
 import { Menu, MenuConfig } from './menu';
 
 type MentionMenuConfig = MenuConfig<MentionItem> & {
-  editor: Editor,
+  onClick?: (item: MentionItem) => void,
 };
 
 export class MentionMenu extends Menu<MentionItem> {
 
-  private editor: Editor;
+  private config: MentionMenuConfig;
 
   constructor(config: MentionMenuConfig) {
     super(config);
-    this.editor = config.editor;
+    this.config = config;
     this.container.addClass('lake-mention-menu');
   }
 
   protected getItemNode(item: MentionItem): Nodes {
-    const editor = this.editor;
     const itemNode = query(safeTemplate`
       <li>
         <div class="lake-mention-avatar"></div>
@@ -38,14 +36,9 @@ export class MentionMenu extends Menu<MentionItem> {
       itemNode.find('.lake-mention-name').remove();
     }
     itemNode.on('click', () => {
-      this.hide();
-      editor.focus();
-      const targetRange = editor.selection.range.getCharacterRange('@');
-      if (targetRange) {
-        targetRange.get().deleteContents();
+      if (this.config.onClick) {
+        this.config.onClick(item);
       }
-      editor.selection.insertBox('mention', item);
-      editor.history.save();
     });
     return itemNode;
   }

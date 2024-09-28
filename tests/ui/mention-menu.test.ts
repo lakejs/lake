@@ -51,7 +51,6 @@ describe('ui / mention-menu', () => {
 
   it('show method: should search an item', () => {
     const menu = new MentionMenu({
-      editor,
       items: mentionItems,
     });
     const range = new Range();
@@ -63,7 +62,6 @@ describe('ui / mention-menu', () => {
 
   it('update method: should update items', () => {
     const menu = new MentionMenu({
-      editor,
       items: mentionItems,
     });
     const range = new Range();

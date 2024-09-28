@@ -25,7 +25,19 @@ export default (editor: Editor) => {
   }
   const { requestAction, requestMethod, items } = editor.config.mention;
   let menu: MentionMenu | null = null;
-  const showPopup = () => {
+  const clickListener = (item: MentionItem) => {
+    if (menu) {
+      menu.hide();
+    }
+    editor.focus();
+    const targetRange = editor.selection.range.getCharacterRange('@');
+    if (targetRange) {
+      targetRange.get().deleteContents();
+    }
+    editor.selection.insertBox('mention', item);
+    editor.history.save();
+  };
+  const showMenu = () => {
     const range = editor.selection.range;
     if (!range.isCollapsed) {
       return;
@@ -46,8 +58,8 @@ export default (editor: Editor) => {
               return;
             }
             menu = new MentionMenu({
-              editor,
               items: body.data,
+              onClick: clickListener,
             });
             editor.popup = menu;
             menu.show(targetRange, keyword);
@@ -57,8 +69,8 @@ export default (editor: Editor) => {
         });
       } else {
         menu = new MentionMenu({
-          editor,
           items,
+          onClick: clickListener,
         });
         editor.popup = menu;
         menu.show(targetRange, keyword);
@@ -77,11 +89,11 @@ export default (editor: Editor) => {
     }
     if (!menu || !menu.visible) {
       if (keyboardEvent.key === '@') {
-        showPopup();
+        showMenu();
         return;
       }
       if (isKeyHotkey(['backspace', 'delete'], keyboardEvent)) {
-        showPopup();
+        showMenu();
       } else {
         return;
       }
