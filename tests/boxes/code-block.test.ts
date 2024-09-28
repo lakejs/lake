@@ -55,8 +55,7 @@ describe('boxes / code-block', () => {
     box.event.once('focus', () => {
       expect(dropdownNode.computedCSS('display')).to.equal('block');
       click(dropdownNode.find('button[name="langType"]'));
-      const menuNodes = query(document.body).find('.lake-dropdown-menu');
-      const menuNode = menuNodes.eq(menuNodes.length - 1);
+      const menuNode = query(document.body).find('.lake-dropdown-menu').reverse().eq(0);
       expect(menuNode.computedCSS('display')).to.equal('block');
       click(menuNode.find('li[value="html"]'));
       expect(menuNode.computedCSS('display')).to.equal('none');

@@ -57,7 +57,6 @@ describe('ui / slash-menu', () => {
   it('show method: should search an item', () => {
     const menu = new SlashMenu({
       editor,
-      root: editor.popupContainer,
       items: slashItems,
     });
     const range = new Range();
@@ -70,7 +69,6 @@ describe('ui / slash-menu', () => {
   it('update method: should update items', () => {
     const menu = new SlashMenu({
       editor,
-      root: editor.popupContainer,
       items: slashItems,
     });
     const range = new Range();

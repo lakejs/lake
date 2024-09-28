@@ -46,13 +46,12 @@ describe('ui / slash-menu-ui', () => {
     editor.render();
     const menu = new SlashMenu({
       editor,
-      root: editor.popupContainer,
       items: slashItems,
     });
     const slashRange = editor.selection.range.clone();
     slashRange.selectNodeContents(editor.container);
     menu.show(slashRange);
-    expect(editor.popupContainer.find('.lake-slash-menu').length).to.equal(1);
+    expect(menu.container.get(0).isConnected).to.equal(true);
   });
 
 });

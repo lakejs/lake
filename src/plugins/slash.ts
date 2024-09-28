@@ -36,9 +36,9 @@ export default (editor: Editor) => {
   }
   const menu = new SlashMenu({
     editor,
-    root: editor.popupContainer,
     items: editor.config.slash.items,
   });
+  editor.popup = menu;
   const showPopup = () => {
     const range = editor.selection.range;
     if (!range.isCollapsed) {
@@ -90,5 +90,8 @@ export default (editor: Editor) => {
     }
     menu.update(keyword);
   });
-  return () => menu.unmount();
+  return () => {
+    menu.unmount();
+    editor.popup = null;
+  };
 };

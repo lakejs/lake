@@ -5,7 +5,6 @@ import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
 export type MenuConfig<Item> = {
-  root: Nodes;
   items: Item[];
 };
 
@@ -14,8 +13,6 @@ export abstract class Menu<Item> {
   private horizontalDirection: 'left' | 'right' = 'right';
 
   private verticalDirection: 'top' | 'bottom' = 'bottom';
-
-  protected root: Nodes;
 
   protected items: Item[];
 
@@ -26,9 +23,8 @@ export abstract class Menu<Item> {
   public container: Nodes;
 
   constructor(config: MenuConfig<Item>) {
-    this.root = config.root;
     this.items = config.items;
-    this.container = query('<ul class="lake-menu" />');
+    this.container = query('<ul class="lake-menu lake-custom-properties" />');
   }
 
   protected abstract getItemNode(item: Item): Nodes;
@@ -195,7 +191,7 @@ export abstract class Menu<Item> {
       return;
     }
     if (!this.container.get(0).isConnected) {
-      this.root.append(this.container);
+      query(document.body).append(this.container);
     }
     // append all items for fixing the container's width
     this.appendItems(this.items);

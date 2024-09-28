@@ -57,7 +57,6 @@ describe('ui / menu', () => {
   it('should show and hide menu', () => {
     const menu = new SlashMenu({
       editor,
-      root: editor.popupContainer,
       items: slashItems,
     });
     const range = new Range();
@@ -80,7 +79,6 @@ describe('ui / menu', () => {
   it('should not show menu with empty items', () => {
     const menu = new SlashMenu({
       editor,
-      root: editor.popupContainer,
       items: [],
     });
     const range = new Range();
@@ -93,7 +91,6 @@ describe('ui / menu', () => {
   it('should not show menu with collapsed range', () => {
     const menu = new SlashMenu({
       editor,
-      root: editor.popupContainer,
       items: slashItems,
     });
     const range = new Range();
@@ -107,7 +104,6 @@ describe('ui / menu', () => {
   it('keydown event: should select an item using keyboard', () => {
     const menu = new SlashMenu({
       editor,
-      root: editor.popupContainer,
       items: slashItems,
     });
     const range = new Range();

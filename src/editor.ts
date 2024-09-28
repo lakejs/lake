@@ -130,6 +130,8 @@ export class Editor {
 
   public box: BoxManager = Editor.box;
 
+  public popup: any = null;
+
   constructor(config: EditorConfig) {
     if (!config.root) {
       throw new Error('The root of the config must be specified.');

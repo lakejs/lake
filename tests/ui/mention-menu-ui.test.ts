@@ -90,13 +90,12 @@ describe('ui / mention-menu-ui', () => {
     editor.render();
     const menu = new MentionMenu({
       editor,
-      root: editor.popupContainer,
       items: mentionItems,
     });
     const mentionRange = editor.selection.range.clone();
     mentionRange.selectNodeContents(editor.container);
     menu.show(mentionRange);
-    expect(editor.popupContainer.find('.lake-mention-menu').length).to.equal(1);
+    expect(menu.container.get(0).isConnected).to.equal(true);
   });
 
   it('should show mention menu without avatar', () => {
@@ -109,7 +108,6 @@ describe('ui / mention-menu-ui', () => {
     editor.render();
     const menu = new MentionMenu({
       editor,
-      root: editor.popupContainer,
       items: mentionItems.map(item => ({
         id: item.id,
         name: item.name,
@@ -119,7 +117,7 @@ describe('ui / mention-menu-ui', () => {
     const mentionRange = editor.selection.range.clone();
     mentionRange.selectNodeContents(editor.container);
     menu.show(mentionRange);
-    expect(editor.popupContainer.find('.lake-mention-menu').length).to.equal(1);
+    expect(menu.container.get(0).isConnected).to.equal(true);
   });
 
   it('should show mention menu without nickname', () => {
@@ -132,7 +130,6 @@ describe('ui / mention-menu-ui', () => {
     editor.render();
     const menu = new MentionMenu({
       editor,
-      root: editor.popupContainer,
       items: mentionItems.map(item => ({
         id: item.id,
         name: item.name,
@@ -142,7 +139,7 @@ describe('ui / mention-menu-ui', () => {
     const mentionRange = editor.selection.range.clone();
     mentionRange.selectNodeContents(editor.container);
     menu.show(mentionRange);
-    expect(editor.popupContainer.find('.lake-mention-menu').length).to.equal(1);
+    expect(menu.container.get(0).isConnected).to.equal(true);
   });
 
 });

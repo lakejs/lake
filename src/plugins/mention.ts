@@ -47,9 +47,9 @@ export default (editor: Editor) => {
             }
             menu = new MentionMenu({
               editor,
-              root: editor.popupContainer,
               items: body.data,
             });
+            editor.popup = menu;
             menu.show(targetRange, keyword);
           },
           action: requestAction,
@@ -58,9 +58,9 @@ export default (editor: Editor) => {
       } else {
         menu = new MentionMenu({
           editor,
-          root: editor.popupContainer,
           items,
         });
+        editor.popup = menu;
         menu.show(targetRange, keyword);
       }
       return;
@@ -101,6 +101,7 @@ export default (editor: Editor) => {
   return () => {
     if (menu) {
       menu.unmount();
+      editor.popup = null;
     }
   };
 };
