@@ -438,7 +438,7 @@ describe('editor', () => {
     editor.scrollToCaret();
     expect(nativeRootNode.scrollTop).to.equal(0);
     // should remove fake caret
-    expect(editor.overlayContainer.find('.lake-fake-caret').length).to.equal(0);
+    expect(editor.overlayContainer.find('.lake-artificial-caret').length).to.equal(0);
     editor.unmount();
   });
 
