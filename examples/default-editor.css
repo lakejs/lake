@@ -13,8 +13,6 @@
 .lake-root {
   box-sizing: border-box;
   border: 1px solid #d9d9d9;
-  overflow: auto;
-}
-.lake-root .lake-container {
   height: calc(100vh - 160px);
+  overflow: auto;
 }

@@ -8,7 +8,7 @@ lake-box[type="inline"] {
 }
 lake-box[type="block"] {
   display: block grid;
-  grid-template-columns: 1px 1fr 1px;
+  grid-template-columns: 1px calc(100% - 2px) 1px;
 }
 lake-box .lake-box-strip {
   display: block;

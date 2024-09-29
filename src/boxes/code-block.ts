@@ -91,7 +91,6 @@ export default {
     const editor = box.getEditor();
     const rootNode = query('<div class="lake-code-block" />');
     const boxContainer = box.getContainer();
-    boxContainer.css('width', `${editor.container.innerWidth() - 2}px`);
     boxContainer.empty();
     boxContainer.append(rootNode);
     const codeBlockNativeNode = rootNode.get(0) as HTMLElement;
@@ -191,10 +190,6 @@ export default {
       },
     });
     dropdown.render();
-    const resizeListener = () => {
-      boxContainer.css('width', `${editor.container.innerWidth() - 2}px`);
-    };
-    editor.event.on('resize', resizeListener);
     rootNode.on('click', () => {
       if (codeEditor.hasFocus) {
         return;
@@ -204,7 +199,6 @@ export default {
     box.event.on('beforeunmount', () => {
       dropdown.unmount();
       codeEditor.destroy();
-      editor.event.off('resize', resizeListener);
       debug('CodeMirror destroyed');
     });
   },
