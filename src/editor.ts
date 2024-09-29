@@ -112,8 +112,6 @@ export class Editor {
 
   public overlayContainer: Nodes;
 
-  public popupContainer: Nodes;
-
   public isComposing: boolean = false;
 
   public readonly: boolean;
@@ -145,7 +143,6 @@ export class Editor {
     this.containerWrapper = query('<div class="lake-container-wrapper" />');
     this.container = query('<div class="lake-container" />');
     this.overlayContainer = query('<div class="lake-overlay" />');
-    this.popupContainer = query('<div class="lake-popup lake-custom-properties" />');
     this.readonly = this.config.readonly;
 
     this.root.addClass('lake-custom-properties');
@@ -614,7 +611,6 @@ export class Editor {
     this.root.append(this.containerWrapper);
     this.containerWrapper.append(this.container);
     this.containerWrapper.append(this.overlayContainer);
-    query(document.body).append(this.popupContainer);
     this.togglePlaceholderClass(htmlParser.getHTML());
     this.container.append(fragment);
     this.unmountPluginMap = Editor.plugin.loadAll(this);
@@ -668,7 +664,6 @@ export class Editor {
     this.root.off();
     this.root.removeClass('lake-custom-properties');
     this.root.empty();
-    this.popupContainer.remove();
     document.removeEventListener('copy', this.copyListener);
     window.removeEventListener('resize', this.resizeListener);
     if (!this.readonly) {
