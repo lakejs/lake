@@ -9,18 +9,17 @@ import { Button } from './button';
 import { i18nObject } from '../i18n';
 
 type LinkPopupConfig = {
-  root: Nodes;
   locale?: TranslationFunctions;
   onCopy?: (error: boolean) => void;
   onSave?: (node: Nodes) => void;
   onRemove?: (node: Nodes) => void;
+  onShow?: () => void;
+  onHide?: () => void;
 };
 
 export class LinkPopup {
 
   private config: LinkPopupConfig;
-
-  private root: Nodes;
 
   private locale: TranslationFunctions;
 
@@ -28,12 +27,11 @@ export class LinkPopup {
 
   public container: Nodes;
 
-  constructor(config: LinkPopupConfig) {
-    this.config = config;
-    this.root = config.root;
-    this.locale = config.locale || i18nObject('en-US');
+  constructor(config?: LinkPopupConfig) {
+    this.config = config || {};
+    this.locale = this.config.locale || i18nObject('en-US');
     this.container = query(safeTemplate`
-      <div class="lake-link-popup">
+      <div class="lake-popup lake-link-popup lake-custom-properties">
         <div class="lake-row">${this.locale.link.url()}</div>
         <div class="lake-row lake-url-row">
           <input type="text" name="url" />
@@ -238,17 +236,13 @@ export class LinkPopup {
     }
   }
 
-  public render(): void {
-    this.appendCopyButton();
-    this.appendOpenButton();
-    this.appendSaveButton();
-    this.appendUnlinkButton();
-    this.root.append(this.container);
-  }
-
   public show(linkNode: Nodes): void {
-    if (this.root.find('.lake-link-popup').length === 0) {
-      this.render();
+    if (!this.container.get(0).isConnected) {
+      this.appendCopyButton();
+      this.appendOpenButton();
+      this.appendSaveButton();
+      this.appendUnlinkButton();
+      query(document.body).append(this.container);
     }
     if (this.linkNode && this.linkNode.get(0) === linkNode.get(0)) {
       return;
@@ -270,6 +264,9 @@ export class LinkPopup {
       viewport.on('scroll', this.scrollListener);
     }
     window.addEventListener('resize', this.resizeListener);
+    if (this.config.onShow) {
+      this.config.onShow();
+    }
   }
 
   public hide(): void {
@@ -282,6 +279,9 @@ export class LinkPopup {
     this.linkNode = null;
     this.container.hide();
     window.removeEventListener('resize', this.resizeListener);
+    if (this.config.onHide) {
+      this.config.onHide();
+    }
   }
 
   public unmount(): void {

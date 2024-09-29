@@ -36,9 +36,9 @@ describe('plugins / link', () => {
 
   it('should insert new link', () => {
     editor.command.execute('link');
-    expect(editor.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('block');
+    expect(editor.popup.visible).to.equal(true);
     const value = editor.getValue();
-    const linkTitle = editor.popupContainer.find('.lake-link-popup input[name="title"]').value();
+    const linkTitle = editor.popup.container.find('input[name="title"]').value();
     expect(value).to.equal('<p><a>New link</a><focus /></p>');
     expect(linkTitle).to.equal('New link');
   });
@@ -47,11 +47,11 @@ describe('plugins / link', () => {
     editor.setValue('<p><a href="http://foo.com">foo<focus /></a></p>');
     const linkNode = editor.container.find('a');
     click(linkNode);
-    expect(editor.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('block');
-    editor.popupContainer.find('.lake-link-popup input[name="url"]').value('http://bar.com');
-    editor.popupContainer.find('.lake-link-popup input[name="title"]').value('bar');
-    click(editor.popupContainer.find('.lake-link-popup button[name="save"]'));
-    expect(editor.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('none');
+    expect(editor.popup.visible).to.equal(true);
+    editor.popup.container.find('input[name="url"]').value('http://bar.com');
+    editor.popup.container.find('input[name="title"]').value('bar');
+    click(editor.popup.container.find('button[name="save"]'));
+    expect(editor.popup).to.equal(null);
     const value = editor.getValue();
     expect(value).to.equal('<p><a href="http://bar.com">bar</a><focus /></p>');
   });
@@ -66,12 +66,12 @@ describe('plugins / link', () => {
     editor2.setValue('<p><a href="">foo<focus /></a></p>');
     const linkNode = editor2.container.find('a');
     click(linkNode);
-    expect(editor2.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('block');
-    editor2.popupContainer.find('.lake-link-popup input[name="url"]').value('http://bar.com');
-    editor2.popupContainer.find('.lake-link-popup input[name="title"]').value('bar');
-    click(editor2.popupContainer.find('.lake-link-popup button[name="save"]'));
-    expect(editor.popupContainer.find('.lake-link-popup').length).to.equal(0);
-    expect(editor2.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('none');
+    expect(editor2.popup.visible).to.equal(true);
+    editor2.popup.container.find('input[name="url"]').value('http://bar.com');
+    editor2.popup.container.find('input[name="title"]').value('bar');
+    click(editor2.popup.container.find('button[name="save"]'));
+    expect(editor.popup).to.equal(null);
+    expect(editor2.popup).to.equal(null);
     const value = editor2.getValue();
     expect(value).to.equal('<p><a href="http://bar.com">bar</a><focus /></p>');
     editor2.unmount();
@@ -82,9 +82,9 @@ describe('plugins / link', () => {
     editor.setValue('<p><a href="http://foo.com">foo</a>bar<focus /></p>');
     const linkNode = editor.container.find('a');
     click(linkNode);
-    expect(editor.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('block');
-    click(editor.popupContainer.find('.lake-link-popup button[name="unlink"]'));
-    expect(editor.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('none');
+    expect(editor.popup.visible).to.equal(true);
+    click(editor.popup.container.find('button[name="unlink"]'));
+    expect(editor.popup).to.equal(null);
     const value = editor.getValue();
     expect(value).to.equal('<p>foo<focus />bar</p>');
   });
@@ -93,35 +93,35 @@ describe('plugins / link', () => {
     editor.setValue('<p><a href="http://foo.com">foo<focus /></a></p>');
     const linkNode = editor.container.find('a');
     click(linkNode);
-    expect(editor.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('block');
+    expect(editor.popup.visible).to.equal(true);
     click(editor.container);
-    expect(editor.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('none');
+    expect(editor.popup).to.equal(null);
   });
 
   it('should not close popup when clicking link popup', () => {
     editor.setValue('<p><a href="http://foo.com">foo<focus /></a></p>');
     const linkNode = editor.container.find('a');
     click(linkNode);
-    expect(editor.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('block');
-    click(editor.popupContainer.find('.lake-link-popup'));
-    expect(editor.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('block');
+    expect(editor.popup.visible).to.equal(true);
+    click(editor.popup.container);
+    expect(editor.popup.visible).to.equal(true);
   });
 
   it('should not close popup when clicking link icon in the toolbar', () => {
     editor.setValue('<p><a href="http://foo.com">foo<focus /></a></p>');
     const linkNode = editor.container.find('a');
     click(linkNode);
-    expect(editor.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('block');
+    expect(editor.popup.visible).to.equal(true);
     click(toolbar.container.find('button[name="link"]'));
-    expect(editor.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('block');
+    expect(editor.popup.visible).to.equal(true);
   });
 
   it('should show popup when executing link command', () => {
     editor.setValue('<p><a href="http://foo.com">foo<focus /></a></p>');
     click(toolbar.container.find('button[name="link"]'));
-    expect(editor.popupContainer.find('.lake-link-popup').computedCSS('display')).to.equal('block');
-    const linkUrl = editor.popupContainer.find('.lake-link-popup input[name="url"]').value();
-    const linkTitle = editor.popupContainer.find('.lake-link-popup input[name="title"]').value();
+    expect(editor.popup.visible).to.equal(true);
+    const linkUrl = editor.popup.container.find('input[name="url"]').value();
+    const linkTitle = editor.popup.container.find('input[name="title"]').value();
     expect(linkUrl).to.equal('http://foo.com');
     expect(linkTitle).to.equal('foo');
   });
@@ -130,7 +130,7 @@ describe('plugins / link', () => {
     const linkNode = query('<a>foo<focus /></a>');
     query(document.body).append(linkNode);
     click(linkNode);
-    expect(editor.popupContainer.find('.lake-link-popup').length).to.equal(0);
+    expect(editor.popup).to.equal(null);
     linkNode.remove();
   });
 

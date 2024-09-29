@@ -41,7 +41,7 @@ export class BoxToolbar {
     this.items = config.items;
     this.locale = config.locale || i18nObject('en-US');
     this.placement = config.placement || 'top';
-    this.container = query('<div class="lake-box-toolbar lake-custom-properties" />');
+    this.container = query('<div class="lake-popup lake-box-toolbar lake-custom-properties" />');
   }
 
   private appendDivider(): void {

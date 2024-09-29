@@ -68,11 +68,6 @@ lake-box .lake-button-group button svg {
 }
 /* box toolbar */
 .lake-box-toolbar {
-  font-family: var(--font-family);
-  font-size: 14px;
-  font-weight: normal;
-  line-height: normal;
-  color: var(--text-color);
   position: absolute;
   top: 0;
   left: 0;

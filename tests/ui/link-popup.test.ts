@@ -20,7 +20,6 @@ describe('ui / link-popup', () => {
     const linkNode = query('<a href="http://github.com/">GitHub</a>');
     query(document.body).append(linkNode);
     const popup = new LinkPopup({
-      root: rootNode,
       onCopy: error => {
         const copyButton = popup.container.find('button[name="copy"]');
         if (!error) {
@@ -40,7 +39,6 @@ describe('ui / link-popup', () => {
     const linkNode = query('<a href="http://github.com/">GitHub</a>');
     query(document.body).append(linkNode);
     const popup = new LinkPopup({
-      root: rootNode,
       onCopy: error => {
         const copyButton = popup.container.find('button[name="copy"]');
         if (error) {
@@ -59,9 +57,7 @@ describe('ui / link-popup', () => {
   it('should save the URL and title by clicking button', () => {
     const linkNode = query('<a href="http://github.com/">GitHub</a>');
     query(document.body).append(linkNode);
-    const popup = new LinkPopup({
-      root: rootNode,
-    });
+    const popup = new LinkPopup();
     popup.show(linkNode);
     popup.container.find('input[name="url"]').value('http://foo.com/');
     popup.container.find('input[name="title"]').value('foo');
@@ -75,9 +71,7 @@ describe('ui / link-popup', () => {
   it('should save the URL by pressing enter key', () => {
     const linkNode = query('<a href="http://github.com/">GitHub</a>');
     query(document.body).append(linkNode);
-    const popup = new LinkPopup({
-      root: rootNode,
-    });
+    const popup = new LinkPopup();
     popup.show(linkNode);
     popup.container.find('input[name="url"]').value('http://foo.com/');
     popup.container.find('input[name="url"]').emit('keydown', new KeyboardEvent('keydown', {
@@ -91,9 +85,7 @@ describe('ui / link-popup', () => {
   it('should save the title by pressing enter key', () => {
     const linkNode = query('<a href="http://github.com/">GitHub</a>');
     query(document.body).append(linkNode);
-    const popup = new LinkPopup({
-      root: rootNode,
-    });
+    const popup = new LinkPopup();
     popup.show(linkNode);
     popup.container.find('input[name="title"]').value('foo');
     popup.container.find('input[name="url"]').emit('keydown', new KeyboardEvent('keydown', {
@@ -107,9 +99,7 @@ describe('ui / link-popup', () => {
   it('title should use URL when title is empty', () => {
     const linkNode = query('<a href="http://github.com/">GitHub</a>');
     query(document.body).append(linkNode);
-    const popup = new LinkPopup({
-      root: rootNode,
-    });
+    const popup = new LinkPopup();
     popup.show(linkNode);
     popup.container.find('input[name="title"]').value('');
     const saveButton = popup.container.find('button[name="save"]');
@@ -121,9 +111,7 @@ describe('ui / link-popup', () => {
   it('title should not display URL when title and URL are equal', () => {
     const linkNode = query('<a href="http://github.com/">http://github.com/</a>');
     query(document.body).append(linkNode);
-    const popup = new LinkPopup({
-      root: rootNode,
-    });
+    const popup = new LinkPopup();
     popup.show(linkNode);
     expect(popup.container.find('input[name="title"]').value()).to.equal('');
     linkNode.remove();
@@ -132,9 +120,7 @@ describe('ui / link-popup', () => {
   it('should remove link when both URL and title are empty', () => {
     const linkNode = query('<a href="http://github.com/">GitHub</a>');
     query(document.body).append(linkNode);
-    const popup = new LinkPopup({
-      root: rootNode,
-    });
+    const popup = new LinkPopup();
     popup.show(linkNode);
     popup.container.find('input[name="url"]').value('');
     popup.container.find('input[name="title"]').value('');

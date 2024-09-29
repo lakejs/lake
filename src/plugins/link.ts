@@ -7,7 +7,6 @@ export default (editor: Editor) => {
     return;
   }
   const popup = new LinkPopup({
-    root: editor.popupContainer,
     locale: editor.locale,
     onSave: node => {
       const range = editor.selection.range;
@@ -22,6 +21,12 @@ export default (editor: Editor) => {
       range.collapseToStart();
       editor.selection.sync();
       editor.history.save();
+    },
+    onShow: () => {
+      editor.popup = popup;
+    },
+    onHide: () => {
+      editor.popup = null;
     },
   });
   editor.event.on('click', (targetNode: Nodes) => {

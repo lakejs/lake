@@ -9,9 +9,6 @@
   margin: 0;
   padding: 4px 8px;
   width: fit-content;
-  font-family: var(--font-family);
-  font-size: 14px;
-  color: var(--text-color);
   background-color: #fff;
   box-shadow: var(--popup-shadow);
   display: none;
