@@ -203,14 +203,6 @@ export class Editor {
     this.event.emit('click', targetNode);
   };
 
-  private resizeListener: EventListener = () => {
-    this.event.emit('resize');
-  };
-
-  private scrollListener: EventListener = () => {
-    this.event.emit('scroll');
-  };
-
   private updateSelectionRange = debounce(() => {
     this.selection.updateByRange();
   }, 1, {
@@ -624,9 +616,7 @@ export class Editor {
     if (this.toolbar) {
       this.toolbar.render(this);
     }
-    this.root.on('scroll', this.scrollListener);
     document.addEventListener('copy', this.copyListener);
-    window.addEventListener('resize', this.resizeListener);
     if (!this.readonly) {
       document.addEventListener('cut', this.cutListener);
       document.addEventListener('paste', this.pasteListener);
@@ -665,7 +655,6 @@ export class Editor {
     this.root.removeClass('lake-custom-properties');
     this.root.empty();
     document.removeEventListener('copy', this.copyListener);
-    window.removeEventListener('resize', this.resizeListener);
     if (!this.readonly) {
       document.removeEventListener('cut', this.cutListener);
       document.removeEventListener('paste', this.pasteListener);
