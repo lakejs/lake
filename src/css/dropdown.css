@@ -76,6 +76,7 @@
   fill: var(--secondary-text-color);
 }
 /* menu */
+.lake-dropdown .lake-dropdown-menu,
 .lake-dropdown-menu {
   font-family: var(--font-family);
   font-size: 14px;
@@ -101,6 +102,7 @@
   overflow-y: scroll;
   scrollbar-width: thin;
 }
+.lake-dropdown .lake-dropdown-menu li,
 .lake-dropdown-menu li {
   display: flex;
   align-items: center;
