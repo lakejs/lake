@@ -11,10 +11,10 @@ lake-box[name="equation"] .lake-box-strip {
   align-self: center;
 }
 lake-box[name="equation"] .lake-box-selected .lake-equation {
-  background-color: var(--selection-background-color);
+  background-color: var(--lake-selection-background-color);
 }
 lake-box[name="equation"] .lake-box-focused .lake-equation {
-  background-color: var(--selection-background-color);
+  background-color: var(--lake-selection-background-color);
 }
 .lake-equation .lake-equation-view {
   padding: 0 6px;
@@ -24,12 +24,12 @@ lake-box[name="equation"] .lake-box-focused .lake-equation {
   top: 28px;
   left: 0;
   z-index: 1;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--lake-border-color);
   border-radius: 5px;
   padding: 16px;
   width: fit-content;
   background-color: #fff;
-  box-shadow: var(--popup-shadow);
+  box-shadow: var(--lake-popup-shadow);
   display: none;
 }
 lake-box[name="equation"] .lake-box-focused .lake-equation-form,
@@ -40,7 +40,7 @@ lake-box[name="equation"] .lake-box-activated .lake-equation-form {
   border: 0;
   font-family: Consolas, Courier, monospace;
   font-size: 14px;
-  color: var(--text-color);
+  color: var(--lake-text-color);
   padding: 0;
   margin-right: 8px;
   width: 300px;
@@ -61,6 +61,6 @@ lake-box[name="equation"] .lake-box-activated .lake-equation-form {
 .lake-equation-error {
   padding: 0 6px;
   font-size: 14px;
-  color: var(--error-color);
-  background-color: var(--box-background-color);
+  color: var(--lake-error-color);
+  background-color: var(--lake-box-background-color);
 }

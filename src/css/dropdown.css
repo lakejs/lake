@@ -1,7 +1,7 @@
 .lake-dropdown {
   position: relative;
-  font-family: var(--font-family);
-  color: var(--text-color);
+  font-family: var(--lake-font-family);
+  color: var(--lake-text-color);
   font-size: 14px;
   user-select: none;
 }
@@ -10,7 +10,7 @@
   border: 0;
   font-family: Arial;
   font-size: 14px;
-  color: var(--text-color);
+  color: var(--lake-text-color);
   background-color: #fff;
   padding: 0;
   display: flex;
@@ -26,7 +26,7 @@
 .lake-dropdown.lake-list-dropdown button.lake-dropdown-title-hovered,
 .lake-dropdown.lake-icon-dropdown button.lake-dropdown-title-hovered,
 .lake-dropdown.lake-character-dropdown button.lake-dropdown-title-hovered {
-  background-color: var(--background-hover-color);
+  background-color: var(--lake-background-hover-color);
 }
 .lake-dropdown button.lake-dropdown-title.lake-dropdown-title-no-down {
   margin-right: 0;
@@ -37,7 +37,7 @@
   margin: 6px;
   overflow: hidden;
   white-space: nowrap;
-  color: var(--text-color);
+  color: var(--lake-text-color);
 }
 .lake-dropdown .lake-dropdown-icon {
   position: relative;
@@ -45,7 +45,7 @@
   border-radius: 5px 0 0 5px;
 }
 .lake-dropdown .lake-dropdown-icon-hovered {
-  background-color: var(--background-hover-color);
+  background-color: var(--lake-background-hover-color);
 }
 .lake-dropdown .lake-dropdown-icon svg,
 .lake-dropdown .lake-dropdown-icon img {
@@ -67,22 +67,22 @@
   border-radius: 0 5px 5px 0;
 }
 .lake-dropdown .lake-dropdown-down-icon-hovered {
-  background-color: var(--background-hover-color);
+  background-color: var(--lake-background-hover-color);
 }
 .lake-dropdown .lake-dropdown-down-icon svg {
   width: 12px;
   height: 12px;
   margin: 8px 2px;
-  fill: var(--secondary-text-color);
+  fill: var(--lake-secondary-text-color);
 }
 /* menu */
 .lake-dropdown .lake-dropdown-menu,
 .lake-dropdown-menu {
-  font-family: var(--font-family);
+  font-family: var(--lake-font-family);
   font-size: 14px;
   font-weight: normal;
   line-height: normal;
-  color: var(--text-color);
+  color: var(--lake-text-color);
   user-select: none;
   box-sizing: content-box;
   position: absolute;
@@ -92,10 +92,10 @@
   list-style: none;
   margin: 0;
   padding: 6px 0;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--lake-border-color);
   border-radius: 5px;
   background-color: #fff;
-  box-shadow: var(--popup-shadow);
+  box-shadow: var(--lake-popup-shadow);
   display: none;
 }
 .lake-dropdown-menu.lake-dropdown-menu-with-scroll {
@@ -114,10 +114,10 @@
   padding: 6px 24px 6px 10px;
 }
 .lake-list-dropdown-menu li.lake-dropdown-item-hovered {
-  background-color: var(--background-hover-color);
+  background-color: var(--lake-background-hover-color);
 }
 .lake-list-dropdown-menu li.lake-dropdown-item-selected {
-  background-color: var(--background-active-color);
+  background-color: var(--lake-background-active-color);
 }
 .lake-list-dropdown-menu li .lake-dropdown-menu-check {
   line-height: 0;
@@ -149,10 +149,10 @@
   border-radius: 2px;
 }
 .lake-icon-dropdown-menu li.lake-dropdown-item-hovered {
-  background-color: var(--background-hover-color);
+  background-color: var(--lake-background-hover-color);
 }
 .lake-icon-dropdown-menu li.lake-dropdown-item-selected {
-  background-color: var(--background-active-color);
+  background-color: var(--lake-background-active-color);
 }
 .lake-icon-dropdown-menu li .lake-dropdown-menu-check {
   display: none;
@@ -179,10 +179,10 @@
   border-radius: 2px;
 }
 .lake-character-dropdown-menu li.lake-dropdown-item-hovered {
-  background-color: var(--background-hover-color);
+  background-color: var(--lake-background-hover-color);
 }
 .lake-character-dropdown-menu li.lake-dropdown-item-selected {
-  background-color: var(--background-active-color);
+  background-color: var(--lake-background-active-color);
 }
 .lake-character-dropdown-menu li .lake-dropdown-menu-check {
   display: none;
@@ -207,10 +207,10 @@
   padding: 0;
 }
 .lake-color-dropdown-menu li.lake-dropdown-item-hovered {
-  background-color: var(--background-hover-color);
+  background-color: var(--lake-background-hover-color);
 }
 .lake-color-dropdown-menu li.lake-dropdown-item-selected {
-  background-color: var(--background-active-color);
+  background-color: var(--lake-background-active-color);
 }
 .lake-color-dropdown-menu li .lake-dropdown-menu-check {
   position: absolute;
@@ -240,7 +240,7 @@
 .lake-color-dropdown-menu li .lake-dropdown-menu-text {
   font-size: 0;
   box-sizing: content-box;
-  border: 1px solid var(--background-hover-color);
+  border: 1px solid var(--lake-background-hover-color);
   border-radius: 2px;
   width: 16px;
   height: 16px;

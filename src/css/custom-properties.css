@@ -1,33 +1,30 @@
-.lake-custom-properties {
+:root {
   /* common */
-  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
-  --text-color: #000000e0;
-  --secondary-text-color: #000000a6;
-  --disabled-text-color: #00000040;
-  --border-color: #d9d9d9;
-  --background-color: #0000000a;
-  --background-hover-color: #0000000a;
-  --background-active-color: #0000000d;
-  --success-color: #52c41a;
-  --warning-color: #faad14;
-  --error-color: #ff4d4f;
+  --lake-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  --lake-text-color: #000000e0;
+  --lake-secondary-text-color: #000000a6;
+  --lake-border-color: #d9d9d9;
+  --lake-background-hover-color: #0000000a;
+  --lake-background-active-color: #0000000d;
+  --lake-success-color: #52c41a;
+  --lake-warning-color: #faad14;
+  --lake-error-color: #ff4d4f;
   /* selection */
-  --selection-background-color: #1ba2e333;
+  --lake-selection-background-color: #1ba2e333;
   /* link */
-  --link-color: #1677ff;
-  --link-hover-color: #69b1ff;
+  --lake-link-color: #1677ff;
+  --lake-link-hover-color: #69b1ff;
   /* box */
-  --box-border-color: #d9d9d9;
-  --box-border-focus-color: #1677ff;
-  --box-border-active-color: #faad14;
-  --box-background-color: #f6f8fa;
+  --lake-box-border-color: #d9d9d9;
+  --lake-box-border-focus-color: #1677ff;
+  --lake-box-background-color: #f6f8fa;
   /* button */
-  --button-shadow: 0 2px 0 #00000005;
-  --button-outline: 2px solid #69b1ff;
+  --lake-button-shadow: 0 2px 0 #00000005;
+  --lake-button-outline: 2px solid #69b1ff;
   /* popup */
-  --popup-shadow: 0 6px 16px 0 #00000014, 0 3px 6px -4px #0000001f, 0 9px 28px 8px #0000000d;
+  --lake-popup-shadow: 0 6px 16px 0 #00000014, 0 3px 6px -4px #0000001f, 0 9px 28px 8px #0000000d;
   /* input form */
-  --input-border-color: #d9d9d9;
-  --input-border-hover-color: #69b1ff;
-  --input-outline: 2px solid #69b1ff;
+  --lake-input-border-color: #d9d9d9;
+  --lake-input-border-hover-color: #69b1ff;
+  --lake-input-outline: 2px solid #69b1ff;
 }

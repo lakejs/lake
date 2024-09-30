@@ -21,7 +21,7 @@ describe('ui / box-toolbar-ui', () => {
       render: box => `<img src="${box.value.url}" style="width: 256px; height: 186px;" />`,
     });
     container = query('<div class="lake-container" contenteditable="true"></div>');
-    const rootNode = query('<div class="lake-root lake-custom-properties"></div>');
+    const rootNode = query('<div class="lake-root"></div>');
     rootNode.append(container);
     query(document.body).append(rootNode);
   });

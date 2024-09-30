@@ -19,7 +19,7 @@
   height: 200px;
 }
 .miniature .lake-root-focused {
-  outline: 2px solid var(--input-border-hover-color);
+  outline: 2px solid var(--lake-input-border-hover-color);
 }
 .miniature .lake-editor .lake-container {
   padding: 8px 12px;

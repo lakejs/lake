@@ -51,7 +51,7 @@ export class Dropdown {
         </button>
       </div>
     `);
-    this.menuNode = query('<ul class="lake-popup lake-dropdown-menu lake-custom-properties" />');
+    this.menuNode = query('<ul class="lake-popup lake-dropdown-menu" />');
     if (config.tabIndex !== undefined) {
       const titleNode = this.node.find('.lake-dropdown-title');
       titleNode.attr('tabindex', config.tabIndex.toString());

@@ -70,7 +70,6 @@ export class Toolbar {
       this.placement = config.placement;
     }
     this.container = query('<div class="lake-toolbar" />');
-    this.root.addClass('lake-custom-properties');
   }
 
   private appendDivider(): void {
@@ -258,7 +257,6 @@ export class Toolbar {
     for (const dropdown of this.dropdownList) {
       dropdown.unmount();
     }
-    this.root.removeClass('lake-custom-properties');
     this.container.remove();
   }
 }

@@ -8,7 +8,7 @@ describe('ui / link-popup', () => {
   let rootNode: Nodes;
 
   beforeEach(()=> {
-    rootNode = query('<div class="lake-popup lake-custom-properties" />');
+    rootNode = query('<div class="lake-popup" />');
     query(document.body).append(rootNode);
   });
 

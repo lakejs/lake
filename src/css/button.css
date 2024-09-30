@@ -3,7 +3,7 @@ button.lake-button {
   border: 0;
   font-family: Arial;
   font-size: 14px;
-  color: var(--text-color);
+  color: var(--lake-text-color);
   background-color: #fff;
   padding: 0;
   margin: 0 1px;
@@ -13,7 +13,7 @@ button.lake-button {
   user-select: none;
 }
 button.lake-button:focus-visible {
-  outline: var(--button-outline);
+  outline: var(--lake-button-outline);
 }
 button.lake-button[disabled] {
   opacity: 0.25;
@@ -27,22 +27,22 @@ button.lake-button img {
   margin: 6px;
 }
 button.lake-icon-button.lake-button-hovered {
-  background-color: var(--background-hover-color);
+  background-color: var(--lake-background-hover-color);
 }
 button.lake-icon-button.lake-button-selected {
-  background-color: var(--background-active-color);
+  background-color: var(--lake-background-active-color);
 }
 button.lake-text-button {
   background-color: transparent;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--lake-border-color);
   padding: 8px 16px;
   line-height: normal;
 }
 button.lake-text-button.lake-button-hovered {
-  background-color: var(--background-hover-color);
+  background-color: var(--lake-background-hover-color);
 }
 button.lake-text-button.lake-button-selected {
-  background-color: var(--background-active-color);
+  background-color: var(--lake-background-active-color);
 }
 button.lake-text-button svg {
   background-color: transparent;

@@ -3,7 +3,7 @@
 }
 .lake-container {
   box-sizing: border-box;
-  font-family: var(--font-family);
+  font-family: var(--lake-font-family);
   font-size: 16px;
   font-weight: normal;
   line-height: 1.45;
@@ -15,7 +15,7 @@
 .lake-container::selection,
 .lake-container ::selection {
   color: inherit;
-  background: var(--selection-background-color);
+  background: var(--lake-selection-background-color);
 }
 .lake-container *,
 .lake-container ::before,
@@ -26,7 +26,7 @@
   position: absolute;
   top: 8px;
   left: 12px;
-  color: var(--secondary-text-color);
+  color: var(--lake-secondary-text-color);
   content: attr(placeholder);
   pointer-events: none;
 }

@@ -1,9 +1,9 @@
 .lake-popup {
-  font-family: var(--font-family);
+  font-family: var(--lake-font-family);
   font-size: 14px;
   font-weight: normal;
   line-height: normal;
-  color: var(--text-color);
+  color: var(--lake-text-color);
 }
 .lake-popup *,
 .lake-popup ::before,
@@ -11,21 +11,21 @@
   box-sizing: border-box;
 }
 .lake-popup button {
-  box-shadow: var(--button-shadow);
+  box-shadow: var(--lake-button-shadow);
 }
 .lake-popup input[type="text"] {
-  font-family: var(--font-family);
+  font-family: var(--lake-font-family);
   font-size: 14px;
-  color: var(--text-color);
+  color: var(--lake-text-color);
   border-radius: 5px;
-  border: 1px solid var(--input-border-color);
+  border: 1px solid var(--lake-input-border-color);
   padding: 4px 10px;
 }
 .lake-popup input[type="text"]:hover {
-  border: 1px solid var(--input-border-hover-color);
+  border: 1px solid var(--lake-input-border-hover-color);
 }
 .lake-popup input[type="text"]:focus-visible {
-  outline: var(--input-outline);
+  outline: var(--lake-input-outline);
   outline-offset: -2px;
 }
 .lake-popup .lake-row {

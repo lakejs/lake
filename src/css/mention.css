@@ -3,12 +3,12 @@
   border-radius: 2px;
 }
 .lake-container[data-readonly="false"] .lake-mention a:hover {
-  color: var(--link-color);
+  color: var(--lake-link-color);
   text-decoration: none;
 }
 lake-box[name="mention"] .lake-box-focused .lake-mention {
-  border-color: var(--selection-background-color);
-  background-color: var(--selection-background-color);
+  border-color: var(--lake-selection-background-color);
+  background-color: var(--lake-selection-background-color);
 }
 .lake-mention-menu {
   max-height: 180px;
@@ -25,7 +25,7 @@ lake-box[name="mention"] .lake-box-focused .lake-mention {
 .lake-mention-menu .lake-mention-nickname {
   margin-inline-end: 4px;
   font-weight: 500;
-  color: var(--text-color);
+  color: var(--lake-text-color);
   white-space: nowrap;
 }
 .lake-mention-menu .lake-mention-name {

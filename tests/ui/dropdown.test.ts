@@ -241,7 +241,7 @@ describe('ui / dropdown', () => {
   let rootNode: Nodes;
 
   beforeEach(()=> {
-    rootNode = query('<div class="lake-dropdown-root lake-custom-properties" />');
+    rootNode = query('<div class="lake-dropdown-root" />');
     query(document.body).append(rootNode);
   });
 

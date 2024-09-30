@@ -28,7 +28,7 @@
   height: 100%;
 }
 lake-box[name="image"] .lake-box-focused .lake-image {
-  border-color: var(--box-border-focus-color);
+  border-color: var(--lake-box-border-focus-color);
 }
 /* uploading status */
 .lake-image-uploading .lake-image-img {
@@ -64,13 +64,13 @@ lake-box[name="image"] .lake-box-focused .lake-image {
   padding: 16px;
 }
 .lake-image.lake-image-error {
-  border: 1px solid var(--box-border-color);
+  border: 1px solid var(--lake-box-border-color);
 }
 .lake-image.lake-image-error ::selection {
   background-color: transparent;
 }
 lake-box[name="image"] .lake-box-selected .lake-image-error {
-  background-color: var(--selection-background-color);
+  background-color: var(--lake-selection-background-color);
 }
 .lake-image .lake-error-icon {
   line-height: 0;
@@ -78,12 +78,12 @@ lake-box[name="image"] .lake-box-selected .lake-image-error {
   margin-bottom: 8px;
 }
 .lake-image .lake-error-icon svg {
-  fill: var(--error-color);
+  fill: var(--lake-error-color);
   width: 64px;
   height: 64px;
 }
 .lake-image .lake-error-name {
-  color: var(--error-color);
+  color: var(--lake-error-color);
   line-height: normal;
 }
 /* full screen */

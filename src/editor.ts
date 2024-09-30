@@ -145,7 +145,6 @@ export class Editor {
     this.overlayContainer = query('<div class="lake-overlay" />');
     this.readonly = this.config.readonly;
 
-    this.root.addClass('lake-custom-properties');
     this.container.attr({
       contenteditable: this.readonly ? 'false' : 'true',
       spellcheck: this.config.spellcheck ? 'true' : 'false',
@@ -652,7 +651,6 @@ export class Editor {
     this.event.removeAllListeners();
     this.history.event.removeAllListeners();
     this.root.off();
-    this.root.removeClass('lake-custom-properties');
     this.root.empty();
     document.removeEventListener('copy', this.copyListener);
     if (!this.readonly) {

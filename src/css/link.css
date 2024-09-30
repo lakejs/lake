@@ -1,9 +1,9 @@
 .lake-container a {
-  color: var(--link-color);
+  color: var(--lake-link-color);
   text-decoration: none;
 }
 .lake-container a:hover {
-  color: var(--link-hover-color);
+  color: var(--lake-link-hover-color);
   text-decoration: underline;
 }
 .lake-link-popup {
@@ -11,12 +11,12 @@
   top: 0;
   left: 0;
   z-index: 1;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--lake-border-color);
   border-radius: 5px;
   padding: 16px;
   width: fit-content;
   background-color: #fff;
-  box-shadow: var(--popup-shadow);
+  box-shadow: var(--lake-popup-shadow);
   display: none;
 }
 .lake-link-popup .lake-url-row {
@@ -38,9 +38,9 @@
 }
 .lake-link-popup button[name="copy"] svg:nth-child(2) {
   display: none;
-  fill: var(--success-color);
+  fill: var(--lake-success-color);
 }
 .lake-link-popup button[name="copy"] svg:last-child {
   display: none;
-  fill: var(--error-color);
+  fill: var(--lake-error-color);
 }

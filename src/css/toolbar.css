@@ -1,6 +1,6 @@
 .lake-toolbar {
   box-sizing: border-box;
-  font-family: var(--font-family);
+  font-family: var(--lake-font-family);
   font-size: 14px;
   font-weight: normal;
   line-height: normal;
@@ -18,7 +18,7 @@
   width: 1px;
   height: 20px;
   margin: 0 4px;
-  border-left: 1px solid var(--border-color);
+  border-left: 1px solid var(--lake-border-color);
   user-select: none;
 }
 .lake-toolbar .lake-upload {

@@ -4,13 +4,13 @@
   left: 0;
   z-index: 1;
   list-style: none;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--lake-border-color);
   border-radius: 5px;
   margin: 0;
   padding: 4px 8px;
   width: fit-content;
   background-color: #fff;
-  box-shadow: var(--popup-shadow);
+  box-shadow: var(--lake-popup-shadow);
   display: none;
   max-height: 180px;
   overflow-y: scroll;
@@ -27,5 +27,5 @@
   scroll-margin: 4px 0;
 }
 .lake-menu .lake-menu-item-selected {
-  background-color: var(--background-active-color);
+  background-color: var(--lake-background-active-color);
 }

@@ -50,9 +50,9 @@ const htmlCode = `
 
 const cssCode = `
 .lake-container {
-  font-family: var(--font-family);
+  font-family: var(--lake-font-family);
   font-size: 16px;
-  color: var(--text-color);
+  color: var(--lake-text-color);
   padding: 16px 24px;
 }
 .lake-container:focus {

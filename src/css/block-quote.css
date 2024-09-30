@@ -2,13 +2,13 @@
   margin: 0;
   margin-bottom: 8px;
   padding: 8px 12px;
-  color: var(--secondary-text-color);
+  color: var(--lake-secondary-text-color);
   border-left: 4px solid #0505050f;
 }
 .lake-container blockquote[type] {
   margin: 16px 0;
   padding: 16px 20px;
-  color: var(--text-color);
+  color: var(--lake-text-color);
   border: 1px solid transparent;
   border-radius: 8px;
 }

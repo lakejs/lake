@@ -11,23 +11,23 @@ lake-box[name="video"] .lake-box-hovered .lake-resizer {
 .lake-video .lake-video-form {
   padding: 16px;
   line-height: normal;
-  border: 1px solid var(--box-border-color);
+  border: 1px solid var(--lake-box-border-color);
   border-radius: 4px;
 }
 .lake-video input[type="text"] {
-  font-family: var(--font-family);
+  font-family: var(--lake-font-family);
   font-size: 14px;
-  color: var(--text-color);
+  color: var(--lake-text-color);
   border-radius: 5px;
-  border: 1px solid var(--input-border-color);
+  border: 1px solid var(--lake-input-border-color);
   padding: 4px 10px;
   width: 100%;
 }
 .lake-video input[type="text"]:hover {
-  border: 1px solid var(--input-border-hover-color);
+  border: 1px solid var(--lake-input-border-hover-color);
 }
 .lake-video input[type="text"]:focus-visible {
-  outline: var(--input-outline);
+  outline: var(--lake-input-outline);
   outline-offset: -2px;
 }
 .lake-video .lake-row {
@@ -36,7 +36,7 @@ lake-box[name="video"] .lake-box-hovered .lake-resizer {
 .lake-video .lake-desc-row {
   padding-top: 8px;
   padding-bottom: 16px;
-  color: var(--secondary-text-color);
+  color: var(--lake-secondary-text-color);
 }
 .lake-video .lake-button-row {
   padding-top: 16px;

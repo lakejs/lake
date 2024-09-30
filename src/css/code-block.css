@@ -2,7 +2,7 @@
 .cm-editor {
   font-size: 14px;
   border-radius: 5px;
-  background-color: var(--box-background-color);
+  background-color: var(--lake-box-background-color);
 }
 .cm-editor.cm-focused {
   outline: none;
@@ -18,7 +18,7 @@ lake-box[name="codeBlock"] {
 }
 lake-box[name="codeBlock"] .lake-box-focused .lake-code-block,
 lake-box[name="codeBlock"] .lake-box-activated .lake-code-block {
-  border-color: var(--box-border-color);
+  border-color: var(--lake-box-border-color);
 }
 .lake-code-block {
   position: relative;
@@ -38,10 +38,10 @@ lake-box[name="codeBlock"] .lake-box-activated .lake-code-block .lake-dropdown {
 .lake-code-block .lake-dropdown .lake-dropdown-title {
   margin: 0;
   padding-right: 4px;
-  background-color: var(--box-background-color);
+  background-color: var(--lake-box-background-color);
 }
 .lake-code-block .lake-dropdown.lake-list-dropdown .lake-dropdown-title-hovered {
-  background-color: var(--background-active-color);
+  background-color: var(--lake-background-active-color);
 }
 .lake-code-block .lake-dropdown .lake-dropdown-text {
   margin: 3px 6px;
@@ -56,8 +56,8 @@ lake-box[name="codeBlock"] .lake-box-activated .lake-code-block .lake-dropdown {
 }
 .lake-code-block-error {
   font-size: 14px;
-  color: var(--error-color);
+  color: var(--lake-error-color);
   border-radius: 5px;
-  background-color: var(--box-background-color);
+  background-color: var(--lake-box-background-color);
   padding: 16px 20px;
 }

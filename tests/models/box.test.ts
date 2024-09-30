@@ -28,14 +28,12 @@ describe('models / box', () => {
     });
     container = query('<div contenteditable="true"></div>');
     query(document.body).append(container);
-    query(document.body).addClass('lake-custom-properties');
   });
 
   afterEach(() => {
     boxes.delete('inlineBox');
     boxes.delete('blockBox');
     container.remove();
-    query(document.body).removeClass('lake-custom-properties');
   });
 
   it('constructor: a string', () => {

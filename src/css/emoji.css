@@ -10,6 +10,6 @@
   height: 32px;
 }
 lake-box[name="emoji"] .lake-box-focused .lake-emoji {
-  border-color: var(--selection-background-color);
-  background-color: var(--selection-background-color);
+  border-color: var(--lake-selection-background-color);
+  background-color: var(--lake-selection-background-color);
 }

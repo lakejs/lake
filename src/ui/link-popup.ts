@@ -31,7 +31,7 @@ export class LinkPopup {
     this.config = config || {};
     this.locale = this.config.locale || i18nObject('en-US');
     this.container = query(safeTemplate`
-      <div class="lake-popup lake-link-popup lake-custom-properties">
+      <div class="lake-popup lake-link-popup">
         <div class="lake-row">${this.locale.link.url()}</div>
         <div class="lake-row lake-url-row">
           <input type="text" name="url" />

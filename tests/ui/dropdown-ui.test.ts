@@ -240,7 +240,7 @@ describe('ui / dropdown-ui', () => {
   let rootNode: Nodes;
 
   before(()=> {
-    rootNode = query('<div class="lake-dropdown-root lake-custom-properties" />');
+    rootNode = query('<div class="lake-dropdown-root" />');
     query(document.body).append(rootNode);
   });
 

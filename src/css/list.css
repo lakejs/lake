@@ -103,7 +103,7 @@
   background-color: #1890ff;
 }
 .lake-container ul[type="checklist"] li[value="false"]::before {
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--lake-border-color);
   background-color: #fff;
 }
 .lake-container ul[type="checklist"] li::after {

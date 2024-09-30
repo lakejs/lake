@@ -11,7 +11,6 @@ export default (value: string) => {
     },
   });
   const toolbarRoot = Utils.query('.lake-toolbar-root');
-  toolbarRoot.addClass('lake-custom-properties');
   const buttonList: Button[] = [];
   // Heading
   buttonList.push(new Button({

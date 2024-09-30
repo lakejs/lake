@@ -48,7 +48,7 @@ describe('ui / box-resizer', () => {
         }).render();
       },
     });
-    container = query('<div contenteditable="true" class="lake-custom-properties"></div>');
+    container = query('<div contenteditable="true"></div>');
     query(document.body).append(container);
   });
 

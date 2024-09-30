@@ -34,7 +34,7 @@ export abstract class Menu<Item> {
     this.items = config.items;
     this.onShow = config.onShow || emptyCallback;
     this.onHide = config.onHide || emptyCallback;
-    this.container = query('<ul class="lake-popup lake-menu lake-custom-properties" />');
+    this.container = query('<ul class="lake-popup lake-menu" />');
   }
 
   protected abstract getItemNode(item: Item): Nodes;

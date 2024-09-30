@@ -854,20 +854,10 @@ describe('editor', () => {
       toolbar,
     });
     editor.render();
-    expect(toolbar.root.hasClass('lake-custom-properties')).to.equal(true);
+    expect(toolbar.root.children().length).to.equal(1);
     editor.unmount();
-    expect(toolbar.root.hasClass('lake-custom-properties')).to.equal(false);
+    expect(toolbar.root.children().length).to.equal(0);
     toolbarRoot.remove();
-  });
-
-  it('unmount method: should remove class', () => {
-    const editor = new Editor({
-      root: rootNode,
-    });
-    editor.render();
-    expect(editor.root.hasClass('lake-custom-properties')).to.equal(true);
-    editor.unmount();
-    expect(editor.root.hasClass('lake-custom-properties')).to.equal(false);
   });
 
   it('multi-editor: should not throw an error', () => {
