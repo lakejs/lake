@@ -1,5 +1,10 @@
 window.defaultValue = `
-<h3>Heading</h3>
+<h3>Slash commands</h3>
+<lake-box type="block" name="hr"></lake-box>
+<p>At the beginning of a paragraph, type <code>/</code> to display a popup menu containing commonly used commands. You can search for commands by typing <code>/keyword</code>.</p>
+<p><br /></p>
+
+<h3>Headings</h3>
 <lake-box type="block" name="hr"></lake-box>
 <p>At the beginning of a paragraph, input <code>#</code>, <code>##</code>, or <code>###</code> followed by a space to create a heading 1, heading 2, or heading 3.</p>
 <h1>Heading level 1</h1>
@@ -96,9 +101,9 @@ window.defaultValue = `
 </p>
 <p><br /></p>
 
-<h3>Alert block</h3>
+<h3>Alerts</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>At the beginning of a paragraph, input <code>:::info</code>, <code>:::warning</code>, or <code>:::danger</code> followed by an enter to create an alert block.</p>
+<p>At the beginning of a paragraph, input <code>:::info</code>, <code>:::warning</code>, or <code>:::danger</code> followed by an enter to create an alert.</p>
 <blockquote type="info">This is an info box.</blockquote>
 <blockquote type="tip">This is a tip.</blockquote>
 <blockquote type="warning">This is a warning.</blockquote>
@@ -151,7 +156,7 @@ window.defaultValue = `
 
 <h3>Code block</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>At the beginning of a paragraph, input <code>\`\`\`</code> or <code>\`\`\`js</code> followed by a enter to create a code block.</p>
+<p>At the beginning of a paragraph, input <code>\`\`\`</code> or <code>\`\`\`js</code> followed by an enter to create a code block.</p>
 <lake-box type="block" name="codeBlock" value="eyJjb2RlIjoiZnVuY3Rpb24gbXlGdW5jKHRoZU9iamVjdCkge1xuICB0aGVPYmplY3QubWFrZSA9IFwiVG95b3RhXCI7XG59XG5cbmNvbnN0IG15Y2FyID0ge1xuICBtYWtlOiBcIkhvbmRhXCIsXG4gIG1vZGVsOiBcIkFjY29yZFwiLFxuICB5ZWFyOiAxOTk4LFxufTtcblxuY29uc29sZS5sb2cobXljYXIubWFrZSk7IC8vIFwiSG9uZGFcIlxubXlGdW5jKG15Y2FyKTtcbmNvbnNvbGUubG9nKG15Y2FyLm1ha2UpOyAvLyBcIlRveW90YVwiIiwibGFuZyI6ImphdmFzY3JpcHQifQ=="></lake-box>
 <blockquote type="tip">This feature is based on <a href="https://codemirror.net/">CodeMirror</a>.</blockquote>
 <p><br /></p>
@@ -164,12 +169,17 @@ window.defaultValue = `
 </ul>
 <p><br /></p>
 
+<h3>Mention</h3>
+<lake-box type="block" name="hr"></lake-box>
+<p>At the beginning of a paragraph, type <code>@</code> to display a popup menu containing specified users. You can search for users by typing <code>@keyword</code>.</p>
+<p><br /></p>
+
 <h3>Table</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>Lake does not support advanced table editing now, but we plan to add this feature in the next major version.</p>
+<p>Advanced table editing is not available, we plan to provide this feature in the next major version.</p>
 <table>
   <tr>
-    <td style="width: 100px; border: 1px solid rgb(160 160 160); text-align: center;"><strong>Tag name</strong></td>
+    <td style="width: 120px; border: 1px solid rgb(160 160 160); text-align: center;"><strong>Tag name</strong></td>
     <td style="border: 1px solid rgb(160 160 160); text-align: center;"><strong>Description</strong></td>
   </tr>
   <tr>
