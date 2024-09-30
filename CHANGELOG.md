@@ -1,3 +1,35 @@
+## [0.2.2](https://github.com/lakejs/lake/compare/0.2.1...0.2.2) (2024-09-30)
+
+
+### Bug Fixes
+
+* **box-toolbar:** have incorrect position when resizing window ([ced52dd](https://github.com/lakejs/lake/commit/ced52dd019779c34c7faa5de84ff5d2f4777dfcd))
+* **code-block:** the width should not be fixed ([9202284](https://github.com/lakejs/lake/commit/9202284b735f7331ddcebda52a2c4822e1179c42))
+* **image:** box should not render after it has been removed ([bd3310a](https://github.com/lakejs/lake/commit/bd3310a86cc5ecb58fe0291d51dce0ec11197664))
+* **insertBox:** should remove marks before inserting an inline box ([0190a56](https://github.com/lakejs/lake/commit/0190a56371133fa650c2abbc50722fb25a0d203a))
+* **nodes:** closestContainer does not support text node ([d55aae4](https://github.com/lakejs/lake/commit/d55aae461df955ac81558eeed2f2e660413ce7f2))
+* **slash:** should pass locale to menu ([192209b](https://github.com/lakejs/lake/commit/192209bf440abf508175c572c5714753e7be4bf0))
+
+
+### Features
+
+* **box-toolbar:** remove root property from config ([ae86f45](https://github.com/lakejs/lake/commit/ae86f45cfc2fdb3e8074c12211e4bd8065ea04ff))
+* **dropdown:** menu can be added to document body by location config ([f69fe86](https://github.com/lakejs/lake/commit/f69fe8643326eb34922e14d2b9b9ded12d4a9d64))
+* **dropdown:** rename config from placement to direction ([c4ec524](https://github.com/lakejs/lake/commit/c4ec52486ae0fd84d48a1371ad9dda8b9f683ac0))
+* **editor:** remove popupContainer property ([558bf6f](https://github.com/lakejs/lake/commit/558bf6f4e196f1947e2b383b51e3e7438810a78c))
+* **editor:** remove resize and scroll events ([7a3d2ba](https://github.com/lakejs/lake/commit/7a3d2bafdc5fc292c73d0ae2002f6ef3aa6958ee))
+* **link-popup:** remove root property from config; add onShow  and onHide to config ([b51b984](https://github.com/lakejs/lake/commit/b51b984c12334b7f6960bd22f4941e938f686951))
+* **mention:** add plugin ([9d74d3c](https://github.com/lakejs/lake/commit/9d74d3c43558a92b13e26b9a154acf5fcd421b50))
+* **menu:** add menu class ([f046735](https://github.com/lakejs/lake/commit/f0467351ea0a776274768c9db1de5ecc5f17ef28))
+* **range:** add getCharacterRange method ([c00a0df](https://github.com/lakejs/lake/commit/c00a0dfa1c9ce46f95049721f5fd458fcc6d1ae1))
+
+
+### Performance Improvements
+
+* **dropdown:** create menu when clicking dropdown ([60759ad](https://github.com/lakejs/lake/commit/60759adc4055f21e0eadb7758071bcb69f0f3657))
+
+
+
 ## [0.2.1](https://github.com/lakejs/lake/compare/0.2.0...0.2.1) (2024-09-13)
 
 
