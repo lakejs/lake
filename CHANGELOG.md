@@ -1,3 +1,12 @@
+## [0.2.3](https://github.com/lakejs/lake/compare/0.2.2...0.2.3) (2024-09-30)
+
+
+### Bug Fixes
+
+* **dropdown:** improve CSS selector to prevent it from being overridden by other rules ([40bdd3d](https://github.com/lakejs/lake/commit/40bdd3d522b961757cc3ff1729918793d2f8f251))
+
+
+
 ## [0.2.2](https://github.com/lakejs/lake/compare/0.2.1...0.2.2) (2024-09-30)
 
 
