@@ -284,7 +284,39 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('should add a CSS property to a span tag', () => {
+  it('collapsed range: should add a CSS property to a span tag', () => {
+    const content = `
+    <p>foo<span style="color: red;">\u200B<focus /></span>bar</p>
+    `;
+    const output = `
+    <p>foo<span style="color: red; text-decoration: underline;">\u200B<focus /></span>bar</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        addMark(range, '<span style="text-decoration: underline;" />');
+      },
+    );
+  });
+
+  it('collapsed range: should add a CSS property to a span tag containing another mark', () => {
+    const content = `
+    <p>foo<span style="color: red;"><i>\u200B<focus /></i></span>bar</p>
+    `;
+    const output = `
+    <p>foo<span style="color: red; text-decoration: underline;"><i>\u200B<focus /></i></span>bar</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        addMark(range, '<span style="text-decoration: underline;" />');
+      },
+    );
+  });
+
+  it('expanded range: should add a CSS property to a span tag', () => {
     const content = `
     <p>one<anchor /><span style="color: red;">two</span><focus />three</p>
     `;

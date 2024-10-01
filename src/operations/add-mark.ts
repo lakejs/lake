@@ -91,17 +91,22 @@ export function addMark(range: Range, value: string | Nodes): void {
     const newMark = getNestedMark(range.startNode);
     splitMarks(range);
     if (newMark) {
+      let child = newMark;
+      while(child.length > 0) {
+        if (child.name === tagName) {
+          child.css(cssProperties);
+        }
+        child = child.first();
+      }
       if (newMark.name === tagName) {
-        newMark.css(cssProperties);
         valueNode = newMark;
       } else {
-        const deepestMark = getDeepElement(newMark);
-        deepestMark.append(zeroWidthSpace);
         valueNode.append(newMark);
       }
     }
     if (valueNode.text() === '') {
-      valueNode.append(zeroWidthSpace);
+      const deepestMark = getDeepElement(valueNode);
+      deepestMark.append(zeroWidthSpace);
     }
     insertNode(range, valueNode);
     removePreviousOrNextZWS(valueNode);
