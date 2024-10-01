@@ -23,7 +23,7 @@ describe('operations / add-mark', () => {
     boxes.delete('blockBox');
   });
 
-  it('collapsed range: adds a mark', () => {
+  it('collapsed range: should add a mark', () => {
     const content = `
     <p>foo<focus />bar</p>
     `;
@@ -39,7 +39,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('expanded range: adds a mark', () => {
+  it('expanded range: should add a mark', () => {
     const content = `
     <p>foo<anchor />bold<focus />bar</p>
     `;
@@ -55,7 +55,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('expanded range: adds a mark after selecting a block', () => {
+  it('expanded range: when a block selected', () => {
     const content = `
     <anchor /><p>foo</p><focus />
     `;
@@ -71,7 +71,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('expanded range: no block', () => {
+  it('expanded range: when there is no block', () => {
     const content = `
     <anchor />foo<focus />
     `;
@@ -87,7 +87,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('collapsed range: the mark already exists', () => {
+  it('collapsed range: when the mark already exists', () => {
     const content = `
     <p><strong>foo<focus />bar</strong></p>
     `;
@@ -103,7 +103,24 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('expanded range: the mark already exists', () => {
+  it('collapsed range: when there is an empty another mark', () => {
+    const content = `
+    <p>foo<strong>\u200B<focus /></strong>bar</p>
+    `;
+    const output = `
+    <p>foo<i><strong>\u200B<focus /></strong></i>bar</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        addMark(range, '<i />');
+      },
+    );
+  });
+
+
+  it('expanded range: when the mark already exists', () => {
     const content = `
     <p><strong>foo<anchor />bold<focus />bar</strong></p>
     `;
@@ -119,7 +136,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('collapsed range: adds a mark in another mark', () => {
+  it('collapsed range: should add a mark inside another mark', () => {
     const content = `
     <p><i>foo<focus />bar</i></p>
     `;
@@ -135,7 +152,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('collapsed range: adds a style in another span', () => {
+  it('collapsed range: should add a style inside another span tag', () => {
     const content = `
     <p><span style="color: red;">foo<focus />bar</span></p>
     `;
@@ -151,7 +168,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('expanded range: adds a mark in another mark', () => {
+  it('expanded range: should add a mark inside another mark', () => {
     const content = `
     <p><i>foo<anchor />bold<focus />bar</i></p>
     `;
@@ -167,7 +184,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('expanded range: adds a mark in another nested mark', () => {
+  it('expanded range: should add a mark inside another nested mark', () => {
     const content = `
     <p><strong><i>foo<anchor />bold<focus />bar</i></strong></p>
     `;
@@ -183,7 +200,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('expanded range: the beginning of the range is in another mark', () => {
+  it('expanded range: the beginning of the range is inside another mark', () => {
     const content = `
     <p><i><anchor />one</i>two<focus />three</p>
     `;
@@ -199,7 +216,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('expanded range: the end of the range is in another mark', () => {
+  it('expanded range: the end of the range is inside another mark', () => {
     const content = `
     <p>one<anchor /><i>two<focus />three</i></p>
     `;
@@ -235,7 +252,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('should add a strong to an em', () => {
+  it('should add a strong tag to an em tag', () => {
     const content = `
     <p>one<anchor /><i>two</i><focus />three</p>
     `;
@@ -251,7 +268,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('should add a strong to an em with a text', () => {
+  it('should add a strong tag to an em tag with a text', () => {
     const content = `
     <p>one<anchor /><i>two</i>foo<focus />three</p>
     `;
@@ -267,7 +284,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('should add a CSS property to a span', () => {
+  it('should add a CSS property to a span tag', () => {
     const content = `
     <p>one<anchor /><span style="color: red;">two</span><focus />three</p>
     `;
@@ -283,7 +300,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('should add a CSS property to a span when only text is selected', () => {
+  it('should add a CSS property to a span tag when only text is selected', () => {
     const content = `
     <p>one<span style="color: red;"><anchor />two<focus /></span>three</p>
     `;
@@ -299,7 +316,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('should add a CSS property to a span with a text', () => {
+  it('should add a CSS property to a span tag with a text', () => {
     const content = `
     <p>one<anchor /><span style="color: red;">two</span>foo<focus />three</p>
     `;
@@ -315,7 +332,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('should add a CSS property to a span that is above a strong', () => {
+  it('should add a CSS property to a span tag that is containing a strong tag', () => {
     const content = `
     <p>one<anchor /><span style="color: red;"><strong>two</strong></span><focus />three</p>
     `;
@@ -331,7 +348,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('should remove a CSS property from a span', () => {
+  it('should remove a CSS property from a span tag', () => {
     const content = `
     <p>one<anchor /><span style="color: red; text-decoration: underline;">two</span><focus />three</p>
     `;
@@ -347,7 +364,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('should remove the style attribute when its value is empty', () => {
+  it('should remove a CSS property when its value is empty', () => {
     const content = `
     <p>one<anchor /><span class="test" style="text-decoration: underline;">two</span><focus />three</p>
     `;
@@ -363,7 +380,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('should remove br', () => {
+  it('should remove br tag', () => {
     const content = `
     <p><br /><focus /></p>
     `;
@@ -379,7 +396,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('should remove br with empty text', () => {
+  it('should remove br tag with empty text node', () => {
     const content = `
     <p><br /><focus /></p>
     `;
@@ -490,7 +507,7 @@ describe('operations / add-mark', () => {
     );
   });
 
-  it('adds marks after selecting content with box', () => {
+  it('should add marks when the contents with box are selected', () => {
     const content = `
     <p><focus />foo</p>
     <lake-box type="block" name="blockBox"></lake-box>

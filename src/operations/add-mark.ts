@@ -18,22 +18,27 @@ function removePreviousOrNextZWS(node: Nodes): void {
   }
 }
 
-// Returns an element copied from each last child of the descendants of the specified node.
-function copyNestedMarks(node: Nodes): Nodes | null {
-  if (!node.isMark) {
-    return null;
+// Returns a nested mark copied from ancestors of the specified node.
+function getNestedMark(node: Nodes): Nodes | null {
+  let parent = node;
+  if (parent.isText) {
+    parent = parent.parent();
   }
-  let newMark = node.clone();
-  let child = node.last();
-  while (child.length > 0) {
-    if (child.isMark) {
-      const newChild = child.clone();
-      newMark.append(newChild);
-      newMark = newChild;
+  let mark: Nodes | null = null;
+  while (parent.length > 0) {
+    if (!parent.isMark) {
+      break;
     }
-    child = child.last();
+    if (mark) {
+      const newMark = parent.clone();
+      newMark.append(mark);
+      mark = newMark;
+    } else {
+      mark = parent.clone();
+    }
+    parent = parent.parent();
   }
-  return newMark;
+  return mark;
 }
 
 // Returns the topmost mark element or the closest element with the same tag name as the specified node.
@@ -83,18 +88,16 @@ export function addMark(range: Range, value: string | Nodes): void {
     removeBreak(block);
     // https://en.wikipedia.org/wiki/Zero-width_space
     const zeroWidthSpace = new Nodes(document.createTextNode('\u200B'));
-    const parts = splitMarks(range);
-    if (parts.start) {
-      const newMark = copyNestedMarks(parts.start);
-      if (newMark) {
-        if (newMark.name === tagName) {
-          newMark.css(cssProperties);
-          valueNode = newMark;
-        } else {
-          const deepestMark = getDeepElement(newMark);
-          deepestMark.append(zeroWidthSpace);
-          valueNode.append(newMark);
-        }
+    const newMark = getNestedMark(range.startNode);
+    splitMarks(range);
+    if (newMark) {
+      if (newMark.name === tagName) {
+        newMark.css(cssProperties);
+        valueNode = newMark;
+      } else {
+        const deepestMark = getDeepElement(newMark);
+        deepestMark.append(zeroWidthSpace);
+        valueNode.append(newMark);
       }
     }
     if (valueNode.text() === '') {
