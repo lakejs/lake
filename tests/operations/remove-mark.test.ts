@@ -150,7 +150,7 @@ describe('operations / remove-mark', () => {
     );
   });
 
-  it('collapsed range: when the mark already exists', () => {
+  it('collapsed range: when a mark already exists', () => {
     const content = `
     <p><strong>foo<focus />bar</strong></p>
     `;
@@ -162,6 +162,38 @@ describe('operations / remove-mark', () => {
       output,
       range => {
         removeMark(range, '<strong />');
+      },
+    );
+  });
+
+  it('collapsed range: should remove a mark among other nested marks (1)', () => {
+    const content = `
+    <p>foo<i><strong>\u200B<focus /></strong></i>bar</p>
+    `;
+    const output = `
+    <p>foo<strong>\u200B<focus /></strong>bar</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        removeMark(range, '<i />');
+      },
+    );
+  });
+
+  it('collapsed range: should remove a mark among other nested marks (2)', () => {
+    const content = `
+    <p>foo<i><u><strong>\u200B<focus /></strong></u></i>bar</p>
+    `;
+    const output = `
+    <p>foo<u><strong>\u200B<focus /></strong></u>bar</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        removeMark(range, '<i />');
       },
     );
   });

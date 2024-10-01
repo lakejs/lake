@@ -18,29 +18,31 @@ function removeEmptyMarks(node: Nodes): void {
   }
 }
 
-// Returns an element copied from each last child of the descendants of the specified node.
-function copyNestedMarks(node: Nodes, tagName?: string): Nodes | null {
+// Returns a nested mark copied from each last child of the descendants of the specified node.
+function getNestedMark(node: Nodes, tagName?: string): Nodes | null {
   if (!node.isMark || !tagName) {
     return null;
   }
-  let newMark = node.clone();
-  let child = node.last();
+  let mark: Nodes | null = null;
+  let deepestMark: Nodes | null = null;
+  let child = node;
   while (child.length > 0) {
-    if (child.isMark && child.name !== tagName) {
-      const newChild = child.clone();
-      newMark.append(newChild);
-      newMark = newChild;
+    if (!child.isMark) {
+      break;
+    }
+    if (child.name !== tagName) {
+      if (deepestMark) {
+        const newMark = child.clone();
+        deepestMark.append(newMark);
+        deepestMark = newMark;
+      } else {
+        mark = child.clone();
+        deepestMark = mark;
+      }
     }
     child = child.last();
   }
-  if (newMark.name === tagName) {
-    if (newMark.first().length > 0) {
-      newMark = newMark.first();
-    } else {
-      return null;
-    }
-  }
-  return newMark;
+  return mark;
 }
 
 // Removes the specified marks from the range.
@@ -68,7 +70,7 @@ export function removeMark(range: Range, value?: string): void {
       removeEmptyMarks(parts.end);
     }
     const zeroWidthSpace = new Nodes(document.createTextNode('\u200B'));
-    const newMark = copyNestedMarks(parts.start, tagName);
+    const newMark = getNestedMark(parts.start, tagName);
     if (!newMark) {
       parts.start.after(zeroWidthSpace);
       removeEmptyMarks(parts.start);
