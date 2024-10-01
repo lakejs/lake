@@ -1,5 +1,5 @@
 .lake-slash-menu {
-  max-height: 380px;
+  max-height: 330px;
 }
 .lake-slash-menu .lake-menu-item input[type="file"] {
   display: none;
@@ -9,6 +9,7 @@
   border-radius: 5px;
   border: 1px solid var(--lake-border-color);
   background-color: #fff;
+  line-height: 0;
 }
 .lake-slash-menu .lake-slash-icon svg,
 .lake-slash-menu .lake-slash-icon img {
