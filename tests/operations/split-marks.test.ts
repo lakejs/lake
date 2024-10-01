@@ -22,7 +22,7 @@ describe('operations / split-marks', () => {
     boxes.delete('blockBox');
   });
 
-  it('collapsed range: splits a text and a mark', () => {
+  it('collapsed range: should split a text and a mark', () => {
     const content = `
     <p><strong>one<focus />two</strong></p>
     `;
@@ -38,7 +38,7 @@ describe('operations / split-marks', () => {
     );
   });
 
-  it('expanded range: splits a text and a mark', () => {
+  it('expanded range: should split a text and a mark', () => {
     const content = `
     <p><strong>one<anchor />two<focus />three</strong></p>
     `;
@@ -54,7 +54,7 @@ describe('operations / split-marks', () => {
     );
   });
 
-  it('collapsed range: splits a mark at the beginning of the text', () => {
+  it('collapsed range: should split a mark at the beginning of the text', () => {
     const content = `
     <p><strong><focus />foo</strong></p>
     `;
@@ -70,7 +70,7 @@ describe('operations / split-marks', () => {
     );
   });
 
-  it('expanded range: splits a mark at the beginning of the text', () => {
+  it('expanded range: should split a mark at the beginning of the text', () => {
     const content = `
     <p><strong><anchor />foo<focus />bar</strong></p>
     `;
@@ -86,7 +86,7 @@ describe('operations / split-marks', () => {
     );
   });
 
-  it('collapsed range: splits a mark at the end of the text', () => {
+  it('collapsed range: should split a mark at the end of the text', () => {
     const content = `
     <p><strong>foo<focus /></strong></p>
     `;
@@ -102,7 +102,7 @@ describe('operations / split-marks', () => {
     );
   });
 
-  it('expanded range: splits a mark at the end of the text', () => {
+  it('expanded range: should split a mark at the end of the text', () => {
     const content = `
     <p><strong>foo<anchor />bar<focus /></strong></p>
     `;
@@ -118,7 +118,7 @@ describe('operations / split-marks', () => {
     );
   });
 
-  it('collapsed range: splits a mark among the marks', () => {
+  it('collapsed range: should split a mark when the cursor is between two marks', () => {
     const content = `
     <p><strong>beginning<i>one</i><focus /><i>two</i>end</strong></p>
     `;
@@ -134,7 +134,7 @@ describe('operations / split-marks', () => {
     );
   });
 
-  it('collapsed range: splits a mark without parent mark', () => {
+  it('collapsed range: should split a mark without parent mark', () => {
     const content = `
     <p><i>one</i>two<i>th<focus />ree</i>four<i>five</i></p>
     `;
@@ -150,7 +150,7 @@ describe('operations / split-marks', () => {
     );
   });
 
-  it('collapsed range: splits nested masks and a text', () => {
+  it('collapsed range: should split nested masks and a text', () => {
     const content = `
     <p><strong>beginning<i>one<focus />two</i>end</strong></p>
     `;
@@ -166,7 +166,7 @@ describe('operations / split-marks', () => {
     );
   });
 
-  it('collapsed range: splits nested masks without splitting text', () => {
+  it('collapsed range: should split nested masks without splitting text', () => {
     const content = `
     <p><strong>beginning<i><focus />foo</i>end</strong></p>
     `;
@@ -182,7 +182,7 @@ describe('operations / split-marks', () => {
     );
   });
 
-  it('collapsed range: splits three levels of nested masks', () => {
+  it('collapsed range: should split three levels of nested masks', () => {
     const content = `
     <p><strong>beginning<i>one<span><focus />two</span></i>end</strong></p>
     `;
@@ -198,7 +198,7 @@ describe('operations / split-marks', () => {
     );
   });
 
-  it('expanded range: splits three levels of nested masks', () => {
+  it('expanded range: should split three levels of nested masks', () => {
     const content = `
     <p><strong>beginning<i>one<span><anchor />two<focus /></span></i>end</strong></p>
     `;
