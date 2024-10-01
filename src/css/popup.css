@@ -1,4 +1,5 @@
 .lake-popup {
+  box-sizing: border-box;
   font-family: var(--lake-font-family);
   font-size: 14px;
   font-weight: normal;
