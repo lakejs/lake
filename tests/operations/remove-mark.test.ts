@@ -22,7 +22,7 @@ describe('operations / remove-mark', () => {
     boxes.delete('blockBox');
   });
 
-  it('removes an empty mark', () => {
+  it('should remove an empty mark', () => {
     const content = `
     <p>foo<strong>\u200B<focus /></strong>bar</p>
     `;
@@ -38,7 +38,7 @@ describe('operations / remove-mark', () => {
     );
   });
 
-  it('removes a mark when the focus is at the end of the text', () => {
+  it('should remove a mark when the focus is at the end of the text', () => {
     const content = `
     <p>foo<strong>bold<focus /></strong>bar</p>
     `;
@@ -70,7 +70,7 @@ describe('operations / remove-mark', () => {
     );
   });
 
-  it('expanded range: removes a mark with selecting mark', () => {
+  it('expanded range: should remove a selected mark', () => {
     const content = `
     <p>foo<anchor /><strong>bold</strong><focus />bar</p>
     `;
@@ -118,7 +118,7 @@ describe('operations / remove-mark', () => {
     );
   });
 
-  it('expanded range: removes a mark with selecting text', () => {
+  it('expanded range: should remove a selected mark', () => {
     const content = `
     <p>foo<strong><anchor />bold<focus /></strong>bar</p>
     `;
@@ -134,7 +134,7 @@ describe('operations / remove-mark', () => {
     );
   });
 
-  it('expanded range: removes a mark with selecting part of a text', () => {
+  it('expanded range: should remove a mark when part of which is selected', () => {
     const content = `
     <p><strong>foo<anchor />bold<focus />bar</strong></p>
     `;
@@ -150,7 +150,7 @@ describe('operations / remove-mark', () => {
     );
   });
 
-  it('collapsed range: the mark already exists', () => {
+  it('collapsed range: when the mark already exists', () => {
     const content = `
     <p><strong>foo<focus />bar</strong></p>
     `;
@@ -166,7 +166,7 @@ describe('operations / remove-mark', () => {
     );
   });
 
-  it('expanded range: the mark already exists', () => {
+  it('expanded range: when the mark already exists', () => {
     const content = `
     <p><strong>foo<anchor />bold<focus />bar</strong></p>
     `;
@@ -182,7 +182,7 @@ describe('operations / remove-mark', () => {
     );
   });
 
-  it('collapsed range: removes a mark in another mark', () => {
+  it('collapsed range: should remove a mark in another mark', () => {
     const content = `
     <p><i>foo</i><strong><i>\u200B<focus /></i></strong><i>bar</i></p>
     `;
@@ -198,7 +198,7 @@ describe('operations / remove-mark', () => {
     );
   });
 
-  it('expanded range: removes a mark in another mark', () => {
+  it('expanded range: should remove a mark in another mark', () => {
     const content = `
     <p><i>foo</i><anchor /><strong><i>bold</i></strong><focus /><i>bar</i></p>
     `;
@@ -284,7 +284,7 @@ describe('operations / remove-mark', () => {
     );
   });
 
-  it('removes marks after selecting content with box', () => {
+  it('should remove marks after selecting content with box', () => {
     const content = `
     <p>foo</p>
     <anchor /><lake-box type="block" name="blockBox"></lake-box>
