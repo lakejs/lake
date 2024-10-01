@@ -71,7 +71,7 @@ lake-box .lake-button-group button svg {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: var(--lake-z-index-box-toolbar);
   border: 1px solid var(--lake-border-color);
   border-radius: 5px;
   background-color: #fff;

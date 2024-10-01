@@ -78,17 +78,11 @@
 /* menu */
 .lake-dropdown .lake-dropdown-menu,
 .lake-dropdown-menu {
-  font-family: var(--lake-font-family);
-  font-size: 14px;
-  font-weight: normal;
-  line-height: normal;
-  color: var(--lake-text-color);
-  user-select: none;
   box-sizing: content-box;
   position: absolute;
   top: 30px;
   left: 0;
-  z-index: 1;
+  z-index: var(--lake-z-index-popup);
   list-style: none;
   margin: 0;
   padding: 6px 0;
@@ -96,6 +90,7 @@
   border-radius: 5px;
   background-color: #fff;
   box-shadow: var(--lake-popup-shadow);
+  user-select: none;
   display: none;
 }
 .lake-dropdown-menu.lake-dropdown-menu-with-scroll {

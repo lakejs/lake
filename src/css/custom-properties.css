@@ -1,6 +1,7 @@
 :root {
-  /* common */
+  /* font family */
   --lake-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  /* common color */
   --lake-text-color: #000000e0;
   --lake-secondary-text-color: #000000a6;
   --lake-border-color: #d9d9d9;
@@ -9,6 +10,9 @@
   --lake-success-color: #52c41a;
   --lake-warning-color: #faad14;
   --lake-error-color: #ff4d4f;
+  /* z-index */
+  --lake-z-index-box-toolbar: 818;
+  --lake-z-index-popup: 822;
   /* selection */
   --lake-selection-background-color: #1ba2e333;
   /* link */
