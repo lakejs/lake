@@ -11,7 +11,7 @@ lake-box[name="mention"] .lake-box-focused .lake-mention {
   background-color: var(--lake-selection-background-color);
 }
 .lake-mention-menu {
-  max-height: 180px;
+  max-height: 208px;
 }
 .lake-mention-menu .lake-mention-avatar {
   margin-inline-end: 8px;
