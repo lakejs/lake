@@ -1,3 +1,22 @@
+## [0.2.4](https://github.com/lakejs/lake/compare/0.2.3...0.2.4) (2024-10-02)
+
+
+### Bug Fixes
+
+* **add-mark:** get incorrect result when there is an empty span tag containing other marks ([25fec3c](https://github.com/lakejs/lake/commit/25fec3cb765f1c216fab3bce94ae5fd8e4b6a120))
+* **add-mark:** should not remove another empty mark when the range is collapsed ([230e704](https://github.com/lakejs/lake/commit/230e7040bf184d4a6fda9af0a2959c2f746cce25))
+* **menu:** improve style ([47a84d3](https://github.com/lakejs/lake/commit/47a84d34e4af11a5033c0b5245555761562fb965))
+* **popup:** increase z-index for popup ([e0468e1](https://github.com/lakejs/lake/commit/e0468e188e541e08d461305c5a0224614f1fd450))
+* **remove-mark:** should not remove another mark when the range is collapsed ([3c9a2d2](https://github.com/lakejs/lake/commit/3c9a2d2341da648de4a4d95cbf2da9bc8b3c4bf3))
+* **slash:** improve style ([9ab3876](https://github.com/lakejs/lake/commit/9ab387689ef7aa11d6dcf6f60bac51f60bf384c9))
+
+
+### Features
+
+* **css:** change custom properties from local to global ([2bd2b20](https://github.com/lakejs/lake/commit/2bd2b20618ba849b4b57ce0a1959cbd77c31db93))
+
+
+
 ## [0.2.3](https://github.com/lakejs/lake/compare/0.2.2...0.2.3) (2024-09-30)
 
 
