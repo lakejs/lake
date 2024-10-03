@@ -4,7 +4,7 @@
   left: 0;
   z-index: var(--lake-z-index-popup);
   list-style: none;
-  border: 1px solid var(--lake-border-color);
+  border: 1px solid var(--lake-popup-border-color);
   border-radius: 5px;
   margin: 0;
   padding: 4px 8px;
