@@ -2,14 +2,14 @@
   position: relative;
   font-family: var(--lake-font-family);
   color: var(--lake-text-color);
-  font-size: 14px;
+  font-size: var(--lake-button-font-size);
   user-select: none;
 }
 .lake-dropdown button.lake-dropdown-title {
   border-radius: 5px;
   border: 0;
   font-family: Arial;
-  font-size: 14px;
+  font-size: var(--lake-button-font-size);
   color: var(--lake-text-color);
   background-color: #fff;
   padding: 0;
@@ -81,7 +81,7 @@
   position: absolute;
   top: 30px;
   left: 0;
-  z-index: var(--lake-z-index-popup);
+  z-index: var(--lake-popup-z-index);
   list-style: none;
   margin: 0;
   padding: 6px 0;
@@ -251,7 +251,7 @@
 }
 .lake-color-dropdown-menu li:first-child .lake-dropdown-menu-text {
   width: 100%;
-  font-size: 14px;
+  font-size: var(--lake-button-font-size);
   border: 1px solid transparent;
   height: auto;
 }

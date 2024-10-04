@@ -1,6 +1,6 @@
 .lake-file {
   position: relative;
-  font-size: 16px;
+  font-size: var(--lake-font-size);
   font-weight: normal;
   line-height: 0;
   border: 1px solid transparent;

@@ -1,7 +1,7 @@
 .lake-popup {
   box-sizing: border-box;
   font-family: var(--lake-font-family);
-  font-size: 14px;
+  font-size: var(--lake-popup-font-size);
   font-weight: normal;
   line-height: normal;
   color: var(--lake-text-color);
@@ -16,7 +16,7 @@
 }
 .lake-popup input[type="text"] {
   font-family: var(--lake-font-family);
-  font-size: 14px;
+  font-size: var(--lake-popup-font-size);
   color: var(--lake-text-color);
   border-radius: 5px;
   border: 1px solid var(--lake-input-border-color);

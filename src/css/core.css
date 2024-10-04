@@ -4,7 +4,7 @@
 .lake-container {
   box-sizing: border-box;
   font-family: var(--lake-font-family);
-  font-size: 16px;
+  font-size: var(--lake-font-size);
   font-weight: normal;
   line-height: 1.45;
   padding: 16px 24px;

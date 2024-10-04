@@ -10,7 +10,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: var(--lake-z-index-popup);
+  z-index: var(--lake-popup-z-index);
   border: 1px solid var(--lake-popup-border-color);
   border-radius: 5px;
   padding: 16px;

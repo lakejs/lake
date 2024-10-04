@@ -2,7 +2,7 @@ button.lake-button {
   border-radius: 5px;
   border: 0;
   font-family: Arial;
-  font-size: 14px;
+  font-size: var(--lake-button-font-size);
   color: var(--lake-text-color);
   background-color: #fff;
   padding: 0;
