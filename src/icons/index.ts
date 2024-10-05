@@ -6,6 +6,7 @@
 // - highlight.svg
 // - highlight-accent.svg
 // - open.svg
+// - resize.svg
 //
 // Phosphor Icons (https://phosphoricons.com/).
 // - other icons
@@ -31,6 +32,7 @@ import maximize from './maximize.svg';
 import close from './close.svg';
 import zoomIn from './zoom-in.svg';
 import zoomOut from './zoom-out.svg';
+import resize from './resize.svg';
 import circleNotch from './circle-notch.svg';
 import selectAll from './select-all.svg';
 import undo from './undo.svg';
@@ -103,6 +105,7 @@ export const icons: Map<string, string> = new Map([
   ['close', close],
   ['zoomIn', zoomIn],
   ['zoomOut', zoomOut],
+  ['resize', resize],
   ['circleNotch', circleNotch],
   ['selectAll', selectAll],
   ['undo', undo],

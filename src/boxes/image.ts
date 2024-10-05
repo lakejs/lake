@@ -2,6 +2,7 @@ import 'photoswipe/style.css';
 import PhotoSwipeLightbox, { DataSource } from 'photoswipe/lightbox';
 import PhotoSwipe from 'photoswipe';
 import { BoxComponent } from '../types/box';
+import { BoxToolbarItem } from '../types/box-toolbar';
 import { icons } from '../icons';
 import { query } from '../utils/query';
 import { getBox } from '../utils/get-box';
@@ -15,6 +16,66 @@ type ImageInfo = {
   width?: number;
   height?: number;
 };
+
+const boxToolbarItems: ('|' | BoxToolbarItem)[] = [
+  {
+    name: 'align',
+    type: 'dropdown',
+    downIcon: icons.get('down'),
+    icon: icons.get('alignLeft'),
+    tooltip: 'Align',
+    menuType: 'list',
+    menuItems: [
+      { value: 'left', text: 'Align left' },
+      { value: 'center', text: 'Align center' },
+      { value: 'right', text: 'Align right' },
+    ],
+    onSelect: (box, value) => {
+      const editor = box.getEditor();
+      editor.command.execute('align', value);
+    },
+  },
+  {
+    name: 'resize',
+    type: 'dropdown',
+    downIcon: icons.get('down'),
+    icon: icons.get('resize'),
+    tooltip: 'Resize image',
+    menuType: 'list',
+    menuItems: [
+      { value: '1', text: 'Original' },
+      { value: '0.75', text: '75%' },
+      { value: '0.5', text: '50%' },
+      { value: '0.25', text: '25%' },
+    ],
+    onSelect: (box, value) => {
+      const { originalWidth, originalHeight } = box.value;
+      const editor = box.getEditor();
+      const boxContainer = box.getContainer();
+      const rate = originalHeight / originalWidth;
+      const newWidth = Math.round(originalWidth * Number(value));
+      const newHeight = Math.round(rate * newWidth);
+      boxContainer.css({
+        width: `${newWidth}px`,
+        height: `${newHeight}px`,
+      });
+      box.updateValue({
+        width: newWidth,
+        height: newHeight,
+      });
+      editor.history.save();
+    },
+  },
+  {
+    name: 'open',
+    type: 'button',
+    icon: icons.get('open'),
+    tooltip: 'Open image in new tab',
+    onClick: box => {
+      window.open(box.value.url);
+    },
+  },
+];
 
 // Loads an image and get its width and height.
 async function getImageInfo(url: string): Promise<ImageInfo> {
@@ -359,6 +420,9 @@ export default {
           editor.selection.removeBox(box);
           editor.history.save();
         });
+        if (value.status === 'done') {
+          box.setToolbar(boxToolbarItems);
+        }
       }
       box.event.emit('render');
     });
