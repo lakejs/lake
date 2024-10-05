@@ -146,6 +146,9 @@ export class Box {
     } catch { /* empty */ }
     let toolbar: BoxToolbar | null = null;
     this.event.on('focus', () => {
+      if (toolbar) {
+        toolbar.unmount();
+      }
       toolbar = new BoxToolbar({
         box: this,
         items,
