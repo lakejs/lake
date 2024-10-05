@@ -164,9 +164,9 @@ async function renderError(rootNode: Nodes, box: Box): Promise<void> {
       <div class="lake-error-name">${value.name || ''}</div>
     </div>
   `);
-  const imageIcon = icons.get('image');
-  if (imageIcon) {
-    errorNode.find('.lake-error-icon').append(imageIcon);
+  const imageBrokenIcon = icons.get('imageBroken');
+  if (imageBrokenIcon) {
+    errorNode.find('.lake-error-icon').append(imageBrokenIcon);
   }
   rootNode.append(buttonGroupNode);
   rootNode.append(errorNode);

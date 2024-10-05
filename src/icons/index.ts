@@ -76,6 +76,7 @@ import unlink from './unlink.svg';
 import hr from './hr.svg';
 import codeBlock from './code-block.svg';
 import image from './image.svg';
+import imageBroken from './image-broken.svg';
 import video from './video.svg';
 import attachment from './attachment.svg';
 import emoji from './emoji.svg';
@@ -144,6 +145,7 @@ export const icons: Map<string, string> = new Map([
   ['hr', hr],
   ['codeBlock', codeBlock],
   ['image', image],
+  ['imageBroken', imageBroken],
   ['video', video],
   ['attachment', attachment],
   ['emoji', emoji],
