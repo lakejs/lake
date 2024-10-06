@@ -43,17 +43,23 @@ const boxToolbarItems: ('|' | BoxToolbarItem)[] = [
     tooltip: 'Resize image',
     menuType: 'list',
     menuItems: [
-      { value: '1', text: 'Original' },
-      { value: '0.75', text: '75%' },
-      { value: '0.5', text: '50%' },
-      { value: '0.25', text: '25%' },
+      { value: 'page', text: 'Page width' },
+      { value: '1', text: 'Original width' },
+      { value: '0.75', text: '75% image width' },
+      { value: '0.5', text: '50% image width' },
+      { value: '0.25', text: '25% image width' },
     ],
     onSelect: (box, value) => {
       const { originalWidth, originalHeight } = box.value;
       const editor = box.getEditor();
       const boxContainer = box.getContainer();
       const rate = originalHeight / originalWidth;
-      const newWidth = Math.round(originalWidth * Number(value));
+      let newWidth: number;
+      if (value === 'page') {
+        newWidth = editor.container.innerWidth() - 2;
+      } else {
+        newWidth = Math.round(originalWidth * Number(value));
+      }
       const newHeight = Math.round(rate * newWidth);
       boxContainer.css({
         width: `${newWidth}px`,
