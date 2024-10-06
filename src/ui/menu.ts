@@ -213,7 +213,7 @@ export abstract class Menu<Item> {
     this.updatePosition();
     // fix the container's width
     this.container.css('width', '');
-    this.container.css('width', `${this.container.width()}px`);
+    this.container.css('width', `${this.container.width() + 10}px`);
     const viewport = range.commonAncestor.closestScroller();
     if (viewport.length > 0) {
       viewport.on('scroll', this.scrollListener);
