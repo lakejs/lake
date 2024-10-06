@@ -14,7 +14,7 @@ export default {
     alignLeft: 'Align left',
     alignCenter: 'Align center',
     alignRight: 'Align right',
-    alignJustify: 'Align justify',
+    alignJustify: 'Justify',
     increaseIndent: 'Increase indent',
     decreaseIndent: 'Decrease indent',
     bold: `Bold (${modifierText('mod+B')})`,
@@ -90,7 +90,7 @@ export default {
   link: {
     newLink: 'New link',
     url: 'Link URL',
-    title: 'Link title',
+    title: 'Text to display',
     copy: 'Copy link to clipboard',
     open: 'Open link in new tab',
     save: 'Save',

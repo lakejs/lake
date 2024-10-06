@@ -4,7 +4,7 @@ import { modifierText } from '../../utils/modifier-text';
 export default {
   toolbar: {
     undo: `작업취소 (${modifierText('mod+Z')})`,
-    redo: `작업재개 (${modifierText('mod+Y')})`,
+    redo: `다시 실행 (${modifierText('mod+Y')})`,
     selectAll: `전체 선택 (${modifierText('mod+A')})`,
     paragraph: '텍스트',
     blockQuote: '인용문',
@@ -25,7 +25,7 @@ export default {
     subscript: '아래 첨자',
     code: '인라인 코드',
     removeFormat: '형식 지우기',
-    formatPainter: '형식 페인터',
+    formatPainter: '형식 복사기',
     link: '링크',
     hr: '구분선',
     video: '동영상',
@@ -49,7 +49,7 @@ export default {
     file: '파일',
     emoji: '이모지',
     equation: '수학 공식',
-    removeColor: '기본색',
+    removeColor: '기본 색상',
   },
   slash: {
     heading1: '제목 1',
@@ -93,7 +93,7 @@ export default {
     title: '링크 텍스트',
     copy: '클립보드에 복사',
     open: '링크 열기',
-    save: '확인',
+    save: '저장',
     unlink: '링크 제거',
   },
   image: {
@@ -118,10 +118,10 @@ export default {
     urlError: '유효한 링크를 입력하세요.',
   },
   codeBlock: {
-    langType: '코드언어 선택',
+    langType: '코드 언어 선택',
   },
   equation: {
-    save: '확인',
+    save: '저장',
     help: '지원되는 기능',
     placeholder: 'TeX 수식을 입력하세요',
   },
