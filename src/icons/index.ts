@@ -32,6 +32,7 @@ import close from './close.svg';
 import zoomIn from './zoom-in.svg';
 import zoomOut from './zoom-out.svg';
 import resize from './resize.svg';
+import caption from './caption.svg';
 import circleNotch from './circle-notch.svg';
 import selectAll from './select-all.svg';
 import undo from './undo.svg';
@@ -105,6 +106,7 @@ export const icons: Map<string, string> = new Map([
   ['zoomIn', zoomIn],
   ['zoomOut', zoomOut],
   ['resize', resize],
+  ['caption', caption],
   ['circleNotch', circleNotch],
   ['selectAll', selectAll],
   ['undo', undo],

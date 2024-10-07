@@ -98,6 +98,13 @@ describe('ui / box-toolbar-ui', () => {
           isDisabled: () => true,
           onClick: () => { },
         },
+        {
+          name: 'caption',
+          type: 'button',
+          icon: icons.get('caption'),
+          tooltip: 'Add caption',
+          onClick: () => { },
+        },
         '|',
         {
           name: 'align',
