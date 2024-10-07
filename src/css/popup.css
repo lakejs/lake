@@ -11,7 +11,7 @@
 .lake-popup ::after {
   box-sizing: border-box;
 }
-.lake-popup button {
+.lake-popup .lake-text-button {
   box-shadow: var(--lake-button-shadow);
 }
 .lake-popup input[type="text"] {
