@@ -6,7 +6,6 @@
 // - highlight.svg
 // - highlight-accent.svg
 // - open.svg
-// - resize.svg
 //
 // Phosphor Icons (https://phosphoricons.com/).
 // - other icons
