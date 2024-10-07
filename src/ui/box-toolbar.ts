@@ -14,7 +14,7 @@ import { i18nObject } from '../i18n';
 
 type BoxToolbarConfig = {
   box: Box;
-  items: ('|' | BoxToolbarItem)[];
+  items: BoxToolbarItem[];
   locale?: TranslationFunctions;
   placement?: BoxToolbarPlacement;
 };
@@ -23,7 +23,7 @@ export class BoxToolbar {
 
   private box: Box;
 
-  private items: ('|' | BoxToolbarItem)[];
+  private items: BoxToolbarItem[];
 
   private locale: TranslationFunctions;
 

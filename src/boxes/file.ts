@@ -80,7 +80,10 @@ export default {
       rootNode.on('click', () => {
         editor.selection.selectBox(box);
       });
-      const items = value.status === 'done' ? boxToolbarItems : boxToolbarItems.filter(item => item.name === 'remove');
+      let items = boxToolbarItems;
+      if (value.status !== 'done') {
+        items = boxToolbarItems.filter(item => item !== '|' && item.name === 'remove');
+      }
       box.setToolbar(items);
     } else {
       rootNode.on('click', () => {

@@ -139,7 +139,7 @@ export class Box {
   }
 
   // Sets a popup toolbar for the box.
-  public setToolbar(items: ('|' | BoxToolbarItem)[]): void {
+  public setToolbar(items: BoxToolbarItem[]): void {
     let editor: Editor | undefined;
     try {
       editor = this.getEditor();

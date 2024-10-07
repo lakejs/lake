@@ -21,6 +21,6 @@ export type BoxToolbarDropdownItem = DropdownItem & {
   onSelect: (box: Box, value: string) => void;
 }
 
-export type BoxToolbarItem = BoxToolbarButtonItem | BoxToolbarDropdownItem;
+export type BoxToolbarItem = BoxToolbarButtonItem | BoxToolbarDropdownItem | '|';
 
 export type BoxToolbarPlacement = 'top' | 'bottom';

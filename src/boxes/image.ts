@@ -22,7 +22,7 @@ const alignValueMap: {[key: string]: string} = {
   end: 'right',
 };
 
-const boxToolbarItems: ('|' | BoxToolbarItem)[] = [
+const boxToolbarItems: BoxToolbarItem[] = [
   {
     name: 'align',
     type: 'dropdown',
