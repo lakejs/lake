@@ -155,6 +155,10 @@ export class Box {
         locale: editor ? editor.locale : undefined,
       });
       toolbar.render();
+      if (editor) {
+        const appliedItems = editor.selection.getAppliedItems();
+        toolbar.updateState(appliedItems);
+      }
     });
     this.event.on('blur', () => {
       if (toolbar) {

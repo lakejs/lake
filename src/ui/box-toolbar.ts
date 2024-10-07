@@ -1,4 +1,5 @@
 import { TranslationFunctions } from '../i18n/types';
+import { AppliedItem } from '../types/object';
 import {
   BoxToolbarButtonItem, BoxToolbarDropdownItem,
   BoxToolbarItem, BoxToolbarPlacement,
@@ -27,6 +28,8 @@ export class BoxToolbar {
   private locale: TranslationFunctions;
 
   private placement: BoxToolbarPlacement;
+
+  private allMenuMap: Map<string, Map<string, string>> = new Map();
 
   private buttonItemList: BoxToolbarButtonItem[] = [];
 
@@ -75,6 +78,8 @@ export class BoxToolbar {
       width: item.width,
       menuType: item.menuType,
       menuItems: item.menuItems,
+      menuWidth: item.menuWidth,
+      menuHeight: item.menuHeight,
       tabIndex: -1,
       direction: this.placement === 'top' ? 'bottom' : 'top',
       onSelect: value => {
@@ -109,6 +114,48 @@ export class BoxToolbar {
     });
   }
 
+  public updateState(appliedItems: AppliedItem[]) {
+    for (const item of this.buttonItemList) {
+      const selectedClass = 'lake-button-selected';
+      const buttonNode = this.container.find(`button[name="${item.name}"]`);
+      const isDisabled = item.isDisabled ? item.isDisabled(this.box, appliedItems) : false;
+      if (isDisabled) {
+        buttonNode.attr('disabled', 'true');
+        buttonNode.removeClass(selectedClass);
+      } else {
+        buttonNode.removeAttr('disabled');
+      }
+      if (!isDisabled) {
+        const isSelected = item.isSelected ? item.isSelected(this.box, appliedItems) : false;
+        if (isSelected) {
+          buttonNode.addClass(selectedClass);
+        } else {
+          buttonNode.removeClass(selectedClass);
+        }
+      }
+    }
+    for (const item of this.dropdownItemList) {
+      const selectedValues = item.selectedValues ? item.selectedValues(this.box, appliedItems) : [];
+      const dropdownNode = this.container.find(`div.lake-dropdown[name="${item.name}"]`);
+      const isDisabled = item.isDisabled ? item.isDisabled(this.box, appliedItems) : false;
+      if (isDisabled) {
+        dropdownNode.attr('disabled', 'true');
+      } else {
+        dropdownNode.removeAttr('disabled');
+      }
+      if (!isDisabled) {
+        Dropdown.setValue(dropdownNode, selectedValues);
+        const textNode = dropdownNode.find('.lake-dropdown-text');
+        if (textNode.length > 0) {
+          const key = selectedValues[0] || item.defaultValue || '';
+          const menuMap = this.allMenuMap.get(item.name);
+          const text = (menuMap && menuMap.get(key)) ?? key;
+          textNode.text(text);
+        }
+      }
+    }
+  }
+
   // Renders a toolbar for the specified box.
   public render(): void {
     query(document.body).append(this.container);
@@ -119,11 +166,13 @@ export class BoxToolbar {
         this.buttonItemList.push(item);
         this.appendButton(item);
       } else if (item.type === 'dropdown') {
+        this.allMenuMap.set(item.name, Dropdown.getMenuMap(item.menuItems, this.locale));
         this.dropdownItemList.push(item);
         this.appendDropdown(item);
       }
     }
     this.updatePosition();
+    this.updateState([]);
     const viewport = this.box.node.closestScroller();
     if (viewport.length > 0) {
       viewport.on('scroll', this.scrollListener);

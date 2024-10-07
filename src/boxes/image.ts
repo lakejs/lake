@@ -17,6 +17,11 @@ type ImageInfo = {
   height?: number;
 };
 
+const alignValueMap: {[key: string]: string} = {
+  start: 'left',
+  end: 'right',
+};
+
 const boxToolbarItems: ('|' | BoxToolbarItem)[] = [
   {
     name: 'align',
@@ -30,6 +35,19 @@ const boxToolbarItems: ('|' | BoxToolbarItem)[] = [
       { value: 'center', text: 'Align center' },
       { value: 'right', text: 'Align right' },
     ],
+    selectedValues: (box, appliedItems) => {
+      let currentValue;
+      for (const item of appliedItems) {
+        if (item.node.isBlock) {
+          currentValue = item.node.computedCSS('text-align');
+          break;
+        }
+      }
+      if (!currentValue) {
+        return [];
+      }
+      return [alignValueMap[currentValue] || currentValue];
+    },
     onSelect: (box, value) => {
       const editor = box.getEditor();
       editor.command.execute('align', value);
@@ -44,11 +62,23 @@ const boxToolbarItems: ('|' | BoxToolbarItem)[] = [
     menuType: 'list',
     menuItems: [
       { value: 'page', text: 'Page width' },
-      { value: '1', text: 'Original width' },
+      { value: '1.00', text: 'Original width' },
       { value: '0.75', text: '75% image width' },
-      { value: '0.5', text: '50% image width' },
+      { value: '0.50', text: '50% image width' },
       { value: '0.25', text: '25% image width' },
     ],
+    selectedValues: box => {
+      const { originalWidth, width } = box.value;
+      const editor = box.getEditor();
+      const pageWidth = editor.container.innerWidth() - 2;
+      let currentValue = '';
+      if (width === pageWidth) {
+        currentValue = 'page';
+      } else {
+        currentValue = (width / originalWidth).toFixed(2);
+      }
+      return [currentValue];
+    },
     onSelect: (box, value) => {
       const { originalWidth, originalHeight } = box.value;
       const editor = box.getEditor();
