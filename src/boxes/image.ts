@@ -28,12 +28,12 @@ const boxToolbarItems: BoxToolbarItem[] = [
     type: 'dropdown',
     downIcon: icons.get('down'),
     icon: icons.get('alignLeft'),
-    tooltip: 'Align',
+    tooltip: locale => locale.image.align(),
     menuType: 'list',
     menuItems: [
-      { value: 'left', text: 'Align left' },
-      { value: 'center', text: 'Align center' },
-      { value: 'right', text: 'Align right' },
+      { value: 'left', text: locale => locale.image.alignLeft() },
+      { value: 'center', text: locale => locale.image.alignCenter() },
+      { value: 'right', text: locale => locale.image.alignRight() },
     ],
     selectedValues: (box, appliedItems) => {
       let currentValue;
@@ -58,14 +58,14 @@ const boxToolbarItems: BoxToolbarItem[] = [
     type: 'dropdown',
     downIcon: icons.get('down'),
     icon: icons.get('resize'),
-    tooltip: 'Resize image',
+    tooltip: locale => locale.image.resize(),
     menuType: 'list',
     menuItems: [
-      { value: 'page', text: 'Page width' },
-      { value: '1.00', text: 'Original width' },
-      { value: '0.75', text: '75% image width' },
-      { value: '0.50', text: '50% image width' },
-      { value: '0.25', text: '25% image width' },
+      { value: 'page', text: locale => locale.image.pageWidth() },
+      { value: '1.00', text: locale => locale.image.originalWidth() },
+      { value: '0.75', text: locale => locale.image.imageWidth('75%') },
+      { value: '0.50', text: locale => locale.image.imageWidth('50%') },
+      { value: '0.25', text: locale => locale.image.imageWidth('25%') },
     ],
     selectedValues: box => {
       const { originalWidth, width } = box.value;
@@ -106,7 +106,7 @@ const boxToolbarItems: BoxToolbarItem[] = [
     name: 'open',
     type: 'button',
     icon: icons.get('open'),
-    tooltip: 'Open image in new tab',
+    tooltip: locale => locale.image.open(),
     onClick: box => {
       window.open(box.value.url);
     },
