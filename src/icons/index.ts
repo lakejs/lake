@@ -12,7 +12,8 @@
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-// basic
+
+// common
 import plus from './plus.svg';
 import question from './question.svg';
 import more from './more.svg';
@@ -22,22 +23,18 @@ import down from './down.svg';
 import check from './check.svg';
 import checkCircle from './check-circle.svg';
 import warningCircle from './warning-circle.svg';
-import file from './file.svg';
 import open from './open.svg';
 import download from './download.svg';
 import copy from './copy.svg';
 import remove from './remove.svg';
 import maximize from './maximize.svg';
 import close from './close.svg';
-import zoomIn from './zoom-in.svg';
-import zoomOut from './zoom-out.svg';
 import resize from './resize.svg';
-import caption from './caption.svg';
 import circleNotch from './circle-notch.svg';
+// toolbar
 import selectAll from './select-all.svg';
 import undo from './undo.svg';
 import redo from './redo.svg';
-// block format
 import heading from './heading.svg';
 import heading1 from './heading1.svg';
 import heading2 from './heading2.svg';
@@ -57,7 +54,6 @@ import alignRight from './align-right.svg';
 import alignJustify from './align-justify.svg';
 import increaseIndent from './increase-indent.svg';
 import decreaseIndent from './decrease-indent.svg';
-// mark format
 import formatPainter from './format-painter.svg';
 import bold from './bold.svg';
 import italic from './italic.svg';
@@ -72,21 +68,28 @@ import fontColor from './font-color.svg';
 import fontColorAccent from './font-color-accent.svg';
 import highlight from './highlight.svg';
 import highlightAccent from './highlight-accent.svg';
-// items that can be inserted
 import link from './link.svg';
-import unlink from './unlink.svg';
 import hr from './hr.svg';
 import codeBlock from './code-block.svg';
 import image from './image.svg';
-import imageBroken from './image-broken.svg';
 import video from './video.svg';
 import attachment from './attachment.svg';
 import emoji from './emoji.svg';
 import specialCharacter from './special-character.svg';
 import equation from './equation.svg';
 import table from './table.svg';
+// link
+import unlink from './unlink.svg';
+// image
+import imageBroken from './image-broken.svg';
+import zoomIn from './zoom-in.svg';
+import zoomOut from './zoom-out.svg';
+import caption from './caption.svg';
+// file
+import file from './file.svg';
 
 export const icons: Map<string, string> = new Map([
+  // common
   ['plus', plus],
   ['question', question],
   ['more', more],
@@ -96,18 +99,15 @@ export const icons: Map<string, string> = new Map([
   ['check', check],
   ['checkCircle', checkCircle],
   ['warningCircle', warningCircle],
-  ['file', file],
   ['open', open],
   ['download', download],
   ['copy', copy],
   ['remove', remove],
   ['maximize', maximize],
   ['close', close],
-  ['zoomIn', zoomIn],
-  ['zoomOut', zoomOut],
   ['resize', resize],
-  ['caption', caption],
   ['circleNotch', circleNotch],
+  // toolbar
   ['selectAll', selectAll],
   ['undo', undo],
   ['redo', redo],
@@ -145,15 +145,22 @@ export const icons: Map<string, string> = new Map([
   ['highlight', highlight],
   ['highlightAccent', highlightAccent],
   ['link', link],
-  ['unlink', unlink],
   ['hr', hr],
   ['codeBlock', codeBlock],
   ['image', image],
-  ['imageBroken', imageBroken],
   ['video', video],
   ['attachment', attachment],
   ['emoji', emoji],
   ['specialCharacter', specialCharacter],
   ['equation', equation],
   ['table', table],
+  // link
+  ['unlink', unlink],
+  // image
+  ['imageBroken', imageBroken],
+  ['zoomIn', zoomIn],
+  ['zoomOut', zoomOut],
+  ['caption', caption],
+  // file
+  ['file', file],
 ]);
