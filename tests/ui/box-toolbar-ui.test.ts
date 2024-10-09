@@ -30,6 +30,36 @@ const alignMenuItems = [
   },
 ];
 
+const columnMenuItems = [
+  {
+    value: 'insertLeft',
+    text: 'Insert column left',
+  },
+  {
+    value: 'insertRight',
+    text: 'Insert column right',
+  },
+  {
+    value: 'delete',
+    text: 'Delete column',
+  },
+];
+
+const rowMenuItems = [
+  {
+    value: 'insertAbove',
+    text: 'Insert row above',
+  },
+  {
+    value: 'insertBelow',
+    text: 'Insert row below',
+  },
+  {
+    value: 'delete',
+    text: 'Delete row',
+  },
+];
+
 const colors = [
   '#E53333', '#E56600', '#FF9900', '#64451D', '#DFC5A4', '#FFE500',
   '#009900', '#006600', '#99BB00', '#B8D100', '#60D978', '#00D5FF',
@@ -69,7 +99,7 @@ describe('ui / box-toolbar-ui', () => {
   });
 
   it('box toolbar', () => {
-    container.html('<p><lake-box type="inline" name="boxToolbarUiTestBox"></lake-box></p>');
+    container.html('<p style="text-align: center;"><lake-box type="inline" name="boxToolbarUiTestBox"></lake-box></p>');
     const box = new Box(container.find('lake-box'));
     box.render();
     const boxToolbar = new BoxToolbar({
@@ -98,27 +128,39 @@ describe('ui / box-toolbar-ui', () => {
           isDisabled: () => true,
           onClick: () => { },
         },
-        {
-          name: 'caption',
-          type: 'button',
-          icon: icons.get('caption'),
-          tooltip: 'Add caption',
-          onClick: () => { },
-        },
         '|',
         {
-          name: 'align',
+          name: 'tableColumn',
           type: 'dropdown',
           downIcon: icons.get('down'),
-          icon: icons.get('alignLeft'),
-          tooltip: 'Align',
+          icon: icons.get('tableColumn'),
+          tooltip: 'Column',
           menuType: 'list',
-          menuItems: alignMenuItems,
-          selectedValues: () => ['center'],
+          menuItems: columnMenuItems,
           onSelect: () => { },
         },
         {
-          name: 'align2',
+          name: 'tableRow',
+          type: 'dropdown',
+          downIcon: icons.get('down'),
+          icon: icons.get('tableRow'),
+          tooltip: 'Row',
+          menuType: 'list',
+          menuItems: rowMenuItems,
+          onSelect: () => { },
+        },
+        {
+          name: 'tableMerge',
+          type: 'dropdown',
+          downIcon: icons.get('down'),
+          icon: icons.get('tableMerge'),
+          tooltip: 'Merge cells',
+          menuType: 'list',
+          menuItems: rowMenuItems,
+          onSelect: () => { },
+        },
+        {
+          name: 'align',
           type: 'dropdown',
           downIcon: icons.get('down'),
           tooltip: 'Align',
@@ -131,7 +173,7 @@ describe('ui / box-toolbar-ui', () => {
           onSelect: () => { },
         },
         {
-          name: 'align3',
+          name: 'align2',
           type: 'dropdown',
           downIcon: icons.get('down'),
           icon: icons.get('alignLeft'),

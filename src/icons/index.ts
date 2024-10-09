@@ -6,6 +6,7 @@
 // - highlight.svg
 // - highlight-accent.svg
 // - open.svg
+// - table-merge.svg
 //
 // Phosphor Icons (https://phosphoricons.com/).
 // - other icons
@@ -87,6 +88,11 @@ import zoomOut from './zoom-out.svg';
 import caption from './caption.svg';
 // file
 import file from './file.svg';
+// table
+import tableColumn from './table-column.svg';
+import tableRow from './table-row.svg';
+import tableMerge from './table-merge.svg';
+
 
 export const icons: Map<string, string> = new Map([
   // common
@@ -163,4 +169,8 @@ export const icons: Map<string, string> = new Map([
   ['caption', caption],
   // file
   ['file', file],
+  // table
+  ['tableColumn', tableColumn],
+  ['tableRow', tableRow],
+  ['tableMerge', tableMerge],
 ]);
