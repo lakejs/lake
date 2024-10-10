@@ -151,13 +151,17 @@ describe('ui / box-toolbar-ui', () => {
         },
         {
           name: 'tableMerge',
-          type: 'dropdown',
-          downIcon: icons.get('down'),
+          type: 'button',
           icon: icons.get('tableMerge'),
           tooltip: 'Merge cells',
-          menuType: 'list',
-          menuItems: rowMenuItems,
-          onSelect: () => { },
+          onClick: () => { },
+        },
+        {
+          name: 'tableSplit',
+          type: 'button',
+          icon: icons.get('tableSplit'),
+          tooltip: 'Split cells',
+          onClick: () => { },
         },
         {
           name: 'align',

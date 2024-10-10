@@ -7,6 +7,7 @@
 // - highlight-accent.svg
 // - open.svg
 // - table-merge.svg
+// - table-split.svg
 //
 // Phosphor Icons (https://phosphoricons.com/).
 // - other icons
@@ -92,7 +93,7 @@ import file from './file.svg';
 import tableColumn from './table-column.svg';
 import tableRow from './table-row.svg';
 import tableMerge from './table-merge.svg';
-
+import tableSplit from './table-split.svg';
 
 export const icons: Map<string, string> = new Map([
   // common
@@ -173,4 +174,5 @@ export const icons: Map<string, string> = new Map([
   ['tableColumn', tableColumn],
   ['tableRow', tableRow],
   ['tableMerge', tableMerge],
+  ['tableSplit', tableSplit],
 ]);
