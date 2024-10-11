@@ -5,7 +5,7 @@ import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
 import { Box } from '../models/box';
 import { Button } from '../ui/button';
-import { BoxResizer } from '../ui/box-resizer';
+import { Resizer } from '../ui/resizer';
 
 function getVideoId(url: string): string {
   const result = /\w+$/i.exec(url || '');
@@ -62,7 +62,7 @@ function showVideo(box: Box): void {
   if (!editor.readonly) {
     iframeNode.on('load', () => {
       appendButtonGroup(box);
-      new BoxResizer({
+      new Resizer({
         root: rootNode,
         target: boxContainer,
         width,

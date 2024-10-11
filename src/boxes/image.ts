@@ -9,7 +9,7 @@ import { getBox } from '../utils/get-box';
 import { safeTemplate } from '../utils/safe-template';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
-import { BoxResizer } from '../ui/box-resizer';
+import { Resizer } from '../ui/resizer';
 
 type ImageInfo = {
   node: Nodes;
@@ -383,7 +383,7 @@ async function renderDone(rootNode: Nodes, box: Box): Promise<void> {
     alt: value.name,
   });
   rootNode.append(buttonGroupNode);
-  new BoxResizer({
+  new Resizer({
     root: rootNode,
     target: boxContainer,
     width,

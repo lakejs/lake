@@ -3,9 +3,9 @@ import { boxes } from '../../src/storage/boxes';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Box } from '../../src/models/box';
-import { BoxResizer } from '../../src/ui/box-resizer';
+import { Resizer } from '../../src/ui/resizer';
 
-describe('ui / box-resizer', () => {
+describe('ui / resizer', () => {
 
   let container: Nodes;
 
@@ -28,7 +28,7 @@ describe('ui / box-resizer', () => {
           'background-color': '#eee',
         });
         boxContainer.append(rootNode);
-        new BoxResizer({
+        new Resizer({
           root: rootNode,
           target: boxContainer,
           width: value.width,

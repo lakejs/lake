@@ -2,7 +2,7 @@ import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
 import { Nodes } from '../models/nodes';
 
-type BoxResizerConfig = {
+type ResizerConfig = {
   root: Nodes;
   target: Nodes;
   width: number;
@@ -11,14 +11,14 @@ type BoxResizerConfig = {
   onStop: (width: number, height: number) => void;
 };
 
-export class BoxResizer {
-  private config: BoxResizerConfig;
+export class Resizer {
+  private config: ResizerConfig;
 
   private root: Nodes;
 
   private target: Nodes;
 
-  constructor(config: BoxResizerConfig) {
+  constructor(config: ResizerConfig) {
     this.config = config;
     this.root = config.root;
     this.target = config.target;

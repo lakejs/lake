@@ -143,6 +143,7 @@ import './ui/button.test';
 import './ui/button-ui.test';
 import './ui/dropdown.test';
 import './ui/dropdown-ui.test';
+import './ui/resizer.test';
 import './ui/link-popup.test';
 import './ui/link-popup-ui.test';
 import './ui/menu.test';
@@ -151,7 +152,6 @@ import './ui/slash-menu-ui.test';
 import './ui/mention-menu.test';
 import './ui/mention-menu-ui.test';
 import './ui/toolbar.test';
-import './ui/box-resizer.test';
 import './ui/box-toolbar.test';
 import './ui/box-toolbar-ui.test';
 
