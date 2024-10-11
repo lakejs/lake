@@ -30,7 +30,7 @@ describe('ui / box-resizer', () => {
         boxContainer.append(rootNode);
         new BoxResizer({
           root: rootNode,
-          box,
+          target: boxContainer,
           width: value.width,
           height: value.height,
           onResize: (width, height) => {

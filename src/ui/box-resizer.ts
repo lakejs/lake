@@ -1,11 +1,10 @@
 import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
 import { Nodes } from '../models/nodes';
-import { Box } from '../models/box';
 
 type BoxResizerConfig = {
   root: Nodes;
-  box: Box;
+  target: Nodes;
   width: number;
   height: number;
   onResize?: (width: number, height: number) => void;
@@ -17,22 +16,21 @@ export class BoxResizer {
 
   private root: Nodes;
 
-  private box: Box;
+  private target: Nodes;
 
   constructor(config: BoxResizerConfig) {
     this.config = config;
     this.root = config.root;
-    this.box = config.box;
+    this.target = config.target;
   }
 
   private bindEvents(pointerNode: Nodes): void {
-    const box = this.box;
-    const boxContainer = box.getContainer();
+    const target = this.target;
     const resizerNode = pointerNode.closest('.lake-resizer');
     const infoNode = resizerNode.find('.lake-resizer-info');
     const isPlus = pointerNode.attr('class').indexOf('-right') >= 0;
-    const initialWidth = boxContainer.width();
-    const initialHeight = boxContainer.height();
+    const initialWidth = target.width();
+    const initialHeight = target.height();
     const rate = initialHeight / initialWidth;
     let clientX = 0;
     let width = 0;
@@ -43,7 +41,7 @@ export class BoxResizer {
       const newWidth = Math.round(isPlus ? width + diffX : width - diffX);
       const newHeight = Math.round(rate * newWidth);
       infoNode.text(`${newWidth} x ${newHeight}`);
-      boxContainer.css({
+      target.css({
         width: `${newWidth}px`,
         height: `${newHeight}px`,
       });
@@ -62,7 +60,7 @@ export class BoxResizer {
         pointerNativeNode.setPointerCapture(pointerEvent.pointerId);
       } catch { /* empty */ }
       clientX = pointerEvent.clientX;
-      width = boxContainer.width();
+      width = target.width();
       infoNode.show();
       pointerNode.on('pointermove', pointermoveListener);
     };
@@ -70,7 +68,7 @@ export class BoxResizer {
     const pointerupListner = () => {
       pointerNode.off('pointermove');
       infoNode.hide();
-      width = box.getContainer().width();
+      width = target.width();
       const height = Math.round(rate * width);
       this.config.onStop(width, height);
     };

@@ -385,7 +385,7 @@ async function renderDone(rootNode: Nodes, box: Box): Promise<void> {
   rootNode.append(buttonGroupNode);
   new BoxResizer({
     root: rootNode,
-    box,
+    target: boxContainer,
     width,
     height,
     onStop: (newWidth, newHeight) => {

@@ -64,7 +64,7 @@ function showVideo(box: Box): void {
       appendButtonGroup(box);
       new BoxResizer({
         root: rootNode,
-        box,
+        target: boxContainer,
         width,
         height,
         onResize: (newWidth, newHeight) => {
