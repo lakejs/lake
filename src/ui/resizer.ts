@@ -18,16 +18,26 @@ export class Resizer {
 
   private target: Nodes;
 
+  public container: Nodes;
+
   constructor(config: ResizerConfig) {
     this.config = config;
     this.root = config.root;
     this.target = config.target;
+    this.container = query(safeTemplate`
+      <div class="lake-resizer">
+        <div class="lake-resizer-top-left"></div>
+        <div class="lake-resizer-top-right"></div>
+        <div class="lake-resizer-bottom-left"></div>
+        <div class="lake-resizer-bottom-right"></div>
+        <div class="lake-resizer-info">${config.width} x ${config.height}</div>
+      </div>
+    `);
   }
 
   private bindEvents(pointerNode: Nodes): void {
     const target = this.target;
-    const resizerNode = pointerNode.closest('.lake-resizer');
-    const infoNode = resizerNode.find('.lake-resizer-info');
+    const infoNode = this.container.find('.lake-resizer-info');
     const isPlus = pointerNode.attr('class').indexOf('-right') >= 0;
     const initialWidth = target.width();
     const initialHeight = target.height();
@@ -83,20 +93,10 @@ export class Resizer {
   }
 
   public render(): void {
-    const { width, height }= this.config;
-    const resizerNode = query(safeTemplate`
-      <div class="lake-resizer">
-        <div class="lake-resizer-top-left"></div>
-        <div class="lake-resizer-top-right"></div>
-        <div class="lake-resizer-bottom-left"></div>
-        <div class="lake-resizer-bottom-right"></div>
-        <div class="lake-resizer-info">${width} x ${height}</div>
-      </div>
-    `);
-    this.bindEvents(resizerNode.find('.lake-resizer-top-left'));
-    this.bindEvents(resizerNode.find('.lake-resizer-top-right'));
-    this.bindEvents(resizerNode.find('.lake-resizer-bottom-left'));
-    this.bindEvents(resizerNode.find('.lake-resizer-bottom-right'));
-    this.root.append(resizerNode);
+    this.bindEvents(this.container.find('.lake-resizer-top-left'));
+    this.bindEvents(this.container.find('.lake-resizer-top-right'));
+    this.bindEvents(this.container.find('.lake-resizer-bottom-left'));
+    this.bindEvents(this.container.find('.lake-resizer-bottom-right'));
+    this.root.append(this.container);
   }
 }
