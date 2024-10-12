@@ -180,11 +180,11 @@ describe('models / box', () => {
       onClick: () => calledCount++,
     }]);
     box.event.emit('focus');
-    expect(query(document.body).find('.lake-box-toolbar').computedCSS('display')).to.equal('flex');
-    click(query(document.body).find('.lake-box-toolbar button[name="remove"]'));
+    expect(query(document.body).find('.lake-floating-toolbar').computedCSS('display')).to.equal('flex');
+    click(query(document.body).find('.lake-floating-toolbar button[name="remove"]'));
     expect(calledCount).to.equal(1);
     box.event.emit('blur');
-    expect(query(document.body).find('.lake-box-toolbar').length).to.equal(0);
+    expect(query(document.body).find('.lake-floating-toolbar').length).to.equal(0);
   });
 
 });

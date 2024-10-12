@@ -1,9 +1,9 @@
 import { TranslationFunctions } from '../i18n/types';
 import { AppliedItem } from '../types/object';
 import {
-  BoxToolbarButtonItem, BoxToolbarDropdownItem,
-  BoxToolbarItem, BoxToolbarPlacement,
-} from '../types/box-toolbar';
+  FloatingToolbarButtonItem, FloatingToolbarDropdownItem,
+  FloatingToolbarItem, FloatingToolbarPlacement,
+} from '../types/floating-toolbar';
 import { query } from '../utils/query';
 import { nodePosition } from '../utils/node-position';
 import { Nodes } from '../models/nodes';
@@ -12,46 +12,46 @@ import { Button } from './button';
 import { Dropdown } from './dropdown';
 import { i18nObject } from '../i18n';
 
-type BoxToolbarConfig = {
+type FloatingToolbarConfig = {
   box: Box;
-  items: BoxToolbarItem[];
+  items: FloatingToolbarItem[];
   locale?: TranslationFunctions;
-  placement?: BoxToolbarPlacement;
+  placement?: FloatingToolbarPlacement;
 };
 
-export class BoxToolbar {
+export class FloatingToolbar {
 
   private box: Box;
 
-  private items: BoxToolbarItem[];
+  private items: FloatingToolbarItem[];
 
   private locale: TranslationFunctions;
 
-  private placement: BoxToolbarPlacement;
+  private placement: FloatingToolbarPlacement;
 
   private allMenuMap: Map<string, Map<string, string>> = new Map();
 
-  private buttonItemList: BoxToolbarButtonItem[] = [];
+  private buttonItemList: FloatingToolbarButtonItem[] = [];
 
-  private dropdownItemList: BoxToolbarDropdownItem[] = [];
+  private dropdownItemList: FloatingToolbarDropdownItem[] = [];
 
   private dropdownList: Dropdown[] = [];
 
   public container: Nodes;
 
-  constructor(config: BoxToolbarConfig) {
+  constructor(config: FloatingToolbarConfig) {
     this.box = config.box;
     this.items = config.items;
     this.locale = config.locale || i18nObject('en-US');
     this.placement = config.placement || 'top';
-    this.container = query('<div class="lake-popup lake-box-toolbar" />');
+    this.container = query('<div class="lake-popup lake-floating-toolbar" />');
   }
 
   private appendDivider(): void {
     this.container.append('<div class="lake-toolbar-divider" />');
   }
 
-  private appendButton(item: BoxToolbarButtonItem): void {
+  private appendButton(item: FloatingToolbarButtonItem): void {
     const button = new Button({
       root: this.container,
       name: item.name,
@@ -65,7 +65,7 @@ export class BoxToolbar {
     button.render();
   }
 
-  private appendDropdown(item: BoxToolbarDropdownItem): void {
+  private appendDropdown(item: FloatingToolbarDropdownItem): void {
     const dropdown = new Dropdown({
       root: this.container,
       locale: this.locale,

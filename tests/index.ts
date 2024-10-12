@@ -152,8 +152,8 @@ import './ui/slash-menu-ui.test';
 import './ui/mention-menu.test';
 import './ui/mention-menu-ui.test';
 import './ui/toolbar.test';
-import './ui/box-toolbar.test';
-import './ui/box-toolbar-ui.test';
+import './ui/floating-toolbar.test';
+import './ui/floating-toolbar-ui.test';
 
 // Editor
 import './editor.test';

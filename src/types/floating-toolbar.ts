@@ -3,7 +3,7 @@ import { TranslationFunctions } from '../i18n/types';
 import { DropdownItem } from './dropdown';
 import { AppliedItem } from './object';
 
-export type BoxToolbarButtonItem = {
+export type FloatingToolbarButtonItem = {
   name: string;
   type: 'button';
   icon?: string;
@@ -13,7 +13,7 @@ export type BoxToolbarButtonItem = {
   onClick: (box: Box, value: string) => void;
 };
 
-export type BoxToolbarDropdownItem = DropdownItem & {
+export type FloatingToolbarDropdownItem = DropdownItem & {
   name: string;
   type: 'dropdown';
   selectedValues?: (box: Box, appliedItems: AppliedItem[]) => string[];
@@ -21,6 +21,6 @@ export type BoxToolbarDropdownItem = DropdownItem & {
   onSelect: (box: Box, value: string) => void;
 }
 
-export type BoxToolbarItem = BoxToolbarButtonItem | BoxToolbarDropdownItem | '|';
+export type FloatingToolbarItem = FloatingToolbarButtonItem | FloatingToolbarDropdownItem | '|';
 
-export type BoxToolbarPlacement = 'top' | 'bottom';
+export type FloatingToolbarPlacement = 'top' | 'bottom';

@@ -1,7 +1,7 @@
 import EventEmitter from 'eventemitter3';
 import type { Editor } from '../editor';
 import { BoxType, BoxValue } from '../types/box';
-import { BoxToolbarItem } from '../types/box-toolbar';
+import { FloatingToolbarItem } from '../types/floating-toolbar';
 import { boxes } from '../storage/boxes';
 import { editors } from '../storage/editors';
 import { debug } from '../utils/debug';
@@ -11,7 +11,7 @@ import { toBase64 } from '../utils/to-base64';
 import { fromBase64 } from '../utils/from-base64';
 import { query } from '../utils/query';
 import { Nodes } from './nodes';
-import { BoxToolbar } from '../ui/box-toolbar';
+import { FloatingToolbar } from '../ui/floating-toolbar';
 
 const framework = safeTemplate`
   <span class="lake-box-strip"><br /></span>
@@ -139,17 +139,17 @@ export class Box {
   }
 
   // Sets a popup toolbar for the box.
-  public setToolbar(items: BoxToolbarItem[]): void {
+  public setToolbar(items: FloatingToolbarItem[]): void {
     let editor: Editor | undefined;
     try {
       editor = this.getEditor();
     } catch { /* empty */ }
-    let toolbar: BoxToolbar | null = null;
+    let toolbar: FloatingToolbar | null = null;
     this.event.on('focus', () => {
       if (toolbar) {
         toolbar.unmount();
       }
-      toolbar = new BoxToolbar({
+      toolbar = new FloatingToolbar({
         box: this,
         items,
         locale: editor ? editor.locale : undefined,

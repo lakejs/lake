@@ -3,7 +3,7 @@ import { icons } from '../../src/icons';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Box } from '../../src/models/box';
-import { BoxToolbar } from '../../src/ui/box-toolbar';
+import { FloatingToolbar } from '../../src/ui/floating-toolbar';
 
 const imageUrl = '../assets/images/heaven-lake-256.png';
 
@@ -79,14 +79,14 @@ for (const color of colors) {
   });
 }
 
-describe('ui / box-toolbar-ui', () => {
+describe('ui / floating-toolbar-ui', () => {
 
   let container: Nodes;
 
   before(() => {
-    boxes.set('boxToolbarUiTestBox', {
+    boxes.set('floatingToolbarUiTestBox', {
       type: 'inline',
-      name: 'boxToolbarUiTestBox',
+      name: 'floatingToolbarUiTestBox',
       value: {
         url: imageUrl,
       },
@@ -99,10 +99,10 @@ describe('ui / box-toolbar-ui', () => {
   });
 
   it('box toolbar', () => {
-    container.html('<p style="text-align: center;"><lake-box type="inline" name="boxToolbarUiTestBox"></lake-box></p>');
+    container.html('<p style="text-align: center;"><lake-box type="inline" name="floatingToolbarUiTestBox"></lake-box></p>');
     const box = new Box(container.find('lake-box'));
     box.render();
-    const boxToolbar = new BoxToolbar({
+    const floatingToolbar = new FloatingToolbar({
       box,
       items: [
         {
@@ -211,7 +211,7 @@ describe('ui / box-toolbar-ui', () => {
         },
       ],
     });
-    boxToolbar.render();
+    floatingToolbar.render();
   });
 
 });

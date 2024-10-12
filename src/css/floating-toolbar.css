@@ -1,0 +1,21 @@
+.lake-floating-toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: var(--lake-popup-z-index);
+  border: 1px solid var(--lake-border-color);
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 0 #00000005;
+  padding: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.lake-floating-toolbar .lake-toolbar-divider {
+  width: 1px;
+  height: 20px;
+  margin: 0 4px;
+  border-left: 1px solid var(--lake-border-color);
+  user-select: none;
+}

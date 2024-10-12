@@ -2,7 +2,7 @@ import 'photoswipe/style.css';
 import PhotoSwipeLightbox, { DataSource } from 'photoswipe/lightbox';
 import PhotoSwipe from 'photoswipe';
 import { BoxComponent } from '../types/box';
-import { BoxToolbarItem } from '../types/box-toolbar';
+import { FloatingToolbarItem } from '../types/floating-toolbar';
 import { icons } from '../icons';
 import { query } from '../utils/query';
 import { getBox } from '../utils/get-box';
@@ -22,7 +22,7 @@ const alignValueMap: {[key: string]: string} = {
   end: 'right',
 };
 
-const boxToolbarItems: BoxToolbarItem[] = [
+const floatingToolbarItems: FloatingToolbarItem[] = [
   {
     name: 'align',
     type: 'dropdown',
@@ -457,7 +457,7 @@ export default {
           editor.history.save();
         });
         if (value.status === 'done') {
-          box.setToolbar(boxToolbarItems);
+          box.setToolbar(floatingToolbarItems);
         }
       }
       box.event.emit('render');

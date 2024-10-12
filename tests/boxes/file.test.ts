@@ -36,7 +36,7 @@ describe('boxes / file', () => {
   it('should remove the box', done => {
     const boxNode = box.node;
     editor.event.once('statechange', () => {
-      click(query(document.body).find('.lake-box-toolbar button[name="remove"]'));
+      click(query(document.body).find('.lake-floating-toolbar button[name="remove"]'));
       const value = editor.getValue();
       debug(`output: ${value}`);
       expect(value).to.equal('<p>foo<focus />bar</p>');
@@ -48,7 +48,7 @@ describe('boxes / file', () => {
   it('should hide the box toolbar', done => {
     const boxNode = box.node;
     editor.event.once('statechange', () => {
-      expect(query(document.body).find('.lake-box-toolbar').length).to.equal(0);
+      expect(query(document.body).find('.lake-floating-toolbar').length).to.equal(0);
       done();
     });
     click(boxNode.find('.lake-file'));

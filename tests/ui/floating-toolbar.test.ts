@@ -4,11 +4,11 @@ import { icons } from '../../src/icons';
 import { query, debug } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Box } from '../../src/models/box';
-import { BoxToolbar } from '../../src/ui/box-toolbar';
+import { FloatingToolbar } from '../../src/ui/floating-toolbar';
 
 const imageUrl = '../assets/images/heaven-lake-256.png';
 
-describe('ui / box-toolbar', () => {
+describe('ui / floating-toolbar', () => {
 
   let container: Nodes;
 
@@ -35,7 +35,7 @@ describe('ui / box-toolbar', () => {
     const box = new Box(container.find('lake-box'));
     box.render();
     let calledCount = 0;
-    const boxToolbar = new BoxToolbar({
+    const floatingToolbar = new FloatingToolbar({
       box,
       items: [
         {
@@ -55,14 +55,14 @@ describe('ui / box-toolbar', () => {
         },
       ],
     });
-    boxToolbar.render();
-    expect(query(document.body).find('.lake-box-toolbar').computedCSS('display')).to.equal('flex');
-    click(query(document.body).find('.lake-box-toolbar button[name="open"]'));
+    floatingToolbar.render();
+    expect(query(document.body).find('.lake-floating-toolbar').computedCSS('display')).to.equal('flex');
+    click(query(document.body).find('.lake-floating-toolbar button[name="open"]'));
     expect(calledCount).to.equal(1);
-    click(query(document.body).find('.lake-box-toolbar button[name="remove"]'));
+    click(query(document.body).find('.lake-floating-toolbar button[name="remove"]'));
     expect(calledCount).to.equal(2);
-    boxToolbar.unmount();
-    expect(query(document.body).find('.lake-box-toolbar').length).to.equal(0);
+    floatingToolbar.unmount();
+    expect(query(document.body).find('.lake-floating-toolbar').length).to.equal(0);
   });
 
   it('should select a dropdown', () => {
@@ -70,7 +70,7 @@ describe('ui / box-toolbar', () => {
     const inlineBox = new Box(container.find('lake-box'));
     inlineBox.render();
     let dropdownValue = '';
-    const boxToolbar = new BoxToolbar({
+    const floatingToolbar = new FloatingToolbar({
       box: inlineBox,
       items: [
         {
@@ -92,9 +92,9 @@ describe('ui / box-toolbar', () => {
         },
       ],
     });
-    boxToolbar.render();
-    expect(query(document.body).find('.lake-box-toolbar').computedCSS('display')).to.equal('flex');
-    const dropdownNode = query(document.body).find('.lake-box-toolbar button[name="align"]').closest('.lake-dropdown');
+    floatingToolbar.render();
+    expect(query(document.body).find('.lake-floating-toolbar').computedCSS('display')).to.equal('flex');
+    const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="align"]').closest('.lake-dropdown');
     const titleNode = dropdownNode.find('.lake-dropdown-title');
     titleNode.emit('mouseenter');
     expect(titleNode.hasClass('lake-dropdown-title-hovered')).to.equal(true);
@@ -105,8 +105,8 @@ describe('ui / box-toolbar', () => {
     click(dropdownNode.find('li[value="right"]'));
     expect(dropdownValue).to.equal('right');
     expect(dropdownNode.find('.lake-dropdown-menu').computedCSS('display')).to.equal('none');
-    boxToolbar.unmount();
-    expect(query(document.body).find('.lake-box-toolbar').length).to.equal(0);
+    floatingToolbar.unmount();
+    expect(query(document.body).find('.lake-floating-toolbar').length).to.equal(0);
   });
 
 });

@@ -1,5 +1,5 @@
 import { BoxComponent } from '../types/box';
-import { BoxToolbarItem } from '../types/box-toolbar';
+import { FloatingToolbarItem } from '../types/floating-toolbar';
 import { icons } from '../icons';
 import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
@@ -7,7 +7,7 @@ import { fileSize } from '../utils/file-size';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 
-const boxToolbarItems: BoxToolbarItem[] = [
+const floatingToolbarItems: FloatingToolbarItem[] = [
   {
     name: 'download',
     type: 'button',
@@ -80,9 +80,9 @@ export default {
       rootNode.on('click', () => {
         editor.selection.selectBox(box);
       });
-      let items = boxToolbarItems;
+      let items = floatingToolbarItems;
       if (value.status !== 'done') {
-        items = boxToolbarItems.filter(item => item !== '|' && item.name === 'remove');
+        items = floatingToolbarItems.filter(item => item !== '|' && item.name === 'remove');
       }
       box.setToolbar(items);
     } else {
