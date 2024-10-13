@@ -1,15 +1,14 @@
 import { TranslationFunctions } from '../i18n/types';
 import { AppliedItem } from '../types/object';
-import {
-  FloatingToolbarButtonItem, FloatingToolbarDropdownItem,
-  FloatingToolbarItem, FloatingToolbarPlacement,
-} from '../types/floating-toolbar';
+import { FloatingToolbarButtonItem, FloatingToolbarDropdownItem, FloatingToolbarItem } from '../types/floating-toolbar';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { Button } from './button';
 import { Dropdown } from './dropdown';
 import { i18nObject } from '../i18n';
+
+type FloatingToolbarPlacement = 'top' | 'bottom';
 
 type FloatingToolbarConfig = {
   range: Range;
@@ -110,7 +109,7 @@ export class FloatingToolbar {
     for (const item of this.buttonItemList) {
       const selectedClass = 'lake-button-selected';
       const buttonNode = this.container.find(`button[name="${item.name}"]`);
-      const isDisabled = item.isDisabled ? item.isDisabled(this.range, appliedItems) : false;
+      const isDisabled = item.isDisabled ? item.isDisabled(appliedItems) : false;
       if (isDisabled) {
         buttonNode.attr('disabled', 'true');
         buttonNode.removeClass(selectedClass);
@@ -118,7 +117,7 @@ export class FloatingToolbar {
         buttonNode.removeAttr('disabled');
       }
       if (!isDisabled) {
-        const isSelected = item.isSelected ? item.isSelected(this.range, appliedItems) : false;
+        const isSelected = item.isSelected ? item.isSelected(appliedItems) : false;
         if (isSelected) {
           buttonNode.addClass(selectedClass);
         } else {
@@ -127,9 +126,9 @@ export class FloatingToolbar {
       }
     }
     for (const item of this.dropdownItemList) {
-      const selectedValues = item.selectedValues ? item.selectedValues(this.range, appliedItems) : [];
+      const selectedValues = item.selectedValues ? item.selectedValues(appliedItems) : [];
       const dropdownNode = this.container.find(`div.lake-dropdown[name="${item.name}"]`);
-      const isDisabled = item.isDisabled ? item.isDisabled(this.range, appliedItems) : false;
+      const isDisabled = item.isDisabled ? item.isDisabled(appliedItems) : false;
       if (isDisabled) {
         dropdownNode.attr('disabled', 'true');
       } else {

@@ -37,7 +37,7 @@ function setFloatingToolbar(box: Box): void {
         { value: 'center', text: locale => locale.image.alignCenter() },
         { value: 'right', text: locale => locale.image.alignRight() },
       ],
-      selectedValues: (range, appliedItems) => {
+      selectedValues: appliedItems => {
         let currentValue;
         for (const item of appliedItems) {
           if (item.node.isBlock) {
