@@ -2,6 +2,7 @@ import { boxes } from '../../src/storage/boxes';
 import { icons } from '../../src/icons';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
+import { Range } from '../../src/models/range';
 import { Box } from '../../src/models/box';
 import { FloatingToolbar } from '../../src/ui/floating-toolbar';
 
@@ -98,12 +99,14 @@ describe('ui / floating-toolbar-ui', () => {
     query(document.body).append(rootNode);
   });
 
-  it('box toolbar', () => {
+  it('floating toolbar', () => {
     container.html('<p style="text-align: center;"><lake-box type="inline" name="floatingToolbarUiTestBox"></lake-box></p>');
     const box = new Box(container.find('lake-box'));
     box.render();
+    const range = new Range();
+    range.selectNodeContents(box.node);
     const floatingToolbar = new FloatingToolbar({
-      box,
+      range,
       items: [
         {
           name: 'open',

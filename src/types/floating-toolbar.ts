@@ -1,4 +1,4 @@
-import type { Box } from '../models/box';
+import type { Range } from '../models/range';
 import { TranslationFunctions } from '../i18n/types';
 import { DropdownItem } from './dropdown';
 import { AppliedItem } from './object';
@@ -8,17 +8,17 @@ export type FloatingToolbarButtonItem = {
   type: 'button';
   icon?: string;
   tooltip: string | ((locale: TranslationFunctions) => string);
-  isSelected?: (box: Box, appliedItems: AppliedItem[]) => boolean;
-  isDisabled?: (box: Box, appliedItems: AppliedItem[]) => boolean;
-  onClick: (box: Box, value: string) => void;
+  isSelected?: (range: Range, appliedItems: AppliedItem[]) => boolean;
+  isDisabled?: (range: Range, appliedItems: AppliedItem[]) => boolean;
+  onClick: (range: Range, value: string) => void;
 };
 
 export type FloatingToolbarDropdownItem = DropdownItem & {
   name: string;
   type: 'dropdown';
-  selectedValues?: (box: Box, appliedItems: AppliedItem[]) => string[];
-  isDisabled?: (box: Box, appliedItems: AppliedItem[]) => boolean;
-  onSelect: (box: Box, value: string) => void;
+  selectedValues?: (range: Range, appliedItems: AppliedItem[]) => string[];
+  isDisabled?: (range: Range, appliedItems: AppliedItem[]) => boolean;
+  onSelect: (range: Range, value: string) => void;
 }
 
 export type FloatingToolbarItem = FloatingToolbarButtonItem | FloatingToolbarDropdownItem | '|';

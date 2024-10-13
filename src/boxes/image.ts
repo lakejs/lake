@@ -5,8 +5,8 @@ import { BoxComponent } from '../types/box';
 import { FloatingToolbarItem } from '../types/floating-toolbar';
 import { icons } from '../icons';
 import { query } from '../utils/query';
-import { getBox } from '../utils/get-box';
 import { safeTemplate } from '../utils/safe-template';
+import { getBox } from '../utils/get-box';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { Resizer } from '../ui/resizer';
@@ -48,7 +48,8 @@ const floatingToolbarItems: FloatingToolbarItem[] = [
       }
       return [alignValueMap[currentValue] || currentValue];
     },
-    onSelect: (box, value) => {
+    onSelect: (range, value) => {
+      const box = getBox(range.commonAncestor);
       const editor = box.getEditor();
       editor.command.execute('align', value);
     },
@@ -67,7 +68,8 @@ const floatingToolbarItems: FloatingToolbarItem[] = [
       { value: '0.50', text: locale => locale.image.imageWidth('50%') },
       { value: '0.25', text: locale => locale.image.imageWidth('25%') },
     ],
-    selectedValues: box => {
+    selectedValues: range => {
+      const box = getBox(range.commonAncestor);
       const { originalWidth, width } = box.value;
       const editor = box.getEditor();
       const pageWidth = editor.container.innerWidth() - 2;
@@ -79,7 +81,8 @@ const floatingToolbarItems: FloatingToolbarItem[] = [
       }
       return [currentValue];
     },
-    onSelect: (box, value) => {
+    onSelect: (range, value) => {
+      const box = getBox(range.commonAncestor);
       const { originalWidth, originalHeight } = box.value;
       const editor = box.getEditor();
       const boxContainer = box.getContainer();
@@ -107,7 +110,8 @@ const floatingToolbarItems: FloatingToolbarItem[] = [
     type: 'button',
     icon: icons.get('open'),
     tooltip: locale => locale.image.open(),
-    onClick: box => {
+    onClick: range => {
+      const box = getBox(range.commonAncestor);
       window.open(box.value.url);
     },
   },

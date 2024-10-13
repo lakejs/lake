@@ -5,15 +5,14 @@ import {
   FloatingToolbarItem, FloatingToolbarPlacement,
 } from '../types/floating-toolbar';
 import { query } from '../utils/query';
-import { nodePosition } from '../utils/node-position';
 import { Nodes } from '../models/nodes';
-import { Box } from '../models/box';
+import { Range } from '../models/range';
 import { Button } from './button';
 import { Dropdown } from './dropdown';
 import { i18nObject } from '../i18n';
 
 type FloatingToolbarConfig = {
-  box: Box;
+  range: Range;
   items: FloatingToolbarItem[];
   locale?: TranslationFunctions;
   placement?: FloatingToolbarPlacement;
@@ -21,7 +20,7 @@ type FloatingToolbarConfig = {
 
 export class FloatingToolbar {
 
-  private box: Box;
+  private range: Range;
 
   private items: FloatingToolbarItem[];
 
@@ -40,7 +39,7 @@ export class FloatingToolbar {
   public container: Nodes;
 
   constructor(config: FloatingToolbarConfig) {
-    this.box = config.box;
+    this.range = config.range;
     this.items = config.items;
     this.locale = config.locale || i18nObject('en-US');
     this.placement = config.placement || 'top';
@@ -59,7 +58,7 @@ export class FloatingToolbar {
       tooltip: typeof item.tooltip === 'string' ? item.tooltip : item.tooltip(this.locale),
       tabIndex: -1,
       onClick: () => {
-        item.onClick(this.box, item.name);
+        item.onClick(this.range, item.name);
       },
     });
     button.render();
@@ -83,7 +82,7 @@ export class FloatingToolbar {
       tabIndex: -1,
       direction: this.placement === 'top' ? 'bottom' : 'top',
       onSelect: value => {
-        item.onSelect(this.box, value);
+        item.onSelect(this.range, value);
       },
     });
     dropdown.render();
@@ -95,19 +94,12 @@ export class FloatingToolbar {
   private resizeListener = () => this.updatePosition();
 
   public updatePosition(): void {
-    const boxNode = this.box.node;
-    const boxNativeNode = boxNode.get(0) as HTMLElement;
-    const boxRect = boxNativeNode.getBoundingClientRect();
-    const position = nodePosition(boxNode);
-    if (position.top < 0 || position.bottom + boxRect.height < 0) {
-      this.container.hide();
-      return;
-    }
+    const rangeRect = this.range.get().getBoundingClientRect();
     this.container.show('flex');
-    const boxX = boxRect.x + window.scrollX;
-    const boxY = boxRect.y + window.scrollY;
-    const left = (boxX + boxRect.width / 2 - this.container.width() / 2).toFixed(1);
-    const top = (boxY - this.container.height() - 6).toFixed(1);
+    const rangeX = rangeRect.x + window.scrollX;
+    const rangeY = rangeRect.y + window.scrollY;
+    const left = (rangeX + rangeRect.width / 2 - this.container.width() / 2).toFixed(1);
+    const top = (rangeY - this.container.height() - 6).toFixed(1);
     this.container.css({
       left: `${left}px`,
       top: `${top}px`,
@@ -118,7 +110,7 @@ export class FloatingToolbar {
     for (const item of this.buttonItemList) {
       const selectedClass = 'lake-button-selected';
       const buttonNode = this.container.find(`button[name="${item.name}"]`);
-      const isDisabled = item.isDisabled ? item.isDisabled(this.box, appliedItems) : false;
+      const isDisabled = item.isDisabled ? item.isDisabled(this.range, appliedItems) : false;
       if (isDisabled) {
         buttonNode.attr('disabled', 'true');
         buttonNode.removeClass(selectedClass);
@@ -126,7 +118,7 @@ export class FloatingToolbar {
         buttonNode.removeAttr('disabled');
       }
       if (!isDisabled) {
-        const isSelected = item.isSelected ? item.isSelected(this.box, appliedItems) : false;
+        const isSelected = item.isSelected ? item.isSelected(this.range, appliedItems) : false;
         if (isSelected) {
           buttonNode.addClass(selectedClass);
         } else {
@@ -135,9 +127,9 @@ export class FloatingToolbar {
       }
     }
     for (const item of this.dropdownItemList) {
-      const selectedValues = item.selectedValues ? item.selectedValues(this.box, appliedItems) : [];
+      const selectedValues = item.selectedValues ? item.selectedValues(this.range, appliedItems) : [];
       const dropdownNode = this.container.find(`div.lake-dropdown[name="${item.name}"]`);
-      const isDisabled = item.isDisabled ? item.isDisabled(this.box, appliedItems) : false;
+      const isDisabled = item.isDisabled ? item.isDisabled(this.range, appliedItems) : false;
       if (isDisabled) {
         dropdownNode.attr('disabled', 'true');
       } else {
@@ -156,7 +148,7 @@ export class FloatingToolbar {
     }
   }
 
-  // Renders a toolbar for the specified box.
+  // Renders a floating toolbar for the specified range.
   public render(): void {
     query(document.body).append(this.container);
     for (const item of this.items) {
@@ -173,19 +165,19 @@ export class FloatingToolbar {
     }
     this.updatePosition();
     this.updateState([]);
-    const viewport = this.box.node.closestScroller();
+    const viewport = this.range.commonAncestor.closestScroller();
     if (viewport.length > 0) {
       viewport.on('scroll', this.scrollListener);
     }
     window.addEventListener('resize', this.resizeListener);
   }
 
-  // Destroys the toolbar.
+  // Destroys the floating toolbar.
   public unmount(): void {
     for (const dropdown of this.dropdownList) {
       dropdown.unmount();
     }
-    const viewport = this.box.node.closestScroller();
+    const viewport = this.range.commonAncestor.closestScroller();
     if (viewport.length > 0) {
       viewport.off('scroll', this.scrollListener);
     }

@@ -1,42 +1,30 @@
 import { click } from '../utils';
-import { boxes } from '../../src/storage/boxes';
 import { icons } from '../../src/icons';
 import { query, debug } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
-import { Box } from '../../src/models/box';
+import { Range } from '../../src/models/range';
 import { FloatingToolbar } from '../../src/ui/floating-toolbar';
-
-const imageUrl = '../assets/images/heaven-lake-256.png';
 
 describe('ui / floating-toolbar', () => {
 
   let container: Nodes;
 
   beforeEach(() => {
-    boxes.set('inlineBox', {
-      type: 'inline',
-      name: 'inlineBox',
-      value: {
-        url: imageUrl,
-      },
-      render: box => `<img src="${box.value.url}" style="width: 256px; height: 186px;" />`,
-    });
     container = query('<div contenteditable="true"></div>');
     query(document.body).append(container);
   });
 
   afterEach(() => {
-    boxes.delete('inlineBox');
     container.remove();
   });
 
   it('should click buttons', () => {
-    container.html('<p><lake-box type="inline" name="inlineBox"></lake-box></p>');
-    const box = new Box(container.find('lake-box'));
-    box.render();
+    container.html('<p>foo</p>');
     let calledCount = 0;
+    const range = new Range();
+    range.selectNodeContents(container.find('p'));
     const floatingToolbar = new FloatingToolbar({
-      box,
+      range,
       items: [
         {
           name: 'open',
@@ -66,12 +54,12 @@ describe('ui / floating-toolbar', () => {
   });
 
   it('should select a dropdown', () => {
-    container.html('<p><lake-box type="inline" name="inlineBox"></lake-box></p>');
-    const inlineBox = new Box(container.find('lake-box'));
-    inlineBox.render();
+    container.html('<p>foo</p>');
     let dropdownValue = '';
+    const range = new Range();
+    range.selectNodeContents(container.find('p'));
     const floatingToolbar = new FloatingToolbar({
-      box: inlineBox,
+      range,
       items: [
         {
           name: 'align',
@@ -85,7 +73,7 @@ describe('ui / floating-toolbar', () => {
             { value: 'center', text: 'Align center' },
             { value: 'right', text: 'Align right' },
           ],
-          onSelect: (box, value) => {
+          onSelect: (rng, value) => {
             debug(value);
             dropdownValue = value;
           },

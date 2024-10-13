@@ -4,6 +4,7 @@ import { icons } from '../icons';
 import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
 import { fileSize } from '../utils/file-size';
+import { getBox } from '../utils/get-box';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 
@@ -13,7 +14,8 @@ const floatingToolbarItems: FloatingToolbarItem[] = [
     type: 'button',
     icon: icons.get('download'),
     tooltip: locale => locale.file.download(),
-    onClick: box => {
+    onClick: range => {
+      const box = getBox(range.commonAncestor);
       window.open(box.value.url);
     },
   },
@@ -22,7 +24,8 @@ const floatingToolbarItems: FloatingToolbarItem[] = [
     type: 'button',
     icon: icons.get('remove'),
     tooltip: locale => locale.file.remove(),
-    onClick: box => {
+    onClick: range => {
+      const box = getBox(range.commonAncestor);
       const editor = box.getEditor();
       editor.selection.removeBox(box);
       editor.history.save();

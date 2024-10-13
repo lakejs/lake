@@ -45,7 +45,7 @@ describe('boxes / file', () => {
     click(boxNode.find('.lake-file'));
   });
 
-  it('should hide the box toolbar', done => {
+  it('should hide the floating toolbar', done => {
     const boxNode = box.node;
     editor.event.once('statechange', () => {
       expect(query(document.body).find('.lake-floating-toolbar').length).to.equal(0);

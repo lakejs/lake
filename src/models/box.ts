@@ -11,6 +11,7 @@ import { toBase64 } from '../utils/to-base64';
 import { fromBase64 } from '../utils/from-base64';
 import { query } from '../utils/query';
 import { Nodes } from './nodes';
+import { Range } from './range';
 import { FloatingToolbar } from '../ui/floating-toolbar';
 
 const framework = safeTemplate`
@@ -149,8 +150,11 @@ export class Box {
       if (toolbar) {
         toolbar.unmount();
       }
+      const range = new Range();
+      range.selectNodeContents(this.node);
+      range.info();
       toolbar = new FloatingToolbar({
-        box: this,
+        range,
         items,
         locale: editor ? editor.locale : undefined,
       });
