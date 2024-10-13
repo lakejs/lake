@@ -139,7 +139,7 @@ export class Box {
     return this.node.find('.lake-box-container');
   }
 
-  // Sets a popup toolbar for the box.
+  // Sets a floating toolbar for the box.
   public setToolbar(items: FloatingToolbarItem[]): void {
     let editor: Editor | undefined;
     try {
@@ -152,7 +152,6 @@ export class Box {
       }
       const range = new Range();
       range.selectNodeContents(this.node);
-      range.info();
       toolbar = new FloatingToolbar({
         range,
         items,
