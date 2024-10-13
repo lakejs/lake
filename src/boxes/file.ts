@@ -4,34 +4,37 @@ import { icons } from '../icons';
 import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
 import { fileSize } from '../utils/file-size';
-import { getBox } from '../utils/get-box';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 
-const floatingToolbarItems: FloatingToolbarItem[] = [
-  {
-    name: 'download',
-    type: 'button',
-    icon: icons.get('download'),
-    tooltip: locale => locale.file.download(),
-    onClick: range => {
-      const box = getBox(range.commonAncestor);
-      window.open(box.value.url);
+function setFloatingToolbar(box: Box): void {
+  const editor = box.getEditor();
+  let items: FloatingToolbarItem[] = [
+    {
+      name: 'download',
+      type: 'button',
+      icon: icons.get('download'),
+      tooltip: locale => locale.file.download(),
+      onClick: () => {
+        window.open(box.value.url);
+      },
     },
-  },
-  {
-    name: 'remove',
-    type: 'button',
-    icon: icons.get('remove'),
-    tooltip: locale => locale.file.remove(),
-    onClick: range => {
-      const box = getBox(range.commonAncestor);
-      const editor = box.getEditor();
-      editor.selection.removeBox(box);
-      editor.history.save();
+    {
+      name: 'remove',
+      type: 'button',
+      icon: icons.get('remove'),
+      tooltip: locale => locale.file.remove(),
+      onClick: () => {
+        editor.selection.removeBox(box);
+        editor.history.save();
+      },
     },
-  },
-];
+  ];
+  if (box.value.status !== 'done') {
+    items = items.filter(item => item !== '|' && item.name === 'remove');
+  }
+  box.setToolbar(items);
+}
 
 async function appendContent(rootNode: Nodes, box: Box): Promise<void> {
   const value = box.value;
@@ -83,11 +86,7 @@ export default {
       rootNode.on('click', () => {
         editor.selection.selectBox(box);
       });
-      let items = floatingToolbarItems;
-      if (value.status !== 'done') {
-        items = floatingToolbarItems.filter(item => item !== '|' && item.name === 'remove');
-      }
-      box.setToolbar(items);
+      setFloatingToolbar(box);
     } else {
       rootNode.on('click', () => {
         window.open(value.url);
