@@ -22,100 +22,97 @@ const alignValueMap: {[key: string]: string} = {
   end: 'right',
 };
 
-const floatingToolbarItems: FloatingToolbarItem[] = [
-  {
-    name: 'align',
-    type: 'dropdown',
-    downIcon: icons.get('down'),
-    icon: icons.get('alignLeft'),
-    tooltip: locale => locale.image.align(),
-    menuType: 'list',
-    menuItems: [
-      { value: 'left', text: locale => locale.image.alignLeft() },
-      { value: 'center', text: locale => locale.image.alignCenter() },
-      { value: 'right', text: locale => locale.image.alignRight() },
-    ],
-    selectedValues: (box, appliedItems) => {
-      let currentValue;
-      for (const item of appliedItems) {
-        if (item.node.isBlock) {
-          currentValue = item.node.computedCSS('text-align');
-          break;
+function setFloatingToolbar(box: Box): void {
+  const editor = box.getEditor();
+  const items: FloatingToolbarItem[] = [
+    {
+      name: 'align',
+      type: 'dropdown',
+      downIcon: icons.get('down'),
+      icon: icons.get('alignLeft'),
+      tooltip: locale => locale.image.align(),
+      menuType: 'list',
+      menuItems: [
+        { value: 'left', text: locale => locale.image.alignLeft() },
+        { value: 'center', text: locale => locale.image.alignCenter() },
+        { value: 'right', text: locale => locale.image.alignRight() },
+      ],
+      selectedValues: (range, appliedItems) => {
+        let currentValue;
+        for (const item of appliedItems) {
+          if (item.node.isBlock) {
+            currentValue = item.node.computedCSS('text-align');
+            break;
+          }
         }
-      }
-      if (!currentValue) {
-        return [];
-      }
-      return [alignValueMap[currentValue] || currentValue];
+        if (!currentValue) {
+          return [];
+        }
+        return [alignValueMap[currentValue] || currentValue];
+      },
+      onSelect: (range, value) => {
+        editor.command.execute('align', value);
+      },
     },
-    onSelect: (range, value) => {
-      const box = getBox(range.commonAncestor);
-      const editor = box.getEditor();
-      editor.command.execute('align', value);
+    {
+      name: 'resize',
+      type: 'dropdown',
+      downIcon: icons.get('down'),
+      icon: icons.get('resize'),
+      tooltip: locale => locale.image.resize(),
+      menuType: 'list',
+      menuItems: [
+        { value: 'page', text: locale => locale.image.pageWidth() },
+        { value: '1.00', text: locale => locale.image.originalWidth() },
+        { value: '0.75', text: locale => locale.image.imageWidth('75%') },
+        { value: '0.50', text: locale => locale.image.imageWidth('50%') },
+        { value: '0.25', text: locale => locale.image.imageWidth('25%') },
+      ],
+      selectedValues: () => {
+        const { originalWidth, width } = box.value;
+        const pageWidth = editor.container.innerWidth() - 2;
+        let currentValue = '';
+        if (width === pageWidth) {
+          currentValue = 'page';
+        } else {
+          currentValue = (width / originalWidth).toFixed(2);
+        }
+        return [currentValue];
+      },
+      onSelect: (range, value) => {
+        const { originalWidth, originalHeight } = box.value;
+        const boxContainer = box.getContainer();
+        const rate = originalHeight / originalWidth;
+        let newWidth: number;
+        if (value === 'page') {
+          newWidth = editor.container.innerWidth() - 2;
+        } else {
+          newWidth = Math.round(originalWidth * Number(value));
+        }
+        const newHeight = Math.round(rate * newWidth);
+        boxContainer.css({
+          width: `${newWidth}px`,
+          height: `${newHeight}px`,
+        });
+        box.updateValue({
+          width: newWidth,
+          height: newHeight,
+        });
+        editor.history.save();
+      },
     },
-  },
-  {
-    name: 'resize',
-    type: 'dropdown',
-    downIcon: icons.get('down'),
-    icon: icons.get('resize'),
-    tooltip: locale => locale.image.resize(),
-    menuType: 'list',
-    menuItems: [
-      { value: 'page', text: locale => locale.image.pageWidth() },
-      { value: '1.00', text: locale => locale.image.originalWidth() },
-      { value: '0.75', text: locale => locale.image.imageWidth('75%') },
-      { value: '0.50', text: locale => locale.image.imageWidth('50%') },
-      { value: '0.25', text: locale => locale.image.imageWidth('25%') },
-    ],
-    selectedValues: range => {
-      const box = getBox(range.commonAncestor);
-      const { originalWidth, width } = box.value;
-      const editor = box.getEditor();
-      const pageWidth = editor.container.innerWidth() - 2;
-      let currentValue = '';
-      if (width === pageWidth) {
-        currentValue = 'page';
-      } else {
-        currentValue = (width / originalWidth).toFixed(2);
-      }
-      return [currentValue];
+    {
+      name: 'open',
+      type: 'button',
+      icon: icons.get('open'),
+      tooltip: locale => locale.image.open(),
+      onClick: () => {
+        window.open(box.value.url);
+      },
     },
-    onSelect: (range, value) => {
-      const box = getBox(range.commonAncestor);
-      const { originalWidth, originalHeight } = box.value;
-      const editor = box.getEditor();
-      const boxContainer = box.getContainer();
-      const rate = originalHeight / originalWidth;
-      let newWidth: number;
-      if (value === 'page') {
-        newWidth = editor.container.innerWidth() - 2;
-      } else {
-        newWidth = Math.round(originalWidth * Number(value));
-      }
-      const newHeight = Math.round(rate * newWidth);
-      boxContainer.css({
-        width: `${newWidth}px`,
-        height: `${newHeight}px`,
-      });
-      box.updateValue({
-        width: newWidth,
-        height: newHeight,
-      });
-      editor.history.save();
-    },
-  },
-  {
-    name: 'open',
-    type: 'button',
-    icon: icons.get('open'),
-    tooltip: locale => locale.image.open(),
-    onClick: range => {
-      const box = getBox(range.commonAncestor);
-      window.open(box.value.url);
-    },
-  },
-];
+  ];
+  box.setToolbar(items);
+}
 
 // Loads an image and get its width and height.
 async function getImageInfo(url: string): Promise<ImageInfo> {
@@ -461,7 +458,7 @@ export default {
           editor.history.save();
         });
         if (value.status === 'done') {
-          box.setToolbar(floatingToolbarItems);
+          setFloatingToolbar(box);
         }
       }
       box.event.emit('render');
