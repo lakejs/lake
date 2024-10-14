@@ -1,15 +1,9 @@
-import { ToolbarItem } from '../types/toolbar';
 import { editors } from '../storage/editors';
-import { query } from '../utils/query';
 import { Range } from '../models/range';
-import { Toolbar } from './toolbar';
+import { Toolbar, ToolbarConfig } from './toolbar';
 
-type ToolbarPlacement = 'top' | 'bottom';
-
-type FloatingToolbarConfig = {
+type FloatingToolbarConfig = ToolbarConfig & {
   range: Range;
-  items: (string | ToolbarItem)[];
-  placement?: ToolbarPlacement;
 };
 
 export class FloatingToolbar extends Toolbar {
@@ -17,10 +11,7 @@ export class FloatingToolbar extends Toolbar {
   private range: Range;
 
   constructor(config: FloatingToolbarConfig) {
-    super({
-      root: query(document.body),
-      items: config.items,
-    });
+    super(config);
     this.range = config.range;
     this.container.removeClass('lake-toolbar');
     this.container.addClass('lake-popup');

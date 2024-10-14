@@ -11,8 +11,8 @@ import { Dropdown } from './dropdown';
 
 type ToolbarPlacement = 'top' | 'bottom';
 
-type ToolbarConfig = {
-  root: string | Node | Nodes;
+export type ToolbarConfig = {
+  root?: string | Node | Nodes;
   items?: (string | ToolbarItem)[];
   placement?: ToolbarPlacement;
 };
@@ -64,7 +64,7 @@ export class Toolbar {
   public container: Nodes;
 
   constructor(config: ToolbarConfig) {
-    this.root = query(config.root);
+    this.root = query(config.root || document.body);
     this.items = config.items || defaultItems;
     if (config.placement) {
       this.placement = config.placement;
