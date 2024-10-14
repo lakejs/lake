@@ -1,7 +1,7 @@
 import EventEmitter from 'eventemitter3';
 import type { Editor } from '../editor';
 import { BoxType, BoxValue } from '../types/box';
-import { FloatingToolbarItem } from '../types/floating-toolbar';
+import { ToolbarItem } from '../types/toolbar';
 import { boxes } from '../storage/boxes';
 import { editors } from '../storage/editors';
 import { debug } from '../utils/debug';
@@ -25,6 +25,8 @@ export class Box {
   public node: Nodes;
 
   public event: EventEmitter = new EventEmitter();
+
+  public toolbar: FloatingToolbar | null = null;
 
   constructor(node: string | Node | Nodes) {
     if (typeof node === 'string') {
@@ -140,33 +142,28 @@ export class Box {
   }
 
   // Sets a floating toolbar for the box.
-  public setToolbar(items: FloatingToolbarItem[]): void {
-    let editor: Editor | undefined;
-    try {
-      editor = this.getEditor();
-    } catch { /* empty */ }
-    let toolbar: FloatingToolbar | null = null;
+  public setToolbar(items: ToolbarItem[]): void {
+    const editor = this.getEditor();
     this.event.on('focus', () => {
-      if (toolbar) {
-        toolbar.unmount();
+      if (this.toolbar) {
+        this.toolbar.unmount();
       }
       const range = new Range();
       range.selectNodeContents(this.node);
-      toolbar = new FloatingToolbar({
+      this.toolbar = new FloatingToolbar({
         range,
         items,
-        locale: editor ? editor.locale : undefined,
       });
-      toolbar.render();
-      if (editor) {
-        const appliedItems = editor.selection.getAppliedItems();
-        toolbar.updateState(appliedItems);
-      }
+      this.toolbar.render();
+      const appliedItems = editor.selection.getAppliedItems();
+      this.toolbar.updateState({
+        appliedItems,
+      });
     });
     this.event.on('blur', () => {
-      if (toolbar) {
-        toolbar.unmount();
-        toolbar = null;
+      if (this.toolbar) {
+        this.toolbar.unmount();
+        this.toolbar = null;
       }
     });
   }

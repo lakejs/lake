@@ -2,7 +2,7 @@ import 'photoswipe/style.css';
 import PhotoSwipeLightbox, { DataSource } from 'photoswipe/lightbox';
 import PhotoSwipe from 'photoswipe';
 import { BoxComponent } from '../types/box';
-import { FloatingToolbarItem } from '../types/floating-toolbar';
+import { ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
 import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
@@ -24,7 +24,7 @@ const alignValueMap: {[key: string]: string} = {
 
 function setFloatingToolbar(box: Box): void {
   const editor = box.getEditor();
-  const items: FloatingToolbarItem[] = [
+  const items: ToolbarItem[] = [
     {
       name: 'align',
       type: 'dropdown',

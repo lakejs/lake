@@ -1,6 +1,8 @@
 import { getInstanceMap } from '../src/storage/box-instances';
+import { icons } from '../src/icons';
 import { debug, query, getBox, appendBreak } from '../src/utils';
 import { Nodes } from '../src/models/nodes';
+import { Box } from '../src/models/box';
 import { Toolbar } from '../src/ui/toolbar';
 import { Editor } from '../src/editor';
 import { click, getContainerValue } from './utils';
@@ -876,6 +878,33 @@ describe('editor', () => {
     editor.unmount();
     editor2.unmount();
     rootNode2.remove();
+  });
+
+  it('should add toolbar for a box', () => {
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p><lake-box type="inline" name="inlineBox"></lake-box></p>',
+    });
+    editor.render();
+    const box = new Box(editor.container.find('lake-box'));
+    box.render();
+    let calledCount = 0;
+    box.setToolbar([{
+      name: 'remove',
+      type: 'button',
+      icon: icons.get('remove'),
+      tooltip: 'Remove',
+      onClick: () => calledCount++,
+    }]);
+    box.event.emit('focus');
+    if (box.toolbar) {
+      expect(box.toolbar.container.computedCSS('display')).to.equal('flex');
+      click(box.toolbar.container.find('button[name="remove"]'));
+    }
+    expect(calledCount).to.equal(1);
+    box.event.emit('blur');
+    expect(box.toolbar).to.equal(null);
+    editor.unmount();
   });
 
 });

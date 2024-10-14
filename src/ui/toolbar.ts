@@ -168,13 +168,16 @@ export class Toolbar {
 
   // Updates state of each item such as disabled, selected.
   public updateState(state: SelectionState) {
-    const { appliedItems, disabledNameMap, selectedNameMap, selectedValuesMap } = state;
+    const { appliedItems } = state;
+    const disabledNameMap = state.disabledNameMap || new Map();
+    const selectedNameMap = state.selectedNameMap || new Map();
+    const selectedValuesMap = state.selectedValuesMap || new Map();
     for (const item of this.buttonItemList) {
       const selectedClass = 'lake-button-selected';
       const buttonNode = this.container.find(`button[name="${item.name}"]`);
       let isDisabled = disabledNameMap.get(item.name);
       if (isDisabled === undefined) {
-        isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems) : false;
+        isDisabled = item.isDisabled ? item.isDisabled(appliedItems) : false;
       }
       if (isDisabled) {
         buttonNode.attr('disabled', 'true');
@@ -185,7 +188,7 @@ export class Toolbar {
       if (!isDisabled) {
         let isSelected = selectedNameMap.get(item.name);
         if (isSelected === undefined) {
-          isSelected = item.isSelected && appliedItems.length > 0 ? item.isSelected(appliedItems) : false;
+          isSelected = item.isSelected ? item.isSelected(appliedItems) : false;
         }
         if (isSelected) {
           buttonNode.addClass(selectedClass);
@@ -197,12 +200,12 @@ export class Toolbar {
     for (const item of this.dropdownItemList) {
       let selectedValues = selectedValuesMap.get(item.name);
       if (selectedValues === undefined) {
-        selectedValues = item.selectedValues && appliedItems.length > 0 ? item.selectedValues(appliedItems) : [];
+        selectedValues = item.selectedValues ? item.selectedValues(appliedItems) : [];
       }
       const dropdownNode = this.container.find(`div.lake-dropdown[name="${item.name}"]`);
       let isDisabled = disabledNameMap.get(item.name);
       if (isDisabled === undefined) {
-        isDisabled = item.isDisabled && appliedItems.length > 0 ? item.isDisabled(appliedItems) : false;
+        isDisabled = item.isDisabled ? item.isDisabled(appliedItems) : false;
       }
       if (isDisabled) {
         dropdownNode.attr('disabled', 'true');

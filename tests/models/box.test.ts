@@ -1,6 +1,4 @@
-import { click } from '../utils';
 import { boxes } from '../../src/storage/boxes';
-import { icons } from '../../src/icons';
 import { query } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Box } from '../../src/models/box';
@@ -165,26 +163,6 @@ describe('models / box', () => {
     const newBoxContainer = box.getContainer();
     expect(oldBoxContainer.get(0) === newBoxContainer.get(0)).to.equal(true);
     expect(container.find('lake-box img').attr('src')).to.equal('../assets/images/lac-gentau-256.jpg');
-  });
-
-  it('should add a toolbar', () => {
-    container.html('<p><lake-box type="inline" name="inlineBox"></lake-box></p>');
-    const box = new Box(container.find('lake-box'));
-    box.render();
-    let calledCount = 0;
-    box.setToolbar([{
-      name: 'remove',
-      type: 'button',
-      icon: icons.get('remove'),
-      tooltip: 'Remove',
-      onClick: () => calledCount++,
-    }]);
-    box.event.emit('focus');
-    expect(query(document.body).find('.lake-floating-toolbar').computedCSS('display')).to.equal('flex');
-    click(query(document.body).find('.lake-floating-toolbar button[name="remove"]'));
-    expect(calledCount).to.equal(1);
-    box.event.emit('blur');
-    expect(query(document.body).find('.lake-floating-toolbar').length).to.equal(0);
   });
 
 });

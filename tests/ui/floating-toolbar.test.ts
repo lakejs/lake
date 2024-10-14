@@ -4,25 +4,33 @@ import { query, debug } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
 import { FloatingToolbar } from '../../src/ui/floating-toolbar';
+import { Editor } from '../../src';
 
 describe('ui / floating-toolbar', () => {
 
-  let container: Nodes;
+  let rootNode: Nodes;
+  let editor: Editor;
 
   beforeEach(() => {
-    container = query('<div contenteditable="true"></div>');
-    query(document.body).append(container);
+    rootNode = query('<div class="lake-root"></div>');
+    query(document.body).append(rootNode);
+    editor = new Editor({
+      root: rootNode,
+      value: '<p><focus /><br /></p>',
+    });
+    editor.render();
   });
 
   afterEach(() => {
-    container.remove();
+    editor.unmount();
+    rootNode.remove();
   });
 
   it('should click buttons', () => {
-    container.html('<p>foo</p>');
+    editor.setValue('<p>foo</p>');
     let calledCount = 0;
     const range = new Range();
-    range.selectNodeContents(container.find('p'));
+    range.selectNodeContents(editor.container.find('p'));
     const floatingToolbar = new FloatingToolbar({
       range,
       items: [
@@ -54,10 +62,10 @@ describe('ui / floating-toolbar', () => {
   });
 
   it('should select a dropdown', () => {
-    container.html('<p>foo</p>');
+    editor.setValue('<p>foo</p>');
     let dropdownValue = '';
     const range = new Range();
-    range.selectNodeContents(container.find('p'));
+    range.selectNodeContents(editor.container.find('p'));
     const floatingToolbar = new FloatingToolbar({
       range,
       items: [

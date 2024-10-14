@@ -25,7 +25,7 @@ export type AppliedItem = {
 
 export type SelectionState = {
   appliedItems: AppliedItem[];
-  disabledNameMap: Map<string, boolean>;
-  selectedNameMap: Map<string, boolean>;
-  selectedValuesMap: Map<string, string[]>;
+  disabledNameMap?: Map<string, boolean>;
+  selectedNameMap?: Map<string, boolean>;
+  selectedValuesMap?: Map<string, string[]>;
 };

@@ -1,10 +1,10 @@
 import { boxes } from '../../src/storage/boxes';
 import { icons } from '../../src/icons';
 import { query } from '../../src/utils';
-import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
 import { Box } from '../../src/models/box';
 import { FloatingToolbar } from '../../src/ui/floating-toolbar';
+import { Editor } from '../../src';
 
 const imageUrl = '../assets/images/heaven-lake-256.png';
 
@@ -82,7 +82,7 @@ for (const color of colors) {
 
 describe('ui / floating-toolbar-ui', () => {
 
-  let container: Nodes;
+  let editor: Editor;
 
   before(() => {
     boxes.set('floatingToolbarUiTestBox', {
@@ -93,15 +93,18 @@ describe('ui / floating-toolbar-ui', () => {
       },
       render: box => `<img src="${box.value.url}" style="width: 256px; height: 186px;" />`,
     });
-    container = query('<div class="lake-container" contenteditable="true"></div>');
     const rootNode = query('<div class="lake-root"></div>');
-    rootNode.append(container);
     query(document.body).append(rootNode);
+    editor = new Editor({
+      root: rootNode,
+      value: '<p><focus /><br /></p>',
+    });
+    editor.render();
   });
 
   it('floating toolbar', () => {
-    container.html('<p style="text-align: center;"><lake-box type="inline" name="floatingToolbarUiTestBox"></lake-box></p>');
-    const box = new Box(container.find('lake-box'));
+    editor.setValue('<p style="text-align: center;"><lake-box type="inline" name="floatingToolbarUiTestBox"></lake-box></p>');
+    const box = new Box(editor.container.find('lake-box'));
     box.render();
     const range = new Range();
     range.selectNodeContents(box.node);

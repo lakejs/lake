@@ -1,5 +1,5 @@
 import { BoxComponent } from '../types/box';
-import { FloatingToolbarItem } from '../types/floating-toolbar';
+import { ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
 import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
@@ -9,7 +9,7 @@ import { Box } from '../models/box';
 
 function setFloatingToolbar(box: Box): void {
   const editor = box.getEditor();
-  let items: FloatingToolbarItem[] = [
+  let items: ToolbarItem[] = [
     {
       name: 'download',
       type: 'button',
@@ -31,7 +31,7 @@ function setFloatingToolbar(box: Box): void {
     },
   ];
   if (box.value.status !== 'done') {
-    items = items.filter(item => item !== '|' && item.name === 'remove');
+    items = items.filter(item => item.name === 'remove');
   }
   box.setToolbar(items);
 }
