@@ -23,7 +23,6 @@ const alignValueMap: {[key: string]: string} = {
 };
 
 function setFloatingToolbar(box: Box): void {
-  const editor = box.getEditor();
   const items: ToolbarItem[] = [
     {
       name: 'align',
@@ -50,7 +49,7 @@ function setFloatingToolbar(box: Box): void {
         }
         return [alignValueMap[currentValue] || currentValue];
       },
-      onSelect: (range, value) => {
+      onSelect: (editor, value) => {
         editor.command.execute('align', value);
       },
     },
@@ -70,6 +69,7 @@ function setFloatingToolbar(box: Box): void {
       ],
       selectedValues: () => {
         const { originalWidth, width } = box.value;
+        const editor = box.getEditor();
         const pageWidth = editor.container.innerWidth() - 2;
         let currentValue = '';
         if (width === pageWidth) {
@@ -79,7 +79,7 @@ function setFloatingToolbar(box: Box): void {
         }
         return [currentValue];
       },
-      onSelect: (range, value) => {
+      onSelect: (editor, value) => {
         const { originalWidth, originalHeight } = box.value;
         const boxContainer = box.getContainer();
         const rate = originalHeight / originalWidth;

@@ -8,7 +8,6 @@ import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 
 function setFloatingToolbar(box: Box): void {
-  const editor = box.getEditor();
   let items: ToolbarItem[] = [
     {
       name: 'download',
@@ -24,7 +23,7 @@ function setFloatingToolbar(box: Box): void {
       type: 'button',
       icon: icons.get('remove'),
       tooltip: locale => locale.file.remove(),
-      onClick: () => {
+      onClick: editor => {
         editor.selection.removeBox(box);
         editor.history.save();
       },
