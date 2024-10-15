@@ -1,14 +1,12 @@
 import { Nodes } from '../models/nodes';
 
-type NodePosition = {
-  left: number;
-  right: number;
-  top: number;
-  bottom: number;
-};
-
-// Returns an object that indicates the specified node's position relative to the viewport.
-export function nodePosition(node: Nodes): NodePosition {
+// Returns an object indicating whether the specified node or range is visible.
+export function isVisible(node: Nodes): {
+  left: boolean;
+  right: boolean;
+  top: boolean;
+  bottom: boolean;
+} {
   const nativeNode = node.get(0) as Element;
   const rect = nativeNode.getBoundingClientRect();
   let left = rect.left;
@@ -30,11 +28,10 @@ export function nodePosition(node: Nodes): NodePosition {
     viewportWidth = viewportRect.width;
     viewportHeight = viewportRect.height;
   }
-  const position: NodePosition = {
-    left,
-    right: viewportWidth - right,
-    top,
-    bottom: viewportHeight - bottom,
+  return {
+    left: left >= 0,
+    right: viewportWidth - right >= 0,
+    top: top >= 0,
+    bottom: viewportHeight - bottom >= 0,
   };
-  return position;
 }

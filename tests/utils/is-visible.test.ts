@@ -1,6 +1,6 @@
-import { nodePosition, query, safeTemplate } from '../../src/utils';
+import { isVisible, query, safeTemplate } from '../../src/utils';
 
-describe('utils / node-position', () => {
+describe('utils / is-visible', () => {
 
   it('the node is visible', () => {
     const rootNode = query(safeTemplate`
@@ -17,11 +17,11 @@ describe('utils / node-position', () => {
     </div>
     `);
     query(document.body).append(rootNode);
-    const position = nodePosition(rootNode.find('p').eq(0));
-    expect(position.left > 0).to.equal(true);
-    expect(position.right > 0).to.equal(true);
-    expect(position.top > 0).to.equal(true);
-    expect(position.bottom > 0).to.equal(true);
+    const visible = isVisible(rootNode.find('p').eq(0));
+    expect(visible.left).to.equal(true);
+    expect(visible.right).to.equal(true);
+    expect(visible.top).to.equal(true);
+    expect(visible.bottom).to.equal(true);
     rootNode.remove();
   });
 
@@ -41,11 +41,11 @@ describe('utils / node-position', () => {
     `);
     query(document.body).append(rootNode);
     (rootNode.get(0) as Element).scrollTo(0, 50);
-    const position = nodePosition(rootNode.find('p').eq(0));
-    expect(position.left > 0).to.equal(true);
-    expect(position.right > 0).to.equal(true);
-    expect(position.top > 0).to.equal(false);
-    expect(position.bottom > 0).to.equal(true);
+    const visible = isVisible(rootNode.find('p').eq(0));
+    expect(visible.left).to.equal(true);
+    expect(visible.right).to.equal(true);
+    expect(visible.top).to.equal(false);
+    expect(visible.bottom).to.equal(true);
     rootNode.remove();
   });
 
@@ -64,11 +64,11 @@ describe('utils / node-position', () => {
     </div>
     `);
     query(document.body).append(rootNode);
-    const position = nodePosition(rootNode.find('p').eq(4));
-    expect(position.left > 0).to.equal(true);
-    expect(position.right > 0).to.equal(true);
-    expect(position.top > 0).to.equal(true);
-    expect(position.bottom > 0).to.equal(false);
+    const visible = isVisible(rootNode.find('p').eq(4));
+    expect(visible.left).to.equal(true);
+    expect(visible.right).to.equal(true);
+    expect(visible.top).to.equal(true);
+    expect(visible.bottom).to.equal(false);
     rootNode.remove();
   });
 
@@ -88,11 +88,11 @@ describe('utils / node-position', () => {
     `);
     query(document.body).append(rootNode);
     (rootNode.get(0) as Element).scrollTo(100, 0);
-    const position = nodePosition(rootNode.find('.lake-container > div').eq(0));
-    expect(position.left > 0).to.equal(false);
-    expect(position.right > 0).to.equal(false);
-    expect(position.top > 0).to.equal(true);
-    expect(position.bottom > 0).to.equal(true);
+    const visible = isVisible(rootNode.find('.lake-container > div').eq(0));
+    expect(visible.left).to.equal(false);
+    expect(visible.right).to.equal(false);
+    expect(visible.top).to.equal(true);
+    expect(visible.bottom).to.equal(true);
     rootNode.remove();
   });
 
@@ -111,11 +111,11 @@ describe('utils / node-position', () => {
     </div>
     `);
     query(document.body).append(rootNode);
-    const position = nodePosition(rootNode.find('.lake-container > div').eq(0));
-    expect(position.left > 0).to.equal(true);
-    expect(position.right > 0).to.equal(false);
-    expect(position.top > 0).to.equal(true);
-    expect(position.bottom > 0).to.equal(true);
+    const visible = isVisible(rootNode.find('.lake-container > div').eq(0));
+    expect(visible.left).to.equal(true);
+    expect(visible.right).to.equal(false);
+    expect(visible.top).to.equal(true);
+    expect(visible.bottom).to.equal(true);
     rootNode.remove();
   });
 

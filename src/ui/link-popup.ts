@@ -3,7 +3,7 @@ import { TranslationFunctions } from '../i18n/types';
 import { icons } from '../icons';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
-import { nodePosition } from '../utils/node-position';
+import { isVisible } from '../utils/is-visible';
 import { Nodes } from '../models/nodes';
 import { Button } from './button';
 import { i18nObject } from '../i18n';
@@ -214,8 +214,8 @@ export class LinkPopup {
     if (!this.linkNode) {
       return;
     }
-    const position = nodePosition(this.linkNode);
-    if (position.left < 0 || position.right < 0 || position.top < 0 || position.bottom < 0) {
+    const visible = isVisible(this.linkNode);
+    if (!visible.left || !visible.right || !visible.top || !visible.bottom) {
       this.container.css('visibility', 'hidden');
       return;
     }
