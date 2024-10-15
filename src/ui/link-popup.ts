@@ -185,15 +185,7 @@ export class LinkPopup {
     button.render();
   }
 
-  private scrollListener = () => this.position();
-
-  private resizeListener = () => this.position();
-
-  public get visible(): boolean {
-    return this.container.get(0).isConnected && this.container.computedCSS('display') !== 'none';
-  }
-
-  public save(): void {
+  private save(): void {
     if (!this.linkNode) {
       return;
     }
@@ -210,7 +202,11 @@ export class LinkPopup {
     this.linkNode.text(title);
   }
 
-  public position(): void {
+  private scrollListener = () => this.updatePosition();
+
+  private resizeListener = () => this.updatePosition();
+
+  private updatePosition(): void {
     if (!this.linkNode) {
       return;
     }
@@ -236,6 +232,10 @@ export class LinkPopup {
     }
   }
 
+  public get visible(): boolean {
+    return this.container.get(0).isConnected && this.container.computedCSS('display') !== 'none';
+  }
+
   public show(linkNode: Nodes): void {
     if (!this.container.get(0).isConnected) {
       this.appendCopyButton();
@@ -256,7 +256,7 @@ export class LinkPopup {
     }
     this.container.css('visibility', 'hidden');
     this.container.show();
-    this.position();
+    this.updatePosition();
     this.container.css('visibility', '');
     this.container.find('input[name="url"]').focus();
     const viewport = linkNode.closestScroller();
