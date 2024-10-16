@@ -166,7 +166,7 @@ export abstract class Menu<Item> {
       } else {
         this.horizontalDirection = 'right';
       }
-      if (rangeRect.y + rangeRect.height + this.container.height() > window.innerHeight) {
+      if (rangeRect.y + rangeRect.height + this.container.height() + 5 > window.innerHeight) {
         this.verticalDirection = 'top';
       } else {
         this.verticalDirection = 'bottom';
