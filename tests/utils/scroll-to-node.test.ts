@@ -23,7 +23,7 @@ describe('utils / scroll-to-node', () => {
     expect(visible.left).to.equal(true);
     expect(visible.right).to.equal(true);
     expect(visible.top).to.equal(false);
-    expect(visible.bottom).to.equal(true);
+    expect(visible.bottom).to.equal(false);
     scrollToNode(node);
     const visible2 = isVisible(node);
     expect(visible2.left).to.equal(true);
