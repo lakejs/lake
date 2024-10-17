@@ -1,10 +1,11 @@
 import { editors } from '../storage/editors';
 import { isVisible } from '../utils/is-visible';
+import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { Toolbar, ToolbarConfig } from './toolbar';
 
 type FloatingToolbarConfig = ToolbarConfig & {
-  range: Range;
+  target: Nodes | Range;
 };
 
 export class FloatingToolbar extends Toolbar {
@@ -13,7 +14,13 @@ export class FloatingToolbar extends Toolbar {
 
   constructor(config: FloatingToolbarConfig) {
     super(config);
-    this.range = config.range;
+    if (config.target instanceof Nodes) {
+      const range = new Range();
+      range.selectNodeContents(config.target);
+      this.range = range;
+    } else {
+      this.range = config.target;
+    }
     this.container.removeClass('lake-toolbar');
     this.container.addClass('lake-popup');
     this.container.addClass('lake-floating-toolbar');

@@ -32,7 +32,7 @@ describe('ui / floating-toolbar', () => {
     const range = new Range();
     range.selectNodeContents(editor.container.find('p'));
     const floatingToolbar = new FloatingToolbar({
-      range,
+      target: range,
       items: [
         {
           name: 'open',
@@ -67,7 +67,7 @@ describe('ui / floating-toolbar', () => {
     const range = new Range();
     range.selectNodeContents(editor.container.find('p'));
     const floatingToolbar = new FloatingToolbar({
-      range,
+      target: range,
       items: [
         {
           name: 'align',
