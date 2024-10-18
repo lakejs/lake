@@ -208,7 +208,7 @@ export class Editor {
     immediate: true,
   });
 
-  // Updates the classes of all boxes when the current selection of the editor is changed.
+  // Updates the classes of all boxes when the current selection is changed.
   private updateBoxSelectionStyle = debounce(() => {
     // The editor has been unmounted.
     if (this.root.first().length === 0) {
@@ -256,7 +256,7 @@ export class Editor {
     immediate: true,
   });
 
-  // Triggers the statechange event when the current selection of the editor is changed.
+  // Triggers the statechange event when the current selection is changed.
   private emitStateChangeEvent = debounce(() => {
     const commandNames = this.command.getNames();
     let appliedItems = this.selection.getAppliedItems();
@@ -342,7 +342,7 @@ export class Editor {
     selection.insertNode(document.createTextNode(text));
   }
 
-  // Resets the value of unsaved input property.
+  // Resets the value of "unsavedInputData" property.
   private resetUnsavedInputData(): void {
     this.unsavedInputData = '';
     this.unsavedInputCount = 0;
@@ -389,7 +389,7 @@ export class Editor {
     this.history.save();
   }
 
-  // Binds events about inputting text.
+  // Binds events for inputting text.
   private bindInputEvents(): void {
     this.container.on('compositionstart', () => {
       this.isComposing = true;
@@ -409,7 +409,7 @@ export class Editor {
     });
   }
 
-  // Binds events about history.
+  // Binds events for history.
   private bindHistoryEvents(): void {
     const executeCommonMethods = (value: string) => {
       if (this.fixContent()) {
@@ -444,7 +444,7 @@ export class Editor {
     });
   }
 
-  // Returns a boolean value indicating whether the editor has focus.
+  // Returns a boolean value indicating whether the editor is focused.
   public get hasFocus(): boolean {
     const activeElement = document.activeElement;
     if (!activeElement) {
@@ -453,7 +453,7 @@ export class Editor {
     return query(activeElement).closest('.lake-container').get(0) === this.container.get(0);
   }
 
-  // Returns translation functions by the specified lang.
+  // Returns translation functions for the specified language.
   public get locale(): TranslationFunctions {
     return i18nObject(this.config.lang as Locales);
   }
@@ -573,7 +573,7 @@ export class Editor {
     artificialCaret.remove();
   }
 
-  // Sets the specified value to the editor.
+  // Sets the specified content to the editor.
   public setValue(value: string): void {
     value = normalizeValue(value);
     const htmlParser = new HTMLParser(value);
@@ -585,7 +585,7 @@ export class Editor {
     this.selection.updateByBookmark();
   }
 
-  // Returns the value of the editor.
+  // Returns the content of the editor.
   public getValue(): string {
     const item = this.history.cloneContainer();
     let value = new HTMLParser(item).getHTML();
@@ -593,7 +593,7 @@ export class Editor {
     return value;
   }
 
-  // Renders an editor area and sets default value to it.
+  // Renders an editor area and sets default content to it.
   public render(): void {
     const value = normalizeValue(this.config.value);
     const htmlParser = new HTMLParser(value);

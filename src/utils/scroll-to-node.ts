@@ -1,8 +1,7 @@
 import { isVisible } from './is-visible';
 import { Nodes } from '../models/nodes';
 
-// If a node is not visible, scrolls the container that contains this node to its position to make it visible.
-// If the node is visible, then scrolling takes place.
+// If the specified node is not visible, scrolls the container that contains the node to its position to make it visible.
 export function scrollToNode(node: Nodes, options?: ScrollIntoViewOptions): void {
   const visible = isVisible(node);
   if (!visible.left || !visible.right || !visible.top || !visible.bottom) {
