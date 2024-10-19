@@ -13,12 +13,7 @@ import { query } from '../utils/query';
 import { Nodes } from './nodes';
 import { FloatingToolbar } from '../ui/floating-toolbar';
 
-const framework = safeTemplate`
-  <span class="lake-box-strip"><br /></span>
-  <div class="lake-box-container" contenteditable="false"></div>
-  <span class="lake-box-strip"><br /></span>
-`;
-
+// The Box class represents an embedded content, which is used to enhance editing capability.
 export class Box {
   // <lake-box> element
   public node: Nodes;
@@ -51,11 +46,14 @@ export class Box {
     }
   }
 
-  // Adds the framework of the box.
-  private addFramework(): void {
+  private initiate(): void {
     let container = this.getContainer();
     if (container.length === 0) {
-      this.node.html(framework);
+      this.node.html(safeTemplate`
+        <span class="lake-box-strip"><br /></span>
+        <div class="lake-box-container" contenteditable="false"></div>
+        <span class="lake-box-strip"><br /></span>
+      `);
       container = this.getContainer();
     } else {
       container.off('mouseenter');
@@ -173,7 +171,7 @@ export class Box {
     }
     this.event.emit('beforeunmount');
     this.event.removeAllListeners();
-    this.addFramework();
+    this.initiate();
     const content = component.render(this);
     if (content !== undefined) {
       const container = this.getContainer();
