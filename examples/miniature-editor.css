@@ -13,10 +13,8 @@
 }
 .miniature .lake-root {
   border: 1px solid #d9d9d9;
-  overflow: auto;
-}
-.miniature .lake-container {
   height: 200px;
+  overflow: auto;
 }
 .miniature .lake-root-focused {
   outline: 2px solid var(--lake-input-border-hover-color);
