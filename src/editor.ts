@@ -531,6 +531,10 @@ export class Editor {
 
   // Sets focus on the editor.
   public focus(): void {
+    const range = this.selection.range;
+    if (this.container.contains(range.commonAncestor) && range.isBox) {
+      return;
+    }
     this.container.focus();
   }
 
