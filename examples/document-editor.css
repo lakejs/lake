@@ -5,7 +5,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 3;
+  z-index: 1000;
 }
 .document .lake-editor {
   padding: 0;
@@ -21,7 +21,7 @@
   background-color: #fff;
   border-left: none;
   border-right: none;
-  z-index: 2;
+  z-index: 999;
 }
 .document .lake-editor .lake-root {
   margin: 130px auto;
@@ -30,4 +30,5 @@
   background-color: #fff;
   height: auto;
   min-height: 800px;
+  overflow: visible;
 }
