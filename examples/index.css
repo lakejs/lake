@@ -8,7 +8,7 @@ body {
   font-weight: normal;
   line-height: normal;
   display: grid;
-  grid-template-columns: 44px 1fr 38px 38px 36px;
+  grid-template-columns: 44px 1fr 38px 36px;
   align-items: center;
   padding: 8px 8px 16px 8px;
   background-color: #fff;

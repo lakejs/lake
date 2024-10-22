@@ -30,49 +30,42 @@ const menuItems = [
   {
     url: './',
     text: 'Default configuration',
-    source: 'https://github.com/lakejs/lake/blob/main/examples/default-editor.ts',
     editorValue: window.defaultValue,
     editor: defaultEditor,
   },
   {
     url: './full-featured',
     text: 'Full-featured editor',
-    source: 'https://github.com/lakejs/lake/blob/main/examples/full-editor.ts',
     editorValue: window.defaultValue,
     editor: fullEditor,
   },
   {
     url: './document',
     text: 'Document editor',
-    source: 'https://github.com/lakejs/lake/blob/main/examples/default-editor.ts',
     editorValue: window.defaultValue,
     editor: documentEditor,
   },
   {
     url: './miniature',
     text: 'Miniature toolbar',
-    source: 'https://github.com/lakejs/lake/blob/main/examples/miniature-editor.ts',
     editorValue: '<p>This example shows you how to use Lake for comment box.</p>',
     editor: miniatureEditor,
   },
   {
     url: './headless',
     text: 'Headless editor',
-    source: 'https://github.com/lakejs/lake/blob/main/examples/headless-editor.ts',
     editorValue: '<p>This example shows you how to customize a toolbar that is well adapted to your needs.</p>',
     editor: headlessEditor,
   },
   {
     url: './huge-content',
     text: 'Huge Content',
-    source: 'https://github.com/lakejs/lake/blob/main/examples/default-editor.ts',
     editorValue: window.hugeValue,
     editor: defaultEditor,
   },
   {
     url: './readonly',
     text: 'Read-only mode',
-    source: 'https://github.com/lakejs/lake/blob/main/examples/readonly-editor.ts',
     editorValue: window.defaultValue,
     editor: readonlyEditor,
   },
@@ -157,8 +150,6 @@ function renderHeader(pageType: string): void {
   }
   const titleNode = query('.header .title');
   titleNode.text(currentItem.text);
-  const sourceNode = query('.header .source');
-  sourceNode.append(`<a href="${currentItem.source}" target="_blank" title="View Source"><img src="../assets/icons/code.svg" /></a>`);
   renderLanguage();
   renderDirection();
   const menuNode = query('.header .menu');
