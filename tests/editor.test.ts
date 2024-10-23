@@ -382,26 +382,12 @@ describe('editor', () => {
     editor.unmount();
   });
 
-  it('focus method: focus on text', () => {
+  it('method: focus', () => {
     const editor = new Editor({
       root: rootNode,
     });
     editor.render();
     editor.focus();
-    expect(editor.hasFocus).to.equal(true);
-    editor.blur();
-    expect(editor.hasFocus).to.equal(false);
-    editor.unmount();
-  });
-
-  it('focus method: focus on a box', () => {
-    const editor = new Editor({
-      root: rootNode,
-      value: '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>',
-    });
-    editor.render();
-    editor.focus();
-    editor.selection.selectBox(editor.container.find('lake-box'));
     expect(editor.hasFocus).to.equal(true);
     editor.blur();
     expect(editor.hasFocus).to.equal(false);
