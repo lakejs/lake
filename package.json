@@ -83,7 +83,7 @@
     "rollup-plugin-svg-import": "^3.0.0",
     "semver": "^7.6.3",
     "simple-git-hooks": "^2.11.1",
-    "sinon": "^18.0.1",
+    "sinon": "^19.0.2",
     "sort-package-json": "^2.10.1",
     "tslib": "^2.8.0",
     "typescript": "^5.6.3",
