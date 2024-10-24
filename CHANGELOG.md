@@ -1,3 +1,30 @@
+## [0.2.5](https://github.com/lakejs/lake/compare/0.2.4...0.2.5) (2024-10-24)
+
+
+### Bug Fixes
+
+* **box:** jump to the start position when clicking floating toolbar ([06d2bb0](https://github.com/lakejs/lake/commit/06d2bb002d7443d038145ee186e2481bd8adf978))
+* **box:** sometimes toolbar is generated repeatedly ([7d8bb4a](https://github.com/lakejs/lake/commit/7d8bb4a3effde144709b3337dae61a122f0fc19f))
+* **i18n:** proofread ([4167028](https://github.com/lakejs/lake/commit/41670280432044279ae4dfa725c2bcc72c462acc))
+* **image:** improve the icon displayed when an error occurs ([110a446](https://github.com/lakejs/lake/commit/110a446a45cb55a8d1c5597425b2131961e35060))
+* **menu:** prevent line breaks in menu items ([e31f896](https://github.com/lakejs/lake/commit/e31f8962653a42bfad29377aaabfd2fbadbb241f))
+* **menu:** should not show scrollbar when the popup menu reaches the bottom ([f2ad65a](https://github.com/lakejs/lake/commit/f2ad65a545a86604536c328cfafa290c49596df8))
+* **popup:** should not add box shadow to icon button ([d9a6424](https://github.com/lakejs/lake/commit/d9a6424d1ae6b232acc99a4945759fc3af2cc3d2))
+
+
+### Features
+
+* **box-resizer:** add target to config; remove box from config ([cbb2968](https://github.com/lakejs/lake/commit/cbb2968795aca942e3187fe65f88127253adc680))
+* **floating-toolbar:** add updateState method ([c64da30](https://github.com/lakejs/lake/commit/c64da302a45788acd1025b483cac1ab4869db869))
+* **floating-toolbar:**  replace box property with range ([a110e14](https://github.com/lakejs/lake/commit/a110e14746bb05671267eaf5daa42cb7479ed2a3))
+* **floating-toolbar:** extend toolbar ([fc13920](https://github.com/lakejs/lake/commit/fc13920f488b7061988176daace907842363b499))
+* **floating-toolbar:** rename config.range to config.target; support node type ([20ff903](https://github.com/lakejs/lake/commit/20ff903c6b75ea4b4030e0aa4d146d127e60f35c))
+* **image:** add toolbar for box ([2178be2](https://github.com/lakejs/lake/commit/2178be2bda63d607c3c662956996709156ec8aca))
+* **isVisible:** rename function from nodePosition to isVisible ([8bd2d89](https://github.com/lakejs/lake/commit/8bd2d89f785b62ce5d80690a865c325e3356631a))
+* **isVisible:** support range ([d5d16c9](https://github.com/lakejs/lake/commit/d5d16c90e34186b2abf25ee5bd3e62eec60a2cf3))
+
+
+
 ## [0.2.4](https://github.com/lakejs/lake/compare/0.2.3...0.2.4) (2024-10-02)
 
 
