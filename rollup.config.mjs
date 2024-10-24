@@ -38,7 +38,11 @@ function getBundleConfig(type) {
     },
     plugins: [
       nodeResolve(),
-      typescript(),
+      typescript({
+        compilerOptions: {
+          outDir: './temp',
+        },
+      }),
       commonjs(),
       json(),
       svg({
@@ -68,7 +72,11 @@ function getBuildConfig(type) {
       },
       plugins: [
         nodeResolve(),
-        typescript(),
+        typescript({
+          compilerOptions: {
+            outDir: './dist',
+          },
+        }),
         commonjs(),
         json(),
         svg({
@@ -94,9 +102,10 @@ function getBuildConfig(type) {
     plugins: [
       typescript({
         compilerOptions: {
+          outDir: './lib',
           rootDir: './src',
           declaration: true,
-          declarationDir: './types',
+          declarationDir: './lib',
         },
       }),
       commonjs(),

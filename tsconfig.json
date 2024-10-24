@@ -6,7 +6,6 @@
     "assets/**/*.ts",
   ],
   "compilerOptions": {
-    "outDir": "temp",
     "moduleResolution": "node",
     "target": "es6",
     "allowJs": false,
