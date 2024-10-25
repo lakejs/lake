@@ -369,7 +369,7 @@ describe('editor', () => {
     editor.unmount();
   });
 
-  it('method: removeBoxGarbage', () => {
+  it('method: renderBoxes', () => {
     const editor = new Editor({
       root: rootNode,
       value: '<lake-box type="block" name="hr" focus="end"></lake-box><lake-box type="block" name="hr"></lake-box>',
@@ -377,7 +377,7 @@ describe('editor', () => {
     editor.render();
     editor.container.find('lake-box').eq(1).remove();
     expect(getInstanceMap(editor.container.id).size).to.equal(2);
-    editor.removeBoxGarbage();
+    editor.renderBoxes();
     expect(getInstanceMap(editor.container.id).size).to.equal(1);
     editor.unmount();
   });

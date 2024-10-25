@@ -409,6 +409,17 @@ export class Editor {
     });
   }
 
+  // Removes all unused box instances.
+  private removeBoxGarbage() {
+    const instanceMap = getInstanceMap(this.container.id);
+    for (const box of instanceMap.values()) {
+      if (!box.node.get(0).isConnected) {
+        box.unmount();
+        instanceMap.delete(box.node.id);
+      }
+    }
+  }
+
   // Binds events for history.
   private bindHistoryEvents(): void {
     const executeCommonMethods = (value: string) => {
@@ -499,17 +510,6 @@ export class Editor {
     for (const key of Object.keys(config)) {
       if (this.config[name][key] === undefined) {
         this.config[name][key] = config[key];
-      }
-    }
-  }
-
-  // Removes all unused box instances.
-  public removeBoxGarbage() {
-    const instanceMap = getInstanceMap(this.container.id);
-    for (const box of instanceMap.values()) {
-      if (!box.node.get(0).isConnected) {
-        box.unmount();
-        instanceMap.delete(box.node.id);
       }
     }
   }
