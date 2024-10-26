@@ -4,8 +4,11 @@
     <meta charset="utf-8" />
     <title>Lake example - IIFE / UMD</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../assets/icons/favicon.ico" />
+    <link rel="stylesheet" href="../node_modules/katex/dist/katex.min.css" />
     <link rel="stylesheet" href="../dist/lake.css" />
     <script src="../node_modules/lake-codemirror/dist/codemirror.min.js"></script>
+    <script src="../node_modules/katex/dist/katex.min.js"></script>
     <script src="../dist/lake.min.js"></script>
     <style>
       .lake-editor {
@@ -38,6 +41,10 @@
         root: '.lake-root',
         toolbar,
         value: '<p><br /></p>',
+        slash: true,
+        mention: {
+          requestAction: '../assets/json/mention.json',
+        },
       });
       editor.render();
     </script>
