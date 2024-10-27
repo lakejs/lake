@@ -1,6 +1,7 @@
 import { query } from '../utils/query';
 import { Nodes } from './nodes';
 
+// The Fragment class represents a minimal document object that has no parent.
 export class Fragment {
   // native document fragment
   private fragment: DocumentFragment;

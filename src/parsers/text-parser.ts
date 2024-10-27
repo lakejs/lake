@@ -1,6 +1,7 @@
 import { encode } from '../utils';
 import { HTMLParser } from './html-parser';
 
+// The TextParser class provides the ability to parse a text into an HTML string or DocumentFragment object.
 export class TextParser {
 
   private content: string;

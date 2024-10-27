@@ -2,6 +2,7 @@ import { getElementRules } from '../config/element-rules';
 import { parseStyle, encode } from '../utils';
 import { Nodes } from '../models/nodes';
 
+// The HTMLParser class provides the ability to parse HTML source code by specified rules.
 export class HTMLParser {
 
   private rules: any;

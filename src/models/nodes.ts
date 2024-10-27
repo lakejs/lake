@@ -22,6 +22,7 @@ const eventData: { [key: number]: EventItem[] } = {};
 
 let lastNodeId = 0;
 
+// The Nodes class represents collections of nodes.
 export class Nodes {
   // Returns native nodes that includes element, text node.
   private nodeList: Node[];
