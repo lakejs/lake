@@ -30,6 +30,25 @@
 lake-box[name="image"] .lake-box-focused .lake-image {
   border-color: var(--lake-box-border-focus-color);
 }
+.lake-image-caption {
+  position: relative;
+  font-size: 14px;
+  line-height: normal;
+  color: var(--lake-secondary-text-color);
+  padding-top: 2px;
+  padding-bottom: 8px;
+}
+.lake-image-caption:focus {
+  outline: 0;
+}
+.lake-image-caption.lake-placeholder::before {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  color: var(--lake-secondary-text-color);
+  content: attr(placeholder);
+  pointer-events: none;
+}
 /* uploading status */
 .lake-image-uploading .lake-image-img {
   opacity: 0.5;

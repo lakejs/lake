@@ -65,8 +65,6 @@ function showVideo(box: Box): void {
       new Resizer({
         root: rootNode,
         target: boxContainer,
-        width,
-        height,
         onResize: (newWidth, newHeight) => {
           iframeNode.attr({
             height: newHeight.toString(),

@@ -31,8 +31,6 @@ describe('ui / resizer', () => {
         new Resizer({
           root: rootNode,
           target: boxContainer,
-          width: value.width,
-          height: value.height,
           onResize: (width, height) => {
             rootNode.css({
               width: `${width}px`,

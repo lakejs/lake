@@ -5,8 +5,6 @@ import { Nodes } from '../models/nodes';
 type ResizerConfig = {
   root: Nodes;
   target: Nodes;
-  width: number;
-  height: number;
   onResize?: (width: number, height: number) => void;
   onStop: (width: number, height: number) => void;
 };
@@ -30,7 +28,7 @@ export class Resizer {
         <div class="lake-resizer-top-right"></div>
         <div class="lake-resizer-bottom-left"></div>
         <div class="lake-resizer-bottom-right"></div>
-        <div class="lake-resizer-info">${config.width} x ${config.height}</div>
+        <div class="lake-resizer-info"></div>
       </div>
     `);
   }
@@ -71,6 +69,7 @@ export class Resizer {
       } catch { /* empty */ }
       clientX = pointerEvent.clientX;
       width = target.width();
+      infoNode.text(`${initialWidth} x ${initialHeight}`);
       infoNode.show();
       pointerNode.on('pointermove', pointermoveListener);
     };

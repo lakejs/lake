@@ -25,6 +25,30 @@ const alignValueMap: {[key: string]: string} = {
 function setFloatingToolbar(box: Box): void {
   const items: ToolbarItem[] = [
     {
+      name: 'caption',
+      type: 'button',
+      icon: icons.get('caption'),
+      tooltip: 'Caption',
+      isSelected: () => {
+        const boxContainer = box.getContainer();
+        const captionNode = boxContainer.find('.lake-image-caption');
+        return captionNode.length > 0 && captionNode.computedCSS('display') !== 'none';
+      },
+      onClick: () => {
+        const boxContainer = box.getContainer();
+        const captionNode = boxContainer.find('.lake-image-caption');
+        const caption = captionNode.text().trim();
+        if (caption === '') {
+          captionNode.addClass('lake-placeholder');
+        }
+        captionNode.show();
+        captionNode.focus();
+        box.toolbar?.updateState({
+          appliedItems: [],
+        });
+      },
+    },
+    {
       name: 'align',
       type: 'dropdown',
       downIcon: icons.get('down'),
@@ -82,6 +106,7 @@ function setFloatingToolbar(box: Box): void {
       onSelect: (editor, value) => {
         const { originalWidth, originalHeight } = box.value;
         const boxContainer = box.getContainer();
+        const rootNode = boxContainer.find('.lake-image');
         const rate = originalHeight / originalWidth;
         let newWidth: number;
         if (value === 'page') {
@@ -90,10 +115,11 @@ function setFloatingToolbar(box: Box): void {
           newWidth = Math.round(originalWidth * Number(value));
         }
         const newHeight = Math.round(rate * newWidth);
-        boxContainer.css({
+        rootNode.css({
           width: `${newWidth}px`,
           height: `${newHeight}px`,
         });
+        boxContainer.css('width', `${newWidth}px`);
         box.updateValue({
           width: newWidth,
           height: newHeight,
@@ -354,10 +380,11 @@ async function renderDone(rootNode: Nodes, box: Box): Promise<void> {
       height,
     });
   }
-  boxContainer.css({
+  rootNode.css({
     width: `${width}px`,
     height: `${height}px`,
   });
+  boxContainer.css('height', '');
   const buttonGroupNode = query(safeTemplate`
     <div class="lake-button-group">
       <button type="button" tabindex="-1" class="lake-button-view" title="${editor.locale.image.view()}"></button>
@@ -384,11 +411,10 @@ async function renderDone(rootNode: Nodes, box: Box): Promise<void> {
     alt: value.name,
   });
   rootNode.append(buttonGroupNode);
+  rootNode.append(imgNode);
   new Resizer({
     root: rootNode,
-    target: boxContainer,
-    width,
-    height,
+    target: rootNode,
     onStop: (newWidth, newHeight) => {
       box.updateValue({
         width: newWidth,
@@ -397,7 +423,41 @@ async function renderDone(rootNode: Nodes, box: Box): Promise<void> {
       editor.history.save();
     },
   }).render();
-  rootNode.append(imgNode);
+}
+
+
+function appendCaption(box: Box): void {
+  const editor = box.getEditor();
+  const boxContainer = box.getContainer();
+  const defaultCaption = (box.value.caption || '').trim();
+  const captionNode = query('<div class="lake-image-caption" />');
+  captionNode.text(defaultCaption);
+  if (!editor.readonly) {
+    captionNode.attr('contenteditable', 'true');
+    captionNode.attr('placeholder', 'Write a caption...');
+    captionNode.on('input', () => {
+      const caption = captionNode.text().trim();
+      if (caption === '') {
+        captionNode.addClass('lake-placeholder');
+      } else {
+        captionNode.removeClass('lake-placeholder');
+      }
+    });
+    captionNode.on('focusout', () => {
+      const caption = captionNode.text().trim();
+      box.updateValue('caption', caption);
+      editor.history.save();
+      if (caption === '') {
+        captionNode.hide();
+      }
+    });
+  }
+  if (defaultCaption === '') {
+    captionNode.hide();
+  } else {
+    captionNode.show();
+  }
+  boxContainer.append(captionNode);
 }
 
 export default {
@@ -458,6 +518,7 @@ export default {
           editor.history.save();
         });
         if (value.status === 'done') {
+          appendCaption(box);
           setFloatingToolbar(box);
         }
       }
