@@ -1,6 +1,7 @@
 import 'photoswipe/style.css';
 import PhotoSwipeLightbox, { DataSource } from 'photoswipe/lightbox';
 import PhotoSwipe from 'photoswipe';
+import debounce from 'debounce';
 import { BoxComponent } from '../types/box';
 import { ToolbarItem } from '../types/toolbar';
 import { CornerToolbarItem } from '../types/corner-toolbar';
@@ -24,7 +25,8 @@ const alignValueMap: {[key: string]: string} = {
   end: 'right',
 };
 
-function setFloatingToolbar(box: Box): void {
+// Creates floating toolbar for the box.
+function renderFloatingToolbar(box: Box): void {
   const items: ToolbarItem[] = [
     {
       name: 'caption',
@@ -176,6 +178,7 @@ async function getImageInfo(url: string): Promise<ImageInfo> {
   });
 }
 
+// Previews an image.
 function openFullScreen(box: Box): void {
   const editor = box.getEditor();
   const dataSource: DataSource = [];
@@ -265,38 +268,49 @@ function openFullScreen(box: Box): void {
   lightbox.loadAndOpen(currentIndex);
 }
 
-function setCaption(box: Box): void {
+// Creates caption for image.
+function renderCaption(box: Box): void {
   const editor = box.getEditor();
   const boxContainer = box.getContainer();
   const defaultCaption = (box.value.caption || '').trim();
   const captionNode = query('<div class="lake-image-caption" />');
   captionNode.text(defaultCaption);
-  if (!editor.readonly) {
-    captionNode.attr('contenteditable', 'true');
-    captionNode.attr('placeholder', 'Write a caption...');
-    captionNode.on('input', () => {
-      const caption = captionNode.text().trim();
-      if (caption === '') {
-        captionNode.addClass('lake-placeholder');
-      } else {
-        captionNode.removeClass('lake-placeholder');
-      }
-    });
-    captionNode.on('focusout', () => {
-      const caption = captionNode.text().trim();
-      box.updateValue('caption', caption);
-      editor.history.save();
-      if (caption === '') {
-        captionNode.hide();
-      }
-    });
-  }
   if (defaultCaption === '') {
     captionNode.hide();
   } else {
     captionNode.show();
   }
   boxContainer.append(captionNode);
+  if (editor.readonly) {
+    return;
+  }
+  captionNode.attr('contenteditable', 'true');
+  captionNode.attr('placeholder', 'Write a caption...');
+  const changeHandler = debounce((value: string) => {
+    editor.selection.updateByRange();
+    if (editor.isComposing) {
+      return;
+    }
+    box.updateValue('caption', value);
+    editor.history.save();
+  }, 1, {
+    immediate: false,
+  });
+  captionNode.on('input', () => {
+    const caption = captionNode.text().trim();
+    if (caption === '') {
+      captionNode.addClass('lake-placeholder');
+    } else {
+      captionNode.removeClass('lake-placeholder');
+    }
+    changeHandler(caption);
+  });
+  captionNode.on('focusout', () => {
+    const caption = captionNode.text().trim();
+    if (caption === '') {
+      captionNode.hide();
+    }
+  });
 }
 
 // Displays error icon and filename.
@@ -475,11 +489,18 @@ async function renderDone(box: Box): Promise<void> {
   rootNode.append(imgNode);
   boxContainer.empty();
   boxContainer.append(rootNode);
-  boxContainer.css('height', '');
+  boxContainer.css({
+    width: `${width}px`,
+    height: '',
+  });
   new Resizer({
     root: rootNode,
     target: rootNode,
+    onResize: newWidth => {
+      boxContainer.css('width', `${newWidth}px`);
+    },
     onStop: (newWidth, newHeight) => {
+      boxContainer.css('width', `${newWidth}px`);
       box.updateValue({
         width: newWidth,
         height: newHeight,
@@ -487,8 +508,8 @@ async function renderDone(box: Box): Promise<void> {
       editor.history.save();
     },
   }).render();
-  setCaption(box);
-  setFloatingToolbar(box);
+  renderCaption(box);
+  renderFloatingToolbar(box);
 }
 
 export default {

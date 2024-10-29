@@ -140,6 +140,23 @@ describe('boxes / image-ui', () => {
     });
   });
 
+  it('done: medium size with caption', () => {
+    showBox('image', {
+      url: mediumUrl,
+      originalUrl: mediumOriginalUrl,
+      originalWidth: 1024,
+      originalHeight: 731,
+      status: 'done',
+      name: 'heaven-lake-512.png',
+      size: 60008,
+      type: 'image/jpeg',
+      lastModified: 1710229517198,
+      caption: 'Heaven Lake is a volcanic crater lake atop Changbai Mountain. In Korea, it is known as Paektu Mountain or Baekdu Mountain.',
+    }, box => {
+      expect(box.value.status).to.equal('done');
+    });
+  });
+
   it('done: large size', () => {
     showBox('image', {
       url: largeUrl,
