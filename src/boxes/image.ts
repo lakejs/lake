@@ -174,7 +174,6 @@ async function getImageInfo(url: string): Promise<ImageInfo> {
   });
 }
 
-// Opens full screen view.
 function openFullScreen(box: Box): void {
   const editor = box.getEditor();
   const dataSource: DataSource = [];
@@ -264,11 +263,46 @@ function openFullScreen(box: Box): void {
   lightbox.loadAndOpen(currentIndex);
 }
 
-// Displays error icon and filename.
-async function renderError(rootNode: Nodes, box: Box): Promise<void> {
+function setCaption(box: Box): void {
   const editor = box.getEditor();
+  const boxContainer = box.getContainer();
+  const defaultCaption = (box.value.caption || '').trim();
+  const captionNode = query('<div class="lake-image-caption" />');
+  captionNode.text(defaultCaption);
+  if (!editor.readonly) {
+    captionNode.attr('contenteditable', 'true');
+    captionNode.attr('placeholder', 'Write a caption...');
+    captionNode.on('input', () => {
+      const caption = captionNode.text().trim();
+      if (caption === '') {
+        captionNode.addClass('lake-placeholder');
+      } else {
+        captionNode.removeClass('lake-placeholder');
+      }
+    });
+    captionNode.on('focusout', () => {
+      const caption = captionNode.text().trim();
+      box.updateValue('caption', caption);
+      editor.history.save();
+      if (caption === '') {
+        captionNode.hide();
+      }
+    });
+  }
+  if (defaultCaption === '') {
+    captionNode.hide();
+  } else {
+    captionNode.show();
+  }
+  boxContainer.append(captionNode);
+}
+
+// Displays error icon and filename.
+async function renderError(box: Box): Promise<void> {
+  const editor = box.getEditor();
+  const boxContainer = box.getContainer();
   const value = box.value;
-  box.getContainer().css({
+  boxContainer.css({
     width: '',
     height: '',
   });
@@ -292,12 +326,16 @@ async function renderError(rootNode: Nodes, box: Box): Promise<void> {
   if (imageBrokenIcon) {
     errorNode.find('.lake-error-icon').append(imageBrokenIcon);
   }
+  const rootNode = query('<div class="lake-image" />');
+  rootNode.addClass(`lake-image-${value.status}`);
   rootNode.append(buttonGroupNode);
   rootNode.append(errorNode);
+  boxContainer.empty();
+  boxContainer.append(rootNode);
 }
 
 // Displays an image with uplaoding progress.
-async function renderUploading(rootNode: Nodes, box: Box): Promise<void> {
+async function renderUploading(box: Box): Promise<void> {
   const editor = box.getEditor();
   const boxContainer = box.getContainer();
   const value = box.value;
@@ -306,7 +344,7 @@ async function renderUploading(rootNode: Nodes, box: Box): Promise<void> {
     return;
   }
   if (!imageInfo.width || !imageInfo.height) {
-    await renderError(rootNode, box);
+    await renderError(box);
     return;
   }
   const maxWidth = editor.container.innerWidth() - 2;
@@ -351,13 +389,17 @@ async function renderUploading(rootNode: Nodes, box: Box): Promise<void> {
     draggable: 'false',
     alt: value.name,
   });
+  const rootNode = query('<div class="lake-image" />');
+  rootNode.addClass(`lake-image-${value.status}`);
   rootNode.append(buttonGroupNode);
   rootNode.append(progressNode);
   rootNode.append(imgNode);
+  boxContainer.empty();
+  boxContainer.append(rootNode);
 }
 
 // Displays an image that can be previewed or removed.
-async function renderDone(rootNode: Nodes, box: Box): Promise<void> {
+async function renderDone(box: Box): Promise<void> {
   const editor = box.getEditor();
   const boxContainer = box.getContainer();
   const value = box.value;
@@ -366,7 +408,7 @@ async function renderDone(rootNode: Nodes, box: Box): Promise<void> {
     return;
   }
   if (!imageInfo.width || !imageInfo.height) {
-    await renderError(rootNode, box);
+    await renderError(box);
     return;
   }
   let width = value.width;
@@ -380,11 +422,6 @@ async function renderDone(rootNode: Nodes, box: Box): Promise<void> {
       height,
     });
   }
-  rootNode.css({
-    width: `${width}px`,
-    height: `${height}px`,
-  });
-  boxContainer.css('height', '');
   const buttonGroupNode = query(safeTemplate`
     <div class="lake-button-group">
       <button type="button" tabindex="-1" class="lake-button-view" title="${editor.locale.image.view()}"></button>
@@ -410,8 +447,17 @@ async function renderDone(rootNode: Nodes, box: Box): Promise<void> {
     draggable: 'false',
     alt: value.name,
   });
+  const rootNode = query('<div class="lake-image" />');
+  rootNode.addClass(`lake-image-${value.status}`);
+  rootNode.css({
+    width: `${width}px`,
+    height: `${height}px`,
+  });
   rootNode.append(buttonGroupNode);
   rootNode.append(imgNode);
+  boxContainer.empty();
+  boxContainer.append(rootNode);
+  boxContainer.css('height', '');
   new Resizer({
     root: rootNode,
     target: rootNode,
@@ -423,41 +469,8 @@ async function renderDone(rootNode: Nodes, box: Box): Promise<void> {
       editor.history.save();
     },
   }).render();
-}
-
-
-function appendCaption(box: Box): void {
-  const editor = box.getEditor();
-  const boxContainer = box.getContainer();
-  const defaultCaption = (box.value.caption || '').trim();
-  const captionNode = query('<div class="lake-image-caption" />');
-  captionNode.text(defaultCaption);
-  if (!editor.readonly) {
-    captionNode.attr('contenteditable', 'true');
-    captionNode.attr('placeholder', 'Write a caption...');
-    captionNode.on('input', () => {
-      const caption = captionNode.text().trim();
-      if (caption === '') {
-        captionNode.addClass('lake-placeholder');
-      } else {
-        captionNode.removeClass('lake-placeholder');
-      }
-    });
-    captionNode.on('focusout', () => {
-      const caption = captionNode.text().trim();
-      box.updateValue('caption', caption);
-      editor.history.save();
-      if (caption === '') {
-        captionNode.hide();
-      }
-    });
-  }
-  if (defaultCaption === '') {
-    captionNode.hide();
-  } else {
-    captionNode.show();
-  }
-  boxContainer.append(captionNode);
+  setCaption(box);
+  setFloatingToolbar(box);
 }
 
 export default {
@@ -495,37 +508,29 @@ export default {
     if (value.status === 'loading') {
       return;
     }
-    const rootNode = query('<div class="lake-image" />');
-    rootNode.addClass(`lake-image-${value.status}`);
     let promise: Promise<void>;
     if (value.status === 'uploading') {
-      promise = renderUploading(rootNode, box);
+      promise = renderUploading(box);
     } else if (value.status === 'error') {
-      promise = renderError(rootNode, box);
+      promise = renderError(box);
     } else {
-      promise = renderDone(rootNode, box);
+      promise = renderDone(box);
     }
     promise.then(() => {
-      boxContainer.empty();
-      boxContainer.append(rootNode);
-      rootNode.find('.lake-button-view').on('click', () => openFullScreen(box));
+      boxContainer.find('.lake-button-view').on('click', () => openFullScreen(box));
       if (editor.readonly) {
-        rootNode.find('.lake-button-remove').hide();
+        boxContainer.find('.lake-button-remove').hide();
       } else {
-        rootNode.find('.lake-button-remove').on('click', event => {
+        boxContainer.find('.lake-button-remove').on('click', event => {
           event.stopPropagation();
           editor.selection.removeBox(box);
           editor.history.save();
         });
-        if (value.status === 'done') {
-          appendCaption(box);
-          setFloatingToolbar(box);
-        }
       }
+      boxContainer.find('.lake-image').on('click', () => {
+        editor.selection.selectBox(box);
+      });
       box.event.emit('render');
-    });
-    rootNode.on('click', () => {
-      editor.selection.selectBox(box);
     });
   },
   html: box => {
