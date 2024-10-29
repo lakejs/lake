@@ -37,6 +37,7 @@ lake-box[name="image"] .lake-box-focused .lake-image {
   color: var(--lake-secondary-text-color);
   padding-top: 2px;
   padding-bottom: 8px;
+  -webkit-user-modify: read-write-plaintext-only;
 }
 .lake-image-caption:focus {
   outline: 0;
