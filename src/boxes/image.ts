@@ -3,12 +3,14 @@ import PhotoSwipeLightbox, { DataSource } from 'photoswipe/lightbox';
 import PhotoSwipe from 'photoswipe';
 import { BoxComponent } from '../types/box';
 import { ToolbarItem } from '../types/toolbar';
+import { CornerToolbarItem } from '../types/corner-toolbar';
 import { icons } from '../icons';
 import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
 import { getBox } from '../utils/get-box';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
+import { CornerToolbar } from '../ui/corner-toolbar';
 import { Resizer } from '../ui/resizer';
 
 type ImageInfo = {
@@ -306,16 +308,6 @@ async function renderError(box: Box): Promise<void> {
     width: '',
     height: '',
   });
-  const buttonGroupNode = query(safeTemplate`
-    <div class="lake-button-group">
-      <button type="button" tabindex="-1" class="lake-button-remove" title="${editor.locale.image.remove()}"></button>
-    </div>
-  `);
-  const removeButton = buttonGroupNode.find('.lake-button-remove');
-  const removeIcon = icons.get('remove');
-  if (removeIcon) {
-    removeButton.append(removeIcon);
-  }
   const errorNode = query(safeTemplate`
     <div class="lake-error">
       <div class="lake-error-icon"></div>
@@ -328,7 +320,22 @@ async function renderError(box: Box): Promise<void> {
   }
   const rootNode = query('<div class="lake-image" />');
   rootNode.addClass(`lake-image-${value.status}`);
-  rootNode.append(buttonGroupNode);
+  new CornerToolbar({
+    locale: editor.locale,
+    root: rootNode,
+    items: [
+      {
+        name: 'remove',
+        icon: icons.get('remove'),
+        tooltip: editor.locale.image.remove(),
+        onClick: event => {
+          event.stopPropagation();
+          editor.selection.removeBox(box);
+          editor.history.save();
+        },
+      },
+    ],
+  }).render();
   rootNode.append(errorNode);
   boxContainer.empty();
   boxContainer.append(rootNode);
@@ -360,16 +367,6 @@ async function renderUploading(box: Box): Promise<void> {
     width: `${width}px`,
     height: `${height}px`,
   });
-  const buttonGroupNode = query(safeTemplate`
-    <div class="lake-button-group">
-      <button type="button" tabindex="-1" class="lake-button-remove" title="${editor.locale.image.remove()}"></button>
-    </div>
-  `);
-  const removeButton = buttonGroupNode.find('.lake-button-remove');
-  const removeIcon = icons.get('remove');
-  if (removeIcon) {
-    removeButton.append(removeIcon);
-  }
   const percent = Math.round(value.percent || 0);
   const progressNode = query(safeTemplate`
     <div class="lake-progress">
@@ -391,7 +388,22 @@ async function renderUploading(box: Box): Promise<void> {
   });
   const rootNode = query('<div class="lake-image" />');
   rootNode.addClass(`lake-image-${value.status}`);
-  rootNode.append(buttonGroupNode);
+  new CornerToolbar({
+    locale: editor.locale,
+    root: rootNode,
+    items: [
+      {
+        name: 'remove',
+        icon: icons.get('remove'),
+        tooltip: editor.locale.image.remove(),
+        onClick: event => {
+          event.stopPropagation();
+          editor.selection.removeBox(box);
+          editor.history.save();
+        },
+      },
+    ],
+  }).render();
   rootNode.append(progressNode);
   rootNode.append(imgNode);
   boxContainer.empty();
@@ -422,25 +434,6 @@ async function renderDone(box: Box): Promise<void> {
       height,
     });
   }
-  const buttonGroupNode = query(safeTemplate`
-    <div class="lake-button-group">
-      <button type="button" tabindex="-1" class="lake-button-view" title="${editor.locale.image.view()}"></button>
-      <button type="button" tabindex="-1" class="lake-button-remove" title="${editor.locale.image.remove()}"></button>
-    </div>
-  `);
-  const viewButton = buttonGroupNode.find('.lake-button-view');
-  const maximizeIcon = icons.get('maximize');
-  if (maximizeIcon) {
-    viewButton.append(maximizeIcon);
-  }
-  if (width < 80 || PhotoSwipeLightbox === null) {
-    viewButton.hide();
-  }
-  const removeButton = buttonGroupNode.find('.lake-button-remove');
-  const removeIcon = icons.get('remove');
-  if (removeIcon) {
-    removeButton.append(removeIcon);
-  }
   const imgNode = imageInfo.node;
   imgNode.addClass('lake-image-img');
   imgNode.attr({
@@ -453,7 +446,32 @@ async function renderDone(box: Box): Promise<void> {
     width: `${width}px`,
     height: `${height}px`,
   });
-  rootNode.append(buttonGroupNode);
+  const cornerToolbarItems: CornerToolbarItem[] = [];
+  if (width >= 80 && PhotoSwipeLightbox !== null) {
+    cornerToolbarItems.push({
+      name: 'view',
+      icon: icons.get('maximize'),
+      tooltip: editor.locale.image.view(),
+      onClick: () => openFullScreen(box),
+    });
+  }
+  if (!editor.readonly) {
+    cornerToolbarItems.push({
+      name: 'remove',
+      icon: icons.get('remove'),
+      tooltip: editor.locale.image.remove(),
+      onClick: event => {
+        event.stopPropagation();
+        editor.selection.removeBox(box);
+        editor.history.save();
+      },
+    });
+  }
+  new CornerToolbar({
+    locale: editor.locale,
+    root: rootNode,
+    items: cornerToolbarItems,
+  }).render();
   rootNode.append(imgNode);
   boxContainer.empty();
   boxContainer.append(rootNode);
@@ -517,16 +535,6 @@ export default {
       promise = renderDone(box);
     }
     promise.then(() => {
-      boxContainer.find('.lake-button-view').on('click', () => openFullScreen(box));
-      if (editor.readonly) {
-        boxContainer.find('.lake-button-remove').hide();
-      } else {
-        boxContainer.find('.lake-button-remove').on('click', event => {
-          event.stopPropagation();
-          editor.selection.removeBox(box);
-          editor.history.save();
-        });
-      }
       boxContainer.find('.lake-image').on('click', () => {
         editor.selection.selectBox(box);
       });

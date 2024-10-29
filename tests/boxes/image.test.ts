@@ -40,7 +40,7 @@ describe('boxes / image', () => {
   it('should open full screen', done => {
     const boxNode = box.node;
     box.event.once('render', () => {
-      click(boxNode.find('.lake-button-view'));
+      click(boxNode.find('.lake-corner-toolbar button[name="view"]'));
     });
     box.event.once('closefullscreen', () => {
       const value = removeBoxValueFromHTML(editor.getValue());
@@ -56,7 +56,7 @@ describe('boxes / image', () => {
   it('should remove the box', done => {
     const boxNode = box.node;
     box.event.once('render', () => {
-      click(boxNode.find('.lake-button-remove'));
+      click(boxNode.find('.lake-corner-toolbar button[name="remove"]'));
       const value = editor.getValue();
       debug(`output: ${value}`);
       expect(value).to.equal('<p>foo<focus />bar</p>');

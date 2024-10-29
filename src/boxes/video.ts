@@ -5,6 +5,7 @@ import { query } from '../utils/query';
 import { safeTemplate } from '../utils/safe-template';
 import { Box } from '../models/box';
 import { Button } from '../ui/button';
+import { CornerToolbar } from '../ui/corner-toolbar';
 import { Resizer } from '../ui/resizer';
 
 function getVideoId(url: string): string {
@@ -15,23 +16,23 @@ function getVideoId(url: string): string {
 function appendButtonGroup(box: Box): void {
   const editor = box.getEditor();
   const boxContainer = box.getContainer();
-  const videoNode = boxContainer.find('.lake-video');
-  const buttonGroupNode = query(safeTemplate`
-    <div class="lake-button-group">
-      <button type="button" tabindex="-1" class="lake-button-remove" title="${editor.locale.video.remove()}"></button>
-    </div>
-  `);
-  const removeButton = buttonGroupNode.find('.lake-button-remove');
-  const removeIcon = icons.get('remove');
-  if (removeIcon) {
-    removeButton.append(removeIcon);
-  }
-  buttonGroupNode.find('.lake-button-remove').on('click', event => {
-    event.stopPropagation();
-    editor.selection.removeBox(box);
-    editor.history.save();
-  });
-  videoNode.append(buttonGroupNode);
+  const rootNode = boxContainer.find('.lake-video');
+  new CornerToolbar({
+    locale: editor.locale,
+    root: rootNode,
+    items: [
+      {
+        name: 'remove',
+        icon: icons.get('remove'),
+        tooltip: editor.locale.video.remove(),
+        onClick: event => {
+          event.stopPropagation();
+          editor.selection.removeBox(box);
+          editor.history.save();
+        },
+      },
+    ],
+  }).render();
 }
 
 function showVideo(box: Box): void {
@@ -62,6 +63,22 @@ function showVideo(box: Box): void {
   if (!editor.readonly) {
     iframeNode.on('load', () => {
       appendButtonGroup(box);
+      new CornerToolbar({
+        locale: editor.locale,
+        root: rootNode,
+        items: [
+          {
+            name: 'remove',
+            icon: icons.get('remove'),
+            tooltip: editor.locale.video.remove(),
+            onClick: event => {
+              event.stopPropagation();
+              editor.selection.removeBox(box);
+              editor.history.save();
+            },
+          },
+        ],
+      }).render();
       new Resizer({
         root: rootNode,
         target: boxContainer,

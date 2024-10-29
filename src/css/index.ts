@@ -8,6 +8,7 @@ import './dropdown.css';
 import './popup.css';
 import './menu.css';
 import './resizer.css';
+import './corner-toolbar.css';
 import './format-painter.css';
 import './heading.css';
 import './link.css';

@@ -58,7 +58,7 @@ describe('boxes / video', () => {
     });
     const boxNode = box.node;
     boxNode.find('iframe').emit('load');
-    click(boxNode.find('.lake-button-remove'));
+    click(boxNode.find('.lake-corner-toolbar button[name="remove"]'));
     const value = editor.getValue();
     debug(`output: ${value}`);
     expect(value).to.equal('<p>foo<focus />bar</p>');
