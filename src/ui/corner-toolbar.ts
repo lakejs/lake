@@ -3,9 +3,10 @@ import { CornerToolbarItem } from '../types/corner-toolbar';
 import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
+import { i18nObject } from '../i18n';
 
 type CornerToolbarConfig = {
-  locale: TranslationFunctions;
+  locale?: TranslationFunctions;
   root: Nodes;
   items: CornerToolbarItem[];
 }
@@ -13,22 +14,24 @@ type CornerToolbarConfig = {
 export class CornerToolbar {
   private config: CornerToolbarConfig;
 
+  private locale: TranslationFunctions;
+
   private root: Nodes;
 
   public container: Nodes;
 
   constructor(config: CornerToolbarConfig) {
     this.config = config;
+    this.locale = this.config.locale || i18nObject('en-US');
     this.root = config.root;
     this.container = query('<div class="lake-corner-toolbar" />');
   }
 
   private appendButton(item: CornerToolbarItem): void {
-    const { locale } = this.config;
     const buttonNode = query(safeTemplate`
       <button type="button" name="${item.name}" tabindex="-1" />
     `);
-    const tooltip = typeof item.tooltip === 'string' ? item.tooltip : item.tooltip(locale);
+    const tooltip = typeof item.tooltip === 'string' ? item.tooltip : item.tooltip(this.locale);
     buttonNode.attr('title', tooltip);
     if (item.icon) {
       buttonNode.append(item.icon);
@@ -49,9 +52,5 @@ export class CornerToolbar {
     for (const item of items) {
       this.appendButton(item);
     }
-  }
-
-  public unmount(): void {
-    this.container.remove();
   }
 }
