@@ -2,6 +2,7 @@ import 'photoswipe/style.css';
 import PhotoSwipeLightbox, { DataSource } from 'photoswipe/lightbox';
 import PhotoSwipe from 'photoswipe';
 import debounce from 'debounce';
+import { isKeyHotkey } from 'is-hotkey';
 import { BoxComponent } from '../types/box';
 import { ToolbarItem } from '../types/toolbar';
 import { CornerToolbarItem } from '../types/corner-toolbar';
@@ -304,6 +305,12 @@ function renderCaption(box: Box): void {
       captionNode.removeClass('lake-placeholder');
     }
     changeHandler(caption);
+  });
+  captionNode.on('keydown', event => {
+    if (isKeyHotkey('enter', event as KeyboardEvent)) {
+      event.preventDefault();
+      editor.selection.selectBox(box);
+    }
   });
   captionNode.on('focusout', () => {
     const caption = captionNode.text().trim();
