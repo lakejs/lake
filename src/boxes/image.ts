@@ -377,7 +377,7 @@ async function renderUploading(box: Box): Promise<void> {
     originalWidth: imageInfo.width,
     originalHeight: imageInfo.height,
   });
-  box.getContainer().css({
+  boxContainer.css({
     width: `${width}px`,
     height: `${height}px`,
   });
@@ -436,6 +436,12 @@ async function renderDone(box: Box): Promise<void> {
   if (!imageInfo.width || !imageInfo.height) {
     await renderError(box);
     return;
+  }
+  if (!value.originalWidth || !value.originalHeight) {
+    box.updateValue({
+      originalWidth: imageInfo.width,
+      originalHeight: imageInfo.height,
+    });
   }
   let width = value.width;
   let height = value.height;
