@@ -432,7 +432,7 @@ type RootTranslation = {
 		 */
 		pageWidth: string
 		/**
-		 * O​r​i​g​i​n​a​l​ ​w​i​d​t​h
+		 * O​r​i​g​i​n​a​l​ ​i​m​a​g​e​ ​w​i​d​t​h
 		 */
 		originalWidth: string
 		/**
@@ -444,6 +444,14 @@ type RootTranslation = {
 		 * O​p​e​n​ ​i​m​a​g​e​ ​i​n​ ​n​e​w​ ​t​a​b
 		 */
 		open: string
+		/**
+		 * C​a​p​t​i​o​n
+		 */
+		caption: string
+		/**
+		 * W​r​i​t​e​ ​a​ ​c​a​p​t​i​o​n​.​.​.
+		 */
+		captionPlaceholder: string
 	}
 	file: {
 		/**
@@ -916,7 +924,7 @@ export type TranslationFunctions = {
 		 */
 		pageWidth: () => LocalizedString
 		/**
-		 * Original width
+		 * Original image width
 		 */
 		originalWidth: () => LocalizedString
 		/**
@@ -927,6 +935,14 @@ export type TranslationFunctions = {
 		 * Open image in new tab
 		 */
 		open: () => LocalizedString
+		/**
+		 * Caption
+		 */
+		caption: () => LocalizedString
+		/**
+		 * Write a caption...
+		 */
+		captionPlaceholder: () => LocalizedString
 	}
 	file: {
 		/**

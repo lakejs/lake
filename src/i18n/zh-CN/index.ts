@@ -114,6 +114,8 @@ export default {
     originalWidth: '图片原始大小',
     imageWidth: '{0} 图片大小',
     open: '在新标签页中打开图片',
+    caption: '图片描述',
+    captionPlaceholder: '请输入图片描述',
   },
   file: {
     download: '下载',

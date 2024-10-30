@@ -114,6 +114,8 @@ export default {
     originalWidth: '원본 이미지 크기',
     imageWidth: '{0} 이미지 크기',
     open: '새 탭에서 이미지 열기',
+    caption: '캡션',
+    captionPlaceholder: '캡션을 입력하세요',
   },
   file: {
     download: '다운로드',

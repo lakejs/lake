@@ -114,6 +114,8 @@ export default {
     originalWidth: 'Original image width',
     imageWidth: '{0} image width',
     open: 'Open image in new tab',
+    caption: 'Caption',
+    captionPlaceholder: 'Write a caption...',
   },
   file: {
     download: 'Download',
@@ -132,6 +134,6 @@ export default {
   equation: {
     save: 'Done',
     help: 'Supported functions',
-    placeholder: 'Type a TeX expression',
+    placeholder: 'Type a TeX expression...',
   },
 } satisfies BaseTranslation;

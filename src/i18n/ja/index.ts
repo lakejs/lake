@@ -114,6 +114,8 @@ export default {
     originalWidth: '画像の元のサイズ',
     imageWidth: '{0} 画像サイズ',
     open: '新しいタブで画像を開く',
+    caption: 'キャプション',
+    captionPlaceholder: 'キャプションを入力してください',
   },
   file: {
     download: 'ダウンロード',
@@ -132,6 +134,6 @@ export default {
   equation: {
     save: '保存',
     help: 'サポートされている機能',
-    placeholder: 'TeX 数式を入力してください。',
+    placeholder: 'TeX 数式を入力してください',
   },
 } satisfies Translation;

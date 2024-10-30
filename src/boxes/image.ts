@@ -33,7 +33,7 @@ function renderFloatingToolbar(box: Box): void {
       name: 'caption',
       type: 'button',
       icon: icons.get('caption'),
-      tooltip: 'Caption',
+      tooltip: locale => locale.image.caption(),
       isSelected: () => {
         const boxContainer = box.getContainer();
         const captionNode = boxContainer.find('.lake-image-caption');
@@ -286,7 +286,7 @@ function renderCaption(box: Box): void {
     return;
   }
   captionNode.attr('contenteditable', 'true');
-  captionNode.attr('placeholder', 'Write a caption...');
+  captionNode.attr('placeholder', editor.locale.image.captionPlaceholder());
   const changeHandler = debounce((value: string) => {
     editor.selection.updateByRange();
     if (editor.isComposing) {
