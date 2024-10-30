@@ -26,6 +26,21 @@ const alignValueMap: {[key: string]: string} = {
   end: 'right',
 };
 
+function updateBoxMarginBottom(box: Box, captionNode: Nodes): void {
+  const height = captionNode.height();
+  box.node.find('.lake-box-strip').css('margin-bottom', `${height}px`);
+}
+
+function showCaption(box: Box, captionNode: Nodes): void {
+  captionNode.show();
+  updateBoxMarginBottom(box, captionNode);
+}
+
+function hideCaption(box: Box, captionNode: Nodes): void {
+  captionNode.hide();
+  box.node.find('.lake-box-strip').css('margin-bottom', '');
+}
+
 // Creates floating toolbar for the box.
 function renderFloatingToolbar(box: Box): void {
   const items: ToolbarItem[] = [
@@ -46,7 +61,7 @@ function renderFloatingToolbar(box: Box): void {
         if (caption === '') {
           captionNode.addClass('lake-placeholder');
         }
-        captionNode.show();
+        showCaption(box, captionNode);
         captionNode.focus();
         box.toolbar?.updateState({
           appliedItems: [],
@@ -112,6 +127,7 @@ function renderFloatingToolbar(box: Box): void {
         const { originalWidth, originalHeight } = box.value;
         const boxContainer = box.getContainer();
         const rootNode = boxContainer.find('.lake-image');
+        const captionNode = boxContainer.find('.lake-image-caption');
         const rate = originalHeight / originalWidth;
         let newWidth: number;
         if (value === 'page') {
@@ -125,6 +141,7 @@ function renderFloatingToolbar(box: Box): void {
           height: `${newHeight}px`,
         });
         boxContainer.css('width', `${newWidth}px`);
+        updateBoxMarginBottom(box, captionNode);
         box.updateValue({
           width: newWidth,
           height: newHeight,
@@ -270,20 +287,20 @@ function openFullScreen(box: Box): void {
 }
 
 // Creates caption for image.
-function renderCaption(box: Box): void {
+function renderCaption(box: Box): Nodes {
   const editor = box.getEditor();
   const boxContainer = box.getContainer();
   const defaultCaption = (box.value.caption || '').trim();
   const captionNode = query('<div class="lake-image-caption" />');
   captionNode.text(defaultCaption);
-  if (defaultCaption === '') {
-    captionNode.hide();
-  } else {
-    captionNode.show();
-  }
   boxContainer.append(captionNode);
+  if (defaultCaption === '') {
+    hideCaption(box, captionNode);
+  } else {
+    showCaption(box, captionNode);
+  }
   if (editor.readonly) {
-    return;
+    return captionNode;
   }
   captionNode.attr('contenteditable', 'true');
   captionNode.attr('placeholder', editor.locale.image.captionPlaceholder());
@@ -304,6 +321,8 @@ function renderCaption(box: Box): void {
     } else {
       captionNode.removeClass('lake-placeholder');
     }
+    const height = captionNode.height();
+    box.node.find('.lake-box-strip').css('margin-bottom', `${height}px`);
     changeHandler(caption);
   });
   captionNode.on('keydown', event => {
@@ -315,9 +334,10 @@ function renderCaption(box: Box): void {
   captionNode.on('focusout', () => {
     const caption = captionNode.text().trim();
     if (caption === '') {
-      captionNode.hide();
+      hideCaption(box, captionNode);
     }
   });
+  return captionNode;
 }
 
 // Displays error icon and filename.
@@ -506,14 +526,16 @@ async function renderDone(box: Box): Promise<void> {
     width: `${width}px`,
     height: '',
   });
+  const captionNode = renderCaption(box);
+  renderFloatingToolbar(box);
   new Resizer({
     root: rootNode,
     target: rootNode,
     onResize: newWidth => {
       boxContainer.css('width', `${newWidth}px`);
+      updateBoxMarginBottom(box, captionNode);
     },
     onStop: (newWidth, newHeight) => {
-      boxContainer.css('width', `${newWidth}px`);
       box.updateValue({
         width: newWidth,
         height: newHeight,
@@ -521,8 +543,6 @@ async function renderDone(box: Box): Promise<void> {
       editor.history.save();
     },
   }).render();
-  renderCaption(box);
-  renderFloatingToolbar(box);
 }
 
 export default {
