@@ -2,7 +2,7 @@
   border: 1px solid transparent;
   border-radius: 2px;
 }
-.lake-container[data-readonly="false"] .lake-mention a:hover {
+.lake-container[readonly="false"] .lake-mention a:hover {
   color: var(--lake-link-color);
   text-decoration: none;
 }
