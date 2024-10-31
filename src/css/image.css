@@ -31,13 +31,14 @@ lake-box[name="image"] .lake-box-focused .lake-image {
   border-color: var(--lake-box-border-focus-color);
 }
 .lake-image-caption {
+  -webkit-user-modify: read-write-plaintext-only;
   position: relative;
   font-size: 14px;
   line-height: normal;
+  text-align: start;
   color: var(--lake-secondary-text-color);
   padding-top: 2px;
   padding-bottom: 8px;
-  -webkit-user-modify: read-write-plaintext-only;
   display: none;
 }
 .lake-image-caption:focus {
