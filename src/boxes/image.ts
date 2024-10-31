@@ -300,6 +300,7 @@ function renderCaption(box: Box): Nodes {
     showCaption(box, captionNode);
   }
   if (editor.readonly) {
+    captionNode.css('-webkit-user-modify', 'read-only');
     return captionNode;
   }
   captionNode.attr('contenteditable', 'true');
@@ -324,6 +325,16 @@ function renderCaption(box: Box): Nodes {
     const height = captionNode.height();
     box.node.find('.lake-box-strip').css('margin-bottom', `${height}px`);
     changeHandler(caption);
+  });
+  // For supporting "user-modify: read-write-plaintext-only" in Firefox
+  captionNode.on('paste', event => {
+    event.preventDefault();
+    const dataTransfer = (event as ClipboardEvent).clipboardData;
+    if (!dataTransfer) {
+      return;
+    }
+    const text = dataTransfer.getData('text/plain').trim();
+    document.execCommand('insertText', false, text);
   });
   captionNode.on('keydown', event => {
     if (isKeyHotkey('enter', event as KeyboardEvent)) {
