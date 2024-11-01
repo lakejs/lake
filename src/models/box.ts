@@ -154,6 +154,7 @@ export class Box {
       this.toolbar.updateState({
         appliedItems,
       });
+      this.event.emit('renderfloatingtoolbar');
     });
     this.event.on('blur', () => {
       if (this.toolbar) {
