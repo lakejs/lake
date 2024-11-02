@@ -6,13 +6,13 @@
 
 ---
 
-Lake is a browser-based rich text editor designed for creating content such as blogs, comments, and emails. It tries to keep a balance between being feature-rich and lightweight, and also provides an easy-to-use programming interface that supports further extension.
+Lake is a browser-based rich text editor designed for creating content like blogs, comments, and emails. It strikes a balance between being feature-rich and lightweight, offering an easy-to-use programming interface for easy customization and extension.
 
 [Examples](https://lakejs.org/examples/) · [Getting started](https://lakejs.org/guide/) · [Reference](https://lakejs.org/reference/)
 
 ## Development
 
-For local development, you need to download the source code and run a development server that includes an HTTP service and real-time bundling.
+For local development, download the source code and run a local server with an HTTP service and real-time bundling.
 
 ``` bash
 # Clone the repository
@@ -27,7 +27,7 @@ You can now view the demonstration by visiting `http://localhost:8080/examples/`
 
 ## Running tests
 
-Lake depends on a lot of browser APIs, so running its test cases needs a real browser environment. You can run the tests visibly by visiting `http://localhost:8080/tests/`, or execute the `pnpm test` command to run the tests in headless mode.
+Lake depends on a lot of browser APIs, so running its test cases needs a real browser environment. You can run the tests visibly by visiting `http://localhost:8080/tests/`, or execute the `pnpm test` command to run them in headless mode.
 
 ## License
 
