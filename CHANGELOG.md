@@ -1,3 +1,29 @@
+## [0.2.6](https://github.com/lakejs/lake/compare/0.2.5...0.2.6) (2024-11-03)
+
+
+### Bug Fixes
+
+* **caption:** can edit caption in readonly mode; can paste rich text in Firefox ([498c874](https://github.com/lakejs/lake/commit/498c874301b1407ab01582c49deeb8fa792e8d11))
+* **caption:** should always align to the left edge ([211d4a8](https://github.com/lakejs/lake/commit/211d4a89a2094bce007252e0d91eadbfabb217b4))
+* **caption:** write plain text only ([0ba2341](https://github.com/lakejs/lake/commit/0ba23419e70db4e86bfe6ca4d9099b70788d21db))
+* **floating-toolbar:** should not wrap onto multiple lines ([fde5184](https://github.com/lakejs/lake/commit/fde51849ccc5b30e138ffeeaaaa46d68296d31f7))
+* **image:** adjust margin-bottom by height of caption ([79c16ea](https://github.com/lakejs/lake/commit/79c16ea91c05ddeb56254015d9739216a9ba49e9))
+* **image:** cannot resize image if original width is not set ([dcc70fb](https://github.com/lakejs/lake/commit/dcc70fb245be2ff0bea6344b77841f2d8e621af3))
+* **image:** caption should not support enter key ([71471a0](https://github.com/lakejs/lake/commit/71471a022d9bf02066adcd3ce8632c87a8b6b4bd))
+* **image:** improve caption ([fe4f8b7](https://github.com/lakejs/lake/commit/fe4f8b7e21a72e1e178818c4cb3bf14b96cae07d))
+
+
+### Features
+
+* **box:** add corner-toolbar ([de1d016](https://github.com/lakejs/lake/commit/de1d01687848ef200a22388e8e81ed87d7ff89d2))
+* **box:** add renderfloatingtoolbar event ([9537369](https://github.com/lakejs/lake/commit/95373693afb7277a83b8e5eda4ee92002c15f45b))
+* **caption:** support i18n ([ebeb8b4](https://github.com/lakejs/lake/commit/ebeb8b486a5e428d2bc4d9a33c0ff158516ca263))
+* **corner-toolbar:** set default value for locale option ([b4b87e9](https://github.com/lakejs/lake/commit/b4b87e9bd55704cbc469ad4d2329191f683d9845))
+* **editor:** rename attribute from data-readonly to readonly ([323624c](https://github.com/lakejs/lake/commit/323624c256af3c5771fdf8da09b468d56c0e8e82))
+* **image:** add caption ([39f11d3](https://github.com/lakejs/lake/commit/39f11d3f4cb50dc76514ce23ef1ce890f6110392))
+
+
+
 ## [0.2.5](https://github.com/lakejs/lake/compare/0.2.4...0.2.5) (2024-10-24)
 
 
