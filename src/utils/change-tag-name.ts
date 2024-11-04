@@ -2,6 +2,7 @@ import type { Nodes } from '../models/nodes';
 import { query } from './query';
 import { safeTemplate } from './safe-template';
 
+// Changes the tag name of the specified element.
 export function changeTagName(element: Nodes, newTagName: string): Nodes {
   const nativeElement = element.get(0) as Element;
   const newElement = query(safeTemplate`<${newTagName} />`);

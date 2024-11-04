@@ -1,5 +1,6 @@
 import type { Nodes } from '../models/nodes';
 
+// Fixes incorrect number for numbered list.
 export function fixNumberedList(blocks: Nodes[]): void {
   if (blocks.length === 0) {
     return;

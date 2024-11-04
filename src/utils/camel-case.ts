@@ -1,3 +1,4 @@
+// Converts the specified string to camel case.
 export function camelCase(value: string): string {
   const valueList = value.split('-');
   let camelString = '';

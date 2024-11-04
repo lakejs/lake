@@ -1,7 +1,7 @@
 import type { Nodes } from '../models/nodes';
 import { query } from './query';
 
-// Appends a line break to the end of a block.
+// Appends a line break to the end of the specified block.
 // Example:
 // case 1: <p></p> to <p><br /></p>
 // case 2: <p><br /></p> to <p><br /></p>
