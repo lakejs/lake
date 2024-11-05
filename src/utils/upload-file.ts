@@ -11,6 +11,7 @@ type UploadConfig = {
   onSuccess?: ()=> void;
 };
 
+// Uploads a file to the server.
 export function uploadFile(config: UploadConfig): Box {
   const { editor, name, file, onError, onSuccess} = config;
   const { requestMethod, requestAction, requestTypes } = editor.config[name];

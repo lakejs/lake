@@ -1,6 +1,7 @@
 import type { Nodes } from '../models/nodes';
 import { fixNumberedList } from './fix-numbered-list';
 
+// sets the margin area on the left side of a block.
 export function setBlockIndent(block: Nodes, type: 'increase' | 'decrease'): void {
   if (block.isList) {
     let indent = Number.parseInt(block.attr('indent'), 10) || 0;

@@ -1,3 +1,4 @@
+// Returns an array representing a list of the document's elements.
 export function toNodeList(content: string | Node, valueType?: 'text' | 'html'): Node[] {
   const nodeList: Node[] = [];
   // a node

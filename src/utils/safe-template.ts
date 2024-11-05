@@ -1,5 +1,6 @@
 import { encode } from './encode';
 
+// Is a tag function for converting all of the reserved characters in the specified string to HTML entities.
 export function safeTemplate(strings: TemplateStringsArray, ...keys: any[]): string {
   let content = strings[0];
   for (let i = 0; i < keys.length; i++) {

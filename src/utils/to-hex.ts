@@ -10,7 +10,7 @@ function hex(value: string): string {
   return hexString.length > 1 ? hexString : `0${hexString}`;
 }
 
-// Converting colors in RGB or RGBA format to hex format.
+// Converts colors in RGB or RGBA format to hex format.
 export function toHex(value: string): string {
   return value.replace(
     /rgba?\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+)\s*)?\)/ig,

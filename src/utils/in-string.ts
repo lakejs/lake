@@ -1,4 +1,4 @@
-// Returns a boolean value indicating whether the specified string includes the value.
+// Returns a boolean value indicating whether a certain value is part of a string, separated by a delimiter.
 export function inString(string: string, value: string, delimiter?: string): boolean {
   if (delimiter === undefined) {
     delimiter = ',';

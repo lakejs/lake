@@ -1,6 +1,6 @@
 import type { Nodes } from '../models/nodes';
 
-// Removes Zero-width spaces that are dependent on some other text nodes.
+// Removes Zero-width spaces from text nodes.
 export function removeZWS(node: Nodes): void {
   for (const child of node.getWalker()) {
     if (child.isText) {

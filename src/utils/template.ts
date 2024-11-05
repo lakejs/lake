@@ -1,3 +1,4 @@
+// Is a tag function for removing whitespace or line terminator character.
 export function template(strings: TemplateStringsArray, ...keys: any[]): string {
   let content = strings[0];
   for (let i = 0; i < keys.length; i++) {

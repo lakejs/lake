@@ -48,6 +48,7 @@ function getBody(xhr: XMLHttpRequest) {
   }
 }
 
+// Sends a request to the server.
 export function request(option: UploadRequestOption): XMLHttpRequest {
   const xhr = new XMLHttpRequest();
 
