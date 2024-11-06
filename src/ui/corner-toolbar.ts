@@ -11,6 +11,7 @@ type CornerToolbarConfig = {
   items: CornerToolbarItem[];
 }
 
+// The CornerToolbar class represents a button group located in the top-right corner of a box.
 export class CornerToolbar {
   private config: CornerToolbarConfig;
 

@@ -17,6 +17,7 @@ type LinkPopupConfig = {
   onHide?: () => void;
 };
 
+// The LinkPopup class represents a dialog for editing a hyperlink.
 export class LinkPopup {
 
   private config: LinkPopupConfig;

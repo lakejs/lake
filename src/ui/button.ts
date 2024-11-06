@@ -13,6 +13,7 @@ type ButtonConfig = {
   onClick: () => void;
 }
 
+// The Button class represents an interactive element activated by a user. Once activated, it then performs an action.
 export class Button {
   private config: ButtonConfig;
 
