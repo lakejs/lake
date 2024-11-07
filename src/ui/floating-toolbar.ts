@@ -8,7 +8,7 @@ type FloatingToolbarConfig = ToolbarConfig & {
   target: Nodes | Range;
 };
 
-// The FloatingToolbar class represents a button group that floats at the top of a box.
+// The FloatingToolbar class, inheriting from the Toolbar class, represents a toolbar that floats at the top of a box.
 export class FloatingToolbar extends Toolbar {
 
   private range: Range;

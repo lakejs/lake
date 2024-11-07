@@ -45,7 +45,7 @@ function getNestedMark(node: Nodes, tagName?: string): Nodes | null {
   return mark;
 }
 
-// Removes the specified marks from the range.
+// Removes the specified marks in the range.
 export function removeMark(range: Range, value?: string): void {
   if (range.commonAncestor.isOutside) {
     return;

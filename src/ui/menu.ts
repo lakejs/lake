@@ -13,6 +13,7 @@ export type MenuConfig<Item> = {
 
 const emptyCallback = () => {};
 
+// The Menu class represents a list of options for selecting an item.
 export abstract class Menu<Item> {
 
   private horizontalDirection: 'left' | 'right' = 'right';

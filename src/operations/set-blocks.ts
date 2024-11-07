@@ -31,7 +31,7 @@ function getTopNonBlockNodes(range: Range): Nodes[] {
   return nodeList;
 }
 
-// Adds new blocks or changes target blocks relating to the specified range.
+// Adds new blocks or changes target blocks in the specified range.
 export function setBlocks(range: Range, value: string | KeyValue): void {
   if (range.commonAncestor.isOutside) {
     return;

@@ -9,6 +9,7 @@ type ResizerConfig = {
   onStop: (width: number, height: number) => void;
 };
 
+// The Resizer class represents a UI component used to resize images or videos.
 export class Resizer {
   private config: ResizerConfig;
 

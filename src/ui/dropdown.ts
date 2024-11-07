@@ -22,7 +22,7 @@ type DropdownConfig = DropdownItem & {
   onSelect: (value: string) => void;
 }
 
-// The Dropdown class represents a control that provides a menu of options.
+// The Dropdown class represents a UI component that provides a menu of options.
 export class Dropdown {
   private config: DropdownConfig;
 

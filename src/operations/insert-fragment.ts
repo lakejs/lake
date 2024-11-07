@@ -5,7 +5,7 @@ import { deleteContents } from './delete-contents';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 
-// Inserts a DocumentFragment object into the specified range.
+// Inserts a document fragment object into the specified range.
 export function insertFragment(range: Range, fragment: DocumentFragment | Fragment): void {
   if (fragment instanceof Fragment) {
     fragment = fragment.get();

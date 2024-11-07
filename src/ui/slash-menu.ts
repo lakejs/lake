@@ -26,6 +26,7 @@ for (const item of slashItems) {
   slashItemMap.set(item.name, item);
 }
 
+// The SlashMenu class, inheriting from the Menu class, represents a list of commands for executing a command.
 export class SlashMenu extends Menu<string | SlashItem> {
 
   private locale: TranslationFunctions;

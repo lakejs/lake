@@ -17,6 +17,7 @@ function unmountBox(box: Box): Box {
   return box;
 }
 
+// Removes a box that contains the specified range.
 export function removeBox(range: Range): Box | null {
   if (range.commonAncestor.isOutside) {
     return null;

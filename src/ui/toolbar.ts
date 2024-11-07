@@ -45,6 +45,7 @@ for (const item of toolbarItems) {
   toolbarItemMap.set(item.name, item);
 }
 
+// The Toolbar class represents a button group used to execute commands.
 export class Toolbar {
 
   public root: Nodes;
