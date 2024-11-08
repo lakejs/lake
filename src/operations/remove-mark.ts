@@ -1,22 +1,9 @@
-import { getDeepElement, query, removeZWS } from '../utils';
+import { getDeepElement, query, removeZWS, removeEmptyMarks } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 import { splitMarks } from './split-marks';
-
-// Removes empty marks that contain no content.
-function removeEmptyMarks(node: Nodes): void {
-  if (node.isMark && node.isEmpty) {
-    node.remove();
-    return;
-  }
-  for (const child of node.getWalker()) {
-    if (child.isMark && child.isEmpty) {
-      child.remove();
-    }
-  }
-}
 
 // Returns a nested mark copied from each last child of the descendants of the specified node.
 function getNestedMark(node: Nodes, tagName?: string): Nodes | null {

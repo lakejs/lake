@@ -1,20 +1,7 @@
 import { TwoParts, ThreeParts } from '../types/object';
-import { splitNodes } from '../utils';
+import { splitNodes, removeEmptyMarks } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
-
-// Removes empty marks that contain no content.
-function removeEmptyMarks(node: Nodes): void {
-  if (node.isMark && node.isEmpty) {
-    node.remove();
-    return;
-  }
-  for (const child of node.getWalker()) {
-    if (child.isMark && child.isEmpty) {
-      child.remove();
-    }
-  }
-}
 
 // Splits text nodes or mark nodes at a specified position.
 function splitMarksAtPoint(node: Nodes, offset: number, removeEmptyMark: boolean): TwoParts {
