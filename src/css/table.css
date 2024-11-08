@@ -3,7 +3,6 @@
   border-collapse: collapse;
   border: 0;
   margin: 20px 0;
-  overflow-x: auto;
 }
 .lake-container table td {
   padding: 8px 16px;
