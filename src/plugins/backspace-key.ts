@@ -4,7 +4,7 @@ import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
 
-function removeEmptyMarks(range: Range): void {
+function emptyBlock(range: Range): void {
   const block = range.getBlocks()[0];
   if (block && block.isEmpty && block.first().name !== 'br') {
     block.empty();
@@ -44,7 +44,7 @@ function mergeWithPreviousBlock(editor: Editor, block: Nodes): void {
     prevBlock.remove();
     return;
   }
-  removeEmptyMarks(range);
+  emptyBlock(range);
   const nextNode = range.getNextNode();
   if (nextNode.name === 'br' && prevBlock.name !== 'p') {
     nextNode.remove();

@@ -57,13 +57,47 @@ describe('operations / split-block', () => {
     );
   });
 
-  it('collapsed range: splits a block with a mark', () => {
+  it('collapsed range: splits a block with a mark (1)', () => {
     const content = `
     <p><strong>one<focus />two</strong></p>
     `;
     const output = `
     <p><strong>one</strong></p>
     <p><strong><focus />two</strong></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        splitBlock(range);
+      },
+    );
+  });
+
+  it('collapsed range: splits a block with a mark (2)', () => {
+    const content = `
+    <p><strong><focus />foo</strong></p>
+    `;
+    const output = `
+    <p><br /></p>
+    <p><strong><focus />foo</strong></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        splitBlock(range);
+      },
+    );
+  });
+
+  it('collapsed range: splits a block with a mark (3)', () => {
+    const content = `
+    <p><strong>foo<focus /></strong></p>
+    `;
+    const output = `
+    <p><strong>foo</strong></p>
+    <p><focus /><br /></p>
     `;
     testOperation(
       content,

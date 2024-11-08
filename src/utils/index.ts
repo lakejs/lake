@@ -24,6 +24,7 @@ export * from './merge-nodes';
 export * from './wrap-node-list';
 export * from './get-deep-element';
 export * from './remove-zws';
+export * from './remove-empty-marks';
 export * from './change-tag-name';
 export * from './fix-numbered-list';
 export * from './append-break';

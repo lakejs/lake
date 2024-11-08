@@ -1,5 +1,5 @@
 import { TwoParts } from '../types/object';
-import { splitNodes, appendBreak } from '../utils';
+import { splitNodes, appendBreak, removeEmptyMarks } from '../utils';
 import { Range } from '../models/range';
 import { fixList } from './fix-list';
 import { deleteContents } from './delete-contents';
@@ -50,10 +50,12 @@ export function splitBlock(range: Range): TwoParts {
     }
   }
   if (start && start.isEmpty) {
+    removeEmptyMarks(start);
     appendBreak(start);
   }
   if (end) {
     if (end.isEmpty) {
+      removeEmptyMarks(end);
       appendBreak(end);
     }
     range.shrinkBefore(end);
