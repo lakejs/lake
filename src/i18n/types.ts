@@ -158,6 +158,10 @@ type RootTranslation = {
 		 */
 		list: string
 		/**
+		 * T​a​b​l​e
+		 */
+		table: string
+		/**
 		 * A​l​i​g​n​m​e​n​t
 		 */
 		align: string
@@ -501,7 +505,7 @@ type RootTranslation = {
 		 */
 		help: string
 		/**
-		 * T​y​p​e​ ​a​ ​T​e​X​ ​e​x​p​r​e​s​s​i​o​n
+		 * T​y​p​e​ ​a​ ​T​e​X​ ​e​x​p​r​e​s​s​i​o​n​.​.​.
 		 */
 		placeholder: string
 	}
@@ -649,6 +653,10 @@ export type TranslationFunctions = {
 		 * List
 		 */
 		list: () => LocalizedString
+		/**
+		 * Table
+		 */
+		table: () => LocalizedString
 		/**
 		 * Alignment
 		 */
@@ -992,7 +1000,7 @@ export type TranslationFunctions = {
 		 */
 		help: () => LocalizedString
 		/**
-		 * Type a TeX expression
+		 * Type a TeX expression...
 		 */
 		placeholder: () => LocalizedString
 	}

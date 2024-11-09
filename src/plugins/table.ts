@@ -2,7 +2,9 @@ import { type Editor } from '..';
 import { SelectionState } from '../types/object';
 import { ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
+import { safeTemplate } from '../utils';
 import { Nodes } from '../models/nodes';
+import { Fragment } from '../models/fragment';
 import { FloatingToolbar } from '../ui/floating-toolbar';
 
 function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[] {
@@ -47,6 +49,38 @@ export default (editor: Editor) => {
       toolbar.render();
       tableNode = null;
     }
+  });
+  editor.command.add('table', {
+    execute: () => {
+      const fragment = new Fragment();
+      fragment.append(safeTemplate`
+        <table>
+          <tr>
+            <td><br /></td>
+            <td><br /></td>
+          </tr>
+          <tr>
+            <td><br /></td>
+            <td><br /></td>
+          </tr>
+          <tr>
+            <td><br /></td>
+            <td><br /></td>
+          </tr>
+        </table>
+      `);
+      const parts = editor.selection.splitBlock();
+      if (parts.start) {
+        const range = editor.selection.range;
+        range.setEndAfter(parts.start);
+        range.collapseToEnd();
+      }
+      if (parts.end && parts.end.isEmpty) {
+        parts.end.remove();
+      }
+      editor.selection.insertFragment(fragment);
+      editor.history.save();
+    },
   });
   return () => {
     if (toolbar) {

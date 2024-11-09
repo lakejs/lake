@@ -38,6 +38,7 @@ export default {
     heading5: '제목 5',
     heading6: '제목 6',
     list: '목록',
+    table: '표',
     align: '정렬',
     indent: '들여쓰기',
     fontFamily: '글꼴',

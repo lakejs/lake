@@ -38,6 +38,7 @@ export default {
     heading5: '标题 5',
     heading6: '标题 6',
     list: '列表',
+    table: '表格',
     align: '对齐方式',
     indent: '缩进',
     fontFamily: '字体',

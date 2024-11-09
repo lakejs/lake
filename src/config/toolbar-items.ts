@@ -309,6 +309,15 @@ export const toolbarItems: ToolbarItem[] = [
     },
   },
   {
+    name: 'table',
+    type: 'button',
+    icon: icons.get('table'),
+    tooltip: locale => locale.toolbar.table(),
+    onClick: (editor, value) => {
+      editor.command.execute(value);
+    },
+  },
+  {
     name: 'align',
     type: 'dropdown',
     downIcon: icons.get('down'),

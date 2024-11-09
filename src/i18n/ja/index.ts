@@ -38,6 +38,7 @@ export default {
     heading5: '見出し 5',
     heading6: '見出し 6',
     list: 'リスト',
+    table: 'テーブル',
     align: '整列',
     indent: 'インデント',
     fontFamily: 'フォント',

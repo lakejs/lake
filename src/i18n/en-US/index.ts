@@ -38,6 +38,7 @@ export default {
     heading5: 'Heading 5',
     heading6: 'Heading 6',
     list: 'List',
+    table: 'Table',
     align: 'Alignment',
     indent: 'Indent',
     fontFamily: 'Font family',
