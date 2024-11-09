@@ -1,6 +1,6 @@
 import { BoxComponent } from '../types/box';
 import { query } from '../utils/query';
-import { safeTemplate } from '../utils/safe-template';
+import { template } from '../utils/template';
 
 export default {
   type: 'inline',
@@ -11,7 +11,7 @@ export default {
     const value = box.value;
     const url = getProfileUrl ? getProfileUrl(value) : '#';
     const boxContainer = box.getContainer();
-    const rootNode = query(safeTemplate`
+    const rootNode = query(template`
       <div class="lake-mention"><a href="${url}">@${value.nickname ?? value.name}</a></div>
     `);
     boxContainer.empty();

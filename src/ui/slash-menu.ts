@@ -1,7 +1,7 @@
 import { TranslationFunctions } from '../i18n/types';
 import { SlashItem } from '../types/slash';
 import { slashItems } from '../config/slash-items';
-import { safeTemplate } from '../utils/safe-template';
+import { template } from '../utils/template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { Menu, MenuConfig } from './menu';
@@ -55,7 +55,7 @@ export class SlashMenu extends Menu<string | SlashItem> {
     const item = this.getItem(name);
     const itemTitle = typeof item.title === 'string' ? item.title : item.title(this.locale);
     const itemDescription = typeof item.description === 'string' ? item.description : item.description(this.locale);
-    const itemNode = query(safeTemplate`
+    const itemNode = query(template`
       <li name="${item.name}">
         <div class="lake-slash-icon"></div>
         <div class="lake-slash-text">

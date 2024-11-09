@@ -1,4 +1,4 @@
-import { safeTemplate } from '../utils/safe-template';
+import { template } from '../utils/template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 
@@ -24,7 +24,7 @@ export class Button {
   constructor(config: ButtonConfig) {
     this.config = config;
     this.root = config.root;
-    this.node = query(safeTemplate`
+    this.node = query(template`
       <button type="button" name="${config.name}" class="lake-button" />
     `);
     if (config.type) {

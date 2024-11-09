@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { safeTemplate } from '../utils';
+import { template } from '../utils';
 
 const typeList = [
   'info',
@@ -16,7 +16,7 @@ export default (editor: Editor) => {
     isSelected: appliedItems => !!appliedItems.find(item => item.name === 'blockquote'),
     execute: (type?: string) => {
       if (type && typeList.indexOf(type) >= 0) {
-        editor.selection.setBlocks(safeTemplate`<blockquote type="${type}" />`);
+        editor.selection.setBlocks(template`<blockquote type="${type}" />`);
       } else {
         editor.selection.setBlocks('<blockquote />');
       }

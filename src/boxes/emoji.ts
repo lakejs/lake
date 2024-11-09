@@ -1,6 +1,6 @@
 import { BoxComponent } from '../types/box';
 import { query } from '../utils/query';
-import { safeTemplate } from '../utils/safe-template';
+import { template } from '../utils/template';
 
 export default {
   type: 'inline',
@@ -9,7 +9,7 @@ export default {
     const editor = box.getEditor();
     const value = box.value;
     const boxContainer = box.getContainer();
-    const rootNode = query(safeTemplate`
+    const rootNode = query(template`
       <div class="lake-emoji"><img src="${value.url}" title="${value.title}" /></div>
     `);
     boxContainer.empty();

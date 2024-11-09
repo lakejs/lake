@@ -1,6 +1,6 @@
 import { BoxComponent, Utils } from '../../../src';
 
-const { query, safeTemplate } = Utils;
+const { query, template } = Utils;
 
 export default {
   type: 'block',
@@ -12,7 +12,7 @@ export default {
     const editor = box.getEditor();
     const value = box.value;
     const boxContainer = box.getContainer();
-    const rootNode = query(safeTemplate`
+    const rootNode = query(template`
       <div class="lake-hello-world">
         <div>Hello World!</div>
         <div>

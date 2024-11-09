@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { query, getBox, safeTemplate } from '../utils';
+import { query, getBox, template } from '../utils';
 import { Nodes } from '../models/nodes';
 
 export default (editor: Editor) => {
@@ -33,7 +33,7 @@ export default (editor: Editor) => {
     }
     draggedNode = boxNode;
     // prepare an indication rod
-    dropIndication = query(safeTemplate`
+    dropIndication = query(template`
     <div class="lake-drop-indication">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" viewBox="0 0 256 256">
         <path d="M181.66,133.66l-80,80A8,8,0,0,1,88,208V48a8,8,0,0,1,13.66-5.66l80,80A8,8,0,0,1,181.66,133.66Z"></path>

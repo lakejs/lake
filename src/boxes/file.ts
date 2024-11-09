@@ -2,7 +2,7 @@ import { BoxComponent } from '../types/box';
 import { ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
 import { query } from '../utils/query';
-import { safeTemplate } from '../utils/safe-template';
+import { template } from '../utils/template';
 import { fileSize } from '../utils/file-size';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
@@ -37,7 +37,7 @@ function setFloatingToolbar(box: Box): void {
 
 async function appendContent(rootNode: Nodes, box: Box): Promise<void> {
   const value = box.value;
-  const infoNode = query(safeTemplate`
+  const infoNode = query(template`
     <div class="lake-file-info">
       <div class="lake-file-type"></div>
       <div class="lake-file-name">${value.name} (${fileSize(value.size)})</div>
@@ -46,7 +46,7 @@ async function appendContent(rootNode: Nodes, box: Box): Promise<void> {
   const typeNode = infoNode.find('.lake-file-type');
   if (value.status === 'uploading') {
     const percent = Math.round(value.percent || 0);
-    const progressNode = query(safeTemplate`
+    const progressNode = query(template`
       <div class="lake-progress">
         <div class="lake-percent">${percent} %</div>
       </div>

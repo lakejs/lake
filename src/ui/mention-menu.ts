@@ -1,5 +1,5 @@
 import { MentionItem } from '../types/mention';
-import { safeTemplate } from '../utils/safe-template';
+import { template } from '../utils/template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { Menu, MenuConfig } from './menu';
@@ -24,7 +24,7 @@ export class MentionMenu extends Menu<MentionItem> {
   }
 
   protected getItemNode(item: MentionItem): Nodes {
-    const itemNode = query(safeTemplate`
+    const itemNode = query(template`
       <li>
         <div class="lake-mention-avatar"></div>
         <div class="lake-mention-nickname">${item.nickname ?? item.name}</div>

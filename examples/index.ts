@@ -12,7 +12,7 @@ import helloWorld from './plugins/hello-world';
 
 Editor.plugin.add('helloWorld', helloWorld);
 
-const { query, safeTemplate } = Utils;
+const { query, template } = Utils;
 
 declare global {
   interface Window {
@@ -157,7 +157,7 @@ function renderHeader(pageType: string): void {
   const ul = query('<ul />');
   menuNode.append(ul);
   for (const item of menuItems) {
-    ul.append(safeTemplate`<li><a href="${item.url}">${item.text}</a></li>`);
+    ul.append(template`<li><a href="${item.url}">${item.text}</a></li>`);
   }
   let timeoutId: number | null = null;
   const showMenuListener = () => {

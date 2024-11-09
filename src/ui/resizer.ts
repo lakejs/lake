@@ -1,5 +1,5 @@
 import { query } from '../utils/query';
-import { safeTemplate } from '../utils/safe-template';
+import { template } from '../utils/template';
 import { Nodes } from '../models/nodes';
 
 type ResizerConfig = {
@@ -23,7 +23,7 @@ export class Resizer {
     this.config = config;
     this.root = config.root;
     this.target = config.target;
-    this.container = query(safeTemplate`
+    this.container = query(template`
       <div class="lake-resizer">
         <div class="lake-resizer-top-left"></div>
         <div class="lake-resizer-top-right"></div>

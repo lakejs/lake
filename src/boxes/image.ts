@@ -8,7 +8,7 @@ import { ToolbarItem } from '../types/toolbar';
 import { CornerToolbarItem } from '../types/corner-toolbar';
 import { icons } from '../icons';
 import { query } from '../utils/query';
-import { safeTemplate } from '../utils/safe-template';
+import { template } from '../utils/template';
 import { getBox } from '../utils/get-box';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
@@ -360,7 +360,7 @@ async function renderError(box: Box): Promise<void> {
     width: '',
     height: '',
   });
-  const errorNode = query(safeTemplate`
+  const errorNode = query(template`
     <div class="lake-error">
       <div class="lake-error-icon"></div>
       <div class="lake-error-name">${value.name || ''}</div>
@@ -420,7 +420,7 @@ async function renderUploading(box: Box): Promise<void> {
     height: `${height}px`,
   });
   const percent = Math.round(value.percent || 0);
-  const progressNode = query(safeTemplate`
+  const progressNode = query(template`
     <div class="lake-progress">
       <div class="lake-percent">${percent} %</div>
     </div>
@@ -608,6 +608,6 @@ export default {
   },
   html: box => {
     const rawValue = box.node.attr('value');
-    return safeTemplate`<img src="${box.value.url}" data-lake-value="${rawValue}" />`;
+    return template`<img src="${box.value.url}" data-lake-value="${rawValue}" />`;
   },
 } as BoxComponent;

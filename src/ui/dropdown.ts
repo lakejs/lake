@@ -7,8 +7,8 @@ import { icons } from '../icons';
 import { encode } from '../utils/encode';
 import { toBase64 } from '../utils/to-base64';
 import { fromBase64 } from '../utils/from-base64';
+import { unsafeTemplate } from '../utils/unsafe-template';
 import { template } from '../utils/template';
-import { safeTemplate } from '../utils/safe-template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { i18nObject } from '../i18n';
@@ -44,7 +44,7 @@ export class Dropdown {
     this.locale = config.locale || i18nObject('en-US');
     this.location = config.location || 'local';
     this.direction = config.direction || 'auto';
-    this.node = query(safeTemplate`
+    this.node = query(template`
       <div class="lake-dropdown lake-${config.menuType}-dropdown" name="${config.name}">
         <button type="button" name="${config.name}" class="lake-dropdown-title">
           <div class="lake-dropdown-${config.icon ? 'icon' : 'text'}"></div>
@@ -98,7 +98,7 @@ export class Dropdown {
     const config = this.config;
     for (const menuItem of config.menuItems) {
       const menuText = typeof menuItem.text === 'string' ? menuItem.text : menuItem.text(this.locale);
-      const listContent = template`
+      const listContent = unsafeTemplate`
         <li value="${encode(menuItem.value)}">
           <div class="lake-dropdown-menu-text">${menuText}</div>
         </li>

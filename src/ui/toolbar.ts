@@ -2,7 +2,7 @@ import type { Editor } from '../editor';
 import { SelectionState } from '../types/object';
 import { ToolbarButtonItem, ToolbarDropdownItem, ToolbarUploadItem, ToolbarItem } from '../types/toolbar';
 import { toolbarItems } from '../config/toolbar-items';
-import { safeTemplate } from '../utils/safe-template';
+import { template } from '../utils/template';
 import { query } from '../utils/query';
 import { uploadFile } from '../utils/upload-file';
 import { Nodes } from '../models/nodes';
@@ -120,7 +120,7 @@ export class Toolbar {
   }
 
   private appendUploadButton(editor: Editor, item: ToolbarUploadItem): void {
-    const uploadNode = query(safeTemplate`
+    const uploadNode = query(template`
       <div class="lake-upload" name="${item.name}">
         <input type="file" />
       </div>

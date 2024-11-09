@@ -1,6 +1,6 @@
 import { TranslationFunctions } from '../i18n/types';
 import { CornerToolbarItem } from '../types/corner-toolbar';
-import { safeTemplate } from '../utils/safe-template';
+import { template } from '../utils/template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { i18nObject } from '../i18n';
@@ -29,7 +29,7 @@ export class CornerToolbar {
   }
 
   private appendButton(item: CornerToolbarItem): void {
-    const buttonNode = query(safeTemplate`
+    const buttonNode = query(template`
       <button type="button" name="${item.name}" tabindex="-1" />
     `);
     const tooltip = typeof item.tooltip === 'string' ? item.tooltip : item.tooltip(this.locale);

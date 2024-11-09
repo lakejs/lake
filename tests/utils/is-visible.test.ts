@@ -1,10 +1,10 @@
 import { Range } from '../../src/models/range';
-import { isVisible, query, safeTemplate } from '../../src/utils';
+import { isVisible, query, template } from '../../src/utils';
 
 describe('utils / is-visible', () => {
 
   it('the node is visible', () => {
-    const rootNode = query(safeTemplate`
+    const rootNode = query(template`
     <div class="lake-root" style="height: 100px; overflow: auto;">
       <div class="lake-container-wrapper">
         <div class="lake-container" contenteditable="true">
@@ -27,7 +27,7 @@ describe('utils / is-visible', () => {
   });
 
   it('the range is visible', () => {
-    const rootNode = query(safeTemplate`
+    const rootNode = query(template`
     <div class="lake-root" style="height: 100px; overflow: auto;">
       <div class="lake-container-wrapper">
         <div class="lake-container" contenteditable="true">
@@ -52,7 +52,7 @@ describe('utils / is-visible', () => {
   });
 
   it('the top of the node is not visible', () => {
-    const rootNode = query(safeTemplate`
+    const rootNode = query(template`
     <div class="lake-root" style="height: 100px; overflow: auto;">
       <div class="lake-container-wrapper">
         <div class="lake-container" contenteditable="true">
@@ -76,7 +76,7 @@ describe('utils / is-visible', () => {
   });
 
   it('the top of the range is not visible', () => {
-    const rootNode = query(safeTemplate`
+    const rootNode = query(template`
     <div class="lake-root" style="height: 100px; overflow: auto;">
       <div class="lake-container-wrapper">
         <div class="lake-container" contenteditable="true">
@@ -102,7 +102,7 @@ describe('utils / is-visible', () => {
   });
 
   it('the bottom of the node is not visible', () => {
-    const rootNode = query(safeTemplate`
+    const rootNode = query(template`
     <div class="lake-root" style="height: 100px; overflow: auto;">
       <div class="lake-container-wrapper">
         <div class="lake-container" contenteditable="true">
@@ -125,7 +125,7 @@ describe('utils / is-visible', () => {
   });
 
   it('the bottom of the range is not visible', () => {
-    const rootNode = query(safeTemplate`
+    const rootNode = query(template`
     <div class="lake-root" style="height: 100px; overflow: auto;">
       <div class="lake-container-wrapper">
         <div class="lake-container" contenteditable="true">
@@ -150,7 +150,7 @@ describe('utils / is-visible', () => {
   });
 
   it('the left of the node is not visible', () => {
-    const rootNode = query(safeTemplate`
+    const rootNode = query(template`
     <div class="lake-root" style="width: 200px; height: 100px; overflow: auto;">
       <div class="lake-container-wrapper">
         <div class="lake-container" contenteditable="true">
@@ -174,7 +174,7 @@ describe('utils / is-visible', () => {
   });
 
   it('the left of the range is not visible', () => {
-    const rootNode = query(safeTemplate`
+    const rootNode = query(template`
     <div class="lake-root" style="width: 200px; height: 100px; overflow: auto;">
       <div class="lake-container-wrapper">
         <div class="lake-container" contenteditable="true">
@@ -200,7 +200,7 @@ describe('utils / is-visible', () => {
   });
 
   it('the right of the node is not visible', () => {
-    const rootNode = query(safeTemplate`
+    const rootNode = query(template`
     <div class="lake-root" style="width: 200px; height: 100px; overflow: auto;">
       <div class="lake-container-wrapper">
         <div class="lake-container" contenteditable="true">
@@ -223,7 +223,7 @@ describe('utils / is-visible', () => {
   });
 
   it('the right of the range is not visible', () => {
-    const rootNode = query(safeTemplate`
+    const rootNode = query(template`
     <div class="lake-root" style="width: 200px; height: 100px; overflow: auto;">
       <div class="lake-container-wrapper">
         <div class="lake-container" contenteditable="true">

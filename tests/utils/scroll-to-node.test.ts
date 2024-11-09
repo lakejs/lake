@@ -1,9 +1,9 @@
-import { scrollToNode, isVisible, query, safeTemplate } from '../../src/utils';
+import { scrollToNode, isVisible, query, template } from '../../src/utils';
 
 describe('utils / scroll-to-node', () => {
 
   it('should scroll to the node', () => {
-    const rootNode = query(safeTemplate`
+    const rootNode = query(template`
     <div class="lake-root" style="height: 100px; overflow: auto;">
       <div class="lake-container-wrapper">
         <div class="lake-container" contenteditable="true">

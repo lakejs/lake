@@ -1,4 +1,4 @@
-import { query, safeTemplate } from '../../src/utils';
+import { query, template } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { HTMLParser } from '../../src/parsers/html-parser';
 
@@ -128,7 +128,7 @@ describe('parsers / html-parser', () => {
   });
 
   it('getHTML method: should keep table attributes', () => {
-    const input = safeTemplate`
+    const input = template`
     <table style="width: 100%; border-width: 1px; border-color: red; border-style: solid; background-color: #eee;">
       <thead>
         <tr style="height: 20px;">
@@ -151,7 +151,7 @@ describe('parsers / html-parser', () => {
       </tbody>
     </table>
     `;
-    const output = safeTemplate`
+    const output = template`
     <table style="width: 100%; border-width: 1px; border-color: red; border-style: solid; background-color: #eee;">
       <tr style="height: 20px;">
         <td style="border-color: blue; height: 25px;">a</td>

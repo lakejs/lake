@@ -1,9 +1,13 @@
-// Is a tag function for removing whitespace or line terminator character.
+import { encode } from './encode';
+
+// The template function is a tag function for converting all of the reserved characters in the specified string to HTML entities.
 export function template(strings: TemplateStringsArray, ...keys: any[]): string {
   let content = strings[0];
   for (let i = 0; i < keys.length; i++) {
     const key = String(keys[i]);
-    content += key;
+    // Escape special characters in the substitution.
+    content += encode(key);
+    // Don't escape special characters in the template.
     content += strings[i + 1];
   }
   content = content.

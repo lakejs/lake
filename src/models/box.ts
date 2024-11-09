@@ -5,7 +5,7 @@ import { ToolbarItem } from '../types/toolbar';
 import { boxes } from '../storage/boxes';
 import { editors } from '../storage/editors';
 import { debug } from '../utils/debug';
-import { safeTemplate } from '../utils/safe-template';
+import { template } from '../utils/template';
 import { encode } from '../utils/encode';
 import { toBase64 } from '../utils/to-base64';
 import { fromBase64 } from '../utils/from-base64';
@@ -30,7 +30,7 @@ export class Box {
       }
       const type = encode(component.type);
       const name = encode(component.name);
-      this.node = query(safeTemplate`<lake-box type="${type}" name="${name}"></lake-box>`);
+      this.node = query(template`<lake-box type="${type}" name="${name}"></lake-box>`);
       if (component.value) {
         this.value = component.value;
       }
@@ -49,7 +49,7 @@ export class Box {
   private initiate(): void {
     let container = this.getContainer();
     if (container.length === 0) {
-      this.node.html(safeTemplate`
+      this.node.html(template`
         <span class="lake-box-strip"><br /></span>
         <div class="lake-box-container" contenteditable="false"></div>
         <span class="lake-box-strip"><br /></span>

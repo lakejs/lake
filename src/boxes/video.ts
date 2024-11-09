@@ -2,7 +2,7 @@ import { isKeyHotkey } from 'is-hotkey';
 import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
 import { query } from '../utils/query';
-import { safeTemplate } from '../utils/safe-template';
+import { template } from '../utils/template';
 import { Box } from '../models/box';
 import { Button } from '../ui/button';
 import { CornerToolbar } from '../ui/corner-toolbar';
@@ -54,7 +54,7 @@ function showVideo(box: Box): void {
   // <iframe width="560" height="315" src="https://www.youtube.com/embed/5sMBhDv4sik" title="YouTube video player"
   // frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
   // referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-  const iframeNode = query(safeTemplate`
+  const iframeNode = query(template`
     <iframe width="100%" height="${height}" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player"
       frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -120,7 +120,7 @@ export default {
         box.node.hide();
         return;
       }
-      const formNode = query(safeTemplate`
+      const formNode = query(template`
         <div class="lake-video-form">
           <div class="lake-row lake-desc-row">${locale.video.description()}</div>
           <div class="lake-row">${locale.video.url()}</div>

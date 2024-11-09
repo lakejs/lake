@@ -1,4 +1,4 @@
-import { query, safeTemplate } from '../../src/utils';
+import { query, template } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 
 describe('models / nodes', () => {
@@ -323,7 +323,7 @@ describe('models / nodes', () => {
   });
 
   it('method: closestOperableBlock', () => {
-    const container = query(safeTemplate`
+    const container = query(template`
     <div contenteditable="true">
       <ul><li>foo</li></ul>
       <p>bar</p>

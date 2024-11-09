@@ -1,7 +1,7 @@
 import { isKeyHotkey } from 'is-hotkey';
 import { TranslationFunctions } from '../i18n/types';
 import { icons } from '../icons';
-import { safeTemplate } from '../utils/safe-template';
+import { template } from '../utils/template';
 import { query } from '../utils/query';
 import { isVisible } from '../utils/is-visible';
 import { Nodes } from '../models/nodes';
@@ -31,7 +31,7 @@ export class LinkPopup {
   constructor(config?: LinkPopupConfig) {
     this.config = config || {};
     this.locale = this.config.locale || i18nObject('en-US');
-    this.container = query(safeTemplate`
+    this.container = query(template`
       <div class="lake-popup lake-link-popup">
         <div class="lake-row">${this.locale.link.url()}</div>
         <div class="lake-row lake-url-row">

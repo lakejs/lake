@@ -1,6 +1,6 @@
 import { boxes } from '../../src/storage/boxes';
 import { createContainer } from '../utils';
-import { query, getBox, safeTemplate } from '../../src/utils';
+import { query, getBox, template } from '../../src/utils';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
 
@@ -141,7 +141,7 @@ describe('models / range', () => {
   });
 
   it('property: isInoperative', () => {
-    container.html(safeTemplate`
+    container.html(template`
     <table>
       <tr>
         <td>foo</td>

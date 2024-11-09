@@ -1,7 +1,7 @@
 import { BoxComponent } from '../types/box';
 import { icons } from '../icons';
 import { query } from '../utils/query';
-import { safeTemplate } from '../utils/safe-template';
+import { template } from '../utils/template';
 import { Box } from '../models/box';
 import { Button } from '../ui/button';
 
@@ -50,7 +50,7 @@ export default {
     viewNode.on('click', () => {
       editor.selection.selectBox(box);
     });
-    const formNode = query(safeTemplate`
+    const formNode = query(template`
       <div class="lake-equation-form">
         <div class="lake-row">
           <textarea name="code" placeholder="${editor.locale.equation.placeholder()}"></textarea>

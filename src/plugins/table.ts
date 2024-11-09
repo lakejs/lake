@@ -2,7 +2,7 @@ import { type Editor } from '..';
 import { SelectionState } from '../types/object';
 import { ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
-import { safeTemplate } from '../utils';
+import { template } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Fragment } from '../models/fragment';
 import { FloatingToolbar } from '../ui/floating-toolbar';
@@ -53,7 +53,7 @@ export default (editor: Editor) => {
   editor.command.add('table', {
     execute: () => {
       const fragment = new Fragment();
-      fragment.append(safeTemplate`
+      fragment.append(template`
         <table>
           <tr>
             <td><br /></td>
