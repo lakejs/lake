@@ -9,6 +9,39 @@ import { FloatingToolbar } from '../ui/floating-toolbar';
 function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[] {
   const items: ToolbarItem[] = [
     {
+      name: 'resize',
+      type: 'dropdown',
+      downIcon: icons.get('down'),
+      icon: icons.get('resize'),
+      tooltip: 'Resize table',
+      menuType: 'list',
+      menuItems: [
+        { value: 'page', text: 'Page width' },
+        { value: 'fit', text: 'Fit content' },
+      ],
+      selectedValues: () => {
+        const width = tableNode.css('width');
+        const pageWidth = editor.container.innerWidth() - 2;
+        let currentValue = '';
+        if (width === `${pageWidth}px`) {
+          currentValue = 'page';
+        } else {
+          currentValue = 'fit';
+        }
+        return [currentValue];
+      },
+      onSelect: (_, value) => {
+        let newWidth: string;
+        if (value === 'page') {
+          newWidth = `${editor.container.innerWidth() - 2}px`;
+        } else {
+          newWidth = 'auto';
+        }
+        tableNode.css('width', newWidth);
+        editor.history.save();
+      },
+    },
+    {
       name: 'remove',
       type: 'button',
       icon: icons.get('remove'),
