@@ -37,7 +37,7 @@ function pushAncestralNodes(appliedItems: AppliedItem[], range: Range): void {
     parentNode = parentNode.parent();
   }
   while (parentNode.length > 0) {
-    if (!parentNode.isInside) {
+    if (!parentNode.isContentEditable || parentNode.isContainer) {
       break;
     }
     appliedItems.push({
