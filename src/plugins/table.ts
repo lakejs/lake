@@ -1,8 +1,7 @@
 import { type Editor } from '..';
-import { SelectionState } from '../types/object';
 import { ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
-import { template } from '../utils';
+import { query, template } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Fragment } from '../models/fragment';
 import { FloatingToolbar } from '../ui/floating-toolbar';
@@ -28,32 +27,26 @@ export default (editor: Editor) => {
     return;
   }
   let toolbar: FloatingToolbar | null = null;
-  editor.event.on('statechange', (state: SelectionState) => {
-    const { appliedItems } = state;
-    let tableNode: Nodes | null = null;
-    for (const item of appliedItems) {
-      if (item.node.name === 'table') {
-        tableNode = item.node;
-        break;
-      }
-    }
+  editor.event.on('statechange', () => {
+    const range = editor.selection.range;
+    const tableNode = range.commonAncestor.closest('table');
     if (toolbar) {
       toolbar.unmount();
     }
-    if (tableNode) {
+    if (tableNode.length > 0) {
       const items = getFloatingToolbarItems(editor, tableNode);
       toolbar = new FloatingToolbar({
         target: tableNode,
         items,
       });
       toolbar.render();
-      tableNode = null;
     }
   });
   editor.command.add('table', {
     execute: () => {
+      const range = editor.selection.range;
       const fragment = new Fragment();
-      fragment.append(template`
+      const tableNode = query(template`
         <table>
           <tr>
             <td><br /></td>
@@ -69,9 +62,9 @@ export default (editor: Editor) => {
           </tr>
         </table>
       `);
+      fragment.append(tableNode);
       const parts = editor.selection.splitBlock();
       if (parts.start) {
-        const range = editor.selection.range;
         range.setEndAfter(parts.start);
         range.collapseToEnd();
       }
@@ -79,6 +72,7 @@ export default (editor: Editor) => {
         parts.end.remove();
       }
       editor.selection.insertFragment(fragment);
+      range.shrinkBefore(tableNode);
       editor.history.save();
     },
   });
