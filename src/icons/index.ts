@@ -32,6 +32,7 @@ import remove from './remove.svg';
 import maximize from './maximize.svg';
 import close from './close.svg';
 import resize from './resize.svg';
+import expand from './expand.svg';
 import circleNotch from './circle-notch.svg';
 // toolbar
 import selectAll from './select-all.svg';
@@ -113,6 +114,7 @@ export const icons: Map<string, string> = new Map([
   ['maximize', maximize],
   ['close', close],
   ['resize', resize],
+  ['expand', expand],
   ['circleNotch', circleNotch],
   // toolbar
   ['selectAll', selectAll],
