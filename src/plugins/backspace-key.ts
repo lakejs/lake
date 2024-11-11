@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { getBox, appendBreak, mergeNodes, setBlockIndent } from '../utils';
+import { query, getBox, appendBreak, mergeNodes, setBlockIndent } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
@@ -124,6 +124,17 @@ export default (editor: Editor) => {
       }
       editor.history.save();
       return;
+    }
+    if (range.isCollapsed) {
+      const prevNode = range.getPrevNode();
+      if (prevNode.name === 'table') {
+        event.preventDefault();
+        const newBlock = query('<p><br /></p>');
+        prevNode.replaceWith(newBlock);
+        range.shrinkBefore(newBlock);
+        editor.history.save();
+        return;
+      }
     }
     range.adjust();
     const prevNode = range.getPrevNode();

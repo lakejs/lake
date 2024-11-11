@@ -530,6 +530,29 @@ describe('plugins / backspace-key', () => {
     );
   });
 
+  it('table: should delete a table when the cursor is positioned after it', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>foo</td>
+      </tr>
+    </table>
+    <focus />
+    <h1>bar</h1>
+    `;
+    const output = `
+    <p><focus /><br /></p>
+    <h1>bar</h1>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
   it('table: empty content', () => {
     const content = `
     <table>
