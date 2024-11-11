@@ -352,6 +352,62 @@ describe('plugins / enter-key', () => {
     );
   });
 
+  it('table: should insert a block when the cursor is positioned before the table', () => {
+    const content = `
+    <h1>foo</h1>
+    <focus />
+    <table>
+      <tr>
+        <td>bar</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <h1>foo</h1>
+    <p><focus /><br /></p>
+    <table>
+      <tr>
+        <td>bar</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
+  it('table: should insert a block when the cursor is positioned after the table', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>foo</td>
+      </tr>
+    </table>
+    <focus />
+    <h1>bar</h1>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>foo</td>
+      </tr>
+    </table>
+    <p><focus /><br /></p>
+    <h1>bar</h1>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('enter');
+      },
+    );
+  });
+
   it('box: the focus is at the beginning of block box', () => {
     const content = `
     <lake-box type="block" name="hr" focus="start"></lake-box>

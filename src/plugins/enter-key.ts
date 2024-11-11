@@ -1,6 +1,7 @@
-import type { Editor } from '..';
+import { type Editor } from '..';
 import { query } from '../utils';
 import { Nodes } from '../models/nodes';
+import { Fragment } from '../models/fragment';
 
 function splitBlock(editor: Editor, block: Nodes): void {
   const range = editor.selection.range;
@@ -63,6 +64,19 @@ export default (editor: Editor) => {
       addOrSplitBlockForBox(editor);
       editor.history.save();
       return;
+    }
+    if (range.isCollapsed) {
+      const prevNode = range.getPrevNode();
+      const nextNode = range.getNextNode();
+      if (prevNode.isTable || nextNode.isTable) {
+        const fragment = new Fragment();
+        const newBlock = query('<p><br /></p>');
+        fragment.append(newBlock);
+        editor.selection.insertFragment(fragment);
+        range.shrinkBefore(newBlock);
+        editor.history.save();
+        return;
+      }
     }
     range.adjust();
     if (range.isInoperative) {
