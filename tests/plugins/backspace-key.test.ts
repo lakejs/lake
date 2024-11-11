@@ -530,6 +530,24 @@ describe('plugins / backspace-key', () => {
     );
   });
 
+  it('table: empty content', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><p><focus /><br /></p></td>
+      </tr>
+    </table>
+    `;
+    const output = content;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
   it('should move cursor into a box in the previous paragraph', () => {
     const content = `
     <lake-box type="block" name="hr"></lake-box>

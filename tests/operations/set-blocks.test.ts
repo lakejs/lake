@@ -42,7 +42,7 @@ describe('operations / set-blocks', () => {
     );
   });
 
-  it('after select the contents of a block', () => {
+  it('after selecting the content of a block', () => {
     const content = `
     <p>outer start</p>
     <p><anchor />foo<strong>bold</strong><focus /></p>
@@ -62,7 +62,7 @@ describe('operations / set-blocks', () => {
     );
   });
 
-  it('adds styles by passing through a string value', () => {
+  it('should add styles by passing through a string value', () => {
     const content = `
     <p>outer start</p>
     <p>f<anchor />oo<strong>bold</strong></p>
@@ -84,7 +84,7 @@ describe('operations / set-blocks', () => {
     );
   });
 
-  it('adds styles by passing through an object value', () => {
+  it('should add styles by passing through an object value', () => {
     const content = `
     <p>outer start</p>
     <p>f<anchor />oo<strong>bold</strong></p>
@@ -108,7 +108,7 @@ describe('operations / set-blocks', () => {
     );
   });
 
-  it('sets multiple blocks', () => {
+  it('should set multiple blocks', () => {
     const content = `
     <p>outer start</p>
     <p>f<anchor />oo<strong>bold</strong></p>
@@ -132,7 +132,39 @@ describe('operations / set-blocks', () => {
     );
   });
 
-  it('creates a new block when the selected contents are not in a block', () => {
+  it('should create a block when there is no content', () => {
+    const content = `
+    <focus />
+    `;
+    const output = `
+    <p><focus /><br /></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, '<p />');
+      },
+    );
+  });
+
+  it('should create a block when there is a br', () => {
+    const content = `
+    <focus /><br />
+    `;
+    const output = `
+    <p><focus /><br /></p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        setBlocks(range, '<p />');
+      },
+    );
+  });
+
+  it('should create a block when the selected content are not in a block', () => {
     const content = `
     foo<strong>bar<focus /></strong><lake-box type="inline" name="inlineBox"></lake-box>cat
     `;
@@ -148,7 +180,7 @@ describe('operations / set-blocks', () => {
     );
   });
 
-  it('creates a new block when there is only a text', () => {
+  it('should create a block when there is only a text', () => {
     const content = `
     foo<focus />bar
     `;
@@ -164,7 +196,7 @@ describe('operations / set-blocks', () => {
     );
   });
 
-  it('creates a new block among other blocks', () => {
+  it('should create a block among other blocks', () => {
     const content = `
     <p>outer start</p>
     foo<strong>bar<focus /></strong>end
@@ -184,7 +216,7 @@ describe('operations / set-blocks', () => {
     );
   });
 
-  it('creates a new block in the table', () => {
+  it('should create a block in the table', () => {
     const content = `
     <table>
       <tr>
@@ -210,7 +242,7 @@ describe('operations / set-blocks', () => {
     );
   });
 
-  it('sets a nested block when no text is selected', () => {
+  it('should set a nested block when no text is selected', () => {
     const content = `
     <p>outer start</p>
     <blockquote><p>foo<strong>bold</strong><focus /></p></blockquote>
@@ -230,7 +262,7 @@ describe('operations / set-blocks', () => {
     );
   });
 
-  it('sets blockquotes after select multi-block', () => {
+  it('should set blockquotes after selecting multiple blocks', () => {
     const content = `
     <p>outer start</p>
     <blockquote><p><anchor />foo1<strong>bold1</strong></p></blockquote>

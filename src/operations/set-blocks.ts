@@ -87,6 +87,22 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
     return;
   }
   // no block
+  if (range.isCollapsed) {
+    const nextNode = range.getNextNode();
+    if (nextNode.name === 'br') {
+      const newBlock = query('<p><br /></p>');
+      nextNode.replaceWith(newBlock);
+      range.shrinkBefore(newBlock);
+      return;
+    }
+    const prevNode = range.getPrevNode();
+    if (prevNode.name === 'br') {
+      const newBlock = query('<p><br /></p>');
+      prevNode.replaceWith(newBlock);
+      range.shrinkBefore(newBlock);
+      return;
+    }
+  }
   const bookmark = insertBookmark(range);
   const nonBlockNodes = getTopNonBlockNodes(range);
   const block = wrapNodeList(nonBlockNodes, valueNode);
