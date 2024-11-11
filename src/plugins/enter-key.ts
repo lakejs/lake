@@ -68,7 +68,7 @@ export default (editor: Editor) => {
     if (range.isCollapsed) {
       const prevNode = range.getPrevNode();
       const nextNode = range.getNextNode();
-      if (prevNode.isTable || nextNode.isTable) {
+      if (prevNode.name === 'table' || nextNode.name === 'table') {
         const fragment = new Fragment();
         const newBlock = query('<p><br /></p>');
         fragment.append(newBlock);
