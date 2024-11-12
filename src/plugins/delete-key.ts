@@ -19,6 +19,10 @@ function mergeWithNextBlock(editor: Editor, block: Nodes): void {
     editor.history.save();
     return;
   }
+  if (nextBlock.name === 'table') {
+    nextBlock.remove();
+    return;
+  }
   if (!nextBlock.isBlock) {
     const nextRange = new Range();
     nextRange.selectNodeContents(nextBlock);

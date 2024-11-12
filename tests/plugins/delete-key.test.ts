@@ -107,6 +107,27 @@ describe('plugins / delete-key', () => {
     );
   });
 
+  it('table: should delete next table when the cursor is positioned at the end of a paragraph', () => {
+    const content = `
+    <p>foo<focus /></p>
+    <table>
+      <tr>
+        <td>bar</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <p>foo<focus /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('delete');
+      },
+    );
+  });
+
   it('merges empty paragraphs', () => {
     const content = `
     <p><focus /><br /></p>
