@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { mergeNodes } from '../utils';
+import { query, mergeNodes } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
@@ -81,6 +81,17 @@ export default (editor: Editor) => {
       }
       editor.history.save();
       return;
+    }
+    if (range.isCollapsed) {
+      const nextNode = range.getNextNode();
+      if (nextNode.name === 'table') {
+        event.preventDefault();
+        const newBlock = query('<p><br /></p>');
+        nextNode.replaceWith(newBlock);
+        range.shrinkBefore(newBlock);
+        editor.history.save();
+        return;
+      }
     }
     range.adjust();
     const nextNode = range.getNextNode();

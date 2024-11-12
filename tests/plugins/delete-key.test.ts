@@ -84,6 +84,29 @@ describe('plugins / delete-key', () => {
     );
   });
 
+  it('should delete a table when the cursor is positioned before it', () => {
+    const content = `
+    <h1>foo</h1>
+    <focus />
+    <table>
+      <tr>
+        <td>bar</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <h1>foo</h1>
+    <p><focus /><br /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('delete');
+      },
+    );
+  });
+
   it('merges empty paragraphs', () => {
     const content = `
     <p><focus /><br /></p>
