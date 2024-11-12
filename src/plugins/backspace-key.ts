@@ -30,6 +30,10 @@ function mergeWithPreviousBlock(editor: Editor, block: Nodes): void {
     range.selectBoxEnd(prevBlock);
     return;
   }
+  if (prevBlock.name === 'table') {
+    prevBlock.remove();
+    return;
+  }
   if (prevBlock.name ===  'br') {
     prevBlock.remove();
     return;
