@@ -130,7 +130,7 @@ describe('managers / selection', () => {
     expect(rangeFromSelection.isBoxEnd).to.equal(true);
   });
 
-  it('getAppliedItems method: collapsed range', () => {
+  it('getAppliedItems method: should get all ancestors when range is collapsed', () => {
     const content = `
     <p><strong>one<i>tw<focus />o</i>three</strong></p>
     `;
@@ -144,7 +144,32 @@ describe('managers / selection', () => {
     expect(appliedItems[2].name).to.equal('p');
   });
 
-  it('getAppliedItems method: expanded range', () => {
+  it('getAppliedItems method: should get next mark when range is collapsed', () => {
+    const content = `
+    <p><focus /><strong>one<i>two</i>three</strong></p>
+    `;
+    const selection = new Selection(container);
+    container.html(normalizeValue(content.trim()));
+    selection.updateByBookmark();
+    const appliedItems = selection.getAppliedItems();
+    expect(appliedItems.length).to.equal(2);
+    expect(appliedItems[0].name).to.equal('p');
+    expect(appliedItems[1].name).to.equal('strong');
+  });
+
+  it('getAppliedItems method: should get next block when range is collapsed', () => {
+    const content = `
+    <p>foo</p><focus /><h1>bar</h1>
+    `;
+    const selection = new Selection(container);
+    container.html(normalizeValue(content.trim()));
+    selection.updateByBookmark();
+    const appliedItems = selection.getAppliedItems();
+    expect(appliedItems.length).to.equal(1);
+    expect(appliedItems[0].name).to.equal('h1');
+  });
+
+  it('getAppliedItems method: should get all ancestors when range is expanded', () => {
     const content = `
     <p><strong>one<i>tw<anchor />o</i>three</strong><focus /></p>
     `;
@@ -158,7 +183,7 @@ describe('managers / selection', () => {
     expect(appliedItems[2].name).to.equal('p');
   });
 
-  it('getAppliedItems method: gets attributes', () => {
+  it('getAppliedItems method: should get attributes', () => {
     const content = `
     <p><span style="color: red;" class="foo">one<i>tw<focus />o</i>three</strong></p>
     `;
