@@ -128,7 +128,7 @@ describe('plugins / delete-key', () => {
     );
   });
 
-  it('merges empty paragraphs', () => {
+  it('should merge empty paragraphs', () => {
     const content = `
     <p><focus /><br /></p>
     <p><br /></p>
@@ -145,7 +145,7 @@ describe('plugins / delete-key', () => {
     );
   });
 
-  it('merges paragraph into heading', () => {
+  it('should merge paragraph into heading', () => {
     const content = `
     <h1>foo<focus /></h1>
     <p>bar</p>
@@ -162,7 +162,7 @@ describe('plugins / delete-key', () => {
     );
   });
 
-  it('merges empty paragraph into heading', () => {
+  it('should merge empty paragraph into heading', () => {
     const content = `
     <h1>foo<focus /></h1>
     <p><br /></p>
@@ -302,7 +302,7 @@ describe('plugins / delete-key', () => {
     );
   });
 
-  it('becomes native behavior when cursor is in the box', () => {
+  it('should become native behavior when cursor is in the box', () => {
     const content = `
     <lake-box type="block" name="hr" focus="center"></lake-box>
     <p>foo</p>

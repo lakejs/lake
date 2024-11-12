@@ -748,7 +748,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('becomes native behavior when cursor is in the box', () => {
+  it('should become native behavior when cursor is in the box', () => {
     const content = `
     <p>foo</p>
     <lake-box type="block" name="hr" focus="center"></lake-box>
