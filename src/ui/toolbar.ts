@@ -1,5 +1,5 @@
 import type { Editor } from '../editor';
-import { SelectionState } from '../types/object';
+import { SelectionState } from '../types/selection';
 import { ToolbarButtonItem, ToolbarDropdownItem, ToolbarUploadItem, ToolbarItem } from '../types/toolbar';
 import { toolbarItems } from '../config/toolbar-items';
 import { template } from '../utils/template';

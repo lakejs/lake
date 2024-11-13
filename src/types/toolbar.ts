@@ -1,7 +1,7 @@
 import type { Editor } from '../editor';
 import { TranslationFunctions } from '../i18n/types';
 import { DropdownItem } from './dropdown';
-import { ActiveItem } from './object';
+import { ActiveItem } from './selection';
 
 export type ToolbarButtonItem = {
   name: string;

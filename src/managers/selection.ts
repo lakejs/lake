@@ -1,5 +1,6 @@
 import { NativeSelection } from '../types/native';
-import { KeyValue, ActiveItem } from '../types/object';
+import { KeyValue } from '../types/object';
+import { ActiveItem } from '../types/selection';
 import { parseStyle } from '../utils/parse-style';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';

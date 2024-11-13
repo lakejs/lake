@@ -1,4 +1,4 @@
-import { ActiveItem } from '../types/object';
+import { ActiveItem } from '../types/selection';
 import { debug } from '../utils/debug';
 import { Selection } from './selection';
 

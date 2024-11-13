@@ -2,7 +2,7 @@ import debounce from 'debounce';
 import isEqual from 'fast-deep-equal/es6';
 import EventEmitter from 'eventemitter3';
 import { version } from '../package.json';
-import { SelectionState } from './types/object';
+import { SelectionState } from './types/selection';
 import { UnmountPlugin } from './types/plugin';
 import { Locales, TranslationFunctions } from './i18n/types';
 import { getInstanceMap } from './storage/box-instances';
