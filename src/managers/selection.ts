@@ -19,19 +19,19 @@ import { insertLink } from '../operations/insert-link';
 import { insertBox } from '../operations/insert-box';
 import { removeBox } from '../operations/remove-box';
 
-// Returns the attributes of the element as an key-value object.
-function getAttributes(node: Nodes): KeyValue {
-  const nativeNode = node.get(0) as Element;
+// Returns a key-value object of all attributes of the specified element.
+function getAttributes(element: Nodes): KeyValue {
+  const nativeElement = element.get(0) as Element;
   const attributes: KeyValue = {};
-  if (nativeNode.hasAttributes()) {
-    for (const attr of nativeNode.attributes) {
+  if (nativeElement.hasAttributes()) {
+    for (const attr of nativeElement.attributes) {
       attributes[attr.name] = attr.value;
     }
   }
   return attributes;
 }
 
-function pushAncestralNodes(appliedItems: AppliedItem[], range: Range): void {
+function appendAncestralNodes(appliedItems: AppliedItem[], range: Range): void {
   let parentNode = range.startNode;
   if (parentNode.isText) {
     parentNode = parentNode.parent();
@@ -50,7 +50,7 @@ function pushAncestralNodes(appliedItems: AppliedItem[], range: Range): void {
   }
 }
 
-function pushNextNestedNodes(appliedItems: AppliedItem[], range: Range): void {
+function appendNextNestedNodes(appliedItems: AppliedItem[], range: Range): void {
   const startNode = range.startNode;
   let nextNode;
   if (startNode.isText && startNode.text().length === range.startOffset) {
@@ -165,8 +165,8 @@ export class Selection {
 
   public getAppliedItems(): AppliedItem[] {
     const appliedItems: AppliedItem[] = [];
-    pushAncestralNodes(appliedItems, this.range);
-    pushNextNestedNodes(appliedItems, this.range);
+    appendAncestralNodes(appliedItems, this.range);
+    appendNextNestedNodes(appliedItems, this.range);
     return appliedItems;
   }
 
