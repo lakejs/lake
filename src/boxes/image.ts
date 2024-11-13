@@ -64,7 +64,7 @@ function renderFloatingToolbar(box: Box): void {
         showCaption(box, captionNode);
         captionNode.focus();
         box.toolbar?.updateState({
-          appliedItems: [],
+          activeItems: [],
         });
       },
     },
@@ -80,9 +80,9 @@ function renderFloatingToolbar(box: Box): void {
         { value: 'center', text: locale => locale.image.alignCenter() },
         { value: 'right', text: locale => locale.image.alignRight() },
       ],
-      selectedValues: appliedItems => {
+      selectedValues: activeItems => {
         let currentValue;
-        for (const item of appliedItems) {
+        for (const item of activeItems) {
           if (item.node.isBlock) {
             currentValue = item.node.computedCSS('text-align');
             break;

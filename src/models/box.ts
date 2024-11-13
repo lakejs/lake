@@ -150,9 +150,9 @@ export class Box {
         items,
       });
       this.toolbar.render();
-      const appliedItems = editor.selection.getAppliedItems();
+      const activeItems = editor.selection.getActiveItems();
       this.toolbar.updateState({
-        appliedItems,
+        activeItems,
       });
       this.event.emit('renderfloatingtoolbar');
     });

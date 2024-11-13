@@ -10,9 +10,9 @@ export default (editor: Editor) => {
     return;
   }
   editor.command.add('align', {
-    selectedValues: appliedItems => {
+    selectedValues: activeItems => {
       let currentValue;
-      for (const item of appliedItems) {
+      for (const item of activeItems) {
         if (item.node.isBlock) {
           currentValue = item.node.computedCSS('text-align');
           break;

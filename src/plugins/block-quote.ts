@@ -13,7 +13,7 @@ export default (editor: Editor) => {
     return;
   }
   editor.command.add('blockQuote', {
-    isSelected: appliedItems => !!appliedItems.find(item => item.name === 'blockquote'),
+    isSelected: activeItems => !!activeItems.find(item => item.name === 'blockquote'),
     execute: (type?: string) => {
       if (type && typeList.indexOf(type) >= 0) {
         editor.selection.setBlocks(template`<blockquote type="${type}" />`);

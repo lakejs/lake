@@ -1,5 +1,5 @@
 import { NativeSelection } from '../types/native';
-import { KeyValue, AppliedItem } from '../types/object';
+import { KeyValue, ActiveItem } from '../types/object';
 import { parseStyle } from '../utils/parse-style';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
@@ -31,7 +31,7 @@ function getAttributes(element: Nodes): KeyValue {
   return attributes;
 }
 
-function appendAncestralNodes(appliedItems: AppliedItem[], range: Range): void {
+function appendAncestralNodes(activeItems: ActiveItem[], range: Range): void {
   let parentNode = range.startNode;
   if (parentNode.isText) {
     parentNode = parentNode.parent();
@@ -40,7 +40,7 @@ function appendAncestralNodes(appliedItems: AppliedItem[], range: Range): void {
     if (!parentNode.isContentEditable || parentNode.isContainer) {
       break;
     }
-    appliedItems.push({
+    activeItems.push({
       node: parentNode,
       name: parentNode.name,
       attributes: getAttributes(parentNode),
@@ -50,7 +50,7 @@ function appendAncestralNodes(appliedItems: AppliedItem[], range: Range): void {
   }
 }
 
-function appendNextNestedNodes(appliedItems: AppliedItem[], range: Range): void {
+function appendNextNestedNodes(activeItems: ActiveItem[], range: Range): void {
   const startNode = range.startNode;
   let nextNode;
   if (startNode.isText && startNode.text().length === range.startOffset) {
@@ -72,7 +72,7 @@ function appendNextNestedNodes(appliedItems: AppliedItem[], range: Range): void 
     let child = nextNode;
     while (child.length > 0) {
       if (child.isElement) {
-        appliedItems.push({
+        activeItems.push({
           node: child,
           name: child.name,
           attributes: getAttributes(child),
@@ -163,11 +163,11 @@ export class Selection {
     this.sync();
   }
 
-  public getAppliedItems(): AppliedItem[] {
-    const appliedItems: AppliedItem[] = [];
-    appendAncestralNodes(appliedItems, this.range);
-    appendNextNestedNodes(appliedItems, this.range);
-    return appliedItems;
+  public getActiveItems(): ActiveItem[] {
+    const activeItems: ActiveItem[] = [];
+    appendAncestralNodes(activeItems, this.range);
+    appendNextNestedNodes(activeItems, this.range);
+    return activeItems;
   }
 
   public insertBookmark(): ReturnType<typeof insertBookmark> {

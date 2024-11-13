@@ -1,23 +1,23 @@
 import type { Editor } from '../editor';
 import { TranslationFunctions } from '../i18n/types';
 import { DropdownItem } from './dropdown';
-import { AppliedItem } from './object';
+import { ActiveItem } from './object';
 
 export type ToolbarButtonItem = {
   name: string;
   type: 'button';
   icon?: string;
   tooltip: string | ((locale: TranslationFunctions) => string);
-  isSelected?: (appliedItems: AppliedItem[]) => boolean;
-  isDisabled?: (appliedItems: AppliedItem[]) => boolean;
+  isSelected?: (activeItems: ActiveItem[]) => boolean;
+  isDisabled?: (activeItems: ActiveItem[]) => boolean;
   onClick: (editor: Editor, value: string) => void;
 };
 
 export type ToolbarDropdownItem = DropdownItem & {
   name: string;
   type: 'dropdown';
-  selectedValues?: (appliedItems: AppliedItem[]) => string[];
-  isDisabled?: (appliedItems: AppliedItem[]) => boolean;
+  selectedValues?: (activeItems: ActiveItem[]) => string[];
+  isDisabled?: (activeItems: ActiveItem[]) => boolean;
   onSelect: (editor: Editor, value: string) => void;
 }
 

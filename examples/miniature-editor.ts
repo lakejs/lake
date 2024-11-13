@@ -25,7 +25,7 @@ const heading: ToolbarItem = {
   type: 'button',
   icon: icons.get('heading'),
   tooltip: 'Heading',
-  isSelected: appliedItems => !!appliedItems.find(item => item.name === 'h3'),
+  isSelected: activeItems => !!activeItems.find(item => item.name === 'h3'),
   onClick: editor => {
     editor.command.execute('heading', 'h3');
   },
@@ -42,8 +42,8 @@ const fontColor: ToolbarItem = {
   menuType: 'color',
   menuItems: colorMenuItems,
   menuWidth: '156px',
-  selectedValues: appliedItems => {
-    const currentValue = appliedItems[0].node.computedCSS('color');
+  selectedValues: activeItems => {
+    const currentValue = activeItems[0].node.computedCSS('color');
     return [Utils.toHex(currentValue)];
   },
   onSelect: (editor, value) => {
@@ -62,8 +62,8 @@ const highlight: ToolbarItem = {
   menuType: 'color',
   menuItems: colorMenuItems,
   menuWidth: '156px',
-  selectedValues: appliedItems => {
-    const currentValue = appliedItems[0].node.computedCSS('background-color');
+  selectedValues: activeItems => {
+    const currentValue = activeItems[0].node.computedCSS('background-color');
     return [Utils.toHex(currentValue)];
   },
   onSelect: (editor, value) => {

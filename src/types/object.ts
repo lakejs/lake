@@ -16,7 +16,7 @@ export type Point = {
   offset: number;
 };
 
-export type AppliedItem = {
+export type ActiveItem = {
   node: Nodes;
   name: string;
   attributes: KeyValue;
@@ -24,7 +24,7 @@ export type AppliedItem = {
 };
 
 export type SelectionState = {
-  appliedItems: AppliedItem[];
+  activeItems: ActiveItem[];
   disabledNameMap?: Map<string, boolean>;
   selectedNameMap?: Map<string, boolean>;
   selectedValuesMap?: Map<string, string[]>;

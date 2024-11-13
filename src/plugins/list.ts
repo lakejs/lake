@@ -22,9 +22,9 @@ export default (editor: Editor) => {
     return;
   }
   editor.command.add('list', {
-    selectedValues: appliedItems => {
+    selectedValues: activeItems => {
       let currentValue;
-      for (const item of appliedItems) {
+      for (const item of activeItems) {
         if (item.name === 'ol') {
           currentValue = 'numbered';
           break;

@@ -5,8 +5,8 @@ export default (editor: Editor) => {
     return;
   }
   editor.command.add('heading', {
-    selectedValues: appliedItems => {
-      const currentItem = appliedItems.find(item => item.node.isHeading || item.name === 'p');
+    selectedValues: activeItems => {
+      const currentItem = activeItems.find(item => item.node.isHeading || item.name === 'p');
       return currentItem ? [currentItem.name] : [];
     },
     execute: (type: string) => {

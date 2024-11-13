@@ -7,8 +7,8 @@ export default (editor: Editor) => {
     return;
   }
   editor.command.add('bold', {
-    isDisabled: appliedItems => !!appliedItems.find(item => item.node.isHeading),
-    isSelected: appliedItems => !!appliedItems.find(item => item.name === tagName),
+    isDisabled: activeItems => !!activeItems.find(item => item.node.isHeading),
+    isSelected: activeItems => !!activeItems.find(item => item.name === tagName),
     execute: () => {
       if (editor.command.isSelected('bold')) {
         editor.selection.removeMark(`<${tagName} />`);

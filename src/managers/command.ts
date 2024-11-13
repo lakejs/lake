@@ -1,11 +1,11 @@
-import { AppliedItem } from '../types/object';
+import { ActiveItem } from '../types/object';
 import { debug } from '../utils/debug';
 import { Selection } from './selection';
 
 type CommmandItem = {
-  isDisabled?: (AppliedItems: AppliedItem[]) => boolean;
-  isSelected?: (appliedItems: AppliedItem[]) => boolean;
-  selectedValues?: (AppliedItems: AppliedItem[]) => string[];
+  isDisabled?: (activeItems: ActiveItem[]) => boolean;
+  isSelected?: (activeItems: ActiveItem[]) => boolean;
+  selectedValues?: (activeItems: ActiveItem[]) => string[];
   execute: (...data: any[]) => void;
 };
 
@@ -47,8 +47,8 @@ export class Command {
     if (!commandItem.isDisabled) {
       return false;
     }
-    const appliedItems = this.selection.getAppliedItems();
-    return commandItem.isDisabled(appliedItems);
+    const activeItems = this.selection.getActiveItems();
+    return commandItem.isDisabled(activeItems);
   }
 
   public isSelected(name: string): boolean {
@@ -56,8 +56,8 @@ export class Command {
     if (!commandItem.isSelected) {
       return false;
     }
-    const appliedItems = this.selection.getAppliedItems();
-    return commandItem.isSelected(appliedItems);
+    const activeItems = this.selection.getActiveItems();
+    return commandItem.isSelected(activeItems);
   }
 
   public selectedValues(name: string): string[] {
@@ -65,8 +65,8 @@ export class Command {
     if (!commandItem.selectedValues) {
       return [];
     }
-    const appliedItems = this.selection.getAppliedItems();
-    return commandItem.selectedValues(appliedItems);
+    const activeItems = this.selection.getActiveItems();
+    return commandItem.selectedValues(activeItems);
   }
 
   public execute(name: string, ...data: any[]): void {

@@ -5,8 +5,8 @@ export default (editor: Editor) => {
     return;
   }
   editor.command.add('fontFamily', {
-    selectedValues: appliedItems => {
-      for (const item of appliedItems) {
+    selectedValues: activeItems => {
+      for (const item of activeItems) {
         if (item.name === 'span') {
           const currentValue = item.node.css('font-family');
           return [currentValue.replace(/['"]/g, '')];

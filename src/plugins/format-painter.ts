@@ -11,8 +11,8 @@ export default (editor: Editor) => {
   editor.command.add('formatPainter', {
     execute: () => {
       editor.container.addClass(formatPainterClassName);
-      const appliedItems = editor.selection.getAppliedItems();
-      for (const item of appliedItems) {
+      const activeItems = editor.selection.getActiveItems();
+      for (const item of activeItems) {
         const node = item.node.clone();
         if (node.isMark && node.name !== 'a') {
           markList.push(node);

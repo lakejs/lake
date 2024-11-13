@@ -7,7 +7,7 @@ export default (editor: Editor) => {
     return;
   }
   editor.command.add('italic', {
-    isSelected: appliedItems => !!appliedItems.find(item => item.name === tagName),
+    isSelected: activeItems => !!activeItems.find(item => item.name === tagName),
     execute: () => {
       if (editor.command.isSelected('italic')) {
         editor.selection.removeMark(`<${tagName} />`);

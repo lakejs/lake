@@ -130,86 +130,86 @@ describe('managers / selection', () => {
     expect(rangeFromSelection.isBoxEnd).to.equal(true);
   });
 
-  it('getAppliedItems method: should get all ancestors when range is collapsed', () => {
+  it('getActiveItems method: should get all ancestors when range is collapsed', () => {
     const content = `
     <p><strong>one<i>tw<focus />o</i>three</strong></p>
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
     selection.updateByBookmark();
-    const appliedItems = selection.getAppliedItems();
-    expect(appliedItems.length).to.equal(3);
-    expect(appliedItems[0].name).to.equal('i');
-    expect(appliedItems[1].name).to.equal('strong');
-    expect(appliedItems[2].name).to.equal('p');
+    const activeItems = selection.getActiveItems();
+    expect(activeItems.length).to.equal(3);
+    expect(activeItems[0].name).to.equal('i');
+    expect(activeItems[1].name).to.equal('strong');
+    expect(activeItems[2].name).to.equal('p');
   });
 
-  it('getAppliedItems method: should get next mark when range is collapsed', () => {
+  it('getActiveItems method: should get next mark when range is collapsed', () => {
     const content = `
     <p><focus /><strong>one<i>two</i>three</strong></p>
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
     selection.updateByBookmark();
-    const appliedItems = selection.getAppliedItems();
-    expect(appliedItems.length).to.equal(2);
-    expect(appliedItems[0].name).to.equal('p');
-    expect(appliedItems[1].name).to.equal('strong');
+    const activeItems = selection.getActiveItems();
+    expect(activeItems.length).to.equal(2);
+    expect(activeItems[0].name).to.equal('p');
+    expect(activeItems[1].name).to.equal('strong');
   });
 
-  it('getAppliedItems method: should get next block when range is collapsed', () => {
+  it('getActiveItems method: should get next block when range is collapsed', () => {
     const content = `
     <p>foo</p><focus /><h1>bar</h1>
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
     selection.updateByBookmark();
-    const appliedItems = selection.getAppliedItems();
-    expect(appliedItems.length).to.equal(1);
-    expect(appliedItems[0].name).to.equal('h1');
+    const activeItems = selection.getActiveItems();
+    expect(activeItems.length).to.equal(1);
+    expect(activeItems[0].name).to.equal('h1');
   });
 
-  it('getAppliedItems method: should get all ancestors when range is expanded', () => {
+  it('getActiveItems method: should get all ancestors when range is expanded', () => {
     const content = `
     <p><strong>one<i>tw<anchor />o</i>three</strong><focus /></p>
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
     selection.updateByBookmark();
-    const appliedItems = selection.getAppliedItems();
-    expect(appliedItems.length).to.equal(3);
-    expect(appliedItems[0].name).to.equal('i');
-    expect(appliedItems[1].name).to.equal('strong');
-    expect(appliedItems[2].name).to.equal('p');
+    const activeItems = selection.getActiveItems();
+    expect(activeItems.length).to.equal(3);
+    expect(activeItems[0].name).to.equal('i');
+    expect(activeItems[1].name).to.equal('strong');
+    expect(activeItems[2].name).to.equal('p');
   });
 
-  it('getAppliedItems method: should get attributes', () => {
+  it('getActiveItems method: should get attributes', () => {
     const content = `
     <p><span style="color: red;" class="foo">one<i>tw<focus />o</i>three</strong></p>
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
     selection.updateByBookmark();
-    const appliedItems = selection.getAppliedItems();
-    expect(appliedItems.length).to.equal(3);
-    expect(appliedItems[0].name).to.equal('i');
-    expect(appliedItems[1].name).to.equal('span');
-    expect(appliedItems[1].attributes).to.deep.equal({style: 'color: red;', class: 'foo'});
-    expect(appliedItems[2].name).to.deep.equal('p');
+    const activeItems = selection.getActiveItems();
+    expect(activeItems.length).to.equal(3);
+    expect(activeItems[0].name).to.equal('i');
+    expect(activeItems[1].name).to.equal('span');
+    expect(activeItems[1].attributes).to.deep.equal({style: 'color: red;', class: 'foo'});
+    expect(activeItems[2].name).to.deep.equal('p');
   });
 
-  it('getAppliedItems method: should get strong tag', () => {
+  it('getActiveItems method: should get strong tag', () => {
     const content = `
     <p>one<anchor /><i><strong>two</strong></i><focus />three</p>
     `;
     const selection = new Selection(container);
     container.html(normalizeValue(content.trim()));
     selection.updateByBookmark();
-    const appliedItems = selection.getAppliedItems();
-    expect(appliedItems.length).to.equal(3);
-    expect(appliedItems[0].name).to.equal('p');
-    expect(appliedItems[1].name).to.equal('i');
-    expect(appliedItems[2].name).to.equal('strong');
+    const activeItems = selection.getActiveItems();
+    expect(activeItems.length).to.equal(3);
+    expect(activeItems[0].name).to.equal('p');
+    expect(activeItems[1].name).to.equal('i');
+    expect(activeItems[2].name).to.equal('strong');
   });
 
   it('selectBox method: by box', () => {

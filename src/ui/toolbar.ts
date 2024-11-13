@@ -169,7 +169,7 @@ export class Toolbar {
 
   // Updates state of each item such as disabled, selected.
   public updateState(state: SelectionState) {
-    const { appliedItems } = state;
+    const { activeItems } = state;
     const disabledNameMap = state.disabledNameMap || new Map();
     const selectedNameMap = state.selectedNameMap || new Map();
     const selectedValuesMap = state.selectedValuesMap || new Map();
@@ -178,7 +178,7 @@ export class Toolbar {
       const buttonNode = this.container.find(`button[name="${item.name}"]`);
       let isDisabled = disabledNameMap.get(item.name);
       if (isDisabled === undefined) {
-        isDisabled = item.isDisabled ? item.isDisabled(appliedItems) : false;
+        isDisabled = item.isDisabled ? item.isDisabled(activeItems) : false;
       }
       if (isDisabled) {
         buttonNode.attr('disabled', 'true');
@@ -189,7 +189,7 @@ export class Toolbar {
       if (!isDisabled) {
         let isSelected = selectedNameMap.get(item.name);
         if (isSelected === undefined) {
-          isSelected = item.isSelected ? item.isSelected(appliedItems) : false;
+          isSelected = item.isSelected ? item.isSelected(activeItems) : false;
         }
         if (isSelected) {
           buttonNode.addClass(selectedClass);
@@ -201,12 +201,12 @@ export class Toolbar {
     for (const item of this.dropdownItemList) {
       let selectedValues = selectedValuesMap.get(item.name);
       if (selectedValues === undefined) {
-        selectedValues = item.selectedValues ? item.selectedValues(appliedItems) : [];
+        selectedValues = item.selectedValues ? item.selectedValues(activeItems) : [];
       }
       const dropdownNode = this.container.find(`div.lake-dropdown[name="${item.name}"]`);
       let isDisabled = disabledNameMap.get(item.name);
       if (isDisabled === undefined) {
-        isDisabled = item.isDisabled ? item.isDisabled(appliedItems) : false;
+        isDisabled = item.isDisabled ? item.isDisabled(activeItems) : false;
       }
       if (isDisabled) {
         dropdownNode.attr('disabled', 'true');

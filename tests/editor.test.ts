@@ -706,7 +706,7 @@ describe('editor', () => {
     });
     editor.render();
     editor.event.once('statechange', state => {
-      expect(state.appliedItems[0].name).to.equal('h1');
+      expect(state.activeItems[0].name).to.equal('h1');
       editor.unmount();
       done();
     });

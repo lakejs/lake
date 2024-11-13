@@ -60,7 +60,7 @@ export class FloatingToolbar extends Toolbar {
     super.render(editor);
     this.updatePosition();
     this.updateState({
-      appliedItems: [],
+      activeItems: [],
     });
     const viewport = this.range.commonAncestor.closestScroller();
     if (viewport.length > 0) {

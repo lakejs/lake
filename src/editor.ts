@@ -86,7 +86,7 @@ export class Editor {
   private unsavedInputCount: number = 0;
 
   private state: SelectionState = {
-    appliedItems: [],
+    activeItems: [],
     disabledNameMap: new Map(),
     selectedNameMap: new Map(),
     selectedValuesMap: new Map(),
@@ -259,24 +259,24 @@ export class Editor {
   // Triggers the statechange event when the current selection is changed.
   private emitStateChangeEvent = debounce(() => {
     const commandNames = this.command.getNames();
-    let appliedItems = this.selection.getAppliedItems();
-    if (appliedItems.length > 0 && !this.container.contains(appliedItems[0].node)) {
-      appliedItems = [];
+    let activeItems = this.selection.getActiveItems();
+    if (activeItems.length > 0 && !this.container.contains(activeItems[0].node)) {
+      activeItems = [];
     }
     const disabledNameMap: Map<string, boolean> = new Map();
     const selectedNameMap: Map<string, boolean> = new Map();
     const selectedValuesMap: Map<string, string[]> = new Map();
-    if (appliedItems.length > 0) {
+    if (activeItems.length > 0) {
       for (const name of commandNames) {
         const commandItem = this.command.getItem(name);
-        if (commandItem.isDisabled && commandItem.isDisabled(appliedItems)) {
+        if (commandItem.isDisabled && commandItem.isDisabled(activeItems)) {
           disabledNameMap.set(name, true);
         }
-        if (commandItem.isSelected && commandItem.isSelected(appliedItems)) {
+        if (commandItem.isSelected && commandItem.isSelected(activeItems)) {
           selectedNameMap.set(name, true);
         }
         if (commandItem.selectedValues) {
-          const values = commandItem.selectedValues(appliedItems);
+          const values = commandItem.selectedValues(activeItems);
           if (values.length > 0) {
             selectedValuesMap.set(name, values);
           }
@@ -284,7 +284,7 @@ export class Editor {
       }
     }
     const state: SelectionState = {
-      appliedItems,
+      activeItems,
       disabledNameMap,
       selectedNameMap,
       selectedValuesMap,

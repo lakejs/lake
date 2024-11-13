@@ -6,8 +6,8 @@ export default (editor: Editor) => {
     return;
   }
   editor.command.add('highlight', {
-    selectedValues: appliedItems => {
-      for (const item of appliedItems) {
+    selectedValues: activeItems => {
+      for (const item of activeItems) {
         if (item.name === 'span') {
           const currentValue = item.node.computedCSS('background-color');
           return [toHex(currentValue)];

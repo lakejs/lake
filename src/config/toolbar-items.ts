@@ -55,7 +55,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('paragraph'),
     tooltip: locale => locale.toolbar.paragraph(),
-    isSelected: appliedItems => !!appliedItems.find(item => item.name === 'p'),
+    isSelected: activeItems => !!activeItems.find(item => item.name === 'p'),
     onClick: editor => {
       editor.command.execute('heading', 'p');
     },
@@ -74,7 +74,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('numberedList'),
     tooltip: locale => locale.toolbar.numberedList(),
-    isSelected: appliedItems => !!appliedItems.find(item => item.name === 'ol'),
+    isSelected: activeItems => !!activeItems.find(item => item.name === 'ol'),
     onClick: editor => {
       editor.command.execute('list', 'numbered');
     },
@@ -84,7 +84,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('bulletedList'),
     tooltip: locale => locale.toolbar.bulletedList(),
-    isSelected: appliedItems => !!appliedItems.find(item => item.name === 'ul' && !item.node.hasAttr('type')),
+    isSelected: activeItems => !!activeItems.find(item => item.name === 'ul' && !item.node.hasAttr('type')),
     onClick: editor => {
       editor.command.execute('list', 'bulleted');
     },
@@ -94,7 +94,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('checklist'),
     tooltip: locale => locale.toolbar.checklist(),
-    isSelected: appliedItems => !!appliedItems.find(item => item.name === 'ul' && item.node.attr('type') === 'checklist'),
+    isSelected: activeItems => !!activeItems.find(item => item.name === 'ul' && item.node.attr('type') === 'checklist'),
     onClick: editor => {
       editor.command.execute('list', 'checklist');
     },
@@ -104,7 +104,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('alignLeft'),
     tooltip: locale => locale.toolbar.alignLeft(),
-    isSelected: appliedItems => !!appliedItems.find(item => item.node.isBlock && item.node.css('text-align') === 'left'),
+    isSelected: activeItems => !!activeItems.find(item => item.node.isBlock && item.node.css('text-align') === 'left'),
     onClick: editor => {
       editor.command.execute('align', 'left');
     },
@@ -114,7 +114,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('alignCenter'),
     tooltip: locale => locale.toolbar.alignCenter(),
-    isSelected: appliedItems => !!appliedItems.find(item => item.node.isBlock && item.node.css('text-align') === 'center'),
+    isSelected: activeItems => !!activeItems.find(item => item.node.isBlock && item.node.css('text-align') === 'center'),
     onClick: editor => {
       editor.command.execute('align', 'center');
     },
@@ -124,7 +124,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('alignRight'),
     tooltip: locale => locale.toolbar.alignRight(),
-    isSelected: appliedItems => !!appliedItems.find(item => item.node.isBlock && item.node.css('text-align') === 'right'),
+    isSelected: activeItems => !!activeItems.find(item => item.node.isBlock && item.node.css('text-align') === 'right'),
     onClick: editor => {
       editor.command.execute('align', 'right');
     },
@@ -134,7 +134,7 @@ export const toolbarItems: ToolbarItem[] = [
     type: 'button',
     icon: icons.get('alignJustify'),
     tooltip: locale => locale.toolbar.alignJustify(),
-    isSelected: appliedItems => !!appliedItems.find(item => item.node.isBlock && item.node.css('text-align') === 'justify'),
+    isSelected: activeItems => !!activeItems.find(item => item.node.isBlock && item.node.css('text-align') === 'justify'),
     onClick: editor => {
       editor.command.execute('align', 'justify');
     },
@@ -374,9 +374,9 @@ export const toolbarItems: ToolbarItem[] = [
     tooltip: locale => locale.toolbar.moreStyle(),
     menuType: 'list',
     menuItems: moreStyleMenuItems,
-    selectedValues: appliedItems => {
+    selectedValues: activeItems => {
       const currentValues = [];
-      for (const item of appliedItems) {
+      for (const item of activeItems) {
         if (item.node.isMark) {
           const name = tagPluginNameMap.get(item.name) ?? item.name;
           currentValues.push(name);

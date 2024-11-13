@@ -5,9 +5,9 @@ export default (editor: Editor) => {
     return;
   }
   editor.command.add('fontSize', {
-    isDisabled: appliedItems => !!appliedItems.find(item => item.node.isHeading),
-    selectedValues: appliedItems => {
-      for (const item of appliedItems) {
+    isDisabled: activeItems => !!activeItems.find(item => item.node.isHeading),
+    selectedValues: activeItems => {
+      for (const item of activeItems) {
         if (item.name === 'span') {
           const currentValue = item.node.css('font-size');
           return [currentValue.replace(/\.\d+/, '')];
