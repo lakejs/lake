@@ -12,6 +12,7 @@ import { insertFragment } from '../operations/insert-fragment';
 import { deleteContents } from '../operations/delete-contents';
 import { setBlocks } from '../operations/set-blocks';
 import { splitBlock } from '../operations/split-block';
+import { insertBlock } from '../operations/insert-block';
 import { splitMarks } from '../operations/split-marks';
 import { addMark } from '../operations/add-mark';
 import { removeMark } from '../operations/remove-mark';
@@ -197,6 +198,10 @@ export class Selection {
 
   public splitBlock(): ReturnType<typeof splitBlock> {
     return splitBlock(this.range);
+  }
+
+  public insertBlock(value: Parameters<typeof insertBlock>[1]): ReturnType<typeof insertBlock> {
+    return insertBlock(this.range, value);
   }
 
   public splitMarks(removeEmptyMark?: Parameters<typeof splitMarks>[1]): ReturnType<typeof splitMarks> {

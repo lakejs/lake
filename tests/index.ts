@@ -59,6 +59,7 @@ import './operations/insert-fragment.test';
 import './operations/delete-contents.test';
 import './operations/set-blocks.test';
 import './operations/split-block.test';
+import './operations/insert-block.test';
 import './operations/split-marks.test';
 import './operations/add-mark.test';
 import './operations/remove-mark.test';
