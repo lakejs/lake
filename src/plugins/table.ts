@@ -3,7 +3,6 @@ import { ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
 import { query, template } from '../utils';
 import { Nodes } from '../models/nodes';
-import { Fragment } from '../models/fragment';
 import { FloatingToolbar } from '../ui/floating-toolbar';
 
 function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[] {
@@ -66,7 +65,6 @@ export default (editor: Editor) => {
   editor.command.add('table', {
     execute: () => {
       const range = editor.selection.range;
-      const fragment = new Fragment();
       const tableNode = query(template`
         <table>
           <tr>
@@ -83,16 +81,7 @@ export default (editor: Editor) => {
           </tr>
         </table>
       `);
-      fragment.append(tableNode);
-      const parts = editor.selection.splitBlock();
-      if (parts.start) {
-        range.setEndAfter(parts.start);
-        range.collapseToEnd();
-      }
-      if (parts.end && parts.end.isEmpty) {
-        parts.end.remove();
-      }
-      editor.selection.insertFragment(fragment);
+      editor.selection.insertBlock(tableNode);
       range.shrinkBefore(tableNode);
       editor.history.save();
     },
