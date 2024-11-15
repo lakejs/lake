@@ -17,7 +17,7 @@ describe('utils / query', () => {
     expect(query(element)).to.equal(element);
   });
 
-  it('is a HTML string', () => {
+  it('is an HTML string', () => {
     expect(query('<div><p>foo</p><p>bar</p></div>').html()).to.equal('<p>foo</p><p>bar</p>');
   });
 

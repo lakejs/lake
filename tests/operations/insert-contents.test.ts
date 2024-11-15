@@ -24,7 +24,39 @@ describe('operations / insert-contents', () => {
     boxes.delete('blockBox');
   });
 
-  it('inserts a fragment when no text is selected', () => {
+  it('should insert an HTML string when no text is selected', () => {
+    const content = `
+    <strong>foo<focus /></strong>bar
+    `;
+    const output = `
+    <strong>foo<i>italic</i>text<focus /></strong>bar
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertContents(range, '<i>italic</i>text');
+      },
+    );
+  });
+
+  it('should insert an instance of Nodes when no text is selected', () => {
+    const content = `
+    <strong>foo<focus /></strong>bar
+    `;
+    const output = `
+    <strong>foo<i>italic</i>text<focus /></strong>bar
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertContents(range, query('<i>italic</i>text'));
+      },
+    );
+  });
+
+  it('should insert a Fragment when no text is selected', () => {
     const content = `
     <strong>foo<focus /></strong>bar
     `;
@@ -43,7 +75,7 @@ describe('operations / insert-contents', () => {
     );
   });
 
-  it('inserts a native fragment when no text is selected', () => {
+  it('should insert a DocumentFragment when no text is selected', () => {
     const content = `
     <strong>foo<focus /></strong>bar
     `;
@@ -62,7 +94,7 @@ describe('operations / insert-contents', () => {
     );
   });
 
-  it('inserts a fragment after seleting text', () => {
+  it('should insert an HTML string after seleting text', () => {
     const content = `
     <strong><anchor />foo<focus /></strong>bar
     `;
@@ -73,10 +105,7 @@ describe('operations / insert-contents', () => {
       content,
       output,
       range => {
-        const fragment = new Fragment();
-        fragment.append('<i>italic</i>');
-        fragment.append(document.createTextNode('text'));
-        insertContents(range, fragment);
+        insertContents(range, '<i>italic</i>text');
       },
     );
   });
@@ -95,9 +124,7 @@ describe('operations / insert-contents', () => {
       content,
       output,
       range => {
-        const fragment = new Fragment();
-        fragment.append('<p>bar</p>');
-        insertContents(range, fragment);
+        insertContents(range, '<p>bar</p>');
       },
     );
   });
