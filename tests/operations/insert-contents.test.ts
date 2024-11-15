@@ -2,9 +2,9 @@ import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
 import { query } from '../../src/utils';
 import { Fragment } from '../../src/models/fragment';
-import { insertFragment } from '../../src/operations/insert-fragment';
+import { insertContents } from '../../src/operations/insert-contents';
 
-describe('operations / insert-fragment', () => {
+describe('operations / insert-contents', () => {
 
   beforeEach(() => {
     boxes.set('inlineBox', {
@@ -38,7 +38,7 @@ describe('operations / insert-fragment', () => {
         const fragment = new Fragment();
         fragment.append('<i>italic</i>');
         fragment.append(document.createTextNode('text'));
-        insertFragment(range, fragment);
+        insertContents(range, fragment);
       },
     );
   });
@@ -57,7 +57,7 @@ describe('operations / insert-fragment', () => {
         const fragment = document.createDocumentFragment();
         fragment.appendChild(query('<i>italic</i>').get(0));
         fragment.appendChild(document.createTextNode('text'));
-        insertFragment(range, fragment);
+        insertContents(range, fragment);
       },
     );
   });
@@ -76,7 +76,7 @@ describe('operations / insert-fragment', () => {
         const fragment = new Fragment();
         fragment.append('<i>italic</i>');
         fragment.append(document.createTextNode('text'));
-        insertFragment(range, fragment);
+        insertContents(range, fragment);
       },
     );
   });
@@ -97,7 +97,7 @@ describe('operations / insert-fragment', () => {
       range => {
         const fragment = new Fragment();
         fragment.append('<p>bar</p>');
-        insertFragment(range, fragment);
+        insertContents(range, fragment);
       },
     );
   });

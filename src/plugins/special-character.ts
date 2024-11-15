@@ -9,7 +9,7 @@ export default (editor: Editor) => {
     execute: (value: string) => {
       const fragment = new Fragment();
       fragment.append(document.createTextNode(value));
-      editor.selection.insertFragment(fragment);
+      editor.selection.insertContents(fragment);
       editor.history.save();
     },
   });

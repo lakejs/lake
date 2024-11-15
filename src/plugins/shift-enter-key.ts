@@ -11,7 +11,7 @@ function addLineBreak(editor: Editor): void {
     if (prevNode.name !== 'br' && endText === '') {
       const fragment = new Fragment();
       fragment.append('<br /><br />');
-      editor.selection.insertFragment(fragment);
+      editor.selection.insertContents(fragment);
       editor.history.save();
       return;
     }

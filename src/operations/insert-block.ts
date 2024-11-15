@@ -2,7 +2,7 @@ import { query } from '../utils/query';
 import { removeEmptyMarks } from '../utils/remove-empty-marks';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
-import { insertFragment } from './insert-fragment';
+import { insertContents } from './insert-contents';
 import { splitBlock } from './split-block';
 
 // Inserts a block into the specified range.
@@ -25,7 +25,7 @@ export function insertBlock(range: Range, value: string | Nodes): Nodes | null {
       parts.end.remove();
     }
   }
-  insertFragment(range, fragment);
+  insertContents(range, fragment);
   if (!block.isBox) {
     range.shrinkAfter(block);
   }

@@ -8,7 +8,7 @@ import { Box } from '../models/box';
 import { insertBookmark } from '../operations/insert-bookmark';
 import { toBookmark } from '../operations/to-bookmark';
 import { insertNode } from '../operations/insert-node';
-import { insertFragment } from '../operations/insert-fragment';
+import { insertContents } from '../operations/insert-contents';
 import { deleteContents } from '../operations/delete-contents';
 import { setBlocks } from '../operations/set-blocks';
 import { splitBlock } from '../operations/split-block';
@@ -184,8 +184,8 @@ export class Selection {
     return insertNode(this.range, node);
   }
 
-  public insertFragment(fragment: Parameters<typeof insertFragment>[1]): ReturnType<typeof insertFragment> {
-    return insertFragment(this.range, fragment);
+  public insertContents(contents: Parameters<typeof insertContents>[1]): ReturnType<typeof insertContents> {
+    return insertContents(this.range, contents);
   }
 
   public deleteContents(): ReturnType<typeof deleteContents> {

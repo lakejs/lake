@@ -72,7 +72,7 @@ export default (editor: Editor) => {
         const fragment = new Fragment();
         const newBlock = query('<p><br /></p>');
         fragment.append(newBlock);
-        editor.selection.insertFragment(fragment);
+        editor.selection.insertContents(fragment);
         range.shrinkBefore(newBlock);
         editor.history.save();
         return;

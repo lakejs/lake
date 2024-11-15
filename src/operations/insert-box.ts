@@ -3,7 +3,7 @@ import { getBox } from '../utils/get-box';
 import { Range } from '../models/range';
 import { Box } from '../models/box';
 import { splitMarks } from './split-marks';
-import { insertFragment } from './insert-fragment';
+import { insertContents } from './insert-contents';
 import { insertBlock } from './insert-block';
 
 // Inserts a box into the specified range.
@@ -20,7 +20,7 @@ export function insertBox(range: Range, boxName: string, boxValue?: BoxValue): B
     splitMarks(range);
     const fragment = document.createDocumentFragment();
     fragment.appendChild(box.node.get(0));
-    insertFragment(range, fragment);
+    insertContents(range, fragment);
     box.render();
     range.selectBoxEnd(box.node);
     // move the box instance from temporary map to permanent map

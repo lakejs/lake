@@ -162,7 +162,7 @@ function pasteFragment(editor: Editor, fragment: DocumentFragment): void {
     if (parts.end && parts.end.isEmpty) {
       parts.end.remove();
     }
-    selection.insertFragment(fragment);
+    selection.insertContents(fragment);
     editor.renderBoxes();
     range.shrinkAfter(lastNode);
   }
