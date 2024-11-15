@@ -1,4 +1,5 @@
-import { query, removeEmptyMarks } from '../utils';
+import { query } from '../utils/query';
+import { removeEmptyMarks } from '../utils/remove-empty-marks';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertFragment } from './insert-fragment';

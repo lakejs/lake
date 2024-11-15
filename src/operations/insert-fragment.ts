@@ -1,17 +1,22 @@
 import { removeBreak } from '../utils/remove-break';
+import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { Fragment } from '../models/fragment';
 import { deleteContents } from './delete-contents';
-import { insertBookmark } from './insert-bookmark';
-import { toBookmark } from './to-bookmark';
 
-// Inserts a document fragment object into the specified range.
-export function insertFragment(range: Range, fragment: DocumentFragment | Fragment): void {
-  if (fragment instanceof Fragment) {
-    fragment = fragment.get();
-  }
+// Inserts the specified content into the range.
+export function insertFragment(range: Range, content: string | DocumentFragment | Nodes | Fragment): void {
   if (range.commonAncestor.isOutside) {
     return;
+  }
+  let fragment: Fragment;
+  if (typeof content === 'string' || content instanceof Nodes) {
+    fragment = new Fragment();
+    fragment.append(content);
+  } else if (content instanceof Fragment) {
+    fragment = content;
+  } else {
+    fragment = new Fragment(content);
   }
   if (range.isCollapsed) {
     range.adjustBox();
@@ -20,8 +25,8 @@ export function insertFragment(range: Range, fragment: DocumentFragment | Fragme
   }
   const block = range.startNode.closestBlock();
   removeBreak(block);
-  const bookmark = insertBookmark(range);
-  bookmark.focus.before(fragment);
-  toBookmark(range, bookmark);
+  const nativeRange = range.get();
+  nativeRange.insertNode(fragment.get());
+  nativeRange.collapse(false);
   range.adjustBlock();
 }
