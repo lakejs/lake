@@ -339,7 +339,7 @@ export class Editor {
     }
     const text = stripNode.text();
     stripNode.html('<br />');
-    selection.insertNode(document.createTextNode(text));
+    selection.insertContents(document.createTextNode(text));
   }
 
   // Resets the value of "unsavedInputData" property.

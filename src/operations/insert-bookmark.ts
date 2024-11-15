@@ -1,7 +1,14 @@
 import { query } from '../utils';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
-import { insertNode } from './insert-node';
+
+function insertNode(range: Range, node: Nodes): void {
+  const nativeRange = range.get();
+  const nativeNode = node.get(0);
+  nativeRange.insertNode(nativeNode);
+  nativeRange.setEndAfter(nativeNode);
+  nativeRange.collapse(false);
+}
 
 // Either the method inserts a bookmark into the current position of the collapsed range
 // or the method inserts a pair of bookmarks into the beginning and the end of the range.

@@ -1,8 +1,7 @@
 import { query } from '../utils/query';
-import { removeBreak } from '../utils/remove-break';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
-import { insertNode } from './insert-node';
+import { insertContents } from './insert-contents';
 import { splitMarks } from './split-marks';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
@@ -17,9 +16,7 @@ export function insertLink(range: Range, value: string | Nodes): Nodes | null {
     let linkNode = range.commonAncestor.closest('a');
     if (linkNode.length === 0) {
       linkNode = valueNode.clone(true);
-      const block = range.startNode.closestBlock();
-      removeBreak(block);
-      insertNode(range, linkNode);
+      insertContents(range, linkNode);
       return linkNode;
     }
     const url = valueNode.attr('href');

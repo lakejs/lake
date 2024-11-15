@@ -13,7 +13,7 @@ function addLineBreak(editor: Editor): void {
       return;
     }
   }
-  editor.selection.insertNode(query('<br />'));
+  editor.selection.insertContents('<br />');
 }
 
 function addBlockOrLineBreakForBox(editor: Editor): void {

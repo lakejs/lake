@@ -117,7 +117,7 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
       child = child.first();
     }
     const nextSibling = child.next();
-    editor.selection.insertNode(child);
+    editor.selection.insertContents(child);
     if (child.isBox) {
       getBox(child).render();
     } else if (child.isElement) {

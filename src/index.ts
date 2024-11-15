@@ -16,7 +16,6 @@ import { HTMLParser } from './parsers/html-parser';
 import { TextParser } from './parsers/text-parser';
 import { insertBookmark } from './operations/insert-bookmark';
 import { toBookmark } from './operations/to-bookmark';
-import { insertNode } from './operations/insert-node';
 import { insertContents} from './operations/insert-contents';
 import { deleteContents} from './operations/delete-contents';
 import { setBlocks} from './operations/set-blocks';
@@ -162,7 +161,6 @@ export {
   TextParser,
   insertBookmark,
   toBookmark,
-  insertNode,
   insertContents,
   deleteContents,
   setBlocks,

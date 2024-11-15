@@ -54,7 +54,6 @@ import './parsers/text-parser.test';
 // Operations
 import './operations/insert-bookmark.test';
 import './operations/to-bookmark.test';
-import './operations/insert-node.test';
 import './operations/insert-contents.test';
 import './operations/delete-contents.test';
 import './operations/set-blocks.test';

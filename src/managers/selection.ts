@@ -7,7 +7,6 @@ import { Range } from '../models/range';
 import { Box } from '../models/box';
 import { insertBookmark } from '../operations/insert-bookmark';
 import { toBookmark } from '../operations/to-bookmark';
-import { insertNode } from '../operations/insert-node';
 import { insertContents } from '../operations/insert-contents';
 import { deleteContents } from '../operations/delete-contents';
 import { setBlocks } from '../operations/set-blocks';
@@ -178,10 +177,6 @@ export class Selection {
 
   public toBookmark(bookmark: Parameters<typeof toBookmark>[1]): ReturnType<typeof toBookmark> {
     return toBookmark(this.range, bookmark);
-  }
-
-  public insertNode(node: Parameters<typeof insertNode>[1]): ReturnType<typeof insertNode> {
-    return insertNode(this.range, node);
   }
 
   public insertContents(contents: Parameters<typeof insertContents>[1]): ReturnType<typeof insertContents> {

@@ -4,7 +4,7 @@ import { Range } from '../models/range';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 import { splitMarks } from './split-marks';
-import { insertNode } from './insert-node';
+import { insertContents } from './insert-contents';
 
 // Removes zero-width space before or after the node.
 function removePreviousOrNextZWS(node: Nodes): void {
@@ -108,7 +108,7 @@ export function addMark(range: Range, value: string | Nodes): void {
       const deepestMark = getDeepElement(valueNode);
       deepestMark.append(zeroWidthSpace);
     }
-    insertNode(range, valueNode);
+    insertContents(range, valueNode);
     removePreviousOrNextZWS(valueNode);
     range.shrinkAfter(valueNode);
     return;
