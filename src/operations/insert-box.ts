@@ -18,9 +18,7 @@ export function insertBox(range: Range, boxName: string, boxValue?: BoxValue): B
   // inline box
   if (box.type === 'inline') {
     splitMarks(range);
-    const fragment = document.createDocumentFragment();
-    fragment.appendChild(box.node.get(0));
-    insertContents(range, fragment);
+    insertContents(range, box.node);
     box.render();
     range.selectBoxEnd(box.node);
     // move the box instance from temporary map to permanent map

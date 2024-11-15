@@ -40,6 +40,22 @@ describe('operations / insert-contents', () => {
     );
   });
 
+  it('should insert a native node when no text is selected', () => {
+    const content = `
+    <strong>foo<focus /></strong>bar
+    `;
+    const output = `
+    <strong>foo<i>italic</i><focus /></strong>bar
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertContents(range, query('<i>italic</i>').get(0));
+      },
+    );
+  });
+
   it('should insert an instance of Nodes when no text is selected', () => {
     const content = `
     <strong>foo<focus /></strong>bar
@@ -56,7 +72,7 @@ describe('operations / insert-contents', () => {
     );
   });
 
-  it('should insert a Fragment when no text is selected', () => {
+  it('should insert an instance of Fragment when no text is selected', () => {
     const content = `
     <strong>foo<focus /></strong>bar
     `;
@@ -75,7 +91,7 @@ describe('operations / insert-contents', () => {
     );
   });
 
-  it('should insert a DocumentFragment when no text is selected', () => {
+  it('should insert a native DocumentFragment when no text is selected', () => {
     const content = `
     <strong>foo<focus /></strong>bar
     `;

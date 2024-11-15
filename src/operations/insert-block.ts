@@ -11,8 +11,6 @@ export function insertBlock(range: Range, value: string | Nodes): Nodes | null {
     return null;
   }
   const block = query(value);
-  const fragment = document.createDocumentFragment();
-  fragment.appendChild(block.get(0));
   const parts = splitBlock(range);
   if (parts.start) {
     removeEmptyMarks(parts.start);
@@ -25,7 +23,7 @@ export function insertBlock(range: Range, value: string | Nodes): Nodes | null {
       parts.end.remove();
     }
   }
-  insertContents(range, fragment);
+  insertContents(range, block);
   if (!block.isBox) {
     range.shrinkAfter(block);
   }

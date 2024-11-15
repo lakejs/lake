@@ -1,6 +1,5 @@
 import type { Editor } from '..';
 import { query } from '../utils';
-import { Fragment } from '../models/fragment';
 
 function addLineBreak(editor: Editor): void {
   const range = editor.selection.range;
@@ -9,9 +8,7 @@ function addLineBreak(editor: Editor): void {
     const prevNode = range.getPrevNode();
     const endText = range.getEndText();
     if (prevNode.name !== 'br' && endText === '') {
-      const fragment = new Fragment();
-      fragment.append('<br /><br />');
-      editor.selection.insertContents(fragment);
+      editor.selection.insertContents('<br /><br />');
       editor.history.save();
       return;
     }
