@@ -1,4 +1,4 @@
-import { normalizeValue } from '../../src/utils';
+import { normalizeValue } from '../../src/utils/normalize-value';
 
 describe('utils / normalize-value', () => {
 

@@ -1,4 +1,5 @@
-import { query, changeTagName } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { changeTagName } from '../../src/utils/change-tag-name';
 
 describe('utils / change-tag-name', () => {
 

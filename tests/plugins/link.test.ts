@@ -1,5 +1,5 @@
 import { click } from '../utils';
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 import { Editor, Toolbar, Nodes } from '../../src';
 
 const toolbarItems = [

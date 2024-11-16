@@ -1,4 +1,4 @@
-import { denormalizeValue } from '../../src/utils';
+import { denormalizeValue } from '../../src/utils/denormalize-value';
 
 describe('utils / denormalize-value', () => {
 

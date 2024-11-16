@@ -1,10 +1,14 @@
 import type { Editor } from '..';
 import { blockTagNames } from '../config/tag-names';
 import { getElementRules } from '../config/element-rules';
-import {
-  wrapNodeList, changeTagName, fixNumberedList,
-  removeBreak, query, getBox, normalizeValue, uploadFile,
-} from '../utils';
+import { wrapNodeList } from '../utils/wrap-node-list';
+import { changeTagName } from '../utils/change-tag-name';
+import { fixNumberedList } from '../utils/fix-numbered-list';
+import { removeBreak } from '../utils/remove-break';
+import { query } from '../utils/query';
+import { getBox } from '../utils/get-box';
+import { normalizeValue } from '../utils/normalize-value';
+import { uploadFile } from '../utils/upload-file';
 import { Nodes } from '../models/nodes';
 import { HTMLParser } from '../parsers/html-parser';
 import { TextParser } from '../parsers/text-parser';

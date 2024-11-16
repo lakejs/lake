@@ -1,4 +1,5 @@
-import { query, fixNumberedList } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { fixNumberedList } from '../../src/utils/fix-numbered-list';
 
 describe('utils / fix-numbered-list', () => {
 

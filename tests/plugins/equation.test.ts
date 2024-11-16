@@ -1,5 +1,5 @@
 import { testPlugin } from '../utils';
-import { getBox } from '../../src/utils';
+import { getBox } from '../../src/utils/get-box';
 
 describe('plugins / equation', () => {
 

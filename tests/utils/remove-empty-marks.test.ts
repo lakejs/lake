@@ -1,4 +1,5 @@
-import { query, removeEmptyMarks } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { removeEmptyMarks } from '../../src/utils/remove-empty-marks';
 
 describe('utils / remove-empty-marks', () => {
 

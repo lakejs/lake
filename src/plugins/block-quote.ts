@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { template } from '../utils';
+import { template } from '../utils/template';
 
 const typeList = [
   'info',

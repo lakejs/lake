@@ -1,4 +1,5 @@
-import { debug, query } from '../../src/utils';
+import { debug } from '../../src/utils/debug';
+import { query } from '../../src/utils/query';
 import { Dropdown } from '../../src/ui/dropdown';
 import { DropdownMenuItem, Nodes, icons } from '../../src';
 

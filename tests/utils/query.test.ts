@@ -1,4 +1,4 @@
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 
 describe('utils / query', () => {
 

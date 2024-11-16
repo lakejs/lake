@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { setBlockIndent } from '../utils';
+import { setBlockIndent } from '../utils/set-block-indent';
 
 export default (editor: Editor) => {
   if (editor.readonly) {

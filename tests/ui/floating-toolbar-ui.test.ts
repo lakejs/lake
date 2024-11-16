@@ -1,6 +1,6 @@
 import { boxes } from '../../src/storage/boxes';
 import { icons } from '../../src/icons';
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 import { Box } from '../../src/models/box';
 import { FloatingToolbar } from '../../src/ui/floating-toolbar';
 import { Editor } from '../../src';

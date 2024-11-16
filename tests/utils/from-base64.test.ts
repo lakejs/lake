@@ -1,4 +1,4 @@
-import { fromBase64 } from '../../src/utils';
+import { fromBase64 } from '../../src/utils/from-base64';
 
 describe('utils / from-base64', () => {
 

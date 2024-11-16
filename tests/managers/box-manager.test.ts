@@ -1,4 +1,4 @@
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 import { Nodes } from '../../src/models/nodes';
 import { BoxManager } from '../../src/managers/box-manager';
 import { Editor } from '../../src/editor';

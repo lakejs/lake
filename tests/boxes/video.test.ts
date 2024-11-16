@@ -1,5 +1,6 @@
 import { isFirefox, click } from '../utils';
-import { query, debug } from '../../src/utils';
+import { debug } from '../../src/utils/debug';
+import { query } from '../../src/utils/query';
 import { Editor, Nodes } from '../../src';
 
 const youtubeUrl = 'https://www.youtube.com/watch?v=5sMBhDv4sik';

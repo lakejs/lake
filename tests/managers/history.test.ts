@@ -1,5 +1,6 @@
 import { boxes } from '../../src/storage/boxes';
-import { debug, query } from '../../src/utils';
+import { debug } from '../../src/utils/debug';
+import { query } from '../../src/utils/query';
 import { Nodes } from '../../src/models/nodes';
 import { Selection } from '../../src/managers/selection';
 import { History } from '../../src/managers/history';

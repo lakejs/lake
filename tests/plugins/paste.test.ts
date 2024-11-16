@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { testPlugin, base64ToArrayBuffer } from '../utils';
 import { Editor } from '../../src';
-import { getBox } from '../../src/utils';
+import { getBox } from '../../src/utils/get-box';
 
 const imageUrl = '../assets/images/heaven-lake-256.png';
 const imageBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTI1Ni5wbmciLCJzdGF0dXMiOiJkb25lIn0=';

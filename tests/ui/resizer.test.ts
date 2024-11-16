@@ -1,6 +1,6 @@
 import { isFirefox } from '../utils';
 import { boxes } from '../../src/storage/boxes';
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 import { Nodes } from '../../src/models/nodes';
 import { Box } from '../../src/models/box';
 import { Resizer } from '../../src/ui/resizer';

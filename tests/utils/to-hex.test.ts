@@ -1,4 +1,4 @@
-import { toHex } from '../../src/utils';
+import { toHex } from '../../src/utils/to-hex';
 
 describe('utils / to-hex', () => {
 

@@ -1,4 +1,4 @@
-import { template } from '../../src/utils';
+import { template } from '../../src/utils/template';
 
 describe('utils / template', () => {
 

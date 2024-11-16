@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import { base64ToArrayBuffer } from '../utils';
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 import { Editor, Nodes } from '../../src';
 import { uploadFile } from '../../src/utils/upload-file';
 

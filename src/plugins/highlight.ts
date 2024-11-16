@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { toHex } from '../utils';
+import { toHex } from '../utils/to-hex';
 
 export default (editor: Editor) => {
   if (editor.readonly) {

@@ -1,4 +1,4 @@
-import { unsafeTemplate } from '../../src/utils';
+import { unsafeTemplate } from '../../src/utils/unsafe-template';
 
 describe('utils / unsafe-template', () => {
 

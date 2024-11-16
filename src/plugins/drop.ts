@@ -1,5 +1,7 @@
 import type { Editor } from '..';
-import { query, getBox, template } from '../utils';
+import { query } from '../utils/query';
+import { getBox } from '../utils/get-box';
+import { template } from '../utils/template';
 import { Nodes } from '../models/nodes';
 
 export default (editor: Editor) => {

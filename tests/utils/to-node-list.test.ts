@@ -1,4 +1,4 @@
-import { toNodeList } from '../../src/utils';
+import { toNodeList } from '../../src/utils/to-node-list';
 
 describe('utils / to-node-list', () => {
 

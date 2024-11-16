@@ -1,5 +1,5 @@
 import { click } from '../utils';
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 import { Nodes } from '../../src/models/nodes';
 import { LinkPopup } from '../../src/ui/link-popup';
 

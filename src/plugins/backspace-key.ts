@@ -1,5 +1,9 @@
 import type { Editor } from '..';
-import { query, getBox, appendBreak, mergeNodes, setBlockIndent } from '../utils';
+import { query } from '../utils/query';
+import { getBox } from '../utils/get-box';
+import { appendBreak } from '../utils/append-break';
+import { mergeNodes } from '../utils/merge-nodes';
+import { setBlockIndent } from '../utils/set-block-indent';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';

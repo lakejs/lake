@@ -1,5 +1,7 @@
 import { TwoParts } from '../types/object';
-import { splitNodes, appendBreak, removeEmptyMarks } from '../utils';
+import { splitNodes } from '../utils/split-nodes';
+import { appendBreak } from '../utils/append-break';
+import { removeEmptyMarks } from '../utils/remove-empty-marks';
 import { Range } from '../models/range';
 import { fixList } from './fix-list';
 import { deleteContents } from './delete-contents';

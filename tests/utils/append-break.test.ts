@@ -1,4 +1,5 @@
-import { appendBreak, query } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { appendBreak } from '../../src/utils/append-break';
 
 describe('utils / append-break', () => {
 

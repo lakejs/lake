@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { query } from '../utils';
+import { query } from '../utils/query';
 import { getBox } from '../utils/get-box';
 
 export default (editor: Editor) => {

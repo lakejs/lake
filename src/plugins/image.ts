@@ -1,6 +1,7 @@
 import type { Editor } from '..';
 import { BoxValue } from '../types/box';
-import { query, getBox } from '../utils';
+import { query } from '../utils/query';
+import { getBox } from '../utils/get-box';
 import { Fragment } from '../models/fragment';
 
 export default (editor: Editor) => {

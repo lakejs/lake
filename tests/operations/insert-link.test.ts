@@ -1,6 +1,6 @@
 import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
-import { getBox } from '../../src/utils';
+import { getBox } from '../../src/utils/get-box';
 import { insertLink } from '../../src/operations/insert-link';
 
 describe('operations / insert-link', () => {

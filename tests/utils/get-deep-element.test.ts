@@ -1,4 +1,5 @@
-import { getDeepElement, query } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { getDeepElement } from '../../src/utils/get-deep-element';
 
 describe('utils / get-deep-element', () => {
 

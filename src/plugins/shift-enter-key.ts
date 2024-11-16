@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { query } from '../utils';
+import { query } from '../utils/query';
 
 function addLineBreak(editor: Editor): void {
   const range = editor.selection.range;

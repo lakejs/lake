@@ -1,5 +1,6 @@
 import { TwoParts, ThreeParts } from '../types/object';
-import { splitNodes, removeEmptyMarks } from '../utils';
+import { splitNodes } from '../utils/split-nodes';
+import { removeEmptyMarks } from '../utils/remove-empty-marks';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 

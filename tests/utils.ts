@@ -1,5 +1,9 @@
 import { BoxValue } from '../src/types/box';
-import { query, getBox, normalizeValue, denormalizeValue, debug } from '../src/utils';
+import { debug } from '../src/utils/debug';
+import { query } from '../src/utils/query';
+import { getBox } from '../src/utils/get-box';
+import { normalizeValue } from '../src/utils/normalize-value';
+import { denormalizeValue } from '../src/utils/denormalize-value';
 import { Nodes } from '../src/models/nodes';
 import { Range } from '../src/models/range';
 import { Box } from '../src/models/box';

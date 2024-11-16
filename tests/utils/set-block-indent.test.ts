@@ -1,4 +1,5 @@
-import { query, setBlockIndent } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { setBlockIndent } from '../../src/utils/set-block-indent';
 
 describe('utils / set-block-indent', () => {
 

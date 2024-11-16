@@ -1,4 +1,4 @@
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 import { SlashMenu } from '../../src/ui/slash-menu';
 import { Editor, SlashItem, icons } from '../../src';
 

@@ -1,4 +1,4 @@
-import { encode } from '../utils';
+import { encode } from '../utils/encode';
 import { HTMLParser } from './html-parser';
 
 // The TextParser class provides the ability to parse a text into an HTML string or DocumentFragment object.

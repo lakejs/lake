@@ -1,5 +1,5 @@
 import { isMac } from '../utils';
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 import { Nodes } from '../../src/models/nodes';
 import { Keystroke } from '../../src/managers/keystroke';
 

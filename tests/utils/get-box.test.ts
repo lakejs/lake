@@ -1,6 +1,7 @@
 import { boxes } from '../../src/storage/boxes';
 import { getInstanceMap } from '../../src/storage/box-instances';
-import { query, getBox } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { getBox } from '../../src/utils/get-box';
 import { Nodes } from '../../src/models/nodes';
 
 describe('utils / get-box', () => {

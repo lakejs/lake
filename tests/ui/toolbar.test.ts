@@ -1,6 +1,8 @@
 import sinon from 'sinon';
 import { click, removeBoxValueFromHTML, base64ToArrayBuffer } from '../utils';
-import { query, getBox, debug } from '../../src/utils';
+import { debug } from '../../src/utils/debug';
+import { query } from '../../src/utils/query';
+import { getBox } from '../../src/utils/get-box';
 import { Nodes } from '../../src/models/nodes';
 import { Toolbar } from '../../src/ui/toolbar';
 import { Editor } from '../../src';

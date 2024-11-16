@@ -1,4 +1,7 @@
-import { scrollToNode, isVisible, query, template } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { template } from '../../src/utils/template';
+import { isVisible } from '../../src/utils/is-visible';
+import { scrollToNode } from '../../src/utils/scroll-to-node';
 
 describe('utils / scroll-to-node', () => {
 

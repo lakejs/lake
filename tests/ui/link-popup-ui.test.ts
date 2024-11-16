@@ -1,4 +1,4 @@
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 import { LinkPopup } from '../../src/ui/link-popup';
 
 describe('ui / link-popup-ui', () => {

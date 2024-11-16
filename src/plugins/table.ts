@@ -1,7 +1,8 @@
 import { type Editor } from '..';
 import { ToolbarItem } from '../types/toolbar';
 import { icons } from '../icons';
-import { query, template } from '../utils';
+import { query } from '../utils/query';
+import { template } from '../utils/template';
 import { Nodes } from '../models/nodes';
 import { FloatingToolbar } from '../ui/floating-toolbar';
 

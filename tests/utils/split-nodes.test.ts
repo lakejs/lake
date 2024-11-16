@@ -1,4 +1,5 @@
-import { query, splitNodes } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { splitNodes } from '../../src/utils/split-nodes';
 
 describe('utils / split-nodes', () => {
 

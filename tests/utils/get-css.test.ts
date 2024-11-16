@@ -1,4 +1,4 @@
-import { getCSS } from '../../src/utils';
+import { getCSS } from '../../src/utils/get-css';
 
 describe('utils / get-css', () => {
 

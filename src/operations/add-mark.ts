@@ -1,4 +1,8 @@
-import { parseStyle, query, getBox, getDeepElement, removeBreak } from '../utils';
+import { parseStyle } from '../utils/parse-style';
+import { query } from '../utils/query';
+import { getBox } from '../utils/get-box';
+import { getDeepElement } from '../utils/get-deep-element';
+import { removeBreak } from '../utils/remove-break';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertBookmark } from './insert-bookmark';

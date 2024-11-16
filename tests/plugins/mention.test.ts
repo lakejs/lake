@@ -1,6 +1,6 @@
 import { click, removeBoxValueFromHTML } from '../utils';
 import { MentionItem } from '../../src/types/mention';
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 import { Editor, Nodes } from '../../src';
 
 const mentionItems: MentionItem[] = [

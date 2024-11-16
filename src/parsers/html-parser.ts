@@ -1,5 +1,6 @@
 import { getElementRules } from '../config/element-rules';
-import { parseStyle, encode } from '../utils';
+import { parseStyle } from '../utils/parse-style';
+import { encode } from '../utils/encode';
 import { Nodes } from '../models/nodes';
 
 // The HTMLParser class provides the ability to parse HTML source code by specified rules.

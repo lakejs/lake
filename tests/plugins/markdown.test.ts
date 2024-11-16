@@ -1,5 +1,5 @@
 import { testPlugin } from '../utils';
-import { getBox } from '../../src/utils';
+import { getBox } from '../../src/utils/get-box';
 
 const imageBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTI1Ni5wbmciLCJzdGF0dXMiOiJkb25lIn0=';
 

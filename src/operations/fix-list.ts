@@ -1,4 +1,4 @@
-import { fixNumberedList } from '../utils';
+import { fixNumberedList } from '../utils/fix-numbered-list';
 import { Range } from '../models/range';
 
 // Fixes incorrect number for numbered list.

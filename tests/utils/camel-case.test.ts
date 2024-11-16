@@ -1,4 +1,4 @@
-import { camelCase } from '../../src/utils';
+import { camelCase } from '../../src/utils/camel-case';
 
 describe('utils / camel-case', () => {
 

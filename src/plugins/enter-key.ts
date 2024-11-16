@@ -1,5 +1,5 @@
 import { type Editor } from '..';
-import { query } from '../utils';
+import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 
 function splitBlock(editor: Editor, block: Nodes): void {

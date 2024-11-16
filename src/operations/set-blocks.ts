@@ -1,5 +1,8 @@
 import { KeyValue } from '../types/object';
-import { query, getDeepElement, wrapNodeList, appendBreak } from '../utils';
+import { query } from '../utils/query';
+import { getDeepElement } from '../utils/get-deep-element';
+import { wrapNodeList } from '../utils/wrap-node-list';
+import { appendBreak } from '../utils/append-break';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertBookmark } from './insert-bookmark';

@@ -1,4 +1,4 @@
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 import { Selection } from '../../src/managers/selection';
 import { Command } from '../../src/managers/command';
 

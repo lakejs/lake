@@ -1,5 +1,6 @@
 import { isFirefox, click, removeBoxValueFromHTML } from '../utils';
-import { query, debug } from '../../src/utils';
+import { debug } from '../../src/utils/debug';
+import { query } from '../../src/utils/query';
 import { Editor, Nodes, Box } from '../../src';
 
 const mediumUrl = '../assets/images/heaven-lake-512.png';

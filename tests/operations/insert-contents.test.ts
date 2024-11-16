@@ -1,6 +1,6 @@
 import { boxes } from '../../src/storage/boxes';
 import { testOperation } from '../utils';
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 import { Fragment } from '../../src/models/fragment';
 import { insertContents } from '../../src/operations/insert-contents';
 

@@ -1,4 +1,5 @@
-import { removeBreak, query } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { removeBreak } from '../../src/utils/remove-break';
 
 describe('utils / remove-break', () => {
 

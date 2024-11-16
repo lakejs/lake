@@ -1,4 +1,5 @@
-import { query, wrapNodeList } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { wrapNodeList } from '../../src/utils/wrap-node-list';
 
 describe('utils / wrap-node-list', () => {
 

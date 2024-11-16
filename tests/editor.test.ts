@@ -1,6 +1,9 @@
 import { getInstanceMap } from '../src/storage/box-instances';
 import { icons } from '../src/icons';
-import { debug, query, getBox, appendBreak } from '../src/utils';
+import { debug } from '../src/utils/debug';
+import { query } from '../src/utils/query';
+import { getBox } from '../src/utils/get-box';
+import { appendBreak } from '../src/utils/append-break';
 import { Nodes } from '../src/models/nodes';
 import { Box } from '../src/models/box';
 import { Toolbar } from '../src/ui/toolbar';

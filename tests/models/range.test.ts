@@ -1,6 +1,8 @@
 import { boxes } from '../../src/storage/boxes';
 import { createContainer } from '../utils';
-import { query, getBox, template } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { getBox } from '../../src/utils/get-box';
+import { template } from '../../src/utils/template';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
 

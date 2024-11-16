@@ -1,6 +1,8 @@
 import { boxes } from '../../src/storage/boxes';
 import { getInstanceMap } from '../../src/storage/box-instances';
-import { normalizeValue, query, getBox } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { getBox } from '../../src/utils/get-box';
+import { normalizeValue } from '../../src/utils/normalize-value';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
 import { Selection } from '../../src/managers/selection';

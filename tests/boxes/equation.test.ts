@@ -1,5 +1,5 @@
 import { click } from '../utils';
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 import { Editor, Nodes, Box } from '../../src';
 
 const code = String.raw`c = \pm\sqrt{a^2 + b^2}`;

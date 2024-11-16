@@ -1,4 +1,4 @@
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 import { Fragment } from '../../src/models/fragment';
 
 describe('models / fragment', () => {

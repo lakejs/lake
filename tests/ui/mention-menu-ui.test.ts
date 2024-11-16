@@ -1,5 +1,5 @@
 import { MentionItem } from '../../src/types/mention';
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 import { MentionMenu } from '../../src/ui/mention-menu';
 import { Editor } from '../../src';
 

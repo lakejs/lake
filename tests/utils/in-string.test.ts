@@ -1,4 +1,4 @@
-import { inString } from '../../src/utils';
+import { inString } from '../../src/utils/in-string';
 
 describe('utils / in-string', () => {
 

@@ -1,4 +1,5 @@
-import { query, removeZWS } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { removeZWS } from '../../src/utils/remove-zws';
 
 describe('utils / remove-zws', () => {
 

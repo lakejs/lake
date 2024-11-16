@@ -1,4 +1,7 @@
-import { getDeepElement, query, removeZWS, removeEmptyMarks } from '../utils';
+import { getDeepElement } from '../utils/get-deep-element';
+import { query } from '../utils/query';
+import { removeZWS } from '../utils/remove-zws';
+import { removeEmptyMarks } from '../utils/remove-empty-marks';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertBookmark } from './insert-bookmark';

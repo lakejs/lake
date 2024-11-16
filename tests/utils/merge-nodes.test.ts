@@ -1,4 +1,5 @@
-import { query, mergeNodes } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { mergeNodes } from '../../src/utils/merge-nodes';
 
 describe('utils / merge-nodes', () => {
 

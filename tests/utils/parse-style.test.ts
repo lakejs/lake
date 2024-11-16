@@ -1,4 +1,4 @@
-import { parseStyle } from '../../src/utils';
+import { parseStyle } from '../../src/utils/parse-style';
 
 describe('utils / parse-style', () => {
 

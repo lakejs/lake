@@ -1,4 +1,6 @@
-import { query, morph, debug } from '../../src/utils';
+import { debug } from '../../src/utils/debug';
+import { query } from '../../src/utils/query';
+import { morph } from '../../src/utils/morph';
 
 function testFidelity(start: string, end: string) {
   const node = query(`<div>${start}</div>`);

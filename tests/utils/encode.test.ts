@@ -1,4 +1,4 @@
-import { encode } from '../../src/utils';
+import { encode } from '../../src/utils/encode';
 
 describe('utils / encode', () => {
 

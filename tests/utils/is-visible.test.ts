@@ -1,5 +1,7 @@
 import { Range } from '../../src/models/range';
-import { isVisible, query, template } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { template } from '../../src/utils/template';
+import { isVisible } from '../../src/utils/is-visible';
 
 describe('utils / is-visible', () => {
 

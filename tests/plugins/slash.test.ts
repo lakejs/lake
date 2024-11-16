@@ -1,6 +1,8 @@
 import sinon from 'sinon';
 import { click, removeBoxValueFromHTML, base64ToArrayBuffer } from '../utils';
-import { query, debug, getBox } from '../../src/utils';
+import { debug } from '../../src/utils/debug';
+import { query } from '../../src/utils/query';
+import { getBox } from '../../src/utils/get-box';
 import { Editor, Nodes, SlashItem, icons } from '../../src';
 
 const imgBuffer = base64ToArrayBuffer('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAwAB/orejrsAAAAASUVORK5CYII=');

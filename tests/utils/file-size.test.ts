@@ -1,4 +1,4 @@
-import { fileSize } from '../../src/utils';
+import { fileSize } from '../../src/utils/file-size';
 
 describe('utils / file-size', () => {
 

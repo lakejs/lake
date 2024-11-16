@@ -1,5 +1,7 @@
 import { getInstanceMap } from '../storage/box-instances';
-import { appendBreak, query, getBox } from '../utils';
+import { appendBreak } from '../utils/append-break';
+import { query } from '../utils/query';
+import { getBox } from '../utils/get-box';
 import { Range } from '../models/range';
 import { Box } from '../models/box';
 

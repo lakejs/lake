@@ -1,4 +1,5 @@
-import { query, template } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { template } from '../../src/utils/template';
 import { Nodes } from '../../src/models/nodes';
 
 describe('models / nodes', () => {

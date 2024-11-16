@@ -1,6 +1,7 @@
 import { click } from '../utils';
 import { icons } from '../../src/icons';
-import { query, debug } from '../../src/utils';
+import { debug } from '../../src/utils/debug';
+import { query } from '../../src/utils/query';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
 import { FloatingToolbar } from '../../src/ui/floating-toolbar';

@@ -1,5 +1,6 @@
 import type { Editor } from '..';
-import { query, mergeNodes } from '../utils';
+import { query } from '../utils/query';
+import { mergeNodes } from '../utils/merge-nodes';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';

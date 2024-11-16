@@ -1,4 +1,4 @@
-import { query } from '../../src/utils';
+import { query } from '../../src/utils/query';
 import { MentionMenu } from '../../src/ui/mention-menu';
 import { Editor, Nodes, Range, MentionItem } from '../../src';
 

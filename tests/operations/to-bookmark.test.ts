@@ -1,5 +1,6 @@
 import { boxes } from '../../src/storage/boxes';
-import { query, normalizeValue } from '../../src/utils';
+import { query } from '../../src/utils/query';
+import { normalizeValue } from '../../src/utils/normalize-value';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
 import { toBookmark } from '../../src/operations/to-bookmark';
