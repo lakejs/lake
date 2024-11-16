@@ -1,5 +1,5 @@
 import './headless-editor.css';
-import { Editor, Utils, Button } from '../src';
+import { Editor, Button, query } from '../src';
 
 export default (value: string) => {
   const editor = new Editor({
@@ -10,7 +10,7 @@ export default (value: string) => {
       requestAction: '/upload',
     },
   });
-  const toolbarRoot = Utils.query('.lake-toolbar-root');
+  const toolbarRoot = query('.lake-toolbar-root');
   const buttonList: Button[] = [];
   // Heading
   buttonList.push(new Button({

@@ -1,7 +1,7 @@
-import { Editor, Utils } from '../../src';
 import { testPlugin, click, formatHTML } from '../utils';
-
-const { query, debug } = Utils;
+import { query } from '../../src/utils/query';
+import { debug } from '../../src/utils/debug';
+import { Editor } from '../../src';
 
 function testFormatPainter(editor: Editor): void {
   editor.command.execute('formatPainter');

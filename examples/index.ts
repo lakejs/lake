@@ -1,6 +1,6 @@
 import './index.css';
 import './default-editor.css';
-import { Editor, Utils, Dropdown } from '../src';
+import { Editor, Dropdown, query, template } from '../src';
 import './reset.css';
 import defaultEditor from './default-editor';
 import fullEditor from './full-editor';
@@ -11,8 +11,6 @@ import readonlyEditor from './readonly-editor';
 import helloWorld from './plugins/hello-world';
 
 Editor.plugin.add('helloWorld', helloWorld);
-
-const { query, template } = Utils;
 
 declare global {
   interface Window {

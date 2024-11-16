@@ -1,5 +1,5 @@
 import './miniature-editor.css';
-import { Editor, Toolbar, ToolbarItem, Utils, icons } from '../src';
+import { Editor, Toolbar, ToolbarItem, query, toHex, icons } from '../src';
 
 const colors: string[] = [
   '#E53333', '#E56600', '#FF9900', '#64451D', '#DFC5A4', '#FFE500',
@@ -44,7 +44,7 @@ const fontColor: ToolbarItem = {
   menuWidth: '156px',
   selectedValues: activeItems => {
     const currentValue = activeItems[0].node.computedCSS('color');
-    return [Utils.toHex(currentValue)];
+    return [toHex(currentValue)];
   },
   onSelect: (editor, value) => {
     editor.command.execute('fontColor', value);
@@ -64,7 +64,7 @@ const highlight: ToolbarItem = {
   menuWidth: '156px',
   selectedValues: activeItems => {
     const currentValue = activeItems[0].node.computedCSS('background-color');
-    return [Utils.toHex(currentValue)];
+    return [toHex(currentValue)];
   },
   onSelect: (editor, value) => {
     editor.command.execute('highlight', value);
@@ -90,7 +90,7 @@ const toolbarItems = [
 
 export default (value: string) => {
   // copy root node
-  const rootNode = Utils.query('.lake-editor');
+  const rootNode = query('.lake-editor');
   const rootNode2 = rootNode.clone(true);
   rootNode2.addClass('lake-editor2');
   rootNode.after(rootNode2);

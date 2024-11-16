@@ -7,7 +7,9 @@ import { DropdownMenuItem } from './types/dropdown';
 import { MentionItem } from './types/mention';
 import { SlashItem } from './types/slash';
 import { icons } from './icons';
-import * as Utils from './utils';
+import { query } from './utils/query';
+import { template } from './utils/template';
+import { toHex } from './utils/to-hex';
 import { Nodes } from './models/nodes';
 import { Fragment } from './models/fragment';
 import { Range } from './models/range';
@@ -20,6 +22,7 @@ import { insertContents} from './operations/insert-contents';
 import { deleteContents} from './operations/delete-contents';
 import { setBlocks} from './operations/set-blocks';
 import { splitBlock} from './operations/split-block';
+import { insertBlock } from './operations/insert-block';
 import { splitMarks} from './operations/split-marks';
 import { addMark} from './operations/add-mark';
 import { removeMark} from './operations/remove-mark';
@@ -141,30 +144,37 @@ Editor.plugin.add('escapeKey', escapeKey);
 Editor.plugin.add('slash', slash);
 
 export {
-  Editor,
-  Toolbar,
+  // constants
+  icons,
+  // types
   ToolbarItem,
   DropdownMenuItem,
   MentionItem,
   SlashItem,
   BoxComponent,
   BoxValue,
+  // classes
+  Editor,
+  Toolbar,
   Button,
   Dropdown,
-  icons,
-  Utils,
   Nodes,
   Fragment,
   Range,
   Box,
   HTMLParser,
   TextParser,
+  // functions
+  query,
+  template,
+  toHex,
   insertBookmark,
   toBookmark,
   insertContents,
   deleteContents,
   setBlocks,
   splitBlock,
+  insertBlock,
   splitMarks,
   addMark,
   removeMark,

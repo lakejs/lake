@@ -1,6 +1,4 @@
-import { BoxComponent, Utils } from '../../../src';
-
-const { query, template } = Utils;
+import { BoxComponent, query, template } from '../../../src';
 
 export default {
   type: 'block',

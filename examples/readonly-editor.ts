@@ -1,8 +1,8 @@
 import './readonly-editor.css';
-import { Editor, Utils } from '../src';
+import { Editor, query } from '../src';
 
 export default (value: string) => {
-  Utils.query('.lake-toolbar-root').remove();
+  query('.lake-toolbar-root').remove();
   const editor = new Editor({
     root: '.lake-root',
     value,
