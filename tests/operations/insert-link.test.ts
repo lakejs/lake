@@ -39,7 +39,7 @@ describe('operations / insert-link', () => {
     );
   });
 
-  it('adds a link after selecting text', () => {
+  it('should add a link after selecting text', () => {
     const content = `
     <p>f<anchor />oo<focus />bar</p>
     `;
@@ -55,7 +55,7 @@ describe('operations / insert-link', () => {
     );
   });
 
-  it('updates url when the cursor is in the link', () => {
+  it('should update url when the cursor is in the link', () => {
     const content = `
     <p>f<a href="http://foo.com/" target="_blank">o<focus />o</a>bar</p>
     `;
@@ -87,7 +87,7 @@ describe('operations / insert-link', () => {
     );
   });
 
-  it('adds a link when selecting another link with text', () => {
+  it('should add a link when selecting another link with text', () => {
     const content = `
     <p><anchor /><a href="http://foo.com/" target="_blank">foo</a>bar<focus /></p>
     `;
@@ -103,7 +103,7 @@ describe('operations / insert-link', () => {
     );
   });
 
-  it('adds a link after selecting marks', () => {
+  it('should add a link after selecting marks', () => {
     const content = `
     <p><anchor />one<strong>two</strong><u>three</u><i><s>four</s></i><focus /></p>
     `;

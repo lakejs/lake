@@ -3,7 +3,7 @@ import { fixList } from '../../src/operations/fix-list';
 
 describe('operations / fix-list', () => {
 
-  it('adds start attributes', () => {
+  it('should add start attributes', () => {
     const content = `
     <ol><li>one</li></ol>
     <ol><li>two<focus /></li></ol>

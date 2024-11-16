@@ -22,7 +22,7 @@ describe('operations / delete-contents', () => {
     boxes.delete('blockBox');
   });
 
-  it('deletes the selected text', () => {
+  it('should delete the selected text', () => {
     const content = `
     <p>one<anchor />two<focus />three</p>
     `;
@@ -38,7 +38,7 @@ describe('operations / delete-contents', () => {
     );
   });
 
-  it('deletes part of text', () => {
+  it('should delete part of text', () => {
     const content = `
     <p>foo</p>
     <p>b<anchor />a<focus />r</p>
@@ -56,7 +56,7 @@ describe('operations / delete-contents', () => {
     );
   });
 
-  it('deletes all text', () => {
+  it('should delete all text', () => {
     const content = `
     <p>foo</p>
     <p><anchor />bar<focus /></p>

@@ -22,7 +22,7 @@ describe('operations / split-block', () => {
     boxes.delete('blockBox');
   });
 
-  it('collapsed range: splits a block with a text', () => {
+  it('collapsed range: should split a block with a text', () => {
     const content = `
     <p>one<focus />two</p>
     `;
@@ -57,7 +57,7 @@ describe('operations / split-block', () => {
     );
   });
 
-  it('collapsed range: splits a block with a mark (1)', () => {
+  it('collapsed range: should split a block with a mark (1)', () => {
     const content = `
     <p><strong>one<focus />two</strong></p>
     `;
@@ -74,7 +74,7 @@ describe('operations / split-block', () => {
     );
   });
 
-  it('collapsed range: splits a block with a mark (2)', () => {
+  it('collapsed range: should split a block with a mark (2)', () => {
     const content = `
     <p><strong><focus />foo</strong></p>
     `;
@@ -91,7 +91,7 @@ describe('operations / split-block', () => {
     );
   });
 
-  it('collapsed range: splits a block with a mark (3)', () => {
+  it('collapsed range: should split a block with a mark (3)', () => {
     const content = `
     <p><strong>foo<focus /></strong></p>
     `;
@@ -108,7 +108,7 @@ describe('operations / split-block', () => {
     );
   });
 
-  it('expanded range: splits a block with a text', () => {
+  it('expanded range: should split a block with a text', () => {
     const content = `
     <p>one<anchor />foo<focus />two</p>
     `;
@@ -125,7 +125,7 @@ describe('operations / split-block', () => {
     );
   });
 
-  it('expanded range: splits a block with a mark', () => {
+  it('expanded range: should split a block with a mark', () => {
     const content = `
     <p><strong>one<anchor />foo<focus />two</strong></p>
     `;
@@ -142,7 +142,7 @@ describe('operations / split-block', () => {
     );
   });
 
-  it('expanded range: splits multi-block', () => {
+  it('expanded range: should split multi-block', () => {
     const content = `
     <p>foo1<anchor />bar1</p>
     <p>foo2<focus />bar2</p>
@@ -179,7 +179,7 @@ describe('operations / split-block', () => {
     );
   });
 
-  it('collapsed range: splits a block at the beginning of the text', () => {
+  it('collapsed range: should split a block at the beginning of the text', () => {
     const content = `
     <p><focus />foo</p>
     `;
@@ -196,7 +196,7 @@ describe('operations / split-block', () => {
     );
   });
 
-  it('collapsed range: splits a block at the end of the text', () => {
+  it('collapsed range: should split a block at the end of the text', () => {
     const content = `
     <p>foo<focus /></p>
     `;
@@ -213,7 +213,7 @@ describe('operations / split-block', () => {
     );
   });
 
-  it('collapsed range: splits a list with a text', () => {
+  it('collapsed range: should split a list with a text', () => {
     const content = `
     <ul><li>one<focus />two</li></ul>
     `;

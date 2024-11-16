@@ -22,7 +22,7 @@ describe('operations / insert-box', () => {
     boxes.delete('blockBox');
   });
 
-  it('inserts an inline box into the end of a paragraph', () => {
+  it('should insert an inline box into the end of a paragraph', () => {
     const content = `
     <p>foo<focus /></p>
     `;
@@ -38,7 +38,7 @@ describe('operations / insert-box', () => {
     );
   });
 
-  it('inserts an inline box into the start strip of a box', () => {
+  it('should insert an inline box into the start strip of a box', () => {
     const content = `
     <p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>
     `;
@@ -54,7 +54,7 @@ describe('operations / insert-box', () => {
     );
   });
 
-  it('inserts an inline box into the end strip of a box', () => {
+  it('should insert an inline box into the end strip of a box', () => {
     const content = `
     <p>foo<lake-box type="inline" name="inlineBox" focus="end"></lake-box>bar</p>
     `;
@@ -71,7 +71,7 @@ describe('operations / insert-box', () => {
     );
   });
 
-  it('inserts an inline box into a mark', () => {
+  it('should insert an inline box into a mark', () => {
     const content = `
     <p><strong>foo<focus />bar</strong></p>
     `;
@@ -87,7 +87,7 @@ describe('operations / insert-box', () => {
     );
   });
 
-  it('inserts an inline box into the beginning of a mark', () => {
+  it('should insert an inline box into the beginning of a mark', () => {
     const content = `
     <p><strong><focus />foo</strong></p>
     `;
@@ -103,7 +103,7 @@ describe('operations / insert-box', () => {
     );
   });
 
-  it('inserts an inline box into the end of a mark', () => {
+  it('should insert an inline box into the end of a mark', () => {
     const content = `
     <p><strong>foo<focus /></strong></p>
     `;
@@ -119,7 +119,7 @@ describe('operations / insert-box', () => {
     );
   });
 
-  it('inserts an inline box into an empty mark', () => {
+  it('should insert an inline box into an empty mark', () => {
     const content = `
     <p><strong>\u200B<focus /></strong></p>
     `;
@@ -135,7 +135,7 @@ describe('operations / insert-box', () => {
     );
   });
 
-  it('inserts a block box when the cursor is at the beginning of a paragraph', () => {
+  it('should insert a block box when the cursor is at the beginning of a paragraph', () => {
     const content = `
     <p><focus />foo</p>
     `;
@@ -152,7 +152,7 @@ describe('operations / insert-box', () => {
     );
   });
 
-  it('inserts a block box when the cursor is at the end of a paragraph', () => {
+  it('should insert a block box when the cursor is at the end of a paragraph', () => {
     const content = `
     <p>foo<focus /></p>
     `;
@@ -169,7 +169,7 @@ describe('operations / insert-box', () => {
     );
   });
 
-  it('inserts a block box when the cursor is at the end of a box', () => {
+  it('should insert a block box when the cursor is at the end of a box', () => {
     const content = `
     <lake-box type="block" name="blockBox" focus="end"></lake-box>
     <p>foo</p>
