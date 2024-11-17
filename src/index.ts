@@ -26,7 +26,6 @@ import { insertBlock } from './operations/insert-block';
 import { splitMarks} from './operations/split-marks';
 import { addMark} from './operations/add-mark';
 import { removeMark} from './operations/remove-mark';
-import { fixList} from './operations/fix-list';
 import { insertLink } from './operations/insert-link';
 import { insertBox } from './operations/insert-box';
 import { removeBox } from './operations/remove-box';
@@ -178,7 +177,6 @@ export {
   splitMarks,
   addMark,
   removeMark,
-  fixList,
   insertLink,
   insertBox,
   removeBox,

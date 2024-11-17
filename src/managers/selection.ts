@@ -15,7 +15,6 @@ import { insertBlock } from '../operations/insert-block';
 import { splitMarks } from '../operations/split-marks';
 import { addMark } from '../operations/add-mark';
 import { removeMark } from '../operations/remove-mark';
-import { fixList } from '../operations/fix-list';
 import { insertLink } from '../operations/insert-link';
 import { insertBox } from '../operations/insert-box';
 import { removeBox } from '../operations/remove-box';
@@ -209,10 +208,6 @@ export class Selection {
 
   public removeMark(value?: Parameters<typeof removeMark>[1]): ReturnType<typeof removeMark> {
     return removeMark(this.range, value);
-  }
-
-  public fixList(): ReturnType<typeof fixList> {
-    return fixList(this.range);
   }
 
   public insertLink(value: Parameters<typeof insertLink>[1]): ReturnType<typeof insertLink> {

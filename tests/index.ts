@@ -62,7 +62,6 @@ import './operations/insert-block.test';
 import './operations/split-marks.test';
 import './operations/add-mark.test';
 import './operations/remove-mark.test';
-import './operations/fix-list.test';
 import './operations/insert-box.test';
 import './operations/remove-box.test';
 import './operations/insert-link.test';
@@ -189,7 +188,6 @@ import {
   splitMarks,
   addMark,
   removeMark,
-  fixList,
   insertLink,
   insertBox,
   removeBox,
@@ -222,7 +220,6 @@ describe('index', () => {
     expect(typeof splitMarks).to.equal('function');
     expect(typeof addMark).to.equal('function');
     expect(typeof removeMark).to.equal('function');
-    expect(typeof fixList).to.equal('function');
     expect(typeof insertLink).to.equal('function');
     expect(typeof insertBox).to.equal('function');
     expect(typeof removeBox).to.equal('function');
