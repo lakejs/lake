@@ -1,6 +1,7 @@
 import type { Editor } from '..';
 import { query } from '../utils/query';
 import { mergeNodes } from '../utils/merge-nodes';
+import { fixNumberedList } from '../utils/fix-numbered-list';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
@@ -32,8 +33,8 @@ function mergeWithNextBlock(editor: Editor, block: Nodes): void {
   }
   const bookmark = editor.selection.insertBookmark();
   mergeNodes(block, nextBlock);
+  fixNumberedList([ block ]);
   editor.selection.toBookmark(bookmark);
-  editor.selection.fixList();
 }
 
 export default (editor: Editor) => {
@@ -62,7 +63,7 @@ export default (editor: Editor) => {
         if (nextNode.isEmpty) {
           event.preventDefault();
           nextNode.remove();
-          editor.selection.fixList();
+          fixNumberedList(range.getBlocks());
           editor.history.save();
           return;
         }

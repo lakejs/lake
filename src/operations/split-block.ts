@@ -2,8 +2,8 @@ import { TwoParts } from '../types/object';
 import { splitNodes } from '../utils/split-nodes';
 import { appendBreak } from '../utils/append-break';
 import { removeEmptyMarks } from '../utils/remove-empty-marks';
+import { fixNumberedList } from '../utils/fix-numbered-list';
 import { Range } from '../models/range';
-import { fixList } from './fix-list';
 import { deleteContents } from './delete-contents';
 
 // Removes the contents of the specified range and then splits the block node at the point of the collapsed range.
@@ -62,7 +62,7 @@ export function splitBlock(range: Range): TwoParts {
     }
     range.shrinkBefore(end);
   }
-  fixList(range);
+  fixNumberedList(range.getBlocks());
   return {
     start,
     end,

@@ -1,7 +1,7 @@
 import { appendBreak } from '../utils/append-break';
 import { mergeNodes } from '../utils/merge-nodes';
+import { fixNumberedList } from '../utils/fix-numbered-list';
 import { Range } from '../models/range';
-import { fixList } from './fix-list';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 
@@ -40,6 +40,6 @@ export function deleteContents(range: Range): void {
   }
   const bookmark = insertBookmark(range);
   mergeNodes(prevBlock, block);
+  fixNumberedList([ prevBlock ]);
   toBookmark(range, bookmark);
-  fixList(range);
 }

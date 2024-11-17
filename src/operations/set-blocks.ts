@@ -3,11 +3,11 @@ import { query } from '../utils/query';
 import { getDeepElement } from '../utils/get-deep-element';
 import { wrapNodeList } from '../utils/wrap-node-list';
 import { appendBreak } from '../utils/append-break';
+import { fixNumberedList } from '../utils/fix-numbered-list';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
-import { fixList } from './fix-list';
 
 function getTopNonBlockNodes(range: Range): Nodes[] {
   const container = range.commonAncestor.closest('div[contenteditable="true"],td');
@@ -86,7 +86,7 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
       }
     }
     toBookmark(range, bookmark);
-    fixList(range);
+    fixNumberedList(range.getBlocks());
     return;
   }
   // no block
@@ -110,7 +110,7 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
   const nonBlockNodes = getTopNonBlockNodes(range);
   const block = wrapNodeList(nonBlockNodes, valueNode);
   toBookmark(range, bookmark);
-  fixList(range);
+  fixNumberedList(range.getBlocks());
   if (block.isEmpty) {
     const breakNode = appendBreak(block);
     range.setStartBefore(breakNode);

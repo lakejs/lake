@@ -4,6 +4,7 @@ import { getBox } from '../utils/get-box';
 import { appendBreak } from '../utils/append-break';
 import { mergeNodes } from '../utils/merge-nodes';
 import { indentBlock } from '../utils/indent-block';
+import { fixNumberedList } from '../utils/fix-numbered-list';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
@@ -61,8 +62,8 @@ function mergeWithPreviousBlock(editor: Editor, block: Nodes): void {
   }
   const bookmark = editor.selection.insertBookmark();
   mergeNodes(prevBlock, block);
+  fixNumberedList([ prevBlock ]);
   editor.selection.toBookmark(bookmark);
-  editor.selection.fixList();
 }
 
 export default (editor: Editor) => {
@@ -102,7 +103,7 @@ export default (editor: Editor) => {
         if (prevNode.isEmpty) {
           event.preventDefault();
           prevNode.remove();
-          editor.selection.fixList();
+          fixNumberedList(range.getBlocks());
           editor.history.save();
           return;
         }
