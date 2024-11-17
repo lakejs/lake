@@ -92,7 +92,7 @@ describe('ui / floating-toolbar-ui', () => {
       },
       render: box => `<img src="${box.value.url}" style="width: 256px; height: 186px;" />`,
     });
-    const rootNode = query('<div class="lake-root"></div>');
+    const rootNode = query('<div class="lake-root lake-ui-test"></div>');
     query(document.body).append(rootNode);
     editor = new Editor({
       root: rootNode,
@@ -214,6 +214,7 @@ describe('ui / floating-toolbar-ui', () => {
         },
       ],
     });
+    floatingToolbar.container.addClass('lake-ui-test');
     floatingToolbar.render();
   });
 

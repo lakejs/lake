@@ -104,7 +104,7 @@ export function showBox(
   callback?: (box: Box, editor?: Editor) => void,
   readonly: boolean = false,
 ): void {
-  const rootNode = query('<div class="lake-root" />');
+  const rootNode = query('<div class="lake-root lake-ui-test" />');
   query(document.body).append(rootNode);
   let box = getBox(name);
   if (value) {

@@ -349,6 +349,7 @@ export class Dropdown {
 
   public unmount(): void {
     this.hideMenu();
+    this.menuNode.remove();
     this.node.remove();
   }
 }

@@ -8,7 +8,7 @@ describe('ui / button-ui', () => {
   let rootNode: Nodes;
 
   before(()=> {
-    rootNode = query('<div class="lake-button-root" />');
+    rootNode = query('<div class="lake-button-root lake-ui-test" />');
     query(document.body).append(rootNode);
   });
 

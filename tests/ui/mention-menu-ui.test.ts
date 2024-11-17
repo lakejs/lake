@@ -81,7 +81,7 @@ const mentionItems: MentionItem[] = [
 describe('ui / mention-menu-ui', () => {
 
   it('should show mention menu with avatar', () => {
-    const rootNode = query('<div class="lake-root"></div>');
+    const rootNode = query('<div class="lake-root lake-ui-test"></div>');
     query(document.body).append(rootNode);
     const editor = new Editor({
       root: rootNode,
@@ -91,6 +91,7 @@ describe('ui / mention-menu-ui', () => {
     const menu = new MentionMenu({
       items: mentionItems,
     });
+    menu.container.addClass('lake-ui-test');
     const mentionRange = editor.selection.range.clone();
     mentionRange.selectNodeContents(editor.container);
     menu.show(mentionRange);
@@ -98,7 +99,7 @@ describe('ui / mention-menu-ui', () => {
   });
 
   it('should show mention menu without avatar', () => {
-    const rootNode = query('<div class="lake-root"></div>');
+    const rootNode = query('<div class="lake-root lake-ui-test"></div>');
     query(document.body).append(rootNode);
     const editor = new Editor({
       root: rootNode,
@@ -112,6 +113,7 @@ describe('ui / mention-menu-ui', () => {
         nickname: item.nickname,
       })),
     });
+    menu.container.addClass('lake-ui-test');
     const mentionRange = editor.selection.range.clone();
     mentionRange.selectNodeContents(editor.container);
     menu.show(mentionRange);
@@ -119,7 +121,7 @@ describe('ui / mention-menu-ui', () => {
   });
 
   it('should show mention menu without nickname', () => {
-    const rootNode = query('<div class="lake-root"></div>');
+    const rootNode = query('<div class="lake-root lake-ui-test"></div>');
     query(document.body).append(rootNode);
     const editor = new Editor({
       root: rootNode,
@@ -133,6 +135,7 @@ describe('ui / mention-menu-ui', () => {
         avatar: item.avatar,
       })),
     });
+    menu.container.addClass('lake-ui-test');
     const mentionRange = editor.selection.range.clone();
     mentionRange.selectNodeContents(editor.container);
     menu.show(mentionRange);

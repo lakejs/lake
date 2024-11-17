@@ -37,7 +37,7 @@ const slashItems: (string | SlashItem)[] = [
 describe('ui / slash-menu-ui', () => {
 
   it('should show slash menu', () => {
-    const rootNode = query('<div class="lake-root"></div>');
+    const rootNode = query('<div class="lake-root lake-ui-test"></div>');
     query(document.body).append(rootNode);
     const editor = new Editor({
       root: rootNode,
@@ -47,6 +47,7 @@ describe('ui / slash-menu-ui', () => {
     const menu = new SlashMenu({
       items: slashItems,
     });
+    menu.container.addClass('lake-ui-test');
     const slashRange = editor.selection.range.clone();
     slashRange.selectNodeContents(editor.container);
     menu.show(slashRange);

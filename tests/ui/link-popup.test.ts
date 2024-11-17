@@ -1,20 +1,8 @@
 import { click } from '../utils';
 import { query } from '../../src/utils/query';
-import { Nodes } from '../../src/models/nodes';
 import { LinkPopup } from '../../src/ui/link-popup';
 
 describe('ui / link-popup', () => {
-
-  let rootNode: Nodes;
-
-  beforeEach(()=> {
-    rootNode = query('<div class="lake-popup" />');
-    query(document.body).append(rootNode);
-  });
-
-  afterEach(() => {
-    rootNode.remove();
-  });
 
   it('should copy a link to clipboard', done => {
     const linkNode = query('<a href="http://github.com/">GitHub</a>');
@@ -25,13 +13,14 @@ describe('ui / link-popup', () => {
         if (!error) {
           expect(copyButton.find('svg').eq(0).computedCSS('display')).to.equal('none');
           expect(copyButton.find('svg').eq(1).computedCSS('display')).to.equal('inline');
+          popup.unmount();
+          linkNode.remove();
           done();
         }
       },
     });
     popup.show(linkNode);
     click(popup.container.find('button[name="copy"]'));
-    linkNode.remove();
   });
 
   it('should not copy a link to clipboard', done => {
@@ -45,13 +34,14 @@ describe('ui / link-popup', () => {
           expect(copyButton.find('svg').eq(0).computedCSS('display')).to.equal('none');
           expect(copyButton.find('svg').eq(2).computedCSS('display')).to.equal('inline');
           window.LAKE_ERROR = false;
+          popup.unmount();
+          linkNode.remove();
           done();
         }
       },
     });
     popup.show(linkNode);
     click(popup.container.find('button[name="copy"]'));
-    linkNode.remove();
   });
 
   it('should save the URL and title by clicking button', () => {
@@ -65,6 +55,7 @@ describe('ui / link-popup', () => {
     click(saveButton);
     expect(linkNode.attr('href')).to.equal('http://foo.com/');
     expect(linkNode.text()).to.equal('foo');
+    popup.unmount();
     linkNode.remove();
   });
 
@@ -79,6 +70,7 @@ describe('ui / link-popup', () => {
     }));
     expect(linkNode.attr('href')).to.equal('http://foo.com/');
     expect(linkNode.text()).to.equal('GitHub');
+    popup.unmount();
     linkNode.remove();
   });
 
@@ -93,6 +85,7 @@ describe('ui / link-popup', () => {
     }));
     expect(linkNode.attr('href')).to.equal('http://github.com/');
     expect(linkNode.text()).to.equal('foo');
+    popup.unmount();
     linkNode.remove();
   });
 
@@ -105,6 +98,7 @@ describe('ui / link-popup', () => {
     const saveButton = popup.container.find('button[name="save"]');
     click(saveButton);
     expect(linkNode.text()).to.equal('http://github.com/');
+    popup.unmount();
     linkNode.remove();
   });
 
@@ -114,6 +108,7 @@ describe('ui / link-popup', () => {
     const popup = new LinkPopup();
     popup.show(linkNode);
     expect(popup.container.find('input[name="title"]').value()).to.equal('');
+    popup.unmount();
     linkNode.remove();
   });
 
@@ -127,6 +122,7 @@ describe('ui / link-popup', () => {
     const saveButton = popup.container.find('button[name="save"]');
     click(saveButton);
     expect(linkNode.parent().length).to.equal(0);
+    popup.unmount();
     linkNode.remove();
   });
 
