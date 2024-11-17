@@ -29,7 +29,7 @@ import './utils/change-tag-name.test';
 import './utils/fix-numbered-list.test';
 import './utils/append-break.test';
 import './utils/remove-break.test';
-import './utils/set-block-indent.test';
+import './utils/indent-block.test';
 import './utils/morph.test';
 import './utils/is-visible.test';
 import './utils/scroll-to-node.test';

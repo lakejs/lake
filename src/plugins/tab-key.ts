@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { setBlockIndent } from '../utils/set-block-indent';
+import { indentBlock } from '../utils/indent-block';
 
 export default (editor: Editor) => {
   if (editor.readonly) {
@@ -17,7 +17,7 @@ export default (editor: Editor) => {
     const blocks = range.getBlocks();
     for (const block of blocks) {
       if (block.name !== 'p' || block.css('text-indent') === '2em') {
-        setBlockIndent(block, 'increase');
+        indentBlock(block, 'increase');
       } else {
         block.css('text-indent', '2em');
       }

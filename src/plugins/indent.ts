@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { setBlockIndent } from '../utils/set-block-indent';
+import { indentBlock } from '../utils/indent-block';
 
 export default (editor: Editor) => {
   if (editor.readonly) {
@@ -9,7 +9,7 @@ export default (editor: Editor) => {
     execute: (type: 'increase' | 'decrease') => {
       const blocks = editor.selection.range.getBlocks();
       for (const block of blocks) {
-        setBlockIndent(block, type);
+        indentBlock(block, type);
       }
       editor.history.save();
     },

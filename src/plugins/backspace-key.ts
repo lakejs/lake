@@ -3,7 +3,7 @@ import { query } from '../utils/query';
 import { getBox } from '../utils/get-box';
 import { appendBreak } from '../utils/append-break';
 import { mergeNodes } from '../utils/merge-nodes';
-import { setBlockIndent } from '../utils/set-block-indent';
+import { indentBlock } from '../utils/indent-block';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { setBlocks } from '../operations/set-blocks';
@@ -194,7 +194,7 @@ export default (editor: Editor) => {
         block.css('text-indent') !== '' ||
         block.attr('indent') !== ''
       ) {
-        setBlockIndent(block, 'decrease');
+        indentBlock(block, 'decrease');
         editor.history.save();
         return;
       }
