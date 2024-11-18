@@ -1,0 +1,232 @@
+import { testPlugin } from '../utils';
+import { insertColumn, deleteColumn } from '../../src/plugins/table';
+
+describe('plugins / table', () => {
+
+  it('should insert a table', () => {
+    const content = `
+    <p>foo<focus /></p>
+    <p>bar</p>
+    `;
+    const output = `
+    <p>foo</p>
+    <table>
+      <tr>
+        <td><focus /><br /></td>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td><br /></td>
+      </tr>
+    </table>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.command.execute('table');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column on the left side', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+        <td>b1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>b2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><br /></td>
+        <td><focus />a1</td>
+        <td>b1</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td>a2</td>
+        <td>b2</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td>a3</td>
+        <td>b3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertColumn(editor.selection.range, 'left');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column on the right side', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+        <td>b1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>b2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+        <td><br /></td>
+        <td>b1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td><br /></td>
+        <td>b2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td><br /></td>
+        <td>b3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertColumn(editor.selection.range, 'right');
+      },
+    );
+  });
+
+  it('deleteColumn: should delete the first column', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+        <td>b1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>b2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>b1<focus /></td>
+      </tr>
+      <tr>
+        <td>b2</td>
+      </tr>
+      <tr>
+        <td>b3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        deleteColumn(editor.selection.range);
+      },
+    );
+  });
+
+  it('deleteColumn: should delete the last column', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td><focus />b1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>b2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1<focus /></td>
+      </tr>
+      <tr>
+        <td>a2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        deleteColumn(editor.selection.range);
+      },
+    );
+  });
+
+  it('deleteColumn: should delete the table when there is only one column', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <p><focus /><br /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        deleteColumn(editor.selection.range);
+      },
+    );
+  });
+
+});

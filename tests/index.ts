@@ -128,6 +128,7 @@ import './plugins/emoji.test';
 import './plugins/equation.test';
 import './plugins/special-character.test';
 import './plugins/mention.test';
+import './plugins/table.test';
 import './plugins/markdown.test';
 import './plugins/enter-key.test';
 import './plugins/shift-enter-key.test';
