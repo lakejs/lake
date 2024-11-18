@@ -175,7 +175,7 @@ export class Nodes {
     return this.isInside && parentNode.isContainer;
   }
 
-  // Returns a boolean value indicating whether the node is editable or the node is a container.
+  // Returns a boolean value indicating whether the node is editable.
   public get isContentEditable(): boolean {
     if (this.length === 0) {
       return false;

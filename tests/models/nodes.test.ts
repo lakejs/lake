@@ -155,12 +155,14 @@ describe('models / nodes', () => {
 
   it('property: isContentEditable', () => {
     const container = query('<div contenteditable="true"><p>foo</p><div contenteditable="false">bar</div></div>');
+    query(document.body).append(container);
     expect(container.isContentEditable).to.equal(true);
     expect(container.find('p').isContentEditable).to.equal(true);
     expect(container.find('p').first().isContentEditable).to.equal(true);
     expect(container.find('div').isContentEditable).to.equal(false);
     expect(container.find('div').first().isContentEditable).to.equal(false);
     expect(container.parent().isContentEditable).to.equal(false);
+    container.remove();
   });
 
   it('property: isIndivisible', () => {
