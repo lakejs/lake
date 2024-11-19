@@ -1,9 +1,9 @@
 import { testPlugin } from '../utils';
-import { insertColumn, deleteColumn } from '../../src/plugins/table';
+import { insertColumn, deleteColumn, insertTable, deleteTable } from '../../src/plugins/table';
 
 describe('plugins / table', () => {
 
-  it('should insert a table', () => {
+  it('insertTable: should insert a table', () => {
     const content = `
     <p>foo<focus /></p>
     <p>bar</p>
@@ -30,7 +30,33 @@ describe('plugins / table', () => {
       content,
       output,
       editor => {
-        editor.command.execute('table');
+        insertTable(editor.selection.range, 3, 2);
+      },
+    );
+  });
+
+  it('deleteTable: should delete a table', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <p><focus /><br /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        deleteTable(editor.selection.range);
       },
     );
   });
@@ -225,6 +251,38 @@ describe('plugins / table', () => {
       output,
       editor => {
         deleteColumn(editor.selection.range);
+      },
+    );
+  });
+
+  it('command: should insert a table', () => {
+    const content = `
+    <p>foo<focus /></p>
+    <p>bar</p>
+    `;
+    const output = `
+    <p>foo</p>
+    <table>
+      <tr>
+        <td><focus /><br /></td>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td><br /></td>
+      </tr>
+    </table>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.command.execute('table');
       },
     );
   });

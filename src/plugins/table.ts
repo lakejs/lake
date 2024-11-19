@@ -3,9 +3,9 @@ import { ToolbarItem } from '../types/toolbar';
 import { DropdownMenuItem } from '../types/dropdown';
 import { icons } from '../icons';
 import { query } from '../utils/query';
-import { template } from '../utils/template';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
+import { insertBlock } from '../operations/insert-block';
 import { FloatingToolbar } from '../ui/floating-toolbar';
 
 const columnMenuItems: DropdownMenuItem[] = [
@@ -37,6 +37,23 @@ function getCellIndex(rowNativeNode: HTMLTableRowElement, cellNativeNode: HTMLTa
   return cellNativeNode.cellIndex - rowSpanCount;
 }
 
+// Inserts a table.
+export function insertTable(range: Range, rows: number, cols: number): void {
+  let html = '<table>';
+  for (let i = 0; i < rows; i++) {
+    html += '<tr>';
+    for (let j = 0; j < cols; j++) {
+      html += '<td><br /></td>';
+    }
+    html += '</tr>';
+  }
+  html += '</table>';
+  const tableNode = query(html);
+  insertBlock(range, tableNode);
+  range.shrinkBefore(tableNode);
+}
+
+// Removes a table.
 export function deleteTable(range: Range): void {
   const tableNode = range.startNode.closest('table');
   const block = query('<p><br /></p>');
@@ -186,24 +203,7 @@ export default (editor: Editor) => {
   editor.command.add('table', {
     execute: () => {
       const range = editor.selection.range;
-      const tableNode = query(template`
-        <table>
-          <tr>
-            <td><br /></td>
-            <td><br /></td>
-          </tr>
-          <tr>
-            <td><br /></td>
-            <td><br /></td>
-          </tr>
-          <tr>
-            <td><br /></td>
-            <td><br /></td>
-          </tr>
-        </table>
-      `);
-      editor.selection.insertBlock(tableNode);
-      range.shrinkBefore(tableNode);
+      insertTable(range, 3, 2);
       editor.history.save();
     },
   });
