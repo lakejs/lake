@@ -38,6 +38,17 @@ const rowMenuItems: DropdownMenuItem[] = [
   },
 ];
 
+// Returns the length of the columns of the specified table.
+function getTableColumnCount(table: HTMLTableElement, rowIndex: number): number {
+  const row = table.rows[rowIndex];
+  let columnCount = 0;
+  for (let i = 0; i < row.cells.length; i++) {
+    const cell = row.cells[i];
+    columnCount += cell.colSpan;
+  }
+  return columnCount;
+}
+
 // Returns the absolute position by the actual cell index.
 function getAbsoluteCellIndex(table: HTMLTableElement, targetRow: HTMLTableRowElement, actualIndex: number): number {
   let colSpan = 0;
@@ -50,8 +61,9 @@ function getAbsoluteCellIndex(table: HTMLTableElement, targetRow: HTMLTableRowEl
     colSpan += cell.colSpan - 1;
     for (let j = targetRow.rowIndex - 1; j >= 0; j--) {
       const row = table.rows[j];
-      if (row.cells[i].rowSpan > targetRow.rowIndex - j) {
-        rowSpan += 1;
+      const aboveCell = row.cells[i];
+      if (aboveCell && aboveCell.rowSpan > targetRow.rowIndex - j) {
+        rowSpan += aboveCell.colSpan;
       }
     }
   }
@@ -72,7 +84,7 @@ function getActualCellIndex(table: HTMLTableElement, targetRow: HTMLTableRowElem
       const row = table.rows[j];
       const aboveCell = row.cells[i];
       if (aboveCell && aboveCell.rowSpan > targetRow.rowIndex - j) {
-        rowSpan += 1;
+        rowSpan += aboveCell.colSpan;
       }
     }
   }
@@ -80,11 +92,11 @@ function getActualCellIndex(table: HTMLTableElement, targetRow: HTMLTableRowElem
 }
 
 // Inserts a table.
-export function insertTable(range: Range, rows: number, cols: number): void {
+export function insertTable(range: Range, rows: number, colums: number): void {
   let html = '<table>';
   for (let i = 0; i < rows; i++) {
     html += '<tr>';
-    for (let j = 0; j < cols; j++) {
+    for (let j = 0; j < colums; j++) {
       html += '<td><br /></td>';
     }
     html += '</tr>';
@@ -112,12 +124,19 @@ export function insertColumn(range: Range, direction: 'left' | 'right'): void {
   const rowNativeNode = rowNode.get(0) as HTMLTableRowElement;
   const cellNativeNode = cellNode.get(0) as HTMLTableCellElement;
   const index = direction === 'left' ? cellNativeNode.cellIndex : cellNativeNode.cellIndex + 1;
-  const targetCellIndex = getAbsoluteCellIndex(tableNativeNode, rowNativeNode, index);
+  const absoluteIndex = getAbsoluteCellIndex(tableNativeNode, rowNativeNode, index);
   for (let i = 0; i < tableNativeNode.rows.length; i++) {
     const row = tableNativeNode.rows[i];
-    const cellIndex = getActualCellIndex(tableNativeNode, row, targetCellIndex);
-    const cell = row.insertCell(cellIndex);
-    cell.innerHTML = '<br />';
+    const cellIndex = getActualCellIndex(tableNativeNode, row, absoluteIndex);
+    if (cellIndex >= 0) {
+      const currentCell = row.cells[cellIndex];
+      if (currentCell && currentCell.colSpan > 1) {
+        currentCell.colSpan += 1;
+      } else {
+        const cell = row.insertCell(cellIndex);
+        cell.innerHTML = '<br />';
+      }
+    }
   }
 }
 
@@ -137,24 +156,27 @@ export function deleteColumn(range: Range): void {
   } else if (rowNativeNode.cells[actualIndex - 1]) {
     newTargetCell = rowNativeNode.cells[actualIndex - 1];
   }
-  if (newTargetCell) {
-    range.shrinkAfter(query(newTargetCell));
-  } else {
-    deleteTable(range);
-    return;
-  }
+  const columnCount = getTableColumnCount(tableNativeNode, 0);
   for (let i = 0; i < tableNativeNode.rows.length; i++) {
     const row = tableNativeNode.rows[i];
     const cellIndex = getActualCellIndex(tableNativeNode, row, absoluteIndex);
-    const cell = row.cells[cellIndex];
-    if (cell.colSpan > 1) {
-      cell.colSpan -= 1;
-      if (cell.colSpan === 1) {
-        query(cell).removeAttr('colSpan');
+    if (cellIndex >= 0) {
+      const currentCell = row.cells[cellIndex];
+      if (currentCell && currentCell.colSpan > 1) {
+        currentCell.colSpan -= 1;
+        if (currentCell.colSpan === 1) {
+          query(currentCell).removeAttr('colSpan');
+        }
+      } else if (i === 0 || getTableColumnCount(tableNativeNode, i) >= columnCount) {
+        if (currentCell === cellNativeNode && newTargetCell) {
+          range.shrinkAfter(query(newTargetCell));
+        }
+        row.deleteCell(cellIndex);
       }
-    } else {
-      row.deleteCell(cellIndex);
     }
+  }
+  if (getTableColumnCount(tableNativeNode, 0) === 0) {
+    deleteTable(range);
   }
 }
 

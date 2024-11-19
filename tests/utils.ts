@@ -149,8 +149,8 @@ export function testPlugin(
   } else {
     html = editor.getValue();
   }
-  editor.unmount();
-  rootNode.remove();
+  // editor.unmount();
+  // rootNode.remove();
   debug(`output: ${html}`);
   expect(html).to.equal(formatHTML(output || defaultValue));
 }

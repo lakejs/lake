@@ -535,6 +535,304 @@ describe('plugins / table', () => {
     );
   });
 
+  it('insertColumn: should insert a column to the left with colspan and rowspan (1)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td><focus />c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td><br /></td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3">a2</td>
+        <td><br /></td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td><focus />c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td><br /></td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertColumn(editor.selection.range, 'left');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column to the left with colspan and rowspan (2)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td><focus />b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td><br /></td>
+        <td><focus />b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="3" rowspan="3">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td><br /></td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertColumn(editor.selection.range, 'left');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column to the right with colspan and rowspan (1)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3"><focus />a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td><br /></td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3"><focus />a2</td>
+        <td><br /></td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td>c4</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertColumn(editor.selection.range, 'right');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column to the right with colspan and rowspan (2)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+        <td><br /></td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="3" rowspan="3">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td><br /></td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertColumn(editor.selection.range, 'right');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column to the right with colspan and rowspan (3)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td><focus />b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td><focus />b1</td>
+        <td><br /></td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3">a2</td>
+        <td><br /></td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td><br /></td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertColumn(editor.selection.range, 'right');
+      },
+    );
+  });
+
   it('deleteColumn: should delete the first column', () => {
     const content = `
     <table>
@@ -709,6 +1007,253 @@ describe('plugins / table', () => {
       </tr>
       <tr>
         <td colspan="2">a3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        deleteColumn(editor.selection.range);
+      },
+    );
+  });
+
+  it('deleteColumn: should delete a column with rowspan (1)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td rowspan="2">b2<focus /></td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>c2<focus /></td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        deleteColumn(editor.selection.range);
+      },
+    );
+  });
+
+  it('deleteColumn: should delete a column with rowspan (2)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td><focus />b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td rowspan="2">b2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>c1<focus /></td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        deleteColumn(editor.selection.range);
+      },
+    );
+  });
+
+  it('deleteColumn: should delete a column with colspan and rowspan (1)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3"><focus />a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td rowspan="3"><focus />a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        deleteColumn(editor.selection.range);
+      },
+    );
+  });
+
+  it('deleteColumn: should delete a column with colspan and rowspan (2)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>b1<focus /></td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td rowspan="3">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        deleteColumn(editor.selection.range);
+      },
+    );
+  });
+
+  it('deleteColumn: should delete a column with colspan and rowspan (3)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td><focus />b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>c1<focus /></td>
+      </tr>
+      <tr>
+        <td rowspan="3">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>c5</td>
       </tr>
     </table>
     `;
