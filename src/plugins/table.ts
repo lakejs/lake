@@ -23,6 +23,21 @@ const columnMenuItems: DropdownMenuItem[] = [
   },
 ];
 
+const rowMenuItems: DropdownMenuItem[] = [
+  {
+    value: 'insertAbove',
+    text: 'Insert row above',
+  },
+  {
+    value: 'insertBelow',
+    text: 'Insert row below',
+  },
+  {
+    value: 'delete',
+    text: 'Delete row',
+  },
+];
+
 // Returns the position of the specified cell within its row.
 // The first cell has an index of 0.
 function getCellIndex(rowNativeNode: HTMLTableRowElement, cellNativeNode: HTMLTableCellElement) {
@@ -62,25 +77,24 @@ export function deleteTable(range: Range): void {
 }
 
 // Inserts a column to the left or right of the start of the specified range.
-export function insertColumn(range: Range, direction: 'left' | 'right' = 'left'): void {
+export function insertColumn(range: Range, direction: 'left' | 'right'): void {
   const cellNode = range.startNode.closest('td');
   const tableNode = cellNode.closest('table');
   const rowNode = cellNode.closest('tr');
   const tableNativeNode = tableNode.get(0) as HTMLTableElement;
   const rowNativeNode = rowNode.get(0) as HTMLTableRowElement;
   const cellNativeNode = cellNode.get(0) as HTMLTableCellElement;
-  let index = cellNativeNode.cellIndex + (direction === 'left' ? 0 : 1);
-  // the first row index
-  index += tableNativeNode.rows[0].cells.length - rowNativeNode.cells.length;
+  let cellIndex = cellNativeNode.cellIndex + (direction === 'left' ? 0 : 1);
+  cellIndex += tableNativeNode.rows[0].cells.length - rowNativeNode.cells.length;
   for (let i = 0; i < tableNativeNode.rows.length; i++) {
     const row = tableNativeNode.rows[i];
-    const cell = row.insertCell(index);
+    const cell = row.insertCell(cellIndex);
     cell.innerHTML = '<br />';
-    index = getCellIndex(row, cell);
+    cellIndex = getCellIndex(row, cell);
   }
 }
 
-// Removes the column at the start of the specified range from a table.
+// Removes the column containing the start of the specified range from a table.
 export function deleteColumn(range: Range): void {
   const cellNode = range.startNode.closest('td');
   const tableNode = cellNode.closest('table');
@@ -88,12 +102,12 @@ export function deleteColumn(range: Range): void {
   const tableNativeNode = tableNode.get(0) as HTMLTableElement;
   const rowNativeNode = rowNode.get(0) as HTMLTableRowElement;
   const cellNativeNode = cellNode.get(0) as HTMLTableCellElement;
-  const index = cellNativeNode.cellIndex;
+  const cellIndex = cellNativeNode.cellIndex;
   let newTargetCell: HTMLTableCellElement | null = null;
-  if (rowNativeNode.cells[index + 1]) {
-    newTargetCell = rowNativeNode.cells[index + 1];
-  } else if (rowNativeNode.cells[index - 1]) {
-    newTargetCell = rowNativeNode.cells[index - 1];
+  if (rowNativeNode.cells[cellIndex + 1]) {
+    newTargetCell = rowNativeNode.cells[cellIndex + 1];
+  } else if (rowNativeNode.cells[cellIndex - 1]) {
+    newTargetCell = rowNativeNode.cells[cellIndex - 1];
   }
   if (newTargetCell) {
     range.shrinkAfter(query(newTargetCell));
@@ -103,18 +117,88 @@ export function deleteColumn(range: Range): void {
   }
   for (let i = 0; i < tableNativeNode.rows.length; i++) {
     const row = tableNativeNode.rows[i];
-    const cell = row.cells[index];
+    const cell = row.cells[cellIndex];
     if (cell.colSpan > 1) {
       cell.colSpan -= 1;
       if (cell.colSpan === 1) {
         query(cell).removeAttr('colSpan');
       }
     } else {
-      row.deleteCell(index);
+      row.deleteCell(cellIndex);
     }
     if (cell.rowSpan > 1) {
       i += cell.rowSpan - 1;
     }
+  }
+}
+
+// Inserts a row above or below the start of the specified range.
+export function insertRow(range: Range, direction: 'above' | 'below' = 'above'): void {
+  const cellNode = range.startNode.closest('td');
+  const tableNode = cellNode.closest('table');
+  const rowNode = cellNode.closest('tr');
+  const tableNativeNode = tableNode.get(0) as HTMLTableElement;
+  const rowNativeNode = rowNode.get(0) as HTMLTableRowElement;
+  const cellNativeNode = cellNode.get(0) as HTMLTableCellElement;
+  let rowIndex: number;
+  if (direction === 'below') {
+    rowIndex = rowNativeNode.rowIndex + (cellNativeNode.rowSpan - 1) + 1;
+  } else {
+    rowIndex = rowNativeNode.rowIndex;
+  }
+  const newRow = tableNativeNode.insertRow(rowIndex);
+  let cellCount = rowNativeNode.cells.length;
+  for (let i = 0; i < cellCount; i++) {
+    // adjust cells length
+    if (rowNativeNode.cells[i].rowSpan > 1) {
+      cellCount -= rowNativeNode.cells[i].rowSpan - 1;
+    }
+    const newCell = newRow.insertCell(i);
+    newCell.innerHTML = '<br />';
+    // copy colspan
+    if (direction === 'below' && rowNativeNode.cells[i].colSpan > 1) {
+      newCell.colSpan = rowNativeNode.cells[i].colSpan;
+    }
+    // adjust rowspan
+    for (let j = rowIndex; j >= 0; j--) {
+      const cells = tableNativeNode.rows[j].cells;
+      if (cells.length > i) {
+        for (let k = cellNativeNode.cellIndex; k >= 0; k--) {
+          if (cells[k].rowSpan > 1) {
+            cells[k].rowSpan += 1;
+          }
+        }
+        break;
+      }
+    }
+  }
+}
+
+// Removes the row containing the start of the specified range from a table.
+export function deleteRow(range: Range): void {
+  const cellNode = range.startNode.closest('td');
+  const tableNode = cellNode.closest('table');
+  const rowNode = cellNode.closest('tr');
+  const tableNativeNode = tableNode.get(0) as HTMLTableElement;
+  const rowNativeNode = rowNode.get(0) as HTMLTableRowElement;
+  const cellNativeNode = cellNode.get(0) as HTMLTableCellElement;
+  const rowIndex = rowNativeNode.rowIndex;
+  let newTargetCell: HTMLTableCellElement | null = null;
+  if (tableNativeNode.rows[rowIndex + 1]) {
+    const row = tableNativeNode.rows[rowIndex + 1];
+    newTargetCell = row.cells[cellNativeNode.cellIndex];
+  } else if (tableNativeNode.rows[rowIndex - 1]) {
+    const row = tableNativeNode.rows[rowIndex - 1];
+    newTargetCell = row.cells[cellNativeNode.cellIndex];
+  }
+  if (newTargetCell) {
+    range.shrinkAfter(query(newTargetCell));
+  } else {
+    deleteTable(range);
+    return;
+  }
+  for (let i = cellNativeNode.rowSpan - 1; i >= 0; i--) {
+    tableNativeNode.deleteRow(rowIndex + i);
   }
 }
 
@@ -157,6 +241,26 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
           insertColumn(range, 'right');
         } else {
           deleteColumn(range);
+        }
+        editor.history.save();
+      },
+    },
+    {
+      name: 'tableRow',
+      type: 'dropdown',
+      downIcon: icons.get('down'),
+      icon: icons.get('tableRow'),
+      tooltip: 'Row',
+      menuType: 'list',
+      menuItems: rowMenuItems,
+      onSelect: (_, value) => {
+        const range = editor.selection.range;
+        if (value === 'insertAbove') {
+          insertRow(range, 'above');
+        } else if (value === 'insertBelow') {
+          insertRow(range, 'below');
+        } else {
+          deleteRow(range);
         }
         editor.history.save();
       },

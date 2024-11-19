@@ -1,5 +1,5 @@
 import { testPlugin } from '../utils';
-import { insertColumn, deleteColumn, insertTable, deleteTable } from '../../src/plugins/table';
+import { insertColumn, deleteColumn, insertTable, deleteTable, insertRow, deleteRow } from '../../src/plugins/table';
 
 describe('plugins / table', () => {
 
@@ -61,7 +61,7 @@ describe('plugins / table', () => {
     );
   });
 
-  it('insertColumn: should insert a column on the left side', () => {
+  it('insertColumn: should insert a column to the left', () => {
     const content = `
     <table>
       <tr>
@@ -106,7 +106,7 @@ describe('plugins / table', () => {
     );
   });
 
-  it('insertColumn: should insert a column on the right side', () => {
+  it('insertColumn: should insert a column to the right', () => {
     const content = `
     <table>
       <tr>
@@ -251,6 +251,179 @@ describe('plugins / table', () => {
       output,
       editor => {
         deleteColumn(editor.selection.range);
+      },
+    );
+  });
+
+  it('insertRow: should insert a row above', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+        <td>b1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>b2</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><br /></td>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td><focus />a1</td>
+        <td>b1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>b2</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertRow(editor.selection.range, 'above');
+      },
+    );
+  });
+
+  it('insertRow: should insert a row below', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+        <td>b1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>b2</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+        <td>b1</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>b2</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertRow(editor.selection.range, 'below');
+      },
+    );
+  });
+
+  it('deleteRow: should delete the first row', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+        <td>b1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>b2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a2<focus /></td>
+        <td>b2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        deleteRow(editor.selection.range);
+      },
+    );
+  });
+
+  it('deleteRow: should delete the last row', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>b2</td>
+      </tr>
+      <tr>
+        <td><focus />a3</td>
+        <td>b3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+      </tr>
+      <tr>
+        <td>a2<focus /></td>
+        <td>b2</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        deleteRow(editor.selection.range);
+      },
+    );
+  });
+
+  it('deleteRow: should delete the table when there is only one row', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+        <td>b1</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <p><focus /><br /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        deleteRow(editor.selection.range);
       },
     );
   });
