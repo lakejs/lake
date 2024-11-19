@@ -163,9 +163,14 @@ export default (editor: Editor) => {
     return;
   }
   let toolbar: FloatingToolbar | null = null;
+  let savedTableNode: Nodes | null = null;
   editor.event.on('statechange', () => {
     const range = editor.selection.range;
     const tableNode = range.commonAncestor.closest('table');
+    if (savedTableNode && savedTableNode.get(0) === tableNode.get(0)) {
+      return;
+    }
+    savedTableNode = tableNode;
     if (toolbar) {
       toolbar.unmount();
     }
