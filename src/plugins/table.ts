@@ -70,7 +70,8 @@ function getActualCellIndex(table: HTMLTableElement, targetRow: HTMLTableRowElem
     colSpan += cell.colSpan - 1;
     for (let j = targetRow.rowIndex - 1; j >= 0; j--) {
       const row = table.rows[j];
-      if (row.cells[i].rowSpan > targetRow.rowIndex - j) {
+      const aboveCell = row.cells[i];
+      if (aboveCell && aboveCell.rowSpan > targetRow.rowIndex - j) {
         rowSpan += 1;
       }
     }
@@ -128,12 +129,13 @@ export function deleteColumn(range: Range): void {
   const tableNativeNode = tableNode.get(0) as HTMLTableElement;
   const rowNativeNode = rowNode.get(0) as HTMLTableRowElement;
   const cellNativeNode = cellNode.get(0) as HTMLTableCellElement;
-  const cellIndex = cellNativeNode.cellIndex;
+  const actualIndex = cellNativeNode.cellIndex;
+  const absoluteIndex = getAbsoluteCellIndex(tableNativeNode, rowNativeNode, actualIndex);
   let newTargetCell: HTMLTableCellElement | null = null;
-  if (rowNativeNode.cells[cellIndex + 1]) {
-    newTargetCell = rowNativeNode.cells[cellIndex + 1];
-  } else if (rowNativeNode.cells[cellIndex - 1]) {
-    newTargetCell = rowNativeNode.cells[cellIndex - 1];
+  if (rowNativeNode.cells[actualIndex + 1]) {
+    newTargetCell = rowNativeNode.cells[actualIndex + 1];
+  } else if (rowNativeNode.cells[actualIndex - 1]) {
+    newTargetCell = rowNativeNode.cells[actualIndex - 1];
   }
   if (newTargetCell) {
     range.shrinkAfter(query(newTargetCell));
@@ -143,6 +145,7 @@ export function deleteColumn(range: Range): void {
   }
   for (let i = 0; i < tableNativeNode.rows.length; i++) {
     const row = tableNativeNode.rows[i];
+    const cellIndex = getActualCellIndex(tableNativeNode, row, absoluteIndex);
     const cell = row.cells[cellIndex];
     if (cell.colSpan > 1) {
       cell.colSpan -= 1;
@@ -151,9 +154,6 @@ export function deleteColumn(range: Range): void {
       }
     } else {
       row.deleteCell(cellIndex);
-    }
-    if (cell.rowSpan > 1) {
-      i += cell.rowSpan - 1;
     }
   }
 }

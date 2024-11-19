@@ -639,6 +639,88 @@ describe('plugins / table', () => {
     );
   });
 
+  it('deleteColumn: should delete a column with colspan (1)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td><focus />c2</td>
+      </tr>
+      <tr>
+        <td colspan="2">a3</td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2<focus /></td>
+      </tr>
+      <tr>
+        <td colspan="2">a3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        deleteColumn(editor.selection.range);
+      },
+    );
+  });
+
+  it('deleteColumn: should delete a column with colspan (2)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td><focus />c1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td colspan="2">a3</td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1<focus /></td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+      </tr>
+      <tr>
+        <td colspan="2">a3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        deleteColumn(editor.selection.range);
+      },
+    );
+  });
+
   it('insertRow: should insert a row above', () => {
     const content = `
     <table>
