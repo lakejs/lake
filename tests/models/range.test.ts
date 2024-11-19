@@ -6,7 +6,7 @@ import { template } from '../../src/utils/template';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
 
-function setTestBox(block: Nodes) {
+function setTestBox(block: Nodes): void {
   const box = getBox('blockBox');
   block.empty();
   block.append(box.node);

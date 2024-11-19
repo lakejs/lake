@@ -1,5 +1,5 @@
 // Creates a Base64-encoded ASCII string from a string.
-export function toBase64(value: string) {
+export function toBase64(value: string): string {
   const encoder = new TextEncoder();
   const byteArray = encoder.encode(value);
   let binaryString = '';

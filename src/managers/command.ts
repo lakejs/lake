@@ -18,11 +18,11 @@ export class Command {
     this.selection = selection;
   }
 
-  public add(name: string, commandItem: CommmandItem) {
+  public add(name: string, commandItem: CommmandItem): void {
     this.commandMap.set(name, commandItem);
   }
 
-  public delete(name: string) {
+  public delete(name: string): void {
     this.commandMap.delete(name);
   }
 

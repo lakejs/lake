@@ -26,7 +26,7 @@ Repository: https://github.com/react-component/upload
 
 import { UploadRequestError, UploadRequestOption } from '../types/request';
 
-function getError(option: UploadRequestOption, xhr: XMLHttpRequest) {
+function getError(option: UploadRequestOption, xhr: XMLHttpRequest): UploadRequestError {
   const msg = `Cannot ${option.method} ${option.action} ${xhr.status}'`;
   const err = new Error(msg) as UploadRequestError;
   err.status = xhr.status;
@@ -35,7 +35,7 @@ function getError(option: UploadRequestOption, xhr: XMLHttpRequest) {
   return err;
 }
 
-function getBody(xhr: XMLHttpRequest) {
+function getBody(xhr: XMLHttpRequest): any {
   const text = xhr.responseText || xhr.response;
   if (!text) {
     return text;

@@ -7,7 +7,7 @@ const imageUrl = '../assets/images/heaven-lake-256.png';
 const imageBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTI1Ni5wbmciLCJzdGF0dXMiOiJkb25lIn0=';
 const imgBuffer = base64ToArrayBuffer('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAwAB/orejrsAAAAASUVORK5CYII=');
 
-function pasteData(editor: Editor, format: string, data: string) {
+function pasteData(editor: Editor, format: string, data: string): void {
   const event = new ClipboardEvent('paste', {
     clipboardData: new DataTransfer(),
   });

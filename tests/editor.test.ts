@@ -10,7 +10,7 @@ import { Toolbar } from '../src/ui/toolbar';
 import { Editor } from '../src/editor';
 import { click, getContainerValue } from './utils';
 
-function insertText(editor: Editor, data: string) {
+function insertText(editor: Editor, data: string): void {
   const inputEvent = new InputEvent('input', {
     data,
     inputType: 'insertText',
@@ -27,7 +27,7 @@ function insertText(editor: Editor, data: string) {
   editor.container.emit('input', inputEvent);
 }
 
-function insertCompositionText(editor: Editor, data: string) {
+function insertCompositionText(editor: Editor, data: string): void {
   editor.container.emit('compositionstart');
   const inputEvent = new InputEvent('input', {
     data,
@@ -44,7 +44,7 @@ function insertCompositionText(editor: Editor, data: string) {
   editor.container.emit('compositionend', compositionEvent);
 }
 
-function deleteContentBackward(editor: Editor) {
+function deleteContentBackward(editor: Editor): void {
   const range = editor.selection.range;
   const event = new InputEvent('input', {
     inputType: 'deleteContentBackward',

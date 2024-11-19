@@ -39,7 +39,7 @@ const rowMenuItems: DropdownMenuItem[] = [
 ];
 
 // Returns the absolute position by the actual cell index.
-function getAbsoluteCellIndex(table: HTMLTableElement, targetRow: HTMLTableRowElement, actualIndex: number) {
+function getAbsoluteCellIndex(table: HTMLTableElement, targetRow: HTMLTableRowElement, actualIndex: number): number {
   let colSpan = 0;
   let rowSpan = 0;
   for (let i = 0; i <= actualIndex; i++) {
@@ -59,7 +59,7 @@ function getAbsoluteCellIndex(table: HTMLTableElement, targetRow: HTMLTableRowEl
 }
 
 // Returns the actual position by the absolute cell index.
-function getActualCellIndex(table: HTMLTableElement, targetRow: HTMLTableRowElement, absoluteIndex: number) {
+function getActualCellIndex(table: HTMLTableElement, targetRow: HTMLTableRowElement, absoluteIndex: number): number {
   let colSpan = 0;
   let rowSpan = 0;
   for (let i = 0; i < absoluteIndex; i++) {
@@ -312,6 +312,11 @@ export default (editor: Editor) => {
   let toolbar: FloatingToolbar | null = null;
   let savedTableNode: Nodes | null = null;
   editor.event.on('statechange', () => {
+    if (toolbar) {
+      toolbar.updateState({
+        activeItems: [],
+      });
+    }
     const range = editor.selection.range;
     const tableNode = range.commonAncestor.closest('table');
     if (savedTableNode && savedTableNode.get(0) === tableNode.get(0)) {

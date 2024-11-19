@@ -307,7 +307,7 @@ export class Editor {
   });
 
   // Adds or Removes a placeholder class.
-  private togglePlaceholderClass(value: string) {
+  private togglePlaceholderClass(value: string): void {
     value = denormalizeValue(value);
     const className = 'lake-placeholder';
     if (value.replace('<focus />', '') === '<p><br /></p>') {
@@ -354,7 +354,7 @@ export class Editor {
   }
 
   // Handles input event.
-  private handleInputEvent(event: InputEvent | CompositionEvent) {
+  private handleInputEvent(event: InputEvent | CompositionEvent): void {
     this.selection.updateByRange();
     const range = this.selection.range;
     if (range.isInsideBox) {
@@ -415,7 +415,7 @@ export class Editor {
   }
 
   // Removes all unused box instances.
-  private removeBoxGarbage() {
+  private removeBoxGarbage(): void {
     const instanceMap = getInstanceMap(this.container.id);
     for (const box of instanceMap.values()) {
       if (!box.node.get(0).isConnected) {

@@ -1,19 +1,19 @@
 import type { Editor } from '..';
 import { query } from '../utils/query';
 
-function setParagraph(editor: Editor) {
+function setParagraph(editor: Editor): void {
   editor.selection.setBlocks('<p />');
 }
 
-function setNumberedList(editor: Editor) {
+function setNumberedList(editor: Editor): void {
   editor.selection.setBlocks('<ol><li></li></ol>');
 }
 
-function setBulletedList(editor: Editor) {
+function setBulletedList(editor: Editor): void {
   editor.selection.setBlocks('<ul><li></li></ul>');
 }
 
-function setChecklist(editor: Editor, value: boolean) {
+function setChecklist(editor: Editor, value: boolean): void {
   editor.selection.setBlocks(`<ul type="checklist"><li value="${value}"></li></ul>`);
 }
 

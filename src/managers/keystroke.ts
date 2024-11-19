@@ -50,7 +50,7 @@ export class Keystroke {
   }
 
   // Sets a keydown shortcut.
-  public setKeydown(type: string, listener: EventListener) {
+  public setKeydown(type: string, listener: EventListener): void {
     this.keydownEventList.push({
       type,
       listener,
@@ -58,7 +58,7 @@ export class Keystroke {
   }
 
   // Sets a keyup shortcut.
-  public setKeyup(type: string, listener: EventListener) {
+  public setKeyup(type: string, listener: EventListener): void {
     this.keyupEventList.push({
       type,
       listener,
@@ -66,7 +66,7 @@ export class Keystroke {
   }
 
   // Executes the keydown shortcuts.
-  public keydown(type: string) {
+  public keydown(type: string): void {
     for (const item of this.keydownEventList) {
       if (item.type === type) {
         if (item.listener(new KeyboardEvent(type)) === false) {
@@ -77,7 +77,7 @@ export class Keystroke {
   }
 
   // Executes the keyup shortcuts.
-  public keyup(type: string) {
+  public keyup(type: string): void {
     for (const item of this.keyupEventList) {
       if (item.type === type) {
         if (item.listener(new KeyboardEvent(type)) === false) {

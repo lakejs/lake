@@ -2,7 +2,7 @@ import { debug } from '../../src/utils/debug';
 import { query } from '../../src/utils/query';
 import { morph } from '../../src/utils/morph';
 
-function testFidelity(start: string, end: string) {
+function testFidelity(start: string, end: string): void {
   const node = query(`<div>${start}</div>`);
   const otherNode = query(`<div>${end}</div>`);
   morph(node, otherNode);

@@ -19,7 +19,7 @@ export const isMac = navigator.userAgent.indexOf('Mac OS X') >= 0;
 export const isFirefox = navigator.userAgent.indexOf('Firefox/') >= 0;
 
 // Helper function to convert a base64 data string to binary format
-export function base64ToArrayBuffer(base64: string) {
+export function base64ToArrayBuffer(base64: string): ArrayBuffer {
   const binaryString = window.atob(base64); // Decode base64
   const len = binaryString.length;
   const bytes = new Uint8Array(len);

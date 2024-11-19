@@ -2,7 +2,7 @@ import { getBox } from '../utils/get-box';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
-function removeAndNormalizeNode(node: Nodes, range?: Range) {
+function removeAndNormalizeNode(node: Nodes, range?: Range): void {
   const previousNode = node.prev();
   const nextNode = node.next();
   if (previousNode.isText || nextNode.isText) {

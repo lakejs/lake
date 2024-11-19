@@ -329,7 +329,7 @@ export class Nodes {
   }
 
   // Traverses the first node and its parents until it finds a block element.
-  public closestBlock() {
+  public closestBlock(): Nodes {
     let node = this.eq(0);
     while (node.length > 0) {
       if (node.isTopInside || node.isBlock) {
@@ -650,7 +650,7 @@ export class Nodes {
   }
 
   // Returns the interior width of the first element, which does not include padding.
-  public innerWidth() {
+  public innerWidth(): number {
     const paddingLeft = Number.parseInt(this.computedCSS('padding-left'), 10) || 0;
     const paddingRight = Number.parseInt(this.computedCSS('padding-right'), 10) || 0;
     return this.width() - paddingLeft - paddingRight;

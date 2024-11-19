@@ -92,7 +92,7 @@ export class Toolbar {
     button.render();
   }
 
-  private appendDropdown(editor: Editor, item: ToolbarDropdownItem) {
+  private appendDropdown(editor: Editor, item: ToolbarDropdownItem): void {
     const dropdown = new Dropdown({
       root: this.container,
       locale: editor.locale,
@@ -168,11 +168,14 @@ export class Toolbar {
   }
 
   // Updates state of each item such as disabled, selected.
-  public updateState(state: SelectionState) {
+  public updateState(state: SelectionState): void {
     const { activeItems } = state;
     const disabledNameMap = state.disabledNameMap || new Map();
     const selectedNameMap = state.selectedNameMap || new Map();
     const selectedValuesMap = state.selectedValuesMap || new Map();
+    if (!this.container.get(0).isConnected) {
+      return;
+    }
     for (const item of this.buttonItemList) {
       const selectedClass = 'lake-button-selected';
       const buttonNode = this.container.find(`button[name="${item.name}"]`);
@@ -227,7 +230,7 @@ export class Toolbar {
   }
 
   // Renders a toolbar for the specified editor.
-  public render(editor: Editor) {
+  public render(editor: Editor): void {
     this.root.append(this.container);
     for (const name of this.items) {
       if (name === '|') {

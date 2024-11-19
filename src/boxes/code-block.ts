@@ -37,7 +37,7 @@ const config = {
 };
 
 // https://lezer.codemirror.net/docs/ref/#highlight.tags
-function getHighlightStyle(CodeMirror: any) {
+function getHighlightStyle(CodeMirror: any): any {
   const { HighlightStyle, tags } = CodeMirror;
   return HighlightStyle.define([
     { tag: [tags.comment, tags.lineComment, tags.blockComment, tags.docComment], color: config.comment },

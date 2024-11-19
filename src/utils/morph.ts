@@ -94,7 +94,7 @@ const defaults = {
   Deep merges the config object and the Idiomoroph.defaults object to
   produce a final configuration object
  */
-function mergeDefaults(config: KeyValue) {
+function mergeDefaults(config: KeyValue): KeyValue {
   const finalConfig: KeyValue = {};
   // copy top level stuff into final config
   Object.assign(finalConfig, defaults);
@@ -116,23 +116,23 @@ function mergeDefaults(config: KeyValue) {
 // ID Set Functions
 // =============================================================================
 
-function isIdInConsideration(ctx: KeyValue, id: string) {
+function isIdInConsideration(ctx: KeyValue, id: string): any {
   return !ctx.deadIds.has(id);
 }
 
-function idIsWithinNode(ctx: KeyValue, id: string, targetNode: Node) {
+function idIsWithinNode(ctx: KeyValue, id: string, targetNode: Node): any {
   const idSet = ctx.idMap.get(targetNode) || EMPTY_SET;
   return idSet.has(id);
 }
 
-function removeIdsFromConsideration(ctx: KeyValue, node: Node) {
+function removeIdsFromConsideration(ctx: KeyValue, node: Node): void {
   const idSet = ctx.idMap.get(node) || EMPTY_SET;
   for (const id of idSet) {
     ctx.deadIds.add(id);
   }
 }
 
-function getIdIntersectionCount(ctx: KeyValue, node1: Node, node2: Node) {
+function getIdIntersectionCount(ctx: KeyValue, node1: Node, node2: Node): number {
   const sourceSet = ctx.idMap.get(node1) || EMPTY_SET;
   let matchCount = 0;
   for (const id of sourceSet) {
@@ -184,7 +184,7 @@ function populateIdMapForNode(node: Element, idMap: Map<Node, Set<string>>) {
  * @param {Element} newContent  the new content to morph to
  * @returns {Map<Node, Set<String>>} a map of nodes to id sets for the
  */
-function createIdMap(oldContent: Element, newContent: Element) {
+function createIdMap(oldContent: Element, newContent: Element): Map<any, any> {
   const idMap = new Map();
   populateIdMapForNode(oldContent, idMap);
   populateIdMapForNode(newContent, idMap);

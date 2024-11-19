@@ -4,14 +4,14 @@ import { InitializePlugin, UnmountPlugin } from '../types/plugin';
 export class Plugin {
   private pluginMap: Map<string, InitializePlugin> = new Map();
 
-  public add(name: string, plugin: InitializePlugin) {
+  public add(name: string, plugin: InitializePlugin): void {
     if (this.pluginMap.get(name)) {
       throw new Error(`Plugin "${name}" is already defined.`);
     }
     this.pluginMap.set(name, plugin);
   }
 
-  public loadAll(editor: Editor) {
+  public loadAll(editor: Editor): Map<string, UnmountPlugin> {
     const unmountPluginMap: Map<string, UnmountPlugin> = new Map();
     for (const name of this.pluginMap.keys()) {
       const plugin = this.pluginMap.get(name);
