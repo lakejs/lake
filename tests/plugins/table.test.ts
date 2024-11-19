@@ -151,6 +151,390 @@ describe('plugins / table', () => {
     );
   });
 
+  it('insertColumn: should insert a column to the left with colspan (1)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td><focus />c2</td>
+      </tr>
+      <tr>
+        <td colspan="2">a3</td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td><br /></td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td><br /></td>
+        <td><focus />c2</td>
+      </tr>
+      <tr>
+        <td colspan="2">a3</td>
+        <td><br /></td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertColumn(editor.selection.range, 'left');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column to the left with colspan (2)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td><focus />c1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td colspan="2">a3</td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td><br /></td>
+        <td><focus />c1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td><br /></td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td colspan="2">a3</td>
+        <td><br /></td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertColumn(editor.selection.range, 'left');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column to the right with colspan (1)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2"><focus />a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td colspan="2">a3</td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td><br /></td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2"><focus />a2</td>
+        <td><br /></td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td colspan="2">a3</td>
+        <td><br /></td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertColumn(editor.selection.range, 'right');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column to the right with colspan (2)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td><focus />c2</td>
+      </tr>
+      <tr>
+        <td colspan="2">a3</td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td><focus />c2</td>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td colspan="2">a3</td>
+        <td>c3</td>
+        <td><br /></td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertColumn(editor.selection.range, 'right');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column to the left with rowspan (1)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td rowspan="2">b2<focus /></td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td><br /></td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td><br /></td>
+        <td rowspan="2">b2<focus /></td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td><br /></td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertColumn(editor.selection.range, 'left');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column to the left with rowspan (2)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td rowspan="2">b2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td><focus />c3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td><br /></td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td rowspan="2">b2</td>
+        <td><br /></td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td><br /></td>
+        <td><focus />c3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertColumn(editor.selection.range, 'left');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column to the right with rowspan (1)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td rowspan="2">b2<focus /></td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td><br /></td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td rowspan="2">b2<focus /></td>
+        <td><br /></td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td><br /></td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertColumn(editor.selection.range, 'right');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column to the right with rowspan (2)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td><focus />b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td rowspan="2">b2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td><focus />b1</td>
+        <td><br /></td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td rowspan="2">b2</td>
+        <td><br /></td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td><br /></td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        insertColumn(editor.selection.range, 'right');
+      },
+    );
+  });
+
   it('deleteColumn: should delete the first column', () => {
     const content = `
     <table>

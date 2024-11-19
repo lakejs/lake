@@ -38,18 +38,44 @@ const rowMenuItems: DropdownMenuItem[] = [
   },
 ];
 
-// Returns the position of the specified cell within its row.
-// The first cell has an index of 0.
-function getCellIndex(rowNativeNode: HTMLTableRowElement, cellNativeNode: HTMLTableCellElement) {
-  let rowSpanCount = 0;
-  const cellCount = rowNativeNode.cells.length;
-  for (let i = 0; i < cellCount; i++) {
-    if (rowNativeNode.cells[i] === cellNativeNode) {
+// Returns the absolute position by the actual cell index.
+function getAbsoluteCellIndex(table: HTMLTableElement, targetRow: HTMLTableRowElement, actualIndex: number) {
+  let colSpan = 0;
+  let rowSpan = 0;
+  for (let i = 0; i <= actualIndex; i++) {
+    const cell = targetRow.cells[i];
+    if (!cell) {
       break;
     }
-    rowSpanCount += rowNativeNode.cells[i].rowSpan - 1;
+    colSpan += cell.colSpan - 1;
+    for (let j = targetRow.rowIndex - 1; j >= 0; j--) {
+      const row = table.rows[j];
+      if (row.cells[i].rowSpan > targetRow.rowIndex - j) {
+        rowSpan += 1;
+      }
+    }
   }
-  return cellNativeNode.cellIndex - rowSpanCount;
+  return actualIndex + colSpan + rowSpan;
+}
+
+// Returns the actual position by the absolute cell index.
+function getActualCellIndex(table: HTMLTableElement, targetRow: HTMLTableRowElement, absoluteIndex: number) {
+  let colSpan = 0;
+  let rowSpan = 0;
+  for (let i = 0; i < absoluteIndex; i++) {
+    const cell = targetRow.cells[i];
+    if (!cell) {
+      break;
+    }
+    colSpan += cell.colSpan - 1;
+    for (let j = targetRow.rowIndex - 1; j >= 0; j--) {
+      const row = table.rows[j];
+      if (row.cells[i].rowSpan > targetRow.rowIndex - j) {
+        rowSpan += 1;
+      }
+    }
+  }
+  return absoluteIndex - colSpan - rowSpan;
 }
 
 // Inserts a table.
@@ -84,13 +110,13 @@ export function insertColumn(range: Range, direction: 'left' | 'right'): void {
   const tableNativeNode = tableNode.get(0) as HTMLTableElement;
   const rowNativeNode = rowNode.get(0) as HTMLTableRowElement;
   const cellNativeNode = cellNode.get(0) as HTMLTableCellElement;
-  let cellIndex = cellNativeNode.cellIndex + (direction === 'left' ? 0 : 1);
-  cellIndex += tableNativeNode.rows[0].cells.length - rowNativeNode.cells.length;
+  const index = direction === 'left' ? cellNativeNode.cellIndex : cellNativeNode.cellIndex + 1;
+  const targetCellIndex = getAbsoluteCellIndex(tableNativeNode, rowNativeNode, index);
   for (let i = 0; i < tableNativeNode.rows.length; i++) {
     const row = tableNativeNode.rows[i];
+    const cellIndex = getActualCellIndex(tableNativeNode, row, targetCellIndex);
     const cell = row.insertCell(cellIndex);
     cell.innerHTML = '<br />';
-    cellIndex = getCellIndex(row, cell);
   }
 }
 
