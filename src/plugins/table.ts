@@ -185,43 +185,48 @@ export function insertRow(range: Range, direction: 'above' | 'below'): void {
   const cellNode = range.startNode.closest('td');
   const tableNode = cellNode.closest('table');
   const rowNode = cellNode.closest('tr');
-  const tableNativeNode = tableNode.get(0) as HTMLTableElement;
-  const rowNativeNode = rowNode.get(0) as HTMLTableRowElement;
+  const table = tableNode.get(0) as HTMLTableElement;
+  const currentRow = rowNode.get(0) as HTMLTableRowElement;
   let targetRowIndex: number;
   if (direction === 'above') {
-    targetRowIndex = rowNativeNode.rowIndex;
+    targetRowIndex = currentRow.rowIndex;
   } else {
-    targetRowIndex = rowNativeNode.rowIndex + 1;
+    targetRowIndex = currentRow.rowIndex + 1;
   }
-  const columnCount = getTableColumnCount(tableNativeNode, 0);
-  const newRow = tableNativeNode.insertRow(targetRowIndex);
+  const rowRef = table.rows[targetRowIndex];
+  const columnCount = getTableColumnCount(table, 0);
+  const newRow = table.insertRow(targetRowIndex);
+  // last row
+  if (!rowRef) {
+    for (let i = 0; i < columnCount; i++) {
+      const newCell = newRow.insertCell(newRow.cells.length);
+      newCell.innerHTML = '<br />';
+    }
+    return;
+  }
   let savedActualIndex: number = -1;
   for (let i = 0; i < columnCount; i++) {
-    const actualIndex = getActualCellIndex(tableNativeNode, rowNativeNode, i);
+    const actualIndex = getActualCellIndex(table, rowRef, i);
     if (actualIndex === savedActualIndex) {
       break;
     }
     savedActualIndex = actualIndex;
-    const cell = rowNativeNode.cells[actualIndex];
+    const cell = rowRef.cells[actualIndex];
     if (!cell) {
       break;
     }
-    if (direction === 'above' || cell.rowSpan === 1) {
-      const newCell = newRow.insertCell(newRow.cells.length);
-      newCell.innerHTML = '<br />';
-      if (cell.colSpan > 1) {
-        newCell.colSpan = cell.colSpan;
-      }
-    }
+    const newCell = newRow.insertCell(newRow.cells.length);
+    newCell.innerHTML = '<br />';
     if (cell.colSpan > 1) {
+      newCell.colSpan = cell.colSpan;
       i += cell.colSpan - 1;
     }
   }
   for (let i = targetRowIndex - 1; i >= 0; i--) {
-    const cells = tableNativeNode.rows[i].cells;
+    const cells = table.rows[i].cells;
     for (let j = 0; j < cells.length; j++) {
       const cell = cells[j];
-      if (cell && cell.rowSpan > 1 && cell.rowSpan + 1 > rowNativeNode.rowIndex - i) {
+      if (cell && cell.rowSpan > 1 && cell.rowSpan + 1 > rowRef.rowIndex - i) {
         cell.rowSpan += 1;
       }
     }

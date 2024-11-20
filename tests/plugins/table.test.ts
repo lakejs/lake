@@ -1527,7 +1527,8 @@ describe('plugins / table (functions)', () => {
         <td><focus />c3</td>
       </tr>
       <tr>
-        <td colspan="2"><br /></td>
+        <td><br /></td>
+        <td><br /></td>
         <td><br /></td>
       </tr>
     </table>
@@ -1720,7 +1721,7 @@ describe('plugins / table (functions)', () => {
       </tr>
       <tr>
         <td>a2</td>
-        <td rowspan="3">b2</td>
+        <td rowspan="2">b2</td>
         <td>c2</td>
       </tr>
       <tr>
@@ -1728,6 +1729,7 @@ describe('plugins / table (functions)', () => {
         <td><focus />c3</td>
       </tr>
       <tr>
+        <td><br /></td>
         <td><br /></td>
         <td><br /></td>
       </tr>
@@ -1853,6 +1855,69 @@ describe('plugins / table (functions)', () => {
         <td>a5</td>
         <td>b5</td>
         <td>c5</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertRow(range, 'above');
+      },
+    );
+  });
+
+  it('insertRow: should insert a row above with colspan and rowspan (3)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td rowspan="2">c1</td>
+        <td><focus />d1</td>
+        <td>e1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td>d2</td>
+        <td>e2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td>c3</td>
+        <td>d3</td>
+        <td>e3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><br /></td>
+        <td><br /></td>
+        <td><br /></td>
+        <td><br /></td>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td rowspan="2">c1</td>
+        <td><focus />d1</td>
+        <td>e1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td>d2</td>
+        <td>e2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td>c3</td>
+        <td>d3</td>
+        <td>e3</td>
       </tr>
     </table>
     `;
@@ -2026,6 +2091,130 @@ describe('plugins / table (functions)', () => {
         <td>a5</td>
         <td>b5</td>
         <td>c5</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertRow(range, 'below');
+      },
+    );
+  });
+
+  it('insertRow: should insert a row below with colspan and rowspan (4)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td rowspan="2">c1</td>
+        <td>d1</td>
+        <td>e1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td><focus />d2</td>
+        <td>e2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td>c3</td>
+        <td>d3</td>
+        <td>e3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td rowspan="2">c1</td>
+        <td>d1</td>
+        <td>e1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td><focus />d2</td>
+        <td>e2</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td><br /></td>
+        <td><br /></td>
+        <td><br /></td>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td>c3</td>
+        <td>d3</td>
+        <td>e3</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertRow(range, 'below');
+      },
+    );
+  });
+
+  it('insertRow: should insert a row below with colspan and rowspan (5)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td rowspan="2">c1</td>
+        <td><focus />d1</td>
+        <td>e1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td>d2</td>
+        <td>e2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td>c3</td>
+        <td>d3</td>
+        <td>e3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td rowspan="3">c1</td>
+        <td><focus />d1</td>
+        <td>e1</td>
+      </tr>
+      <tr>
+        <td colspan="2"><br /></td>
+        <td><br /></td>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td>d2</td>
+        <td>e2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td>c3</td>
+        <td>d3</td>
+        <td>e3</td>
       </tr>
     </table>
     `;
