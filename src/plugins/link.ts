@@ -1,6 +1,7 @@
 import { type Editor } from '..';
 import { Nodes } from '../models/nodes';
 import { LinkPopup } from '../ui/link-popup';
+import { insertLink } from '../operations/insert-link';
 
 export default (editor: Editor) => {
   if (editor.readonly) {
@@ -53,7 +54,8 @@ export default (editor: Editor) => {
   });
   editor.command.add('link', {
     execute: () => {
-      const linkNode = editor.selection.insertLink(`<a href="">${editor.locale.link.newLink()}</a>`);
+      const range = editor.selection.range;
+      const linkNode = insertLink(range, `<a href="">${editor.locale.link.newLink()}</a>`);
       if (!linkNode) {
         return;
       }

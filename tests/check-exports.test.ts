@@ -26,7 +26,6 @@ import {
   splitMarks,
   addMark,
   removeMark,
-  insertLink,
   insertBox,
   removeBox,
 } from '../src';
@@ -58,7 +57,6 @@ describe('check exports', () => {
     expect(typeof splitMarks).to.equal('function');
     expect(typeof addMark).to.equal('function');
     expect(typeof removeMark).to.equal('function');
-    expect(typeof insertLink).to.equal('function');
     expect(typeof insertBox).to.equal('function');
     expect(typeof removeBox).to.equal('function');
   });
