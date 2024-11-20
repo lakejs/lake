@@ -1,7 +1,14 @@
-import { testPlugin } from '../utils';
-import { insertColumn, deleteColumn, insertTable, deleteTable, insertRow, deleteRow } from '../../src/plugins/table';
+import { testOperation, testPlugin } from '../utils';
+import {
+  insertTable,
+  deleteTable,
+  insertColumn,
+  deleteColumn,
+  insertRow,
+  deleteRow,
+} from '../../src/plugins/table';
 
-describe('plugins / table', () => {
+describe('plugins / table (functions)', () => {
 
   it('insertTable: should insert a table', () => {
     const content = `
@@ -26,11 +33,11 @@ describe('plugins / table', () => {
     </table>
     <p>bar</p>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertTable(editor.selection.range, 3, 2);
+      range => {
+        insertTable(range, 3, 2);
       },
     );
   });
@@ -52,11 +59,11 @@ describe('plugins / table', () => {
     const output = `
     <p><focus /><br /></p>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        deleteTable(editor.selection.range);
+      range => {
+        deleteTable(range);
       },
     );
   });
@@ -97,11 +104,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertColumn(editor.selection.range, 'left');
+      range => {
+        insertColumn(range, 'left');
       },
     );
   });
@@ -142,11 +149,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertColumn(editor.selection.range, 'right');
+      range => {
+        insertColumn(range, 'right');
       },
     );
   });
@@ -189,11 +196,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertColumn(editor.selection.range, 'left');
+      range => {
+        insertColumn(range, 'left');
       },
     );
   });
@@ -236,11 +243,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertColumn(editor.selection.range, 'left');
+      range => {
+        insertColumn(range, 'left');
       },
     );
   });
@@ -283,11 +290,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertColumn(editor.selection.range, 'right');
+      range => {
+        insertColumn(range, 'right');
       },
     );
   });
@@ -330,11 +337,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertColumn(editor.selection.range, 'right');
+      range => {
+        insertColumn(range, 'right');
       },
     );
   });
@@ -379,11 +386,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertColumn(editor.selection.range, 'left');
+      range => {
+        insertColumn(range, 'left');
       },
     );
   });
@@ -428,11 +435,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertColumn(editor.selection.range, 'left');
+      range => {
+        insertColumn(range, 'left');
       },
     );
   });
@@ -477,11 +484,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertColumn(editor.selection.range, 'right');
+      range => {
+        insertColumn(range, 'right');
       },
     );
   });
@@ -526,11 +533,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertColumn(editor.selection.range, 'right');
+      range => {
+        insertColumn(range, 'right');
       },
     );
   });
@@ -589,11 +596,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertColumn(editor.selection.range, 'left');
+      range => {
+        insertColumn(range, 'left');
       },
     );
   });
@@ -649,11 +656,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertColumn(editor.selection.range, 'left');
+      range => {
+        insertColumn(range, 'left');
       },
     );
   });
@@ -701,11 +708,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertColumn(editor.selection.range, 'right');
+      range => {
+        insertColumn(range, 'right');
       },
     );
   });
@@ -761,11 +768,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertColumn(editor.selection.range, 'right');
+      range => {
+        insertColumn(range, 'right');
       },
     );
   });
@@ -824,11 +831,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertColumn(editor.selection.range, 'right');
+      range => {
+        insertColumn(range, 'right');
       },
     );
   });
@@ -863,11 +870,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        deleteColumn(editor.selection.range);
+      range => {
+        deleteColumn(range);
       },
     );
   });
@@ -902,11 +909,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        deleteColumn(editor.selection.range);
+      range => {
+        deleteColumn(range);
       },
     );
   });
@@ -928,11 +935,11 @@ describe('plugins / table', () => {
     const output = `
     <p><focus /><br /></p>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        deleteColumn(editor.selection.range);
+      range => {
+        deleteColumn(range);
       },
     );
   });
@@ -969,11 +976,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        deleteColumn(editor.selection.range);
+      range => {
+        deleteColumn(range);
       },
     );
   });
@@ -1010,11 +1017,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        deleteColumn(editor.selection.range);
+      range => {
+        deleteColumn(range);
       },
     );
   });
@@ -1054,11 +1061,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        deleteColumn(editor.selection.range);
+      range => {
+        deleteColumn(range);
       },
     );
   });
@@ -1098,11 +1105,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        deleteColumn(editor.selection.range);
+      range => {
+        deleteColumn(range);
       },
     );
   });
@@ -1145,11 +1152,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        deleteColumn(editor.selection.range);
+      range => {
+        deleteColumn(range);
       },
     );
   });
@@ -1201,11 +1208,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        deleteColumn(editor.selection.range);
+      range => {
+        deleteColumn(range);
       },
     );
   });
@@ -1257,11 +1264,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        deleteColumn(editor.selection.range);
+      range => {
+        deleteColumn(range);
       },
     );
   });
@@ -1295,11 +1302,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertRow(editor.selection.range, 'above');
+      range => {
+        insertRow(range, 'above');
       },
     );
   });
@@ -1333,11 +1340,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        insertRow(editor.selection.range, 'below');
+      range => {
+        insertRow(range, 'below');
       },
     );
   });
@@ -1371,11 +1378,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        deleteRow(editor.selection.range);
+      range => {
+        deleteRow(range);
       },
     );
   });
@@ -1409,11 +1416,11 @@ describe('plugins / table', () => {
       </tr>
     </table>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        deleteRow(editor.selection.range);
+      range => {
+        deleteRow(range);
       },
     );
   });
@@ -1430,16 +1437,20 @@ describe('plugins / table', () => {
     const output = `
     <p><focus /><br /></p>
     `;
-    testPlugin(
+    testOperation(
       content,
       output,
-      editor => {
-        deleteRow(editor.selection.range);
+      range => {
+        deleteRow(range);
       },
     );
   });
 
-  it('command: should insert a table', () => {
+});
+
+describe('plugins / table (main)', () => {
+
+  it('should insert a table', () => {
     const content = `
     <p>foo<focus /></p>
     <p>bar</p>
