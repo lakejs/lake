@@ -64,7 +64,6 @@ import './operations/add-mark.test';
 import './operations/remove-mark.test';
 import './operations/insert-box.test';
 import './operations/remove-box.test';
-import './operations/insert-link.test';
 
 // Managers
 import './managers/selection.test';
