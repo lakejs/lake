@@ -840,6 +840,65 @@ describe('plugins / table (functions)', () => {
     );
   });
 
+  it('insertColumn: should insert a column to the right with colspan and rowspan (4)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td rowspan="2"><focus />c1</td>
+        <td>d1</td>
+        <td>e1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td>d2</td>
+        <td>e2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td>c3</td>
+        <td>d3</td>
+        <td>e3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td rowspan="2"><focus />c1</td>
+        <td><br /></td>
+        <td>d1</td>
+        <td>e1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td><br /></td>
+        <td>d2</td>
+        <td>e2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td>c3</td>
+        <td><br /></td>
+        <td>d3</td>
+        <td>e3</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertColumn(range, 'right');
+      },
+    );
+  });
+
   it('deleteColumn: should delete the first column', () => {
     const content = `
     <table>
@@ -1261,6 +1320,60 @@ describe('plugins / table (functions)', () => {
       <tr>
         <td>a5</td>
         <td>c5</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        deleteColumn(range);
+      },
+    );
+  });
+
+  it('deleteColumn: should delete a column with colspan and rowspan (4)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td><focus />b1</td>
+        <td rowspan="2">c1</td>
+        <td>d1</td>
+        <td>e1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td>d2</td>
+        <td>e2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td>c3</td>
+        <td>d3</td>
+        <td>e3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td rowspan="2">c1<focus /></td>
+        <td>d1</td>
+        <td>e1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>d2</td>
+        <td>e2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>c3</td>
+        <td>d3</td>
+        <td>e3</td>
       </tr>
     </table>
     `;
