@@ -187,33 +187,41 @@ export function insertRow(range: Range, direction: 'above' | 'below'): void {
   const rowNode = cellNode.closest('tr');
   const tableNativeNode = tableNode.get(0) as HTMLTableElement;
   const rowNativeNode = rowNode.get(0) as HTMLTableRowElement;
-  const cellNativeNode = cellNode.get(0) as HTMLTableCellElement;
-  let rowIndex: number;
+  let targetRowIndex: number;
   if (direction === 'above') {
-    rowIndex = rowNativeNode.rowIndex;
+    targetRowIndex = rowNativeNode.rowIndex;
   } else {
-    rowIndex = rowNativeNode.rowIndex + cellNativeNode.rowSpan;
+    targetRowIndex = rowNativeNode.rowIndex + 1;
   }
   const columnCount = getTableColumnCount(tableNativeNode, 0);
-  const newRow = tableNativeNode.insertRow(rowIndex);
+  const newRow = tableNativeNode.insertRow(targetRowIndex);
+  let savedActualIndex: number = -1;
   for (let i = 0; i < columnCount; i++) {
     const actualIndex = getActualCellIndex(tableNativeNode, rowNativeNode, i);
+    if (actualIndex === savedActualIndex) {
+      break;
+    }
+    savedActualIndex = actualIndex;
     const cell = rowNativeNode.cells[actualIndex];
     if (!cell) {
       break;
     }
-    const newCell = newRow.insertCell(actualIndex);
-    newCell.innerHTML = '<br />';
+    if (direction === 'above' || cell.rowSpan === 1) {
+      const newCell = newRow.insertCell(newRow.cells.length);
+      newCell.innerHTML = '<br />';
+      if (cell.colSpan > 1) {
+        newCell.colSpan = cell.colSpan;
+      }
+    }
     if (cell.colSpan > 1) {
-      newCell.colSpan = cell.colSpan;
       i += cell.colSpan - 1;
     }
   }
-  for (let i = rowNativeNode.rowIndex - 1; i >= 0; i--) {
+  for (let i = targetRowIndex - 1; i >= 0; i--) {
     const cells = tableNativeNode.rows[i].cells;
     for (let j = 0; j < cells.length; j++) {
       const cell = cells[j];
-      if (cell && cell.rowSpan > 1 && cell.rowSpan + 1 > rowNativeNode.rowIndex - j) {
+      if (cell && cell.rowSpan > 1 && cell.rowSpan + 1 > rowNativeNode.rowIndex - i) {
         cell.rowSpan += 1;
       }
     }

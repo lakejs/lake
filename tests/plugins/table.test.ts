@@ -1642,6 +1642,402 @@ describe('plugins / table (functions)', () => {
     );
   });
 
+  it('insertRow: should insert a row below with rowspan (1)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td rowspan="2">b2<focus /></td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td rowspan="3">b2<focus /></td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>c3</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertRow(range, 'below');
+      },
+    );
+  });
+
+  it('insertRow: should insert a row below with rowspan (2)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td rowspan="2">b2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td><focus />c3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td rowspan="3">b2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td><focus />c3</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td><br /></td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertRow(range, 'below');
+      },
+    );
+  });
+
+  it('insertRow: should insert a row above with colspan and rowspan (1)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3"><focus />a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2"><br /></td>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3"><focus />a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertRow(range, 'above');
+      },
+    );
+  });
+
+  it('insertRow: should insert a row above with colspan and rowspan (2)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td><focus />c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="4">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td><focus />c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertRow(range, 'above');
+      },
+    );
+  });
+
+  it('insertRow: should insert a row below with colspan and rowspan (1)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3"><focus />a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="4"><focus />a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertRow(range, 'below');
+      },
+    );
+  });
+
+  it('insertRow: should insert a row below with colspan and rowspan (2)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3">a2</td>
+        <td><focus />c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="4">a2</td>
+        <td><focus />c2</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertRow(range, 'below');
+      },
+    );
+  });
+
+  it('insertRow: should insert a row below with colspan and rowspan (3)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td><focus />c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="4">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td><focus />c3</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertRow(range, 'below');
+      },
+    );
+  });
+
   it('deleteRow: should delete the first row', () => {
     const content = `
     <table>
