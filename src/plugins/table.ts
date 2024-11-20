@@ -237,26 +237,55 @@ export function deleteRow(range: Range): void {
   const cellNode = range.startNode.closest('td');
   const tableNode = cellNode.closest('table');
   const rowNode = cellNode.closest('tr');
-  const tableNativeNode = tableNode.get(0) as HTMLTableElement;
-  const rowNativeNode = rowNode.get(0) as HTMLTableRowElement;
-  const cellNativeNode = cellNode.get(0) as HTMLTableCellElement;
-  const rowIndex = rowNativeNode.rowIndex;
-  let newTargetCell: HTMLTableCellElement | null = null;
-  if (tableNativeNode.rows[rowIndex + 1]) {
-    const row = tableNativeNode.rows[rowIndex + 1];
-    newTargetCell = row.cells[cellNativeNode.cellIndex];
-  } else if (tableNativeNode.rows[rowIndex - 1]) {
-    const row = tableNativeNode.rows[rowIndex - 1];
-    newTargetCell = row.cells[cellNativeNode.cellIndex];
+  const table = tableNode.get(0) as HTMLTableElement;
+  const currentRow = rowNode.get(0) as HTMLTableRowElement;
+  const currentCell = cellNode.get(0) as HTMLTableCellElement;
+  const currentIndex = getAbsoluteCellIndex(table, currentRow, currentCell.cellIndex);
+  const rowIndex = currentRow.rowIndex;
+  for (let i = rowIndex - 1; i >= 0; i--) {
+    const cells = table.rows[i].cells;
+    for (let j = 0; j < cells.length; j++) {
+      const cell = cells[j];
+      if (cell && cell.rowSpan > 1 && cell.rowSpan > rowIndex - i) {
+        cell.rowSpan -= 1;
+        if (cell.rowSpan === 1) {
+          query(cell).removeAttr('rowSpan');
+        }
+      }
+    }
   }
+  for (let i = 0; i < currentRow.cells.length; i++) {
+    const cell = currentRow.cells[i];
+    const absoluteIndex = getAbsoluteCellIndex(table, currentRow, i);
+    if (cell.rowSpan > 1) {
+      const belowRow = table.rows[rowIndex + 1];
+      if (belowRow) {
+        const index = getActualCellIndex(table, belowRow, absoluteIndex);
+        let newCell = belowRow.insertCell(index > 0 ? index : 0);
+        const clonedNode = query(cell.cloneNode(true));
+        clonedNode.removeAttr('rowSpan');
+        query(newCell).replaceWith(clonedNode);
+        newCell = clonedNode.get(0) as HTMLTableCellElement;
+        if (cell.rowSpan > 1) {
+          newCell.rowSpan = cell.rowSpan - 1;
+          if (newCell.rowSpan === 1) {
+            clonedNode.removeAttr('rowSpan');
+          }
+        }
+      }
+    }
+  }
+  let newTargetCell: HTMLTableCellElement | null = null;
+  const newTargetRow = table.rows[rowIndex + 1] || table.rows[rowIndex - 1];
+  if (newTargetRow) {
+    newTargetCell = newTargetRow.cells[currentIndex] || newTargetRow.cells[newTargetRow.cells.length - 1];
+  }
+  table.deleteRow(rowIndex);
   if (newTargetCell) {
     range.shrinkAfter(query(newTargetCell));
-  } else {
-    deleteTable(range);
-    return;
   }
-  for (let i = cellNativeNode.rowSpan - 1; i >= 0; i--) {
-    tableNativeNode.deleteRow(rowIndex + i);
+  if (table.rows.length === 0) {
+    deleteTable(range);
   }
 }
 
