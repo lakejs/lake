@@ -74,7 +74,7 @@ export function setContainerValue(container: Nodes, value: string): Range {
 }
 
 export function createContainer(content: string): { container: Nodes, range: Range} {
-  const container = query('<div contenteditable="true"></div>');
+  const container = query('<div class="lake-container" contenteditable="true"></div>');
   query(document.body).append(container);
   const range = setContainerValue(container, content);
   return {

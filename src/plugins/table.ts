@@ -181,7 +181,7 @@ export function deleteColumn(range: Range): void {
 }
 
 // Inserts a row above or below the start of the specified range.
-export function insertRow(range: Range, direction: 'above' | 'below' = 'above'): void {
+export function insertRow(range: Range, direction: 'above' | 'below'): void {
   const cellNode = range.startNode.closest('td');
   const tableNode = cellNode.closest('table');
   const rowNode = cellNode.closest('tr');
@@ -189,34 +189,32 @@ export function insertRow(range: Range, direction: 'above' | 'below' = 'above'):
   const rowNativeNode = rowNode.get(0) as HTMLTableRowElement;
   const cellNativeNode = cellNode.get(0) as HTMLTableCellElement;
   let rowIndex: number;
-  if (direction === 'below') {
-    rowIndex = rowNativeNode.rowIndex + (cellNativeNode.rowSpan - 1) + 1;
-  } else {
+  if (direction === 'above') {
     rowIndex = rowNativeNode.rowIndex;
+  } else {
+    rowIndex = rowNativeNode.rowIndex + cellNativeNode.rowSpan;
   }
+  const columnCount = getTableColumnCount(tableNativeNode, 0);
   const newRow = tableNativeNode.insertRow(rowIndex);
-  let cellCount = rowNativeNode.cells.length;
-  for (let i = 0; i < cellCount; i++) {
-    // adjust cells length
-    if (rowNativeNode.cells[i].rowSpan > 1) {
-      cellCount -= rowNativeNode.cells[i].rowSpan - 1;
+  for (let i = 0; i < columnCount; i++) {
+    const actualIndex = getActualCellIndex(tableNativeNode, rowNativeNode, i);
+    const cell = rowNativeNode.cells[actualIndex];
+    if (!cell) {
+      break;
     }
-    const newCell = newRow.insertCell(i);
+    const newCell = newRow.insertCell(actualIndex);
     newCell.innerHTML = '<br />';
-    // copy colspan
-    if (direction === 'below' && rowNativeNode.cells[i].colSpan > 1) {
-      newCell.colSpan = rowNativeNode.cells[i].colSpan;
+    if (cell.colSpan > 1) {
+      newCell.colSpan = cell.colSpan;
+      i += cell.colSpan - 1;
     }
-    // adjust rowspan
-    for (let j = rowIndex; j >= 0; j--) {
-      const cells = tableNativeNode.rows[j].cells;
-      if (cells.length > i) {
-        for (let k = cellNativeNode.cellIndex; k >= 0; k--) {
-          if (cells[k].rowSpan > 1) {
-            cells[k].rowSpan += 1;
-          }
-        }
-        break;
+  }
+  for (let i = rowNativeNode.rowIndex - 1; i >= 0; i--) {
+    const cells = tableNativeNode.rows[i].cells;
+    for (let j = 0; j < cells.length; j++) {
+      const cell = cells[j];
+      if (cell && cell.rowSpan > 1 && cell.rowSpan + 1 > rowNativeNode.rowIndex - j) {
+        cell.rowSpan += 1;
       }
     }
   }
