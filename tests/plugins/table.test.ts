@@ -1707,7 +1707,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'above');
+        insertRow(range, 'up');
       },
     );
   });
@@ -1745,7 +1745,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'below');
+        insertRow(range, 'down');
       },
     );
   });
@@ -1793,7 +1793,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'above');
+        insertRow(range, 'up');
       },
     );
   });
@@ -1841,7 +1841,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'above');
+        insertRow(range, 'up');
       },
     );
   });
@@ -1889,7 +1889,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'below');
+        insertRow(range, 'down');
       },
     );
   });
@@ -1938,7 +1938,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'below');
+        insertRow(range, 'down');
       },
     );
   });
@@ -1989,7 +1989,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'above');
+        insertRow(range, 'up');
       },
     );
   });
@@ -2039,7 +2039,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'above');
+        insertRow(range, 'up');
       },
     );
   });
@@ -2089,7 +2089,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'below');
+        insertRow(range, 'down');
       },
     );
   });
@@ -2140,7 +2140,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'below');
+        insertRow(range, 'down');
       },
     );
   });
@@ -2202,7 +2202,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'above');
+        insertRow(range, 'up');
       },
     );
   });
@@ -2263,7 +2263,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'above');
+        insertRow(range, 'up');
       },
     );
   });
@@ -2326,7 +2326,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'above');
+        insertRow(range, 'up');
       },
     );
   });
@@ -2377,7 +2377,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'below');
+        insertRow(range, 'down');
       },
     );
   });
@@ -2438,7 +2438,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'below');
+        insertRow(range, 'down');
       },
     );
   });
@@ -2499,7 +2499,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'below');
+        insertRow(range, 'down');
       },
     );
   });
@@ -2562,7 +2562,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'below');
+        insertRow(range, 'down');
       },
     );
   });
@@ -2623,7 +2623,7 @@ describe('plugins / table (functions)', () => {
       content,
       output,
       range => {
-        insertRow(range, 'below');
+        insertRow(range, 'down');
       },
     );
   });

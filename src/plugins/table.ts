@@ -8,6 +8,12 @@ import { Range } from '../models/range';
 import { insertBlock } from '../operations/insert-block';
 import { FloatingToolbar } from '../ui/floating-toolbar';
 
+type HorizontalDirection = 'left' | 'right';
+
+type VerticalDirection = 'up' | 'down';
+
+type ActionDirection = HorizontalDirection | VerticalDirection;
+
 const columnMenuItems: DropdownMenuItem[] = [
   {
     value: 'insertLeft',
@@ -38,7 +44,6 @@ const rowMenuItems: DropdownMenuItem[] = [
   },
 ];
 
-/*
 const mergeMenuItems: DropdownMenuItem[] = [
   {
     value: 'up',
@@ -57,7 +62,7 @@ const mergeMenuItems: DropdownMenuItem[] = [
     text: 'Merge cell left',
   },
 ];
-*/
+
 
 // Returns the number of columns in the specified table, treating merged cells as if they were split.
 function getColumnCount(table: HTMLTableElement): number {
@@ -141,7 +146,7 @@ export function deleteTable(range: Range): void {
 }
 
 // Inserts a column to the left or right of the start of the specified range.
-export function insertColumn(range: Range, direction: 'left' | 'right'): void {
+export function insertColumn(range: Range, direction: HorizontalDirection): void {
   const cellNode = range.startNode.closest('td');
   const tableNode = cellNode.closest('table');
   const rowNode = cellNode.closest('tr');
@@ -209,14 +214,14 @@ export function deleteColumn(range: Range): void {
 }
 
 // Inserts a row above or below the start of the specified range.
-export function insertRow(range: Range, direction: 'above' | 'below'): void {
+export function insertRow(range: Range, direction: VerticalDirection): void {
   const cellNode = range.startNode.closest('td');
   const tableNode = cellNode.closest('table');
   const rowNode = cellNode.closest('tr');
   const table = tableNode.get(0) as HTMLTableElement;
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   let targetRowIndex: number;
-  if (direction === 'above') {
+  if (direction === 'up') {
     targetRowIndex = currentRow.rowIndex;
   } else {
     targetRowIndex = currentRow.rowIndex + 1;
@@ -318,6 +323,67 @@ export function deleteRow(range: Range): void {
   }
 }
 
+// Merges adjacent cells.
+function mergeCells(range: Range, direction: ActionDirection): void {
+  const cellNode = range.startNode.closest('td');
+  const tableNode = cellNode.closest('table');
+  const rowNode = cellNode.closest('tr');
+  const table = tableNode.get(0) as HTMLTableElement;
+  const currentRow = rowNode.get(0) as HTMLTableRowElement;
+  const currentCell = cellNode.get(0) as HTMLTableCellElement;
+  const rowIndex = currentRow.rowIndex;
+  const cellIndex = currentCell.cellIndex;
+  if (direction === 'left' || direction === 'right') {
+    let cell: HTMLTableCellElement;
+    let otherCellIndex: number;
+    let otherCell: HTMLTableCellElement;
+    if (direction === 'left') {
+      cell = currentRow.cells[cellIndex - 1];
+      otherCellIndex = cellIndex;
+      otherCell = currentCell;
+    } else {
+      cell = currentCell;
+      otherCellIndex = cellIndex + 1;
+      otherCell = currentRow.cells[otherCellIndex];
+    }
+    if (!cell || !otherCell) {
+      return;
+    }
+    if (cell.rowSpan !== otherCell.rowSpan) {
+      return;
+    }
+    cell.colSpan += otherCell.colSpan;
+    currentRow.deleteCell(otherCellIndex);
+    range.shrinkBefore(query(cell));
+  } else {
+    let cell: HTMLTableCellElement | null;
+    let otherRowIndex: number;
+    let otherRow: HTMLTableRowElement;
+    let otherCell: HTMLTableCellElement | null;
+    if (direction === 'up') {
+      const row = table.rows[rowIndex - 1];
+      cell = row ? row.cells[cellIndex] : null;
+      otherRowIndex = rowIndex;
+      otherRow = currentRow;
+      otherCell = currentCell;
+    } else {
+      cell = currentCell;
+      otherRowIndex = rowIndex + 1;
+      otherRow = table.rows[otherRowIndex];
+      otherCell = otherRow ? otherRow.cells[cellIndex] : null;
+    }
+    if (!cell || !otherCell) {
+      return;
+    }
+    if (cell.colSpan !== otherCell.colSpan) {
+      return;
+    }
+    cell.rowSpan += otherCell.rowSpan;
+    otherRow.deleteCell(cellIndex);
+    range.shrinkBefore(query(cell));
+  }
+}
+
 function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[] {
   const items: ToolbarItem[] = [
     {
@@ -372,16 +438,16 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       onSelect: (_, value) => {
         const range = editor.selection.range;
         if (value === 'insertAbove') {
-          insertRow(range, 'above');
+          insertRow(range, 'up');
         } else if (value === 'insertBelow') {
-          insertRow(range, 'below');
+          insertRow(range, 'down');
         } else {
           deleteRow(range);
         }
         editor.history.save();
       },
     },
-    /* {
+    {
       name: 'tableMerge',
       type: 'dropdown',
       downIcon: icons.get('down'),
@@ -389,12 +455,12 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       tooltip: 'Merge cells',
       menuType: 'list',
       menuItems: mergeMenuItems,
-      onSelect: () => {
-        // const range = editor.selection.range;
-        // mergeCells(range, value);
+      onSelect: (_, value) => {
+        const range = editor.selection.range;
+        mergeCells(range, value as ActionDirection);
         editor.history.save();
       },
-    }, */
+    },
     {
       name: 'remove',
       type: 'button',
