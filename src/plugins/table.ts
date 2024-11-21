@@ -295,7 +295,7 @@ export function deleteRow(range: Range): void {
       const belowRow = table.rows[rowIndex + 1];
       if (belowRow) {
         const index = getActualCellIndex(table, belowRow, absoluteIndex);
-        let newCell = belowRow.insertCell(index > 0 ? index : 0);
+        let newCell = belowRow.insertCell(index);
         const clonedNode = query(cell.cloneNode(true));
         clonedNode.removeAttr('rowSpan');
         query(newCell).replaceWith(clonedNode);
@@ -324,7 +324,7 @@ export function deleteRow(range: Range): void {
 }
 
 // Merges adjacent cells.
-function mergeCells(range: Range, direction: ActionDirection): void {
+export function mergeCells(range: Range, direction: ActionDirection): void {
   const cellNode = range.startNode.closest('td');
   const tableNode = cellNode.closest('table');
   const rowNode = cellNode.closest('tr');
@@ -332,8 +332,8 @@ function mergeCells(range: Range, direction: ActionDirection): void {
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
   const rowIndex = currentRow.rowIndex;
-  const cellIndex = currentCell.cellIndex;
   if (direction === 'left' || direction === 'right') {
+    const cellIndex = currentCell.cellIndex;
     let cell: HTMLTableCellElement;
     let otherCellIndex: number;
     let otherCell: HTMLTableCellElement;
@@ -356,21 +356,35 @@ function mergeCells(range: Range, direction: ActionDirection): void {
     currentRow.deleteCell(otherCellIndex);
     range.shrinkBefore(query(cell));
   } else {
+    const absoluteIndex = getAbsoluteCellIndex(table, currentRow, currentCell);
     let cell: HTMLTableCellElement | null;
     let otherRowIndex: number;
     let otherRow: HTMLTableRowElement;
+    let otherCellIndex: number;
     let otherCell: HTMLTableCellElement | null;
     if (direction === 'up') {
       const row = table.rows[rowIndex - 1];
-      cell = row ? row.cells[cellIndex] : null;
+      if (row) {
+        const cellIndex = getActualCellIndex(table, row, absoluteIndex);
+        cell = row.cells[cellIndex];
+      } else {
+        cell = null;
+      }
       otherRowIndex = rowIndex;
       otherRow = currentRow;
+      otherCellIndex = currentCell.cellIndex;
       otherCell = currentCell;
     } else {
       cell = currentCell;
       otherRowIndex = rowIndex + 1;
       otherRow = table.rows[otherRowIndex];
-      otherCell = otherRow ? otherRow.cells[cellIndex] : null;
+      if (otherRow) {
+        otherCellIndex = getActualCellIndex(table, otherRow, absoluteIndex);
+        otherCell = otherRow.cells[otherCellIndex];
+      } else {
+        otherCellIndex = -1;
+        otherCell = null;
+      }
     }
     if (!cell || !otherCell) {
       return;
@@ -379,7 +393,7 @@ function mergeCells(range: Range, direction: ActionDirection): void {
       return;
     }
     cell.rowSpan += otherCell.rowSpan;
-    otherRow.deleteCell(cellIndex);
+    otherRow.deleteCell(otherCellIndex);
     range.shrinkBefore(query(cell));
   }
 }
