@@ -70,11 +70,11 @@ function getAbsoluteCellCount(table: HTMLTableElement, rowIndex: number): number
   return cellCount;
 }
 
-// Returns the absolute position by the actual cell index.
-function getAbsoluteCellIndex(table: HTMLTableElement, currentRow: HTMLTableRowElement, actualIndex: number): number {
+// Returns the index of a cell, treating merged cells as if they were split.
+function getAbsoluteCellIndex(table: HTMLTableElement, currentRow: HTMLTableRowElement, cellIndex: number): number {
   let colSpan = 0;
   let rowSpan = 0;
-  for (let i = 0; i <= actualIndex; i++) {
+  for (let i = 0; i <= cellIndex; i++) {
     const cell = currentRow.cells[i];
     if (!cell) {
       break;
@@ -87,14 +87,14 @@ function getAbsoluteCellIndex(table: HTMLTableElement, currentRow: HTMLTableRowE
       }
     }
   }
-  return actualIndex + colSpan + rowSpan;
+  return cellIndex + colSpan + rowSpan;
 }
 
-// Returns the actual position by the absolute cell index.
-function getActualCellIndex(table: HTMLTableElement, currentRow: HTMLTableRowElement, absoluteIndex: number): number {
+// Returns the index of a cell by an absolute index that treats merged cells as if they were split.
+function getActualCellIndex(table: HTMLTableElement, currentRow: HTMLTableRowElement, cellIndex: number): number {
   let colSpan = 0;
   let rowSpan = 0;
-  for (let i = 0; i < absoluteIndex; i++) {
+  for (let i = 0; i < cellIndex; i++) {
     const cell = currentRow.cells[i];
     if (!cell) {
       break;
@@ -107,7 +107,7 @@ function getActualCellIndex(table: HTMLTableElement, currentRow: HTMLTableRowEle
       }
     }
   }
-  return absoluteIndex - colSpan - rowSpan;
+  return cellIndex - colSpan - rowSpan;
 }
 
 // Inserts a table.
