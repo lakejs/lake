@@ -176,32 +176,34 @@ export function deleteColumn(range: Range): void {
   const table = tableNode.get(0) as HTMLTableElement;
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
-  const actualIndex = currentCell.cellIndex;
   const absoluteIndex = getAbsoluteCellIndex(table, currentRow, currentCell);
   let newTargetCell: HTMLTableCellElement | null = null;
+  const actualIndex = currentCell.cellIndex;
   if (currentRow.cells[actualIndex + 1]) {
     newTargetCell = currentRow.cells[actualIndex + 1];
   } else if (currentRow.cells[actualIndex - 1]) {
     newTargetCell = currentRow.cells[actualIndex - 1];
   }
-  const columnCount = getAbsoluteCellCount(table, 0);
   for (let i = 0; i < table.rows.length; i++) {
     const row = table.rows[i];
     const cellIndex = getActualCellIndex(table, row, absoluteIndex);
     const cell = row.cells[cellIndex];
+    if (cell && cell.rowSpan > 1) {
+      i += cell.rowSpan - 1;
+    }
     if (cell && cell.colSpan > 1) {
       cell.colSpan -= 1;
       if (cell.colSpan === 1) {
         query(cell).removeAttr('colSpan');
       }
-    } else if (i === 0 || getAbsoluteCellCount(table, i) >= columnCount) {
+    } else {
       if (cell === currentCell && newTargetCell) {
         range.shrinkAfter(query(newTargetCell));
       }
       row.deleteCell(cellIndex);
     }
   }
-  if (getAbsoluteCellCount(table, 0) === 0) {
+  if (table.rows[0].cells.length === 0) {
     deleteTable(range);
   }
 }

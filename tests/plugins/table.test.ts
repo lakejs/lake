@@ -1622,6 +1622,58 @@ describe('plugins / table (functions)', () => {
     );
   });
 
+  it('deleteColumn: should delete a column with colspan and rowspan (5)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+        <td><focus />d1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td colspan="2" rowspan="3">b2</td>
+        <td>d2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>d3</td>
+      </tr>
+      <tr>
+        <td>a4</td>
+        <td>d4</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1<focus /></td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td colspan="2" rowspan="3">b2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+      </tr>
+      <tr>
+        <td>a4</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        deleteColumn(range);
+      },
+    );
+  });
+
   it('insertRow: should insert a row above', () => {
     const content = `
     <table>
