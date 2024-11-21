@@ -356,7 +356,7 @@ describe('plugins / table (functions)', () => {
       </tr>
       <tr>
         <td>a2</td>
-        <td rowspan="2">b2<focus /></td>
+        <td rowspan="2"><focus />b2</td>
         <td>c2</td>
       </tr>
       <tr>
@@ -376,7 +376,7 @@ describe('plugins / table (functions)', () => {
       <tr>
         <td>a2</td>
         <td><br /></td>
-        <td rowspan="2">b2<focus /></td>
+        <td rowspan="2"><focus />b2</td>
         <td>c2</td>
       </tr>
       <tr>
@@ -454,7 +454,7 @@ describe('plugins / table (functions)', () => {
       </tr>
       <tr>
         <td>a2</td>
-        <td rowspan="2">b2<focus /></td>
+        <td rowspan="2"><focus />b2</td>
         <td>c2</td>
       </tr>
       <tr>
@@ -473,7 +473,7 @@ describe('plugins / table (functions)', () => {
       </tr>
       <tr>
         <td>a2</td>
-        <td rowspan="2">b2<focus /></td>
+        <td rowspan="2"><focus />b2</td>
         <td><br /></td>
         <td>c2</td>
       </tr>
@@ -1155,7 +1155,7 @@ describe('plugins / table (functions)', () => {
     const output = `
     <table>
       <tr>
-        <td>b1<focus /></td>
+        <td><focus />b1</td>
       </tr>
       <tr>
         <td>b2</td>
@@ -1194,7 +1194,7 @@ describe('plugins / table (functions)', () => {
     const output = `
     <table>
       <tr>
-        <td>a1<focus /></td>
+        <td><focus />a1</td>
       </tr>
       <tr>
         <td>a2</td>
@@ -1264,7 +1264,7 @@ describe('plugins / table (functions)', () => {
         <td>b1</td>
       </tr>
       <tr>
-        <td colspan="2">a2<focus /></td>
+        <td colspan="2"><focus />a2</td>
       </tr>
       <tr>
         <td colspan="2">a3</td>
@@ -1302,7 +1302,7 @@ describe('plugins / table (functions)', () => {
     <table>
       <tr>
         <td>a1</td>
-        <td>b1<focus /></td>
+        <td><focus />b1</td>
       </tr>
       <tr>
         <td colspan="2">a2</td>
@@ -1331,7 +1331,7 @@ describe('plugins / table (functions)', () => {
       </tr>
       <tr>
         <td>a2</td>
-        <td rowspan="2">b2<focus /></td>
+        <td rowspan="2"><focus />b2</td>
         <td>c2</td>
       </tr>
       <tr>
@@ -1348,7 +1348,7 @@ describe('plugins / table (functions)', () => {
       </tr>
       <tr>
         <td>a2</td>
-        <td>c2<focus /></td>
+        <td><focus />c2</td>
       </tr>
       <tr>
         <td>a3</td>
@@ -1388,7 +1388,7 @@ describe('plugins / table (functions)', () => {
     <table>
       <tr>
         <td>a1</td>
-        <td>c1<focus /></td>
+        <td><focus />c1</td>
       </tr>
       <tr>
         <td>a2</td>
@@ -1484,7 +1484,7 @@ describe('plugins / table (functions)', () => {
     const output = `
     <table>
       <tr>
-        <td>b1<focus /></td>
+        <td><focus />b1</td>
         <td>c1</td>
       </tr>
       <tr>
@@ -1541,7 +1541,7 @@ describe('plugins / table (functions)', () => {
     <table>
       <tr>
         <td>a1</td>
-        <td>c1<focus /></td>
+        <td><focus />c1</td>
       </tr>
       <tr>
         <td rowspan="3">a2</td>
@@ -1596,7 +1596,7 @@ describe('plugins / table (functions)', () => {
     <table>
       <tr>
         <td>a1</td>
-        <td rowspan="2">c1<focus /></td>
+        <td rowspan="2"><focus />c1</td>
         <td>d1</td>
         <td>e1</td>
       </tr>
@@ -1651,7 +1651,7 @@ describe('plugins / table (functions)', () => {
       <tr>
         <td>a1</td>
         <td>b1</td>
-        <td>c1<focus /></td>
+        <td><focus />c1</td>
       </tr>
       <tr>
         <td>a2</td>
@@ -1953,7 +1953,7 @@ describe('plugins / table (functions)', () => {
       </tr>
       <tr>
         <td>a2</td>
-        <td rowspan="2">b2<focus /></td>
+        <td rowspan="2"><focus />b2</td>
         <td>c2</td>
       </tr>
       <tr>
@@ -1976,7 +1976,7 @@ describe('plugins / table (functions)', () => {
       </tr>
       <tr>
         <td>a2</td>
-        <td rowspan="2">b2<focus /></td>
+        <td rowspan="2"><focus />b2</td>
         <td>c2</td>
       </tr>
       <tr>
@@ -2054,7 +2054,7 @@ describe('plugins / table (functions)', () => {
       </tr>
       <tr>
         <td>a2</td>
-        <td rowspan="2">b2<focus /></td>
+        <td rowspan="2"><focus />b2</td>
         <td>c2</td>
       </tr>
       <tr>
@@ -2072,7 +2072,7 @@ describe('plugins / table (functions)', () => {
       </tr>
       <tr>
         <td>a2</td>
-        <td rowspan="3">b2<focus /></td>
+        <td rowspan="3"><focus />b2</td>
         <td>c2</td>
       </tr>
       <tr>
@@ -2648,7 +2648,7 @@ describe('plugins / table (functions)', () => {
     const output = `
     <table>
       <tr>
-        <td>a2<focus /></td>
+        <td><focus />a2</td>
         <td>b2</td>
       </tr>
       <tr>
@@ -2690,7 +2690,7 @@ describe('plugins / table (functions)', () => {
         <td>b1</td>
       </tr>
       <tr>
-        <td>a2<focus /></td>
+        <td><focus />a2</td>
         <td>b2</td>
       </tr>
     </table>
@@ -2752,7 +2752,7 @@ describe('plugins / table (functions)', () => {
       </tr>
       <tr>
         <td colspan="2">a3</td>
-        <td>c3<focus /></td>
+        <td><focus />c3</td>
       </tr>
     </table>
     `;
@@ -2787,7 +2787,7 @@ describe('plugins / table (functions)', () => {
     <table>
       <tr>
         <td colspan="2">a2</td>
-        <td>c2<focus /></td>
+        <td><focus />c2</td>
       </tr>
       <tr>
         <td colspan="2">a3</td>
@@ -2819,7 +2819,7 @@ describe('plugins / table (functions)', () => {
       </tr>
       <tr>
         <td>a3</td>
-        <td>c3<focus /></td>
+        <td><focus />c3</td>
       </tr>
     </table>
     `;
@@ -2833,7 +2833,7 @@ describe('plugins / table (functions)', () => {
       <tr>
         <td>a2</td>
         <td>b2</td>
-        <td>c2<focus /></td>
+        <td><focus />c2</td>
       </tr>
     </table>
     `;
@@ -2874,7 +2874,7 @@ describe('plugins / table (functions)', () => {
       </tr>
       <tr>
         <td>a3</td>
-        <td>b2<focus /></td>
+        <td><focus />b2</td>
         <td>c3</td>
       </tr>
     </table>
@@ -2916,7 +2916,7 @@ describe('plugins / table (functions)', () => {
         <td>c1</td>
       </tr>
       <tr>
-        <td colspan="2" rowspan="2">a2<focus /></td>
+        <td colspan="2" rowspan="2"><focus />a2</td>
         <td>c3</td>
       </tr>
       <tr>
@@ -2970,7 +2970,7 @@ describe('plugins / table (functions)', () => {
         <td>c2</td>
       </tr>
       <tr>
-        <td>c4<focus /></td>
+        <td><focus />c4</td>
       </tr>
       <tr>
         <td>a5</td>
@@ -3018,7 +3018,7 @@ describe('plugins / table (functions)', () => {
         <td colspan="2">a2</td>
         <td>c1</td>
         <td>d2</td>
-        <td>e2<focus /></td>
+        <td><focus />e2</td>
       </tr>
       <tr>
         <td>a3</td>

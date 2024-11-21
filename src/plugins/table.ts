@@ -198,7 +198,7 @@ export function deleteColumn(range: Range): void {
       }
     } else {
       if (cell === currentCell && newTargetCell) {
-        range.shrinkAfter(query(newTargetCell));
+        range.shrinkBefore(query(newTargetCell));
       }
       row.deleteCell(cellIndex);
     }
@@ -311,7 +311,7 @@ export function deleteRow(range: Range): void {
   }
   table.deleteRow(rowIndex);
   if (newTargetCell) {
-    range.shrinkAfter(query(newTargetCell));
+    range.shrinkBefore(query(newTargetCell));
   }
   if (table.rows.length === 0) {
     deleteTable(range);
