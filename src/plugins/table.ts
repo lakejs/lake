@@ -38,15 +38,36 @@ const rowMenuItems: DropdownMenuItem[] = [
   },
 ];
 
-// Returns the length of the cells of the specified row.
-function getCellCount(table: HTMLTableElement, rowIndex: number): number {
+/*
+const mergeMenuItems: DropdownMenuItem[] = [
+  {
+    value: 'up',
+    text: 'Merge cell up',
+  },
+  {
+    value: 'right',
+    text: 'Merge cell right',
+  },
+  {
+    value: 'down',
+    text: 'Merge cell down',
+  },
+  {
+    value: 'left',
+    text: 'Merge cell left',
+  },
+];
+*/
+
+// Returns the number of cells in the specified row, treating merged cells as if they were split.
+function getAbsoluteCellCount(table: HTMLTableElement, rowIndex: number): number {
   const row = table.rows[rowIndex];
-  let columnCount = 0;
+  let cellCount = 0;
   for (let i = 0; i < row.cells.length; i++) {
     const cell = row.cells[i];
-    columnCount += cell.colSpan;
+    cellCount += cell.colSpan;
   }
-  return columnCount;
+  return cellCount;
 }
 
 // Returns the absolute position by the actual cell index.
@@ -155,7 +176,7 @@ export function deleteColumn(range: Range): void {
   } else if (currentRow.cells[actualIndex - 1]) {
     newTargetCell = currentRow.cells[actualIndex - 1];
   }
-  const columnCount = getCellCount(table, 0);
+  const columnCount = getAbsoluteCellCount(table, 0);
   for (let i = 0; i < table.rows.length; i++) {
     const row = table.rows[i];
     const cellIndex = getActualCellIndex(table, row, absoluteIndex);
@@ -166,7 +187,7 @@ export function deleteColumn(range: Range): void {
         if (cell.colSpan === 1) {
           query(cell).removeAttr('colSpan');
         }
-      } else if (i === 0 || getCellCount(table, i) >= columnCount) {
+      } else if (i === 0 || getAbsoluteCellCount(table, i) >= columnCount) {
         if (cell === currentCell && newTargetCell) {
           range.shrinkAfter(query(newTargetCell));
         }
@@ -174,7 +195,7 @@ export function deleteColumn(range: Range): void {
       }
     }
   }
-  if (getCellCount(table, 0) === 0) {
+  if (getAbsoluteCellCount(table, 0) === 0) {
     deleteTable(range);
   }
 }
@@ -193,7 +214,7 @@ export function insertRow(range: Range, direction: 'above' | 'below'): void {
     targetRowIndex = currentRow.rowIndex + 1;
   }
   const rowRef = table.rows[targetRowIndex];
-  const columnCount = getCellCount(table, 0);
+  const columnCount = getAbsoluteCellCount(table, 0);
   const newRow = table.insertRow(targetRowIndex);
   // last row
   if (!rowRef) {
@@ -352,6 +373,20 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
         editor.history.save();
       },
     },
+    /* {
+      name: 'tableMerge',
+      type: 'dropdown',
+      downIcon: icons.get('down'),
+      icon: icons.get('tableMerge'),
+      tooltip: 'Merge cells',
+      menuType: 'list',
+      menuItems: mergeMenuItems,
+      onSelect: () => {
+        // const range = editor.selection.range;
+        // mergeCells(range, value);
+        editor.history.save();
+      },
+    }, */
     {
       name: 'remove',
       type: 'button',
