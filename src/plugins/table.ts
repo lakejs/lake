@@ -71,43 +71,48 @@ function getAbsoluteCellCount(table: HTMLTableElement, rowIndex: number): number
 }
 
 // Returns the index of a cell, treating merged cells as if they were split.
-function getAbsoluteCellIndex(table: HTMLTableElement, currentRow: HTMLTableRowElement, cellIndex: number): number {
-  let colSpan = 0;
+function getAbsoluteCellIndex(table: HTMLTableElement, currentRow: HTMLTableRowElement, currentCell: HTMLTableCellElement): number {
+  const cellCount = getAbsoluteCellCount(table, 0);
   let rowSpan = 0;
-  for (let i = 0; i <= cellIndex; i++) {
+  let colSpan = 0;
+  for (let i = 0; i < cellCount; i++) {
     const cell = currentRow.cells[i];
     if (!cell) {
       break;
     }
-    colSpan += cell.colSpan - 1;
     for (let j = currentRow.rowIndex - 1; j >= 0; j--) {
       const aboveCell = table.rows[j].cells[i];
       if (aboveCell && aboveCell.rowSpan > currentRow.rowIndex - j) {
         rowSpan += aboveCell.colSpan;
       }
     }
+    if (cell === currentCell) {
+      break;
+    }
+    colSpan += cell.colSpan - 1;
   }
-  return cellIndex + colSpan + rowSpan;
+  return currentCell.cellIndex + rowSpan + colSpan;
 }
 
 // Returns the index of a cell by an absolute index that treats merged cells as if they were split.
 function getActualCellIndex(table: HTMLTableElement, currentRow: HTMLTableRowElement, cellIndex: number): number {
-  let colSpan = 0;
   let rowSpan = 0;
+  let colSpan = 0;
   for (let i = 0; i < cellIndex; i++) {
     const cell = currentRow.cells[i];
     if (!cell) {
       break;
     }
-    colSpan += cell.colSpan - 1;
     for (let j = currentRow.rowIndex - 1; j >= 0; j--) {
       const aboveCell = table.rows[j].cells[i];
       if (aboveCell && aboveCell.rowSpan > currentRow.rowIndex - j) {
         rowSpan += aboveCell.colSpan;
       }
     }
+    colSpan += cell.colSpan - 1;
   }
-  return cellIndex - colSpan - rowSpan;
+  const index = cellIndex - rowSpan - colSpan;
+  return index > 0 ? index : 0;
 }
 
 // Inserts a table.
@@ -143,19 +148,22 @@ export function insertColumn(range: Range, direction: 'left' | 'right'): void {
   const table = tableNode.get(0) as HTMLTableElement;
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
-  const targetCellIndex = direction === 'left' ? currentCell.cellIndex : currentCell.cellIndex + 1;
-  const absoluteIndex = getAbsoluteCellIndex(table, currentRow, targetCellIndex);
+  const columnCount = getAbsoluteCellCount(table, 0);
+  const targetCell = direction === 'left' ? currentCell : currentRow.cells[currentCell.cellIndex + 1];
+  const absoluteIndex = targetCell ? getAbsoluteCellIndex(table, currentRow, targetCell) : columnCount;
   for (let i = 0; i < table.rows.length; i++) {
     const row = table.rows[i];
+    const cellCount = row.cells.length;
     const cellIndex = getActualCellIndex(table, row, absoluteIndex);
-    if (cellIndex >= 0) {
-      const cell = row.cells[cellIndex];
-      if (cell && cell.colSpan > 1) {
-        cell.colSpan += 1;
-      } else {
-        const newCell = row.insertCell(cellIndex);
-        newCell.innerHTML = '<br />';
+    const cell = row.cells[cellIndex];
+    if (cell && cell.colSpan > 1) {
+      cell.colSpan += 1;
+      if (cell.rowSpan > 1) {
+        i += cell.rowSpan - 1;
       }
+    } else {
+      const newCell = row.insertCell(cellIndex < cellCount ? cellIndex : cellCount);
+      newCell.innerHTML = '<br />';
     }
   }
 }
@@ -169,7 +177,7 @@ export function deleteColumn(range: Range): void {
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
   const actualIndex = currentCell.cellIndex;
-  const absoluteIndex = getAbsoluteCellIndex(table, currentRow, actualIndex);
+  const absoluteIndex = getAbsoluteCellIndex(table, currentRow, currentCell);
   let newTargetCell: HTMLTableCellElement | null = null;
   if (currentRow.cells[actualIndex + 1]) {
     newTargetCell = currentRow.cells[actualIndex + 1];
@@ -180,19 +188,17 @@ export function deleteColumn(range: Range): void {
   for (let i = 0; i < table.rows.length; i++) {
     const row = table.rows[i];
     const cellIndex = getActualCellIndex(table, row, absoluteIndex);
-    if (cellIndex >= 0) {
-      const cell = row.cells[cellIndex];
-      if (cell && cell.colSpan > 1) {
-        cell.colSpan -= 1;
-        if (cell.colSpan === 1) {
-          query(cell).removeAttr('colSpan');
-        }
-      } else if (i === 0 || getAbsoluteCellCount(table, i) >= columnCount) {
-        if (cell === currentCell && newTargetCell) {
-          range.shrinkAfter(query(newTargetCell));
-        }
-        row.deleteCell(cellIndex);
+    const cell = row.cells[cellIndex];
+    if (cell && cell.colSpan > 1) {
+      cell.colSpan -= 1;
+      if (cell.colSpan === 1) {
+        query(cell).removeAttr('colSpan');
       }
+    } else if (i === 0 || getAbsoluteCellCount(table, i) >= columnCount) {
+      if (cell === currentCell && newTargetCell) {
+        range.shrinkAfter(query(newTargetCell));
+      }
+      row.deleteCell(cellIndex);
     }
   }
   if (getAbsoluteCellCount(table, 0) === 0) {
@@ -261,7 +267,7 @@ export function deleteRow(range: Range): void {
   const table = tableNode.get(0) as HTMLTableElement;
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
-  const currentIndex = getAbsoluteCellIndex(table, currentRow, currentCell.cellIndex);
+  const currentIndex = getAbsoluteCellIndex(table, currentRow, currentCell);
   const rowIndex = currentRow.rowIndex;
   for (let i = rowIndex - 1; i >= 0; i--) {
     const cells = table.rows[i].cells;
@@ -277,7 +283,7 @@ export function deleteRow(range: Range): void {
   }
   for (let i = 0; i < currentRow.cells.length; i++) {
     const cell = currentRow.cells[i];
-    const absoluteIndex = getAbsoluteCellIndex(table, currentRow, i);
+    const absoluteIndex = getAbsoluteCellIndex(table, currentRow, cell);
     if (cell.rowSpan > 1) {
       const belowRow = table.rows[rowIndex + 1];
       if (belowRow) {

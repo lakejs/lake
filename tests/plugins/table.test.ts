@@ -665,6 +665,190 @@ describe('plugins / table (functions)', () => {
     );
   });
 
+  it('insertColumn: should insert a column to the left with colspan and rowspan (3)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><br /></td>
+        <td><focus />a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="3" rowspan="3">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertColumn(range, 'left');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column to the left with colspan and rowspan (4)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3"><focus />a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><br /></td>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="3" rowspan="3"><focus />a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td>c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertColumn(range, 'left');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column to the left with colspan and rowspan (5)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td><focus />b1</td>
+        <td>c1</td>
+        <td>d1</td>
+      </tr>
+      <tr>
+        <td colspan="3" rowspan="3">a2</td>
+        <td>d2</td>
+      </tr>
+      <tr>
+        <td>d3</td>
+      </tr>
+      <tr>
+        <td>d4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+        <td>d5</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td><br /></td>
+        <td><focus />b1</td>
+        <td>c1</td>
+        <td>d1</td>
+      </tr>
+      <tr>
+        <td colspan="4" rowspan="3">a2</td>
+        <td>d2</td>
+      </tr>
+      <tr>
+        <td>d3</td>
+      </tr>
+      <tr>
+        <td>d4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td><br /></td>
+        <td>b5</td>
+        <td>c5</td>
+        <td>d5</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertColumn(range, 'left');
+      },
+    );
+  });
+
   it('insertColumn: should insert a column to the right with colspan and rowspan (1)', () => {
     const content = `
     <table>
@@ -887,6 +1071,58 @@ describe('plugins / table (functions)', () => {
         <td><br /></td>
         <td>d3</td>
         <td>e3</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertColumn(range, 'right');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column to the right with colspan and rowspan (5)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td colspan="2" rowspan="3"><focus />b2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+      </tr>
+      <tr>
+        <td>a4</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td colspan="2" rowspan="3"><focus />b2</td>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td>a4</td>
+        <td><br /></td>
       </tr>
     </table>
     `;
@@ -1196,7 +1432,7 @@ describe('plugins / table (functions)', () => {
     const output = `
     <table>
       <tr>
-        <td>a1</td>
+        <td>b1</td>
         <td>c1</td>
       </tr>
       <tr>
@@ -2628,8 +2864,8 @@ describe('plugins / table (functions)', () => {
         <td>c1</td>
       </tr>
       <tr>
-        <td colspan="2" rowspan="2">a2</td>
-        <td>c3<focus /></td>
+        <td colspan="2" rowspan="2">a2<focus /></td>
+        <td>c3</td>
       </tr>
       <tr>
         <td>c4</td>
