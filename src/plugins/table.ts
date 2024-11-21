@@ -59,23 +59,23 @@ const mergeMenuItems: DropdownMenuItem[] = [
 ];
 */
 
-// Returns the number of cells in the specified row, treating merged cells as if they were split.
-function getAbsoluteCellCount(table: HTMLTableElement, rowIndex: number): number {
-  const row = table.rows[rowIndex];
-  let cellCount = 0;
+// Returns the number of columns in the specified table, treating merged cells as if they were split.
+function getColumnCount(table: HTMLTableElement): number {
+  const row = table.rows[0];
+  let columnCount = 0;
   for (let i = 0; i < row.cells.length; i++) {
     const cell = row.cells[i];
-    cellCount += cell.colSpan;
+    columnCount += cell.colSpan;
   }
-  return cellCount;
+  return columnCount;
 }
 
 // Returns the index of a cell, treating merged cells as if they were split.
 function getAbsoluteCellIndex(table: HTMLTableElement, currentRow: HTMLTableRowElement, currentCell: HTMLTableCellElement): number {
-  const cellCount = getAbsoluteCellCount(table, 0);
+  const columnCount = getColumnCount(table);
   let rowSpan = 0;
   let colSpan = 0;
-  for (let i = 0; i < cellCount; i++) {
+  for (let i = 0; i < columnCount; i++) {
     const cell = currentRow.cells[i];
     if (!cell) {
       break;
@@ -148,7 +148,7 @@ export function insertColumn(range: Range, direction: 'left' | 'right'): void {
   const table = tableNode.get(0) as HTMLTableElement;
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
-  const columnCount = getAbsoluteCellCount(table, 0);
+  const columnCount = getColumnCount(table);
   const targetCell = direction === 'left' ? currentCell : currentRow.cells[currentCell.cellIndex + 1];
   const absoluteIndex = targetCell ? getAbsoluteCellIndex(table, currentRow, targetCell) : columnCount;
   for (let i = 0; i < table.rows.length; i++) {
@@ -222,7 +222,7 @@ export function insertRow(range: Range, direction: 'above' | 'below'): void {
     targetRowIndex = currentRow.rowIndex + 1;
   }
   const rowRef = table.rows[targetRowIndex];
-  const columnCount = getAbsoluteCellCount(table, 0);
+  const columnCount = getColumnCount(table);
   const newRow = table.insertRow(targetRowIndex);
   // last row
   if (!rowRef) {
