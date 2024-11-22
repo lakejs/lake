@@ -80,7 +80,7 @@ function getColumnCount(table: HTMLTableElement): number {
   return columnCount;
 }
 
-// Returns a map of the specified table, treating merged cells as if they were split.
+// Returns a virtual map of the specified table, treating merged cells as if they were split.
 export function getTableMap(table: HTMLTableElement): TableMap {
   const tableMap: TableMap = new Map();
   for (let i = 0; i < table.rows.length; i++) {
@@ -99,6 +99,7 @@ export function getTableMap(table: HTMLTableElement): TableMap {
         for (let j = 0; j < cell.rowSpan; j++) {
           const targetRowMap = tableMap.get(rowIndex + j);
           if (targetRowMap) {
+            // console.log(rowIndex + j, newCellIndex + i, cell.innerText);
             targetRowMap.set(newCellIndex + i, cell);
           }
         }
@@ -108,49 +109,47 @@ export function getTableMap(table: HTMLTableElement): TableMap {
   return tableMap;
 }
 
-// Returns the index of a cell, treating merged cells as if they were split.
-function getAbsoluteCellIndex(table: HTMLTableElement, currentRow: HTMLTableRowElement, currentCell: HTMLTableCellElement): number {
-  const columnCount = getColumnCount(table);
-  let rowSpan = 0;
-  let colSpan = 0;
-  for (let i = 0; i < columnCount; i++) {
-    const cell = currentRow.cells[i];
-    if (!cell) {
-      break;
-    }
-    for (let j = currentRow.rowIndex - 1; j >= 0; j--) {
-      const aboveCell = table.rows[j].cells[i];
-      if (aboveCell && aboveCell.rowSpan > currentRow.rowIndex - j) {
-        rowSpan += aboveCell.colSpan;
+// Returns the virtual index of a cell, treating merged cells as if they were split.
+function getCellIndex(tableMap: TableMap, currentRow: HTMLTableRowElement, currentCell: HTMLTableCellElement): number {
+  const rowMap = tableMap.get(currentRow.rowIndex);
+  if (rowMap) {
+    for (const [cellIndex, cell] of rowMap) {
+      if (cell === currentCell) {
+        return cellIndex;
       }
     }
-    if (cell === currentCell) {
-      break;
-    }
-    colSpan += cell.colSpan - 1;
   }
-  return currentCell.cellIndex + rowSpan + colSpan;
+  return -1;
 }
 
-// Returns the index of a cell by an absolute index that treats merged cells as if they were split.
-function getActualCellIndex(table: HTMLTableElement, currentRow: HTMLTableRowElement, cellIndex: number): number {
-  let rowSpan = 0;
-  let colSpan = 0;
-  for (let i = 0; i < cellIndex; i++) {
-    const cell = currentRow.cells[i];
-    if (!cell) {
-      break;
-    }
-    for (let j = currentRow.rowIndex - 1; j >= 0; j--) {
-      const aboveCell = table.rows[j].cells[i];
-      if (aboveCell && aboveCell.rowSpan > currentRow.rowIndex - j) {
-        rowSpan += aboveCell.colSpan;
+// Returns the real index of a cell by an virtual index that treats merged cells as if they were split.
+//
+// table map:
+// a1 b1 b1 d1 e1 f1
+// a2 b1 b1 d2 e2 f2
+// a3 b1 b1 d3 e2 f3
+//
+// f3: vertual index is 5, real index is 2
+function getRealCellIndex(tableMap: TableMap, currentRow: HTMLTableRowElement, virtualCellIndex: number): number {
+  const rowIndex = currentRow.rowIndex;
+  const rowMap = tableMap.get(rowIndex);
+  const aboveRowMap = tableMap.get(rowIndex - 1);
+  let cellIndex = virtualCellIndex;
+  if (rowMap) {
+    for (let i = 0; i < virtualCellIndex; i++) {
+      const cell = rowMap.get(i);
+      const nextCell = rowMap.get(i + 1);
+      if (cell && nextCell && cell === nextCell) {
+        cellIndex--;
+      } else if (aboveRowMap) {
+        const aboveCell = aboveRowMap.get(i);
+        if (cell && aboveCell && cell === aboveCell) {
+          cellIndex--;
+        }
       }
     }
-    colSpan += cell.colSpan - 1;
   }
-  const index = cellIndex - rowSpan - colSpan;
-  return index > 0 ? index : 0;
+  return cellIndex > 0 ? cellIndex : 0;
 }
 
 // Inserts a table.
@@ -190,12 +189,13 @@ export function insertColumn(range: Range, direction: HorizontalDirection): void
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
   const columnCount = getColumnCount(table);
   const targetCell = direction === 'left' ? currentCell : currentRow.cells[currentCell.cellIndex + 1];
-  const absoluteCellIndex = targetCell ? getAbsoluteCellIndex(table, currentRow, targetCell) : columnCount;
-  debug(`insertColumn: rows ${table.rows.length}, columns ${columnCount}, absolute cell ${absoluteCellIndex}`);
+  const tableMap  = getTableMap(table);
+  const virtualCellIndex = targetCell ? getCellIndex(tableMap, currentRow, targetCell) : columnCount;
+  debug(`insertColumn: rows ${table.rows.length}, columns ${columnCount}, virtual cell ${virtualCellIndex}`);
   for (let i = 0; i < table.rows.length; i++) {
     const row = table.rows[i];
     const cellCount = row.cells.length;
-    const cellIndex = getActualCellIndex(table, row, absoluteCellIndex);
+    const cellIndex = getRealCellIndex(tableMap, row, virtualCellIndex);
     const cell = row.cells[cellIndex];
     debug(`insertColumn: row ${i}, cell ${cellIndex}`);
     if (cell && cell.colSpan > 1) {
@@ -218,7 +218,8 @@ export function deleteColumn(range: Range): void {
   const table = tableNode.get(0) as HTMLTableElement;
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
-  const absoluteCellIndex = getAbsoluteCellIndex(table, currentRow, currentCell);
+  const tableMap  = getTableMap(table);
+  const virtualCellIndex = getCellIndex(tableMap, currentRow, currentCell);
   let newTargetCell: HTMLTableCellElement | null = null;
   const actualIndex = currentCell.cellIndex;
   if (currentRow.cells[actualIndex + 1]) {
@@ -226,10 +227,10 @@ export function deleteColumn(range: Range): void {
   } else if (currentRow.cells[actualIndex - 1]) {
     newTargetCell = currentRow.cells[actualIndex - 1];
   }
-  debug(`deleteColumn: rows ${table.rows.length}, absolute cell ${absoluteCellIndex}`);
+  debug(`deleteColumn: rows ${table.rows.length}, virtual cell ${virtualCellIndex}`);
   for (let i = 0; i < table.rows.length; i++) {
     const row = table.rows[i];
-    const cellIndex = getActualCellIndex(table, row, absoluteCellIndex);
+    const cellIndex = getRealCellIndex(tableMap, row, virtualCellIndex);
     const cell = row.cells[cellIndex];
     debug(`deleteColumn: row ${i}, cell ${cellIndex}`);
     if (cell && cell.rowSpan > 1) {
@@ -277,9 +278,10 @@ export function insertRow(range: Range, direction: VerticalDirection): void {
     }
     return;
   }
+  const tableMap  = getTableMap(table);
   let savedCellIndex: number = -1;
   for (let i = 0; i < columnCount; i++) {
-    const cellIndex = getActualCellIndex(table, targetRow, i);
+    const cellIndex = getRealCellIndex(tableMap, targetRow, i);
     if (cellIndex === savedCellIndex) {
       break;
     }
@@ -314,9 +316,10 @@ export function deleteRow(range: Range): void {
   const table = tableNode.get(0) as HTMLTableElement;
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
-  const absoluteCellIndex = getAbsoluteCellIndex(table, currentRow, currentCell);
+  const tableMap  = getTableMap(table);
+  const virtualCellIndex = getCellIndex(tableMap, currentRow, currentCell);
   const rowIndex = currentRow.rowIndex;
-  debug(`deleteRow: rows ${table.rows.length}, target row ${rowIndex}, absolute cell ${absoluteCellIndex}`);
+  debug(`deleteRow: rows ${table.rows.length}, target row ${rowIndex}, virtual cell ${virtualCellIndex}`);
   for (let i = rowIndex - 1; i >= 0; i--) {
     const cells = table.rows[i].cells;
     for (let j = 0; j < cells.length; j++) {
@@ -331,11 +334,11 @@ export function deleteRow(range: Range): void {
   }
   for (let i = 0; i < currentRow.cells.length; i++) {
     const cell = currentRow.cells[i];
-    const absoluteIndex = getAbsoluteCellIndex(table, currentRow, cell);
+    const virtualIndex = getCellIndex(tableMap, currentRow, cell);
     if (cell.rowSpan > 1) {
       const belowRow = table.rows[rowIndex + 1];
       if (belowRow) {
-        const cellIndex = getActualCellIndex(table, belowRow, absoluteIndex);
+        const cellIndex = getRealCellIndex(tableMap, belowRow, virtualIndex);
         let newCell = belowRow.insertCell(cellIndex);
         const clonedNode = query(cell.cloneNode(true));
         clonedNode.removeAttr('rowSpan');
@@ -353,7 +356,7 @@ export function deleteRow(range: Range): void {
   let newTargetCell: HTMLTableCellElement | null = null;
   const newTargetRow = table.rows[rowIndex + 1] || table.rows[rowIndex - 1];
   if (newTargetRow) {
-    newTargetCell = newTargetRow.cells[absoluteCellIndex] || newTargetRow.cells[newTargetRow.cells.length - 1];
+    newTargetCell = newTargetRow.cells[virtualCellIndex] || newTargetRow.cells[newTargetRow.cells.length - 1];
   }
   table.deleteRow(rowIndex);
   if (newTargetCell) {
@@ -402,7 +405,7 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
     return;
   }
   // up and down
-  const absoluteIndex = getAbsoluteCellIndex(table, currentRow, currentCell);
+  const virtualIndex = getCellIndex(tableMap, currentRow, currentCell);
   let rowIndex: number;
   let cell: HTMLTableCellElement | null;
   let otherRowIndex: number;
@@ -417,7 +420,7 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
       if (!rowMap) {
         break;
       }
-      const aboveCell = rowMap.get(absoluteIndex);
+      const aboveCell = rowMap.get(virtualIndex);
       if (!aboveCell) {
         break;
       }
@@ -442,7 +445,7 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
       if (!rowMap) {
         break;
       }
-      const belowCell = rowMap.get(absoluteIndex);
+      const belowCell = rowMap.get(virtualIndex);
       if (!belowCell) {
         break;
       }
