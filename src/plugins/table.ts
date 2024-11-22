@@ -66,18 +66,6 @@ const mergeMenuItems: DropdownMenuItem[] = [
   },
 ];
 
-
-// Returns the number of columns in the specified table, treating merged cells as if they were split.
-function getColumnCount(table: HTMLTableElement): number {
-  const row = table.rows[0];
-  let columnCount = 0;
-  for (let i = 0; i < row.cells.length; i++) {
-    const cell = row.cells[i];
-    columnCount += cell.colSpan;
-  }
-  return columnCount;
-}
-
 // Returns a virtual map of the specified table, treating merged cells as if they were split.
 export function getTableMap(table: HTMLTableElement): TableMap {
   const tableMap: TableMap = [];
@@ -187,7 +175,6 @@ export function insertColumn(range: Range, direction: HorizontalDirection): void
   const table = tableNode.get(0) as HTMLTableElement;
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
-  const columnCount = getColumnCount(table);
   const tableMap  = getTableMap(table);
   let virtualCellIndex = getCellIndex(tableMap, currentRow, currentCell);
   if (direction === 'right') {
@@ -197,7 +184,7 @@ export function insertColumn(range: Range, direction: HorizontalDirection): void
       virtualCellIndex++;
     }
   }
-  debug(`insertColumn: rows ${table.rows.length}, columns ${columnCount}, virtual cell ${virtualCellIndex}`);
+  debug(`insertColumn: rows ${table.rows.length}, virtual cell ${virtualCellIndex}`);
   for (let i = 0; i < table.rows.length; i++) {
     const row = table.rows[i];
     const cellCount = row.cells.length;
@@ -266,7 +253,8 @@ export function insertRow(range: Range, direction: VerticalDirection): void {
   const rowNode = cellNode.closest('tr');
   const table = tableNode.get(0) as HTMLTableElement;
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
-  const columnCount = getColumnCount(table);
+  let tableMap  = getTableMap(table);
+  const columnCount = tableMap[0].length;
   let targetRowIndex: number;
   if (direction === 'up') {
     targetRowIndex = currentRow.rowIndex;
@@ -274,8 +262,9 @@ export function insertRow(range: Range, direction: VerticalDirection): void {
     targetRowIndex = currentRow.rowIndex + 1;
   }
   const targetRow = table.rows[targetRowIndex];
-  debug(`insertRow: rows ${table.rows.length} columns ${columnCount}, target row ${targetRowIndex}`);
+  debug(`insertRow: rows ${table.rows.length}, target row ${targetRowIndex}`);
   const newRow = table.insertRow(targetRowIndex);
+  tableMap  = getTableMap(table);
   // last row
   if (!targetRow) {
     for (let i = 0; i < columnCount; i++) {
@@ -284,7 +273,6 @@ export function insertRow(range: Range, direction: VerticalDirection): void {
     }
     return;
   }
-  const tableMap  = getTableMap(table);
   let savedCellIndex: number = -1;
   for (let i = 0; i < columnCount; i++) {
     const cellIndex = getRealCellIndex(tableMap, targetRow, i);
@@ -401,7 +389,7 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
     if (!cell || !otherCell) {
       return;
     }
-    debug(`mergeCells: row ${rowIndex}, cell ${cellIndex}, other row ${rowIndex} other cell ${otherCellIndex}`);
+    debug(`mergeCells: row ${rowIndex}, cell ${cellIndex}, other row ${rowIndex}, other cell ${otherCellIndex}`);
     if (cell.rowSpan !== otherCell.rowSpan) {
       return;
     }
@@ -470,7 +458,7 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
   if (!cell || !otherCell) {
     return;
   }
-  debug(`mergeCells: row ${rowIndex}, cell ${cell.cellIndex}, other row ${otherRowIndex} other cell ${otherCellIndex}`);
+  debug(`mergeCells: row ${rowIndex}, cell ${cell.cellIndex}, other row ${otherRowIndex}, other cell ${otherCellIndex}`);
   if (cell.colSpan !== otherCell.colSpan) {
     return;
   }
