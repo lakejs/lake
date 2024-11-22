@@ -48,26 +48,26 @@ describe('plugins / table (functions)', () => {
         const tableNode = range.startNode.closest('table');
         const table = tableNode.get(0) as HTMLTableElement;
         const tableMap = getTableMap(table);
-        expect(tableMap.get(0)?.get(0)?.innerText).to.equal('a1');
-        expect(tableMap.get(0)?.get(1)?.innerText).to.equal('b1');
-        expect(tableMap.get(0)?.get(2)?.innerText).to.equal('c1');
-        expect(tableMap.get(0)?.get(3)?.innerText).to.equal('d1');
-        expect(tableMap.get(1)?.get(0)?.innerText).to.equal('a2');
-        expect(tableMap.get(1)?.get(1)?.innerText).to.equal('a2');
-        expect(tableMap.get(1)?.get(2)?.innerText).to.equal('c2');
-        expect(tableMap.get(1)?.get(3)?.innerText).to.equal('d1');
-        expect(tableMap.get(2)?.get(0)?.innerText).to.equal('a2');
-        expect(tableMap.get(2)?.get(1)?.innerText).to.equal('a2');
-        expect(tableMap.get(2)?.get(2)?.innerText).to.equal('c3');
-        expect(tableMap.get(2)?.get(3)?.innerText).to.equal('d1');
-        expect(tableMap.get(3)?.get(0)?.innerText).to.equal('a2');
-        expect(tableMap.get(3)?.get(1)?.innerText).to.equal('a2');
-        expect(tableMap.get(3)?.get(2)?.innerText).to.equal('c4');
-        expect(tableMap.get(3)?.get(3)?.innerText).to.equal('d4');
-        expect(tableMap.get(4)?.get(0)?.innerText).to.equal('a5');
-        expect(tableMap.get(4)?.get(1)?.innerText).to.equal('b5');
-        expect(tableMap.get(4)?.get(2)?.innerText).to.equal('c5');
-        expect(tableMap.get(4)?.get(3)?.innerText).to.equal('d5');
+        expect(tableMap[0][0].innerText).to.equal('a1');
+        expect(tableMap[0][1].innerText).to.equal('b1');
+        expect(tableMap[0][2].innerText).to.equal('c1');
+        expect(tableMap[0][3].innerText).to.equal('d1');
+        expect(tableMap[1][0].innerText).to.equal('a2');
+        expect(tableMap[1][1].innerText).to.equal('a2');
+        expect(tableMap[1][2].innerText).to.equal('c2');
+        expect(tableMap[1][3].innerText).to.equal('d1');
+        expect(tableMap[2][0].innerText).to.equal('a2');
+        expect(tableMap[2][1].innerText).to.equal('a2');
+        expect(tableMap[2][2].innerText).to.equal('c3');
+        expect(tableMap[2][3].innerText).to.equal('d1');
+        expect(tableMap[3][0].innerText).to.equal('a2');
+        expect(tableMap[3][1].innerText).to.equal('a2');
+        expect(tableMap[3][2].innerText).to.equal('c4');
+        expect(tableMap[3][3].innerText).to.equal('d4');
+        expect(tableMap[4][0].innerText).to.equal('a5');
+        expect(tableMap[4][1].innerText).to.equal('b5');
+        expect(tableMap[4][2].innerText).to.equal('c5');
+        expect(tableMap[4][3].innerText).to.equal('d5');
       },
     );
   });
@@ -1185,6 +1185,65 @@ describe('plugins / table (functions)', () => {
       <tr>
         <td>a4</td>
         <td><br /></td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertColumn(range, 'right');
+      },
+    );
+  });
+
+  it('insertColumn: should insert a column to the right with colspan and rowspan (6)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td rowspan="2">c1</td>
+        <td>d1</td>
+        <td>e1</td>
+      </tr>
+      <tr>
+        <td colspan="2"><focus />a2</td>
+        <td>d2</td>
+        <td>e2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td>c3</td>
+        <td>d3</td>
+        <td>e3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td><br /></td>
+        <td rowspan="2">c1</td>
+        <td>d1</td>
+        <td>e1</td>
+      </tr>
+      <tr>
+        <td colspan="2"><focus />a2</td>
+        <td><br /></td>
+        <td>d2</td>
+        <td>e2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td><br /></td>
+        <td>c3</td>
+        <td>d3</td>
+        <td>e3</td>
       </tr>
     </table>
     `;
