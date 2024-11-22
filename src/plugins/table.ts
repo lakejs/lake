@@ -9,6 +9,10 @@ import { Range } from '../models/range';
 import { insertBlock } from '../operations/insert-block';
 import { FloatingToolbar } from '../ui/floating-toolbar';
 
+type TableRowMap = Map<number, HTMLTableCellElement>;
+
+type TableMap = Map<number, TableRowMap>;
+
 type HorizontalDirection = 'left' | 'right';
 
 type VerticalDirection = 'up' | 'down';
@@ -74,6 +78,34 @@ function getColumnCount(table: HTMLTableElement): number {
     columnCount += cell.colSpan;
   }
   return columnCount;
+}
+
+// Returns a map of the specified table, treating merged cells as if they were split.
+export function getTableMap(table: HTMLTableElement): TableMap {
+  const tableMap: TableMap = new Map();
+  for (let i = 0; i < table.rows.length; i++) {
+    tableMap.set(i, new Map());
+  }
+  for (const [rowIndex, rowMap] of tableMap) {
+    const row = table.rows[rowIndex];
+    let newCellIndex = 0;
+    for (let cellIndex = 0; cellIndex < row.cells.length; cellIndex++) {
+      newCellIndex = cellIndex;
+      while (rowMap.has(newCellIndex)) {
+        newCellIndex++;
+      }
+      const cell = row.cells[cellIndex];
+      for (let i = 0; i < cell.colSpan; i++) {
+        for (let j = 0; j < cell.rowSpan; j++) {
+          const targetRowMap = tableMap.get(rowIndex + j);
+          if (targetRowMap) {
+            targetRowMap.set(newCellIndex + i, cell);
+          }
+        }
+      }
+    }
+  }
+  return tableMap;
 }
 
 // Returns the index of a cell, treating merged cells as if they were split.
@@ -234,11 +266,11 @@ export function insertRow(range: Range, direction: VerticalDirection): void {
   } else {
     targetRowIndex = currentRow.rowIndex + 1;
   }
-  const rowRef = table.rows[targetRowIndex];
+  const targetRow = table.rows[targetRowIndex];
   debug(`insertRow: rows ${table.rows.length} columns ${columnCount}, target row ${targetRowIndex}`);
   const newRow = table.insertRow(targetRowIndex);
   // last row
-  if (!rowRef) {
+  if (!targetRow) {
     for (let i = 0; i < columnCount; i++) {
       const newCell = newRow.insertCell(newRow.cells.length);
       newCell.innerHTML = '<br />';
@@ -247,12 +279,12 @@ export function insertRow(range: Range, direction: VerticalDirection): void {
   }
   let savedCellIndex: number = -1;
   for (let i = 0; i < columnCount; i++) {
-    const cellIndex = getActualCellIndex(table, rowRef, i);
+    const cellIndex = getActualCellIndex(table, targetRow, i);
     if (cellIndex === savedCellIndex) {
       break;
     }
     savedCellIndex = cellIndex;
-    const cell = rowRef.cells[cellIndex];
+    const cell = targetRow.cells[cellIndex];
     if (!cell) {
       break;
     }
@@ -267,7 +299,7 @@ export function insertRow(range: Range, direction: VerticalDirection): void {
     const cells = table.rows[i].cells;
     for (let j = 0; j < cells.length; j++) {
       const cell = cells[j];
-      if (cell && cell.rowSpan > 1 && cell.rowSpan + 1 > rowRef.rowIndex - i) {
+      if (cell && cell.rowSpan > 1 && cell.rowSpan + 1 > targetRow.rowIndex - i) {
         cell.rowSpan += 1;
       }
     }
@@ -340,8 +372,10 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
   const table = tableNode.get(0) as HTMLTableElement;
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
-  const rowIndex = currentRow.rowIndex;
+  const tableMap = getTableMap(table);
+  // left and right
   if (direction === 'left' || direction === 'right') {
+    const rowIndex = currentRow.rowIndex;
     const cellIndex = currentCell.cellIndex;
     let cell: HTMLTableCellElement;
     let otherCellIndex: number;
@@ -365,48 +399,75 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
     cell.colSpan += otherCell.colSpan;
     currentRow.deleteCell(otherCellIndex);
     range.shrinkBefore(query(cell));
-  } else {
-    const absoluteIndex = getAbsoluteCellIndex(table, currentRow, currentCell);
-    let cell: HTMLTableCellElement | null;
-    let otherRowIndex: number;
-    let otherRow: HTMLTableRowElement;
-    let otherCellIndex: number;
-    let otherCell: HTMLTableCellElement | null;
-    if (direction === 'up') {
-      const row = table.rows[rowIndex - 1];
-      if (row) {
-        const cellIndex = getActualCellIndex(table, row, absoluteIndex);
-        cell = row.cells[cellIndex];
-      } else {
-        cell = null;
-      }
-      otherRowIndex = rowIndex;
-      otherRow = currentRow;
-      otherCellIndex = currentCell.cellIndex;
-      otherCell = currentCell;
-    } else {
-      cell = currentCell;
-      otherRowIndex = rowIndex + 1;
-      otherRow = table.rows[otherRowIndex];
-      if (otherRow) {
-        otherCellIndex = getActualCellIndex(table, otherRow, absoluteIndex);
-        otherCell = otherRow.cells[otherCellIndex];
-      } else {
-        otherCellIndex = -1;
-        otherCell = null;
-      }
-    }
-    if (!cell || !otherCell) {
-      return;
-    }
-    debug(`mergeCells: row ${rowIndex}, cell ${cell.cellIndex}, other row ${otherRowIndex} other cell ${otherCellIndex}`);
-    if (cell.colSpan !== otherCell.colSpan) {
-      return;
-    }
-    cell.rowSpan += otherCell.rowSpan;
-    otherRow.deleteCell(otherCellIndex);
-    range.shrinkBefore(query(cell));
+    return;
   }
+  // up and down
+  const absoluteIndex = getAbsoluteCellIndex(table, currentRow, currentCell);
+  let rowIndex: number;
+  let cell: HTMLTableCellElement | null;
+  let otherRowIndex: number;
+  let otherRow: HTMLTableRowElement;
+  let otherCellIndex: number;
+  let otherCell: HTMLTableCellElement | null;
+  if (direction === 'up') {
+    rowIndex = -1;
+    cell = null;
+    for (let i = currentRow.rowIndex - 1; i >= 0; i--) {
+      const rowMap = tableMap.get(i);
+      if (!rowMap) {
+        break;
+      }
+      const aboveCell = rowMap.get(absoluteIndex);
+      if (!aboveCell) {
+        break;
+      }
+      if (cell && aboveCell !== cell) {
+        break;
+      }
+      rowIndex = i;
+      cell = aboveCell;
+    }
+    otherRowIndex = currentRow.rowIndex;
+    otherRow = currentRow;
+    otherCellIndex = currentCell.cellIndex;
+    otherCell = currentCell;
+  } else {
+    rowIndex = currentRow.rowIndex;
+    cell = currentCell;
+    otherRowIndex = -1;
+    otherCell = null;
+    otherCellIndex = -1;
+    for (let i = currentRow.rowIndex + 1; i < table.rows.length; i++) {
+      const rowMap = tableMap.get(i);
+      if (!rowMap) {
+        break;
+      }
+      const belowCell = rowMap.get(absoluteIndex);
+      if (!belowCell) {
+        break;
+      }
+      if (belowCell !== otherCell) {
+        otherRowIndex = i;
+        otherCell = belowCell;
+        otherCellIndex = otherCell.cellIndex;
+        break;
+      }
+    }
+    otherRow = table.rows[otherRowIndex];
+    if (!otherRow) {
+      return;
+    }
+  }
+  if (!cell || !otherCell) {
+    return;
+  }
+  debug(`mergeCells: row ${rowIndex}, cell ${cell.cellIndex}, other row ${otherRowIndex} other cell ${otherCellIndex}`);
+  if (cell.colSpan !== otherCell.colSpan) {
+    return;
+  }
+  cell.rowSpan += otherCell.rowSpan;
+  otherRow.deleteCell(otherCellIndex);
+  range.shrinkBefore(query(cell));
 }
 
 function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[] {

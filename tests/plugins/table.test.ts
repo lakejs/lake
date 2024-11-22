@@ -1,5 +1,6 @@
 import { testOperation, testPlugin } from '../utils';
 import {
+  getTableMap,
   insertTable,
   deleteTable,
   insertColumn,
@@ -10,6 +11,58 @@ import {
 } from '../../src/plugins/table';
 
 describe('plugins / table (functions)', () => {
+
+  it('getTableMap: should insert a table', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="3">a2</td>
+        <td>c2</td>
+      </tr>
+      <tr>
+        <td><focus />c3</td>
+      </tr>
+      <tr>
+        <td>c4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+      </tr>
+    </table>
+    `;
+    const output = content;
+    testOperation(
+      content,
+      output,
+      range => {
+        const tableNode = range.startNode.closest('table');
+        const table = tableNode.get(0) as HTMLTableElement;
+        const tableMap = getTableMap(table);
+        expect(tableMap.get(0)?.get(0)?.innerText).to.equal('a1');
+        expect(tableMap.get(0)?.get(1)?.innerText).to.equal('b1');
+        expect(tableMap.get(0)?.get(2)?.innerText).to.equal('c1');
+        expect(tableMap.get(1)?.get(0)?.innerText).to.equal('a2');
+        expect(tableMap.get(1)?.get(1)?.innerText).to.equal('a2');
+        expect(tableMap.get(1)?.get(2)?.innerText).to.equal('c2');
+        expect(tableMap.get(2)?.get(0)?.innerText).to.equal('a2');
+        expect(tableMap.get(2)?.get(1)?.innerText).to.equal('a2');
+        expect(tableMap.get(2)?.get(2)?.innerText).to.equal('c3');
+        expect(tableMap.get(3)?.get(0)?.innerText).to.equal('a2');
+        expect(tableMap.get(3)?.get(1)?.innerText).to.equal('a2');
+        expect(tableMap.get(3)?.get(2)?.innerText).to.equal('c4');
+        expect(tableMap.get(4)?.get(0)?.innerText).to.equal('a5');
+        expect(tableMap.get(4)?.get(1)?.innerText).to.equal('b5');
+        expect(tableMap.get(4)?.get(2)?.innerText).to.equal('c5');
+      },
+    );
+  });
 
   it('insertTable: should insert a table', () => {
     const content = `
@@ -3153,6 +3206,61 @@ describe('plugins / table (functions)', () => {
     </table>
     `;
     const output = content;
+    testOperation(
+      content,
+      output,
+      range => {
+        mergeCells(range, 'up');
+      },
+    );
+  });
+
+  it('mergeCells: should merge cell up (4)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td rowspan="2">c1</td>
+        <td>d1</td>
+        <td>e1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td>d2</td>
+        <td>e2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td><focus />c3</td>
+        <td>d3</td>
+        <td>e3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td rowspan="3"><focus />c1</td>
+        <td>d1</td>
+        <td>e1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td>d2</td>
+        <td>e2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td>d3</td>
+        <td>e3</td>
+      </tr>
+    </table>
+    `;
     testOperation(
       content,
       output,
