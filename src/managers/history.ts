@@ -16,7 +16,9 @@ type SaveOptions = {
 };
 
 // Saves and controls the history of the value of the editor.
+//
 // Example:
+//
 // before initialization: value: 'a', list: [], index: 0, canUndo: false
 // after initialization: value: 'a', list: ['a'], index: 1, canUndo: false
 // inputs 'b': value: 'ab', list: ['a', 'ab'], index: 2, canUndo: true

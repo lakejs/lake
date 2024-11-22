@@ -74,20 +74,20 @@ export function getTableMap(table: HTMLTableElement): TableMap {
   }
   for (let rowIndex = 0; rowIndex < tableMap.length; rowIndex++) {
     const row = table.rows[rowIndex];
-    const rowMap = tableMap[rowIndex];
+    const rowList = tableMap[rowIndex];
     let newCellIndex = 0;
     for (let cellIndex = 0; cellIndex < row.cells.length; cellIndex++) {
       newCellIndex = cellIndex;
-      while (rowMap[newCellIndex]) {
+      while (rowList[newCellIndex]) {
         newCellIndex++;
       }
       const cell = row.cells[cellIndex];
       for (let i = 0; i < cell.colSpan; i++) {
         for (let j = 0; j < cell.rowSpan; j++) {
-          const targetRowMap = tableMap[rowIndex + j];
-          if (targetRowMap) {
+          const targetRowList = tableMap[rowIndex + j];
+          if (targetRowList) {
             // console.log(rowIndex + j, newCellIndex + i, cell.innerText);
-            targetRowMap[newCellIndex + i] = cell;
+            targetRowList[newCellIndex + i] = cell;
           }
         }
       }
@@ -98,13 +98,11 @@ export function getTableMap(table: HTMLTableElement): TableMap {
 
 // Returns the virtual index of a cell, treating merged cells as if they were split.
 function getCellIndex(tableMap: TableMap, currentRow: HTMLTableRowElement, currentCell: HTMLTableCellElement): number {
-  const rowMap = tableMap[currentRow.rowIndex];
-  if (rowMap) {
-    for (let cellIndex = 0; cellIndex < rowMap.length; cellIndex++) {
-      const cell = rowMap[cellIndex];
-      if (cell === currentCell) {
-        return cellIndex;
-      }
+  const rowList = tableMap[currentRow.rowIndex];
+  for (let cellIndex = 0; cellIndex < rowList.length; cellIndex++) {
+    const cell = rowList[cellIndex];
+    if (cell === currentCell) {
+      return cellIndex;
     }
   }
   return -1;
@@ -112,32 +110,36 @@ function getCellIndex(tableMap: TableMap, currentRow: HTMLTableRowElement, curre
 
 // Returns the real index of a cell by an virtual index that treats merged cells as if they were split.
 //
-// table map:
+// Example:
+//
+// Table map:
 // a1 b1 b1 d1 e1 f1
 // a2 b1 b1 d2 e2 f2
 // a3 b1 b1 d3 e2 f3
 //
+// Result:
+// b1: vertual index is 1, real index is 1
+// f1: vertual index is 5, real index is 4
+// f2: vertual index is 5, real index is 3
 // f3: vertual index is 5, real index is 2
 function getRealCellIndex(tableMap: TableMap, currentRow: HTMLTableRowElement, virtualCellIndex: number): number {
   const rowIndex = currentRow.rowIndex;
-  const rowMap = tableMap[rowIndex];
-  const aboveRowMap = tableMap[rowIndex - 1];
+  const rowList = tableMap[rowIndex];
+  const aboveRowList = tableMap[rowIndex - 1];
   let cellIndex = virtualCellIndex;
-  if (rowMap) {
-    for (let i = 0; i < virtualCellIndex; i++) {
-      const cell = rowMap[i];
-      const nextCell = rowMap[i + 1];
-      if (cell && nextCell && cell === nextCell) {
+  for (let i = 0; i < virtualCellIndex; i++) {
+    const cell = rowList[i];
+    const nextCell = rowList[i + 1];
+    if (cell === nextCell) {
+      cellIndex--;
+    } else if (aboveRowList) {
+      const aboveCell = aboveRowList[i];
+      if (cell === aboveCell) {
         cellIndex--;
-      } else if (aboveRowMap) {
-        const aboveCell = aboveRowMap[i];
-        if (cell && aboveCell && cell === aboveCell) {
-          cellIndex--;
-        }
       }
     }
   }
-  return cellIndex > 0 ? cellIndex : 0;
+  return cellIndex;
 }
 
 // Inserts a table.
@@ -178,9 +180,9 @@ export function insertColumn(range: Range, direction: HorizontalDirection): void
   const tableMap  = getTableMap(table);
   let virtualCellIndex = getCellIndex(tableMap, currentRow, currentCell);
   if (direction === 'right') {
-    const rowMap = tableMap[currentRow.rowIndex];
+    const rowList = tableMap[currentRow.rowIndex];
     virtualCellIndex++;
-    while (rowMap && currentCell === rowMap[virtualCellIndex]) {
+    while (rowList && currentCell === rowList[virtualCellIndex]) {
       virtualCellIndex++;
     }
   }
@@ -214,11 +216,11 @@ export function deleteColumn(range: Range): void {
   const tableMap  = getTableMap(table);
   const virtualCellIndex = getCellIndex(tableMap, currentRow, currentCell);
   let newTargetCell: HTMLTableCellElement | null = null;
-  const actualIndex = currentCell.cellIndex;
-  if (currentRow.cells[actualIndex + 1]) {
-    newTargetCell = currentRow.cells[actualIndex + 1];
-  } else if (currentRow.cells[actualIndex - 1]) {
-    newTargetCell = currentRow.cells[actualIndex - 1];
+  const realIndex = currentCell.cellIndex;
+  if (currentRow.cells[realIndex + 1]) {
+    newTargetCell = currentRow.cells[realIndex + 1];
+  } else if (currentRow.cells[realIndex - 1]) {
+    newTargetCell = currentRow.cells[realIndex - 1];
   }
   debug(`deleteColumn: rows ${table.rows.length}, virtual cell ${virtualCellIndex}`);
   for (let i = 0; i < table.rows.length; i++) {
@@ -409,11 +411,11 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
     rowIndex = -1;
     cell = null;
     for (let i = currentRow.rowIndex - 1; i >= 0; i--) {
-      const rowMap = tableMap[i];
-      if (!rowMap) {
+      const rowList = tableMap[i];
+      if (!rowList) {
         break;
       }
-      const aboveCell = rowMap[virtualIndex];
+      const aboveCell = rowList[virtualIndex];
       if (!aboveCell) {
         break;
       }
@@ -434,11 +436,11 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
     otherCell = null;
     otherCellIndex = -1;
     for (let i = currentRow.rowIndex + 1; i < table.rows.length; i++) {
-      const rowMap = tableMap[i];
-      if (!rowMap) {
+      const rowList = tableMap[i];
+      if (!rowList) {
         break;
       }
-      const belowCell = rowMap[virtualIndex];
+      const belowCell = rowList[virtualIndex];
       if (!belowCell) {
         break;
       }
