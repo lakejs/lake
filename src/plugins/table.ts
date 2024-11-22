@@ -276,19 +276,18 @@ export function insertRow(range: Range, direction: VerticalDirection): void {
   let savedCellIndex: number = -1;
   for (let i = 0; i < columnCount; i++) {
     const cellIndex = getRealCellIndex(tableMap, targetRow, i);
-    if (cellIndex === savedCellIndex) {
-      break;
-    }
-    savedCellIndex = cellIndex;
-    const cell = targetRow.cells[cellIndex];
-    if (!cell) {
-      break;
-    }
-    const newCell = newRow.insertCell(newRow.cells.length);
-    newCell.innerHTML = '<br />';
-    if (cell.colSpan > 1) {
-      newCell.colSpan = cell.colSpan;
-      i += cell.colSpan - 1;
+    if (cellIndex !== savedCellIndex) {
+      savedCellIndex = cellIndex;
+      const cell = targetRow.cells[cellIndex];
+      if (!cell) {
+        break;
+      }
+      const newCell = newRow.insertCell(newRow.cells.length);
+      newCell.innerHTML = '<br />';
+      if (cell.colSpan > 1) {
+        newCell.colSpan = cell.colSpan;
+        i += cell.colSpan - 1;
+      }
     }
   }
   for (let i = targetRowIndex - 1; i >= 0; i--) {
