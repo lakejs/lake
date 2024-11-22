@@ -12,13 +12,14 @@ import {
 
 describe('plugins / table (functions)', () => {
 
-  it('getTableMap: should insert a table', () => {
+  it('getTableMap: should return correct map', () => {
     const content = `
     <table>
       <tr>
         <td>a1</td>
         <td>b1</td>
         <td>c1</td>
+        <td rowspan="3">d1</td>
       </tr>
       <tr>
         <td colspan="2" rowspan="3">a2</td>
@@ -29,11 +30,13 @@ describe('plugins / table (functions)', () => {
       </tr>
       <tr>
         <td>c4</td>
+        <td>d4</td>
       </tr>
       <tr>
         <td>a5</td>
         <td>b5</td>
         <td>c5</td>
+        <td>d5</td>
       </tr>
     </table>
     `;
@@ -48,18 +51,23 @@ describe('plugins / table (functions)', () => {
         expect(tableMap.get(0)?.get(0)?.innerText).to.equal('a1');
         expect(tableMap.get(0)?.get(1)?.innerText).to.equal('b1');
         expect(tableMap.get(0)?.get(2)?.innerText).to.equal('c1');
+        expect(tableMap.get(0)?.get(3)?.innerText).to.equal('d1');
         expect(tableMap.get(1)?.get(0)?.innerText).to.equal('a2');
         expect(tableMap.get(1)?.get(1)?.innerText).to.equal('a2');
         expect(tableMap.get(1)?.get(2)?.innerText).to.equal('c2');
+        expect(tableMap.get(1)?.get(3)?.innerText).to.equal('d1');
         expect(tableMap.get(2)?.get(0)?.innerText).to.equal('a2');
         expect(tableMap.get(2)?.get(1)?.innerText).to.equal('a2');
         expect(tableMap.get(2)?.get(2)?.innerText).to.equal('c3');
+        expect(tableMap.get(2)?.get(3)?.innerText).to.equal('d1');
         expect(tableMap.get(3)?.get(0)?.innerText).to.equal('a2');
         expect(tableMap.get(3)?.get(1)?.innerText).to.equal('a2');
         expect(tableMap.get(3)?.get(2)?.innerText).to.equal('c4');
+        expect(tableMap.get(3)?.get(3)?.innerText).to.equal('d4');
         expect(tableMap.get(4)?.get(0)?.innerText).to.equal('a5');
         expect(tableMap.get(4)?.get(1)?.innerText).to.equal('b5');
         expect(tableMap.get(4)?.get(2)?.innerText).to.equal('c5');
+        expect(tableMap.get(4)?.get(3)?.innerText).to.equal('d5');
       },
     );
   });
