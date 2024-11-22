@@ -2,6 +2,7 @@ import { type Editor } from '..';
 import { ToolbarItem } from '../types/toolbar';
 import { DropdownMenuItem } from '../types/dropdown';
 import { icons } from '../icons';
+import { debug } from '../utils/debug';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
@@ -134,6 +135,7 @@ export function insertTable(range: Range, rows: number, columns: number): Nodes 
   const tableNode = query(html);
   insertBlock(range, tableNode);
   range.shrinkBefore(tableNode);
+  debug(`insertTable: table ${tableNode.id}`);
   return tableNode;
 }
 
@@ -143,6 +145,7 @@ export function deleteTable(range: Range): void {
   const block = query('<p><br /></p>');
   tableNode.replaceWith(block);
   range.shrinkBefore(block);
+  debug(`deleteTable: table ${tableNode.id}`);
 }
 
 // Inserts a column to the left or right of the start of the specified range.
@@ -155,12 +158,14 @@ export function insertColumn(range: Range, direction: HorizontalDirection): void
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
   const columnCount = getColumnCount(table);
   const targetCell = direction === 'left' ? currentCell : currentRow.cells[currentCell.cellIndex + 1];
-  const absoluteIndex = targetCell ? getAbsoluteCellIndex(table, currentRow, targetCell) : columnCount;
+  const absoluteCellIndex = targetCell ? getAbsoluteCellIndex(table, currentRow, targetCell) : columnCount;
+  debug(`insertColumn: rows ${table.rows.length}, columns ${columnCount}, absolute cell ${absoluteCellIndex}`);
   for (let i = 0; i < table.rows.length; i++) {
     const row = table.rows[i];
     const cellCount = row.cells.length;
-    const cellIndex = getActualCellIndex(table, row, absoluteIndex);
+    const cellIndex = getActualCellIndex(table, row, absoluteCellIndex);
     const cell = row.cells[cellIndex];
+    debug(`insertColumn: row ${i}, cell ${cellIndex}`);
     if (cell && cell.colSpan > 1) {
       cell.colSpan += 1;
       if (cell.rowSpan > 1) {
@@ -181,7 +186,7 @@ export function deleteColumn(range: Range): void {
   const table = tableNode.get(0) as HTMLTableElement;
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
-  const absoluteIndex = getAbsoluteCellIndex(table, currentRow, currentCell);
+  const absoluteCellIndex = getAbsoluteCellIndex(table, currentRow, currentCell);
   let newTargetCell: HTMLTableCellElement | null = null;
   const actualIndex = currentCell.cellIndex;
   if (currentRow.cells[actualIndex + 1]) {
@@ -189,10 +194,12 @@ export function deleteColumn(range: Range): void {
   } else if (currentRow.cells[actualIndex - 1]) {
     newTargetCell = currentRow.cells[actualIndex - 1];
   }
+  debug(`deleteColumn: rows ${table.rows.length}, absolute cell ${absoluteCellIndex}`);
   for (let i = 0; i < table.rows.length; i++) {
     const row = table.rows[i];
-    const cellIndex = getActualCellIndex(table, row, absoluteIndex);
+    const cellIndex = getActualCellIndex(table, row, absoluteCellIndex);
     const cell = row.cells[cellIndex];
+    debug(`deleteColumn: row ${i}, cell ${cellIndex}`);
     if (cell && cell.rowSpan > 1) {
       i += cell.rowSpan - 1;
     }
@@ -220,6 +227,7 @@ export function insertRow(range: Range, direction: VerticalDirection): void {
   const rowNode = cellNode.closest('tr');
   const table = tableNode.get(0) as HTMLTableElement;
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
+  const columnCount = getColumnCount(table);
   let targetRowIndex: number;
   if (direction === 'up') {
     targetRowIndex = currentRow.rowIndex;
@@ -227,7 +235,7 @@ export function insertRow(range: Range, direction: VerticalDirection): void {
     targetRowIndex = currentRow.rowIndex + 1;
   }
   const rowRef = table.rows[targetRowIndex];
-  const columnCount = getColumnCount(table);
+  debug(`insertRow: rows ${table.rows.length} columns ${columnCount}, target row ${targetRowIndex}`);
   const newRow = table.insertRow(targetRowIndex);
   // last row
   if (!rowRef) {
@@ -237,14 +245,14 @@ export function insertRow(range: Range, direction: VerticalDirection): void {
     }
     return;
   }
-  let savedActualIndex: number = -1;
+  let savedCellIndex: number = -1;
   for (let i = 0; i < columnCount; i++) {
-    const actualIndex = getActualCellIndex(table, rowRef, i);
-    if (actualIndex === savedActualIndex) {
+    const cellIndex = getActualCellIndex(table, rowRef, i);
+    if (cellIndex === savedCellIndex) {
       break;
     }
-    savedActualIndex = actualIndex;
-    const cell = rowRef.cells[actualIndex];
+    savedCellIndex = cellIndex;
+    const cell = rowRef.cells[cellIndex];
     if (!cell) {
       break;
     }
@@ -274,8 +282,9 @@ export function deleteRow(range: Range): void {
   const table = tableNode.get(0) as HTMLTableElement;
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
-  const currentIndex = getAbsoluteCellIndex(table, currentRow, currentCell);
+  const absoluteCellIndex = getAbsoluteCellIndex(table, currentRow, currentCell);
   const rowIndex = currentRow.rowIndex;
+  debug(`deleteRow: rows ${table.rows.length}, target row ${rowIndex}, absolute cell ${absoluteCellIndex}`);
   for (let i = rowIndex - 1; i >= 0; i--) {
     const cells = table.rows[i].cells;
     for (let j = 0; j < cells.length; j++) {
@@ -294,8 +303,8 @@ export function deleteRow(range: Range): void {
     if (cell.rowSpan > 1) {
       const belowRow = table.rows[rowIndex + 1];
       if (belowRow) {
-        const index = getActualCellIndex(table, belowRow, absoluteIndex);
-        let newCell = belowRow.insertCell(index);
+        const cellIndex = getActualCellIndex(table, belowRow, absoluteIndex);
+        let newCell = belowRow.insertCell(cellIndex);
         const clonedNode = query(cell.cloneNode(true));
         clonedNode.removeAttr('rowSpan');
         query(newCell).replaceWith(clonedNode);
@@ -312,7 +321,7 @@ export function deleteRow(range: Range): void {
   let newTargetCell: HTMLTableCellElement | null = null;
   const newTargetRow = table.rows[rowIndex + 1] || table.rows[rowIndex - 1];
   if (newTargetRow) {
-    newTargetCell = newTargetRow.cells[currentIndex] || newTargetRow.cells[newTargetRow.cells.length - 1];
+    newTargetCell = newTargetRow.cells[absoluteCellIndex] || newTargetRow.cells[newTargetRow.cells.length - 1];
   }
   table.deleteRow(rowIndex);
   if (newTargetCell) {
@@ -349,6 +358,7 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
     if (!cell || !otherCell) {
       return;
     }
+    debug(`mergeCells: row ${rowIndex}, cell ${cellIndex}, other row ${rowIndex} other cell ${otherCellIndex}`);
     if (cell.rowSpan !== otherCell.rowSpan) {
       return;
     }
@@ -389,6 +399,7 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
     if (!cell || !otherCell) {
       return;
     }
+    debug(`mergeCells: row ${rowIndex}, cell ${cell.cellIndex}, other row ${otherRowIndex} other cell ${otherCellIndex}`);
     if (cell.colSpan !== otherCell.colSpan) {
       return;
     }
