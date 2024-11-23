@@ -507,6 +507,7 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       tooltip: 'Column',
       menuType: 'list',
       menuItems: columnMenuItems,
+      menuCheck: false,
       onSelect: (_, value) => {
         const range = editor.selection.range;
         if (value === 'insertLeft') {
@@ -527,6 +528,7 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       tooltip: 'Row',
       menuType: 'list',
       menuItems: rowMenuItems,
+      menuCheck: false,
       onSelect: (_, value) => {
         const range = editor.selection.range;
         if (value === 'insertAbove') {
@@ -547,6 +549,7 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       tooltip: 'Merge cells',
       menuType: 'list',
       menuItems: mergeMenuItems,
+      menuCheck: false,
       onSelect: (_, value) => {
         const range = editor.selection.range;
         mergeCells(range, value as ActionDirection);

@@ -107,6 +107,7 @@ export class Toolbar {
       menuItems: item.menuItems,
       menuWidth: item.menuWidth,
       menuHeight: item.menuHeight,
+      menuCheck: item.menuCheck,
       tabIndex: -1,
       location: 'local',
       direction: this.placement === 'top' ? 'bottom' : 'top',
