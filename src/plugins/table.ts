@@ -12,11 +12,13 @@ import { FloatingToolbar } from '../ui/floating-toolbar';
 
 type TableMap = HTMLTableCellElement[][];
 
-type HorizontalDirection = 'left' | 'right';
+type InsertColumnDirection = 'left' | 'right';
 
-type VerticalDirection = 'up' | 'down';
+type InsertRowDirection = 'up' | 'down';
 
-type ActionDirection = HorizontalDirection | VerticalDirection;
+type MergeDirection = 'up' | 'right' | 'down' | 'left';
+
+type SplitDirection = 'vertical' | 'horizontal';
 
 const columnMenuItems: DropdownMenuItem[] = [
   {
@@ -75,11 +77,11 @@ export function getTableMap(table: HTMLTableElement): TableMap {
   }
   for (let rowIndex = 0; rowIndex < tableMap.length; rowIndex++) {
     const row = table.rows[rowIndex];
-    const rowList = tableMap[rowIndex];
+    const cellList = tableMap[rowIndex];
     let newCellIndex = 0;
     for (let cellIndex = 0; cellIndex < row.cells.length; cellIndex++) {
       newCellIndex = cellIndex;
-      while (rowList[newCellIndex]) {
+      while (cellList[newCellIndex]) {
         newCellIndex++;
       }
       const cell = row.cells[cellIndex];
@@ -99,9 +101,9 @@ export function getTableMap(table: HTMLTableElement): TableMap {
 
 // Returns the virtual index of a cell, treating merged cells as if they were split.
 function getVirtualCellIndex(tableMap: TableMap, currentRow: HTMLTableRowElement, currentCell: HTMLTableCellElement): number {
-  const rowList = tableMap[currentRow.rowIndex];
-  for (let cellIndex = 0; cellIndex < rowList.length; cellIndex++) {
-    const cell = rowList[cellIndex];
+  const cellList = tableMap[currentRow.rowIndex];
+  for (let cellIndex = 0; cellIndex < cellList.length; cellIndex++) {
+    const cell = cellList[cellIndex];
     if (cell === currentCell) {
       return cellIndex;
     }
@@ -125,12 +127,12 @@ function getVirtualCellIndex(tableMap: TableMap, currentRow: HTMLTableRowElement
 // f3: vertual index is 5, real index is 2
 function getRealCellIndex(tableMap: TableMap, currentRow: HTMLTableRowElement, virtualCellIndex: number): number {
   const rowIndex = currentRow.rowIndex;
-  const rowList = tableMap[rowIndex];
+  const cellList = tableMap[rowIndex];
   const aboveRowList = tableMap[rowIndex - 1];
   let cellIndex = virtualCellIndex;
   for (let i = 0; i < virtualCellIndex; i++) {
-    const cell = rowList[i];
-    const nextCell = rowList[i + 1];
+    const cell = cellList[i];
+    const nextCell = cellList[i + 1];
     if (cell === nextCell) {
       cellIndex--;
     } else if (aboveRowList) {
@@ -171,7 +173,7 @@ export function deleteTable(range: Range): void {
 }
 
 // Inserts a column to the left or right of the start of the specified range.
-export function insertColumn(range: Range, direction: HorizontalDirection): void {
+export function insertColumn(range: Range, direction: InsertColumnDirection): void {
   const cellNode = range.startNode.closest('td');
   const tableNode = cellNode.closest('table');
   const rowNode = cellNode.closest('tr');
@@ -181,9 +183,9 @@ export function insertColumn(range: Range, direction: HorizontalDirection): void
   const tableMap  = getTableMap(table);
   let virtualCellIndex = getVirtualCellIndex(tableMap, currentRow, currentCell);
   if (direction === 'right') {
-    const rowList = tableMap[currentRow.rowIndex];
+    const cellList = tableMap[currentRow.rowIndex];
     virtualCellIndex++;
-    while (rowList && currentCell === rowList[virtualCellIndex]) {
+    while (cellList && currentCell === cellList[virtualCellIndex]) {
       virtualCellIndex++;
     }
   }
@@ -250,7 +252,7 @@ export function deleteColumn(range: Range): void {
 }
 
 // Inserts a row above or below the start of the specified range.
-export function insertRow(range: Range, direction: VerticalDirection): void {
+export function insertRow(range: Range, direction: InsertRowDirection): void {
   const cellNode = range.startNode.closest('td');
   const tableNode = cellNode.closest('table');
   const rowNode = cellNode.closest('tr');
@@ -364,7 +366,7 @@ export function deleteRow(range: Range): void {
 }
 
 // Merges adjacent cells.
-export function mergeCells(range: Range, direction: ActionDirection): void {
+export function mergeCells(range: Range, direction: MergeDirection): void {
   const cellNode = range.startNode.closest('td');
   const tableNode = cellNode.closest('table');
   const rowNode = cellNode.closest('tr');
@@ -372,7 +374,7 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
   const tableMap = getTableMap(table);
-  // left and right
+  // Merge cell left or right.
   if (direction === 'left' || direction === 'right') {
     const rowIndex = currentRow.rowIndex;
     const cellIndex = currentCell.cellIndex;
@@ -395,11 +397,11 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
     if (cell.rowSpan !== otherCell.rowSpan) {
       return;
     }
-    const rowList = tableMap[rowIndex];
+    const cellList = tableMap[rowIndex];
     const virtualCellIndex = getVirtualCellIndex(tableMap, currentRow, cell);
     const virtualOtherCellIndex = getVirtualCellIndex(tableMap, currentRow, otherCell);
     // Check whether the two cells are adjacent.
-    if (rowList[virtualCellIndex + 1] !== otherCell && rowList[virtualOtherCellIndex - 1] !== cell) {
+    if (cellList[virtualCellIndex + 1] !== otherCell && cellList[virtualOtherCellIndex - 1] !== cell) {
       return;
     }
     cell.colSpan += otherCell.colSpan;
@@ -407,7 +409,7 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
     range.shrinkBefore(query(cell));
     return;
   }
-  // up and down
+  // Merge cell up or down.
   const virtualIndex = getVirtualCellIndex(tableMap, currentRow, currentCell);
   let rowIndex: number;
   let cell: HTMLTableCellElement | null;
@@ -419,11 +421,11 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
     rowIndex = -1;
     cell = null;
     for (let i = currentRow.rowIndex - 1; i >= 0; i--) {
-      const rowList = tableMap[i];
-      if (!rowList) {
+      const cellList = tableMap[i];
+      if (!cellList) {
         break;
       }
-      const aboveCell = rowList[virtualIndex];
+      const aboveCell = cellList[virtualIndex];
       if (!aboveCell) {
         break;
       }
@@ -444,11 +446,11 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
     otherCell = null;
     otherCellIndex = -1;
     for (let i = currentRow.rowIndex + 1; i < table.rows.length; i++) {
-      const rowList = tableMap[i];
-      if (!rowList) {
+      const cellList = tableMap[i];
+      if (!cellList) {
         break;
       }
-      const belowCell = rowList[virtualIndex];
+      const belowCell = cellList[virtualIndex];
       if (!belowCell) {
         break;
       }
@@ -474,6 +476,69 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
   cell.rowSpan += otherCell.rowSpan;
   mergeNodes(query(cell), query(otherCell));
   range.shrinkBefore(query(cell));
+}
+
+// Splits a cell that contains the start of the specified range from a table.
+export function splitCell(range: Range, direction: SplitDirection): void {
+  const cellNode = range.startNode.closest('td');
+  const tableNode = cellNode.closest('table');
+  const rowNode = cellNode.closest('tr');
+  const table = tableNode.get(0) as HTMLTableElement;
+  const currentRow = rowNode.get(0) as HTMLTableRowElement;
+  const currentCell = cellNode.get(0) as HTMLTableCellElement;
+  const rowIndex = currentRow.rowIndex;
+  // Split cell horizontally.
+  if (direction === 'horizontal') {
+    const newRow = table.insertRow(rowIndex + 1);
+    let tableMap = getTableMap(table);
+    const cellList = tableMap[currentRow.rowIndex];
+    const virtualCellIndex = getVirtualCellIndex(tableMap, currentRow, currentCell);
+    for (let i = 0; i < cellList.length; i++) {
+      const cell = cellList[i];
+      tableMap = getTableMap(table);
+      if (cell === currentCell) {
+        const cellIndex = getRealCellIndex(tableMap, newRow, virtualCellIndex);
+        const newCell = newRow.insertCell(cellIndex);
+        newCell.innerHTML = '<br />';
+        if (cell.colSpan > 1) {
+          newCell.colSpan = cell.colSpan;
+        }
+      } else {
+        for (let j = rowIndex - 1; j >= 0; j--) {
+          const aboveCellList = tableMap[j];
+          if (j === 0 || cell !== aboveCellList[i]) {
+            cell.rowSpan += 1;
+            break;
+          }
+        }
+      }
+      i += cell.colSpan - 1;
+    }
+    return;
+  }
+  // Split cell vertically.
+  const tableMap = getTableMap(table);
+  const virtualCellIndex = getVirtualCellIndex(tableMap, currentRow, currentCell);
+  for (let i = 0; i < tableMap.length; i++) {
+    const row = table.rows[i];
+    const cellList = tableMap[i];
+    const cell = cellList[virtualCellIndex];
+    if (cell === currentCell) {
+      const cellIndex = getRealCellIndex(tableMap, row, virtualCellIndex);
+      const newCell = row.insertCell(cellIndex + 1);
+      newCell.innerHTML = '<br />';
+      if (cell.rowSpan > 1) {
+        newCell.rowSpan = cell.rowSpan;
+      }
+    } else {
+      for (let j = virtualCellIndex - 1; j >= 0; j--) {
+        if (j === 0 || cell !== cellList[j]) {
+          cell.colSpan += 1;
+          break;
+        }
+      }
+    }
+  }
 }
 
 function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[] {
@@ -552,7 +617,7 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       menuCheck: false,
       onSelect: (_, value) => {
         const range = editor.selection.range;
-        mergeCells(range, value as ActionDirection);
+        mergeCells(range, value as MergeDirection);
         editor.history.save();
       },
     },
