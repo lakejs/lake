@@ -69,6 +69,17 @@ const mergeMenuItems: DropdownMenuItem[] = [
   },
 ];
 
+const splitMenuItems: DropdownMenuItem[] = [
+  {
+    value: 'vertical',
+    text: 'Split cell vertically',
+  },
+  {
+    value: 'horizontal',
+    text: 'Split cell horizontally',
+  },
+];
+
 // Returns a virtual map of the specified table, treating merged cells as if they were split.
 export function getTableMap(table: HTMLTableElement): TableMap {
   const tableMap: TableMap = [];
@@ -618,6 +629,21 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       onSelect: (_, value) => {
         const range = editor.selection.range;
         mergeCells(range, value as MergeDirection);
+        editor.history.save();
+      },
+    },
+    {
+      name: 'tableSplit',
+      type: 'dropdown',
+      downIcon: icons.get('down'),
+      icon: icons.get('tableSplit'),
+      tooltip: 'Split cell',
+      menuType: 'list',
+      menuItems: splitMenuItems,
+      menuCheck: false,
+      onSelect: (_, value) => {
+        const range = editor.selection.range;
+        splitCell(range, value as SplitDirection);
         editor.history.save();
       },
     },
