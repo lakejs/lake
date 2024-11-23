@@ -4,6 +4,7 @@ import { DropdownMenuItem } from '../types/dropdown';
 import { icons } from '../icons';
 import { debug } from '../utils/debug';
 import { query } from '../utils/query';
+import { mergeNodes } from '../utils/merge-nodes';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { insertBlock } from '../operations/insert-block';
@@ -402,7 +403,7 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
       return;
     }
     cell.colSpan += otherCell.colSpan;
-    currentRow.deleteCell(otherCellIndex);
+    mergeNodes(query(cell), query(otherCell));
     range.shrinkBefore(query(cell));
     return;
   }
@@ -471,7 +472,7 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
     return;
   }
   cell.rowSpan += otherCell.rowSpan;
-  otherRow.deleteCell(otherCellIndex);
+  mergeNodes(query(cell), query(otherCell));
   range.shrinkBefore(query(cell));
 }
 
