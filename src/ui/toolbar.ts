@@ -169,7 +169,9 @@ export class Toolbar {
   }
 
   // Updates state of each item such as disabled, selected.
-  public updateState(state: SelectionState): void {
+  public updateState(state: SelectionState = {
+    activeItems: [],
+  }): void {
     const { activeItems } = state;
     const disabledNameMap = state.disabledNameMap || new Map();
     const selectedNameMap = state.selectedNameMap || new Map();

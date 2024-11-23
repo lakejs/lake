@@ -669,9 +669,7 @@ export default (editor: Editor) => {
   let savedTableNode: Nodes | null = null;
   editor.event.on('statechange', () => {
     if (toolbar) {
-      toolbar.updateState({
-        activeItems: [],
-      });
+      toolbar.updateState();
     }
     const range = editor.selection.range;
     const tableNode = range.commonAncestor.closest('table');

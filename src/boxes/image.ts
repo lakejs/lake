@@ -63,9 +63,9 @@ function renderFloatingToolbar(box: Box): void {
         }
         showCaption(box, captionNode);
         captionNode.focus();
-        box.toolbar?.updateState({
-          activeItems: [],
-        });
+        if (box.toolbar) {
+          box.toolbar.updateState();
+        }
       },
     },
     {
