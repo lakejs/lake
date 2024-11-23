@@ -394,6 +394,13 @@ export function mergeCells(range: Range, direction: ActionDirection): void {
     if (cell.rowSpan !== otherCell.rowSpan) {
       return;
     }
+    const rowList = tableMap[rowIndex];
+    const virtualCellIndex = getCellIndex(tableMap, currentRow, cell);
+    const virtualOtherCellIndex = getCellIndex(tableMap, currentRow, otherCell);
+    // Check whether the two cells are adjacent.
+    if (rowList[virtualCellIndex + 1] !== otherCell && rowList[virtualOtherCellIndex - 1] !== cell) {
+      return;
+    }
     cell.colSpan += otherCell.colSpan;
     currentRow.deleteCell(otherCellIndex);
     range.shrinkBefore(query(cell));
