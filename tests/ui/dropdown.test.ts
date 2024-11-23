@@ -280,7 +280,7 @@ describe('ui / dropdown', () => {
     dropdown.unmount();
   });
 
-  it('text button with list menu: close menu by clicking document', () => {
+  it('text button with list menu: should close menu by clicking document', () => {
     const dropdown = new Dropdown({
       root: rootNode,
       name: 'heading',
@@ -399,6 +399,34 @@ describe('ui / dropdown', () => {
     titleNode.emit('mouseenter');
     expect(titleNode.hasClass('lake-dropdown-title-hovered')).to.equal(false);
     click(titleNode);
+    expect(dropdown.node.find('.lake-dropdown-menu').computedCSS('display')).to.equal('none');
+    dropdown.unmount();
+  });
+
+  it('icon button with list menu: no check', () => {
+    let dropdownValue;
+    const dropdown = new Dropdown({
+      root: rootNode,
+      name: 'align',
+      icon: icons.get('alignLeft'),
+      downIcon: icons.get('down'),
+      tooltip: 'Alignment',
+      defaultValue: 'center',
+      menuType: 'list',
+      menuItems: alignMenuItems,
+      menuCheck: false,
+      onSelect: value => {
+        debug(value);
+        dropdownValue = value;
+      },
+    });
+    dropdown.render();
+    const titleNode = dropdown.node.find('.lake-dropdown-title');
+    click(titleNode);
+    expect(dropdown.node.find('.lake-dropdown-menu').computedCSS('display')).to.equal('block');
+    expect(dropdown.node.find('li[value="center"]').find('.lake-dropdown-menu-check').css('visibility')).to.equal('hidden');
+    click(dropdown.node.find('li[value="center"]'));
+    expect(dropdownValue).to.equal('center');
     expect(dropdown.node.find('.lake-dropdown-menu').computedCSS('display')).to.equal('none');
     dropdown.unmount();
   });

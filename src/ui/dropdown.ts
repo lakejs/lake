@@ -238,12 +238,14 @@ export class Dropdown {
     }
     const currentValues = Dropdown.getValue(this.node);
     menuNode.find('.lake-dropdown-menu-check').css('visibility', 'hidden');
-    menuNode.find('li').each(node => {
-      const listNode = query(node);
-      if (currentValues.indexOf(listNode.attr('value')) >= 0) {
-        listNode.find('.lake-dropdown-menu-check').css('visibility', 'visible');
-      }
-    });
+    if (config.menuCheck !== false) {
+      menuNode.find('li').each(node => {
+        const listNode = query(node);
+        if (currentValues.indexOf(listNode.attr('value')) >= 0) {
+          listNode.find('.lake-dropdown-menu-check').css('visibility', 'visible');
+        }
+      });
+    }
     menuNode.css('visibility', 'hidden');
     menuNode.show(config.menuType === 'list' ? 'block' : 'flex');
     this.updatePosition();

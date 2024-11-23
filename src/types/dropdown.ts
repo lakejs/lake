@@ -24,4 +24,5 @@ export type DropdownItem = {
   menuItems: DropdownMenuItem[];
   menuWidth?: string;
   menuHeight?: string;
+  menuCheck?: boolean;
 };
