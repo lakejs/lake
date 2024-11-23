@@ -4068,6 +4068,65 @@ describe('plugins / table (functions)', () => {
     );
   });
 
+  it('splitCell: should split a cell horizontally (5)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+        <td>b1</td>
+        <td rowspan="2">c1</td>
+        <td>d1</td>
+        <td>e1</td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td>d2</td>
+        <td>e2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td>c3</td>
+        <td>d3</td>
+        <td>e3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><focus />a1</td>
+        <td rowspan="2">b1</td>
+        <td rowspan="3">c1</td>
+        <td rowspan="2">d1</td>
+        <td rowspan="2">e1</td>
+      </tr>
+      <tr>
+        <td><br /></td>
+      </tr>
+      <tr>
+        <td colspan="2">a2</td>
+        <td>d2</td>
+        <td>e2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td>c3</td>
+        <td>d3</td>
+        <td>e3</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        splitCell(range, 'horizontal');
+      },
+    );
+  });
+
   it('splitCell: should split a cell vertically (1)', () => {
     const content = `
     <table>
@@ -4257,7 +4316,6 @@ describe('plugins / table (functions)', () => {
     );
   });
 
-  /*
   it('splitCell: should split a cell vertical (4)', () => {
     const content = `
     <table>
@@ -4285,22 +4343,20 @@ describe('plugins / table (functions)', () => {
     const output = `
     <table>
       <tr>
-        <td>a1</td>
+        <td colspan="2">a1</td>
         <td>b1</td>
-        <td rowspan="3">c1</td>
+        <td rowspan="2">c1</td>
         <td>d1</td>
         <td>e1</td>
       </tr>
       <tr>
         <td colspan="2"><focus />a2</td>
-        <td rowspan="2">d2</td>
-        <td rowspan="2">e2</td>
+        <td><br /></td>
+        <td>d2</td>
+        <td>e2</td>
       </tr>
       <tr>
-        <td colspan="2"><br /></td>
-      </tr>
-      <tr>
-        <td>a3</td>
+        <td colspan="2">a3</td>
         <td>b3</td>
         <td>c3</td>
         <td>d3</td>
@@ -4316,7 +4372,6 @@ describe('plugins / table (functions)', () => {
       },
     );
   });
-  */
 
 });
 

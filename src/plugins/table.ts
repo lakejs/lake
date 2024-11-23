@@ -504,7 +504,7 @@ export function splitCell(range: Range, direction: SplitDirection): void {
           newCell.colSpan = cell.colSpan;
         }
       } else {
-        for (let j = rowIndex - 1; j >= 0; j--) {
+        for (let j = rowIndex; j >= 0; j--) {
           const aboveCellList = tableMap[j];
           if (j === 0 || cell !== aboveCellList[i]) {
             cell.rowSpan += 1;
@@ -531,7 +531,7 @@ export function splitCell(range: Range, direction: SplitDirection): void {
         newCell.rowSpan = cell.rowSpan;
       }
     } else {
-      for (let j = virtualCellIndex - 1; j >= 0; j--) {
+      for (let j = virtualCellIndex; j >= 0; j--) {
         if (j === 0 || cell !== cellList[j]) {
           cell.colSpan += 1;
           break;
