@@ -50,12 +50,12 @@ export class FloatingToolbar extends Toolbar {
     });
   }
 
-  // Renders a floating toolbar for the specified range.
+  // Renders a floating toolbar.
   public render(): void {
     const container = this.range.commonAncestor.closest('div[contenteditable]');
     const editor = container.length > 0 ? editors.get(container.id) : undefined;
     if (!editor) {
-      throw new Error('The range must be within the editor.');
+      throw new Error('The range must be within the editing area.');
     }
     super.render(editor);
     this.updatePosition();
