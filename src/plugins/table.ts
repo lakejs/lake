@@ -192,6 +192,7 @@ export function insertColumn(range: Range, direction: InsertColumnDirection): vo
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
   const currentRowIndex = currentRow.rowIndex;
   const tableMap  = getTableMap(table);
+  // a column should be inserted into virtualCellIndex
   let virtualCellIndex = getVirtualCellIndex(tableMap, currentRowIndex, currentCell);
   if (direction === 'right') {
     const currentRowCells = tableMap[currentRowIndex];
@@ -200,7 +201,7 @@ export function insertColumn(range: Range, direction: InsertColumnDirection): vo
       virtualCellIndex++;
     }
   }
-  debug(`insertColumn: rows ${table.rows.length}, virtual cell ${virtualCellIndex}, ${direction}`);
+  debug(`insertColumn: rows ${table.rows.length}, cell index ${virtualCellIndex}, ${direction}`);
   for (let i = 0; i < table.rows.length; i++) {
     const row = table.rows[i];
     const cells = tableMap[i];
