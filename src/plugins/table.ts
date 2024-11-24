@@ -248,7 +248,7 @@ export function deleteColumn(range: Range): void {
     if (cell && cell.colSpan > 1) {
       cell.colSpan -= 1;
       if (cell.colSpan === 1) {
-        query(cell).removeAttr('colSpan');
+        cell.removeAttribute('colSpan');
       }
     } else {
       if (cell === currentCell && newTargetCell) {
@@ -336,7 +336,7 @@ export function deleteRow(range: Range): void {
       if (cell && cell.rowSpan > 1 && cell.rowSpan > rowIndex - i) {
         cell.rowSpan -= 1;
         if (cell.rowSpan === 1) {
-          query(cell).removeAttr('rowSpan');
+          cell.removeAttribute('rowSpan');
         }
       }
     }
@@ -349,14 +349,14 @@ export function deleteRow(range: Range): void {
       if (belowRow) {
         const cellIndex = getRealCellIndex(tableMap, belowRow, virtualIndex);
         let newCell = belowRow.insertCell(cellIndex);
-        const clonedNode = query(cell.cloneNode(true));
-        clonedNode.removeAttr('rowSpan');
-        query(newCell).replaceWith(clonedNode);
-        newCell = clonedNode.get(0) as HTMLTableCellElement;
+        const clonedCell = cell.cloneNode(true) as HTMLTableCellElement;
+        clonedCell.removeAttribute('rowSpan');
+        newCell.replaceWith(clonedCell);
+        newCell = clonedCell;
         if (cell.rowSpan > 1) {
           newCell.rowSpan = cell.rowSpan - 1;
           if (newCell.rowSpan === 1) {
-            clonedNode.removeAttr('rowSpan');
+            newCell.removeAttribute('rowSpan');
           }
         }
       }
@@ -500,25 +500,44 @@ export function splitCell(range: Range, direction: SplitDirection): void {
   const rowIndex = currentRow.rowIndex;
   // Split cell horizontally.
   if (direction === 'horizontal') {
-    const newRow = table.insertRow(rowIndex + 1);
     let tableMap = getTableMap(table);
     const cellList = tableMap[currentRow.rowIndex];
+    const originalRowSpan = currentCell.rowSpan;
     const virtualCellIndex = getVirtualCellIndex(tableMap, currentRow, currentCell);
+    debug(`splitCell: row ${rowIndex}, cell ${virtualCellIndex}`);
     for (let i = 0; i < cellList.length; i++) {
       const cell = cellList[i];
       tableMap = getTableMap(table);
       if (cell === currentCell) {
-        const cellIndex = getRealCellIndex(tableMap, newRow, virtualCellIndex);
-        const newCell = newRow.insertCell(cellIndex);
+        let newCell: HTMLTableCellElement;
+        if (originalRowSpan > 1) {
+          const belowRow = table.rows[rowIndex + 1];
+          const cellIndex = getRealCellIndex(tableMap, belowRow, virtualCellIndex);
+          newCell = belowRow.insertCell(cellIndex);
+        } else {
+          const newRow = table.insertRow(rowIndex + 1);
+          const cellIndex = getRealCellIndex(tableMap, newRow, virtualCellIndex);
+          newCell = newRow.insertCell(cellIndex);
+        }
         newCell.innerHTML = '<br />';
         if (cell.colSpan > 1) {
           newCell.colSpan = cell.colSpan;
+        }
+        if (originalRowSpan > 1) {
+          newCell.rowSpan = cell.rowSpan - 1;
+          cell.removeAttribute('rowSpan');
         }
       } else {
         for (let j = rowIndex; j >= 0; j--) {
           const aboveCellList = tableMap[j];
           if (j === 0 || cell !== aboveCellList[i]) {
-            cell.rowSpan += 1;
+            if (originalRowSpan > 1) {
+              if (cell.rowSpan > 1) {
+                cell.rowSpan -= 1;
+              }
+            } else {
+              cell.rowSpan += 1;
+            }
             break;
           }
         }
@@ -529,22 +548,32 @@ export function splitCell(range: Range, direction: SplitDirection): void {
   }
   // Split cell vertically.
   const tableMap = getTableMap(table);
+  const originalColSpan = currentCell.colSpan;
   const virtualCellIndex = getVirtualCellIndex(tableMap, currentRow, currentCell);
   for (let i = 0; i < tableMap.length; i++) {
     const row = table.rows[i];
     const cellList = tableMap[i];
     const cell = cellList[virtualCellIndex];
     if (cell === currentCell) {
-      const cellIndex = getRealCellIndex(tableMap, row, virtualCellIndex);
-      const newCell = row.insertCell(cellIndex + 1);
-      newCell.innerHTML = '<br />';
-      if (cell.rowSpan > 1) {
-        newCell.rowSpan = cell.rowSpan;
+      const aboveCellList = tableMap[i - 1];
+      if (!aboveCellList || cell !== aboveCellList[virtualCellIndex]) {
+        const cellIndex = getRealCellIndex(tableMap, row, virtualCellIndex);
+        const newCell = row.insertCell(cellIndex + 1);
+        newCell.innerHTML = '<br />';
+        if (cell.rowSpan > 1) {
+          newCell.rowSpan = cell.rowSpan;
+        }
+        if (cell.colSpan > 2) {
+          newCell.colSpan = cell.colSpan - 1;
+        }
+        cell.removeAttribute('colSpan');
       }
     } else {
       for (let j = virtualCellIndex; j >= 0; j--) {
         if (j === 0 || cell !== cellList[j]) {
-          cell.colSpan += 1;
+          if (originalColSpan === 1) {
+            cell.colSpan += 1;
+          }
           break;
         }
       }
