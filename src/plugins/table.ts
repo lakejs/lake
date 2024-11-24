@@ -497,53 +497,48 @@ export function splitCell(range: Range, direction: SplitDirection): void {
   const table = tableNode.get(0) as HTMLTableElement;
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
-  const rowIndex = currentRow.rowIndex;
-  // Split cell horizontally.
+  const currentRowIndex = currentRow.rowIndex;
+  const originalRowSpan = currentCell.rowSpan;
+  const originalColSpan = currentCell.colSpan;
+  let tableMap = getTableMap(table);
+  const virtualCellIndex = getVirtualCellIndex(tableMap, currentRow, currentCell);
+  debug(`splitCell: row ${currentRowIndex}, cell ${virtualCellIndex}, ${direction}`);
+  // split cell horizontally
   if (direction === 'horizontal') {
-    let tableMap = getTableMap(table);
-    const cellList = tableMap[currentRow.rowIndex];
-    const originalRowSpan = currentCell.rowSpan;
-    const virtualCellIndex = getVirtualCellIndex(tableMap, currentRow, currentCell);
-    debug(`splitCell: row ${rowIndex}, cell ${virtualCellIndex}`);
-    for (let i = 0; i < cellList.length; i++) {
-      const cell = cellList[i];
-      tableMap = getTableMap(table);
+    const currentRowCells = tableMap[currentRowIndex];
+    for (let i = 0; i < currentRowCells.length; i++) {
+      const cell = currentRowCells[i];
       if (cell === currentCell) {
-        let newCell: HTMLTableCellElement;
-        if (originalRowSpan > 1) {
-          const belowRow = table.rows[rowIndex + 1];
-          const cellIndex = getRealCellIndex(tableMap, belowRow, virtualCellIndex);
-          newCell = belowRow.insertCell(cellIndex);
-        } else {
-          const newRow = table.insertRow(rowIndex + 1);
-          const cellIndex = getRealCellIndex(tableMap, newRow, virtualCellIndex);
-          newCell = newRow.insertCell(cellIndex);
-        }
+        // insert a cell after current cell
+        const targetRow = originalRowSpan > 1 ? table.rows[currentRowIndex + 1] : table.insertRow(currentRowIndex + 1);
+        const cellIndex = getRealCellIndex(tableMap, targetRow, virtualCellIndex);
+        const newCell = targetRow.insertCell(cellIndex);
         newCell.innerHTML = '<br />';
-        if (cell.colSpan > 1) {
-          newCell.colSpan = cell.colSpan;
+        // copy colSpan and rowSpan from current cell
+        if (currentCell.colSpan > 1) {
+          newCell.colSpan = currentCell.colSpan;
         }
-        if (originalRowSpan > 1) {
-          newCell.rowSpan = cell.rowSpan - 1;
-          cell.removeAttribute('rowSpan');
+        if (currentCell.rowSpan > 2) {
+          newCell.rowSpan = currentCell.rowSpan - 1;
         }
+        currentCell.removeAttribute('rowSpan');
+        tableMap = getTableMap(table);
       } else if (originalRowSpan === 1) {
-        for (let j = rowIndex; j >= 0; j--) {
+        // correct the rowSpan of the affected cells
+        for (let j = currentRowIndex; j >= 0; j--) {
           const aboveCellList = tableMap[j];
           if (j === 0 || cell !== aboveCellList[i]) {
             cell.rowSpan += 1;
             break;
           }
         }
+        tableMap = getTableMap(table);
       }
       i += cell.colSpan - 1;
     }
     return;
   }
-  // Split cell vertically.
-  const tableMap = getTableMap(table);
-  const originalColSpan = currentCell.colSpan;
-  const virtualCellIndex = getVirtualCellIndex(tableMap, currentRow, currentCell);
+  // split cell vertically
   for (let i = 0; i < tableMap.length; i++) {
     const row = table.rows[i];
     const cellList = tableMap[i];
