@@ -527,17 +527,11 @@ export function splitCell(range: Range, direction: SplitDirection): void {
           newCell.rowSpan = cell.rowSpan - 1;
           cell.removeAttribute('rowSpan');
         }
-      } else {
+      } else if (originalRowSpan === 1) {
         for (let j = rowIndex; j >= 0; j--) {
           const aboveCellList = tableMap[j];
           if (j === 0 || cell !== aboveCellList[i]) {
-            if (originalRowSpan > 1) {
-              if (cell.rowSpan > 1) {
-                cell.rowSpan -= 1;
-              }
-            } else {
-              cell.rowSpan += 1;
-            }
+            cell.rowSpan += 1;
             break;
           }
         }

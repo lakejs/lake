@@ -4190,6 +4190,71 @@ describe('plugins / table (functions)', () => {
     );
   });
 
+  it('splitCell: should split a cell horizontally (7)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+        <td>d1</td>
+      </tr>
+      <tr>
+        <td rowspan="3">a2</td>
+        <td rowspan="3" colspan="2"><focus />b2</td>
+        <td>d2</td>
+      </tr>
+      <tr>
+        <td>d3</td>
+      </tr>
+      <tr>
+        <td>d4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+        <td>d5</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td>c1</td>
+        <td>d1</td>
+      </tr>
+      <tr>
+        <td rowspan="3">a2</td>
+        <td colspan="2"><focus />b2</td>
+        <td>d2</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="2"><br /></td>
+        <td>d3</td>
+      </tr>
+      <tr>
+        <td>d4</td>
+      </tr>
+      <tr>
+        <td>a5</td>
+        <td>b5</td>
+        <td>c5</td>
+        <td>d5</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        splitCell(range, 'horizontal');
+      },
+    );
+  });
+
   it('splitCell: should split a cell vertically (1)', () => {
     const content = `
     <table>
