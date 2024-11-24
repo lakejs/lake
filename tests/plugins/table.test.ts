@@ -315,6 +315,57 @@ describe('plugins / table (functions)', () => {
     );
   });
 
+  it('insertColumn: should insert a column to the left with colspan (3)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td colspan="2"><focus />c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>b2</td>
+        <td colspan="2">c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td colspan="2">c3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td><br /></td>
+        <td colspan="2"><focus />c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>b2</td>
+        <td><br /></td>
+        <td colspan="2">c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td><br /></td>
+        <td colspan="2">c3</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertColumn(range, 'left');
+      },
+    );
+  });
+
   it('insertColumn: should insert a column to the right with colspan (1)', () => {
     const content = `
     <table>
@@ -762,13 +813,16 @@ describe('plugins / table (functions)', () => {
         <td>c1</td>
       </tr>
       <tr>
-        <td colspan="3" rowspan="3">a2</td>
+        <td><br /></td>
+        <td colspan="2" rowspan="3">a2</td>
         <td>c2</td>
       </tr>
       <tr>
+        <td><br /></td>
         <td>c3</td>
       </tr>
       <tr>
+        <td><br /></td>
         <td>c4</td>
       </tr>
       <tr>
@@ -822,13 +876,16 @@ describe('plugins / table (functions)', () => {
         <td>c1</td>
       </tr>
       <tr>
-        <td colspan="3" rowspan="3"><focus />a2</td>
+        <td><br /></td>
+        <td colspan="2" rowspan="3"><focus />a2</td>
         <td>c2</td>
       </tr>
       <tr>
+        <td><br /></td>
         <td>c3</td>
       </tr>
       <tr>
+        <td><br /></td>
         <td>c4</td>
       </tr>
       <tr>

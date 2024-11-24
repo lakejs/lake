@@ -200,20 +200,19 @@ export function insertColumn(range: Range, direction: InsertColumnDirection): vo
       virtualCellIndex++;
     }
   }
-  debug(`insertColumn: rows ${table.rows.length}, virtual cell ${virtualCellIndex}`);
+  debug(`insertColumn: rows ${table.rows.length}, virtual cell ${virtualCellIndex}, ${direction}`);
   for (let i = 0; i < table.rows.length; i++) {
     const row = table.rows[i];
-    const cellCount = row.cells.length;
+    const cells = tableMap[i];
     const cellIndex = getRealCellIndex(tableMap, i, virtualCellIndex);
     const cell = row.cells[cellIndex];
-    debug(`insertColumn: row ${i}, cell ${cellIndex}`);
-    if (cell && cell.colSpan > 1) {
+    if (cell && cell.colSpan > 1 && cell === cells[virtualCellIndex - 1]) {
       cell.colSpan += 1;
       if (cell.rowSpan > 1) {
         i += cell.rowSpan - 1;
       }
     } else {
-      const newCell = row.insertCell(cellIndex < cellCount ? cellIndex : cellCount);
+      const newCell = row.insertCell(cellIndex);
       newCell.innerHTML = '<br />';
     }
   }
