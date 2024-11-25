@@ -1,3 +1,6 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
+import alias from '@rollup/plugin-alias';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
@@ -5,6 +8,14 @@ import json from '@rollup/plugin-json';
 import svg from 'rollup-plugin-svg-import';
 import css from 'rollup-plugin-import-css';
 import terser from '@rollup/plugin-terser';
+
+const rootPath = path.dirname(fileURLToPath(import.meta.url));
+
+const aliasOptions = {
+  entries: [
+    { find: 'lakelib', replacement: path.resolve(rootPath, 'src') },
+  ],
+};
 
 function getBundleConfig(type) {
   const globals = {
@@ -37,6 +48,7 @@ function getBundleConfig(type) {
       ],
     },
     plugins: [
+      alias(aliasOptions),
       nodeResolve(),
       typescript({
         compilerOptions: {
@@ -71,6 +83,7 @@ function getBuildConfig(type) {
         ],
       },
       plugins: [
+        alias(aliasOptions),
         nodeResolve(),
         typescript({
           compilerOptions: {
@@ -100,6 +113,7 @@ function getBuildConfig(type) {
       ],
     },
     plugins: [
+      alias(aliasOptions),
       typescript({
         compilerOptions: {
           outDir: './lib',

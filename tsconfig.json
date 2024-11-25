@@ -3,9 +3,13 @@
     "src/**/*",
     "examples/**/*",
     "tests/**/*",
-    "assets/**/*.ts",
+    "assets/**/*.ts"
   ],
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "lakelib/*": ["src/*"]
+    },
     "moduleResolution": "node",
     "target": "es6",
     "allowJs": false,
@@ -14,6 +18,6 @@
     "noImplicitAny": true,
     "resolveJsonModule": true,
     "noUnusedLocals": true,
-    "esModuleInterop": true,
+    "esModuleInterop": true
   }
 }
