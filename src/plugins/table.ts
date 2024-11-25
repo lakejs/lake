@@ -320,11 +320,12 @@ export function insertRow(range: Range, direction: InsertRowDirection): void {
       }
     }
   }
+  // correct the rowSpan of the affected cells
   for (let i = targetRowIndex - 1; i >= 0; i--) {
     const cells = table.rows[i].cells;
     for (let j = 0; j < cells.length; j++) {
       const cell = cells[j];
-      if (cell && cell.rowSpan > 1 && cell.rowSpan + 1 > targetRowIndex - i) {
+      if (cell.rowSpan > 1 && cell.rowSpan + 1 > targetRowIndex - i) {
         cell.rowSpan += 1;
       }
     }
@@ -340,14 +341,17 @@ export function deleteRow(range: Range): void {
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
   const currentRowIndex = currentRow.rowIndex;
-  const tableMap  = getTableMap(table);
+  let tableMap = getTableMap(table);
+  const columnCount = tableMap[0].length;
   const currentColumnIndex = getColumnIndex(tableMap, currentRowIndex, currentCell);
+  const newTargetRow = table.rows[currentRowIndex + 1] || table.rows[currentRowIndex - 1];
   debug(`deleteRow: rows ${table.rows.length}, target row ${currentRowIndex}, column ${currentColumnIndex}`);
+  // correct the rowSpan of the affected cells
   for (let i = currentRowIndex - 1; i >= 0; i--) {
     const cells = table.rows[i].cells;
     for (let j = 0; j < cells.length; j++) {
       const cell = cells[j];
-      if (cell && cell.rowSpan > 1 && cell.rowSpan > currentRowIndex - i) {
+      if (cell.rowSpan > 1 && cell.rowSpan > currentRowIndex - i) {
         cell.rowSpan -= 1;
         if (cell.rowSpan === 1) {
           cell.removeAttribute('rowSpan');
@@ -355,35 +359,36 @@ export function deleteRow(range: Range): void {
       }
     }
   }
-  for (let i = 0; i < currentRow.cells.length; i++) {
-    const cell = currentRow.cells[i];
-    if (cell.rowSpan > 1) {
-      const belowRow = table.rows[currentRowIndex + 1];
-      if (belowRow) {
-        const columnIndex = getColumnIndex(tableMap, currentRowIndex, cell);
-        const cellIndex = getCellIndex(tableMap, currentRowIndex + 1, columnIndex);
-        let newCell = belowRow.insertCell(cellIndex);
-        const clonedCell = cell.cloneNode(true) as HTMLTableCellElement;
-        clonedCell.removeAttribute('rowSpan');
-        newCell.replaceWith(clonedCell);
-        newCell = clonedCell;
+  const belowRow = table.rows[currentRowIndex + 1];
+  if (belowRow) {
+    let prevCellIndex: number = -1;
+    for (let i = 0; i < columnCount; i++) {
+      const cellIndex = getCellIndex(tableMap, currentRowIndex, i);
+      if (cellIndex !== prevCellIndex) {
+        prevCellIndex = cellIndex;
+        const cell = currentRow.cells[cellIndex];
         if (cell.rowSpan > 1) {
-          newCell.rowSpan = cell.rowSpan - 1;
-          if (newCell.rowSpan === 1) {
-            newCell.removeAttribute('rowSpan');
+          const belowCellIndex = getCellIndex(tableMap, currentRowIndex + 1, i);
+          let newCell = belowRow.insertCell(belowCellIndex);
+          const clonedCell = cell.cloneNode(true) as HTMLTableCellElement;
+          clonedCell.removeAttribute('rowSpan');
+          newCell.replaceWith(clonedCell);
+          newCell = clonedCell;
+          if (cell.rowSpan > 2) {
+            newCell.rowSpan = cell.rowSpan - 1;
           }
         }
       }
     }
   }
-  let newTargetCell: HTMLTableCellElement | null = null;
-  const newTargetRow = table.rows[currentRowIndex + 1] || table.rows[currentRowIndex - 1];
-  if (newTargetRow) {
-    newTargetCell = newTargetRow.cells[currentColumnIndex] || newTargetRow.cells[newTargetRow.cells.length - 1];
-  }
   table.deleteRow(currentRowIndex);
-  if (newTargetCell) {
-    range.shrinkBefore(query(newTargetCell));
+  if (newTargetRow) {
+    tableMap = getTableMap(table);
+    const cellIndex = getCellIndex(tableMap, newTargetRow.rowIndex, currentColumnIndex);
+    const newTargetCell = newTargetRow.cells[cellIndex];
+    if (newTargetCell) {
+      range.shrinkBefore(query(newTargetCell));
+    }
   }
   if (table.rows.length === 0) {
     deleteTable(range);
@@ -400,7 +405,7 @@ export function mergeCells(range: Range, direction: MergeDirection): void {
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
   const currentRowIndex = currentRow.rowIndex;
   const tableMap = getTableMap(table);
-  // Merge cell left or right.
+  // merge cell left or right
   if (direction === 'left' || direction === 'right') {
     const cellIndex = currentCell.cellIndex;
     let cell: HTMLTableCellElement;
@@ -434,7 +439,7 @@ export function mergeCells(range: Range, direction: MergeDirection): void {
     range.shrinkBefore(query(cell));
     return;
   }
-  // Merge cell up or down.
+  // merge cell up or down
   const currentColumnIndex = getColumnIndex(tableMap, currentRowIndex, currentCell);
   let rowIndex: number;
   let cell: HTMLTableCellElement | null;
