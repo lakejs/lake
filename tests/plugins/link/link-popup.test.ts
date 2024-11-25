@@ -1,8 +1,8 @@
-import { click } from '../utils';
-import { query } from '../../src/utils/query';
-import { LinkPopup } from '../../src/ui/link-popup';
+import { query } from 'lakelib/utils/query';
+import { LinkPopup } from 'lakelib/plugins/link/link-popup';
+import { click } from '../../utils';
 
-describe('ui / link-popup', () => {
+describe('plugins / link / link-popup', () => {
 
   it('should copy a link to clipboard', done => {
     const linkNode = query('<a href="http://github.com/">GitHub</a>');

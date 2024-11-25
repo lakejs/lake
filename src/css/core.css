@@ -38,6 +38,14 @@
   padding: 0;
   margin-bottom: 8px;
 }
+.lake-container a {
+  color: var(--lake-link-color);
+  text-decoration: none;
+}
+.lake-container a:hover {
+  color: var(--lake-link-hover-color);
+  text-decoration: underline;
+}
 .lake-drop-indication {
   position: absolute;
   height: 2px;

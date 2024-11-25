@@ -1,11 +1,3 @@
-.lake-container a {
-  color: var(--lake-link-color);
-  text-decoration: none;
-}
-.lake-container a:hover {
-  color: var(--lake-link-hover-color);
-  text-decoration: underline;
-}
 .lake-link-popup {
   position: absolute;
   top: 0;

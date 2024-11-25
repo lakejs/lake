@@ -11,7 +11,6 @@ import './resizer.css';
 import './corner-toolbar.css';
 import './format-painter.css';
 import './heading.css';
-import './link.css';
 import './list.css';
 import './block-quote.css';
 import './table.css';
