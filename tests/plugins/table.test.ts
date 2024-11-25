@@ -1500,6 +1500,51 @@ describe('plugins / table (functions)', () => {
     );
   });
 
+  it('deleteColumn: should delete a column with colspan (3)', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td>b1</td>
+        <td colspan="2"><focus />c1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>b2</td>
+        <td colspan="2">c2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+        <td colspan="2">c3</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>a1</td>
+        <td><focus />b1</td>
+      </tr>
+      <tr>
+        <td>a2</td>
+        <td>b2</td>
+      </tr>
+      <tr>
+        <td>a3</td>
+        <td>b3</td>
+      </tr>
+    </table>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        deleteColumn(range);
+      },
+    );
+  });
+
   it('deleteColumn: should delete a column with rowspan (1)', () => {
     const content = `
     <table>

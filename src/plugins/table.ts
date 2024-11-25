@@ -155,6 +155,19 @@ function getRealCellIndex(tableMap: TableMap, rowIndex: number, virtualCellIndex
   return cellIndex;
 }
 
+// Returns a boolean value indicating whether the column contains a cell merged with adjacent cell.
+function isNormalColumn(tableMap: TableMap, virtualCellIndex: number): boolean {
+  for (let i = 0; i < tableMap.length; i++) {
+    const cells = tableMap[i];
+    const cell = cells[virtualCellIndex];
+    const belowRowCells = tableMap[i + 1];
+    if (belowRowCells && cell.colSpan !== belowRowCells[virtualCellIndex].colSpan) {
+      return false;
+    }
+  }
+  return true;
+}
+
 // Inserts a table.
 export function insertTable(range: Range, rows: number, columns: number): Nodes {
   let html = '<table>';
@@ -237,16 +250,16 @@ export function deleteColumn(range: Range): void {
   } else if (currentRow.cells[realIndex - 1]) {
     newTargetCell = currentRow.cells[realIndex - 1];
   }
-  debug(`deleteColumn: rows ${table.rows.length}, virtual cell ${virtualCellIndex}`);
+  debug(`deleteColumn: rows ${table.rows.length}, cell index ${virtualCellIndex}`);
+  const isNormal = isNormalColumn(tableMap, virtualCellIndex);
   for (let i = 0; i < table.rows.length; i++) {
     const row = table.rows[i];
     const cellIndex = getRealCellIndex(tableMap, i, virtualCellIndex);
     const cell = row.cells[cellIndex];
-    debug(`deleteColumn: row ${i}, cell ${cellIndex}`);
-    if (cell && cell.rowSpan > 1) {
+    if (cell.rowSpan > 1) {
       i += cell.rowSpan - 1;
     }
-    if (cell && cell.colSpan > 1) {
+    if (cell.colSpan > 1 && !isNormal) {
       cell.colSpan -= 1;
       if (cell.colSpan === 1) {
         cell.removeAttribute('colSpan');
@@ -535,7 +548,9 @@ export function splitCell(range: Range, direction: SplitDirection): void {
         }
         tableMap = getTableMap(table);
       }
-      i += cell.colSpan - 1;
+      if (cell.colSpan > 1) {
+        i += cell.colSpan - 1;
+      }
     }
     return;
   }
