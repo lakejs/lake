@@ -293,7 +293,6 @@ export function insertRow(range: Range, direction: InsertRowDirection): void {
   const targetRow = table.rows[targetRowIndex];
   debug(`insertRow: rows ${table.rows.length}, target row ${targetRowIndex}`);
   const newRow = table.insertRow(targetRowIndex);
-  tableMap  = getTableMap(table);
   // last row
   if (!targetRow) {
     for (let i = 0; i < columnCount; i++) {
@@ -302,11 +301,13 @@ export function insertRow(range: Range, direction: InsertRowDirection): void {
     }
     return;
   }
-  let savedCellIndex: number = -1;
+  tableMap  = getTableMap(table);
+  targetRowIndex = targetRow.rowIndex;
+  let prevCellIndex: number = -1;
   for (let i = 0; i < columnCount; i++) {
-    const cellIndex = getCellIndex(tableMap, targetRow.rowIndex, i);
-    if (cellIndex !== savedCellIndex) {
-      savedCellIndex = cellIndex;
+    const cellIndex = getCellIndex(tableMap, targetRowIndex, i);
+    if (cellIndex !== prevCellIndex) {
+      prevCellIndex = cellIndex;
       const cell = targetRow.cells[cellIndex];
       if (!cell) {
         break;
@@ -323,7 +324,7 @@ export function insertRow(range: Range, direction: InsertRowDirection): void {
     const cells = table.rows[i].cells;
     for (let j = 0; j < cells.length; j++) {
       const cell = cells[j];
-      if (cell && cell.rowSpan > 1 && cell.rowSpan + 1 > targetRow.rowIndex - i) {
+      if (cell && cell.rowSpan > 1 && cell.rowSpan + 1 > targetRowIndex - i) {
         cell.rowSpan += 1;
       }
     }
