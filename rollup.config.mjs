@@ -132,6 +132,31 @@ function getBuildConfig(type) {
   };
 }
 
+function getTestLibConfig(name) {
+  return {
+    input: `./tests/${name}.ts`,
+    output: {
+      file: `./temp/tests/${name}.js`,
+      format: 'iife',
+      sourcemap: true,
+    },
+    watch: {
+      include: [
+        `tests/${name}.ts`,
+      ],
+    },
+    plugins: [
+      nodeResolve(),
+      typescript({
+        compilerOptions: {
+          outDir: './temp',
+        },
+      }),
+      commonjs(),
+    ],
+  };
+}
+
 export default (commandLineArgs) => {
   const configList = [];
   if (commandLineArgs.example === true) {
@@ -140,6 +165,7 @@ export default (commandLineArgs) => {
   }
   if (commandLineArgs.test === true) {
     delete commandLineArgs.test;
+    configList.push(getTestLibConfig('chai'));
     configList.push(getBundleConfig('tests'));
   }
   if (commandLineArgs.iife === true) {
