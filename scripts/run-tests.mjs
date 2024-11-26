@@ -2,8 +2,6 @@
 
 /* eslint no-console: "off" */
 
-import path from 'path';
-import { fileURLToPath } from 'url';
 import pc from 'picocolors';
 import puppeteer from 'puppeteer';
 import { execa } from 'execa';
@@ -11,14 +9,11 @@ import waitOn from 'wait-on';
 
 const url = 'http://localhost:8081/tests/index.html?console=true';
 
-const scriptsPath = path.dirname(fileURLToPath(import.meta.url));
-const bundleFile = path.resolve(scriptsPath, '../temp/tests/bundle.js');
-
 const step = (msg) => console.log(pc.cyan(msg));
 
 (async() => {
   // Build the bundle file
-  step(`Building ${bundleFile}`);
+  step('Building source code');
   await execa('pnpm', ['test:rollup']);
   // Wait for starting HTTP server
   step('Starting up an HTTP server');
