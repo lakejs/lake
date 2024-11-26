@@ -90,5 +90,5 @@
     "typescript": "^5.7.2",
     "wait-on": "^8.0.1"
   },
-  "packageManager": "pnpm@9.12.2"
+  "packageManager": "pnpm@9.14.2"
 }
