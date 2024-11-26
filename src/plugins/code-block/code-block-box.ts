@@ -1,9 +1,9 @@
 import debounce from 'debounce';
-import { BoxComponent } from '../types/box';
-import { icons } from '../icons';
-import { debug } from '../utils/debug';
-import { query } from '../utils/query';
-import { Dropdown } from '../ui/dropdown';
+import { BoxComponent } from 'lakelib/types/box';
+import { icons } from 'lakelib/icons';
+import { debug } from 'lakelib/utils/debug';
+import { query } from 'lakelib/utils/query';
+import { Dropdown } from 'lakelib/ui/dropdown';
 
 const config = {
   comment: '#57606a',

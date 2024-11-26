@@ -1,4 +1,4 @@
-import { showBox } from '../utils';
+import { showBox } from '../../utils';
 
 const htmlCode = `
 <!DOCTYPE html>

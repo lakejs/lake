@@ -1,5 +1,6 @@
-import { type Editor } from '..';
-import { BoxValue } from '../types/box';
+import './code-block.css';
+import { type Editor } from 'lakelib/editor';
+import { BoxValue } from 'lakelib/types/box';
 
 const langList = [
   'text',

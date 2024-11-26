@@ -1,6 +1,8 @@
-import { click } from '../utils';
-import { query } from '../../src/utils/query';
-import { Editor, Nodes, Box } from '../../src';
+import { query } from 'lakelib/utils/query';
+import { Nodes } from 'lakelib/models/nodes';
+import { Box } from 'lakelib/models/box';
+import { Editor } from 'lakelib/editor';
+import { click } from '../../utils';
 
 describe('boxes / code-block', () => {
 

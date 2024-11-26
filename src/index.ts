@@ -33,7 +33,7 @@ import { Dropdown } from './ui/dropdown';
 import { Editor } from './editor';
 import { Toolbar } from './ui/toolbar';
 import hrBox from './boxes/hr';
-import codeBlockBox from './boxes/code-block';
+import codeBlockBox from './plugins/code-block/code-block-box';
 import imageBox from './boxes/image';
 import videoBox from './boxes/video';
 import fileBox from './boxes/file';

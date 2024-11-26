@@ -14,7 +14,6 @@ import './heading.css';
 import './list.css';
 import './block-quote.css';
 import './hr.css';
-import './code-block.css';
 import './image.css';
 import './video.css';
 import './file.css';

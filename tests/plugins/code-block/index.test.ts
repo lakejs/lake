@@ -1,7 +1,7 @@
-import { testPlugin } from '../utils';
-import { getBox } from '../../src/utils/get-box';
+import { getBox } from 'lakelib/utils/get-box';
+import { testPlugin } from '../../utils';
 
-describe('plugins / code-block', () => {
+describe('plugins / code-block / index', () => {
 
   it('should return correct config', () => {
     testPlugin(
