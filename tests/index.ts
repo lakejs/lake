@@ -74,8 +74,6 @@ import './managers/box-manager.test';
 import './managers/plugin.test';
 
 // Boxes
-import './boxes/hr.test';
-import './boxes/hr-ui.test';
 import './boxes/image.test';
 import './boxes/image-ui.test';
 import './boxes/video.test';
@@ -119,9 +117,11 @@ import './plugins/link/insert-link.test';
 import './plugins/link/link-popup.test';
 import './plugins/link/link-popup-ui.test';
 import './plugins/link/index.test';
-import './plugins/hr.test';
-import './plugins/code-block/code-block.test';
-import './plugins/code-block/code-block-ui.test';
+import './plugins/hr/hr-box.test';
+import './plugins/hr/hr-box-ui.test';
+import './plugins/hr/index.test';
+import './plugins/code-block/code-block-box.test';
+import './plugins/code-block/code-block-box-ui.test';
 import './plugins/code-block/index.test';
 import './plugins/image.test';
 import './plugins/video.test';

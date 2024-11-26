@@ -1,4 +1,3 @@
-import './code-block.css';
 import { type Editor } from 'lakelib/editor';
 import { BoxValue } from 'lakelib/types/box';
 

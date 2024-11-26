@@ -1,3 +1,4 @@
+import './code-block-box.css';
 import debounce from 'debounce';
 import { BoxComponent } from 'lakelib/types/box';
 import { icons } from 'lakelib/icons';

@@ -4,7 +4,7 @@ import { Box } from 'lakelib/models/box';
 import { Editor } from 'lakelib/editor';
 import { click } from '../../utils';
 
-describe('boxes / code-block', () => {
+describe('plugins / code-block / code-block-box', () => {
 
   let rootNode: Nodes;
   let editor: Editor;

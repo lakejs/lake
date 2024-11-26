@@ -1,5 +1,6 @@
-import { BoxComponent } from '../types/box';
-import { query } from '../utils/query';
+import './hr-box.css';
+import { BoxComponent } from 'lakelib/types/box';
+import { query } from 'lakelib/utils/query';
 
 export default {
   type: 'block',

@@ -1,16 +1,16 @@
-import { BoxValue } from '../src/types/box';
-import { debug } from '../src/utils/debug';
-import { query } from '../src/utils/query';
-import { getBox } from '../src/utils/get-box';
-import { normalizeValue } from '../src/utils/normalize-value';
-import { denormalizeValue } from '../src/utils/denormalize-value';
-import { Nodes } from '../src/models/nodes';
-import { Range } from '../src/models/range';
-import { Box } from '../src/models/box';
-import { HTMLParser } from '../src/parsers/html-parser';
-import { insertBookmark } from '../src/operations/insert-bookmark';
-import { toBookmark } from '../src/operations/to-bookmark';
-import { Editor } from '../src';
+import { BoxValue } from 'lakelib/types/box';
+import { debug } from 'lakelib/utils/debug';
+import { query } from 'lakelib/utils/query';
+import { getBox } from 'lakelib/utils/get-box';
+import { normalizeValue } from 'lakelib/utils/normalize-value';
+import { denormalizeValue } from 'lakelib/utils/denormalize-value';
+import { Nodes } from 'lakelib/models/nodes';
+import { Range } from 'lakelib/models/range';
+import { Box } from 'lakelib/models/box';
+import { HTMLParser } from 'lakelib/parsers/html-parser';
+import { insertBookmark } from 'lakelib/operations/insert-bookmark';
+import { toBookmark } from 'lakelib/operations/to-bookmark';
+import { Editor } from 'lakelib/editor';
 
 // Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/600.8.9 (KHTML, like Gecko) Version/8.0.8 Safari/600.8.9
 export const isMac = navigator.userAgent.indexOf('Mac OS X') >= 0;

@@ -1,7 +1,7 @@
-import type { Editor } from '..';
-import { query } from '../utils/query';
-import { getBox } from '../utils/get-box';
-import { Fragment } from '../models/fragment';
+import type { Editor } from 'lakelib/editor';
+import { query } from 'lakelib/utils/query';
+import { getBox } from 'lakelib/utils/get-box';
+import { Fragment } from 'lakelib/models/fragment';
 
 export default (editor: Editor) => {
   if (editor.readonly) {

@@ -1,6 +1,6 @@
-import { showBox } from '../utils';
+import { showBox } from '../../utils';
 
-describe('boxes / hr-ui', () => {
+describe('plugins/ hr / hr-box-ui', () => {
 
   it('hr (editable)', () => {
     showBox('hr', undefined, box => {

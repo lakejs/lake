@@ -1,6 +1,6 @@
-import { testPlugin } from '../utils';
+import { testPlugin } from '../../utils';
 
-describe('plugins / hr', () => {
+describe('plugins / hr / index', () => {
 
   it('inserts into the end of the paragraph', () => {
     const content = `

@@ -112,7 +112,7 @@ public class Class<T, V> implements MyInterface {
 }
 `.trim();
 
-describe('boxes / code-block-ui', () => {
+describe('plugins / code-block / code-block-box-ui', () => {
 
   it('HTML', () => {
     showBox('codeBlock', {
