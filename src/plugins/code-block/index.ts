@@ -2,7 +2,9 @@ import { BoxValue } from 'lakelib/types/box';
 import { Editor } from 'lakelib/editor';
 import codeBlockBox from './code-block-box';
 
-Editor.box.add(codeBlockBox);
+export {
+  codeBlockBox,
+};
 
 const langList = [
   'text',

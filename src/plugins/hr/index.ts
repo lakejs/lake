@@ -4,7 +4,9 @@ import { Fragment } from 'lakelib/models/fragment';
 import { Editor } from 'lakelib/editor';
 import hrBox from './hr-box';
 
-Editor.box.add(hrBox);
+export {
+  hrBox,
+};
 
 export default (editor: Editor) => {
   if (editor.readonly) {
