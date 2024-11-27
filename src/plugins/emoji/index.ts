@@ -1,5 +1,8 @@
-import type { Editor } from 'lakelib/editor';
 import { BoxValue } from 'lakelib/types/box';
+import { Editor } from 'lakelib/editor';
+import emojiBox from './emoji-box';
+
+Editor.box.add(emojiBox);
 
 export default (editor: Editor) => {
   if (editor.readonly) {

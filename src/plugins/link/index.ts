@@ -1,5 +1,5 @@
-import { type Editor } from 'lakelib/editor';
 import { Nodes } from 'lakelib/models/nodes';
+import { Editor } from 'lakelib/editor';
 import { LinkPopup } from './link-popup';
 import { insertLink } from './insert-link';
 

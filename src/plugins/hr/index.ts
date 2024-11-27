@@ -1,7 +1,10 @@
-import type { Editor } from 'lakelib/editor';
 import { query } from 'lakelib/utils/query';
 import { getBox } from 'lakelib/utils/get-box';
 import { Fragment } from 'lakelib/models/fragment';
+import { Editor } from 'lakelib/editor';
+import hrBox from './hr-box';
+
+Editor.box.add(hrBox);
 
 export default (editor: Editor) => {
   if (editor.readonly) {

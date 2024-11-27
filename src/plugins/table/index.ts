@@ -1,10 +1,10 @@
 import './table.css';
-import { type Editor } from 'lakelib/editor';
 import { ToolbarItem } from 'lakelib/types/toolbar';
 import { DropdownMenuItem } from 'lakelib/types/dropdown';
 import { icons } from 'lakelib/icons';
 import { Nodes } from 'lakelib/models/nodes';
 import { FloatingToolbar } from 'lakelib/ui/floating-toolbar';
+import { Editor } from 'lakelib/editor';
 import { insertTable } from './insert-table';
 import { deleteTable } from './delete-table';
 import { insertColumn } from './insert-column';
