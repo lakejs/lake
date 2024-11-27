@@ -1,4 +1,4 @@
-import { BoxComponent, query, template } from '../../../src';
+import { BoxComponent, query, template } from 'lakelib';
 
 export default {
   type: 'block',

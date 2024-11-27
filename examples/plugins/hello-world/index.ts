@@ -1,5 +1,5 @@
 import './index.css';
-import { BoxValue, Editor } from '../../../src';
+import { BoxValue, Editor } from 'lakelib';
 import helloWorldBox from './box';
 
 Editor.box.add(helloWorldBox);

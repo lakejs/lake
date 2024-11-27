@@ -1,6 +1,6 @@
 import './index.css';
 import './default-editor.css';
-import { Editor, Dropdown, query, template } from '../src';
+import { Editor, Dropdown, query, template } from 'lakelib';
 import './reset.css';
 import defaultEditor from './default-editor';
 import fullEditor from './full-editor';

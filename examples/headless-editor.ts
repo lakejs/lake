@@ -1,5 +1,5 @@
 import './headless-editor.css';
-import { Editor, Button, query } from '../src';
+import { Editor, Button, query } from 'lakelib';
 
 export default (value: string) => {
   const editor = new Editor({

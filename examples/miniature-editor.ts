@@ -1,5 +1,5 @@
 import './miniature-editor.css';
-import { Editor, Toolbar, ToolbarItem, query, toHex, icons } from '../src';
+import { Editor, Toolbar, ToolbarItem, query, toHex, icons } from 'lakelib';
 
 const colors: string[] = [
   '#E53333', '#E56600', '#FF9900', '#64451D', '#DFC5A4', '#FFE500',

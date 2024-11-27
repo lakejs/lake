@@ -1,5 +1,5 @@
 import './document-editor.css';
-import { Editor, Toolbar } from '../src';
+import { Editor, Toolbar } from 'lakelib';
 
 export default (value: string) => {
   const toolbar = new Toolbar({

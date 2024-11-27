@@ -1,4 +1,4 @@
-import { Editor, Toolbar, ToolbarItem, DropdownMenuItem, MentionItem,  SlashItem, icons } from '../src';
+import { Editor, Toolbar, ToolbarItem, DropdownMenuItem, MentionItem,  SlashItem, icons } from 'lakelib';
 
 // These emojis are sourced from Fluent Emoji.
 // https://github.com/microsoft/fluentui-emoji
