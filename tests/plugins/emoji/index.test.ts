@@ -1,4 +1,4 @@
-import { testPlugin } from '../utils';
+import { testPlugin } from '../../utils';
 
 const emojiValue = {
   url: '../assets/emojis/face_blowing_a_kiss_color.svg',
@@ -7,7 +7,7 @@ const emojiValue = {
 
 const rawValue = 'eyJ1cmwiOiIuLi9hc3NldHMvZW1vamlzL2ZhY2VfYmxvd2luZ19hX2tpc3NfY29sb3Iuc3ZnIiwidGl0bGUiOiJGYWNlIGJsb3dpbmcgYSBraXNzIn0=';
 
-describe('plugins / emoji', () => {
+describe('plugins / emoji / index', () => {
 
   it('should insert an emoji', () => {
     const content = `

@@ -1,5 +1,5 @@
-import type { Editor } from '..';
-import { BoxValue } from '../types/box';
+import type { Editor } from 'lakelib/editor';
+import { BoxValue } from 'lakelib/types/box';
 
 export default (editor: Editor) => {
   if (editor.readonly) {

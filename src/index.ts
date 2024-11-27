@@ -37,7 +37,7 @@ import codeBlockBox from './plugins/code-block/code-block-box';
 import imageBox from './boxes/image';
 import videoBox from './boxes/video';
 import fileBox from './boxes/file';
-import emojiBox from './boxes/emoji';
+import emojiBox from './plugins/emoji/emoji-box';
 import equationBox from './boxes/equation';
 import mentionBox from './boxes/mention';
 import copy from './plugins/copy';

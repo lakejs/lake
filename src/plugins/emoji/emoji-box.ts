@@ -1,6 +1,7 @@
-import { BoxComponent } from '../types/box';
-import { query } from '../utils/query';
-import { template } from '../utils/template';
+import './emoji-box.css';
+import { BoxComponent } from 'lakelib/types/box';
+import { query } from 'lakelib/utils/query';
+import { template } from 'lakelib/utils/template';
 
 export default {
   type: 'inline',
