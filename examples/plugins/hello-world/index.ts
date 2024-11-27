@@ -1,8 +1,10 @@
-import './index.css';
+import './hello-world-box.css';
 import { BoxValue, Editor } from 'lakelib';
-import helloWorldBox from './box';
+import helloWorldBox from './hello-world-box';
 
-Editor.box.add(helloWorldBox);
+export {
+  helloWorldBox,
+};
 
 export default (editor: Editor) => {
   if (editor.readonly) {
