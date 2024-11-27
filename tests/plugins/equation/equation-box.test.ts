@@ -1,10 +1,12 @@
-import { click } from '../utils';
-import { query } from '../../src/utils/query';
-import { Editor, Nodes, Box } from '../../src';
+import { query } from 'lakelib/utils/query';
+import { Nodes } from 'lakelib/models/nodes';
+import { Box } from 'lakelib/models/box';
+import { Editor } from 'lakelib/editor';
+import { click } from '../../utils';
 
 const code = String.raw`c = \pm\sqrt{a^2 + b^2}`;
 
-describe('boxes / equation', () => {
+describe('plugins / equation / equation-box', () => {
 
   let rootNode: Nodes;
   let editor: Editor;

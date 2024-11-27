@@ -1,5 +1,8 @@
-import type { Editor } from '..';
-import { BoxValue } from '../types/box';
+import { BoxValue } from 'lakelib/types/box';
+import { Editor } from 'lakelib/editor';
+import equationBox from './equation-box';
+
+Editor.box.add(equationBox);
 
 export default (editor: Editor) => {
   if (!window.katex) {

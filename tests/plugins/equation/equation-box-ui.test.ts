@@ -1,8 +1,8 @@
-import { showBox } from '../utils';
+import { showBox } from '../../utils';
 
 const code = String.raw`c = \pm\sqrt{a^2 + b^2}`;
 
-describe('boxes / equation-ui', () => {
+describe('plugins / equation / equation-box-ui', () => {
 
   it('normal status', () => {
     showBox('equation', {

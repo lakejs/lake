@@ -35,7 +35,6 @@ import { Toolbar } from './ui/toolbar';
 import imageBox from './boxes/image';
 import videoBox from './boxes/video';
 import fileBox from './boxes/file';
-import equationBox from './boxes/equation';
 import mentionBox from './boxes/mention';
 import copy from './plugins/copy';
 import cut from './plugins/cut';
@@ -86,7 +85,6 @@ import slash from './plugins/slash';
 Editor.box.add(imageBox);
 Editor.box.add(videoBox);
 Editor.box.add(fileBox);
-Editor.box.add(equationBox);
 Editor.box.add(mentionBox);
 
 Editor.plugin.add('copy', copy);

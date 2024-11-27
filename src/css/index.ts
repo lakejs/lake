@@ -16,7 +16,6 @@ import './block-quote.css';
 import './image.css';
 import './video.css';
 import './file.css';
-import './equation.css';
 import './mention.css';
 import './slash.css';
 import './toolbar.css';

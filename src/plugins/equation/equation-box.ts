@@ -1,9 +1,10 @@
-import { BoxComponent } from '../types/box';
-import { icons } from '../icons';
-import { query } from '../utils/query';
-import { template } from '../utils/template';
-import { Box } from '../models/box';
-import { Button } from '../ui/button';
+import './equation-box.css';
+import { BoxComponent } from 'lakelib/types/box';
+import { icons } from 'lakelib/icons';
+import { query } from 'lakelib/utils/query';
+import { template } from 'lakelib/utils/template';
+import { Box } from 'lakelib/models/box';
+import { Button } from 'lakelib/ui/button';
 
 const defaultExpression = String.raw`\sqrt{x}`;
 
