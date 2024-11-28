@@ -1,6 +1,6 @@
-import { testPlugin } from '../utils';
+import { testPlugin } from '../../utils';
 
-describe('plugins / video', () => {
+describe('plugins / video / index', () => {
 
   it('should insert a form', () => {
     const content = `

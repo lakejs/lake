@@ -1,8 +1,8 @@
-import { showBox } from '../utils';
+import { showBox } from '../../utils';
 
 const youtubeUrl = 'https://www.youtube.com/watch?v=5sMBhDv4sik';
 
-describe('boxes / video-ui', () => {
+describe('plugins / video / video-box-ui', () => {
 
   it('no URL', () => {
     showBox('video', {}, box => {

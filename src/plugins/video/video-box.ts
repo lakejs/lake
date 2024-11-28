@@ -1,12 +1,13 @@
+import './video-box.css';
 import { isKeyHotkey } from 'is-hotkey';
-import { BoxComponent } from '../types/box';
-import { icons } from '../icons';
-import { query } from '../utils/query';
-import { template } from '../utils/template';
-import { Box } from '../models/box';
-import { Button } from '../ui/button';
-import { CornerToolbar } from '../ui/corner-toolbar';
-import { Resizer } from '../ui/resizer';
+import { BoxComponent } from 'lakelib/types/box';
+import { icons } from 'lakelib/icons';
+import { query } from 'lakelib/utils/query';
+import { template } from 'lakelib/utils/template';
+import { Box } from 'lakelib/models/box';
+import { Button } from 'lakelib/ui/button';
+import { CornerToolbar } from 'lakelib/ui/corner-toolbar';
+import { Resizer } from 'lakelib/ui/resizer';
 
 function getVideoId(url: string): string {
   const result = /\w+$/i.exec(url || '');

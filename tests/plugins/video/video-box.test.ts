@@ -1,11 +1,12 @@
-import { isFirefox, click } from '../utils';
-import { debug } from '../../src/utils/debug';
-import { query } from '../../src/utils/query';
-import { Editor, Nodes } from '../../src';
+import { debug } from 'lakelib/utils/debug';
+import { query } from 'lakelib/utils/query';
+import { Nodes } from 'lakelib/models/nodes';
+import { Editor } from 'lakelib/editor';
+import { isFirefox, click } from '../../utils';
 
 const youtubeUrl = 'https://www.youtube.com/watch?v=5sMBhDv4sik';
 
-describe('boxes / video', () => {
+describe('plugins / video / video-box', () => {
 
   let rootNode: Nodes;
   let editor: Editor;

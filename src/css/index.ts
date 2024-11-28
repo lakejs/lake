@@ -13,7 +13,6 @@ import './format-painter.css';
 import './heading.css';
 import './list.css';
 import './block-quote.css';
-import './video.css';
 import './mention.css';
 import './slash.css';
 import './toolbar.css';
