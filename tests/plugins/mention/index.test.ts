@@ -1,7 +1,8 @@
-import { click, removeBoxValueFromHTML } from '../utils';
-import { MentionItem } from '../../src/types/mention';
-import { query } from '../../src/utils/query';
-import { Editor, Nodes } from '../../src';
+import { MentionItem } from 'lakelib/types/mention';
+import { query } from 'lakelib/utils/query';
+import { Nodes } from 'lakelib/models/nodes';
+import { Editor } from 'lakelib/editor';
+import { click, removeBoxValueFromHTML } from '../../utils';
 
 const mentionItems: MentionItem[] = [
   {
@@ -30,7 +31,7 @@ const mentionItems: MentionItem[] = [
   },
 ];
 
-describe('plugins / mention', () => {
+describe('plugins / mention / index', () => {
 
   let rootNode: Nodes;
   let editor: Editor;

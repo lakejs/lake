@@ -1,15 +1,3 @@
-.lake-mention {
-  border: 1px solid transparent;
-  border-radius: 2px;
-}
-.lake-container[readonly="false"] .lake-mention a:hover {
-  color: var(--lake-link-color);
-  text-decoration: none;
-}
-lake-box[name="mention"] .lake-box-focused .lake-mention {
-  border-color: var(--lake-selection-background-color);
-  background-color: var(--lake-selection-background-color);
-}
 .lake-mention-menu {
   max-height: 208px;
 }

@@ -1,6 +1,9 @@
-import { query } from '../../src/utils/query';
-import { MentionMenu } from '../../src/ui/mention-menu';
-import { Editor, Nodes, Range, MentionItem } from '../../src';
+import { MentionItem } from 'lakelib/types/mention';
+import { query } from 'lakelib/utils/query';
+import { Nodes } from 'lakelib/models/nodes';
+import { Range } from 'lakelib/models/range';
+import { Editor } from 'lakelib/editor';
+import { MentionMenu } from 'lakelib/plugins/mention/mention-menu';
 
 const mentionItems: MentionItem[] = [
   {
@@ -29,7 +32,7 @@ const mentionItems: MentionItem[] = [
   },
 ];
 
-describe('ui / mention-menu', () => {
+describe('plugins / mention / mention-menu', () => {
 
   let rootNode: Nodes;
   let editor: Editor;

@@ -73,10 +73,6 @@ import './managers/keystroke.test';
 import './managers/box-manager.test';
 import './managers/plugin.test';
 
-// Boxes
-import './boxes/mention.test';
-import './boxes/mention-ui.test';
-
 // Plugins
 import './plugins/copy.test';
 import './plugins/cut.test';
@@ -129,7 +125,11 @@ import './plugins/equation/equation-box.test';
 import './plugins/equation/equation-box-ui.test';
 import './plugins/equation/index.test';
 import './plugins/special-character.test';
-import './plugins/mention.test';
+import './plugins/mention/mention-box.test';
+import './plugins/mention/mention-box-ui.test';
+import './plugins/mention/mention-menu.test';
+import './plugins/mention/mention-menu-ui.test';
+import './plugins/mention/index.test';
 import './plugins/table/utils.test';
 import './plugins/table/insert-table.test';
 import './plugins/table/delete-table.test';
@@ -161,8 +161,6 @@ import './ui/corner-toolbar-ui.test';
 import './ui/menu.test';
 import './ui/slash-menu.test';
 import './ui/slash-menu-ui.test';
-import './ui/mention-menu.test';
-import './ui/mention-menu-ui.test';
 import './ui/toolbar.test';
 import './ui/floating-toolbar.test';
 import './ui/floating-toolbar-ui.test';

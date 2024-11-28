@@ -1,8 +1,14 @@
 import { isKeyHotkey } from 'is-hotkey';
-import { MentionItem } from '../types/mention';
-import type { Editor, Range } from '..';
-import { request } from '../utils/request';
-import { MentionMenu } from '../ui/mention-menu';
+import { MentionItem } from 'lakelib/types/mention';
+import { request } from 'lakelib/utils/request';
+import { Range } from 'lakelib/models/range';
+import { Editor } from 'lakelib/editor';
+import { MentionMenu } from './mention-menu';
+import mentionBox from './mention-box';
+
+export {
+  mentionBox,
+};
 
 function getKeyword(range: Range): string | null {
   const targetRange = range.getCharacterRange('@');

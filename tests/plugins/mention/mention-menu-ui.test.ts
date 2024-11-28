@@ -1,7 +1,7 @@
-import { MentionItem } from '../../src/types/mention';
-import { query } from '../../src/utils/query';
-import { MentionMenu } from '../../src/ui/mention-menu';
-import { Editor } from '../../src';
+import { MentionItem } from 'lakelib/types/mention';
+import { query } from 'lakelib/utils/query';
+import { Editor } from 'lakelib/editor';
+import { MentionMenu } from 'lakelib/plugins/mention/mention-menu';
 
 const mentionItems: MentionItem[] = [
   {
@@ -78,7 +78,7 @@ const mentionItems: MentionItem[] = [
   },
 ];
 
-describe('ui / mention-menu-ui', () => {
+describe('plugins / mention / mention-menu-ui', () => {
 
   it('should show mention menu with avatar', () => {
     const rootNode = query('<div class="lake-root lake-ui-test"></div>');

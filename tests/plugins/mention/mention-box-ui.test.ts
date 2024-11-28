@@ -1,4 +1,4 @@
-import { showBox } from '../utils';
+import { showBox } from '../../utils';
 
 const mentionValue = {
   id: '1',
@@ -7,7 +7,7 @@ const mentionValue = {
   avatar: '<img src="../assets/images/universal-studios-240.jpg" />',
 };
 
-describe('boxes / mention-ui', () => {
+describe('plugins / mention / mention-box-ui', () => {
 
   it('mention (editable)', () => {
     showBox('mention', mentionValue, box => {
