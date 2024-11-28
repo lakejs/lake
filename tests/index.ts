@@ -76,8 +76,6 @@ import './managers/plugin.test';
 // Boxes
 import './boxes/video.test';
 import './boxes/video-ui.test';
-import './boxes/file.test';
-import './boxes/file-ui.test';
 import './boxes/mention.test';
 import './boxes/mention-ui.test';
 
@@ -121,7 +119,9 @@ import './plugins/image/image-box.test';
 import './plugins/image/image-box-ui.test';
 import './plugins/image/index.test';
 import './plugins/video.test';
-import './plugins/file.test';
+import './plugins/file/file-box.test';
+import './plugins/file/file-box-ui.test';
+import './plugins/file/index.test';
 import './plugins/emoji/emoji-box.test';
 import './plugins/emoji/emoji-box-ui.test';
 import './plugins/emoji/index.test';

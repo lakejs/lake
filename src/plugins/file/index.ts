@@ -1,5 +1,10 @@
-import type { Editor } from '..';
-import { BoxValue } from '../types/box';
+import { BoxValue } from 'lakelib/types/box';
+import { Editor } from 'lakelib/editor';
+import fileBox from './file-box';
+
+export {
+  fileBox,
+};
 
 export default (editor: Editor) => {
   editor.setPluginConfig('file', {

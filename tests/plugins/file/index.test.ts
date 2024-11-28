@@ -1,9 +1,9 @@
-import { testPlugin } from '../utils';
+import { testPlugin } from '../../utils';
 
 const fileUrl = '../assets/images/heaven-lake-256.png';
 const fileBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTI1Ni5wbmciLCJzdGF0dXMiOiJkb25lIn0=';
 
-describe('plugins / file', () => {
+describe('plugins / file / index', () => {
 
   it('should return correct config', () => {
     testPlugin(

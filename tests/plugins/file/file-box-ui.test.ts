@@ -1,8 +1,8 @@
-import { showBox } from '../utils';
+import { showBox } from '../../utils';
 
 const fileUrl = '../assets/files/heaven-lake-wikipedia.pdf';
 
-describe('boxes / file-ui', () => {
+describe('plugins / file / file-box-ui', () => {
 
   it('uploading status', () => {
     showBox('file', {
