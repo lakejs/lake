@@ -1,4 +1,4 @@
-import { showBox } from '../utils';
+import { showBox } from '../../utils';
 
 const smallUrl = '../assets/images/heaven-lake-64.png';
 const smallOriginalUrl = '../assets/images/heaven-lake-1280.png';
@@ -7,7 +7,7 @@ const mediumOriginalUrl = '../assets/images/heaven-lake-1280.png';
 const largeUrl = '../assets/images/lac-gentau-1024.jpg';
 const largeOriginalUrl = '../assets/images/lac-gentau-4096.jpg';
 
-describe('boxes / image-ui', () => {
+describe('plugins / image / image-box-ui', () => {
 
   it('uploading: small size', () => {
     showBox('image', {

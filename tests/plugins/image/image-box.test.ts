@@ -1,12 +1,14 @@
-import { isFirefox, click, removeBoxValueFromHTML } from '../utils';
-import { debug } from '../../src/utils/debug';
-import { query } from '../../src/utils/query';
-import { Editor, Nodes, Box } from '../../src';
+import { debug } from 'lakelib/utils/debug';
+import { query } from 'lakelib/utils/query';
+import { Nodes } from 'lakelib/models/nodes';
+import { Box } from 'lakelib/models/box';
+import { Editor } from 'lakelib/editor';
+import { isFirefox, click, removeBoxValueFromHTML } from '../../utils';
 
 const mediumUrl = '../assets/images/heaven-lake-512.png';
 const mediumOriginalUrl = '../assets/images/heaven-lake-1280.png';
 
-describe('boxes / image', () => {
+describe('plugins / image / image-box', () => {
 
   let rootNode: Nodes;
   let editor: Editor;

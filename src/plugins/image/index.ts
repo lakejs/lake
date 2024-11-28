@@ -1,8 +1,13 @@
-import type { Editor } from '..';
-import { BoxValue } from '../types/box';
-import { query } from '../utils/query';
-import { getBox } from '../utils/get-box';
-import { Fragment } from '../models/fragment';
+import { BoxValue } from 'lakelib/types/box';
+import { query } from 'lakelib/utils/query';
+import { getBox } from 'lakelib/utils/get-box';
+import { Fragment } from 'lakelib/models/fragment';
+import { Editor } from 'lakelib/editor';
+import imageBox from './image-box';
+
+export {
+  imageBox,
+};
 
 export default (editor: Editor) => {
   editor.setPluginConfig('image', {
