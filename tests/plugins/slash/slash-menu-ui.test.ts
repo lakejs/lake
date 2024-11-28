@@ -1,6 +1,8 @@
-import { query } from '../../src/utils/query';
-import { SlashMenu } from '../../src/ui/slash-menu';
-import { Editor, SlashItem, icons } from '../../src';
+import { SlashItem } from 'lakelib/types/slash';
+import { icons } from 'lakelib/icons';
+import { query } from 'lakelib/utils/query';
+import { Editor } from 'lakelib/editor';
+import { SlashMenu } from 'lakelib/plugins/slash/slash-menu';
 
 const boldSlashItem: SlashItem = {
   name: 'bold',
@@ -34,7 +36,7 @@ const slashItems: (string | SlashItem)[] = [
   'equation',
 ];
 
-describe('ui / slash-menu-ui', () => {
+describe('plugins / slash / slash-menu-ui', () => {
 
   it('should show slash menu', () => {
     const rootNode = query('<div class="lake-root lake-ui-test"></div>');

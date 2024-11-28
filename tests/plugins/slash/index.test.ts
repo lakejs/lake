@@ -1,9 +1,12 @@
 import sinon from 'sinon';
-import { click, removeBoxValueFromHTML, base64ToArrayBuffer } from '../utils';
-import { debug } from '../../src/utils/debug';
-import { query } from '../../src/utils/query';
-import { getBox } from '../../src/utils/get-box';
-import { Editor, Nodes, SlashItem, icons } from '../../src';
+import { SlashItem } from 'lakelib/types/slash';
+import { icons } from 'lakelib/icons';
+import { debug } from 'lakelib/utils/debug';
+import { query } from 'lakelib/utils/query';
+import { getBox } from 'lakelib/utils/get-box';
+import { Nodes } from 'lakelib/models/nodes';
+import { Editor } from 'lakelib/editor';
+import { click, removeBoxValueFromHTML, base64ToArrayBuffer } from '../../utils';
 
 const imgBuffer = base64ToArrayBuffer('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAwAB/orejrsAAAAASUVORK5CYII=');
 
@@ -39,7 +42,7 @@ const slashItems: (string | SlashItem)[] = [
   'equation',
 ];
 
-describe('plugins / slash', () => {
+describe('plugins / slash / index', () => {
 
   let rootNode: Nodes;
   let editor: Editor;

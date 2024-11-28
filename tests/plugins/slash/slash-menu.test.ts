@@ -1,6 +1,10 @@
-import { query } from '../../src/utils/query';
-import { SlashMenu } from '../../src/ui/slash-menu';
-import { Editor, Nodes, Range, SlashItem, icons } from '../../src';
+import { SlashItem } from 'lakelib/types/slash';
+import { icons } from 'lakelib/icons';
+import { query } from 'lakelib/utils/query';
+import { Nodes } from 'lakelib/models/nodes';
+import { Range } from 'lakelib/models/range';
+import { Editor } from 'lakelib/editor';
+import { SlashMenu } from 'lakelib/plugins/slash/slash-menu';
 
 const boldSlashItem: SlashItem = {
   name: 'bold',
@@ -34,7 +38,7 @@ const slashItems: (string | SlashItem)[] = [
   'equation',
 ];
 
-describe('ui / slash-menu', () => {
+describe('plugins / slash / slash-menu', () => {
 
   let rootNode: Nodes;
   let editor: Editor;

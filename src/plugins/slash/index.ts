@@ -1,9 +1,9 @@
 import { isKeyHotkey } from 'is-hotkey';
-import type { Editor } from '..';
-import { appendBreak } from '../utils/append-break';
-import { uploadFile } from '../utils/upload-file';
-import { Nodes } from '../models/nodes';
-import { SlashMenu } from '../ui/slash-menu';
+import { appendBreak } from 'lakelib/utils/append-break';
+import { uploadFile } from 'lakelib/utils/upload-file';
+import { Nodes } from 'lakelib/models/nodes';
+import { Editor } from 'lakelib/editor';
+import { SlashMenu } from './slash-menu';
 
 const defaultItems: string[] = [
   'heading1',

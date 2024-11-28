@@ -1,11 +1,12 @@
-import { TranslationFunctions } from '../i18n/types';
-import { SlashItem } from '../types/slash';
-import { slashItems } from '../config/slash-items';
-import { template } from '../utils/template';
-import { query } from '../utils/query';
-import { Nodes } from '../models/nodes';
-import { Menu, MenuConfig } from './menu';
-import { i18nObject } from '../i18n';
+import './slash-menu.css';
+import { TranslationFunctions } from 'lakelib/i18n/types';
+import { SlashItem } from 'lakelib/types/slash';
+import { slashItems } from 'lakelib/config/slash-items';
+import { template } from 'lakelib/utils/template';
+import { query } from 'lakelib/utils/query';
+import { Nodes } from 'lakelib/models/nodes';
+import { Menu, MenuConfig } from 'lakelib/ui/menu';
+import { i18nObject } from 'lakelib/i18n';
 
 type OnSelect = (
   event: Event,

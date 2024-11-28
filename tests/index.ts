@@ -73,6 +73,9 @@ import './managers/keystroke.test';
 import './managers/box-manager.test';
 import './managers/plugin.test';
 
+// Editor
+import './editor.test';
+
 // Plugins
 import './plugins/copy.test';
 import './plugins/cut.test';
@@ -148,7 +151,9 @@ import './plugins/delete-key.test';
 import './plugins/tab-key.test';
 import './plugins/arrow-keys.test';
 import './plugins/escape-key.test';
-import './plugins/slash.test';
+import './plugins/slash/slash-menu.test';
+import './plugins/slash/slash-menu-ui.test';
+import './plugins/slash/index.test';
 
 // UI
 import './ui/button.test';
@@ -159,14 +164,9 @@ import './ui/resizer.test';
 import './ui/corner-toolbar.test';
 import './ui/corner-toolbar-ui.test';
 import './ui/menu.test';
-import './ui/slash-menu.test';
-import './ui/slash-menu-ui.test';
 import './ui/toolbar.test';
 import './ui/floating-toolbar.test';
 import './ui/floating-toolbar-ui.test';
-
-// Editor
-import './editor.test';
 
 // Others
 import './check-exports.test';
