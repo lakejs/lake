@@ -1,7 +1,7 @@
-import { SlashItem } from 'lakelib/types/slash';
 import { icons } from 'lakelib/icons';
 import { query } from 'lakelib/utils/query';
 import { Editor } from 'lakelib/editor';
+import { SlashItem } from 'lakelib/plugins/slash/types';
 import { SlashMenu } from 'lakelib/plugins/slash/slash-menu';
 
 const boldSlashItem: SlashItem = {

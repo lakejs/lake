@@ -1,5 +1,5 @@
-import type { Editor } from '../editor';
-import { TranslationFunctions } from '../i18n/types';
+import type { Editor } from '../../editor';
+import { TranslationFunctions } from '../../i18n/types';
 
 export type SlashButtonItem = {
   name: string;

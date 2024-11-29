@@ -1,4 +1,4 @@
-import { SlashItem } from '../types/slash';
+import { SlashItem } from '../plugins/slash/types';
 import { icons } from '../icons';
 
 export const slashItems: SlashItem[] = [

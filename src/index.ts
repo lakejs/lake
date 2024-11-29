@@ -5,7 +5,7 @@ import { BoxComponent, BoxValue } from './types/box';
 import { ToolbarItem } from './types/toolbar';
 import { DropdownMenuItem } from './types/dropdown';
 import { MentionItem } from './plugins/mention/types';
-import { SlashItem } from './types/slash';
+import { SlashItem } from './plugins/slash/types';
 import { icons } from './icons';
 import { query } from './utils/query';
 import { template } from './utils/template';

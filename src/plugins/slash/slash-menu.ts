@@ -1,12 +1,12 @@
 import './slash-menu.css';
 import { TranslationFunctions } from 'lakelib/i18n/types';
-import { SlashItem } from 'lakelib/types/slash';
 import { slashItems } from 'lakelib/config/slash-items';
 import { template } from 'lakelib/utils/template';
 import { query } from 'lakelib/utils/query';
 import { Nodes } from 'lakelib/models/nodes';
 import { Menu, MenuConfig } from 'lakelib/ui/menu';
 import { i18nObject } from 'lakelib/i18n';
+import { SlashItem } from './types';
 
 type OnSelect = (
   event: Event,
