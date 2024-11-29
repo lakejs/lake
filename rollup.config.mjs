@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import alias from '@rollup/plugin-alias';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
@@ -13,9 +14,41 @@ const rootPath = path.dirname(fileURLToPath(import.meta.url));
 
 const aliasOptions = {
   entries: [
-    { find: 'lakelib', replacement: path.resolve(rootPath, 'src') },
+    {
+      find: 'lakelib',
+      replacement: path.resolve(rootPath, 'src'),
+    },
   ],
 };
+
+function getConfigForThirdParty(inputFile) {
+  const outputFile = `./temp/${inputFile.replace(/\.ts$/, '.js')}`;
+  if (fs.existsSync(path.resolve(rootPath, outputFile))) {
+    return;
+  }
+  return {
+    input: `./${inputFile}`,
+    output: {
+      file: outputFile,
+      format: 'iife',
+      sourcemap: true,
+    },
+    watch: {
+      include: [
+        inputFile,
+      ],
+    },
+    plugins: [
+      nodeResolve(),
+      typescript({
+        compilerOptions: {
+          outDir: './temp',
+        },
+      }),
+      commonjs(),
+    ],
+  };
+}
 
 function getBundleConfig(type) {
   const globals = {
@@ -65,7 +98,7 @@ function getBundleConfig(type) {
   };
 }
 
-function getBuildConfig(type) {
+function getConfigForPublishing(type) {
   if (type === 'iife') {
     return {
       input: './src/index.ts',
@@ -132,31 +165,6 @@ function getBuildConfig(type) {
   };
 }
 
-function getTestLibConfig(name) {
-  return {
-    input: `./tests/${name}.ts`,
-    output: {
-      file: `./temp/tests/${name}.js`,
-      format: 'iife',
-      sourcemap: true,
-    },
-    watch: {
-      include: [
-        `tests/${name}.ts`,
-      ],
-    },
-    plugins: [
-      nodeResolve(),
-      typescript({
-        compilerOptions: {
-          outDir: './temp',
-        },
-      }),
-      commonjs(),
-    ],
-  };
-}
-
 export default (commandLineArgs) => {
   const configList = [];
   if (commandLineArgs.example === true) {
@@ -165,16 +173,16 @@ export default (commandLineArgs) => {
   }
   if (commandLineArgs.test === true) {
     delete commandLineArgs.test;
-    configList.push(getTestLibConfig('chai'));
+    configList.push(getConfigForThirdParty('tests/chai.ts'));
     configList.push(getBundleConfig('tests'));
   }
   if (commandLineArgs.iife === true) {
     delete commandLineArgs.iife;
-    configList.push(getBuildConfig('iife'));
+    configList.push(getConfigForPublishing('iife'));
   }
   if (commandLineArgs.es === true) {
     delete commandLineArgs.es;
-    configList.push(getBuildConfig('es'));
+    configList.push(getConfigForPublishing('es'));
   }
-  return configList;
+  return configList.filter(config => config !== undefined);
 };
