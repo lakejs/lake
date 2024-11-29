@@ -1,5 +1,5 @@
-import { SlashItem } from '../plugins/slash/types';
-import { icons } from '../icons';
+import { icons } from 'lakelib/icons';
+import { SlashItem } from './types';
 
 export const slashItems: SlashItem[] = [
   {
