@@ -1,9 +1,9 @@
 import './mention-menu.css';
-import { MentionItem } from 'lakelib/types/mention';
 import { template } from 'lakelib/utils/template';
 import { query } from 'lakelib/utils/query';
 import { Nodes } from 'lakelib/models/nodes';
 import { Menu, MenuConfig } from 'lakelib/ui/menu';
+import { MentionItem } from './types';
 
 type OnSelect = (event: Event, item: MentionItem) => void;
 

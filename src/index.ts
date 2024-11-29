@@ -4,7 +4,7 @@ import './elements/bookmark';
 import { BoxComponent, BoxValue } from './types/box';
 import { ToolbarItem } from './types/toolbar';
 import { DropdownMenuItem } from './types/dropdown';
-import { MentionItem } from './types/mention';
+import { MentionItem } from './plugins/mention/types';
 import { SlashItem } from './types/slash';
 import { icons } from './icons';
 import { query } from './utils/query';

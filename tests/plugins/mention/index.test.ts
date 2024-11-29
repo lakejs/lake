@@ -1,7 +1,7 @@
-import { MentionItem } from 'lakelib/types/mention';
 import { query } from 'lakelib/utils/query';
 import { Nodes } from 'lakelib/models/nodes';
 import { Editor } from 'lakelib/editor';
+import { MentionItem } from 'lakelib/plugins/mention/types';
 import { click, removeBoxValueFromHTML } from '../../utils';
 
 const mentionItems: MentionItem[] = [

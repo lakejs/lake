@@ -1,9 +1,9 @@
 import { isKeyHotkey } from 'is-hotkey';
-import { MentionItem } from 'lakelib/types/mention';
 import { request } from 'lakelib/utils/request';
 import { Range } from 'lakelib/models/range';
 import { Editor } from 'lakelib/editor';
 import { MentionMenu } from './mention-menu';
+import { MentionItem } from './types';
 import mentionBox from './mention-box';
 
 export {
