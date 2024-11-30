@@ -264,6 +264,8 @@ export class LinkPopup {
     const viewport = linkNode.closestScroller();
     if (viewport.length > 0) {
       viewport.on('scroll', this.scrollListener);
+    } else {
+      window.addEventListener('scroll', this.scrollListener);
     }
     window.addEventListener('resize', this.resizeListener);
     if (this.config.onShow) {
@@ -276,6 +278,8 @@ export class LinkPopup {
       const viewport = this.linkNode.closestScroller();
       if (viewport.length > 0) {
         viewport.off('scroll', this.scrollListener);
+      } else {
+        window.removeEventListener('scroll', this.scrollListener);
       }
     }
     this.linkNode = null;

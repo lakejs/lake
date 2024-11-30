@@ -225,6 +225,8 @@ export abstract class Menu<Item> {
     const viewport = range.commonAncestor.closestScroller();
     if (viewport.length > 0) {
       viewport.on('scroll', this.scrollListener);
+    } else {
+      window.addEventListener('scroll', this.scrollListener);
     }
     document.addEventListener('keydown', this.keydownListener, true);
     document.addEventListener('click', this.clickListener);
@@ -247,6 +249,8 @@ export abstract class Menu<Item> {
       const viewport = this.range.commonAncestor.closestScroller();
       if (viewport.length > 0) {
         viewport.off('scroll', this.scrollListener);
+      } else {
+        window.removeEventListener('scroll', this.scrollListener);
       }
     }
     this.range = null;
