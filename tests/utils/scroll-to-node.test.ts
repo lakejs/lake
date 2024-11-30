@@ -1,6 +1,6 @@
 import { query } from '../../src/utils/query';
 import { template } from '../../src/utils/template';
-import { isVisible } from '../../src/utils/is-visible';
+import { visibleInfo } from '../../src/utils/visible-info';
 import { scrollToNode } from '../../src/utils/scroll-to-node';
 
 describe('utils / scroll-to-node', () => {
@@ -22,13 +22,13 @@ describe('utils / scroll-to-node', () => {
     query(document.body).append(rootNode);
     (rootNode.get(0) as Element).scrollTo(0, 50);
     const node = rootNode.find('p').eq(0);
-    const visible = isVisible(node);
+    const visible = visibleInfo(node);
     expect(visible.left).to.equal(0);
     expect(visible.right).to.equal(0);
     expect(visible.top).to.equal(-1);
     expect(visible.bottom).to.equal(-1);
     scrollToNode(node);
-    const visible2 = isVisible(node);
+    const visible2 = visibleInfo(node);
     expect(visible2.left).to.equal(0);
     expect(visible2.right).to.equal(0);
     expect(visible2.top).to.equal(0);

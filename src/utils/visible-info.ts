@@ -6,7 +6,7 @@ import { Range } from '../models/range';
 // 1: the edge of the target node or range extends beyond the right or bottom edge of the viewport and is not visible
 type VisibleType = -1 | 0 | 1;
 
-export function isVisible(target: Nodes | Range): {
+export function visibleInfo(target: Nodes | Range): {
   left: VisibleType;
   right: VisibleType;
   top: VisibleType;

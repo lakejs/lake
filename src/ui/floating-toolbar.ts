@@ -1,5 +1,5 @@
 import { editors } from '../storage/editors';
-import { isVisible } from '../utils/is-visible';
+import { visibleInfo } from '../utils/visible-info';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { Toolbar, ToolbarConfig } from './toolbar';
@@ -32,7 +32,7 @@ export class FloatingToolbar extends Toolbar {
   private resizeListener = () => this.updatePosition();
 
   private updatePosition(): void {
-    const visible = isVisible(this.range);
+    const visible = visibleInfo(this.range);
     if (visible.top !== 0) {
       this.container.css('visibility', 'hidden');
       return;

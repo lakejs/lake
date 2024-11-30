@@ -1,6 +1,6 @@
 import { isKeyHotkey } from 'is-hotkey';
 import { query } from '../utils/query';
-import { isVisible } from '../utils/is-visible';
+import { visibleInfo } from '../utils/visible-info';
 import { scrollToNode } from '../utils/scroll-to-node';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
@@ -152,7 +152,7 @@ export abstract class Menu<Item> {
     if (!this.range || this.range.isCollapsed) {
       return;
     }
-    const visible = isVisible(this.range);
+    const visible = visibleInfo(this.range);
     if (visible.bottom !== 0) {
       this.container.css('visibility', 'hidden');
       return;

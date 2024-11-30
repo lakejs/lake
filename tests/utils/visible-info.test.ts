@@ -1,9 +1,9 @@
 import { Range } from '../../src/models/range';
 import { query } from '../../src/utils/query';
 import { template } from '../../src/utils/template';
-import { isVisible } from '../../src/utils/is-visible';
+import { visibleInfo } from '../../src/utils/visible-info';
 
-describe('utils / is-visible', () => {
+describe('utils / visible-info', () => {
 
   it('the node is visible', () => {
     const rootNode = query(template`
@@ -20,7 +20,7 @@ describe('utils / is-visible', () => {
     </div>
     `);
     query(document.body).append(rootNode);
-    const visible = isVisible(rootNode.find('p').eq(0));
+    const visible = visibleInfo(rootNode.find('p').eq(0));
     expect(visible.left).to.equal(0);
     expect(visible.right).to.equal(0);
     expect(visible.top).to.equal(0);
@@ -45,7 +45,7 @@ describe('utils / is-visible', () => {
     query(document.body).append(rootNode);
     const range = new Range();
     range.selectNodeContents(rootNode.find('p').eq(0));
-    const visible = isVisible(range);
+    const visible = visibleInfo(range);
     expect(visible.left).to.equal(0);
     expect(visible.right).to.equal(0);
     expect(visible.top).to.equal(0);
@@ -69,7 +69,7 @@ describe('utils / is-visible', () => {
     `);
     query(document.body).append(rootNode);
     (rootNode.get(0) as Element).scrollTo(0, 50);
-    const visible = isVisible(rootNode.find('p').eq(0));
+    const visible = visibleInfo(rootNode.find('p').eq(0));
     expect(visible.left).to.equal(0);
     expect(visible.right).to.equal(0);
     expect(visible.top).to.equal(-1);
@@ -95,7 +95,7 @@ describe('utils / is-visible', () => {
     (rootNode.get(0) as Element).scrollTo(0, 50);
     const range = new Range();
     range.selectNodeContents(rootNode.find('p').eq(0));
-    const visible = isVisible(range);
+    const visible = visibleInfo(range);
     expect(visible.left).to.equal(0);
     expect(visible.right).to.equal(0);
     expect(visible.top).to.equal(-1);
@@ -118,7 +118,7 @@ describe('utils / is-visible', () => {
     </div>
     `);
     query(document.body).append(rootNode);
-    const visible = isVisible(rootNode.find('p').eq(4));
+    const visible = visibleInfo(rootNode.find('p').eq(4));
     expect(visible.left).to.equal(0);
     expect(visible.right).to.equal(0);
     expect(visible.top).to.equal(1);
@@ -143,7 +143,7 @@ describe('utils / is-visible', () => {
     query(document.body).append(rootNode);
     const range = new Range();
     range.selectNodeContents(rootNode.find('p').eq(4));
-    const visible = isVisible(range);
+    const visible = visibleInfo(range);
     expect(visible.left).to.equal(0);
     expect(visible.right).to.equal(0);
     expect(visible.top).to.equal(1);
@@ -167,7 +167,7 @@ describe('utils / is-visible', () => {
     `);
     query(document.body).append(rootNode);
     (rootNode.get(0) as Element).scrollTo(100, 0);
-    const visible = isVisible(rootNode.find('.lake-container > div').eq(0));
+    const visible = visibleInfo(rootNode.find('.lake-container > div').eq(0));
     expect(visible.left).to.equal(-1);
     expect(visible.right).to.equal(1);
     expect(visible.top).to.equal(0);
@@ -193,7 +193,7 @@ describe('utils / is-visible', () => {
     (rootNode.get(0) as Element).scrollTo(100, 0);
     const range = new Range();
     range.selectNodeContents(rootNode.find('.lake-container > div').eq(0));
-    const visible = isVisible(range);
+    const visible = visibleInfo(range);
     expect(visible.left).to.equal(-1);
     expect(visible.right).to.equal(1);
     expect(visible.top).to.equal(0);
@@ -216,7 +216,7 @@ describe('utils / is-visible', () => {
     </div>
     `);
     query(document.body).append(rootNode);
-    const visible = isVisible(rootNode.find('.lake-container > div').eq(0));
+    const visible = visibleInfo(rootNode.find('.lake-container > div').eq(0));
     expect(visible.left).to.equal(0);
     expect(visible.right).to.equal(1);
     expect(visible.top).to.equal(0);
@@ -241,7 +241,7 @@ describe('utils / is-visible', () => {
     query(document.body).append(rootNode);
     const range = new Range();
     range.selectNodeContents(rootNode.find('.lake-container > div').eq(0));
-    const visible = isVisible(range);
+    const visible = visibleInfo(range);
     expect(visible.left).to.equal(0);
     expect(visible.right).to.equal(1);
     expect(visible.top).to.equal(0);

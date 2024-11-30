@@ -31,7 +31,7 @@ import './utils/append-break.test';
 import './utils/remove-break.test';
 import './utils/indent-block.test';
 import './utils/morph.test';
-import './utils/is-visible.test';
+import './utils/visible-info.test';
 import './utils/scroll-to-node.test';
 
 // Box Utils

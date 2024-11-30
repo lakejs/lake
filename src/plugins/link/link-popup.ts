@@ -4,7 +4,7 @@ import { TranslationFunctions } from 'lakelib/i18n/types';
 import { icons } from 'lakelib/icons';
 import { template } from 'lakelib/utils/template';
 import { query } from 'lakelib/utils/query';
-import { isVisible } from 'lakelib/utils/is-visible';
+import { visibleInfo } from 'lakelib/utils/visible-info';
 import { Nodes } from 'lakelib/models/nodes';
 import { Button } from 'lakelib/ui/button';
 import { i18nObject } from 'lakelib/i18n';
@@ -212,7 +212,7 @@ export class LinkPopup {
     if (!this.linkNode) {
       return;
     }
-    const visible = isVisible(this.linkNode);
+    const visible = visibleInfo(this.linkNode);
     if (visible.bottom !== 0) {
       this.container.css('visibility', 'hidden');
       return;
