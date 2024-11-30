@@ -23,16 +23,16 @@ describe('utils / scroll-to-node', () => {
     (rootNode.get(0) as Element).scrollTo(0, 50);
     const node = rootNode.find('p').eq(0);
     const visible = isVisible(node);
-    expect(visible.left).to.equal(true);
-    expect(visible.right).to.equal(true);
-    expect(visible.top).to.equal(false);
-    expect(visible.bottom).to.equal(false);
+    expect(visible.left).to.equal(0);
+    expect(visible.right).to.equal(0);
+    expect(visible.top).to.equal(-1);
+    expect(visible.bottom).to.equal(-1);
     scrollToNode(node);
     const visible2 = isVisible(node);
-    expect(visible2.left).to.equal(true);
-    expect(visible2.right).to.equal(true);
-    expect(visible2.top).to.equal(true);
-    expect(visible2.bottom).to.equal(true);
+    expect(visible2.left).to.equal(0);
+    expect(visible2.right).to.equal(0);
+    expect(visible2.top).to.equal(0);
+    expect(visible2.bottom).to.equal(0);
     rootNode.remove();
   });
 

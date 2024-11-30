@@ -153,7 +153,7 @@ export abstract class Menu<Item> {
       return;
     }
     const visible = isVisible(this.range);
-    if (!visible.bottom) {
+    if (visible.bottom !== 0) {
       this.container.css('visibility', 'hidden');
       return;
     }

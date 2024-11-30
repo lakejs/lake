@@ -33,7 +33,7 @@ export class FloatingToolbar extends Toolbar {
 
   private updatePosition(): void {
     const visible = isVisible(this.range);
-    if (!visible.top) {
+    if (visible.top !== 0) {
       this.container.css('visibility', 'hidden');
       return;
     }

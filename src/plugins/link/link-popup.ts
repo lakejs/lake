@@ -213,7 +213,7 @@ export class LinkPopup {
       return;
     }
     const visible = isVisible(this.linkNode);
-    if (!visible.bottom) {
+    if (visible.bottom !== 0) {
       this.container.css('visibility', 'hidden');
       return;
     }

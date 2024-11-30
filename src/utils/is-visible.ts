@@ -1,12 +1,16 @@
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
-// Returns an object indicating whether the specified node or range is visible.
+// -1: the edge of the target node or range extends beyond the left or top edge of the viewport and is not visible
+// 0: the edge of the target node or range is within the viewport and is visible
+// 1: the edge of the target node or range extends beyond the right or bottom edge of the viewport and is not visible
+type VisibleType = -1 | 0 | 1;
+
 export function isVisible(target: Nodes | Range): {
-  left: boolean;
-  right: boolean;
-  top: boolean;
-  bottom: boolean;
+  left: VisibleType;
+  right: VisibleType;
+  top: VisibleType;
+  bottom: VisibleType;
 } {
   let rect: DOMRect;
   let viewport: Nodes;
@@ -36,10 +40,34 @@ export function isVisible(target: Nodes | Range): {
     viewportWidth = viewportRect.width;
     viewportHeight = viewportRect.height;
   }
+  let leftEdge: VisibleType = 0;
+  if (left < 0) {
+    leftEdge = -1;
+  } else if (viewportWidth - left < 0) {
+    leftEdge = 1;
+  }
+  let rightEdge: VisibleType = 0;
+  if (right < 0) {
+    rightEdge = -1;
+  } else if (viewportWidth - right < 0) {
+    rightEdge = 1;
+  }
+  let topEdge: VisibleType = 0;
+  if (top < 0) {
+    topEdge = -1;
+  } else if (viewportHeight - top < 0) {
+    topEdge = 1;
+  }
+  let bottomEdge: VisibleType = 0;
+  if (bottom < 0) {
+    bottomEdge = -1;
+  } else if (viewportHeight - bottom < 0) {
+    bottomEdge = 1;
+  }
   return {
-    left: left >= 0 && viewportWidth - left >= 0,
-    right: right >= 0 && viewportWidth - right >= 0,
-    top: top >= 0 && viewportHeight - top >= 0,
-    bottom: bottom >= 0 && viewportHeight - bottom >= 0,
+    left: leftEdge,
+    right: rightEdge,
+    top: topEdge,
+    bottom: bottomEdge,
   };
 }
