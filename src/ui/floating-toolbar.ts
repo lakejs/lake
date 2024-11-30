@@ -33,7 +33,10 @@ export class FloatingToolbar extends Toolbar {
 
   private updatePosition(): void {
     const visible = visibleInfo(this.range);
-    if (visible.top !== 0) {
+    if (
+      (visible.top === -1 && visible.bottom === -1) ||
+      (visible.top === 1 && visible.bottom === 1)
+    ) {
       this.container.css('visibility', 'hidden');
       return;
     }
@@ -42,8 +45,32 @@ export class FloatingToolbar extends Toolbar {
     this.container.show('flex');
     const rangeX = rangeRect.x + window.scrollX;
     const rangeY = rangeRect.y + window.scrollY;
-    const left = (rangeX + rangeRect.width / 2 - this.container.width() / 2).toFixed(1);
-    const top = (rangeY - this.container.height() - 6).toFixed(1);
+    let left = Number((rangeX + rangeRect.width / 2 - this.container.width() / 2).toFixed(1));
+    let top = Number((rangeY - this.container.height() - 6).toFixed(1));
+    const viewport = this.range.commonAncestor.closestScroller();
+    const editArea = this.range.commonAncestor.closestContainer();
+    const editAreaRect = (editArea.get(0) as Element).getBoundingClientRect();
+    let leftEdge = window.scrollX + 6;
+    if (viewport.length > 0) {
+      leftEdge += editAreaRect.x + (viewport.get(0) as Element).scrollLeft;
+    } else {
+      leftEdge += editAreaRect.x + window.scrollX;
+    }
+    const rightEdge = leftEdge + editAreaRect.width - this.container.width() - 12;
+    let topEdge = window.scrollY;
+    if (viewport.length > 0) {
+      topEdge += editAreaRect.y + (viewport.get(0) as Element).scrollTop + 10;
+    } else {
+      topEdge += editAreaRect.y + window.scrollY;
+    }
+    if (left < leftEdge) {
+      left = leftEdge;
+    } else if (left > rightEdge) {
+      left = rightEdge;
+    }
+    if (top < topEdge) {
+      top = topEdge;
+    }
     this.container.css({
       left: `${left}px`,
       top: `${top}px`,
@@ -63,6 +90,8 @@ export class FloatingToolbar extends Toolbar {
     const viewport = this.range.commonAncestor.closestScroller();
     if (viewport.length > 0) {
       viewport.on('scroll', this.scrollListener);
+    } else {
+      window.addEventListener('scroll', this.scrollListener);
     }
     window.addEventListener('resize', this.resizeListener);
   }
@@ -73,6 +102,8 @@ export class FloatingToolbar extends Toolbar {
     const viewport = this.range.commonAncestor.closestScroller();
     if (viewport.length > 0) {
       viewport.off('scroll', this.scrollListener);
+    } else {
+      window.removeEventListener('scroll', this.scrollListener);
     }
     window.removeEventListener('resize', this.resizeListener);
   }
