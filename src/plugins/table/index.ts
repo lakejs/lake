@@ -190,12 +190,17 @@ export default (editor: Editor) => {
   let toolbar: FloatingToolbar | null = null;
   let savedTableNode: Nodes | null = null;
   editor.event.on('statechange', () => {
+    editor.container.find('table').removeClass('lake-table-focused');
+    editor.container.find('td').removeClass('lake-td-focused');
     if (toolbar) {
       toolbar.updateState();
     }
     const range = editor.selection.range;
-    const tableNode = range.commonAncestor.closest('table');
+    const cellNode = range.commonAncestor.closest('td');
+    const tableNode = cellNode.closest('table');
     if (savedTableNode && savedTableNode.get(0) === tableNode.get(0)) {
+      tableNode.addClass('lake-table-focused');
+      cellNode.addClass('lake-td-focused');
       return;
     }
     savedTableNode = tableNode;
@@ -203,6 +208,8 @@ export default (editor: Editor) => {
       toolbar.unmount();
     }
     if (tableNode.length > 0) {
+      tableNode.addClass('lake-table-focused');
+      cellNode.addClass('lake-td-focused');
       const items = getFloatingToolbarItems(editor, tableNode);
       toolbar = new FloatingToolbar({
         target: tableNode,
