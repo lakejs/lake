@@ -6,7 +6,7 @@
   border: 1px solid var(--lake-border-color);
   border-radius: 5px;
   background-color: #fff;
-  box-shadow: 0 2px 0 #00000005;
+  box-shadow: var(--lake-button-shadow);
   padding: 4px;
   display: flex;
   align-items: center;
