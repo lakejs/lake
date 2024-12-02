@@ -1,5 +1,5 @@
 import type { Editor } from '..';
-import { Point } from '../types/object';
+import { Point } from '../types/node';
 import { Nodes } from '../models/nodes';
 
 type MarkItem = {

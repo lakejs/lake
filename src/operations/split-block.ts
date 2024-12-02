@@ -1,4 +1,4 @@
-import { TwoParts } from '../types/object';
+import { TwoParts } from '../types/node';
 import { splitNodes } from '../utils/split-nodes';
 import { appendBreak } from '../utils/append-break';
 import { removeEmptyMarks } from '../utils/remove-empty-marks';
