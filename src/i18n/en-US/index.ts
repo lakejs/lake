@@ -75,6 +75,8 @@ export default {
     bulletedListDesc: 'Create a bulleted list',
     checklist: 'Checklist',
     checklistDesc: 'Create a checklist',
+    table: 'Table',
+    tableDesc: 'Insert a table',
     hr: 'Horizontal line',
     hrDesc: 'Insert a horizontal line',
     codeBlock: 'Code block',

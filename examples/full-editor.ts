@@ -281,6 +281,7 @@ const slashItems: (string | SlashItem)[] = [
   'numberedList',
   'bulletedList',
   'checklist',
+  'table',
   'hr',
   'codeBlock',
   'video',

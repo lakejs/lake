@@ -75,6 +75,8 @@ export default {
     bulletedListDesc: '箇条書きリストを作成',
     checklist: 'チェックリスト',
     checklistDesc: 'チェックリストを作成',
+    table: 'テーブル',
+    tableDesc: 'テーブルを挿入',
     hr: '区切り線',
     hrDesc: '水平線を挿入',
     codeBlock: 'コードブロック',

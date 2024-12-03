@@ -17,6 +17,7 @@ const defaultItems: string[] = [
   'numberedList',
   'bulletedList',
   'checklist',
+  'table',
   'hr',
 ];
 

@@ -300,6 +300,14 @@ type RootTranslation = {
 		 */
 		checklistDesc: string
 		/**
+		 * T​a​b​l​e
+		 */
+		table: string
+		/**
+		 * C​r​e​a​t​e​ ​a​ ​t​a​b​l​e
+		 */
+		tableDesc: string
+		/**
 		 * H​o​r​i​z​o​n​t​a​l​ ​l​i​n​e
 		 */
 		hr: string
@@ -795,6 +803,14 @@ export type TranslationFunctions = {
 		 * Create a checklist
 		 */
 		checklistDesc: () => LocalizedString
+		/**
+		 * Table
+		 */
+		table: () => LocalizedString
+		/**
+		 * Create a table
+		 */
+		tableDesc: () => LocalizedString
 		/**
 		 * Horizontal line
 		 */

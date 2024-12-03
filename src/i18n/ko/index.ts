@@ -75,6 +75,8 @@ export default {
     bulletedListDesc: '비순서 목록을 작성',
     checklist: '체크리스트',
     checklistDesc: '체크리스트를 작성',
+    table: '표',
+    tableDesc: '표를 삽입',
     hr: '구분선',
     hrDesc: '구분선을 삽입',
     codeBlock: '코드 블록',

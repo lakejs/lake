@@ -113,6 +113,16 @@ export const slashItems: SlashItem[] = [
     },
   },
   {
+    name: 'table',
+    type: 'button',
+    icon: icons.get('table'),
+    title: locale => locale.slash.table(),
+    description: locale => locale.slash.tableDesc(),
+    onClick: (editor, value) => {
+      editor.command.execute(value);
+    },
+  },
+  {
     name: 'hr',
     type: 'button',
     icon: icons.get('hr'),

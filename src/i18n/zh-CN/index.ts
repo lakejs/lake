@@ -75,6 +75,8 @@ export default {
     bulletedListDesc: '创建项目符号列表',
     checklist: '任务列表',
     checklistDesc: '创建任务列表',
+    table: '表格',
+    tableDesc: '插入表格',
     hr: '分割线',
     hrDesc: '插入分割线',
     codeBlock: '代码块',
