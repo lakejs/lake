@@ -144,6 +144,13 @@ export default (editor: Editor) => {
         editor.history.save();
         return;
       }
+      const nextNode = range.getNextNode();
+      if (prevNode.length > 0 && nextNode.name === 'table') {
+        event.preventDefault();
+        range.shrinkAfter(prevNode);
+        editor.history.save();
+        return;
+      }
     }
     range.adjust();
     const prevNode = range.getPrevNode();

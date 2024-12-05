@@ -574,6 +574,33 @@ describe('plugins / backspace-key', () => {
     );
   });
 
+  it('table: should move the cursor to previous block when it is positioned before a table', () => {
+    const content = `
+    <p>foo</p>
+    <focus />
+    <table>
+      <tr>
+        <td>foo</td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <p>foo<focus /></p>
+    <table>
+      <tr>
+        <td>foo</td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
   it('table: empty content', () => {
     const content = `
     <table>
