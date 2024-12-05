@@ -553,7 +553,7 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('table: should delete previous table when the cursor is positioned at the beginning of a paragraph', () => {
+  it('table: should move the cursor positioned at the beginning of a paragraph to the end of previous table', () => {
     const content = `
     <table>
       <tr>
@@ -563,7 +563,37 @@ describe('plugins / backspace-key', () => {
     <p><focus />bar</p>
     `;
     const output = `
-    <p><focus />bar</p>
+    <table>
+      <tr>
+        <td>foo<focus /></td>
+      </tr>
+    </table>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('table: should delete current empty paragraph when a table is positioned before it', () => {
+    const content = `
+    <table>
+      <tr>
+        <td>foo</td>
+      </tr>
+    </table>
+    <p><focus /><br /></p>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td>foo<focus /></td>
+      </tr>
+    </table>
     `;
     testPlugin(
       content,

@@ -36,7 +36,10 @@ function mergeWithPreviousBlock(editor: Editor, block: Nodes): void {
     return;
   }
   if (prevBlock.name === 'table') {
-    prevBlock.remove();
+    if (block.isEmpty) {
+      block.remove();
+    }
+    range.shrinkAfter(prevBlock);
     return;
   }
   if (prevBlock.name ===  'br') {
