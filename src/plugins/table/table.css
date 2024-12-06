@@ -8,6 +8,9 @@
   min-width: 33px;
   border: 1px solid var(--lake-border-color);
 }
+.lake-container table td p {
+  margin-bottom: 0;
+}
 .lake-container table td.lake-td-focused {
   outline: var(--lake-input-outline);
 }

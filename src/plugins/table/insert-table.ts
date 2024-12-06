@@ -10,7 +10,7 @@ export function insertTable(range: Range, rows: number, columns: number): Nodes 
   for (let i = 0; i < rows; i++) {
     html += '<tr>';
     for (let j = 0; j < columns; j++) {
-      html += '<td><br /></td>';
+      html += '<td><p><br /></p></td>';
     }
     html += '</tr>';
   }

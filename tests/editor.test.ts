@@ -239,6 +239,23 @@ describe('editor', () => {
     expect(currentValue).to.equal(output);
   });
 
+  it('fixContent method: table does not have content', () => {
+    const input = '<table><tr><td></td></tr></table>';
+    const output = '<table><tr><td><p><focus /><br /></p></td></tr></table>';
+    const editor = new Editor({
+      root: rootNode,
+    });
+    editor.render();
+    editor.focus();
+    editor.container.html(input);
+    editor.selection.range.selectNodeContents(editor.container.find('td'));
+    editor.history.save();
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+  });
+
   it('fixContent method: should fix line break', () => {
     const input = '<br />';
     const output = '<p><focus /><br /></p>';

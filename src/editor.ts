@@ -477,8 +477,10 @@ export class Editor {
   // Fixes wrong content, especially empty tag.
   public fixContent(): boolean {
     const range = this.selection.range;
+    const cellNode = range.commonAncestor.closest('td');
+    const container = cellNode.length > 0 ? cellNode : this.container;
     let changed = false;
-    let children = this.container.children();
+    let children = container.children();
     for (const child of children) {
       if ((child.isBlock || child.isMark) && child.html() === '') {
         child.remove();
@@ -486,10 +488,10 @@ export class Editor {
         debug(`Content fixed: empty tag "${child.name}" was removed`);
       }
     }
-    children = this.container.children();
+    children = container.children();
     if (children.length === 0) {
-      this.container.html('<p><br /></p>');
-      range.shrinkBefore(this.container);
+      container.html('<p><br /></p>');
+      range.shrinkBefore(container);
       changed = true;
       debug('Content fixed: default paragraph was added');
     } else if (children.length === 1) {

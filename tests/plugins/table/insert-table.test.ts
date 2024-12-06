@@ -12,16 +12,16 @@ describe('plugins / table / insert-table', () => {
     <p>foo</p>
     <table>
       <tr>
-        <td><focus /><br /></td>
-        <td><br /></td>
+        <td><p><focus /><br /></p></td>
+        <td><p><br /></p></td>
       </tr>
       <tr>
-        <td><br /></td>
-        <td><br /></td>
+        <td><p><br /></p></td>
+        <td><p><br /></p></td>
       </tr>
       <tr>
-        <td><br /></td>
-        <td><br /></td>
+        <td><p><br /></p></td>
+        <td><p><br /></p></td>
       </tr>
     </table>
     <p>bar</p>
