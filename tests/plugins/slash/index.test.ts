@@ -101,6 +101,14 @@ describe('plugins / slash / index', () => {
     expect(editor.popup).to.equal(null);
   });
 
+  it('should not show a popup box when the cursor is within a table', () => {
+    editor.setValue('<table><tr><td><p>/<focus /></p></td></tr></table>');
+    editor.container.emit('keyup', new KeyboardEvent('keyup', {
+      key: '/',
+    }));
+    expect(editor.popup).to.equal(null);
+  });
+
   it('should not show a popup menu when there is no slash', () => {
     editor.setValue('<p>code<focus /></p>');
     editor.container.emit('keyup', new KeyboardEvent('keyup', {

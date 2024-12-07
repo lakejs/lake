@@ -92,10 +92,11 @@ export default (editor: Editor) => {
       return;
     }
     const block = range.getBlocks()[0];
-    if (!block) {
-      return;
-    }
-    if (block.find('lake-box').length > 0) {
+    if (
+      !block ||
+      block.find('lake-box').length > 0 ||
+      block.closest('table').length > 0
+    ) {
       return;
     }
     const keyword = getKeyword(block);
