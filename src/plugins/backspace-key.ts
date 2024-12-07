@@ -28,14 +28,7 @@ function mergeWithPreviousBlock(editor: Editor, block: Nodes): void {
     }
     return;
   }
-  if (prevBlock.isBox) {
-    if (block.isEmpty) {
-      block.remove();
-    }
-    range.selectBoxEnd(prevBlock);
-    return;
-  }
-  if (prevBlock.name === 'table') {
+  if (prevBlock.isBox || prevBlock.name === 'table') {
     if (block.isEmpty) {
       block.remove();
     }
