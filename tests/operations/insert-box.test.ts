@@ -135,6 +135,22 @@ describe('operations / insert-box', () => {
     );
   });
 
+  it('should insert an inline box when there is no block', () => {
+    const content = `
+    <table><tr><td><p><br /></p></td></tr></table><focus /><p>foo</p>
+    `;
+    const output = `
+    <table><tr><td><p><br /></p></td></tr></table><p><lake-box type="inline" name="inlineBox" focus="end"></lake-box></p><p>foo</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        insertBox(range, 'inlineBox');
+      },
+    );
+  });
+
   it('should insert a block box when the cursor is at the beginning of a paragraph', () => {
     const content = `
     <p><focus />foo</p>
