@@ -1,4 +1,4 @@
-import type { Editor } from '..';
+import type { Editor } from 'lakelib/editor';
 
 export default (editor: Editor) => {
   if (editor.readonly) {

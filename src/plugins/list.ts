@@ -1,5 +1,5 @@
-import type { Editor } from '..';
-import { query } from '../utils/query';
+import type { Editor } from 'lakelib/editor';
+import { query } from 'lakelib/utils/query';
 
 function setParagraph(editor: Editor): void {
   editor.selection.setBlocks('<p />');

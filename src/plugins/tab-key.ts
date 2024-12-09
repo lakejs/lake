@@ -1,5 +1,5 @@
-import type { Editor } from '..';
-import { indentBlock } from '../utils/indent-block';
+import type { Editor } from 'lakelib/editor';
+import { indentBlock } from 'lakelib/utils/indent-block';
 
 export default (editor: Editor) => {
   if (editor.readonly) {

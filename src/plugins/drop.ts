@@ -1,8 +1,8 @@
-import type { Editor } from '..';
-import { query } from '../utils/query';
-import { getBox } from '../utils/get-box';
-import { template } from '../utils/template';
-import { Nodes } from '../models/nodes';
+import type { Editor } from 'lakelib/editor';
+import { query } from 'lakelib/utils/query';
+import { getBox } from 'lakelib/utils/get-box';
+import { template } from 'lakelib/utils/template';
+import { Nodes } from 'lakelib/models/nodes';
 
 export default (editor: Editor) => {
   if (editor.readonly) {

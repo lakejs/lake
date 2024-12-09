@@ -1,5 +1,5 @@
-import type { Editor } from '..';
-import { Nodes } from '../models/nodes';
+import type { Editor } from 'lakelib/editor';
+import { Nodes } from 'lakelib/models/nodes';
 
 const formatPainterClassName = 'lake-format-painter';
 
