@@ -304,7 +304,7 @@ type RootTranslation = {
 		 */
 		table: string
 		/**
-		 * C​r​e​a​t​e​ ​a​ ​t​a​b​l​e
+		 * I​n​s​e​r​t​ ​a​ ​t​a​b​l​e
 		 */
 		tableDesc: string
 		/**
@@ -385,6 +385,80 @@ type RootTranslation = {
 		 * R​e​m​o​v​e​ ​l​i​n​k
 		 */
 		unlink: string
+	}
+	table: {
+		/**
+		 * F​i​t​ ​t​a​b​l​e​ ​t​o​ ​p​a​g​e​ ​w​i​d​t​h
+		 */
+		fitTable: string
+		/**
+		 * C​o​l​u​m​n
+		 */
+		column: string
+		/**
+		 * I​n​s​e​r​t​ ​c​o​l​u​m​n​ ​l​e​f​t
+		 */
+		insertColumnLeft: string
+		/**
+		 * I​n​s​e​r​t​ ​c​o​l​u​m​n​ ​r​i​g​h​t
+		 */
+		insertColumnRight: string
+		/**
+		 * D​e​l​e​t​e​ ​c​o​l​u​m​n
+		 */
+		deleteColumn: string
+		/**
+		 * R​o​w
+		 */
+		row: string
+		/**
+		 * I​n​s​e​r​t​ ​r​o​w​ ​a​b​o​v​e
+		 */
+		insertRowAbove: string
+		/**
+		 * I​n​s​e​r​t​ ​r​o​w​ ​b​e​l​o​w
+		 */
+		insertRowBelow: string
+		/**
+		 * D​e​l​e​t​e​ ​r​o​w
+		 */
+		deleteRow: string
+		/**
+		 * M​e​r​g​e​ ​c​e​l​l​s
+		 */
+		merge: string
+		/**
+		 * M​e​r​g​e​ ​c​e​l​l​ ​u​p
+		 */
+		mergeUp: string
+		/**
+		 * M​e​r​g​e​ ​c​e​l​l​ ​r​i​g​h​t
+		 */
+		mergeRight: string
+		/**
+		 * M​e​r​g​e​ ​c​e​l​l​ ​d​o​w​n
+		 */
+		mergeDown: string
+		/**
+		 * M​e​r​g​e​ ​c​e​l​l​ ​l​e​f​t
+		 */
+		mergeLeft: string
+		/**
+		 * S​p​l​i​t​ ​c​e​l​l
+		 */
+		split: string
+		/**
+		 * S​p​l​i​t​ ​c​e​l​l​ ​v​e​r​t​i​c​a​l​l​y
+		 */
+		splitVertically: string
+		/**
+		 * S​p​l​i​t​ ​c​e​l​l​ ​h​o​r​i​z​o​n​t​a​l​l​y
+		 */
+		splitHorizontally: string
+		/**
+		 * R​e​m​o​v​e​ ​t​a​b​l​e
+		 */
+		remove: string
 	}
 	image: {
 		/**
@@ -808,7 +882,7 @@ export type TranslationFunctions = {
 		 */
 		table: () => LocalizedString
 		/**
-		 * Create a table
+		 * Insert a table
 		 */
 		tableDesc: () => LocalizedString
 		/**
@@ -889,6 +963,80 @@ export type TranslationFunctions = {
 		 * Remove link
 		 */
 		unlink: () => LocalizedString
+	}
+	table: {
+		/**
+		 * Fit table to page width
+		 */
+		fitTable: () => LocalizedString
+		/**
+		 * Column
+		 */
+		column: () => LocalizedString
+		/**
+		 * Insert column left
+		 */
+		insertColumnLeft: () => LocalizedString
+		/**
+		 * Insert column right
+		 */
+		insertColumnRight: () => LocalizedString
+		/**
+		 * Delete column
+		 */
+		deleteColumn: () => LocalizedString
+		/**
+		 * Row
+		 */
+		row: () => LocalizedString
+		/**
+		 * Insert row above
+		 */
+		insertRowAbove: () => LocalizedString
+		/**
+		 * Insert row below
+		 */
+		insertRowBelow: () => LocalizedString
+		/**
+		 * Delete row
+		 */
+		deleteRow: () => LocalizedString
+		/**
+		 * Merge cells
+		 */
+		merge: () => LocalizedString
+		/**
+		 * Merge cell up
+		 */
+		mergeUp: () => LocalizedString
+		/**
+		 * Merge cell right
+		 */
+		mergeRight: () => LocalizedString
+		/**
+		 * Merge cell down
+		 */
+		mergeDown: () => LocalizedString
+		/**
+		 * Merge cell left
+		 */
+		mergeLeft: () => LocalizedString
+		/**
+		 * Split cell
+		 */
+		split: () => LocalizedString
+		/**
+		 * Split cell vertically
+		 */
+		splitVertically: () => LocalizedString
+		/**
+		 * Split cell horizontally
+		 */
+		splitHorizontally: () => LocalizedString
+		/**
+		 * Remove table
+		 */
+		remove: () => LocalizedString
 	}
 	image: {
 		/**

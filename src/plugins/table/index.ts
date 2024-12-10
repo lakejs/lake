@@ -17,60 +17,60 @@ import { splitCell, SplitDirection } from './split-cell';
 const columnMenuItems: DropdownMenuItem[] = [
   {
     value: 'insertLeft',
-    text: 'Insert column left',
+    text: locale => locale.table.insertColumnLeft(),
   },
   {
     value: 'insertRight',
-    text: 'Insert column right',
+    text: locale => locale.table.insertColumnRight(),
   },
   {
     value: 'delete',
-    text: 'Delete column',
+    text: locale => locale.table.deleteColumn(),
   },
 ];
 
 const rowMenuItems: DropdownMenuItem[] = [
   {
     value: 'insertAbove',
-    text: 'Insert row above',
+    text: locale => locale.table.insertRowAbove(),
   },
   {
     value: 'insertBelow',
-    text: 'Insert row below',
+    text: locale => locale.table.insertRowBelow(),
   },
   {
     value: 'delete',
-    text: 'Delete row',
+    text: locale => locale.table.deleteRow(),
   },
 ];
 
 const mergeMenuItems: DropdownMenuItem[] = [
   {
     value: 'up',
-    text: 'Merge cell up',
+    text: locale => locale.table.mergeUp(),
   },
   {
     value: 'right',
-    text: 'Merge cell right',
+    text: locale => locale.table.mergeRight(),
   },
   {
     value: 'down',
-    text: 'Merge cell down',
+    text: locale => locale.table.mergeDown(),
   },
   {
     value: 'left',
-    text: 'Merge cell left',
+    text: locale => locale.table.mergeLeft(),
   },
 ];
 
 const splitMenuItems: DropdownMenuItem[] = [
   {
     value: 'vertical',
-    text: 'Split cell vertically',
+    text: locale => locale.table.splitVertically(),
   },
   {
     value: 'horizontal',
-    text: 'Split cell horizontally',
+    text: locale => locale.table.splitHorizontally(),
   },
 ];
 
@@ -80,7 +80,7 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       name: 'expand',
       type: 'button',
       icon: icons.get('expand'),
-      tooltip: 'Fit table to page width',
+      tooltip: locale => locale.table.fitTable(),
       isSelected: () => {
         const width = tableNode.css('width');
         const pageWidth = `${editor.container.innerWidth() - 2}px`;
@@ -102,7 +102,7 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       type: 'dropdown',
       downIcon: icons.get('down'),
       icon: icons.get('tableColumn'),
-      tooltip: 'Column',
+      tooltip: locale => locale.table.column(),
       menuType: 'list',
       menuItems: columnMenuItems,
       menuCheck: false,
@@ -123,7 +123,7 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       type: 'dropdown',
       downIcon: icons.get('down'),
       icon: icons.get('tableRow'),
-      tooltip: 'Row',
+      tooltip: locale => locale.table.row(),
       menuType: 'list',
       menuItems: rowMenuItems,
       menuCheck: false,
@@ -144,7 +144,7 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       type: 'dropdown',
       downIcon: icons.get('down'),
       icon: icons.get('tableMerge'),
-      tooltip: 'Merge cells',
+      tooltip: locale => locale.table.merge(),
       menuType: 'list',
       menuItems: mergeMenuItems,
       menuCheck: false,
@@ -159,7 +159,7 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       type: 'dropdown',
       downIcon: icons.get('down'),
       icon: icons.get('tableSplit'),
-      tooltip: 'Split cell',
+      tooltip: locale => locale.table.split(),
       menuType: 'list',
       menuItems: splitMenuItems,
       menuCheck: false,
@@ -173,7 +173,7 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       name: 'remove',
       type: 'button',
       icon: icons.get('remove'),
-      tooltip: 'Remove table',
+      tooltip: locale => locale.table.remove(),
       onClick: () => {
         deleteTable(editor.selection.range);
         editor.history.save();
