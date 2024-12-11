@@ -115,8 +115,8 @@ export default {
     mergeDown: '아래쪽으로 셀을 병합',
     mergeLeft: '왼쪽으로 셀을 병합',
     split: '셀을 분할',
-    splitVertically: '세로로 셀을 분할',
-    splitHorizontally: '가로로 셀을 분할',
+    splitLeftRight: '셀을 좌우로 분할',
+    splitTopBottom: '셀을 상하로 분할',
     remove: '표를 삭제',
   },
   image: {

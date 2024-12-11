@@ -3,7 +3,7 @@ import { testOperation } from '../../utils';
 
 describe('plugins / table / split-cell', () => {
 
-  it('should split a cell horizontally (1)', () => {
+  it('should split a cell top and bottom (1)', () => {
     const content = `
     <table>
       <tr>
@@ -61,12 +61,12 @@ describe('plugins / table / split-cell', () => {
       content,
       output,
       range => {
-        splitCell(range, 'horizontal');
+        splitCell(range, 'topBottom');
       },
     );
   });
 
-  it('should split a cell horizontally (2)', () => {
+  it('should split a cell top and bottom (2)', () => {
     const content = `
     <table>
       <tr>
@@ -130,12 +130,12 @@ describe('plugins / table / split-cell', () => {
       content,
       output,
       range => {
-        splitCell(range, 'horizontal');
+        splitCell(range, 'topBottom');
       },
     );
   });
 
-  it('should split a cell horizontally (3)', () => {
+  it('should split a cell top and bottom (3)', () => {
     const content = `
     <table>
       <tr>
@@ -199,12 +199,12 @@ describe('plugins / table / split-cell', () => {
       content,
       output,
       range => {
-        splitCell(range, 'horizontal');
+        splitCell(range, 'topBottom');
       },
     );
   });
 
-  it('should split a cell horizontally (4)', () => {
+  it('should split a cell top and bottom (4)', () => {
     const content = `
     <table>
       <tr>
@@ -258,12 +258,12 @@ describe('plugins / table / split-cell', () => {
       content,
       output,
       range => {
-        splitCell(range, 'horizontal');
+        splitCell(range, 'topBottom');
       },
     );
   });
 
-  it('should split a cell horizontally (5)', () => {
+  it('should split a cell top and bottom (5)', () => {
     const content = `
     <table>
       <tr>
@@ -317,12 +317,12 @@ describe('plugins / table / split-cell', () => {
       content,
       output,
       range => {
-        splitCell(range, 'horizontal');
+        splitCell(range, 'topBottom');
       },
     );
   });
 
-  it('should split a cell horizontally (6)', () => {
+  it('should split a cell top and bottom (6)', () => {
     const content = `
     <table>
       <tr>
@@ -380,12 +380,12 @@ describe('plugins / table / split-cell', () => {
       content,
       output,
       range => {
-        splitCell(range, 'horizontal');
+        splitCell(range, 'topBottom');
       },
     );
   });
 
-  it('should split a cell horizontally (7)', () => {
+  it('should split a cell top and bottom (7)', () => {
     const content = `
     <table>
       <tr>
@@ -445,12 +445,12 @@ describe('plugins / table / split-cell', () => {
       content,
       output,
       range => {
-        splitCell(range, 'horizontal');
+        splitCell(range, 'topBottom');
       },
     );
   });
 
-  it('should split a cell vertically (1)', () => {
+  it('should split a cell left and right (1)', () => {
     const content = `
     <table>
       <tr>
@@ -506,12 +506,12 @@ describe('plugins / table / split-cell', () => {
       content,
       output,
       range => {
-        splitCell(range, 'vertical');
+        splitCell(range, 'leftRight');
       },
     );
   });
 
-  it('should split a cell vertically (2)', () => {
+  it('should split a cell left and right (2)', () => {
     const content = `
     <table>
       <tr>
@@ -569,12 +569,12 @@ describe('plugins / table / split-cell', () => {
       content,
       output,
       range => {
-        splitCell(range, 'vertical');
+        splitCell(range, 'leftRight');
       },
     );
   });
 
-  it('should split a cell vertically (3)', () => {
+  it('should split a cell left and right (3)', () => {
     const content = `
     <table>
       <tr>
@@ -634,12 +634,12 @@ describe('plugins / table / split-cell', () => {
       content,
       output,
       range => {
-        splitCell(range, 'vertical');
+        splitCell(range, 'leftRight');
       },
     );
   });
 
-  it('should split a cell vertically (4)', () => {
+  it('should split a cell left and right (4)', () => {
     const content = `
     <table>
       <tr>
@@ -691,12 +691,12 @@ describe('plugins / table / split-cell', () => {
       content,
       output,
       range => {
-        splitCell(range, 'vertical');
+        splitCell(range, 'leftRight');
       },
     );
   });
 
-  it('should split a cell vertically (5)', () => {
+  it('should split a cell left and right (5)', () => {
     const content = `
     <table>
       <tr>
@@ -754,7 +754,7 @@ describe('plugins / table / split-cell', () => {
       content,
       output,
       range => {
-        splitCell(range, 'vertical');
+        splitCell(range, 'leftRight');
       },
     );
   });

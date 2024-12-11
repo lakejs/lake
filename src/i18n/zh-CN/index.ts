@@ -115,8 +115,8 @@ export default {
     mergeDown: '向下合并单元格',
     mergeLeft: '向左合并单元格',
     split: '拆分单元格',
-    splitVertically: '垂直拆分单元格',
-    splitHorizontally: '横向拆分单元格',
+    splitLeftRight: '左右拆分单元格',
+    splitTopBottom: '上下拆分单元格',
     remove: '删除表格',
   },
   image: {

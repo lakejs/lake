@@ -2,7 +2,7 @@ import { debug } from 'lakelib/utils/debug';
 import { Range } from 'lakelib/models/range';
 import { getTableMap, getColumnIndex, getCellIndex } from './utils';
 
-export type SplitDirection = 'vertical' | 'horizontal';
+export type SplitDirection = 'leftRight' | 'topBottom';
 
 // Splits a cell that contains the start of the specified range from a table.
 export function splitCell(range: Range, direction: SplitDirection): void {
@@ -18,8 +18,8 @@ export function splitCell(range: Range, direction: SplitDirection): void {
   let tableMap = getTableMap(table);
   const currentColumnIndex = getColumnIndex(tableMap, currentRowIndex, currentCell);
   debug(`splitCell: row ${currentRowIndex}, cell ${currentColumnIndex}, ${direction}`);
-  // split cell horizontally
-  if (direction === 'horizontal') {
+  // split cell top and bottom
+  if (direction === 'topBottom') {
     const currentRowCells = tableMap[currentRowIndex];
     for (let i = 0; i < currentRowCells.length; i++) {
       const cell = currentRowCells[i];
@@ -55,7 +55,7 @@ export function splitCell(range: Range, direction: SplitDirection): void {
     }
     return;
   }
-  // split cell vertically
+  // split cell left and right
   for (let i = 0; i < tableMap.length; i++) {
     const row = table.rows[i];
     const cells = tableMap[i];

@@ -448,13 +448,13 @@ type RootTranslation = {
 		 */
 		split: string
 		/**
-		 * S​p​l​i​t​ ​c​e​l​l​ ​v​e​r​t​i​c​a​l​l​y
+		 * S​p​l​i​t​ ​c​e​l​l​ ​l​e​f​t​ ​a​n​d​ ​r​i​g​h​t
 		 */
-		splitVertically: string
+		splitLeftRight: string
 		/**
-		 * S​p​l​i​t​ ​c​e​l​l​ ​h​o​r​i​z​o​n​t​a​l​l​y
+		 * S​p​l​i​t​ ​c​e​l​l​ ​t​o​p​ ​a​n​d​ ​b​o​t​t​o​m
 		 */
-		splitHorizontally: string
+		splitTopBottom: string
 		/**
 		 * R​e​m​o​v​e​ ​t​a​b​l​e
 		 */
@@ -1026,13 +1026,13 @@ export type TranslationFunctions = {
 		 */
 		split: () => LocalizedString
 		/**
-		 * Split cell vertically
+		 * Split cell left and right
 		 */
-		splitVertically: () => LocalizedString
+		splitLeftRight: () => LocalizedString
 		/**
-		 * Split cell horizontally
+		 * Split cell top and bottom
 		 */
-		splitHorizontally: () => LocalizedString
+		splitTopBottom: () => LocalizedString
 		/**
 		 * Remove table
 		 */

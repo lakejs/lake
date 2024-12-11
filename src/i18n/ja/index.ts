@@ -115,8 +115,8 @@ export default {
     mergeDown: '下方向にセルを結合',
     mergeLeft: '左方向にセルを結合',
     split: 'セルを分割',
-    splitVertically: 'セルを縦に分割',
-    splitHorizontally: 'セルを横に分割',
+    splitLeftRight: 'セルを左右に分割',
+    splitTopBottom: 'セルを上下に分割',
     remove: 'テーブルを削除',
   },
   image: {

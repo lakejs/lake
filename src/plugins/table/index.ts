@@ -65,12 +65,12 @@ const mergeMenuItems: DropdownMenuItem[] = [
 
 const splitMenuItems: DropdownMenuItem[] = [
   {
-    value: 'vertical',
-    text: locale => locale.table.splitVertically(),
+    value: 'leftRight',
+    text: locale => locale.table.splitLeftRight(),
   },
   {
-    value: 'horizontal',
-    text: locale => locale.table.splitHorizontally(),
+    value: 'topBottom',
+    text: locale => locale.table.splitTopBottom(),
   },
 ];
 

@@ -115,8 +115,8 @@ export default {
     mergeDown: 'Merge cell down',
     mergeLeft: 'Merge cell left',
     split: 'Split cell',
-    splitVertically: 'Split cell vertically',
-    splitHorizontally: 'Split cell horizontally',
+    splitLeftRight: 'Split cell left and right',
+    splitTopBottom: 'Split cell top and bottom',
     remove: 'Remove table',
   },
   image: {
