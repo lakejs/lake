@@ -12,7 +12,7 @@ Lake is a browser-based rich text editor designed for creating content like blog
 
 ## Development
 
-For local development, download the source code and run a local server with an HTTP service and real-time bundling.
+If you want to modify the source code, clone it and run a local server that includes an HTTP service and real-time bundling.
 
 ``` bash
 # Clone the repository
@@ -23,9 +23,9 @@ pnpm install
 pnpm dev
 ```
 
-You can now view the demonstration by visiting `http://localhost:8080/examples/`.
+You can now visit `http://localhost:8080/examples/` to try the demos in your local environment.
 
-## Running tests
+## Test
 
 Lake depends on a lot of browser APIs, so running its test cases needs a real browser environment. You can run the tests visibly by visiting `http://localhost:8080/tests/`, or execute the `pnpm test` command to run them in headless mode.
 
