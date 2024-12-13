@@ -12,7 +12,7 @@ Lake is a browser-based rich text editor designed for creating content like blog
 
 ## Development
 
-If you want to modify the source code, clone it and run a local server that includes an HTTP service and real-time bundling.
+If you want to customize Lake, download the source code and run a local server that includes an HTTP service and real-time bundling.
 
 ``` bash
 # Clone the repository
