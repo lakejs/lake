@@ -110,7 +110,6 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       menuItems: colorMenuItems,
       menuWidth: '296px',
       onSelect: (_, value) => {
-        editor.command.execute('highlight', value);
         const range = editor.selection.range;
         const cellNode = range.startNode.closest('td');
         cellNode.css('background-color', value);

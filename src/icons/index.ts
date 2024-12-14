@@ -5,6 +5,8 @@
 // - subscript.svg
 // - highlight.svg
 // - highlight-accent.svg
+// - background-color.svg
+// - background-color-accent.svg
 // - open.svg
 // - table-merge.svg
 // - table-split.svg
