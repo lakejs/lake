@@ -2,6 +2,7 @@ import './table.css';
 import { ToolbarItem } from 'lakelib/types/toolbar';
 import { DropdownMenuItem } from 'lakelib/types/dropdown';
 import { icons } from 'lakelib/icons';
+import { colorMenuItems } from 'lakelib/config/menu-items';
 import { Nodes } from 'lakelib/models/nodes';
 import { FloatingToolbar } from 'lakelib/ui/floating-toolbar';
 import { Editor } from 'lakelib/editor';
@@ -94,6 +95,25 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
         } else {
           tableNode.css('width', pageWidth);
         }
+        editor.history.save();
+      },
+    },
+    {
+      name: 'backgroundColor',
+      type: 'dropdown',
+      downIcon: icons.get('down'),
+      icon: icons.get('backgroundColor'),
+      accentIcon: icons.get('backgroundColorAccent'),
+      defaultValue: '',
+      tooltip: 'Background',
+      menuType: 'color',
+      menuItems: colorMenuItems,
+      menuWidth: '296px',
+      onSelect: (_, value) => {
+        editor.command.execute('highlight', value);
+        const range = editor.selection.range;
+        const cellNode = range.startNode.closest('td');
+        cellNode.css('background-color', value);
         editor.history.save();
       },
     },

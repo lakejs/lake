@@ -71,6 +71,8 @@ import fontColor from './font-color.svg';
 import fontColorAccent from './font-color-accent.svg';
 import highlight from './highlight.svg';
 import highlightAccent from './highlight-accent.svg';
+import backgroundColor from './background-color.svg';
+import backgroundColorAccent from './background-color-accent.svg';
 import link from './link.svg';
 import hr from './hr.svg';
 import codeBlock from './code-block.svg';
@@ -153,6 +155,8 @@ export const icons: Map<string, string> = new Map([
   ['fontColorAccent', fontColorAccent],
   ['highlight', highlight],
   ['highlightAccent', highlightAccent],
+  ['backgroundColor', backgroundColor],
+  ['backgroundColorAccent', backgroundColorAccent],
   ['link', link],
   ['hr', hr],
   ['codeBlock', codeBlock],
