@@ -46,7 +46,7 @@ describe('plugins / table / split-cell', () => {
         <td rowspan="2">e2</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
       </tr>
       <tr>
         <td>a3</td>
@@ -112,7 +112,7 @@ describe('plugins / table / split-cell', () => {
         <td rowspan="3">e2</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
       </tr>
       <tr>
         <td>c3</td>
@@ -184,7 +184,7 @@ describe('plugins / table / split-cell', () => {
         <td><focus />c3</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
       </tr>
       <tr>
         <td>a4</td>
@@ -243,7 +243,7 @@ describe('plugins / table / split-cell', () => {
         <td rowspan="2">e2</td>
       </tr>
       <tr>
-        <td colspan="2"><br /></td>
+        <td colspan="2"><p><br /></p></td>
       </tr>
       <tr>
         <td>a3</td>
@@ -297,7 +297,7 @@ describe('plugins / table / split-cell', () => {
         <td rowspan="2">e1</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
       </tr>
       <tr>
         <td colspan="2">a2</td>
@@ -362,7 +362,7 @@ describe('plugins / table / split-cell', () => {
         <td>d2</td>
       </tr>
       <tr>
-        <td colspan="3" rowspan="2"><br /></td>
+        <td colspan="3" rowspan="2"><p><br /></p></td>
         <td>d3</td>
       </tr>
       <tr>
@@ -427,7 +427,7 @@ describe('plugins / table / split-cell', () => {
         <td>d2</td>
       </tr>
       <tr>
-        <td colspan="2" rowspan="2"><br /></td>
+        <td colspan="2" rowspan="2"><p><br /></p></td>
         <td>d3</td>
       </tr>
       <tr>
@@ -489,7 +489,7 @@ describe('plugins / table / split-cell', () => {
         <td>a2</td>
         <td>b2</td>
         <td><focus />c2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>d2</td>
         <td>e2</td>
       </tr>
@@ -551,7 +551,7 @@ describe('plugins / table / split-cell', () => {
         <td>a2</td>
         <td>b2</td>
         <td><focus />c2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>d2</td>
         <td>e2</td>
         <td>f2</td>
@@ -624,7 +624,7 @@ describe('plugins / table / split-cell', () => {
         <td>a3</td>
         <td>b3</td>
         <td><focus />c3</td>
-        <td colspan="2"><br /></td>
+        <td colspan="2"><p><br /></p></td>
         <td>f3</td>
         <td>g3</td>
       </tr>
@@ -674,7 +674,7 @@ describe('plugins / table / split-cell', () => {
       </tr>
       <tr>
         <td><focus />a2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>d2</td>
         <td>e2</td>
       </tr>
@@ -733,7 +733,7 @@ describe('plugins / table / split-cell', () => {
       </tr>
       <tr>
         <td rowspan="3"><focus />a2</td>
-        <td rowspan="3" colspan="2"><br /></td>
+        <td rowspan="3" colspan="2"><p><br /></p></td>
         <td>d2</td>
       </tr>
       <tr>

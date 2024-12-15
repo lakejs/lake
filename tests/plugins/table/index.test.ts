@@ -306,4 +306,330 @@ describe('plugins / table / index', () => {
     );
   });
 
+  it('should insert a row below', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><focus />a2</p></td>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><focus />a2</p></td>
+        <td><p>b2</p></td>
+      </tr>
+      <tr>
+        <td><p><br /></p></td>
+        <td><p><br /></p></td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.event.emit('statechange');
+        const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="tableRow"]').closest('.lake-dropdown');
+        click(dropdownNode.find('.lake-dropdown-title'));
+        click(dropdownNode.find('li[value="insertBelow"]'));
+      },
+    );
+  });
+
+  it('should delete a row', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><focus />a2</p></td>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><p><focus />a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.event.emit('statechange');
+        const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="tableRow"]').closest('.lake-dropdown');
+        click(dropdownNode.find('.lake-dropdown-title'));
+        click(dropdownNode.find('li[value="delete"]'));
+      },
+    );
+  });
+
+  it('should merge cell up', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><focus />a2</p></td>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td rowspan="2"><p><focus />a1a2</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.event.emit('statechange');
+        const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="tableMerge"]').closest('.lake-dropdown');
+        click(dropdownNode.find('.lake-dropdown-title'));
+        click(dropdownNode.find('li[value="up"]'));
+      },
+    );
+  });
+
+  it('should merge cell right', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><focus />a2</p></td>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td colspan="2"><p><focus />a2b2</p></td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.event.emit('statechange');
+        const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="tableMerge"]').closest('.lake-dropdown');
+        click(dropdownNode.find('.lake-dropdown-title'));
+        click(dropdownNode.find('li[value="right"]'));
+      },
+    );
+  });
+
+  it('should merge cell down', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><p><focus />a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p>a2</p></td>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td rowspan="2"><p><focus />a1a2</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.event.emit('statechange');
+        const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="tableMerge"]').closest('.lake-dropdown');
+        click(dropdownNode.find('.lake-dropdown-title'));
+        click(dropdownNode.find('li[value="down"]'));
+      },
+    );
+  });
+
+  it('should merge cell left', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p>a2</p></td>
+        <td><p><focus />b2</p></td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td colspan="2"><p><focus />a2b2</p></td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.event.emit('statechange');
+        const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="tableMerge"]').closest('.lake-dropdown');
+        click(dropdownNode.find('.lake-dropdown-title'));
+        click(dropdownNode.find('li[value="left"]'));
+      },
+    );
+  });
+
+  it('should split cell left and right', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><focus />a2</p></td>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td colspan="2"><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><focus />a2</p></td>
+        <td><p><br /></p></td>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.event.emit('statechange');
+        const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="tableSplit"]').closest('.lake-dropdown');
+        click(dropdownNode.find('.lake-dropdown-title'));
+        click(dropdownNode.find('li[value="leftRight"]'));
+      },
+    );
+  });
+
+  it('should split cell top and bottom', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><focus />a2</p></td>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><focus />a2</p></td>
+        <td rowspan="2"><p>b2</p></td>
+      </tr>
+      <tr>
+        <td><p><br /></p></td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.event.emit('statechange');
+        const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="tableSplit"]').closest('.lake-dropdown');
+        click(dropdownNode.find('.lake-dropdown-title'));
+        click(dropdownNode.find('li[value="topBottom"]'));
+      },
+    );
+  });
+
+  it('should remove a table', () => {
+    const content = `
+    <p>foo</p>
+    <table>
+      <tr>
+        <td><p><focus /><br /></p></td>
+        <td><p><br /></p></td>
+      </tr>
+      <tr>
+        <td><p><br /></p></td>
+        <td><p><br /></p></td>
+      </tr>
+    </table>
+    <p>bar</p>
+    `;
+    const output = `
+    <p>foo</p>
+    <p><focus /><br /></p>
+    <p>bar</p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.event.emit('statechange');
+        click(query(document.body).find('.lake-floating-toolbar button[name="remove"]'));
+      },
+    );
+  });
+
 });

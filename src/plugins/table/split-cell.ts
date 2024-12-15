@@ -28,7 +28,7 @@ export function splitCell(range: Range, direction: SplitDirection): void {
         const targetRow = originalRowSpan > 1 ? table.rows[currentRowIndex + 1] : table.insertRow(currentRowIndex + 1);
         const cellIndex = getCellIndex(tableMap, currentRowIndex + 1, currentColumnIndex);
         const newCell = targetRow.insertCell(cellIndex);
-        newCell.innerHTML = '<br />';
+        newCell.innerHTML = '<p><br /></p>';
         // copy colSpan and rowSpan from current cell
         if (currentCell.colSpan > 1) {
           newCell.colSpan = currentCell.colSpan;
@@ -65,7 +65,7 @@ export function splitCell(range: Range, direction: SplitDirection): void {
       if (!aboveCellList || cell !== aboveCellList[currentColumnIndex]) {
         const cellIndex = getCellIndex(tableMap, i, currentColumnIndex);
         const newCell = row.insertCell(cellIndex + 1);
-        newCell.innerHTML = '<br />';
+        newCell.innerHTML = '<p><br /></p>';
         if (cell.rowSpan > 1) {
           newCell.rowSpan = cell.rowSpan;
         }
