@@ -157,4 +157,132 @@ describe('plugins / table / index', () => {
     );
   });
 
+  it('should insert a column to the left', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><focus />a2</p></td>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><p><br /></p></td>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><br /></p></td>
+        <td><p><focus />a2</p></td>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.event.emit('statechange');
+        editor.container.css({
+          border: '0',
+          padding: '0',
+          width: '602px',
+        });
+        const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="tableColumn"]').closest('.lake-dropdown');
+        click(dropdownNode.find('.lake-dropdown-title'));
+        click(dropdownNode.find('li[value="insertLeft"]'));
+      },
+    );
+  });
+
+  it('should insert a column to the right', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><focus />a2</p></td>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p><br /></p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><focus />a2</p></td>
+        <td><p><br /></p></td>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.event.emit('statechange');
+        editor.container.css({
+          border: '0',
+          padding: '0',
+          width: '602px',
+        });
+        const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="tableColumn"]').closest('.lake-dropdown');
+        click(dropdownNode.find('.lake-dropdown-title'));
+        click(dropdownNode.find('li[value="insertRight"]'));
+      },
+    );
+  });
+
+  it('should delete a column', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><focus />a2</p></td>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><focus />b2</p></td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.event.emit('statechange');
+        editor.container.css({
+          border: '0',
+          padding: '0',
+          width: '602px',
+        });
+        const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="tableColumn"]').closest('.lake-dropdown');
+        click(dropdownNode.find('.lake-dropdown-title'));
+        click(dropdownNode.find('li[value="delete"]'));
+      },
+    );
+  });
+
 });

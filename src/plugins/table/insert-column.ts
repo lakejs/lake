@@ -36,7 +36,7 @@ export function insertColumn(range: Range, direction: InsertColumnDirection): vo
       }
     } else {
       const newCell = row.insertCell(cellIndex);
-      newCell.innerHTML = '<br />';
+      newCell.innerHTML = '<p><br /></p>';
     }
   }
 }

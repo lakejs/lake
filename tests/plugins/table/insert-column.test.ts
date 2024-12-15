@@ -23,17 +23,17 @@ describe('plugins / table / insert-column', () => {
     const output = `
     <table>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td><focus />a1</td>
         <td>b1</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>a2</td>
         <td>b2</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>a3</td>
         <td>b3</td>
       </tr>
@@ -69,17 +69,17 @@ describe('plugins / table / insert-column', () => {
     <table>
       <tr>
         <td><focus />a1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>b1</td>
       </tr>
       <tr>
         <td>a2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>b2</td>
       </tr>
       <tr>
         <td>a3</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>b3</td>
       </tr>
     </table>
@@ -116,17 +116,17 @@ describe('plugins / table / insert-column', () => {
       <tr>
         <td>a1</td>
         <td>b1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c1</td>
       </tr>
       <tr>
         <td colspan="2">a2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td><focus />c2</td>
       </tr>
       <tr>
         <td colspan="2">a3</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c3</td>
       </tr>
     </table>
@@ -163,17 +163,17 @@ describe('plugins / table / insert-column', () => {
       <tr>
         <td>a1</td>
         <td>b1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td><focus />c1</td>
       </tr>
       <tr>
         <td colspan="2">a2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c2</td>
       </tr>
       <tr>
         <td colspan="2">a3</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c3</td>
       </tr>
     </table>
@@ -212,19 +212,19 @@ describe('plugins / table / insert-column', () => {
       <tr>
         <td>a1</td>
         <td>b1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td colspan="2"><focus />c1</td>
       </tr>
       <tr>
         <td>a2</td>
         <td>b2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td colspan="2">c2</td>
       </tr>
       <tr>
         <td>a3</td>
         <td>b3</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td colspan="2">c3</td>
       </tr>
     </table>
@@ -261,17 +261,17 @@ describe('plugins / table / insert-column', () => {
       <tr>
         <td>a1</td>
         <td>b1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c1</td>
       </tr>
       <tr>
         <td colspan="2"><focus />a2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c2</td>
       </tr>
       <tr>
         <td colspan="2">a3</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c3</td>
       </tr>
     </table>
@@ -309,17 +309,17 @@ describe('plugins / table / insert-column', () => {
         <td>a1</td>
         <td>b1</td>
         <td>c1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
       </tr>
       <tr>
         <td colspan="2">a2</td>
         <td><focus />c2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
       </tr>
       <tr>
         <td colspan="2">a3</td>
         <td>c3</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
       </tr>
     </table>
     `;
@@ -355,19 +355,19 @@ describe('plugins / table / insert-column', () => {
     <table>
       <tr>
         <td>a1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>b1</td>
         <td>c1</td>
       </tr>
       <tr>
         <td>a2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td rowspan="2"><focus />b2</td>
         <td>c2</td>
       </tr>
       <tr>
         <td>a3</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c3</td>
       </tr>
     </table>
@@ -405,18 +405,18 @@ describe('plugins / table / insert-column', () => {
       <tr>
         <td>a1</td>
         <td>b1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c1</td>
       </tr>
       <tr>
         <td>a2</td>
         <td rowspan="2">b2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c2</td>
       </tr>
       <tr>
         <td>a3</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td><focus />c3</td>
       </tr>
     </table>
@@ -454,18 +454,18 @@ describe('plugins / table / insert-column', () => {
       <tr>
         <td>a1</td>
         <td>b1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c1</td>
       </tr>
       <tr>
         <td>a2</td>
         <td rowspan="2"><focus />b2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c2</td>
       </tr>
       <tr>
         <td>a3</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c3</td>
       </tr>
     </table>
@@ -503,18 +503,18 @@ describe('plugins / table / insert-column', () => {
       <tr>
         <td>a1</td>
         <td><focus />b1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c1</td>
       </tr>
       <tr>
         <td>a2</td>
         <td rowspan="2">b2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c2</td>
       </tr>
       <tr>
         <td>a3</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c3</td>
       </tr>
     </table>
@@ -558,26 +558,26 @@ describe('plugins / table / insert-column', () => {
       <tr>
         <td>a1</td>
         <td>b1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c1</td>
       </tr>
       <tr>
         <td colspan="2" rowspan="3">a2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c2</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c3</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td><focus />c4</td>
       </tr>
       <tr>
         <td>a5</td>
         <td>b5</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c5</td>
       </tr>
     </table>
@@ -620,7 +620,7 @@ describe('plugins / table / insert-column', () => {
     <table>
       <tr>
         <td>a1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td><focus />b1</td>
         <td>c1</td>
       </tr>
@@ -636,7 +636,7 @@ describe('plugins / table / insert-column', () => {
       </tr>
       <tr>
         <td>a5</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>b5</td>
         <td>c5</td>
       </tr>
@@ -679,26 +679,26 @@ describe('plugins / table / insert-column', () => {
     const output = `
     <table>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td><focus />a1</td>
         <td>b1</td>
         <td>c1</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td colspan="2" rowspan="3">a2</td>
         <td>c2</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c3</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c4</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>a5</td>
         <td>b5</td>
         <td>c5</td>
@@ -742,26 +742,26 @@ describe('plugins / table / insert-column', () => {
     const output = `
     <table>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>a1</td>
         <td>b1</td>
         <td>c1</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td colspan="2" rowspan="3"><focus />a2</td>
         <td>c2</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c3</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c4</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>a5</td>
         <td>b5</td>
         <td>c5</td>
@@ -808,7 +808,7 @@ describe('plugins / table / insert-column', () => {
     <table>
       <tr>
         <td>a1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td><focus />b1</td>
         <td>c1</td>
         <td>d1</td>
@@ -825,7 +825,7 @@ describe('plugins / table / insert-column', () => {
       </tr>
       <tr>
         <td>a5</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>b5</td>
         <td>c5</td>
         <td>d5</td>
@@ -866,20 +866,20 @@ describe('plugins / table / insert-column', () => {
       <tr>
         <td>a1</td>
         <td>b1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c1</td>
       </tr>
       <tr>
         <td colspan="2" rowspan="3"><focus />a2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c2</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c3</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c4</td>
       </tr>
     </table>
@@ -922,7 +922,7 @@ describe('plugins / table / insert-column', () => {
     <table>
       <tr>
         <td><focus />a1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>b1</td>
         <td>c1</td>
       </tr>
@@ -938,7 +938,7 @@ describe('plugins / table / insert-column', () => {
       </tr>
       <tr>
         <td>a5</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>b5</td>
         <td>c5</td>
       </tr>
@@ -983,26 +983,26 @@ describe('plugins / table / insert-column', () => {
       <tr>
         <td>a1</td>
         <td><focus />b1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c1</td>
       </tr>
       <tr>
         <td colspan="2" rowspan="3">a2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c2</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c3</td>
       </tr>
       <tr>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c4</td>
       </tr>
       <tr>
         <td>a5</td>
         <td>b5</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c5</td>
       </tr>
     </table>
@@ -1046,13 +1046,13 @@ describe('plugins / table / insert-column', () => {
         <td>a1</td>
         <td>b1</td>
         <td rowspan="2"><focus />c1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>d1</td>
         <td>e1</td>
       </tr>
       <tr>
         <td colspan="2">a2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>d2</td>
         <td>e2</td>
       </tr>
@@ -1060,7 +1060,7 @@ describe('plugins / table / insert-column', () => {
         <td>a3</td>
         <td>b3</td>
         <td>c3</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>d3</td>
         <td>e3</td>
       </tr>
@@ -1101,20 +1101,20 @@ describe('plugins / table / insert-column', () => {
         <td>a1</td>
         <td>b1</td>
         <td>c1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
       </tr>
       <tr>
         <td>a2</td>
         <td colspan="2" rowspan="3"><focus />b2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
       </tr>
       <tr>
         <td>a3</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
       </tr>
       <tr>
         <td>a4</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
       </tr>
     </table>
     `;
@@ -1156,21 +1156,21 @@ describe('plugins / table / insert-column', () => {
       <tr>
         <td>a1</td>
         <td>b1</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td rowspan="2">c1</td>
         <td>d1</td>
         <td>e1</td>
       </tr>
       <tr>
         <td colspan="2"><focus />a2</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>d2</td>
         <td>e2</td>
       </tr>
       <tr>
         <td>a3</td>
         <td>b3</td>
-        <td><br /></td>
+        <td><p><br /></p></td>
         <td>c3</td>
         <td>d3</td>
         <td>e3</td>
