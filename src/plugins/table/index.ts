@@ -3,6 +3,7 @@ import { ToolbarItem } from 'lakelib/types/toolbar';
 import { DropdownMenuItem } from 'lakelib/types/dropdown';
 import { icons } from 'lakelib/icons';
 import { colorMenuItems } from 'lakelib/config/menu-items';
+import { toHex } from 'lakelib/utils/to-hex';
 import { Nodes } from 'lakelib/models/nodes';
 import { FloatingToolbar } from 'lakelib/ui/floating-toolbar';
 import { Editor } from 'lakelib/editor';
@@ -109,6 +110,15 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       menuType: 'color',
       menuItems: colorMenuItems,
       menuWidth: '296px',
+      selectedValues: () => {
+        const range = editor.selection.range;
+        const cellNode = range.startNode.closest('td');
+        if (cellNode.length > 0) {
+          const currentValue = cellNode.computedCSS('background-color');
+          return [toHex(currentValue)];
+        }
+        return [];
+      },
       onSelect: (_, value) => {
         const range = editor.selection.range;
         const cellNode = range.startNode.closest('td');
