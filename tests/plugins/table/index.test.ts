@@ -145,11 +145,6 @@ describe('plugins / table / index', () => {
       output,
       editor => {
         editor.event.emit('statechange');
-        editor.container.css({
-          border: '0',
-          padding: '0',
-          width: '602px',
-        });
         const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="backgroundColor"]').closest('.lake-dropdown');
         click(dropdownNode.find('.lake-dropdown-down-icon'));
         click(dropdownNode.find('li[value="#fafafa"]'));
@@ -189,11 +184,6 @@ describe('plugins / table / index', () => {
       output,
       editor => {
         editor.event.emit('statechange');
-        editor.container.css({
-          border: '0',
-          padding: '0',
-          width: '602px',
-        });
         const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="tableColumn"]').closest('.lake-dropdown');
         click(dropdownNode.find('.lake-dropdown-title'));
         click(dropdownNode.find('li[value="insertLeft"]'));
@@ -233,11 +223,6 @@ describe('plugins / table / index', () => {
       output,
       editor => {
         editor.event.emit('statechange');
-        editor.container.css({
-          border: '0',
-          padding: '0',
-          width: '602px',
-        });
         const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="tableColumn"]').closest('.lake-dropdown');
         click(dropdownNode.find('.lake-dropdown-title'));
         click(dropdownNode.find('li[value="insertRight"]'));
@@ -273,14 +258,50 @@ describe('plugins / table / index', () => {
       output,
       editor => {
         editor.event.emit('statechange');
-        editor.container.css({
-          border: '0',
-          padding: '0',
-          width: '602px',
-        });
         const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="tableColumn"]').closest('.lake-dropdown');
         click(dropdownNode.find('.lake-dropdown-title'));
         click(dropdownNode.find('li[value="delete"]'));
+      },
+    );
+  });
+
+  it('should insert a row above', () => {
+    const content = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><focus />a2</p></td>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    const output = `
+    <table>
+      <tr>
+        <td><p>a1</p></td>
+        <td><p>b1</p></td>
+      </tr>
+      <tr>
+        <td><p><br /></p></td>
+        <td><p><br /></p></td>
+      </tr>
+      <tr>
+        <td><p><focus />a2</p></td>
+        <td><p>b2</p></td>
+      </tr>
+    </table>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.event.emit('statechange');
+        const dropdownNode = query(document.body).find('.lake-floating-toolbar button[name="tableRow"]').closest('.lake-dropdown');
+        click(dropdownNode.find('.lake-dropdown-title'));
+        click(dropdownNode.find('li[value="insertAbove"]'));
       },
     );
   });

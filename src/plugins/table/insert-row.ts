@@ -26,7 +26,7 @@ export function insertRow(range: Range, direction: InsertRowDirection): void {
   if (!targetRow) {
     for (let i = 0; i < columnCount; i++) {
       const newCell = newRow.insertCell(newRow.cells.length);
-      newCell.innerHTML = '<br />';
+      newCell.innerHTML = '<p><br /></p>';
     }
     return;
   }
@@ -42,7 +42,7 @@ export function insertRow(range: Range, direction: InsertRowDirection): void {
         break;
       }
       const newCell = newRow.insertCell(newRow.cells.length);
-      newCell.innerHTML = '<br />';
+      newCell.innerHTML = '<p><br /></p>';
       if (cell.colSpan > 1) {
         newCell.colSpan = cell.colSpan;
         i += cell.colSpan - 1;
