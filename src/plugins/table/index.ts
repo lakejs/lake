@@ -1,4 +1,5 @@
 import './table.css';
+import { KeyValue } from 'lakelib/types/object';
 import { ToolbarItem } from 'lakelib/types/toolbar';
 import { DropdownMenuItem } from 'lakelib/types/dropdown';
 import { icons } from 'lakelib/icons';
@@ -76,7 +77,7 @@ const splitMenuItems: DropdownMenuItem[] = [
   },
 ];
 
-function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[] {
+function getFloatingToolbarItems(editor: Editor, values: KeyValue): ToolbarItem[] {
   const items: ToolbarItem[] = [
     {
       name: 'expand',
@@ -84,11 +85,21 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       icon: icons.get('expand'),
       tooltip: locale => locale.table.fitTable(),
       isSelected: () => {
+        const range = editor.selection.range;
+        const tableNode = range.startNode.closest('table');
+        if (tableNode.length === 0) {
+          return false;
+        }
         const width = tableNode.css('width');
         const pageWidth = `${editor.container.innerWidth() - 2}px`;
         return width === pageWidth;
       },
       onClick: () => {
+        const range = editor.selection.range;
+        const tableNode = range.startNode.closest('table');
+        if (tableNode.length === 0) {
+          return;
+        }
         const width = tableNode.css('width');
         const pageWidth = `${editor.container.innerWidth() - 2}px`;
         if (width === pageWidth) {
@@ -105,7 +116,7 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       downIcon: icons.get('down'),
       icon: icons.get('backgroundColor'),
       accentIcon: icons.get('backgroundColorAccent'),
-      defaultValue: '',
+      defaultValue: values.backgroundColor,
       tooltip: locale => locale.table.cellBackground(),
       menuType: 'color',
       menuItems: colorMenuItems,
@@ -123,6 +134,7 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
         const range = editor.selection.range;
         const cellNode = range.startNode.closest('td');
         cellNode.css('background-color', value);
+        values.backgroundColor = value;
         editor.history.save();
       },
     },
@@ -216,6 +228,9 @@ export default (editor: Editor) => {
   if (editor.readonly) {
     return;
   }
+  const floatingToolbarValues: KeyValue = {
+    backgroundColor: '',
+  };
   let toolbar: FloatingToolbar | null = null;
   let savedTableNode: Nodes | null = null;
   editor.event.on('statechange', () => {
@@ -239,7 +254,7 @@ export default (editor: Editor) => {
     if (tableNode.length > 0) {
       tableNode.addClass('lake-table-focused');
       cellNode.addClass('lake-td-focused');
-      const items = getFloatingToolbarItems(editor, tableNode);
+      const items = getFloatingToolbarItems(editor, floatingToolbarValues);
       toolbar = new FloatingToolbar({
         target: tableNode,
         items,
