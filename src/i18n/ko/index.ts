@@ -101,6 +101,7 @@ export default {
   },
   table: {
     fitTable: '페이지 너비에 맞게 조정',
+    cellBackground: '셀 배경 색상',
     column: '열',
     insertColumnLeft: '왼쪽에 열을 삽입',
     insertColumnRight: '오른쪽에 열을 삽입',

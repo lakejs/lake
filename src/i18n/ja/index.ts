@@ -101,6 +101,7 @@ export default {
   },
   table: {
     fitTable: 'ページ幅に合わせる',
+    cellBackground: 'セルの背景色',
     column: '列',
     insertColumnLeft: '左に列を挿入',
     insertColumnRight: '右に列を挿入',

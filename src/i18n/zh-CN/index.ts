@@ -101,6 +101,7 @@ export default {
   },
   table: {
     fitTable: '自适应宽度',
+    cellBackground: '单元格背景颜色',
     column: '列',
     insertColumnLeft: '左侧插入列',
     insertColumnRight: '右侧插入列',

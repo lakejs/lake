@@ -101,6 +101,7 @@ export default {
   },
   table: {
     fitTable: 'Fit table to page width',
+    cellBackground: 'Cell background color',
     column: 'Column',
     insertColumnLeft: 'Insert column left',
     insertColumnRight: 'Insert column right',

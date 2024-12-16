@@ -392,6 +392,10 @@ type RootTranslation = {
 		 */
 		fitTable: string
 		/**
+		 * C​e​l​l​ ​b​a​c​k​g​r​o​u​n​d​ ​c​o​l​o​r
+		 */
+		cellBackground: string
+		/**
 		 * C​o​l​u​m​n
 		 */
 		column: string
@@ -969,6 +973,10 @@ export type TranslationFunctions = {
 		 * Fit table to page width
 		 */
 		fitTable: () => LocalizedString
+		/**
+		 * Cell background color
+		 */
+		cellBackground: () => LocalizedString
 		/**
 		 * Column
 		 */

@@ -106,7 +106,7 @@ function getFloatingToolbarItems(editor: Editor, tableNode: Nodes): ToolbarItem[
       icon: icons.get('backgroundColor'),
       accentIcon: icons.get('backgroundColorAccent'),
       defaultValue: '',
-      tooltip: 'Background',
+      tooltip: locale => locale.table.cellBackground(),
       menuType: 'color',
       menuItems: colorMenuItems,
       menuWidth: '296px',
