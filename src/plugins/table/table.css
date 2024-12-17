@@ -1,9 +1,12 @@
 .lake-container table {
+  display: table;
   border-collapse: collapse;
   border: 0;
   margin: 20px 0;
+  overflow: visible;
 }
 .lake-container table td {
+  font-size: var(--lake-font-size);
   padding: 8px 16px;
   min-width: 33px;
   border: 1px solid var(--lake-border-color);
