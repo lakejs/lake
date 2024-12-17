@@ -1,3 +1,36 @@
+# [0.3.0](https://github.com/lakejs/lake/compare/0.2.6...0.3.0) (2024-12-17)
+
+
+### Bug Fixes
+
+* **dropdown:** should remove menu node ([4a8302c](https://github.com/lakejs/lake/commit/4a8302c11b75f5e28deb00fb074c45099be0385c))
+* **floating-toolbar:** should adjust position ([cd837a4](https://github.com/lakejs/lake/commit/cd837a42266d61dccd5c4d48d226267059706350))
+* **insert-box:** should create new block when there is no block ([cea7af6](https://github.com/lakejs/lake/commit/cea7af65e629e175a14915d2ed3e3846fae48ec8))
+* **popup:** does not update position in document mode ([2f09148](https://github.com/lakejs/lake/commit/2f091488dfef3ca3373284b78f867cfb05f82d9d))
+* **set-blocks:** should create a block when there is no content ([5091a9d](https://github.com/lakejs/lake/commit/5091a9dd7d9a7b86d2e604411f1b3e41584aa42d))
+* **split-block:** should remove empty marks before appending a line break ([48dd538](https://github.com/lakejs/lake/commit/48dd538befcfb88a1a228789f1f8880b743e2015))
+
+### Features
+
+* **dropdown:** add menuCheck to config ([6f39929](https://github.com/lakejs/lake/commit/6f399295fff6696bd160594dec901834765741ac))
+* **insert-fragment:** support string and Nodes ([041510e](https://github.com/lakejs/lake/commit/041510e9abd4de788d18de1640dbf809b60f760c))
+* **is-visible:** return more detailed information ([083c7c5](https://github.com/lakejs/lake/commit/083c7c570e77a7cdbe65c0ccdcf4d987c1de8f62))
+* **operations:** add insertBlock ([73e64e0](https://github.com/lakejs/lake/commit/73e64e0af3e04b30a904f033cbb48bdafb37d457))
+* **selection:** remove insertNode ([fee70ef](https://github.com/lakejs/lake/commit/fee70efe132081ca33a60613e2e68dd857f14f2c))
+* **slash:** add table to menu ([0f5edf0](https://github.com/lakejs/lake/commit/0f5edf0943e9613e959dcca925f7ac0ebf4aa21c))
+* **plugins:** add table
+
+### Performance Improvements
+
+* **selection:** improve getAppliedItems method ([0445b88](https://github.com/lakejs/lake/commit/0445b88e4eb8e65ecd33f9607689cf782081286c))
+
+
+### BREAKING CHANGES
+
+* Functions in Utils are now exposed directly. Lake now only exposes three functions: query, template, and toHex.
+
+
+
 ## [0.2.6](https://github.com/lakejs/lake/compare/0.2.5...0.2.6) (2024-11-03)
 
 
