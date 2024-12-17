@@ -70,6 +70,28 @@ window.defaultValue = `
 <ul type="checklist"><li value="false">third item</li></ul>
 <p><br /></p>
 
+<h3>Table</h3>
+<lake-box type="block" name="hr"></lake-box>
+<table>
+  <tr>
+    <td style="background-color: #fafafa;"><p style="text-align: center;"><strong>Tag name</strong></p></td>
+    <td style="background-color: #fafafa;"><p style="text-align: center;"><strong>Description</strong></p></td>
+  </tr>
+  <tr>
+    <td><code>&lt;table&gt;</code></td>
+    <td>The tag represents tabular data.</td>
+  </tr>
+  <tr>
+    <td><code>&lt;tr&gt;</code></td>
+    <td>The tag represents a row of cells in a table.</td>
+  </tr>
+  <tr>
+    <td><code>&lt;td&gt;</code></td>
+    <td>The tag represents a cell of a table that contains data.</td>
+  </tr>
+</table>
+<p><br /></p>
+
 <h3>Text indentation</h3>
 <lake-box type="block" name="hr"></lake-box>
 <p>This is the first paragraph of text.</p>
@@ -172,23 +194,5 @@ window.defaultValue = `
 <h3>Mention</h3>
 <lake-box type="block" name="hr"></lake-box>
 <p>At the beginning of a paragraph, type <code>@</code> to display a popup menu containing specified users. You can search for users by typing <code>@keyword</code>.</p>
-<p><br /></p>
-
-<h3>Table</h3>
-<lake-box type="block" name="hr"></lake-box>
-<table>
-  <tr>
-    <td style="width: 120px; border: 1px solid rgb(160 160 160); text-align: center;"><strong>Tag name</strong></td>
-    <td style="border: 1px solid rgb(160 160 160); text-align: center;"><strong>Description</strong></td>
-  </tr>
-  <tr>
-    <th style="border: 1px solid rgb(160 160 160);"><code>&lt;tr&gt;</code></th>
-    <td style="border: 1px solid rgb(160 160 160);">The tag represents a row of cells in a table.</td>
-  </tr>
-  <tr>
-    <th style="border: 1px solid rgb(160 160 160);"><code>&lt;td&gt;</code></th>
-    <td style="border: 1px solid rgb(160 160 160);">The tag represents a cell of a table that contains data.</td>
-  </tr>
-</table>
 <p><br /></p>
 `;
