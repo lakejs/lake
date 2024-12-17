@@ -5,6 +5,11 @@
   margin: 20px 0;
   overflow: visible;
 }
+.lake-container table tr,
+.lake-container table tr:nth-child(n) {
+  border: 0;
+  background-color: transparent;
+}
 .lake-container table td {
   font-size: var(--lake-font-size);
   padding: 8px 16px;
