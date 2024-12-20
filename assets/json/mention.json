@@ -2,74 +2,74 @@
   "data": [
     {
       "id": "1",
-      "name": "luolonghao",
-      "nickname": "Roddy",
+      "name": "han",
+      "nickname": "Han Kang",
       "avatar": "<img src=\"../assets/images/universal-studios-240.jpg\" />"
     },
     {
       "id": "2",
-      "name": "ianstormtaylor",
-      "nickname": "Ian Storm Taylor",
+      "name": "nihon",
+      "nickname": "Nihon Hidankyo",
       "avatar": "<img src=\"../assets/images/heaven-lake-256.png\" />"
     },
     {
       "id": "3",
-      "name": "jayli",
-      "nickname": "lijing00333",
+      "name": "geoffrey",
+      "nickname": "Geoffrey Hinton",
       "avatar": "<img src=\"../assets/images/lac-gentau-256.jpg\" />"
     },
     {
       "id": "4",
-      "name": "xudafeng",
-      "nickname": "达峰的夏天",
+      "name": "johnhopfield",
+      "nickname": "John Hopfield",
       "avatar": "<img src=\"../assets/images/universal-studios-240.jpg\" />"
     },
     {
       "id": "5",
-      "name": "stonelee",
-      "nickname": "李旭东",
+      "name": "demis",
+      "nickname": "Demis Hassabis",
       "avatar": "<img src=\"../assets/images/universal-studios-240.jpg\" />"
     },
     {
       "id": "6",
-      "name": "pingan1927",
-      "nickname": "pingan1927",
+      "name": "david",
+      "nickname": "David Baker",
       "avatar": "<img src=\"../assets/images/heaven-lake-256.png\" />"
     },
     {
       "id": "7",
-      "name": "sorrycc",
-      "nickname": "chencheng (云谦)",
+      "name": "johnjumper",
+      "nickname": "John Jumper",
       "avatar": "<img src=\"../assets/images/lac-gentau-256.jpg\" />"
     },
     {
       "id": "8",
-      "name": "tianzhou",
-      "nickname": "Tianzhou (天舟)",
+      "name": "james",
+      "nickname": "James A. Robinson",
       "avatar": "<img src=\"../assets/images/universal-studios-240.jpg\" />"
     },
     {
       "id": "9",
-      "name": "yyx990803",
-      "nickname": "Evan You",
+      "name": "simon",
+      "nickname": "Simon Johnson",
       "avatar": "<img src=\"../assets/images/universal-studios-240.jpg\" />"
     },
     {
       "id": "10",
-      "name": "dead-horse",
-      "nickname": "Yiyu He",
+      "name": "daron",
+      "nickname": "Daron Acemoglu",
       "avatar": "<img src=\"../assets/images/heaven-lake-256.png\" />"
     },
     {
       "id": "11",
-      "name": "marijnh",
-      "nickname": "Marijn Haverbeke",
+      "name": "victor",
+      "nickname": "Victor Ambros",
       "avatar": "<img src=\"../assets/images/lac-gentau-256.jpg\" />"
     },
     {
       "id": "12",
-      "name": "ottomao",
-      "nickname": "Otto Mao",
+      "name": "gary",
+      "nickname": "Gary Ruvkun",
       "avatar": "<img src=\"../assets/images/universal-studios-240.jpg\" />"
     }
   ]
