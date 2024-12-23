@@ -465,7 +465,7 @@ export class Editor {
     return i18nObject(this.config.lang as Locales);
   }
 
-  // Returns a boolean value indicating whether the editor is focused.
+  // Returns a boolean value indicating whether the editor has focus.
   public hasFocus(): boolean {
     const activeElement = document.activeElement;
     if (!activeElement) {
@@ -474,7 +474,7 @@ export class Editor {
     return query(activeElement).closest('.lake-container').get(0) === this.container.get(0);
   }
 
-  // Fixes wrong content, especially empty tag.
+  // Fixes incorrect content, such as adding paragraph for text, removing empty tag etc.
   public fixContent(): boolean {
     const range = this.selection.range;
     const cellNode = range.commonAncestor.closest('td');
