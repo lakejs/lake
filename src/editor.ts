@@ -105,33 +105,33 @@ export class Editor {
 
   public static plugin = new Plugin();
 
-  public root: Nodes;
+  public readonly root: Nodes;
 
-  public toolbar: Toolbar | undefined;
+  public readonly toolbar: Toolbar | undefined;
 
-  public config: Config;
+  public readonly config: Config;
 
-  public containerWrapper: Nodes;
+  public readonly containerWrapper: Nodes;
 
-  public container: Nodes;
+  public readonly container: Nodes;
 
-  public overlayContainer: Nodes;
+  public readonly overlayContainer: Nodes;
+
+  public readonly event: EventEmitter = new EventEmitter();
+
+  public readonly selection: Selection;
+
+  public readonly command: Command;
+
+  public readonly history: History;
+
+  public readonly keystroke: Keystroke;
+
+  public readonly box: BoxManager = Editor.box;
+
+  public readonly readonly: boolean;
 
   public isComposing: boolean = false;
-
-  public readonly: boolean;
-
-  public event: EventEmitter = new EventEmitter();
-
-  public selection: Selection;
-
-  public command: Command;
-
-  public history: History;
-
-  public keystroke: Keystroke;
-
-  public box: BoxManager = Editor.box;
 
   public popup: any = null;
 
@@ -460,18 +460,18 @@ export class Editor {
     });
   }
 
+  // Returns translation functions for the specified language.
+  public get locale(): TranslationFunctions {
+    return i18nObject(this.config.lang as Locales);
+  }
+
   // Returns a boolean value indicating whether the editor is focused.
-  public get hasFocus(): boolean {
+  public hasFocus(): boolean {
     const activeElement = document.activeElement;
     if (!activeElement) {
       return false;
     }
     return query(activeElement).closest('.lake-container').get(0) === this.container.get(0);
-  }
-
-  // Returns translation functions for the specified language.
-  public get locale(): TranslationFunctions {
-    return i18nObject(this.config.lang as Locales);
   }
 
   // Fixes wrong content, especially empty tag.

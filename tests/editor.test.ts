@@ -408,9 +408,9 @@ describe('editor', () => {
     });
     editor.render();
     editor.focus();
-    expect(editor.hasFocus).to.equal(true);
+    expect(editor.hasFocus()).to.equal(true);
     editor.blur();
-    expect(editor.hasFocus).to.equal(false);
+    expect(editor.hasFocus()).to.equal(false);
     editor.unmount();
   });
 

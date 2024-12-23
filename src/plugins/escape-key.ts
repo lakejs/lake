@@ -14,7 +14,7 @@ export default (editor: Editor) => {
       selection.sync();
       return;
     }
-    if (editor.hasFocus) {
+    if (editor.hasFocus()) {
       event.preventDefault();
       editor.blur();
     }
