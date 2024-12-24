@@ -6,7 +6,7 @@
 
 ---
 
-Lake is a browser-based rich text editor designed for creating content like blogs, comments, and emails. It strikes a balance between being feature-rich and lightweight, offering an easy-to-use programming interface for further extension.
+Lake is a browser-based rich text editor designed for creating content such as blogs, comments, and emails. It tries to keep a balance between being feature-rich and lightweight, offering an easy-to-use programming interface for further extension.
 
 [Examples](https://lakejs.org/examples/) · [Getting started](https://lakejs.org/guide/getting-started) · [Reference](https://lakejs.org/reference/)
 
@@ -27,7 +27,7 @@ You can now visit `http://localhost:8080/examples/` to try the demos in your loc
 
 ## Test
 
-Lake depends on a lot of browser APIs, so running its test cases needs a real browser environment. You can run the tests visibly by visiting `http://localhost:8080/tests/`, or execute the `pnpm test` command to run them in headless mode.
+Lake depends on many browser APIs, so running its test cases needs a real browser environment. You can run the tests visibly by visiting `http://localhost:8080/tests/`, or execute the `pnpm test` command to run them in headless mode.
 
 ## License
 
