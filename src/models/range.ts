@@ -461,8 +461,8 @@ export class Range {
 
   // Relocates the start and end points of the range for <br /> element.
   // In composition mode (e.g., when a user starts entering a Chinese character using a Pinyin IME),
-  // uncompleted text is inserted if the caret is positioned behind a <br> tag.
-  // To fix this bug, the caret needs to be moved to the front of the <br> tag.
+  // uncompleted text is inserted if the cursor is positioned behind a <br> tag.
+  // To fix this bug, the cursor needs to be moved to the front of the <br> tag.
   public adjustBr(): void {
     if (!this.isCollapsed) {
       return;

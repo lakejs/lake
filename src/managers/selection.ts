@@ -84,7 +84,7 @@ function appendNextNestedNodes(activeItems: ActiveItem[], range: Range): void {
 }
 
 export class Selection {
-  // Represents the range of text selected by the user or the current position of the caret.
+  // Represents the range of text selected by the user or the current position of the cursor.
   private selection: NativeSelection;
 
   // Is the root element which has contenteditable="true" attribute.

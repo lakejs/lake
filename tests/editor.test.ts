@@ -322,7 +322,7 @@ describe('editor', () => {
     expect(currentValue).to.equal(output);
   });
 
-  it('fixContent method: should fix caret', () => {
+  it('fixContent method: should fix cursor', () => {
     const input = '<p><br /><focus /></p>';
     const output = '<p><focus /><br /></p>';
     const editor = new Editor({
@@ -459,8 +459,8 @@ describe('editor', () => {
     editor.selection.range.collapseToStart();
     editor.scrollToCaret();
     expect(nativeRootNode.scrollTop).to.equal(0);
-    // should remove fake caret
-    expect(editor.overlayContainer.find('.lake-artificial-caret').length).to.equal(0);
+    // should remove fake cursor
+    expect(editor.overlayContainer.find('.lake-artificial-cursor').length).to.equal(0);
     editor.unmount();
   });
 

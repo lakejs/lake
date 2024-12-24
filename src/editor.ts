@@ -550,19 +550,19 @@ export class Editor {
     this.container.blur();
   }
 
-  // Scrolls to the caret or the range of the selection.
+  // Scrolls to the cursor or the range of the selection.
   public scrollToCaret(): void {
     const range = this.selection.range;
     if (range.isBox) {
       return;
     }
-    // Creates an artificial caret that is the same size as the caret at the current caret position.
+    // Creates an artificial cursor that is the same size as the cursor at the current cursor position.
     const rangeRect = range.getRect();
     if (rangeRect.x === 0 || rangeRect.y === 0) {
       return;
     }
     const containerRect = (this.container.get(0) as Element).getBoundingClientRect();
-    const artificialCaret = query('<div class="lake-artificial-caret" />');
+    const artificialCaret = query('<div class="lake-artificial-cursor" />');
     const left = rangeRect.x - containerRect.x;
     const top = rangeRect.y - containerRect.y;
     artificialCaret.css({
@@ -574,7 +574,7 @@ export class Editor {
       // background: 'red',
       'z-index': '-1',
     });
-    this.overlayContainer.find('.lake-artificial-caret').remove();
+    this.overlayContainer.find('.lake-artificial-cursor').remove();
     this.overlayContainer.append(artificialCaret);
     scrollToNode(artificialCaret, {
       behavior: 'instant',
