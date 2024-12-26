@@ -86,10 +86,13 @@ const defaultConfig: Config = {
 };
 
 export class Editor {
+  // A string that has not yet been saved to the history.
   private unsavedInputData: string = '';
 
+  // The number of input event calls before saving to the history.
   private unsavedInputCount: number = 0;
 
+  // The state of the current selection.
   private state: SelectionState = {
     activeItems: [],
     disabledNameMap: new Map(),
@@ -97,42 +100,61 @@ export class Editor {
     selectedValuesMap: new Map(),
   };
 
+  // The functions for unmounting plugins.
   private unmountPluginMap: Map<string, UnmountPlugin> = new Map();
 
-  public static version: string = version;
+  // The parent element of the container.
+  private readonly containerWrapper: Nodes;
 
-  public static box = new BoxManager();
+  // the current version of Lake.
+  public static readonly version: string = version;
 
-  public static plugin = new Plugin();
+  // Managing the box components.
+  public static readonly box = new BoxManager();
 
+  // Managing the plugins.
+  public static readonly plugin = new Plugin();
+
+  // An element to which the editor is appended.
   public readonly root: Nodes;
 
+  // An instance of the Toolbar class.
   public readonly toolbar: Toolbar | undefined;
 
+  // The configuration for the editor.
   public readonly config: Config;
 
-  public readonly containerWrapper: Nodes;
-
+  // A contenteditable element where users can edit the content of the editor.
   public readonly container: Nodes;
 
+  // An element to which overlays are appended.
   public readonly overlayContainer: Nodes;
 
+  // Managing events.
   public readonly event: EventEmitter = new EventEmitter();
 
+  // Representing the range of text selected by the user or the current position of the cursor.
   public readonly selection: Selection;
 
+  // Managing commands.
   public readonly command: Command;
 
+  // Managing the history of the content of the editor.
   public readonly history: History;
 
+  // Managing keyboard shortcuts.
   public readonly keystroke: Keystroke;
 
+  // Managing the box components.
   public readonly box: BoxManager = Editor.box;
 
+  // Indicating whether the editor is in read-only mode.
   public readonly readonly: boolean;
 
+  // Indicating whether a user is entering a character using a text composition system such as an Input Method Editor (IME).
   public isComposing: boolean = false;
 
+  // A pop-up component which is currently displayed, such as LinkPopup, MentionMenu, and SlashMenu.
   public popup: any = null;
 
   constructor(config: EditorConfig) {
@@ -437,7 +459,7 @@ export class Editor {
       }
       this.emitStateChangeEvent();
       this.togglePlaceholderClass(value);
-      this.scrollToCaret();
+      this.scrollToCursor();
       this.event.emit('change', value);
     };
     this.history.event.on('undo', value => {
@@ -465,16 +487,19 @@ export class Editor {
     return i18nObject(this.config.lang as Locales);
   }
 
-  // Returns a boolean value indicating whether the editor has focus.
-  public hasFocus(): boolean {
-    const activeElement = document.activeElement;
-    if (!activeElement) {
-      return false;
+  // Sets the default config for the specified plugin.
+  public setPluginConfig(name: string, config: {[key: string]: any}): void {
+    if (typeof this.config[name] !== 'object') {
+      this.config[name] = {};
     }
-    return query(activeElement).closest('.lake-container').get(0) === this.container.get(0);
+    for (const key of Object.keys(config)) {
+      if (this.config[name][key] === undefined) {
+        this.config[name][key] = config[key];
+      }
+    }
   }
 
-  // Fixes incorrect content, such as adding paragraph for text, removing empty tag etc.
+  // Fixes incorrect content, such as adding paragraphs for void elements or removing empty tags.
   public fixContent(): boolean {
     const range = this.selection.range;
     const cellNode = range.commonAncestor.closest('td');
@@ -509,18 +534,6 @@ export class Editor {
     return changed;
   }
 
-  // Sets default config for a plugin.
-  public setPluginConfig(name: string, config: {[key: string]: any}): void {
-    if (typeof this.config[name] !== 'object') {
-      this.config[name] = {};
-    }
-    for (const key of Object.keys(config)) {
-      if (this.config[name][key] === undefined) {
-        this.config[name][key] = config[key];
-      }
-    }
-  }
-
   // Renders all boxes that haven't been rendered yet.
   public renderBoxes(): void {
     this.removeBoxGarbage();
@@ -536,6 +549,49 @@ export class Editor {
     });
   }
 
+  // Scrolls to the cursor.
+  public scrollToCursor(): void {
+    const range = this.selection.range;
+    if (range.isBox) {
+      return;
+    }
+    // Creates an artificial cursor that is the same size as the cursor at the current cursor position.
+    const rangeRect = range.getRect();
+    if (rangeRect.x === 0 || rangeRect.y === 0) {
+      return;
+    }
+    const containerRect = (this.container.get(0) as Element).getBoundingClientRect();
+    const artificialCursor = query('<div class="lake-artificial-cursor" />');
+    const left = rangeRect.x - containerRect.x;
+    const top = rangeRect.y - containerRect.y;
+    artificialCursor.css({
+      position: 'absolute',
+      top: `${top}px`,
+      left: `${left}px`,
+      width: `${rangeRect.width}px`,
+      height: `${rangeRect.height}px`,
+      // background: 'red',
+      'z-index': '-1',
+    });
+    this.overlayContainer.find('.lake-artificial-cursor').remove();
+    this.overlayContainer.append(artificialCursor);
+    scrollToNode(artificialCursor, {
+      behavior: 'instant',
+      block: 'nearest',
+      inline: 'nearest',
+    });
+    artificialCursor.remove();
+  }
+
+  // Checks whether the editor has focus.
+  public hasFocus(): boolean {
+    const activeElement = document.activeElement;
+    if (!activeElement) {
+      return false;
+    }
+    return query(activeElement).closest('.lake-container').get(0) === this.container.get(0);
+  }
+
   // Sets focus on the editor.
   public focus(): void {
     const range = this.selection.range;
@@ -548,40 +604,6 @@ export class Editor {
   // Removes focus from the editor.
   public blur(): void {
     this.container.blur();
-  }
-
-  // Scrolls to the cursor or the range of the selection.
-  public scrollToCaret(): void {
-    const range = this.selection.range;
-    if (range.isBox) {
-      return;
-    }
-    // Creates an artificial cursor that is the same size as the cursor at the current cursor position.
-    const rangeRect = range.getRect();
-    if (rangeRect.x === 0 || rangeRect.y === 0) {
-      return;
-    }
-    const containerRect = (this.container.get(0) as Element).getBoundingClientRect();
-    const artificialCaret = query('<div class="lake-artificial-cursor" />');
-    const left = rangeRect.x - containerRect.x;
-    const top = rangeRect.y - containerRect.y;
-    artificialCaret.css({
-      position: 'absolute',
-      top: `${top}px`,
-      left: `${left}px`,
-      width: `${rangeRect.width}px`,
-      height: `${rangeRect.height}px`,
-      // background: 'red',
-      'z-index': '-1',
-    });
-    this.overlayContainer.find('.lake-artificial-cursor').remove();
-    this.overlayContainer.append(artificialCaret);
-    scrollToNode(artificialCaret, {
-      behavior: 'instant',
-      block: 'nearest',
-      inline: 'nearest',
-    });
-    artificialCaret.remove();
   }
 
   // Sets the specified content to the editor.
@@ -604,7 +626,7 @@ export class Editor {
     return value;
   }
 
-  // Renders an editor area and sets default content to it.
+  // Renders an editing area and sets default content to it.
   public render(): void {
     const value = normalizeValue(this.config.value);
     const htmlParser = new HTMLParser(value);

@@ -414,7 +414,7 @@ describe('editor', () => {
     editor.unmount();
   });
 
-  it('method: scrollToCaret', () => {
+  it('method: scrollToCursor', () => {
     rootNode.css('width', '200px');
     rootNode.css('min-width', '200px');
     rootNode.css('height', '100px');
@@ -430,34 +430,34 @@ describe('editor', () => {
     expect(nativeRootNode.scrollTop).to.equal(0);
     // no scroll
     editor.selection.range.selectNode(editor.container.find('p').eq(1));
-    editor.scrollToCaret();
+    editor.scrollToCursor();
     expect(nativeRootNode.scrollTop).to.equal(0);
     // sroll to right
     editor.selection.range.selectNodeContents(editor.container.find('p').eq(0));
     editor.selection.range.collapseToEnd();
-    editor.scrollToCaret();
+    editor.scrollToCursor();
     // expect(nativeRootNode.scrollLeft > 140).to.equal(true);
     // sroll to left
     editor.selection.range.selectNodeContents(editor.container.find('p').eq(0));
     editor.selection.range.collapseToStart();
-    editor.scrollToCaret();
+    editor.scrollToCursor();
     // expect(nativeRootNode.scrollLeft).to.equal(0);
     // scroll to middle
     editor.selection.range.selectNode(editor.container.find('p').eq(4));
-    editor.scrollToCaret();
+    editor.scrollToCursor();
     // expect(nativeRootNode.scrollTop > 60 && nativeRootNode.scrollTop < 70).to.equal(true);
     // sroll to bottom
     editor.selection.range.selectNode(editor.container.find('p').eq(9));
-    editor.scrollToCaret();
+    editor.scrollToCursor();
     // expect(nativeRootNode.scrollTop > 210).to.equal(true);
     // scroll to middle
     editor.selection.range.selectNode(editor.container.find('p').eq(4));
-    editor.scrollToCaret();
+    editor.scrollToCursor();
     // expect(nativeRootNode.scrollTop > 120 && nativeRootNode.scrollTop < 130).to.equal(true);
     // scroll to top
     editor.selection.range.selectNode(editor.container.find('p').eq(0));
     editor.selection.range.collapseToStart();
-    editor.scrollToCaret();
+    editor.scrollToCursor();
     expect(nativeRootNode.scrollTop).to.equal(0);
     // should remove fake cursor
     expect(editor.overlayContainer.find('.lake-artificial-cursor').length).to.equal(0);
