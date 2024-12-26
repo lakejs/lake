@@ -1,3 +1,12 @@
+## [0.3.1](https://github.com/lakejs/lake/compare/0.3.0...0.3.1) (2024-12-26)
+
+
+### Features
+
+* **editor:** rename method from scrollToCaret to scrollToCursor ([6446309](https://github.com/lakejs/lake/commit/644630920fa856a5d8b52a3c0a1d7961e84e81de))
+
+
+
 # [0.3.0](https://github.com/lakejs/lake/compare/0.2.6...0.3.0) (2024-12-17)
 
 
