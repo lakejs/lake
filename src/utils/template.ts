@@ -1,6 +1,6 @@
 import { encode } from './encode';
 
-// The template function is a tag function for converting all of the reserved characters in the specified string to HTML entities.
+// A tag function for converting all of the reserved characters in the specified string to HTML entities.
 export function template(strings: TemplateStringsArray, ...keys: any[]): string {
   let content = strings[0];
   for (let i = 0; i < keys.length; i++) {

@@ -48,8 +48,6 @@ for (const item of toolbarItems) {
 // The Toolbar class represents a button group used to execute commands.
 export class Toolbar {
 
-  public root: Nodes;
-
   private items: (string | ToolbarItem)[];
 
   private placement: ToolbarPlacement = 'top';
@@ -61,6 +59,8 @@ export class Toolbar {
   private dropdownItemList: ToolbarDropdownItem[] = [];
 
   private dropdownList: Dropdown[] = [];
+
+  public root: Nodes;
 
   public container: Nodes;
 
@@ -168,7 +168,7 @@ export class Toolbar {
     });
   }
 
-  // Updates state of each item such as disabled, selected.
+  // Update the state of each item in the toolbar, such as whether it is selected, disabled.
   public updateState(state: SelectionState = {
     activeItems: [],
   }): void {

@@ -10,8 +10,7 @@ function insertNode(range: Range, node: Nodes): void {
   nativeRange.collapse(false);
 }
 
-// Either the method inserts a bookmark into the current position of the collapsed range
-// or the method inserts a pair of bookmarks into the beginning and the end of the range.
+// Inserts a bookmark at the cursor position or a pair of bookmarks at the beginning and end of the selected range.
 // case 1: foo<lake-bookmark type="focus" />bar
 // case 2: <lake-bookmark type="anchor" />foo<lake-bookmark type="focus" />
 // case 3: foo<lake-box type="inline" name="image" focus="start"></lake-box>bar
