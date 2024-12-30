@@ -22,12 +22,12 @@ const eventData: { [key: number]: EventItem[] } = {};
 
 let lastNodeId = 0;
 
-// The Nodes class represents a collection of nodes.
+// The Nodes class represents a collection of the document's nodes.
 export class Nodes {
-  // Returns native nodes that includes element, text node.
+  // A list of native nodes.
   private nodeList: Node[];
 
-  // Represents the number of nodes in nodeList.
+  // The number of nodes in the nodeList.
   public length: number;
 
   constructor(node?: Node | Node[] | null) {
@@ -43,13 +43,13 @@ export class Nodes {
     this.length = this.nodeList.length;
   }
 
-  // Returns node ID at the first index.
+  // The unique ID of the first node.
   public get id(): number {
     const node = this.get(0);
     return node.lakeId;
   }
 
-  // Returns node name at the first index.
+  // The name of the first node.
   public get name(): string {
     if (this.length === 0) {
       return '';
@@ -58,7 +58,7 @@ export class Nodes {
     return node.nodeName.toLowerCase();
   }
 
-  // Returns a boolean value indicating whether the node is an element.
+  // A boolean value indicating whether the first node is an element.
   public get isElement(): boolean {
     if (this.length === 0) {
       return false;
@@ -67,7 +67,7 @@ export class Nodes {
     return node.nodeType === Node.ELEMENT_NODE;
   }
 
-  // Returns a boolean value indicating whether the node is a text node.
+  // A boolean value indicating whether the first node is a text.
   public get isText(): boolean {
     if (this.length === 0) {
       return false;
@@ -76,7 +76,7 @@ export class Nodes {
     return node.nodeType === Node.TEXT_NODE;
   }
 
-  // Returns a boolean value indicating whether the node is a block element.
+  // A boolean value indicating whether the first node is a block.
   public get isBlock(): boolean {
     if (this.length === 0) {
       return false;
@@ -84,7 +84,7 @@ export class Nodes {
     return blockTagNames.has(this.name);
   }
 
-  // Returns a boolean value indicating whether the node is a mark element.
+  // A boolean value indicating whether the first node is a mark.
   public get isMark(): boolean {
     if (this.length === 0) {
       return false;
@@ -92,7 +92,7 @@ export class Nodes {
     return markTagNames.has(this.name);
   }
 
-  // Returns a boolean value indicating whether the node is a void element.
+  // A boolean value indicating whether the first node is a void element that cannot have any child nodes.
   public get isVoid(): boolean {
     if (this.length === 0) {
       return false;
@@ -100,7 +100,7 @@ export class Nodes {
     return voidTagNames.has(this.name);
   }
 
-  // Returns a boolean value indicating whether the node is a heading element.
+  // A boolean value indicating whether the first node is a heading.
   public get isHeading(): boolean {
     if (this.length === 0) {
       return false;
@@ -108,7 +108,7 @@ export class Nodes {
     return headingTagNames.has(this.name);
   }
 
-  // Returns a boolean value indicating whether the node is a list element.
+  // A boolean value indicating whether the first node is a list.
   public get isList(): boolean {
     if (this.length === 0) {
       return false;
@@ -116,7 +116,7 @@ export class Nodes {
     return listTagNames.has(this.name);
   }
 
-  // Returns a boolean value indicating whether the node is a table element.
+  // A boolean value indicating whether the first node is a table.
   public get isTable(): boolean {
     if (this.length === 0) {
       return false;
@@ -124,27 +124,27 @@ export class Nodes {
     return tableTagNames.has(this.name);
   }
 
-  // Returns a boolean value indicating whether the node is a bookmark element.
+  // A boolean value indicating whether the first node is a bookmark element.
   public get isBookmark(): boolean {
     return this.name === 'lake-bookmark';
   }
 
-  // Returns a boolean value indicating whether the node is a box element.
+  // A boolean value indicating whether the first node is a box element.
   public get isBox(): boolean {
     return this.name === 'lake-box';
   }
 
-  // Returns a boolean value indicating whether the node is a inline box element.
+  // A boolean value indicating whether the first node is an inline box element.
   public get isInlineBox(): boolean {
     return this.isBox && this.attr('type') === 'inline';
   }
 
-  // Returns a boolean value indicating whether the node is a block box element.
+  // A boolean value indicating whether the first node is a block box element.
   public get isBlockBox(): boolean {
     return this.isBox && this.attr('type') === 'block';
   }
 
-  // Returns a boolean value indicating whether the element is a root element of contenteditable area.
+  // A boolean value indicating whether the first node is a contenteditable element where users can edit the content.
   public get isContainer(): boolean {
     if (this.length === 0) {
       return false;
@@ -153,17 +153,17 @@ export class Nodes {
     return this.isElement && node.getAttribute('contenteditable') === 'true';
   }
 
-  // Returns a boolean value indicating whether the node is ouside the container.
+  // A boolean value indicating whether the first node does not have an ancestor element which contenteditable attribute is true.
   public get isOutside(): boolean {
     return this.closest('[contenteditable="true"]').length === 0;
   }
 
-  // Returns a boolean value indicating whether the node is inside the container.
+  // A boolean value indicating whether the first node has an ancestor element which contenteditable attribute is true.
   public get isInside(): boolean {
     return !this.isOutside && !this.isContainer;
   }
 
-  // Returns a boolean value indicating whether the node is a top element inside the container.
+  // A boolean value indicating whether the first node's parent element is an element which contenteditable attribute is true.
   public get isTopInside(): boolean {
     if (this.length === 0) {
       return false;
@@ -175,7 +175,7 @@ export class Nodes {
     return this.isInside && parentNode.isContainer;
   }
 
-  // Returns a boolean value indicating whether the node is editable.
+  // A boolean value indicating whether the first node is editable.
   public get isContentEditable(): boolean {
     if (this.length === 0) {
       return false;
@@ -194,12 +194,12 @@ export class Nodes {
     return element.isContentEditable;
   }
 
-  // Returns a boolean value indicating whether the node is indivisible.
+  // A boolean value indicating whether the first node is indivisible.
   public get isIndivisible(): boolean {
     return this.isContainer || this.isTable;
   }
 
-  // Returns a boolean value indicating whether the node is empty.
+  // A boolean value indicating whether the first node is empty.
   public get isEmpty(): boolean {
     if (this.isBox) {
       return false;
@@ -220,12 +220,12 @@ export class Nodes {
     return true;
   }
 
-  // Gets a native node at the specified index.
+  // Returns a native node at the specified index.
   public get(index: number): Node {
     return this.nodeList[index];
   }
 
-  // Gets all native nodes
+  // Returns all native nodes.
   public getAll(): Node[] {
     return this.nodeList;
   }
