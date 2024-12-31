@@ -277,12 +277,9 @@ export class Nodes {
 
   // Returns a boolean value indicating whether the first node is a descendant of a given node,
   // that is the first node itself, one of its direct children (childNodes), one of the children's direct children, and so on.
-  public contains(otherNode: Node | Nodes): boolean {
-    if (otherNode instanceof Nodes) {
-      otherNode = otherNode.get(0);
-    }
+  public contains(otherNode: Nodes): boolean {
     const element = this.get(0) as Element;
-    return element.contains(otherNode);
+    return element.contains(otherNode.get(0));
   }
 
   // Returns a boolean value indicating whether the node and a given node are siblings.

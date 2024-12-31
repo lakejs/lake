@@ -282,7 +282,6 @@ describe('models / nodes', () => {
     const container = query('<div contenteditable="true"><h1><p>foo</p>bar</h1>end</div>');
     expect(container.contains(container)).to.equal(true);
     expect(container.contains(container.find('h1'))).to.equal(true);
-    expect(container.contains(container.find('h1').get(0))).to.equal(true);
     expect(container.contains(container.find('p').first())).to.equal(true);
     expect(container.find('h1').contains(container)).to.equal(false);
     expect(container.find('p').first().contains(container.find('p'))).to.equal(false);
