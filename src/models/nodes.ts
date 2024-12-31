@@ -225,19 +225,19 @@ export class Nodes {
     return this.nodeList[index];
   }
 
-  // Returns all native nodes.
+  // Returns an array with all native nodes in the Nodes object.
   public getAll(): Node[] {
     return this.nodeList;
   }
 
-  // Reduces the nodes of a Nodes object to the one at the specified index.
+  // Returns a new Nodes object that includes only the node at the specified index.
   public eq(index: number): Nodes {
     const node = this.get(index);
     return new Nodes(node);
   }
 
-  // Iterates over a Nodes object, executing a function for each node.
-  public each(callback: (element: Node, index: number) => boolean | void): this {
+  // Executes a provided function once for each node.
+  public each(callback: (node: Node, index: number) => boolean | void): this {
     const nodes = this.getAll();
     for (let i = 0; i < nodes.length; i++) {
       if (callback(nodes[i], i) === false) {
@@ -247,7 +247,7 @@ export class Nodes {
     return this;
   }
 
-  // Iterates over a Nodes object, executing a function for each element.
+  // Executes a provided function once for each element.
   public eachElement(callback: (element: Element, index: number) => boolean | void): this {
     const nodes = this.getAll();
     for (let i = 0; i < nodes.length; i++) {
@@ -260,13 +260,13 @@ export class Nodes {
     return this;
   }
 
-  // Reverses the nodes of a Nodes object.
+  // Returns a new Nodes object with the nodes in reversed order.
   public reverse(): Nodes {
     const nodes = this.getAll().reverse();
     return new Nodes(nodes);
   }
 
-  // Tests whether the element would be selected by the specified CSS selector.
+  // Tests whether the first node would be selected by the specified CSS selector.
   public matches(selector: string): boolean {
     if (!this.isElement) {
       return false;
@@ -275,8 +275,8 @@ export class Nodes {
     return element.matches(selector);
   }
 
-  // Returns a boolean value indicating whether a node is a descendant of a given node, that is the node itself,
-  // one of its direct children (childNodes), one of the children's direct children, and so on.
+  // Returns a boolean value indicating whether the first node is a descendant of a given node,
+  // that is the first node itself, one of its direct children (childNodes), one of the children's direct children, and so on.
   public contains(otherNode: Node | Nodes): boolean {
     if (otherNode instanceof Nodes) {
       otherNode = otherNode.get(0);
@@ -285,13 +285,13 @@ export class Nodes {
     return element.contains(otherNode);
   }
 
-  // Returns a boolean value indicating whether the node and the target node are siblings.
-  public isSibling(target: Nodes): boolean {
+  // Returns a boolean value indicating whether the node and a given node are siblings.
+  public isSibling(otherNode: Nodes): boolean {
     if (this.length === 0) {
       return false;
     }
     const parent = this.get(0).parentNode as HTMLElement;
-    return parent && parent === target.parent().get(0);
+    return parent && parent === otherNode.parent().get(0);
   }
 
   // Returns the descendants of the first element which are selected by the specified CSS selector.

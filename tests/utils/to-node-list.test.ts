@@ -2,20 +2,24 @@ import { toNodeList } from '../../src/utils/to-node-list';
 
 describe('utils / to-node-list', () => {
 
-  it('is a node', () => {
+  it('a node', () => {
     const element = document.createElement('div');
     expect(toNodeList(element)[0]).to.equal(element);
   });
 
-  it('is a text string', () => {
+  it('a text string', () => {
     expect(toNodeList('<p>foo</p>', 'text')[0].nodeValue).to.equal('<p>foo</p>');
   });
 
-  it('is a HTML string', () => {
+  it('an HTML string: single tag', () => {
     expect((toNodeList('<p>foo</p>')[0] as Element).outerHTML).to.equal('<p>foo</p>');
   });
 
-  it('is a selector string: class', () => {
+  it('an HTML string: multiple tags', () => {
+    expect((toNodeList('<p>foo</p><p>bar</p>')[1] as Element).outerHTML).to.equal('<p>bar</p>');
+  });
+
+  it('a selector string: class', () => {
     const element = document.createElement('div');
     element.innerHTML = '<p class="class-p">foo</p><p class="class-p">bar</p>';
     document.body.appendChild(element);
@@ -24,7 +28,7 @@ describe('utils / to-node-list', () => {
     document.body.removeChild(element);
   });
 
-  it('is a selector string: id', () => {
+  it('a selector string: id', () => {
     const element = document.createElement('div');
     element.innerHTML = '<p id="id-p">foo</p><p class="class-p">bar</p>';
     document.body.appendChild(element);
@@ -32,7 +36,7 @@ describe('utils / to-node-list', () => {
     document.body.removeChild(element);
   });
 
-  it('is an empty string', () => {
+  it('an empty string', () => {
     expect(toNodeList('').length).to.equal(0);
   });
 
