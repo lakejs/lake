@@ -282,7 +282,7 @@ export class Nodes {
     return element.contains(otherNode.get(0));
   }
 
-  // Returns a boolean value indicating whether the node and a given node are siblings.
+  // Returns a boolean value indicating whether the first node and a given node are siblings.
   public isSibling(otherNode: Nodes): boolean {
     if (this.length === 0) {
       return false;
