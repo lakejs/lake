@@ -291,7 +291,7 @@ export class Nodes {
     return parent && parent === otherNode.parent().get(0);
   }
 
-  // Returns the descendants of the first element which are selected by the specified CSS selector.
+  // Returns the descendants of the first node that match the specified CSS selector or node path.
   public find(selector: string | NodePath): Nodes {
     if (typeof selector === 'string') {
       const element = this.get(0) as Element;
@@ -308,8 +308,7 @@ export class Nodes {
     return node;
   }
 
-  // Traverses the first node and its parents (heading toward the document root)
-  // until it finds a element that matches the specified CSS selector.
+  // Traverses the first node and its parents (heading toward the document root) until it finds an element that matches the specified CSS selector.
   public closest(selector: string): Nodes {
     if (this.isText) {
       const element = this.get(0).parentNode;
@@ -357,7 +356,7 @@ export class Nodes {
     return block;
   }
 
-  // Traverses the first node and its parents until it finds a root element which has contenteditable="true" attribute.
+  // Traverses the first node and its parents until it finds a div element which contenteditable attribute is true.
   public closestContainer(): Nodes {
     return this.closest('div[contenteditable="true"]');
   }
@@ -392,13 +391,13 @@ export class Nodes {
     return new Nodes(node.nextSibling);
   }
 
-  // Returns the first child of the first element.
+  // Returns the first child of the first node.
   public first(): Nodes {
     const element = this.get(0);
     return new Nodes(element.firstChild);
   }
 
-  // Returns the last child of the first element.
+  // Returns the last child of the first node.
   public last(): Nodes {
     const element = this.get(0);
     return new Nodes(element.lastChild);
