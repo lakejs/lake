@@ -225,7 +225,7 @@ export class Nodes {
     return this.nodeList[index];
   }
 
-  // Returns an array with all native nodes in the Nodes object.
+  // Returns all native nodes.
   public getAll(): Node[] {
     return this.nodeList;
   }
@@ -465,7 +465,7 @@ export class Nodes {
     }
   }
 
-  // Sets up an event listener for each element in the Nodes object.
+  // Sets up an event listener for each element.
   public on(type: string, listener: EventListener): this {
     return this.eachElement(element => {
       element.addEventListener(type, listener, false);
@@ -499,7 +499,7 @@ export class Nodes {
     });
   }
 
-  // Executes all event listeners attached to the Nodes object for the given event type.
+  // Executes all event listeners attached to all nodes for the given event type.
   public emit(type: string, event?: Event): this {
     return this.eachElement(element => {
       const elementId = element.lakeId;
@@ -538,11 +538,13 @@ export class Nodes {
     return new Nodes(node.cloneNode(deep));
   }
 
+  // Returns a boolean value indicating whether the first node has the specified attribute or not.
   public hasAttr(attributeName: string): boolean {
     const element = this.get(0) as Element;
     return element.hasAttribute(attributeName);
   }
 
+  // Returns the value of the specified attribute from the first node, or sets the values of attributes on all nodes.
   public attr(attributeName: string): string;
 
   public attr(attributeName: string, value: string): this;
@@ -565,6 +567,7 @@ export class Nodes {
     });
   }
 
+  // Removes the attribute with the specified name from every node.
   public removeAttr(attributeName: string): this {
     return this.eachElement(element => {
       element.removeAttribute(attributeName);
