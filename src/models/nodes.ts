@@ -414,7 +414,7 @@ export class Nodes {
     return i;
   }
 
-  // Returns a path of the first element.
+  // Returns the path of the first node.
   public path(): NodePath {
     const path: NodePath = [];
     let node = this.eq(0);
@@ -435,7 +435,7 @@ export class Nodes {
     return path.reverse();
   }
 
-  // Returns a list of child nodes of the first element.
+  // Returns a list which contains all of the child nodes of the first node.
   public children(): Nodes[] {
     const childList: Nodes[] = [];
     let child = this.first();
@@ -446,7 +446,7 @@ export class Nodes {
     return childList;
   }
 
-  // Returns a node generator that iterates over the descendants of the first element.
+  // Returns a generator that iterates over the descendants of the first node.
   public * getWalker(): Generator<Nodes> {
     function * iterate(node: Nodes): Generator<Nodes> {
       if (node.isBox) {
@@ -465,7 +465,7 @@ export class Nodes {
     }
   }
 
-  // Attaches an event listener for the elements.
+  // Sets up an event listener for each element in the Nodes object.
   public on(type: string, listener: EventListener): this {
     return this.eachElement(element => {
       element.addEventListener(type, listener, false);
@@ -480,7 +480,7 @@ export class Nodes {
     });
   }
 
-  // Removes event handlers that were attached with .on() method.
+  // Removes event listeners previously registered with on() method.
   public off(type?: string, listener?: EventListener): this {
     return this.eachElement(element => {
       const elementId = element.lakeId;
@@ -512,27 +512,27 @@ export class Nodes {
     });
   }
 
-  // Gets all event listeners attached to the Nodes object.
+  // Returns all event listeners attached to the node at the specified index.
   public getEventListeners(index: number): EventItem[] {
     const elementId = this.get(index).lakeId;
     return eventData[elementId];
   }
 
-  // Sets focus on the specified element, if it can be focused.
+  // Sets focus on the specified node, if it can be focused.
   public focus(): this {
     const element = this.get(0) as HTMLElement;
     element.focus();
     return this;
   }
 
-  // Removes focus from the specified element.
+  // Removes focus from the specified node.
   public blur(): this {
     const element = this.get(0) as HTMLElement;
     element.blur();
     return this;
   }
 
-  // Returns a duplicate of the first node.
+  // Returns a copy of the first node. If deep is true, the copy also includes the node's descendants.
   public clone(deep: boolean = false): Nodes {
     const node = this.get(0);
     return new Nodes(node.cloneNode(deep));
