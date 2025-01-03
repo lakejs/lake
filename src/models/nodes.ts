@@ -574,11 +574,13 @@ export class Nodes {
     });
   }
 
+  // Returns a boolean value indicating whether the first node has the specified class or not.
   public hasClass(className: string): boolean {
     const element = this.get(0) as Element;
     return inString(element.className, className, ' ');
   }
 
+  // Adds the given class to every node.
   public addClass(className: string | string[]): this {
     if (Array.isArray(className)) {
       for (const name of className) {
@@ -594,6 +596,7 @@ export class Nodes {
     });
   }
 
+  // Removes the given class from every node.
   public removeClass(className: string | string[]): this {
     if (Array.isArray(className)) {
       for (const name of className) {
@@ -612,11 +615,14 @@ export class Nodes {
     });
   }
 
+  // Returns the value of the given CSS property of the first node,
+  // after applying active stylesheets and resolving any basic computation this value may contain.
   public computedCSS(propertyName: string): string {
     const element = this.get(0) as Element;
     return getCSS(element, propertyName);
   }
 
+  // Returns the value of the given CSS property of the first node, or sets the values of CSS properties on all nodes.
   public css(propertyName: string): string;
 
   public css(propertyName: KeyValue): this;
@@ -642,30 +648,32 @@ export class Nodes {
     });
   }
 
-  // Returns the width of of the first element.
+  // Returns the width of of the first node.
   public width(): number {
     const element = this.get(0) as HTMLElement;
     return element.offsetWidth;
   }
 
-  // Returns the interior width of the first element, which does not include padding.
+  // Returns the interior width of the first node, which does not include padding.
   public innerWidth(): number {
     const paddingLeft = Number.parseInt(this.computedCSS('padding-left'), 10) || 0;
     const paddingRight = Number.parseInt(this.computedCSS('padding-right'), 10) || 0;
     return this.width() - paddingLeft - paddingRight;
   }
 
-  // Returns the height of of the first element.
+  // Returns the height of of the first node.
   public height(): number {
     const element = this.get(0) as HTMLElement;
     return element.offsetHeight;
   }
 
+  // Displays all nodes.
   public show(displayType: string = 'block'): this {
     this.css('display', displayType);
     return this;
   }
 
+  // Hides all nodes.
   public hide(): this {
     this.css('display', 'none');
     return this;

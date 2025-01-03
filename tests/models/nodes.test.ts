@@ -675,7 +675,7 @@ describe('models / nodes', () => {
     expect(nodes.css('text-align')).to.equal('');
   });
 
-  it('css method: an array', () => {
+  it('css method: a key-value object', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.css({
       'background-color': '#ff0000',
