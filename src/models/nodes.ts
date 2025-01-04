@@ -544,7 +544,7 @@ export class Nodes {
     return element.hasAttribute(attributeName);
   }
 
-  // Returns the value of the specified attribute from the first node, or sets the values of attributes on all nodes.
+  // Returns the value of the specified attribute from the first node, or sets the values of attributes for all elements.
   public attr(attributeName: string): string;
 
   public attr(attributeName: string, value: string): this;
@@ -567,7 +567,7 @@ export class Nodes {
     });
   }
 
-  // Removes the attribute with the specified name from every node.
+  // Removes the attribute with the specified name from every element.
   public removeAttr(attributeName: string): this {
     return this.eachElement(element => {
       element.removeAttribute(attributeName);
@@ -580,7 +580,7 @@ export class Nodes {
     return inString(element.className, className, ' ');
   }
 
-  // Adds the given class to every node.
+  // Adds the given class to every element.
   public addClass(className: string | string[]): this {
     if (Array.isArray(className)) {
       for (const name of className) {
@@ -596,7 +596,7 @@ export class Nodes {
     });
   }
 
-  // Removes the given class from every node.
+  // Removes the given class from every element.
   public removeClass(className: string | string[]): this {
     if (Array.isArray(className)) {
       for (const name of className) {
@@ -622,7 +622,7 @@ export class Nodes {
     return getCSS(element, propertyName);
   }
 
-  // Returns the value of the given CSS property of the first node, or sets the values of CSS properties on all nodes.
+  // Returns the value of the given CSS property of the first node, or sets the values of CSS properties for all elements.
   public css(propertyName: string): string;
 
   public css(propertyName: KeyValue): this;
@@ -679,6 +679,7 @@ export class Nodes {
     return this;
   }
 
+  // Returns the HTML string contained within the first node, or sets the HTML string for all elements.
   public html(): string;
 
   public html(value: string): this;
@@ -693,6 +694,7 @@ export class Nodes {
     });
   }
 
+  // Returns the rendered text content of the first node, or sets the rendered text content for all elements.
   public text(): string;
 
   public text(value: string): this;
@@ -712,6 +714,7 @@ export class Nodes {
     });
   }
 
+  // Returns the value of the first node, which must be an input element, or sets the value for all input elements.
   public value(): string;
 
   public value(value: string): this;
@@ -726,18 +729,19 @@ export class Nodes {
     });
   }
 
+  // Returns the HTML string describing the first node including its descendants.
   public outerHTML(): string {
     const element = this.get(0) as Element;
     return element.outerHTML;
   }
 
-  // Removes all child nodes of each element.
+  // Removes all child nodes for each element.
   public empty(): this {
     this.html('');
     return this;
   }
 
-  // Inserts the specified content to the beginning of the first element.
+  // Inserts the specified content just inside the first node, before its first child.
   public prepend(content: string | Node | DocumentFragment | Nodes): this {
     const element = this.get(0);
     if (typeof content === 'string') {
@@ -762,7 +766,7 @@ export class Nodes {
     return this;
   }
 
-  // Inserts the specified content to the end of the first element.
+  // Inserts the specified content just inside the first node, after its last child.
   public append(content: string | Node | DocumentFragment | Nodes): this {
     const element = this.get(0);
     if (typeof content === 'string') {
@@ -827,7 +831,7 @@ export class Nodes {
     return this;
   }
 
-  // Replaces the first node with the provided new content.
+  // Replaces the first node with the given new content.
   public replaceWith(newContent: string | Node | Nodes): this {
     const node = this.get(0);
     if (!node.parentNode) {
@@ -843,9 +847,7 @@ export class Nodes {
     return this;
   }
 
-  // Removes each node from the DOM.
-  // keepChildren parameter:
-  // A boolean value; true only removes each node and keeps all descended nodes; false removes the descendants; if omitted, it defaults to false.
+  // Removes all nodes from the DOM.
   public remove(keepChildren: boolean = false): this {
     this.each(node => {
       if (!node.parentNode) {
@@ -864,7 +866,7 @@ export class Nodes {
     return this;
   }
 
-  // Breaks the first text node into two nodes at the specified offset, keeping both nodes in the tree as siblings.
+  // Splits the first node, which must be a text node, into two nodes at the specified offset, keeping both as siblings in the tree.
   public splitText(offset: number): Nodes {
     if (!this.isText) {
       return new Nodes();
@@ -874,7 +876,7 @@ export class Nodes {
     return new Nodes(newNode);
   }
 
-  // Returns information of the first node.
+  // Returns information about the first node, which is used for debugging.
   public toString(): string {
     if (this.length === 0) {
       return '';
@@ -887,7 +889,7 @@ export class Nodes {
     return `node (${node.lakeId}): ${nodeValue}`;
   }
 
-  // Prints information of the first node.
+  // Prints information about the first node, which is used for debugging.
   public info(): void {
     debug(this.toString());
   }
