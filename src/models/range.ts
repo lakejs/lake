@@ -12,22 +12,22 @@ export class Range {
     this.range = range ?? document.createRange();
   }
 
-  // Returns a node within which the range starts.
+  // A node within which the range starts.
   public get startNode(): Nodes {
     return new Nodes(this.range.startContainer);
   }
 
-  // Returns a number representing where in the startNode the range starts.
+  // A number representing where in the startNode the range starts.
   public get startOffset(): number {
     return this.range.startOffset;
   }
 
-  // Returns a node within which the range ends.
+  // A node within which the range ends.
   public get endNode(): Nodes {
     return new Nodes(this.range.endContainer);
   }
 
-  // Returns a number representing where in the endNode the range ends.
+  // A number representing where in the endNode the range ends.
   public get endOffset(): number {
     return this.range.endOffset;
   }
