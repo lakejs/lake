@@ -32,23 +32,23 @@ export class Range {
     return this.range.endOffset;
   }
 
-  // Returns the closest node that contains both the startNode and endNode.
+  // The deepest — or furthest down the document tree — node that contains both boundary points of the range.
   public get commonAncestor(): Nodes {
     return new Nodes(this.range.commonAncestorContainer);
   }
 
-  // Returns a boolean value indicating whether the range's start and end points are at the same position.
+  // A boolean value indicating whether the range's start and end points are at the same position.
   public get isCollapsed(): boolean {
     return this.range.collapsed;
   }
 
-  // Returns a boolean value indicating whether the range's start point is in the box.
+  // A boolean value indicating whether the range's start point is in a box.
   public get isBox(): boolean {
     const boxNode = this.commonAncestor.closest('lake-box');
     return boxNode.length > 0;
   }
 
-  // Returns a boolean value indicating whether the range's common ancestor node is in the start strip of the box.
+  // A boolean value indicating whether the commonAncestor is in the start position of a box.
   // case 1: <lake-box><span class="lake-box-strip">|</span><div class="lake-box-container"></div> ...
   // case 2: <lake-box><span class="lake-box-strip"></span>|<div class="lake-box-container"></div> ...
   // case 3: <lake-box>|<span class="lake-box-strip"></span><div class="lake-box-container"></div> ...
@@ -61,7 +61,7 @@ export class Range {
     return this.compareBeforeNode(boxContainer) >= 0;
   }
 
-  // Returns a boolean value indicating whether the range's common ancestor node is in the center of the box.
+  // A boolean value indicating whether the commonAncestor is in the center position of a box.
   // case 1: ... <div class="lake-box-container"><div>|</div></div> ...
   // case 2: ... <div class="lake-box-container"><div></div>|</div> ...
   public get isBoxCenter(): boolean {
@@ -75,7 +75,7 @@ export class Range {
     return this.isCollapsed && this.startNode.get(0) === boxContainer.get(0) && this.startOffset === 0;
   }
 
-  // Returns a boolean value indicating whether the range's common ancestor node is in the end strip of the box.
+  // A boolean value indicating whether commonAncestor is in the end position of a box.
   // case 1: ... <div class="lake-box-container"></div><span class="lake-box-strip">|</span></lake-box>
   // case 2: ... <div class="lake-box-container"></div>|<span class="lake-box-strip"></span></lake-box>
   // case 3: ... <div class="lake-box-container"></div><span class="lake-box-strip"></span>|</lake-box>
@@ -88,7 +88,7 @@ export class Range {
     return this.compareAfterNode(boxContainer) <= 0;
   }
 
-  // Returns a boolean value indicating whether the range's common ancestor node is inside the container of the box.
+  // A boolean value indicating whether commonAncestor is inside the container of a box.
   // case 1: ... <div class="lake-box-container"><div>|</div></div> ...
   // case 2: ... <div class="lake-box-container"><div></div>|</div> ...
   public get isInsideBox(): boolean {
@@ -109,7 +109,7 @@ export class Range {
     return this.compareBeforeNode(boxContainer) < 0 && this.compareAfterNode(boxContainer) > 0;
   }
 
-  // Returns a boolean value indicating whether the range is inoperative.
+  // A boolean value indicating whether the range is inoperative.
   public get isInoperative(): boolean {
     if (this.commonAncestor.isOutside) {
       return true;
@@ -126,7 +126,7 @@ export class Range {
     return false;
   }
 
-  // Gets a native range.
+  // Returns a native Range object from the range.
   public get(): NativeRange {
     return this.range;
   }
@@ -179,12 +179,14 @@ export class Range {
     });
   }
 
-  // Returns −1 if the point is before the range, 0 if the point is in the range, and 1 if the point is after the range.
+  // Returns -1, 0, or 1 depending on whether the specified node is before, the same as, or after the range.
+  // −1 if the point is before the range. 0 if the point is in the range. 1 if the point is after the range.
   public comparePoint(node: Nodes, offset: number): number {
     return this.range.comparePoint(node.get(0), offset);
   }
 
   // Returns -1, 0, or 1 depending on whether the beginning of the specified node is before, the same as, or after the range.
+  // −1 if the beginning of the node is before the range. 0 if the beginning of the node is in the range. 1 if the beginning of the node is after the range.
   public compareBeforeNode(node: Nodes): number {
     const targetRange = new Range();
     if (node.isText) {
@@ -197,6 +199,7 @@ export class Range {
   }
 
   // Returns -1, 0, or 1 depending on whether the end of the specified node is before, the same as, or after the range.
+  // −1 if the end of the node is before the range. 0 if the end of the node is in the range. 1 if the end of the node is after the range.
   public compareAfterNode(node: Nodes): number {
     const targetRange = new Range();
     if (node.isText) {
@@ -209,7 +212,7 @@ export class Range {
     return this.comparePoint(targetRange.startNode, targetRange.startOffset);
   }
 
-  // Indicates whether a specified node is part of the range or intersects the range.
+  // Returns a boolean value indicating whether the specified node is part of the range or intersects the range.
   public intersectsNode(node: Nodes): boolean {
     return this.range.intersectsNode(node.get(0));
   }
@@ -219,12 +222,12 @@ export class Range {
     this.range.setStart(node.get(0), offset);
   }
 
-  // Sets the start position of the range before a node.
+  // Sets the start position of the range to the beginning of the specified node.
   public setStartBefore(node: Nodes): void {
     this.range.setStartBefore(node.get(0));
   }
 
-  // Sets the start position of the range after a node.
+  // Sets the start position of the range to the end of the specified node.
   public setStartAfter(node: Nodes): void {
     this.range.setStartAfter(node.get(0));
   }
@@ -234,22 +237,22 @@ export class Range {
     this.range.setEnd(node.get(0), offset);
   }
 
-  // Sets the end position of the range before a node.
+  // Sets the end position of the range to the beginning of the specified node.
   public setEndBefore(node: Nodes): void {
     this.range.setEndBefore(node.get(0));
   }
 
-  // Sets the end position of the range after a node.
+  // Sets the end position of the range to the end of the specified node.
   public setEndAfter(node: Nodes): void {
     this.range.setEndAfter(node.get(0));
   }
 
-  // Collapses the range to the start of it.
+  // Collapses the range to its start.
   public collapseToStart(): void {
     this.range.collapse(true);
   }
 
-  // Collapses the range to the end of it.
+  // Collapses the range to its end.
   public collapseToEnd(): void {
     this.range.collapse(false);
   }
@@ -264,7 +267,7 @@ export class Range {
     this.range.selectNodeContents(node.get(0));
   }
 
-  // Sets the range to the center position of the box.
+  // Collapses the range to the center position of the specified box.
   public selectBox(boxNode: Nodes): void {
     const boxContainer = boxNode.find('.lake-box-container');
     if (boxContainer.length === 0) {
@@ -274,7 +277,7 @@ export class Range {
     this.collapseToStart();
   }
 
-  // Sets the range to the start position of the box.
+  // Collapses the range to the start position of the specified box.
   public selectBoxStart(boxNode: Nodes): void {
     const boxStrip = boxNode.find('.lake-box-strip');
     if (boxStrip.length === 0) {
@@ -284,7 +287,7 @@ export class Range {
     this.collapseToStart();
   }
 
-  // Sets the range to the start position of the box.
+  // Collapses the range to the end position of the specified box.
   public selectBoxEnd(boxNode: Nodes): void {
     const boxStrip = boxNode.find('.lake-box-strip');
     if (boxStrip.length === 0) {
