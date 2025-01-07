@@ -508,7 +508,7 @@ export class Range {
     return nextNode ?? new Nodes();
   }
 
-  // Returns target boxes relating to the range.
+  // Returns the boxes contained within or intersected by the range.
   public getBoxes(): Nodes[] {
     if (this.isCollapsed) {
       const startBox = this.startNode.closest('lake-box');
@@ -525,7 +525,7 @@ export class Range {
     return nodeList;
   }
 
-  // Returns target blocks relating to the range.
+  // Returns the blocks contained within or intersected by the range.
   public getBlocks(): Nodes[] {
     if (this.isCollapsed) {
       const startBlock = this.startNode.closestOperableBlock();
@@ -568,8 +568,8 @@ export class Range {
     return blocks;
   }
 
-  // Returns target marks and text nodes relating to the range.
-  public getMarks(hasText = false): Nodes[] {
+  // Returns the marks and text nodes contained within or intersected by the range.
+  public getMarks(hasText: boolean = false): Nodes[] {
     const marks: Nodes[] = [];
     if (this.commonAncestor.isText && hasText) {
       if (
@@ -602,7 +602,7 @@ export class Range {
     return marks;
   }
 
-  // Returns the text of the start part of the closest block divided into two parts by the start point of the range.
+  // Returns the text from the start position of the closest block to the start position of the range.
   // "<p>one<anchor />two<focus />three</p>" returns "one".
   public getStartText(): string {
     const node = this.startNode;
@@ -626,7 +626,7 @@ export class Range {
     return text;
   }
 
-  // Returns the text of the end part of the closest block divided into two parts by the end point of the range.
+  // Returns the text from the end position of the range to the end position of the closest block.
   // "<p>one<anchor />two<focus />three</p>" returns "three".
   public getEndText(): string {
     const node = this.endNode;
@@ -650,9 +650,9 @@ export class Range {
     return text;
   }
 
-  // Returns a new text range from the specified character to the beginning of the current range.
+  // Returns a new range from the specified character to the start position of the range.
   // The specified character must be preceded by a whitespace or be at the beginning of a paragraph,
-  // without being adjacent to other characters. If these conditions are not met, it returns null.
+  // without being adjacent to other characters. It will return null if not.
   public getCharacterRange(character: string): Range | null {
     const newRange = this.clone();
     newRange.shrink();
@@ -686,7 +686,7 @@ export class Range {
     return newRange;
   }
 
-  // Returns a range object with boundary points identical to the cloned range.
+  // Returns a copy of the range.
   public clone(): Range {
     return new Range(this.range.cloneRange());
   }
@@ -696,7 +696,7 @@ export class Range {
     return this.range.cloneContents();
   }
 
-  // Prints information of the range.
+  // Prints information about the range, which is used for debugging.
   public info(): void {
     debug('--- range information ---');
     debug('start node:', this.startNode.toString(), ', offset:', this.startOffset);
