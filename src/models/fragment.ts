@@ -10,12 +10,12 @@ export class Fragment {
     this.fragment = fragment ?? document.createDocumentFragment();
   }
 
-  // Gets a native fragment.
+  // Returns a native DocumentFragment object from the fragment.
   public get(): DocumentFragment {
     return this.fragment;
   }
 
-  // Returns the descendants of the fragment which are selected by the specified CSS selector.
+  // Returns the descendants of the fragment that match the specified CSS selector.
   public find(selector: string): Nodes {
     const nodeList: Node[] = [];
     let child = new Nodes(this.fragment.firstChild);
@@ -32,9 +32,9 @@ export class Fragment {
     return new Nodes(nodeList);
   }
 
-  // Inserts the specified node as the last child.
-  public append(node: string | Node | Nodes): void {
-    query(node).each(nativeNode => {
+  // Inserts the specified content just inside the fragment, after its last child.
+  public append(content: string | Node | Nodes): void {
+    query(content).each(nativeNode => {
       this.fragment.appendChild(nativeNode);
     });
   }

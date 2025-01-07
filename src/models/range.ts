@@ -691,7 +691,7 @@ export class Range {
     return new Range(this.range.cloneRange());
   }
 
-  // Returns a document fragment copying the nodes included in the range.
+  // Returns a DocumentFragment object copying the nodes included in the range.
   public cloneContents(): DocumentFragment {
     return this.range.cloneContents();
   }
