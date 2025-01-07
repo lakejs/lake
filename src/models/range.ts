@@ -297,7 +297,7 @@ export class Range {
     this.collapseToStart();
   }
 
-  // Collapses the range and sets the range to the beginning of the contents of the specified node.
+  // Collapses the range to the deepest point at the beginning of the contents of the specified node.
   public shrinkBefore(node: Nodes): void {
     if (node.isBox) {
       this.selectBoxStart(node);
@@ -324,7 +324,7 @@ export class Range {
     this.collapseToStart();
   }
 
-  // Collapses the range and sets the range to the end of the contents of the specified node.
+  // Collapses the range to the deepest point at the end of the contents of the specified node.
   public shrinkAfter(node: Nodes): void {
     if (node.isBox) {
       this.selectBoxEnd(node);
@@ -353,7 +353,7 @@ export class Range {
     this.adjustBr();
   }
 
-  // Reduces the boundary of the range.
+  // Sets the start and end positions of the range to the deepest start position and end position of the contents of the specified node.
   // <div>[<p><strong>foo</strong></p>]</div>
   // to
   // <div><p><strong>[foo]</strong></p></div>
@@ -381,7 +381,7 @@ export class Range {
     }
   }
 
-  // Relocates the start and end points of the range for the box.
+  // Relocates the start and end positions of the range for boxes.
   public adjustBox(): void {
     const startBoxNode = this.startNode.closest('lake-box');
     if (startBoxNode.length > 0) {
@@ -405,7 +405,7 @@ export class Range {
     }
   }
 
-  // Relocates the beginning or end position of the range for table.
+  // Relocates the start and end positions of the range for tables.
   public adjustTable(): void {
     const startTable = this.startNode.closest('table');
     const endTable = this.endNode.closest('table');
@@ -420,7 +420,7 @@ export class Range {
     }
   }
 
-  // Relocates the start point of the range for the block.
+  // Relocates the start and end positions of the range for blocks.
   // case 1:
   // <p>foo</p>|<p>bar</p>
   // to
@@ -455,14 +455,14 @@ export class Range {
     }
   }
 
-  // Relocates the start and end points of the range.
+  // Relocates the start and end positions of the range for boxes, tables, and blocks.
   public adjust(): void {
     this.adjustBox();
     this.adjustTable();
     this.adjustBlock();
   }
 
-  // Relocates the start and end points of the range for <br /> element.
+  // Relocates the start and end positions of the range for <br /> elements.
   // In composition mode (e.g., when a user starts entering a Chinese character using a Pinyin IME),
   // uncompleted text is inserted if the cursor is positioned behind a <br> tag.
   // To fix this bug, the cursor needs to be moved to the front of the <br> tag.
@@ -478,7 +478,7 @@ export class Range {
     }
   }
 
-  // Returns the previous node of the beginning point of the range.
+  // Returns the node immediately preceding the start position of the range.
   public getPrevNode(): Nodes {
     let prevNode;
     if (this.startNode.isText) {
@@ -493,7 +493,7 @@ export class Range {
     return prevNode ?? new Nodes();
   }
 
-  // Returns the next node of the beginning point of the range.
+  // Returns the node immediately following the end position of the range.
   public getNextNode(): Nodes {
     let nextNode;
     if (this.endNode.isText) {
