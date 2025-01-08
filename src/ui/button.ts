@@ -9,17 +9,18 @@ type ButtonConfig = {
   icon?: string;
   text?: string;
   tooltip?: string;
-  tabIndex?: number,
+  tabIndex?: number;
   onClick: () => void;
 }
 
-// The Button class represents a UI component activated by a user. Once activated, it then performs an action.
+// The Button interface represents a UI component clicked by a user. Once clicked, it then performs an action.
 export class Button {
-  private config: ButtonConfig;
+  private readonly config: ButtonConfig;
 
-  private root: Nodes;
+  private readonly root: Nodes;
 
-  public node: Nodes;
+  // A button element.
+  public readonly node: Nodes;
 
   constructor(config: ButtonConfig) {
     this.config = config;
@@ -35,6 +36,7 @@ export class Button {
     }
   }
 
+  // Renders the button.
   public render(): void {
     const config = this.config;
     const buttonNode = this.node;
