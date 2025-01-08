@@ -125,7 +125,7 @@ export class Box {
     this.value = value;
   }
 
-  // Returns an instance of the editor that includes the box.
+  // Returns an instance of the editor containing the box.
   public getEditor(): Editor {
     const container = this.node.closest('div[contenteditable]');
     const editor = container.length > 0 ? editors.get(container.id) : undefined;
@@ -135,9 +135,21 @@ export class Box {
     return editor;
   }
 
-  // Returns the container node of the box.
+  // Returns the container of the box.
   public getContainer(): Nodes {
     return this.node.find('.lake-box-container');
+  }
+
+  // Returns the HTML string contained within the box.
+  public getHTML(): string {
+    const component = boxes.get(this.name);
+    if (component === undefined) {
+      return '';
+    }
+    if (component.html === undefined) {
+      return this.node.outerHTML();
+    }
+    return component.html(this);
   }
 
   // Sets a floating toolbar for the box.
@@ -184,24 +196,12 @@ export class Box {
     debug(`Box "${this.name}" (id: ${this.node.id}) rendered`);
   }
 
-  // Destroys a rendered box.
+  // Destroys the box.
   public unmount(): void {
     this.event.emit('blur');
     this.event.emit('beforeunmount');
     this.event.removeAllListeners();
     this.node.empty();
     debug(`Box "${this.name}" (id: ${this.node.id}) unmounted`);
-  }
-
-  // Returns a HTML string of the box.
-  public getHTML(): string {
-    const component = boxes.get(this.name);
-    if (component === undefined) {
-      return '';
-    }
-    if (component.html === undefined) {
-      return this.node.outerHTML();
-    }
-    return component.html(this);
   }
 }

@@ -85,6 +85,13 @@ describe('models / box', () => {
     });
   });
 
+  it('method: getHTML', () => {
+    container.html('<lake-box type="block" name="blockBox"></lake-box>');
+    const box = new Box(container.find('lake-box'));
+    box.render();
+    expect(box.getHTML()).to.equal('<hr />');
+  });
+
   it('method: render', () => {
     container.html('<lake-box type="block" name="blockBox"></lake-box>');
     const box = new Box(container.find('lake-box'));
@@ -100,13 +107,6 @@ describe('models / box', () => {
     expect(container.html()).not.to.equal(content);
     box.unmount();
     expect(container.html()).to.equal(content);
-  });
-
-  it('method: getHTML', () => {
-    container.html('<lake-box type="block" name="blockBox"></lake-box>');
-    const box = new Box(container.find('lake-box'));
-    box.render();
-    expect(box.getHTML()).to.equal('<hr />');
   });
 
   it('event: should emit blur event after the box was unmounted', () => {
