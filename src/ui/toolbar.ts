@@ -45,7 +45,7 @@ for (const item of toolbarItems) {
   toolbarItemMap.set(item.name, item);
 }
 
-// The Toolbar class represents a button group used to execute commands.
+// The Toolbar interface provides properties and methods for rendering and manipulating the toolbar.
 export class Toolbar {
 
   private items: (string | ToolbarItem)[];

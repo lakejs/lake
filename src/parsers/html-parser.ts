@@ -3,7 +3,7 @@ import { parseStyle } from '../utils/parse-style';
 import { encode } from '../utils/encode';
 import { Nodes } from '../models/nodes';
 
-// The HTMLParser class provides the ability to parse an HTML string by specified rules.
+// The HTMLParser interface provides the ability to parse an HTML string by specified rules.
 export class HTMLParser {
 
   private readonly rules: any;

@@ -85,6 +85,7 @@ const defaultConfig: Config = {
   mention: false,
 };
 
+// The Editor interface provides properties and methods for rendering and manipulating the editor.
 export class Editor {
   // A string that has not yet been saved to the history.
   private unsavedInputData: string = '';

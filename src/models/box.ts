@@ -13,7 +13,7 @@ import { query } from '../utils/query';
 import { Nodes } from './nodes';
 import { FloatingToolbar } from '../ui/floating-toolbar';
 
-// The Box class represents an embedded content, which is used to enhance editing capability.
+// The Box interface represents an embedded content, which is used to enhance editing capability.
 export class Box {
   // A lake-box element to which the contents of the box are appended.
   public readonly node: Nodes;

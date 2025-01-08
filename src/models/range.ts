@@ -3,7 +3,7 @@ import { debug } from '../utils/debug';
 import { query } from '../utils/query';
 import { Nodes } from './nodes';
 
-// The Range class represents a fragment of a document that can contain nodes and parts of text nodes.
+// The Range interface represents a fragment of a document that can contain nodes and parts of text nodes.
 export class Range {
   // native range
   private readonly range: NativeRange;

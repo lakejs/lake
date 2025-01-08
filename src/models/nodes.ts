@@ -22,7 +22,7 @@ const eventData: { [key: number]: EventItem[] } = {};
 
 let lastNodeId = 0;
 
-// The Nodes class represents a collection of the document's nodes.
+// The Nodes interface represents a collection of the document's nodes.
 export class Nodes {
   // A list of native nodes.
   private readonly nodeList: Node[];
