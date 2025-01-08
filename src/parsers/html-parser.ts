@@ -3,12 +3,12 @@ import { parseStyle } from '../utils/parse-style';
 import { encode } from '../utils/encode';
 import { Nodes } from '../models/nodes';
 
-// The HTMLParser class provides the ability to parse HTML source code by specified rules.
+// The HTMLParser class provides the ability to parse an HTML string by specified rules.
 export class HTMLParser {
 
-  private rules: any;
+  private readonly rules: any;
 
-  private source: Nodes;
+  private readonly source: Nodes;
 
   constructor(content: string | Nodes, rules = getElementRules()) {
     this.rules = rules;
@@ -19,7 +19,7 @@ export class HTMLParser {
     }
   }
 
-  // Parses HTML string and returns the resulting body element.
+  // Parses the given HTML string and returns the body element from the result.
   private parseHTML(html: string): Nodes {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
@@ -134,7 +134,7 @@ export class HTMLParser {
     return nodeValue;
   }
 
-  // Returns the result as HTML format.
+  // Returns an HTML string.
   public getHTML(): string {
     const rules = this.rules;
     function * iterate(node: Nodes): Generator<string> {
@@ -171,7 +171,7 @@ export class HTMLParser {
     return html.trim();
   }
 
-  // Returns a document fragment.
+  // Returns a DocumentFragment object.
   public getFragment(): DocumentFragment {
     const html = this.getHTML();
     const body = this.parseHTML(html);
