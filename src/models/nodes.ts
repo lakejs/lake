@@ -25,10 +25,10 @@ let lastNodeId = 0;
 // The Nodes class represents a collection of the document's nodes.
 export class Nodes {
   // A list of native nodes.
-  private nodeList: Node[];
+  private readonly nodeList: Node[];
 
   // The number of nodes in the nodeList.
-  public length: number;
+  public readonly length: number;
 
   constructor(node?: Node | Node[] | null) {
     node = node ?? [];

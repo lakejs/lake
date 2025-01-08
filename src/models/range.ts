@@ -6,7 +6,7 @@ import { Nodes } from './nodes';
 // The Range class represents a fragment of a document that can contain nodes and parts of text nodes.
 export class Range {
   // native range
-  private range: NativeRange;
+  private readonly range: NativeRange;
 
   constructor(range?: NativeRange) {
     this.range = range ?? document.createRange();

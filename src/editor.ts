@@ -118,7 +118,7 @@ export class Editor {
   // An element to which the editor is appended.
   public readonly root: Nodes;
 
-  // An instance of the Toolbar class.
+  // A toolbar for the editor.
   public readonly toolbar: Toolbar | undefined;
 
   // The configuration for the editor.

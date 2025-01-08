@@ -15,11 +15,13 @@ import { FloatingToolbar } from '../ui/floating-toolbar';
 
 // The Box class represents an embedded content, which is used to enhance editing capability.
 export class Box {
-  // <lake-box> element
-  public node: Nodes;
+  // A lake-box element to which the contents of the box are appended.
+  public readonly node: Nodes;
 
-  public event: EventEmitter = new EventEmitter();
+  // Managing events.
+  public readonly event: EventEmitter = new EventEmitter();
 
+  // A toolbar for the box.
   public toolbar: FloatingToolbar | null = null;
 
   constructor(node: string | Node | Nodes) {
@@ -106,18 +108,18 @@ export class Box {
     this.node.attr('value', toBase64(JSON.stringify(value)));
   }
 
-  // Updates part of the value of the box.
-  public updateValue(valueKey: string, valueValue: string): void;
+  // Sets part of the value of the box.
+  public updateValue(keyName: string, keyValue: string): void;
 
-  public updateValue(valueKey: BoxValue): void;
+  public updateValue(keyName: BoxValue): void;
 
-  public updateValue(valueKey: any, valueValue?: any): void {
+  public updateValue(keyName: any, keyValue?: any): void {
     const value = this.value;
-    if (typeof valueKey === 'string') {
-      value[valueKey] = valueValue;
+    if (typeof keyName === 'string') {
+      value[keyName] = keyValue;
     } else {
-      for (const key of Object.keys(valueKey)) {
-        value[key] = valueKey[key];
+      for (const key of Object.keys(keyName)) {
+        value[key] = keyName[key];
       }
     }
     this.value = value;

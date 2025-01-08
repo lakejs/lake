@@ -4,7 +4,7 @@ import { Nodes } from './nodes';
 // The Fragment class represents a minimal document object that has no parent.
 export class Fragment {
   // native document fragment
-  private fragment: DocumentFragment;
+  private readonly fragment: DocumentFragment;
 
   constructor(fragment?: DocumentFragment) {
     this.fragment = fragment ?? document.createDocumentFragment();
