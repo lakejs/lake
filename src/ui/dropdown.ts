@@ -20,23 +20,24 @@ type DropdownConfig = DropdownItem & {
   location?: DropdownLocation;
   direction?: DropdownDirection;
   onSelect: (value: string) => void;
-}
+};
 
-// The Dropdown class represents a UI component that provides a menu of options.
+// The Dropdown interface represents a UI component that provides a menu of options.
 export class Dropdown {
-  private config: DropdownConfig;
+  private readonly config: DropdownConfig;
 
-  private root: Nodes;
+  private readonly root: Nodes;
 
-  private locale: TranslationFunctions;
+  private readonly locale: TranslationFunctions;
 
-  private location: DropdownLocation;
+  private readonly location: DropdownLocation;
 
-  private direction: DropdownDirection;
+  private readonly direction: DropdownDirection;
 
-  private menuNode: Nodes;
+  private readonly menuNode: Nodes;
 
-  public node: Nodes;
+  // An element to which the contents of the dropdown are appended.
+  public readonly node: Nodes;
 
   constructor(config: DropdownConfig) {
     this.config = config;
@@ -268,6 +269,7 @@ export class Dropdown {
     window.removeEventListener('resize', this.resizeListener);
   }
 
+  // Renders the dropdown.
   public render(): void {
     const config = this.config;
     const defaultValue = config.defaultValue ?? '';
@@ -349,6 +351,7 @@ export class Dropdown {
     });
   }
 
+  // Destroys the dropdown.
   public unmount(): void {
     this.hideMenu();
     this.menuNode.remove();
