@@ -93,9 +93,6 @@
   },
   "packageManager": "pnpm@10.0.0",
   "pnpm": {
-    "neverBuiltDependencies": [
-      "puppeteer"
-    ],
     "onlyBuiltDependencies": [
       "simple-git-hooks"
     ]
