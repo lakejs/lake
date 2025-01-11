@@ -26,8 +26,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Install Puppeteer
-        run: npx puppeteer browsers install chrome-headless-shell
+      - name: Install Chrome
+        run: pnpm install:chrome
 
       - name: Find problems
         run: pnpm lint
