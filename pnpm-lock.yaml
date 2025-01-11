@@ -88,8 +88,8 @@ importers:
         specifier: ^0.16.19
         version: 0.16.19
       lake-codemirror:
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^2.0.1
+        version: 2.0.1
       mocha:
         specifier: ^11.0.1
         version: 11.0.1
@@ -1828,8 +1828,8 @@ packages:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
 
-  lake-codemirror@2.0.0:
-    resolution: {integrity: sha512-IrN+fJXpWdGeJ0xmdC625gIIFB+hR6jpbiwiDgURte6ACmzGJ3EJt62OmnLuPBiteTQ6WdVly+/c8Hz3DVRJ1g==}
+  lake-codemirror@2.0.1:
+    resolution: {integrity: sha512-f9DFQICOKoSQlHI9CZ534C8i/pODmRd5vt7hsZ4+S2MBRdwaLvAN5YjcrLYRwh5z/wcKEb1XP/xfyleyYgExlA==}
 
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
@@ -4742,7 +4742,7 @@ snapshots:
 
   kleur@3.0.3: {}
 
-  lake-codemirror@2.0.0:
+  lake-codemirror@2.0.1:
     dependencies:
       '@codemirror/commands': 6.8.0
       '@codemirror/lang-cpp': 6.0.2
