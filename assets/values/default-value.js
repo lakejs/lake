@@ -125,11 +125,11 @@ window.defaultValue = `
 
 <h3>Alerts</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>At the beginning of a paragraph, input <code>:::info</code>, <code>:::warning</code>, or <code>:::danger</code> followed by an enter to create an alert.</p>
-<blockquote type="info">This is an info box.</blockquote>
-<blockquote type="tip">This is a tip.</blockquote>
-<blockquote type="warning">This is a warning.</blockquote>
-<blockquote type="danger">This is a dangerous warning.</blockquote>
+<p>At the beginning of a paragraph, input <code>:::info</code>, <code>:::tip</code>, <code>:::warning</code>, or <code>:::danger</code> followed by an enter to create an alert.</p>
+<blockquote type="info">Useful information that users should know, even when skimming content.</blockquote>
+<blockquote type="tip">Helpful advice for doing things better or more easily.</blockquote>
+<blockquote type="warning">Urgent info that needs immediate user attention to avoid problems.</blockquote>
+<blockquote type="danger">Advises about risks or negative outcomes of certain actions.</blockquote>
 <p><br /></p>
 
 <h3>Link</h3>
