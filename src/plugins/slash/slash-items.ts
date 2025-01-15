@@ -128,7 +128,7 @@ export const slashItems: SlashItem[] = [
     icon: icons.get('info'),
     title: locale => locale.slash.infoAlert(),
     description: locale => locale.slash.infoAlertDesc(),
-    onClick: (editor, value) => {
+    onClick: editor => {
       editor.command.execute('blockQuote', 'info');
     },
   },
@@ -138,7 +138,7 @@ export const slashItems: SlashItem[] = [
     icon: icons.get('tip'),
     title: locale => locale.slash.tipAlert(),
     description: locale => locale.slash.tipAlertDesc(),
-    onClick: (editor, value) => {
+    onClick: editor => {
       editor.command.execute('blockQuote', 'tip');
     },
   },
@@ -148,7 +148,7 @@ export const slashItems: SlashItem[] = [
     icon: icons.get('warning'),
     title: locale => locale.slash.warningAlert(),
     description: locale => locale.slash.warningAlertDesc(),
-    onClick: (editor, value) => {
+    onClick: editor => {
       editor.command.execute('blockQuote', 'warning');
     },
   },
@@ -158,7 +158,7 @@ export const slashItems: SlashItem[] = [
     icon: icons.get('danger'),
     title: locale => locale.slash.dangerAlert(),
     description: locale => locale.slash.dangerAlertDesc(),
-    onClick: (editor, value) => {
+    onClick: editor => {
       editor.command.execute('blockQuote', 'danger');
     },
   },
