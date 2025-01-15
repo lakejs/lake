@@ -123,6 +123,46 @@ export const slashItems: SlashItem[] = [
     },
   },
   {
+    name: 'infoAlert',
+    type: 'button',
+    icon: icons.get('info'),
+    title: locale => locale.slash.infoAlert(),
+    description: locale => locale.slash.infoAlertDesc(),
+    onClick: (editor, value) => {
+      editor.command.execute('blockQuote', 'info');
+    },
+  },
+  {
+    name: 'tipAlert',
+    type: 'button',
+    icon: icons.get('tip'),
+    title: locale => locale.slash.tipAlert(),
+    description: locale => locale.slash.tipAlertDesc(),
+    onClick: (editor, value) => {
+      editor.command.execute('blockQuote', 'tip');
+    },
+  },
+  {
+    name: 'warningAlert',
+    type: 'button',
+    icon: icons.get('warning'),
+    title: locale => locale.slash.warningAlert(),
+    description: locale => locale.slash.warningAlertDesc(),
+    onClick: (editor, value) => {
+      editor.command.execute('blockQuote', 'warning');
+    },
+  },
+  {
+    name: 'dangerAlert',
+    type: 'button',
+    icon: icons.get('danger'),
+    title: locale => locale.slash.dangerAlert(),
+    description: locale => locale.slash.dangerAlertDesc(),
+    onClick: (editor, value) => {
+      editor.command.execute('blockQuote', 'danger');
+    },
+  },
+  {
     name: 'hr',
     type: 'button',
     icon: icons.get('hr'),

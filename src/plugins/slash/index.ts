@@ -18,6 +18,10 @@ const defaultItems: string[] = [
   'bulletedList',
   'checklist',
   'table',
+  'infoAlert',
+  'tipAlert',
+  'warningAlert',
+  'dangerAlert',
   'hr',
 ];
 

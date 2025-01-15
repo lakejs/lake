@@ -308,6 +308,38 @@ type RootTranslation = {
 		 */
 		tableDesc: string
 		/**
+		 * I​n​f​o​ ​a​l​e​r​t
+		 */
+		infoAlert: string
+		/**
+		 * C​r​e​a​t​e​ ​a​n​ ​i​n​f​o​ ​a​l​e​r​t
+		 */
+		infoAlertDesc: string
+		/**
+		 * T​i​p​ ​a​l​e​r​t
+		 */
+		tipAlert: string
+		/**
+		 * C​r​e​a​t​e​ ​a​ ​t​i​p​ ​a​l​e​r​t
+		 */
+		tipAlertDesc: string
+		/**
+		 * W​a​r​n​i​n​g​ ​a​l​e​r​t
+		 */
+		warningAlert: string
+		/**
+		 * C​r​e​a​t​e​ ​a​ ​w​a​r​n​i​n​g​ ​a​l​e​r​t
+		 */
+		warningAlertDesc: string
+		/**
+		 * D​a​n​g​e​r​ ​a​l​e​r​t
+		 */
+		dangerAlert: string
+		/**
+		 * C​r​e​a​t​e​ ​a​ ​d​a​n​g​e​r​ ​a​l​e​r​t
+		 */
+		dangerAlertDesc: string
+		/**
 		 * H​o​r​i​z​o​n​t​a​l​ ​l​i​n​e
 		 */
 		hr: string
@@ -889,6 +921,38 @@ export type TranslationFunctions = {
 		 * Insert a table
 		 */
 		tableDesc: () => LocalizedString
+		/**
+		 * Info alert
+		 */
+		infoAlert: () => LocalizedString
+		/**
+		 * Create an info alert
+		 */
+		infoAlertDesc: () => LocalizedString
+		/**
+		 * Tip alert
+		 */
+		tipAlert: () => LocalizedString
+		/**
+		 * Create a tip alert
+		 */
+		tipAlertDesc: () => LocalizedString
+		/**
+		 * Warning alert
+		 */
+		warningAlert: () => LocalizedString
+		/**
+		 * Create a warning alert
+		 */
+		warningAlertDesc: () => LocalizedString
+		/**
+		 * Danger alert
+		 */
+		dangerAlert: () => LocalizedString
+		/**
+		 * Create a danger alert
+		 */
+		dangerAlertDesc: () => LocalizedString
 		/**
 		 * Horizontal line
 		 */

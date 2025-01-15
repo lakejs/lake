@@ -99,6 +99,11 @@ import tableColumn from './table-column.svg';
 import tableRow from './table-row.svg';
 import tableMerge from './table-merge.svg';
 import tableSplit from './table-split.svg';
+// alerts
+import info from './info.svg';
+import tip from './tip.svg';
+import warning from './warning.svg';
+import danger from './danger.svg';
 
 export const icons: Map<string, string> = new Map([
   // common
@@ -183,4 +188,9 @@ export const icons: Map<string, string> = new Map([
   ['tableRow', tableRow],
   ['tableMerge', tableMerge],
   ['tableSplit', tableSplit],
+  // alerts
+  ['info', info],
+  ['tip', tip],
+  ['warning', warning],
+  ['danger', danger],
 ]);
