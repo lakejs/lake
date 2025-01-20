@@ -8,7 +8,7 @@
 
 Lake is a browser-based rich text editor designed for creating content such as blogs, comments, and emails. It tries to keep a balance between being feature-rich and lightweight, offering an easy-to-use programming interface for further extension.
 
-[Examples](https://lakejs.org/examples/) · [Getting started](https://lakejs.org/guide/getting-started) · [Reference](https://lakejs.org/reference/)
+[Examples](https://lakejs.org/examples/) · [Getting started](https://lakejs.org/guide/) · [Reference](https://lakejs.org/reference/)
 
 ## Development
 
