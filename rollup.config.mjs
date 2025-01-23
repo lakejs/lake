@@ -130,9 +130,7 @@ function getConfigForPublishing(type) {
           stringify: true,
         }),
         css({
-          transform: code => {
-            return new CleanCSS().minify(code).styles;
-          },
+          transform: code => new CleanCSS().minify(code).styles,
         }),
       ],
     };
