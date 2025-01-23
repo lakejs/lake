@@ -9,6 +9,7 @@ import json from '@rollup/plugin-json';
 import svg from 'rollup-plugin-svg-import';
 import css from 'rollup-plugin-import-css';
 import terser from '@rollup/plugin-terser';
+import CleanCSS from 'clean-css';
 
 const rootPath = path.dirname(fileURLToPath(import.meta.url));
 
@@ -108,7 +109,7 @@ function getConfigForPublishing(type) {
         name: 'Lake',
         sourcemap: true,
         plugins: [terser()],
-        assetFileNames: 'lake.css',
+        assetFileNames: 'lake.min.css',
       },
       watch: {
         include: [
@@ -128,7 +129,11 @@ function getConfigForPublishing(type) {
         svg({
           stringify: true,
         }),
-        css(),
+        css({
+          transform: code => {
+            return new CleanCSS().minify(code).styles;
+          },
+        }),
       ],
     };
   }

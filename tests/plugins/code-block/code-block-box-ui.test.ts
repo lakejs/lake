@@ -7,7 +7,7 @@ const htmlCode = `
     <meta charset="utf-8" />
     <title>Lake example - IIFE / UMD</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../dist/lake.css" />
+    <link rel="stylesheet" href="../dist/lake.min.css" />
     <script src="../node_modules/lake-codemirror/dist/codemirror.min.js"></script>
     <script src="../dist/lake.min.js"></script>
     <style>
