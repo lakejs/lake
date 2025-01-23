@@ -1,3 +1,12 @@
+## [0.3.2](https://github.com/lakejs/lake/compare/0.3.1...0.3.2) (2025-01-23)
+
+
+### Features
+
+* **slash:** add alerts ([401df85](https://github.com/lakejs/lake/commit/401df85314ddb542a345967624568cd7f5ec05cd))
+
+
+
 ## [0.3.1](https://github.com/lakejs/lake/compare/0.3.0...0.3.1) (2024-12-26)
 
 
