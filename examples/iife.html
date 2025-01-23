@@ -34,10 +34,11 @@
       <div class="lake-root"></div>
     </div>
     <script>
-      const toolbar = new Lake.Toolbar({
+      const { Editor, Toolbar } = Lake;
+      const toolbar = new Toolbar({
         root: '.lake-toolbar-root',
       });
-      const editor = new Lake.Editor({
+      const editor = new Editor({
         root: '.lake-root',
         toolbar,
         value: '<p><br /></p>',
