@@ -5,9 +5,6 @@ export class Plugin {
   private pluginMap: Map<string, InitializePlugin> = new Map();
 
   public add(name: string, plugin: InitializePlugin): void {
-    if (this.pluginMap.get(name)) {
-      throw new Error(`Plugin "${name}" is already defined.`);
-    }
     this.pluginMap.set(name, plugin);
   }
 
