@@ -1,3 +1,12 @@
+## [0.3.3](https://github.com/lakejs/lake/compare/0.3.2...0.3.3) (2025-01-24)
+
+
+### Bug Fixes
+
+* **plugin:** allow overwriting existing plugins ([2884810](https://github.com/lakejs/lake/commit/2884810e07bf85f9fb32ee658d8c800a430f1dc6))
+
+
+
 ## [0.3.2](https://github.com/lakejs/lake/compare/0.3.1...0.3.2) (2025-01-23)
 
 
