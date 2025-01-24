@@ -1,18 +1,21 @@
 .document {
   background-color: #0000000d;
 }
+
 .document .header {
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
 }
+
 .document .lake-editor {
   padding: 0;
   margin: 0 auto;
   max-width: none;
   min-width: 300px;
 }
+
 .document .lake-editor .lake-toolbar-root {
   position: fixed;
   top: 60px;
@@ -23,6 +26,7 @@
   border-right: none;
   z-index: 999;
 }
+
 .document .lake-editor .lake-root {
   margin: 130px auto;
   max-width: 1000px;

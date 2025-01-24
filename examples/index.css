@@ -3,6 +3,7 @@ body {
   padding: 0;
   color: #000000e0;
 }
+
 .header {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
   font-weight: normal;
@@ -13,15 +14,18 @@ body {
   padding: 8px 8px 16px 8px;
   background-color: #fff;
 }
+
 .header .menu {
   position: relative;
   line-height: 0;
 }
+
 .header .menu img {
   width: 24px;
   height: 24px;
   margin: 6px;
 }
+
 .header .menu button {
   border-radius: 5px;
   border: 0;
@@ -32,9 +36,11 @@ body {
   cursor: pointer;
   user-select: none;
 }
+
 .header .menu .hovered {
   background-color: #0000000a;
 }
+
 .header .menu ul {
   position: absolute;
   top: 36px;
@@ -49,6 +55,7 @@ body {
   box-shadow: 0 6px 16px 0 #00000014, 0 3px 6px -4px #0000001f, 0 9px 28px 8px #0000000d;
   display: none;
 }
+
 .header .menu ul li {
   margin: 0;
   padding: 6px 24px;
@@ -56,33 +63,42 @@ body {
   font-size: 14px;
   line-height: normal;
 }
+
 .header .menu ul li a {
   color: #000000e0;
   text-decoration: none;
 }
+
 .header .menu ul li a:hover {
   text-decoration: underline;
 }
+
 .header .title {
   font-size: 18px;
 }
+
 .header .lake-dropdown .lake-dropdown-icon img {
   width: 24px;
   height: 24px;
 }
+
 .header .lake-dropdown .lake-dropdown-menu {
   top: 36px;
 }
+
 .header .source {
   line-height: 0;
 }
+
 .header .source a {
   display: block;
   border-radius: 5px;
 }
+
 .header .source a:hover {
   background-color: #0000000a;
 }
+
 .header .source img {
   width: 24px;
   height: 24px;

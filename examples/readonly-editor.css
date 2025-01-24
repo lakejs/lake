@@ -2,10 +2,12 @@
   padding: 0 8px;
   margin: 0 auto;
 }
+
 .readonly .lake-root {
   border: 0;
   overflow: visible;
 }
+
 .readonly .lake-container {
   height: auto;
 }

@@ -4,18 +4,22 @@
   min-width: 300px;
   max-width: 1000px;
 }
+
 .headless .lake-toolbar-root {
   border: none;
   padding-bottom: 8px;
 }
+
 .headless .lake-editor .lake-toolbar-root .lake-button {
   margin-right: 8px;
 }
+
 .headless .lake-root {
   border: 1px solid #d9d9d9;
   border-radius: 5px;
   overflow: auto;
 }
+
 .headless .lake-container {
   height: 300px;
 }

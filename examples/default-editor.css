@@ -5,11 +5,13 @@
   min-width: 300px;
   max-width: 1000px;
 }
+
 .lake-toolbar-root {
   box-sizing: border-box;
   border: 1px solid #d9d9d9;
   border-bottom: none;
 }
+
 .lake-root {
   box-sizing: border-box;
   border: 1px solid #d9d9d9;
