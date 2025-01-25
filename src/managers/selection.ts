@@ -83,14 +83,15 @@ function appendNextNestedNodes(activeItems: ActiveItem[], range: Range): void {
   }
 }
 
+// The Selection interface represents the range of content selected by the user or the current position of the cursor.
 export class Selection {
-  // Represents the range of text selected by the user or the current position of the cursor.
-  private selection: NativeSelection;
+  // A native selection.
+  private readonly selection: NativeSelection;
 
-  // Is the root element which has contenteditable="true" attribute.
-  public container: Nodes;
+  // A contenteditable element where users can edit the content.
+  public readonly container: Nodes;
 
-  // Is a saved range which is used to add it to the native selection later.
+  // A Range object which is used to add it to the native selection later.
   public range: Range;
 
   constructor(container: Nodes) {
@@ -105,7 +106,7 @@ export class Selection {
     this.range = this.getCurrentRange();
   }
 
-  // Returns a range object currently selected.
+  // Returns a Range object that is currently selected.
   public getCurrentRange(): Range {
     if (this.selection.rangeCount > 0) {
       const range = this.selection.getRangeAt(0);
@@ -114,7 +115,7 @@ export class Selection {
     return new Range();
   }
 
-  // Adds the saved range to the native selection.
+  // Adds the selection.range to the native selection.
   public sync(): void {
     if (!this.container.contains(this.range.commonAncestor)) {
       return;
@@ -123,7 +124,7 @@ export class Selection {
     this.selection.addRange(this.range.get());
   }
 
-  // Updates the saved range with the range of the native selection.
+  // Replaces the selection.range with the range of the native selection.
   public updateByRange(): void {
     const newRange = this.getCurrentRange();
     if (!this.container.contains(newRange.commonAncestor)) {
@@ -140,7 +141,7 @@ export class Selection {
     this.range = newRange;
   }
 
-  // Updates the saved range with the range represented by the bookmark.
+  // Replaces the selection.range with the range represented by the bookmark.
   public updateByBookmark(): void {
     const range = this.range;
     const container = this.container;
@@ -162,6 +163,7 @@ export class Selection {
     this.sync();
   }
 
+  // Returns a list containing the items related to the current selection.
   public getActiveItems(): ActiveItem[] {
     const activeItems: ActiveItem[] = [];
     appendAncestralNodes(activeItems, this.range);
@@ -169,14 +171,17 @@ export class Selection {
     return activeItems;
   }
 
+  // Inserts a bookmark at the cursor position or a pair of bookmarks at the beginning and end of the selection.
   public insertBookmark(): ReturnType<typeof insertBookmark> {
     return insertBookmark(this.range);
   }
 
+  // Changes the selection.range to a range represented by the provided bookmark.
   public toBookmark(bookmark: Parameters<typeof toBookmark>[1]): ReturnType<typeof toBookmark> {
     return toBookmark(this.range, bookmark);
   }
 
+  // Inserts the specified contents into the selection.
   public insertContents(contents: Parameters<typeof insertContents>[1]): ReturnType<typeof insertContents> {
     return insertContents(this.range, contents);
   }

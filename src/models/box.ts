@@ -18,7 +18,7 @@ export class Box {
   // A lake-box element to which the contents of the box are appended.
   public readonly node: Nodes;
 
-  // Managing events.
+  // An EventEmitter object used to set up events.
   public readonly event: EventEmitter = new EventEmitter();
 
   // A toolbar for the box.
@@ -125,7 +125,7 @@ export class Box {
     this.value = value;
   }
 
-  // Returns an instance of the editor containing the box.
+  // Returns an Editor object that contains the box.
   public getEditor(): Editor {
     const container = this.node.closest('div[contenteditable]');
     const editor = container.length > 0 ? editors.get(container.id) : undefined;

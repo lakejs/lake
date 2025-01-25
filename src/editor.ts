@@ -110,10 +110,10 @@ export class Editor {
   // the current version of Lake.
   public static readonly version: string = version;
 
-  // Managing the box components.
+  // A BoxManager object that manages the box components.
   public static readonly box = new BoxManager();
 
-  // Managing the plugins.
+  // A Plugin object that manages the plugins.
   public static readonly plugin = new Plugin();
 
   // An element to which the editor is appended.
@@ -134,13 +134,13 @@ export class Editor {
   // Managing events.
   public readonly event: EventEmitter = new EventEmitter();
 
-  // Representing the range of text selected by the user or the current position of the cursor.
+  // Representing the range of content selected by the user or the current position of the cursor.
   public readonly selection: Selection;
 
   // Managing commands.
   public readonly command: Command;
 
-  // Managing the history of the content of the editor.
+  // Managing the editor's history.
   public readonly history: History;
 
   // Managing keyboard shortcuts.

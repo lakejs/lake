@@ -5,7 +5,7 @@ import { Nodes } from './nodes';
 
 // The Range interface represents a fragment of a document that can contain nodes and parts of text nodes.
 export class Range {
-  // native range
+  // A native range.
   private readonly range: NativeRange;
 
   constructor(range?: NativeRange) {
