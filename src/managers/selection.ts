@@ -186,35 +186,42 @@ export class Selection {
     return insertContents(this.range, contents);
   }
 
+  // Removes the contents of the selection.
   public deleteContents(): ReturnType<typeof deleteContents> {
     return deleteContents(this.range);
   }
 
+  // Adds new blocks or changes the target blocks in the selection.
   public setBlocks(value: Parameters<typeof setBlocks>[1]): ReturnType<typeof setBlocks> {
     return setBlocks(this.range, value);
   }
 
+  // Removes the contents of the selection and then splits the block node at the point of the cursor.
   public splitBlock(): ReturnType<typeof splitBlock> {
     return splitBlock(this.range);
   }
 
+  // Inserts a block into the selection.
   public insertBlock(value: Parameters<typeof insertBlock>[1]): ReturnType<typeof insertBlock> {
     return insertBlock(this.range, value);
   }
 
+  // Splits text nodes or mark nodes.
   public splitMarks(removeEmptyMark?: Parameters<typeof splitMarks>[1]): ReturnType<typeof splitMarks> {
     return splitMarks(this.range, removeEmptyMark);
   }
 
+  // Adds the specified mark to the texts of the selection.
   public addMark(value: Parameters<typeof addMark>[1]): ReturnType<typeof addMark> {
     return addMark(this.range, value);
   }
 
+  // Removes the specified marks in the selection.
   public removeMark(value?: Parameters<typeof removeMark>[1]): ReturnType<typeof removeMark> {
     return removeMark(this.range, value);
   }
 
-  // Sets the current range to the center position of the box.
+  // Collapses the selection to the center position of the specified box.
   public selectBox(box: Box | Nodes): void {
     let boxNode = box;
     if (box instanceof Box) {
@@ -235,7 +242,7 @@ export class Selection {
     return box;
   }
 
-  // Removes the selected box.
+  // Removes the specified box. If not given, the selected box is removed.
   public removeBox(box: Box | Nodes | null = null): ReturnType<typeof removeBox> {
     if (box) {
       this.selectBox(box);
