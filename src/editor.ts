@@ -137,10 +137,10 @@ export class Editor {
   // Representing the range of content selected by the user or the current position of the cursor.
   public readonly selection: Selection;
 
-  // Managing commands.
+  // Managing all registered commands.
   public readonly command: Command;
 
-  // Managing the editor's history.
+  // Managing the undo and redo history.
   public readonly history: History;
 
   // Managing keyboard shortcuts.

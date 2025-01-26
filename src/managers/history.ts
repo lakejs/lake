@@ -15,7 +15,7 @@ type SaveOptions = {
   emitEvent?: boolean;
 };
 
-// Saves and controls the history of the value of the editor.
+// The History interface is used to manage the undo and redo history.
 //
 // Example:
 //
@@ -30,21 +30,23 @@ type SaveOptions = {
 // redoes: value: 'ab', list: ['a', 'ab', 'abc', 'abcd'], index: 2, canRedo: true
 // inputs 'e': value: 'abe', list: ['a', 'ab', 'abe'], index: 3, canRedo: false
 export class History {
-  private selection: Selection;
+  private readonly selection: Selection;
 
-  private container: Nodes;
+  private readonly container: Nodes;
 
   private canSave: boolean = true;
 
-  // an array for storing the history items
-  public list: Nodes[] = [];
+  // A list in which the current and previous contents are stored.
+  public readonly list: Nodes[] = [];
 
-  // the next index of the list
+  // An index that always indicates the position at which new content is stored.
   public index: number = 0;
 
+  // The maximum length of the history. Once this limit is reached, the earliest item in the list will be removed.
   public limit: number = 100;
 
-  public event: EventEmitter = new EventEmitter();
+  // An EventEmitter object used to set up events.
+  public readonly event: EventEmitter = new EventEmitter();
 
   constructor(selection: Selection) {
     this.selection = selection;
@@ -103,14 +105,17 @@ export class History {
     this.removeIdfromBoxes(otherContainer);
   }
 
+  // A boolean value indicating whether the history can be undone.
   public get canUndo(): boolean {
     return this.index > 1 && !!this.list[this.index - 2];
   }
 
+  // A boolean value indicating whether the history can be redone.
   public get canRedo(): boolean {
     return !!this.list[this.index];
   }
 
+  // Creates a deep clone of the current container with its content.
   public cloneContainer(): Nodes {
     const range = this.selection.range;
     const newContainer = this.container.clone(true);
@@ -141,6 +146,7 @@ export class History {
     return newContainer;
   }
 
+  // Undoes to the previous saved content.
   public undo(): void {
     if (!this.list[this.index - 2]) {
       return;
@@ -164,6 +170,7 @@ export class History {
     debug(`History undone (index: ${this.index})`);
   }
 
+  // Redoes to the next saved content.
   public redo(): void {
     if (!this.list[this.index]) {
       return;
@@ -187,14 +194,17 @@ export class History {
     debug(`History redone (index: ${this.index})`);
   }
 
+  // Resumes the ability to save history. This method re-enables saving after the pause method has been called.
   public continue(): void {
     this.canSave = true;
   }
 
+  // Pauses the ability to save history. This method temporarily disables saving history, which can be resumed later by calling the continue method.
   public pause(): void {
     this.canSave = false;
   }
 
+  // Saves the current content to the history. The content is saved only if it is different from the previous content.
   public save(options: SaveOptions = {}): void {
     const inputType = options.inputType ?? '';
     const update = options.update ?? false;
