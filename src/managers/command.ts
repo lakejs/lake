@@ -9,31 +9,37 @@ type CommmandItem = {
   execute: (...data: any[]) => void;
 };
 
+// The Command interface is used to manage all registered commands.
 export class Command {
-  private selection: Selection;
+  private readonly selection: Selection;
 
-  private commandMap: Map<string, CommmandItem> = new Map();
+  private readonly commandMap: Map<string, CommmandItem> = new Map();
 
   constructor(selection: Selection) {
     this.selection = selection;
   }
 
+  // Registers a new command.
   public add(name: string, commandItem: CommmandItem): void {
     this.commandMap.set(name, commandItem);
   }
 
+  // Removes the specified command.
   public delete(name: string): void {
     this.commandMap.delete(name);
   }
 
+  // Returns the names of all registered commands.
   public getNames(): string[] {
     return Array.from(this.commandMap.keys());
   }
 
+  // Returns a boolean value indicating whether the specified command exists.
   public has(name: string): boolean {
     return this.commandMap.get(name) !== undefined;
   }
 
+  // Returns an item by the name of the specified command.
   public getItem(name: string): CommmandItem {
     const commandItem = this.commandMap.get(name);
     if (commandItem === undefined) {
@@ -42,6 +48,7 @@ export class Command {
     return commandItem;
   }
 
+  // Returns a boolean value indicating whether the specified command is disabled.
   public isDisabled(name: string): boolean {
     const commandItem = this.getItem(name);
     if (!commandItem.isDisabled) {
@@ -51,6 +58,7 @@ export class Command {
     return commandItem.isDisabled(activeItems);
   }
 
+  // Returns a boolean value indicating whether the specified command is selected.
   public isSelected(name: string): boolean {
     const commandItem = this.getItem(name);
     if (!commandItem.isSelected) {
@@ -60,6 +68,7 @@ export class Command {
     return commandItem.isSelected(activeItems);
   }
 
+  // Returns the selected values for the specified command.
   public selectedValues(name: string): string[] {
     const commandItem = this.getItem(name);
     if (!commandItem.selectedValues) {
@@ -69,6 +78,7 @@ export class Command {
     return commandItem.selectedValues(activeItems);
   }
 
+  // Executes the specified command.
   public execute(name: string, ...data: any[]): void {
     const container = this.selection.container;
     const range = this.selection.range;
