@@ -6,12 +6,13 @@ type EventItem = {
   listener: (event: KeyboardEvent) => void | boolean;
 };
 
+// The Keystroke interface provides a way to handle keyboard events and define custom shortcuts for a given container.
 export class Keystroke {
-  private container: Nodes;
+  private readonly container: Nodes;
 
-  private keydownEventList: EventItem[] = [];
+  private readonly keydownEventList: EventItem[] = [];
 
-  private keyupEventList: EventItem[] = [];
+  private readonly keyupEventList: EventItem[] = [];
 
   constructor(container: Nodes) {
     this.container = container;
@@ -49,7 +50,7 @@ export class Keystroke {
     });
   }
 
-  // Sets a keydown shortcut.
+  // Registers a keydown event listener for the specified key combination.
   public setKeydown(type: string, listener: EventListener): void {
     this.keydownEventList.push({
       type,
@@ -57,7 +58,7 @@ export class Keystroke {
     });
   }
 
-  // Sets a keyup shortcut.
+  // Registers a keyup event listener for the specified key combination.
   public setKeyup(type: string, listener: EventListener): void {
     this.keyupEventList.push({
       type,
@@ -65,7 +66,7 @@ export class Keystroke {
     });
   }
 
-  // Executes the keydown shortcuts.
+  // Triggers all keydown event listeners associated with the specified key combination.
   public keydown(type: string): void {
     for (const item of this.keydownEventList) {
       if (item.type === type) {
@@ -76,7 +77,7 @@ export class Keystroke {
     }
   }
 
-  // Executes the keyup shortcuts.
+  // Triggers all keyup event listeners associated with the specified key combination.
   public keyup(type: string): void {
     for (const item of this.keyupEventList) {
       if (item.type === type) {
