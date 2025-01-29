@@ -12,26 +12,32 @@ Lake is a browser-based rich text editor built for modern applications that requ
 
 ## Development
 
-If you want to customize Lake, download the source code and run a local server that includes an HTTP service and real-time bundling.
+Want to customize Lake? Follow these steps to set up a local development environment:
 
 ``` bash
 # Clone the repository
 git clone https://github.com/lakejs/lake.git
+
 # Install dependencies
 pnpm install
-# Start a local server
+
+# Start the development server
 pnpm dev
 ```
 
-You can now visit `http://localhost:8080/examples/` to try the demos in your local environment.
+Once the server is running, you can open `http://localhost:8080/examples/` to try the demos.
 
-## Test
+## Testing
 
-Lake depends on many browser APIs, so running its test cases needs a real browser environment. You can run the tests visibly by visiting `http://localhost:8080/tests/`, or execute the `pnpm test` command to run them in headless mode.
+Since Lake relies on various browser APIs, tests need to run in a real browser environment. You have two options:
+
+* Open `http://localhost:8080/tests/` to run tests in a visible browser window.
+
+* Run tests in headless mode with the `pnpm test` command.
 
 ## License
 
-Lake is released under the [MIT](https://github.com/lakejs/lake/blob/main/LICENSE) license. The following table shows the licenses of the packages that Lake depends on.
+Lake is released under the [MIT](https://github.com/lakejs/lake/blob/main/LICENSE) license. Below is a list of licenses for its dependencies:
 
 | Dependency | License |
 | -------------  | ------------- |
