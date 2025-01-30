@@ -146,9 +146,6 @@ export class Editor {
   // Managing keyboard shortcuts.
   public readonly keystroke: Keystroke;
 
-  // Managing the box components.
-  public readonly box: BoxManager = Editor.box;
-
   // Indicating whether the editor is in read-only mode.
   public readonly readonly: boolean;
 
