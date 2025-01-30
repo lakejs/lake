@@ -3,7 +3,8 @@ import { query } from './query';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 
-// Returns an already generated box instance or generates a new instance if it does not exist.
+// Returns an existing Box instance associated with the given boxNode or generates a new instance if none exists.
+// It manages instances in temporary or permanent storage based on whether the boxNode is within a container.
 export function getBox(boxNode: string | Node | Nodes): Box {
   const tempInstanceMap = getInstanceMap(0);
   // boxNode is a name
@@ -12,7 +13,7 @@ export function getBox(boxNode: string | Node | Nodes): Box {
     tempInstanceMap.set(box.node.id, box);
     return box;
   }
-  // boxNode is node
+  // boxNode is a node
   boxNode = query(boxNode);
   const container = boxNode.closestContainer();
   if (container.length === 0) {

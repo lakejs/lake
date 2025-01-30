@@ -1,6 +1,6 @@
 {
   "name": "lakelib",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "Lake is a browser-based rich text editor built for modern applications that require content creation like blog posts, user comments, and email composition.",
   "keywords": [
     "rich text",

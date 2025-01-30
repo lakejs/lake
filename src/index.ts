@@ -10,6 +10,7 @@ import { icons } from './icons';
 import { query } from './utils/query';
 import { template } from './utils/template';
 import { toHex } from './utils/to-hex';
+import { getBox } from './utils/get-box';
 import { Nodes } from './models/nodes';
 import { Fragment } from './models/fragment';
 import { Range } from './models/range';
@@ -158,6 +159,7 @@ export {
   query,
   template,
   toHex,
+  getBox,
   insertBookmark,
   toBookmark,
   insertContents,
