@@ -39,17 +39,17 @@ Since Lake relies on various browser APIs, tests need to run in a real browser e
 
 Lake is released under the [MIT](https://github.com/lakejs/lake/blob/main/LICENSE) license. Below is a list of licenses for its dependencies:
 
-| Dependency | License |
-| -------------  | ------------- |
-| [Phosphor Icons](https://phosphoricons.com/) | MIT |
-| [Fluent Icons](https://fluenticons.co/) | MIT |
-| [CodeMirror](https://codemirror.net/) | MIT |
-| [debounce](https://github.com/sindresorhus/debounce) | MIT |
-| [EventEmitter3](https://github.com/primus/eventemitter3) | MIT |
-| [fast-deep-equal](https://github.com/epoberezkin/fast-deep-equal) | MIT |
-| [Idiomorph](https://github.com/bigskysoftware/idiomorph) | BSD 2-Clause |
-| [is-hotkey](https://github.com/ianstormtaylor/is-hotkey) | MIT |
-| [KaTeX](https://katex.org/) | MIT |
-| [rc-upload](https://github.com/react-component/upload) | MIT |
-| [PhotoSwipe](https://photoswipe.com/) | MIT |
-| [typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n) | MIT |
+| Dependency | License | Author |
+| -------------  | ------------- | ------------- |
+| [Phosphor Icons](https://phosphoricons.com/) | MIT | Tobias Fried |
+| [Fluent Icons](https://fluenticons.co/) | MIT | Microsoft |
+| [CodeMirror](https://codemirror.net/) | MIT | Marijn Haverbeke |
+| [debounce](https://github.com/sindresorhus/debounce) | MIT | Sindre Sorhus |
+| [EventEmitter3](https://github.com/primus/eventemitter3) | MIT | Arnout Kazemier |
+| [fast-deep-equal](https://github.com/epoberezkin/fast-deep-equal) | MIT | Evgeny Poberezkin |
+| [Idiomorph](https://github.com/bigskysoftware/idiomorph) | BSD 2-Clause | Big Sky Software |
+| [is-hotkey](https://github.com/ianstormtaylor/is-hotkey) | MIT | Ian Storm Taylor |
+| [KaTeX](https://katex.org/) | MIT | Khan Academy |
+| [rc-upload](https://github.com/react-component/upload) | MIT | Ant Design Team |
+| [PhotoSwipe](https://photoswipe.com/) | MIT | Dmitry Semenov |
+| [typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n) | MIT | Hofer Ivan |
