@@ -1,7 +1,6 @@
 import { isKeyHotkey } from 'is-hotkey';
 import { query } from '../utils/query';
 import { visibleInfo } from '../utils/visible-info';
-import { scrollToNode } from '../utils/scroll-to-node';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
@@ -88,27 +87,29 @@ export abstract class Menu<Item> {
     if (!isDownKey && !isUpKey && !isEnterKey) {
       return;
     }
+    const nativeContainer = this.container.get(0) as HTMLElement;
     const selectedItemNode = this.container.find('.lake-menu-item-selected');
     if (selectedItemNode.length === 0) {
+      event.preventDefault();
       const firstItem = this.container.find('.lake-menu-item').eq(0);
-      scrollToNode(firstItem, {
-        behavior: 'instant',
-        block: 'start',
-      });
       firstItem.addClass('lake-menu-item-selected');
+      nativeContainer.scrollTop = 0;
       return;
     }
     this.noMouseEvent = true;
+    const paddingTop = Number.parseInt(this.container.computedCSS('padding-top'), 10) || 0;
+    const paddingBottom = Number.parseInt(this.container.computedCSS('padding-bottom'), 10) || 0;
     if (isDownKey) {
       event.preventDefault();
       let nextItemNode = selectedItemNode.next();
       if (nextItemNode.length === 0) {
         nextItemNode = this.container.find('.lake-menu-item').eq(0);
       }
-      scrollToNode(nextItemNode, {
-        behavior: 'instant',
-        block: 'end',
-      });
+      const nextItemNativeNode = nextItemNode.get(0) as HTMLElement;
+      const visible = visibleInfo(nextItemNode);
+      if (visible.top !== 0 || visible.bottom !== 0) {
+        nativeContainer.scrollTop = nextItemNativeNode.offsetTop - this.container.height() + nextItemNode.height() + paddingBottom;
+      }
       this.container.find('.lake-menu-item').removeClass('lake-menu-item-selected');
       nextItemNode.addClass('lake-menu-item-selected');
     } else if (isUpKey) {
@@ -118,10 +119,11 @@ export abstract class Menu<Item> {
         const itemNode = this.container.find('.lake-menu-item');
         prevItemNode = itemNode.eq(itemNode.length - 1);
       }
-      scrollToNode(prevItemNode, {
-        behavior: 'instant',
-        block: 'start',
-      });
+      const prevItemNativeNode = prevItemNode.get(0) as HTMLElement;
+      const visible = visibleInfo(prevItemNode);
+      if (visible.top !== 0 || visible.bottom !== 0) {
+        nativeContainer.scrollTop = prevItemNativeNode.offsetTop - paddingTop;
+      }
       this.container.find('.lake-menu-item').removeClass('lake-menu-item-selected');
       prevItemNode.addClass('lake-menu-item-selected');
     } else if (isEnterKey) {

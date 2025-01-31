@@ -1,5 +1,8 @@
 .lake-slash-menu {
-  max-height: 330px;
+  max-height: 332px;
+}
+.lake-slash-menu .lake-menu-item {
+  height: 54px;
 }
 .lake-slash-menu .lake-menu-item input[type="file"] {
   display: none;
