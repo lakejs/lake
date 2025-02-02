@@ -1,26 +1,19 @@
-import { ActiveItem } from '../types/selection';
+import { CommandItem } from '../types/command';
 import { debug } from '../utils/debug';
 import { Selection } from './selection';
-
-type CommmandItem = {
-  isDisabled?: (activeItems: ActiveItem[]) => boolean;
-  isSelected?: (activeItems: ActiveItem[]) => boolean;
-  selectedValues?: (activeItems: ActiveItem[]) => string[];
-  execute: (...data: any[]) => void;
-};
 
 // The Command interface is used to manage all registered commands.
 export class Command {
   private readonly selection: Selection;
 
-  private readonly commandMap: Map<string, CommmandItem> = new Map();
+  private readonly commandMap: Map<string, CommandItem> = new Map();
 
   constructor(selection: Selection) {
     this.selection = selection;
   }
 
   // Registers a new command.
-  public add(name: string, commandItem: CommmandItem): void {
+  public add(name: string, commandItem: CommandItem): void {
     this.commandMap.set(name, commandItem);
   }
 
@@ -40,7 +33,7 @@ export class Command {
   }
 
   // Returns an item by the name of the specified command.
-  public getItem(name: string): CommmandItem {
+  public getItem(name: string): CommandItem {
     const commandItem = this.commandMap.get(name);
     if (commandItem === undefined) {
       throw new Error(`Command "${name}" has not been defined yet.`);

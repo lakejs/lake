@@ -1,11 +1,16 @@
 import './css';
 import './elements/box';
 import './elements/bookmark';
-import { BoxComponent, BoxValue } from './types/box';
-import { ToolbarItem } from './types/toolbar';
-import { DropdownMenuItem } from './types/dropdown';
+import { KeyValue } from './types/object';
+import { NodePath } from './types/node';
+import { BoxValue, BoxComponent } from './types/box';
+import { ActiveItem, SelectionState } from './types/selection';
+import { CommandItem } from './types/command';
+import { UnmountPlugin, InitializePlugin } from './types/plugin';
+import { DropdownMenuItem, DropdownItem } from './types/dropdown';
+import { ToolbarButtonItem, ToolbarDropdownItem, ToolbarUploadItem, ToolbarItem } from './types/toolbar';
 import { MentionItem } from './plugins/mention/types';
-import { SlashItem } from './plugins/slash/types';
+import { SlashButtonItem, SlashUploadItem, SlashItem } from './plugins/slash/types';
 import { icons } from './icons';
 import { query } from './utils/query';
 import { template } from './utils/template';
@@ -138,12 +143,25 @@ export {
   // constants
   icons,
   // types
-  ToolbarItem,
-  DropdownMenuItem,
-  MentionItem,
-  SlashItem,
-  BoxComponent,
+  KeyValue,
+  NodePath,
   BoxValue,
+  BoxComponent,
+  ActiveItem,
+  SelectionState,
+  CommandItem,
+  UnmountPlugin,
+  InitializePlugin,
+  DropdownMenuItem,
+  DropdownItem,
+  ToolbarButtonItem,
+  ToolbarDropdownItem,
+  ToolbarUploadItem,
+  ToolbarItem,
+  MentionItem,
+  SlashButtonItem,
+  SlashUploadItem,
+  SlashItem,
   // classes
   Editor,
   Toolbar,
