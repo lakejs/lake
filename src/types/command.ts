@@ -1,4 +1,4 @@
-import { ActiveItem } from "./selection";
+import { ActiveItem } from './selection';
 
 export type CommandItem = {
   isDisabled?: (activeItems: ActiveItem[]) => boolean;
