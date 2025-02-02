@@ -3,7 +3,7 @@ import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 
 type ButtonConfig = {
-  root: Nodes;
+  root: string | Node | Nodes;
   name: string;
   type?: 'primary' | 'default';
   icon?: string;
@@ -24,7 +24,7 @@ export class Button {
 
   constructor(config: ButtonConfig) {
     this.config = config;
-    this.root = config.root;
+    this.root = query(config.root);
     this.node = query(template`
       <button type="button" name="${config.name}" class="lake-button" />
     `);
@@ -51,6 +51,7 @@ export class Button {
       buttonNode.append(`<span>${config.text}</span>`);
     }
     this.root.append(buttonNode);
+    this.root.get(0).appendChild(buttonNode.get(0));
     buttonNode.on('mouseenter', () => {
       if (buttonNode.attr('disabled')) {
         return;

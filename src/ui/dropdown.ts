@@ -14,7 +14,7 @@ import { Nodes } from '../models/nodes';
 import { i18nObject } from '../i18n';
 
 type DropdownConfig = DropdownItem & {
-  root: Nodes;
+  root: string | Node | Nodes;
   locale?: TranslationFunctions;
   tabIndex?: number;
   location?: DropdownLocation;
@@ -41,7 +41,7 @@ export class Dropdown {
 
   constructor(config: DropdownConfig) {
     this.config = config;
-    this.root = config.root;
+    this.root = query(config.root);
     this.locale = config.locale || i18nObject('en-US');
     this.location = config.location || 'local';
     this.direction = config.direction || 'auto';

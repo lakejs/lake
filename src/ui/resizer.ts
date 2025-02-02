@@ -3,8 +3,8 @@ import { template } from '../utils/template';
 import { Nodes } from '../models/nodes';
 
 type ResizerConfig = {
-  root: Nodes;
-  target: Nodes;
+  root: string | Node | Nodes;
+  target: string | Node | Nodes;
   onResize?: (width: number, height: number) => void;
   onStop: (width: number, height: number) => void;
 };
@@ -21,8 +21,8 @@ export class Resizer {
 
   constructor(config: ResizerConfig) {
     this.config = config;
-    this.root = config.root;
-    this.target = config.target;
+    this.root = query(config.root);
+    this.target = query(config.target);
     this.container = query(template`
       <div class="lake-resizer">
         <div class="lake-resizer-top-left"></div>

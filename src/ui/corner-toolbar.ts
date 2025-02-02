@@ -7,7 +7,7 @@ import { i18nObject } from '../i18n';
 
 type CornerToolbarConfig = {
   locale?: TranslationFunctions;
-  root: Nodes;
+  root: string | Node | Nodes;
   items: CornerToolbarItem[];
 }
 
@@ -24,7 +24,7 @@ export class CornerToolbar {
   constructor(config: CornerToolbarConfig) {
     this.config = config;
     this.locale = this.config.locale || i18nObject('en-US');
-    this.root = config.root;
+    this.root = query(config.root);
     this.container = query('<div class="lake-corner-toolbar" />');
   }
 
