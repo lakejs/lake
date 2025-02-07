@@ -30,7 +30,7 @@
     "dev:lib": "rollup --watch --config rollup.config.mjs --es",
     "build": "rimraf ./dist ./lib && rollup --config rollup.config.mjs --iife --es",
     "i18n": "typesafe-i18n --no-watch",
-    "install:chrome": "npx puppeteer browsers install chrome-headless-shell",
+    "install:chrome": "npx puppeteer browsers install chrome",
     "sort:package": "sort-package-json",
     "lint": "eslint . --config .eslintrc.cjs --ext \".ts,.js,.cjs,.mjs\"",
     "test": "node ./scripts/run-tests.mjs",
