@@ -1,7 +1,7 @@
 // See more in https://pptr.dev/api/puppeteer.coverage/
 
-/* eslint no-console: "off" */
-
+import process from 'node:process';
+import console from 'node:console';
 import pc from 'picocolors';
 import puppeteer from 'puppeteer';
 import { execa } from 'execa';

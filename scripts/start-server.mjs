@@ -1,8 +1,8 @@
-/* eslint no-console: "off" */
-
-import path from 'path';
-import { networkInterfaces } from 'os';
-import { fileURLToPath } from 'url';
+import path from 'node:path';
+import { networkInterfaces } from 'node:os';
+import { fileURLToPath } from 'node:url';
+import process from 'node:process';
+import console from 'node:console';
 import pc from 'picocolors';
 import express from 'express';
 import multer from 'multer';

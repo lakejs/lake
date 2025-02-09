@@ -24,12 +24,11 @@ SOFTWARE.
 Repository: https://github.com/vuejs/vitepress/blob/main/scripts/release.js
 */
 
-/* eslint-disable no-console */
-
-import { readFileSync, writeFileSync } from 'fs';
-import { resolve } from 'path';
-import { fileURLToPath } from 'url';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { fileURLToPath, URL } from 'node:url';
 import { createRequire } from 'module';
+import console from 'node:console';
 import pc from 'picocolors';
 import prompts from 'prompts';
 import { execa } from 'execa';

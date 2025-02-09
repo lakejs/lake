@@ -24,13 +24,12 @@ SOFTWARE.
 Repository: https://github.com/vuejs/vitepress/blob/main/scripts/release.js
 */
 
-/* eslint-disable no-console */
-/* eslint-disable prefer-template */
-
 // @ts-check
 import pico from 'picocolors';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
+import process from 'node:process';
+import console from 'node:console';
 
 const msgPath = path.resolve('.git/COMMIT_EDITMSG');
 const msg = readFileSync(msgPath, 'utf-8').trim();
