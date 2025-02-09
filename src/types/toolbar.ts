@@ -3,7 +3,7 @@ import { TranslationFunctions } from '../i18n/types';
 import { DropdownItem } from './dropdown';
 import { ActiveItem } from './selection';
 
-export type ToolbarButtonItem = {
+export interface ToolbarButtonItem {
   name: string;
   type: 'button';
   icon?: string;
@@ -11,9 +11,9 @@ export type ToolbarButtonItem = {
   isSelected?: (activeItems: ActiveItem[]) => boolean;
   isDisabled?: (activeItems: ActiveItem[]) => boolean;
   onClick: (editor: Editor, value: string) => void;
-};
+}
 
-export type ToolbarDropdownItem = DropdownItem & {
+export interface ToolbarDropdownItem extends DropdownItem {
   name: string;
   type: 'dropdown';
   selectedValues?: (activeItems: ActiveItem[]) => string[];
@@ -21,13 +21,13 @@ export type ToolbarDropdownItem = DropdownItem & {
   onSelect: (editor: Editor, value: string) => void;
 }
 
-export type ToolbarUploadItem = {
+export interface ToolbarUploadItem {
   name: string;
   type: 'upload';
   icon?: string;
   tooltip: string | ((locale: TranslationFunctions) => string);
   accept?: string;
   multiple?: boolean;
-};
+}
 
 export type ToolbarItem = ToolbarButtonItem | ToolbarDropdownItem | ToolbarUploadItem;

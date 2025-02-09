@@ -26,7 +26,7 @@ import { Toolbar } from './ui/toolbar';
 
 type OnMessage = (type: 'success' | 'error' | 'warning', message: string) => void;
 
-type Config = {
+interface Config {
   value: string;
   readonly: boolean;
   spellcheck: boolean;
@@ -38,9 +38,9 @@ type Config = {
   historySize: number;
   onMessage: OnMessage;
   [name: string]: any;
-};
+}
 
-type EditorConfig = {
+interface EditorConfig {
   root: string | Node | Nodes;
   toolbar?: Toolbar;
   value?: string;
@@ -53,7 +53,7 @@ type EditorConfig = {
   minChangeSize?: number;
   onMessage?: OnMessage;
   [name: string]: any;
-};
+}
 
 const defaultConfig: Config = {
   value: '<p><br /></p>',
@@ -88,10 +88,10 @@ const defaultConfig: Config = {
 // The Editor interface provides properties and methods for rendering and manipulating the editor.
 export class Editor {
   // A string that has not yet been saved to the history.
-  private unsavedInputData: string = '';
+  private unsavedInputData = '';
 
   // The number of input event calls before saving to the history.
-  private unsavedInputCount: number = 0;
+  private unsavedInputCount = 0;
 
   // The state of the current selection.
   private state: SelectionState = {
@@ -102,7 +102,7 @@ export class Editor {
   };
 
   // The functions for unmounting plugins.
-  private unmountPluginMap: Map<string, UnmountPlugin> = new Map();
+  private unmountPluginMap = new Map<string, UnmountPlugin>();
 
   // The parent element of the container.
   private readonly containerWrapper: Nodes;
@@ -150,7 +150,7 @@ export class Editor {
   public readonly readonly: boolean;
 
   // Indicating whether a user is entering a character using a text composition system such as an Input Method Editor (IME).
-  public isComposing: boolean = false;
+  public isComposing = false;
 
   // A pop-up component which is currently displayed, such as LinkPopup, MentionMenu, and SlashMenu.
   public popup: any = null;
@@ -288,9 +288,9 @@ export class Editor {
     if (activeItems.length > 0 && !this.container.contains(activeItems[0].node)) {
       activeItems = [];
     }
-    const disabledNameMap: Map<string, boolean> = new Map();
-    const selectedNameMap: Map<string, boolean> = new Map();
-    const selectedValuesMap: Map<string, string[]> = new Map();
+    const disabledNameMap = new Map<string, boolean>();
+    const selectedNameMap = new Map<string, boolean>();
+    const selectedValuesMap = new Map<string, string[]>();
     if (activeItems.length > 0) {
       for (const name of commandNames) {
         const commandItem = this.command.getItem(name);
@@ -486,7 +486,7 @@ export class Editor {
   }
 
   // Sets the default config for the specified plugin.
-  public setPluginConfig(name: string, config: {[key: string]: any}): void {
+  public setPluginConfig(name: string, config: Record<string, any>): void {
     if (typeof this.config[name] !== 'object') {
       this.config[name] = {};
     }

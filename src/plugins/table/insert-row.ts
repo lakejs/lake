@@ -32,7 +32,7 @@ export function insertRow(range: Range, direction: InsertRowDirection): void {
   }
   tableMap  = getTableMap(table);
   targetRowIndex = targetRow.rowIndex;
-  let prevCellIndex: number = -1;
+  let prevCellIndex = -1;
   for (let i = 0; i < columnCount; i++) {
     const cellIndex = getCellIndex(tableMap, targetRowIndex, i);
     if (cellIndex !== prevCellIndex) {

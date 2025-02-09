@@ -1,3 +1,3 @@
 import type { BoxComponent } from '../types/box';
 
-export const boxes: Map<string, BoxComponent> = new Map();
+export const boxes = new Map<string, BoxComponent>();

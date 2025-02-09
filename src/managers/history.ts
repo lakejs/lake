@@ -9,11 +9,11 @@ import { HTMLParser } from '../parsers/html-parser';
 import { insertBookmark } from '../operations/insert-bookmark';
 import { Selection } from './selection';
 
-type SaveOptions = {
+interface SaveOptions {
   inputType?: string;
   update?: boolean;
   emitEvent?: boolean;
-};
+}
 
 // The History interface is used to manage the undo and redo history.
 //
@@ -34,16 +34,16 @@ export class History {
 
   private readonly container: Nodes;
 
-  private canSave: boolean = true;
+  private canSave = true;
 
   // A list in which the current and previous contents are stored.
   public readonly list: Nodes[] = [];
 
   // An index that always indicates the position at which new content is stored.
-  public index: number = 0;
+  public index = 0;
 
   // The maximum length of the history. Once this limit is reached, the earliest item in the list will be removed.
-  public limit: number = 100;
+  public limit = 100;
 
   // An EventEmitter object used to set up events.
   public readonly event: EventEmitter = new EventEmitter();

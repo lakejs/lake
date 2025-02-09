@@ -1,4 +1,4 @@
-export const blockTagNames: Set<string> = new Set([
+export const blockTagNames = new Set<string>([
   'h1',
   'h2',
   'h3',
@@ -17,7 +17,7 @@ export const blockTagNames: Set<string> = new Set([
   'td',
 ]);
 
-export const markTagNames: Set<string> = new Set([
+export const markTagNames = new Set<string>([
   'span',
   'strong',
   'em',
@@ -30,7 +30,7 @@ export const markTagNames: Set<string> = new Set([
 ]);
 
 // https://developer.mozilla.org/en-US/docs/Glossary/Void_element
-export const voidTagNames: Set<string> = new Set([
+export const voidTagNames = new Set<string>([
   'area',
   'base',
   'br',
@@ -47,7 +47,7 @@ export const voidTagNames: Set<string> = new Set([
   'wbr',
 ]);
 
-export const headingTagNames: Set<string> = new Set([
+export const headingTagNames = new Set<string>([
   'h1',
   'h2',
   'h3',
@@ -57,13 +57,13 @@ export const headingTagNames: Set<string> = new Set([
 ]);
 
 
-export const listTagNames: Set<string> = new Set([
+export const listTagNames = new Set<string>([
   'ol',
   'ul',
   'li',
 ]);
 
-export const tableTagNames: Set<string> = new Set([
+export const tableTagNames = new Set<string>([
   'table',
   'tr',
   'td',

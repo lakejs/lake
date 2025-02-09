@@ -3,7 +3,7 @@ import { InitializePlugin, UnmountPlugin } from '../types/plugin';
 
 // The Plugin interface is used to manage a collection of plugins.
 export class Plugin {
-  private readonly pluginMap: Map<string, InitializePlugin> = new Map();
+  private readonly pluginMap = new Map<string, InitializePlugin>();
 
   // Registers a plugin using a name as the key.
   public add(name: string, plugin: InitializePlugin): void {
@@ -12,7 +12,7 @@ export class Plugin {
 
   // Loads all registered plugins.
   public loadAll(editor: Editor): Map<string, UnmountPlugin> {
-    const unmountPluginMap: Map<string, UnmountPlugin> = new Map();
+    const unmountPluginMap = new Map<string, UnmountPlugin>();
     for (const name of this.pluginMap.keys()) {
       const plugin = this.pluginMap.get(name);
       if (plugin && editor.config[name] !== false) {

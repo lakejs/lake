@@ -55,7 +55,7 @@ export class HTMLParser {
     if (!nativeNode.hasAttributes()) {
       return tagName;
     }
-    const attributeMap: Map<string, string | Map<string, string>> = new Map();
+    const attributeMap = new Map<string, string | Map<string, string>>();
     for (const attr of nativeNode.attributes) {
       if (attributeRules[attr.name]) {
         if (attr.name !== 'style' && HTMLParser.matchRule(attributeRules[attr.name], attr.value)) {
@@ -63,7 +63,7 @@ export class HTMLParser {
         }
         if (attr.name === 'style') {
           const styleRules = attributeRules.style;
-          const styleMap: Map<string, string> = new Map();
+          const styleMap = new Map<string, string>();
           const styleData = parseStyle(attr.value);
           for (const key of Object.keys(styleData)) {
             const value = styleData[key];

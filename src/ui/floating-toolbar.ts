@@ -4,7 +4,7 @@ import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 import { Toolbar, ToolbarConfig } from './toolbar';
 
-type FloatingToolbarConfig = ToolbarConfig & {
+interface FloatingToolbarConfig extends ToolbarConfig {
   target: Nodes | Range;
 };
 

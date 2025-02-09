@@ -7,9 +7,9 @@ import { MentionItem } from './types';
 
 type OnSelect = (event: Event, item: MentionItem) => void;
 
-type MentionMenuConfig = MenuConfig<MentionItem> & {
+interface MentionMenuConfig extends MenuConfig<MentionItem> {
   onSelect?: OnSelect;
-};
+}
 
 const emptyCallback = () => {};
 

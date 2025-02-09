@@ -11,11 +11,11 @@ import { Dropdown } from './dropdown';
 
 type ToolbarPlacement = 'top' | 'bottom';
 
-export type ToolbarConfig = {
+export interface ToolbarConfig {
   root?: string | Node | Nodes;
   items?: (string | ToolbarItem)[];
   placement?: ToolbarPlacement;
-};
+}
 
 const defaultItems: string[] = [
   'undo',
@@ -39,7 +39,7 @@ const defaultItems: string[] = [
   'hr',
 ];
 
-const toolbarItemMap: Map<string, ToolbarItem> = new Map();
+const toolbarItemMap = new Map<string, ToolbarItem>();
 
 for (const item of toolbarItems) {
   toolbarItemMap.set(item.name, item);
@@ -52,7 +52,7 @@ export class Toolbar {
 
   private placement: ToolbarPlacement = 'top';
 
-  private allMenuMap: Map<string, Map<string, string>> = new Map();
+  private allMenuMap = new Map<string, Map<string, string>>();
 
   private buttonItemList: ToolbarButtonItem[] = [];
 

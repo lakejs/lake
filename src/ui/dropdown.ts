@@ -13,14 +13,14 @@ import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { i18nObject } from '../i18n';
 
-type DropdownConfig = DropdownItem & {
+interface DropdownConfig extends DropdownItem {
   root: string | Node | Nodes;
   locale?: TranslationFunctions;
   tabIndex?: number;
   location?: DropdownLocation;
   direction?: DropdownDirection;
   onSelect: (value: string) => void;
-};
+}
 
 // The Dropdown interface represents a UI component that provides a menu of options.
 export class Dropdown {
@@ -75,7 +75,7 @@ export class Dropdown {
   }
 
   public static getMenuMap(menuItems: DropdownMenuItem[], locale: TranslationFunctions): Map<string, string> {
-    const menuMap: Map<string, string> = new Map();
+    const menuMap = new Map<string, string>();
     for (const menuItem of menuItems) {
       // remove HTML tags
       let text = typeof menuItem.text === 'string' ? menuItem.text : menuItem.text(locale);

@@ -6,7 +6,7 @@ import { Selection } from './selection';
 export class Command {
   private readonly selection: Selection;
 
-  private readonly commandMap: Map<string, CommandItem> = new Map();
+  private readonly commandMap = new Map<string, CommandItem>();
 
   constructor(selection: Selection) {
     this.selection = selection;

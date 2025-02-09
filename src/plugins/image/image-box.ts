@@ -16,13 +16,13 @@ import { Box } from 'lakelib/models/box';
 import { CornerToolbar } from 'lakelib/ui/corner-toolbar';
 import { Resizer } from 'lakelib/ui/resizer';
 
-type ImageInfo = {
+interface ImageInfo {
   node: Nodes;
   width?: number;
   height?: number;
-};
+}
 
-const alignValueMap: {[key: string]: string} = {
+const alignValueMap: Record<string, string> = {
   start: 'left',
   end: 'right',
 };

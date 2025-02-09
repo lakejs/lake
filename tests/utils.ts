@@ -102,7 +102,7 @@ export function showBox(
   name: string,
   value?: BoxValue,
   callback?: (box: Box, editor?: Editor) => void,
-  readonly: boolean = false,
+  readonly = false,
 ): void {
   const rootNode = query('<div class="lake-root lake-ui-test" />');
   query(document.body).append(rootNode);
@@ -132,7 +132,7 @@ export function testPlugin(
   content: string,
   output: string,
   callback: (editor: Editor) => void,
-  removeBoxValue: boolean = false,
+  removeBoxValue = false,
 ): void {
   const defaultValue = '<p><br /><focus /></p>';
   const rootNode = query('<div class="lake-root" />');

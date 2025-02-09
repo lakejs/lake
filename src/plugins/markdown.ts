@@ -2,10 +2,10 @@ import type { Editor } from 'lakelib/editor';
 import { Point } from 'lakelib/types/node';
 import { Nodes } from 'lakelib/models/nodes';
 
-type MarkItem = {
+interface MarkItem {
   re: RegExp;
   getParameters: () => string[];
-};
+}
 
 type BlockItem = {
   re: RegExp;

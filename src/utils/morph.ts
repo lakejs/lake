@@ -40,7 +40,7 @@ declare global {
   }
 }
 
-declare type configType = {
+declare interface configType {
   morphStyle?: 'innerHTML' | 'outerHTML';
   ignoreActive?: boolean;
   ignoreActiveValue?: boolean;
@@ -58,9 +58,9 @@ declare type configType = {
     afterAttributeUpdated?: (attributeName: string, node: Node, mutationType: string) => void;
     beforeChildrenUpdated?: (oldNode: Node, newNode: Node) => void | boolean;
   };
-};
+}
 
-type KeyValue = { [key: string]: any };
+type KeyValue = Record<string, any>;
 
 const EMPTY_SET = new Set();
 

@@ -33,7 +33,7 @@ export function deleteRow(range: Range): void {
   }
   const belowRow = table.rows[currentRowIndex + 1];
   if (belowRow) {
-    let prevCellIndex: number = -1;
+    let prevCellIndex = -1;
     for (let i = 0; i < columnCount; i++) {
       const cellIndex = getCellIndex(tableMap, currentRowIndex, i);
       if (cellIndex !== prevCellIndex) {

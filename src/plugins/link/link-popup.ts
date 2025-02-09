@@ -9,14 +9,14 @@ import { Nodes } from 'lakelib/models/nodes';
 import { Button } from 'lakelib/ui/button';
 import { i18nObject } from 'lakelib/i18n';
 
-type LinkPopupConfig = {
+interface LinkPopupConfig {
   locale?: TranslationFunctions;
   onCopy?: (error: boolean) => void;
   onSave?: (node: Nodes) => void;
   onRemove?: (node: Nodes) => void;
   onShow?: () => void;
   onHide?: () => void;
-};
+}
 
 // The LinkPopup class represents a dialog for editing a hyperlink.
 export class LinkPopup {

@@ -4,11 +4,11 @@ import { visibleInfo } from '../utils/visible-info';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
-export type MenuConfig<Item> = {
+export interface MenuConfig<Item> {
   items: Item[];
   onShow?: () => void;
   onHide?: () => void;
-};
+}
 
 const emptyCallback = () => {};
 
@@ -27,7 +27,7 @@ export abstract class Menu<Item> {
 
   protected range: Range | null = null;
 
-  protected noMouseEvent: boolean = false;
+  protected noMouseEvent = false;
 
   public container: Nodes;
 
@@ -150,7 +150,7 @@ export abstract class Menu<Item> {
 
   private resizeListener = () => this.updatePosition();
 
-  private updatePosition(keepDirection: boolean = false): void {
+  private updatePosition(keepDirection = false): void {
     if (!this.range || this.range.isCollapsed) {
       return;
     }

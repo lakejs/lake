@@ -14,14 +14,14 @@ type OnSelect = (
   fileNode?: Nodes,
 ) => void;
 
-type SlashMenuConfig = MenuConfig<string | SlashItem> & {
+interface SlashMenuConfig extends MenuConfig<string | SlashItem> {
   locale?: TranslationFunctions;
   onSelect?: OnSelect;
-};
+}
 
 const emptyCallback = () => {};
 
-const slashItemMap: Map<string, SlashItem> = new Map();
+const slashItemMap = new Map<string, SlashItem>();
 
 for (const item of slashItems) {
   slashItemMap.set(item.name, item);

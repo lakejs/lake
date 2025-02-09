@@ -11,14 +11,14 @@ import { toHex } from '../utils/to-hex';
 import { toNodeList } from '../utils/to-node-list';
 import { debug } from '../utils/debug';
 
-type EventItem = {
+interface EventItem {
   type: string;
   listener: EventListener;
-};
+}
 
 // A key-value object for storing all events.
 // value is an array which include types and listeners.
-const eventData: { [key: number]: EventItem[] } = {};
+const eventData: Record<number, EventItem[]> = {};
 
 let lastNodeId = 0;
 
@@ -533,7 +533,7 @@ export class Nodes {
   }
 
   // Returns a copy of the first node. If deep is true, the copy also includes the node's descendants.
-  public clone(deep: boolean = false): Nodes {
+  public clone(deep = false): Nodes {
     const node = this.get(0);
     return new Nodes(node.cloneNode(deep));
   }
@@ -668,7 +668,7 @@ export class Nodes {
   }
 
   // Displays all nodes.
-  public show(displayType: string = 'block'): this {
+  public show(displayType = 'block'): this {
     this.css('display', displayType);
     return this;
   }
@@ -848,7 +848,7 @@ export class Nodes {
   }
 
   // Removes all nodes from the DOM.
-  public remove(keepChildren: boolean = false): this {
+  public remove(keepChildren = false): this {
     this.each(node => {
       if (!node.parentNode) {
         return;

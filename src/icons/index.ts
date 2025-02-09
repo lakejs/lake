@@ -105,7 +105,7 @@ import tip from './tip.svg';
 import warning from './warning.svg';
 import danger from './danger.svg';
 
-export const icons: Map<string, string> = new Map([
+export const icons = new Map<string, string>([
   // common
   ['plus', plus],
   ['question', question],

@@ -101,7 +101,7 @@ const directionMenuItems = [
   },
 ];
 
-const menuItemMap: Map<string, typeof menuItems[0]> = new Map();
+const menuItemMap = new Map<string, typeof menuItems[0]>();
 for (const item of menuItems) {
   const type = item.url.substring(2) || 'default';
   menuItemMap.set(type, item);

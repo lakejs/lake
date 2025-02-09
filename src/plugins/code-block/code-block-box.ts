@@ -126,7 +126,7 @@ export default {
       (item: any) => codeBlockConfig.langList.indexOf(item.value) >= 0,
     );
     // language menu items
-    const langItemMap: Map<string, any> = new Map();
+    const langItemMap = new Map<string, any>();
     for (const item of langItems) {
       langItemMap.set(item.value, item);
     }

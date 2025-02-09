@@ -11,7 +11,7 @@ import {
   colorMenuItems,
 } from './menu-items';
 
-const tagPluginNameMap: Map<string, string> = new Map([
+const tagPluginNameMap = new Map<string, string>([
   ['strong', 'bold'],
   ['em', 'italic'],
   ['i', 'italic'],

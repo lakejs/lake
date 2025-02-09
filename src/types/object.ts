@@ -1,1 +1,1 @@
-export type KeyValue = { [key: string]: string };
+export type KeyValue = Record<string, string>;

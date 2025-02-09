@@ -6,13 +6,13 @@ export type DropdownDirection = 'top' | 'bottom' | 'auto';
 
 export type DropdownMenuType = 'list' | 'icon' | 'character' | 'color';
 
-export type DropdownMenuItem = {
+export interface DropdownMenuItem {
   value: string;
   icon?: string;
   text: string | ((locale: TranslationFunctions) => string);
-};
+}
 
-export type DropdownItem = {
+export interface DropdownItem {
   name: string;
   icon?: string;
   accentIcon?: string;
@@ -25,4 +25,4 @@ export type DropdownItem = {
   menuWidth?: string;
   menuHeight?: string;
   menuCheck?: boolean;
-};
+}

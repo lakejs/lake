@@ -38,7 +38,7 @@ function splitMarksAtPoint(node: Nodes, offset: number, removeEmptyMark: boolean
 // <p><strong>one<anchor />two<focus />three</strong></p>
 // to
 // <p><strong>one</strong><strong><anchor />two<focus /></strong><strong>three</strong></p>
-export function splitMarks(range: Range, removeEmptyMark: boolean = true): ThreeParts {
+export function splitMarks(range: Range, removeEmptyMark = true): ThreeParts {
   if (range.commonAncestor.isOutside) {
     return {
       start: null,

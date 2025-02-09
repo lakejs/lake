@@ -1,10 +1,10 @@
 import { isKeyHotkey } from 'is-hotkey';
 import { Nodes } from '../models/nodes';
 
-type EventItem = {
+interface EventItem {
   type: string;
   listener: (event: KeyboardEvent) => void | boolean;
-};
+}
 
 // The Keystroke interface provides a way to handle keyboard events and define custom shortcuts for a given container.
 export class Keystroke {

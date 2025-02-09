@@ -3,13 +3,13 @@ import { debug } from '../utils/debug';
 import { request } from '../utils/request';
 import { Box } from '../models/box';
 
-type UploadConfig = {
+interface UploadConfig {
   editor: Editor;
   name: string;
   file: File;
   onError?: (error: string)=> void;
   onSuccess?: ()=> void;
-};
+}
 
 // Uploads a file to the server.
 export function uploadFile(config: UploadConfig): Box {

@@ -569,7 +569,7 @@ export class Range {
   }
 
   // Returns the marks and text nodes contained within or intersected by the range.
-  public getMarks(hasText: boolean = false): Nodes[] {
+  public getMarks(hasText = false): Nodes[] {
     const marks: Nodes[] = [];
     if (this.commonAncestor.isText && hasText) {
       if (

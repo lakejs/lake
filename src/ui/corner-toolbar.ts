@@ -5,7 +5,7 @@ import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 import { i18nObject } from '../i18n';
 
-type CornerToolbarConfig = {
+interface CornerToolbarConfig {
   locale?: TranslationFunctions;
   root: string | Node | Nodes;
   items: CornerToolbarItem[];

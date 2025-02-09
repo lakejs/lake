@@ -1,6 +1,6 @@
 import type { Editor } from 'lakelib/editor';
 
-const alignValueMap: {[key: string]: string} = {
+const alignValueMap: Record<string, string> = {
   start: 'left',
   end: 'right',
 };

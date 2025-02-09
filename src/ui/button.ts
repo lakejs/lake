@@ -2,7 +2,7 @@ import { template } from '../utils/template';
 import { query } from '../utils/query';
 import { Nodes } from '../models/nodes';
 
-type ButtonConfig = {
+interface ButtonConfig {
   root: string | Node | Nodes;
   name: string;
   type?: 'primary' | 'default';

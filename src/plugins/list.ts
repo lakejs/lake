@@ -40,7 +40,7 @@ export default (editor: Editor) => {
       }
       return currentValue ? [currentValue] : [];
     },
-    execute: (type: 'numbered' | 'bulleted' | 'checklist', value: boolean = false) => {
+    execute: (type: 'numbered' | 'bulleted' | 'checklist', value = false) => {
       const blocks = editor.selection.range.getBlocks();
       let isNumberedList = false;
       let isBulletedList = false;

@@ -2,12 +2,12 @@ import { query } from '../utils/query';
 import { template } from '../utils/template';
 import { Nodes } from '../models/nodes';
 
-type ResizerConfig = {
+interface ResizerConfig {
   root: string | Node | Nodes;
   target: string | Node | Nodes;
   onResize?: (width: number, height: number) => void;
   onStop: (width: number, height: number) => void;
-};
+}
 
 // The Resizer class represents a UI component used to resize images or videos.
 export class Resizer {

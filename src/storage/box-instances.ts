@@ -1,6 +1,6 @@
 import type { Box } from '../models/box';
 
-const boxInstances: Map<number, Map<number, Box>> = new Map();
+const boxInstances = new Map<number, Map<number, Box>>();
 
 export function getInstanceMap(id: number): Map<number, Box> {
   let instanceMap = boxInstances.get(id);
