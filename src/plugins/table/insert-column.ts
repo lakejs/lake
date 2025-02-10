@@ -19,8 +19,10 @@ export function insertColumn(range: Range, direction: InsertColumnDirection): vo
   if (direction === 'right') {
     const currentRowCells = tableMap[currentRowIndex];
     columnIndex++;
-    while (currentRowCells && currentCell === currentRowCells[columnIndex]) {
-      columnIndex++;
+    if (currentRowCells) {
+      while (currentCell === currentRowCells[columnIndex]) {
+        columnIndex++;
+      }
     }
   }
   debug(`insertColumn: rows ${table.rows.length}, column ${columnIndex}, ${direction}`);

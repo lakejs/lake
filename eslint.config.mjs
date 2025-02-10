@@ -10,7 +10,6 @@ export default antfu(
     },
     rules: {
       'no-cond-assign': 'off',
-      'no-unmodified-loop-condition': 'off',
       'antfu/consistent-list-newline': 'off',
       'antfu/top-level-function': 'off',
       'style/semi': ['error', 'always'],
