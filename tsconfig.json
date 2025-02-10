@@ -1,24 +1,24 @@
 {
+  "compilerOptions": {
+    "target": "es6",
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "paths": {
+      "lakelib/*": ["src/*"],
+      "lakelib": ["src"]
+    },
+    "resolveJsonModule": true,
+    "allowJs": false,
+    "strict": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "removeComments": false,
+    "esModuleInterop": true
+  },
   "include": [
     "src/**/*",
     "examples/**/*",
     "tests/**/*",
     "scripts/**/*"
-  ],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "lakelib/*": ["src/*"],
-      "lakelib": ["src"]
-    },
-    "moduleResolution": "node",
-    "target": "es6",
-    "allowJs": false,
-    "removeComments": false,
-    "strict": true,
-    "noImplicitAny": true,
-    "resolveJsonModule": true,
-    "noUnusedLocals": true,
-    "esModuleInterop": true
-  }
+  ]
 }
