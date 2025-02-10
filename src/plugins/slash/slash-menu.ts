@@ -19,7 +19,7 @@ interface SlashMenuConfig extends MenuConfig<string | SlashItem> {
   onSelect?: OnSelect;
 }
 
-const emptyCallback = () => {};
+function emptyCallback() {}
 
 const slashItemMap = new Map<string, SlashItem>();
 

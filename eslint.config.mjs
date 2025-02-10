@@ -11,7 +11,6 @@ export default antfu(
     rules: {
       'no-cond-assign': 'off',
       'antfu/consistent-list-newline': 'off',
-      'antfu/top-level-function': 'off',
       'style/semi': ['error', 'always'],
       'style/brace-style': ['error', '1tbs'],
       'style/quote-props': ['error', 'as-needed'],
@@ -31,6 +30,7 @@ export default antfu(
         },
         singleline: {
           delimiter: 'comma',
+          requireLast: false,
         },
       }],
       'style/padded-blocks': 'off',

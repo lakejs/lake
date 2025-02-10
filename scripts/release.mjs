@@ -45,8 +45,11 @@ const tags = ['latest', 'next'];
 
 const dir = fileURLToPath(new URL('.', import.meta.url));
 const inc = (i) => _inc(currentVersion, i);
-const run = (bin, args, opts = {}) =>
-  execa(bin, args, { stdio: 'inherit', ...opts });
+
+function run(bin, args, opts = {}) {
+  return execa(bin, args, { stdio: 'inherit', ...opts });
+}
+
 const step = (msg) => console.log(pc.cyan(msg));
 
 function updatePackage(version) {

@@ -11,7 +11,7 @@ interface MentionMenuConfig extends MenuConfig<MentionItem> {
   onSelect?: OnSelect;
 }
 
-const emptyCallback = () => {};
+function emptyCallback() {}
 
 // The MentionMenu class, inheriting from the Menu class, represents a list of users for selecting a user.
 export class MentionMenu extends Menu<MentionItem> {

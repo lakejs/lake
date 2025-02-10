@@ -10,7 +10,7 @@ export interface MenuConfig<Item> {
   onHide?: () => void;
 }
 
-const emptyCallback = () => {};
+function emptyCallback() {}
 
 // The Menu class represents a list of options for selecting an item.
 export abstract class Menu<Item> {

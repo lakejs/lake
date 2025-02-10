@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { request } from '../../src/utils/request';
 
-const empty = () => {};
+function empty() {}
 
 const option: any = {
   onSuccess: empty,

@@ -25,25 +25,26 @@ const initFormatters: FormattersInitializer<Locales, Formatters> = () => {
   return formatters;
 };
 
-const loadFormatters = (locale: Locales): void => {
+function loadFormatters(locale: Locales): void {
   loadedFormatters[locale] = initFormatters(locale);
-};
+}
 
-const loadLocale = (locale: Locales): void => {
+function loadLocale(locale: Locales): void {
   if (loadedLocales[locale]) {
     return;
   }
   loadedLocales[locale] = localeTranslations[locale] as Translations;
   loadFormatters(locale);
-};
+}
 
 const loadAllLocales = (): void => locales.forEach(loadLocale);
 
-export const i18nObject = (locale: Locales): TranslationFunctions =>
-  initI18nObject<Locales, Translations, TranslationFunctions, Formatters>(
+export function i18nObject(locale: Locales): TranslationFunctions {
+  return initI18nObject<Locales, Translations, TranslationFunctions, Formatters>(
     locale,
     loadedLocales[locale],
     loadedFormatters[locale],
   );
+}
 
 loadAllLocales();
