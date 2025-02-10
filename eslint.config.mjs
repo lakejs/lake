@@ -27,7 +27,6 @@ export default antfu(
       'perfectionist/sort-named-exports': 'off',
       'ts/explicit-function-return-type': 'off',
       'ts/consistent-type-imports': 'off',
-      'test/prefer-lowercase-title': 'off',
       'import/consistent-type-specifier-style': 'off',
       'eslint-comments/no-unlimited-disable': 'off',
       'regexp/optimal-quantifier-concatenation': 'off',

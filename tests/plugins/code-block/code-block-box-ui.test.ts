@@ -115,7 +115,7 @@ public class Class<T, V> implements MyInterface {
 
 describe('plugins / code-block / code-block-box-ui', () => {
 
-  it('HTML', () => {
+  it('should render HTML', () => {
     showBox('codeBlock', {
       lang: 'html',
       code: htmlCode,
@@ -124,7 +124,7 @@ describe('plugins / code-block / code-block-box-ui', () => {
     });
   });
 
-  it('HTML (read-only)', () => {
+  it('should render HTML in read-only mode', () => {
     showBox('codeBlock', {
       lang: 'html',
       code: htmlCode,
@@ -133,7 +133,7 @@ describe('plugins / code-block / code-block-box-ui', () => {
     }, true);
   });
 
-  it('CSS', () => {
+  it('should render CSS', () => {
     showBox('codeBlock', {
       lang: 'css',
       code: cssCode,
@@ -142,7 +142,7 @@ describe('plugins / code-block / code-block-box-ui', () => {
     });
   });
 
-  it('JavaScript', () => {
+  it('should render JavaScript', () => {
     showBox('codeBlock', {
       lang: 'javascript',
       code: javascriptCode,
@@ -151,7 +151,7 @@ describe('plugins / code-block / code-block-box-ui', () => {
     });
   });
 
-  it('Java', () => {
+  it('should render Java', () => {
     showBox('codeBlock', {
       lang: 'java',
       code: javaCode,
@@ -160,7 +160,7 @@ describe('plugins / code-block / code-block-box-ui', () => {
     });
   });
 
-  it('error status', () => {
+  it('should render error message', () => {
     const CodeMirror = window.LakeCodeMirror;
     window.LakeCodeMirror = undefined;
     showBox('codeBlock', {
@@ -172,7 +172,7 @@ describe('plugins / code-block / code-block-box-ui', () => {
     });
   });
 
-  it('error status (read-only): should not display', () => {
+  it('should not render error message in read-only mode', () => {
     const CodeMirror = window.LakeCodeMirror;
     window.LakeCodeMirror = undefined;
     showBox('codeBlock', {
