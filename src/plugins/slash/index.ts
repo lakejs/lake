@@ -97,9 +97,9 @@ export default (editor: Editor) => {
     }
     const block = range.getBlocks()[0];
     if (
-      !block ||
-      block.find('lake-box').length > 0 ||
-      block.closest('table').length > 0
+      !block
+      || block.find('lake-box').length > 0
+      || block.closest('table').length > 0
     ) {
       return;
     }
@@ -116,7 +116,7 @@ export default (editor: Editor) => {
       return;
     }
     const keyboardEvent = event as KeyboardEvent;
-    if (isKeyHotkey(['down' ,'up', 'enter'], keyboardEvent)) {
+    if (isKeyHotkey(['down', 'up', 'enter'], keyboardEvent)) {
       return;
     }
     if (!menu.visible) {

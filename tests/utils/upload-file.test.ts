@@ -40,7 +40,7 @@ describe('utils / upload-file', () => {
       editor,
       name: 'image',
       file,
-      onSuccess: ()=> {
+      onSuccess: () => {
         expect(box.value.status).to.equal('done');
         done();
       },
@@ -76,7 +76,7 @@ describe('utils / upload-file', () => {
       editor,
       name: 'image',
       file,
-      onError: ()=> {
+      onError: () => {
         expect(box.value.status).to.equal('error');
         done();
       },
@@ -96,7 +96,7 @@ describe('utils / upload-file', () => {
       editor,
       name: 'image',
       file,
-      onError: ()=> {
+      onError: () => {
         expect(box.value.status).to.equal('error');
         done();
       },

@@ -13,7 +13,7 @@ export function insertColumn(range: Range, direction: InsertColumnDirection): vo
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
   const currentRowIndex = currentRow.rowIndex;
-  const tableMap  = getTableMap(table);
+  const tableMap = getTableMap(table);
   // a column should be inserted into columnIndex
   let columnIndex = getColumnIndex(tableMap, currentRowIndex, currentCell);
   if (direction === 'right') {

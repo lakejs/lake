@@ -1,4 +1,4 @@
-import  type { Editor } from '../editor';
+import type { Editor } from '../editor';
 import { debug } from '../utils/debug';
 import { request } from '../utils/request';
 import { Box } from '../models/box';
@@ -7,13 +7,13 @@ interface UploadConfig {
   editor: Editor;
   name: string;
   file: File;
-  onError?: (error: string)=> void;
-  onSuccess?: ()=> void;
+  onError?: (error: string) => void;
+  onSuccess?: () => void;
 }
 
 // Uploads a file to the server.
 export function uploadFile(config: UploadConfig): Box {
-  const { editor, name, file, onError, onSuccess} = config;
+  const { editor, name, file, onError, onSuccess } = config;
   const { requestMethod, requestAction, requestTypes } = editor.config[name];
   if (requestTypes.indexOf(file.type) < 0) {
     if (onError) {

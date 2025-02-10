@@ -33,7 +33,7 @@ function mergeWithNextBlock(editor: Editor, block: Nodes): void {
   }
   const bookmark = editor.selection.insertBookmark();
   mergeNodes(block, nextBlock);
-  fixNumberedList([ block ]);
+  fixNumberedList([block]);
   editor.selection.toBookmark(bookmark);
 }
 

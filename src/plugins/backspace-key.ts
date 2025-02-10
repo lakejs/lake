@@ -35,7 +35,7 @@ function mergeWithPreviousBlock(editor: Editor, block: Nodes): void {
     range.shrinkAfter(prevBlock);
     return;
   }
-  if (prevBlock.name ===  'br') {
+  if (prevBlock.name === 'br') {
     prevBlock.remove();
     return;
   }
@@ -58,7 +58,7 @@ function mergeWithPreviousBlock(editor: Editor, block: Nodes): void {
   }
   const bookmark = editor.selection.insertBookmark();
   mergeNodes(prevBlock, block);
-  fixNumberedList([ prevBlock ]);
+  fixNumberedList([prevBlock]);
   editor.selection.toBookmark(bookmark);
 }
 
@@ -73,8 +73,8 @@ export default (editor: Editor) => {
       const box = getBox(boxNode);
       const boxValue = box.value;
       if (
-        range.isCollapsed && box.name === 'codeBlock' &&
-        (boxValue.code === undefined || boxValue.code === '')
+        range.isCollapsed && box.name === 'codeBlock'
+        && (boxValue.code === undefined || boxValue.code === '')
       ) {
         event.preventDefault();
         editor.selection.removeBox(box);
@@ -193,10 +193,10 @@ export default (editor: Editor) => {
         editor.selection.setBlocks('<p />');
         block = range.getBlocks()[0];
       }
-      if(
-        block.css('margin-left') !== '' ||
-        block.css('text-indent') !== '' ||
-        block.attr('indent') !== ''
+      if (
+        block.css('margin-left') !== ''
+        || block.css('text-indent') !== ''
+        || block.attr('indent') !== ''
       ) {
         indentBlock(block, 'decrease');
         editor.history.save();

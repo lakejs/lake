@@ -364,7 +364,7 @@ export class Nodes {
   // Traverses the first node and its parents until it finds an element which can scroll.
   public closestScroller(): Nodes {
     let parent = this.eq(0);
-    while(parent.length > 0) {
+    while (parent.length > 0) {
       if (parent.isElement && ['scroll', 'auto'].indexOf(parent.computedCSS('overflow-y')) >= 0) {
         return parent;
       }
@@ -487,7 +487,7 @@ export class Nodes {
       const eventItems = eventData[elementId] ?? [];
       for (let i = 0; i < eventItems.length; i++) {
         const item = eventItems[i];
-        if (!type || type === item.type && (!listener || listener === item.listener)) {
+        if (!type || (type === item.type && (!listener || listener === item.listener))) {
           element.removeEventListener(item.type, item.listener, false);
           eventItems[i] = {
             type: '',

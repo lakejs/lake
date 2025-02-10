@@ -7,7 +7,6 @@ describe('check nodes', () => {
     let node = execNode.next();
     while (node.length > 0) {
       if (node.isElement && !node.hasClass('lake-ui-test')) {
-        // eslint-disable-next-line no-console
         console.error(node.get(0));
       }
       node = node.next();

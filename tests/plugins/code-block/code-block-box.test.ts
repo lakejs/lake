@@ -10,7 +10,7 @@ describe('plugins / code-block / code-block-box', () => {
   let editor: Editor;
   let box: Box;
 
-  beforeEach(()=> {
+  beforeEach(() => {
     rootNode = query('<div class="lake-root" />');
     query(document.body).append(rootNode);
     editor = new Editor({

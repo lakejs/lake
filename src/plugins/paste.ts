@@ -27,8 +27,8 @@ function getPasteElementRules(): any {
 }
 
 function fixNestedBlocks(block: Nodes): void {
-  const nodeList = [ block ];
-  for  (const node of block.getWalker()) {
+  const nodeList = [block];
+  for (const node of block.getWalker()) {
     nodeList.push(node);
   }
   for (const node of nodeList) {
@@ -116,7 +116,7 @@ function insertFirstNode(editor: Editor, otherNode: Nodes): void {
     return;
   }
   let child = otherNode.first();
-  while(child.length > 0) {
+  while (child.length > 0) {
     if (child.name === 'li') {
       child = child.first();
     }

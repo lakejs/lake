@@ -20,7 +20,7 @@ export function indentBlock(block: Nodes, type: 'increase' | 'decrease'): void {
     } else {
       block.attr('indent', indent.toString(10));
     }
-    fixNumberedList([ block ]);
+    fixNumberedList([block]);
     return;
   }
   let value = Number.parseInt(block.css('margin-left'), 10) || 0;

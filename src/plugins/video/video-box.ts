@@ -10,7 +10,7 @@ import { CornerToolbar } from 'lakelib/ui/corner-toolbar';
 import { Resizer } from 'lakelib/ui/resizer';
 
 function getVideoId(url: string): string {
-  const result = /\w+$/i.exec(url || '');
+  const result = /\w+$/.exec(url || '');
   return result ? result[0] : '';
 }
 

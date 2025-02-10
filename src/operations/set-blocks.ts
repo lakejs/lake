@@ -74,7 +74,7 @@ export function setBlocks(range: Range, value: string | KeyValue): void {
         }
         const deepestBlock = getDeepElement(block);
         let child = node.first();
-        while(child.length > 0) {
+        while (child.length > 0) {
           const nextNode = child.next();
           deepestBlock.append(child);
           if (deepestBlock.name === child.name || child.name === 'li') {

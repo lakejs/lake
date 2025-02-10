@@ -43,7 +43,7 @@ describe('ui / menu', () => {
   let rootNode: Nodes;
   let editor: Editor;
 
-  beforeEach(()=> {
+  beforeEach(() => {
     rootNode = query('<div class="lake-root"></div>');
     query(document.body).append(rootNode);
     editor = new Editor({

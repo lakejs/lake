@@ -56,7 +56,6 @@ export const headingTagNames = new Set<string>([
   'h6',
 ]);
 
-
 export const listTagNames = new Set<string>([
   'ol',
   'ul',

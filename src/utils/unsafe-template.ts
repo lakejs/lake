@@ -6,9 +6,9 @@ export function unsafeTemplate(strings: TemplateStringsArray, ...keys: any[]): s
     content += key;
     content += strings[i + 1];
   }
-  content = content.
-    replace(/^\s+/gm, '').
-    replace(/\s+$/gm, '').
-    replace(/[\r\n]/g, '');
+  content = content
+    .replace(/^\s+/gm, '')
+    .replace(/\s+$/gm, '')
+    .replace(/[\r\n]/g, '');
   return content;
 }

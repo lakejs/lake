@@ -1,8 +1,42 @@
-import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import antfu from '@antfu/eslint-config';
 
-export default tseslint.config(
+export default antfu(
   {
+    type: 'lib',
+    typescript: true,
+    stylistic: {
+      indent: 2,
+      quotes: 'single',
+    },
+    rules: {
+      'no-cond-assign': 'off',
+      'no-unmodified-loop-condition': 'off',
+      'antfu/consistent-list-newline': 'off',
+      'antfu/top-level-function': 'off',
+      'style/semi': ['error', 'always'],
+      'style/member-delimiter-style': 'off',
+      'style/padded-blocks': 'off',
+      'style/arrow-parens': 'off',
+      'style/brace-style': 'off',
+      'style/quote-props': 'off',
+      'style/max-statements-per-line': 'off',
+      'jsonc/sort-keys': 'off',
+      'unicorn/prefer-includes': 'off',
+      'unicorn/prefer-dom-node-text-content': 'off',
+      'perfectionist/sort-imports': 'off',
+      'perfectionist/sort-named-imports': 'off',
+      'perfectionist/sort-named-exports': 'off',
+      'ts/explicit-function-return-type': 'off',
+      'ts/consistent-type-imports': 'off',
+      'test/prefer-lowercase-title': 'off',
+      'import/consistent-type-specifier-style': 'off',
+      'eslint-comments/no-unlimited-disable': 'off',
+      'regexp/no-super-linear-backtracking': 'off',
+      'regexp/optimal-quantifier-concatenation': 'off',
+      'regexp/no-misleading-capturing-group': 'off',
+      'regexp/no-unused-capturing-group': 'off',
+      'regexp/sort-flags': 'off',
+    },
     ignores: [
       'assets/**',
       'dist/**',
@@ -10,55 +44,5 @@ export default tseslint.config(
       'node_modules/**',
       'temp/**',
     ],
-  },
-  {
-    files: [
-      '**/*.mjs',
-      '**/*.ts',
-    ],
-    extends: [
-      eslint.configs.recommended,
-      tseslint.configs.strict,
-      tseslint.configs.stylistic,
-    ],
-    rules: {
-      'no-console': 'error',
-      'no-debugger': 'error',
-      'no-alert': 'error',
-      'no-trailing-spaces': 'error',
-      'no-continue': 'error',
-      'no-throw-literal': 'error',
-      'no-use-before-define': 'error',
-      'prefer-template': 'error',
-      'comma-dangle': ['error', 'always-multiline'],
-      'func-names': ['error', 'never'],
-      'func-call-spacing': ['error', 'never'],
-      'space-before-function-paren': ['error', 'never'],
-      'indent': ['error', 2],
-      'semi': ['error', 'always'],
-      'quotes': ['error', 'single'],
-    },
-  },
-  {
-    files: [
-      'examples/**',
-      'src/**',
-      'tests/**',
-    ],
-    rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-invalid-void-type': 'off',
-      '@typescript-eslint/no-empty-function': 'off',
-      '@typescript-eslint/prefer-for-of': 'off',
-    },
-  },
-  {
-    files: [
-      'scripts/**',
-      '*.mjs',
-    ],
-    rules: {
-      'prefer-template': 'off',
-    },
   },
 );

@@ -426,7 +426,7 @@ describe('editor', () => {
     });
     editor.render();
     editor.container.css('padding', '0');
-    const  nativeRootNode = rootNode.get(0) as Element;
+    const nativeRootNode = rootNode.get(0) as Element;
     expect(nativeRootNode.scrollTop).to.equal(0);
     // no scroll
     editor.selection.range.selectNode(editor.container.find('p').eq(1));

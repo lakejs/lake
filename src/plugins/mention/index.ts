@@ -24,7 +24,7 @@ export default (editor: Editor) => {
   editor.setPluginConfig('mention', {
     requestMethod: 'GET',
     items: [],
-    getProfileUrl:  (value: MentionItem) => `/${value.name}`,
+    getProfileUrl: (value: MentionItem) => `/${value.name}`,
   });
   if (editor.readonly) {
     return;
@@ -98,7 +98,7 @@ export default (editor: Editor) => {
       return;
     }
     const keyboardEvent = event as KeyboardEvent;
-    if (isKeyHotkey(['down' ,'up', 'enter'], keyboardEvent)) {
+    if (isKeyHotkey(['down', 'up', 'enter'], keyboardEvent)) {
       return;
     }
     if (!menu || !menu.visible) {

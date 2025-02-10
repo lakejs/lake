@@ -115,10 +115,10 @@ export default (value: string) => {
       requestAction: '../assets/json/mention.json',
     },
   });
-  editor.container.on('focusin', ()=> {
+  editor.container.on('focusin', () => {
     editor.root.addClass('lake-root-focused');
   });
-  editor.container.on('focusout', ()=> {
+  editor.container.on('focusout', () => {
     editor.root.removeClass('lake-root-focused');
   });
   editor.render();
@@ -135,10 +135,10 @@ export default (value: string) => {
     value,
     indentWithTab: false,
   });
-  editor2.container.on('focusin', ()=> {
+  editor2.container.on('focusin', () => {
     editor2.root.addClass('lake-root-focused');
   });
-  editor2.container.on('focusout', ()=> {
+  editor2.container.on('focusout', () => {
     editor2.root.removeClass('lake-root-focused');
   });
   editor2.render();

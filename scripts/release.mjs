@@ -1,4 +1,4 @@
-/**
+/*
 MIT License
 
 Copyright (c) 2019-present, Yuxi (Evan) You
@@ -27,7 +27,7 @@ Repository: https://github.com/vuejs/vitepress/blob/main/scripts/release.js
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath, URL } from 'node:url';
-import { createRequire } from 'module';
+import { createRequire } from 'node:module';
 import console from 'node:console';
 import pc from 'picocolors';
 import prompts from 'prompts';
@@ -55,7 +55,7 @@ function updatePackage(version) {
 
   pkg.version = version;
 
-  writeFileSync(pkgPath, `${JSON.stringify(pkg, null, 2)  }\n`);
+  writeFileSync(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`);
 }
 
 async function main() {

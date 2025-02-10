@@ -70,9 +70,25 @@ describe('operations / remove-mark', () => {
     );
   });
 
-  it('expanded range: should remove a selected mark', () => {
+  it('expanded range: should remove a selected mark (1)', () => {
     const content = `
     <p>foo<anchor /><strong>bold</strong><focus />bar</p>
+    `;
+    const output = `
+    <p>foo<anchor />bold<focus />bar</p>
+    `;
+    testOperation(
+      content,
+      output,
+      range => {
+        removeMark(range, '<strong />');
+      },
+    );
+  });
+
+  it('expanded range: should remove a selected mark (2)', () => {
+    const content = `
+    <p>foo<strong><anchor />bold<focus /></strong>bar</p>
     `;
     const output = `
     <p>foo<anchor />bold<focus />bar</p>
@@ -108,22 +124,6 @@ describe('operations / remove-mark', () => {
     `;
     const output = `
     <anchor />foo<focus />
-    `;
-    testOperation(
-      content,
-      output,
-      range => {
-        removeMark(range, '<strong />');
-      },
-    );
-  });
-
-  it('expanded range: should remove a selected mark', () => {
-    const content = `
-    <p>foo<strong><anchor />bold<focus /></strong>bar</p>
-    `;
-    const output = `
-    <p>foo<anchor />bold<focus />bar</p>
     `;
     testOperation(
       content,

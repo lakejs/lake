@@ -41,7 +41,7 @@ export class HTMLParser {
   }
 
   // Returns an open tag string of the specified element.
-  private static getOpenTagString(element: Nodes, rules: any) : string {
+  private static getOpenTagString(element: Nodes, rules: any): string {
     let tagName = element.name;
     let attributeRules = rules[tagName];
     if (!attributeRules) {
@@ -93,7 +93,7 @@ export class HTMLParser {
   }
 
   // Returns a closed tag string of the specified element.
-  private static getClosedTagString(element: Nodes, rules: any) : string {
+  private static getClosedTagString(element: Nodes, rules: any): string {
     let tagName = element.name;
     const attributeRules = rules[tagName];
     if (!attributeRules) {
@@ -115,19 +115,18 @@ export class HTMLParser {
     const nextSibling = textNode.next();
     let nodeValue = textNode.text();
     if (
-      (prevSibling.isBlock || prevSibling.isBlockBox) &&
-      (nextSibling.isBlock || nextSibling.isBlockBox) ||
-      prevSibling.length === 0 && nextSibling.length === 0 && parentNode.isBlock
+      ((prevSibling.isBlock || prevSibling.isBlockBox) && (nextSibling.isBlock || nextSibling.isBlockBox))
+      || (prevSibling.length === 0 && nextSibling.length === 0 && parentNode.isBlock)
     ) {
       nodeValue = nodeValue.replace(/^[\u0020\t\r\n]+|[\u0020\t\r\n]+$/g, '');
     } else if (
-      (prevSibling.isBlock || prevSibling.isBlockBox) ||
-      prevSibling.length === 0 && parentNode.isBlock)
+      (prevSibling.isBlock || prevSibling.isBlockBox)
+      || (prevSibling.length === 0 && parentNode.isBlock))
     {
       nodeValue = nodeValue.replace(/^[\u0020\t\r\n]+/, '');
     } else if (
-      (nextSibling.isBlock || nextSibling.isBlockBox) ||
-      nextSibling.length === 0 && parentNode.isBlock
+      (nextSibling.isBlock || nextSibling.isBlockBox)
+      || (nextSibling.length === 0 && parentNode.isBlock)
     ) {
       nodeValue = nodeValue.replace(/[\u0020\t\r\n]+$/, '');
     }

@@ -1,7 +1,7 @@
 import { DropdownMenuItem } from '../types/dropdown';
 import { icons } from '../icons';
 
-export const  headingMenuItems: DropdownMenuItem[] = [
+export const headingMenuItems: DropdownMenuItem[] = [
   {
     value: 'h1',
     text: locale => `<span style="font-weight: bold; font-size: 26px;">${locale.toolbar.heading1()}</span>`,

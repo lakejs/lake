@@ -72,12 +72,10 @@ const defaultConfig: Config = {
       return;
     }
     if (type === 'warning') {
-      // eslint-disable-next-line no-console
       console.warn(message);
       return;
     }
     if (type === 'error') {
-      // eslint-disable-next-line no-console
       console.error(message);
     }
   },

@@ -47,7 +47,7 @@ describe('plugins / slash / index', () => {
   let rootNode: Nodes;
   let editor: Editor;
 
-  beforeEach(()=> {
+  beforeEach(() => {
     rootNode = query('<div class="lake-editor"><div class="lake-root"></div></div>');
     query(document.body).append(rootNode);
     editor = new Editor({

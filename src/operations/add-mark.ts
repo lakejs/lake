@@ -49,12 +49,12 @@ function getNestedMark(node: Nodes): Nodes | null {
 function getUpperMark(node: Nodes, tagName: string): Nodes {
   const nodeText = node.text();
   let parent = node;
-  while(parent.length > 0) {
+  while (parent.length > 0) {
     const nextParent = parent.parent();
     if (
-      !nextParent.isMark ||
-      nodeText !== nextParent.text() ||
-      !parent.isText && parent.name === tagName && parent.attr('style') !== ''
+      !nextParent.isMark
+      || nodeText !== nextParent.text()
+      || (!parent.isText && parent.name === tagName && parent.attr('style') !== '')
     ) {
       break;
     }
@@ -96,7 +96,7 @@ export function addMark(range: Range, value: string | Nodes): void {
     splitMarks(range);
     if (newMark) {
       let child = newMark;
-      while(child.length > 0) {
+      while (child.length > 0) {
         if (child.name === tagName) {
           child.css(cssProperties);
         }

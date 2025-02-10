@@ -5,10 +5,10 @@ import { Nodes } from '../models/nodes';
 export function scrollToNode(node: Nodes, options?: ScrollIntoViewOptions): void {
   const visible = visibleInfo(node);
   if (
-    visible.left !== 0 ||
-    visible.right !== 0 ||
-    visible.top !== 0 ||
-    visible.bottom !== 0
+    visible.left !== 0
+    || visible.right !== 0
+    || visible.top !== 0
+    || visible.bottom !== 0
   ) {
     (node.get(0) as Element).scrollIntoView(options);
   }

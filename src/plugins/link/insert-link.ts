@@ -37,7 +37,7 @@ export function insertLink(range: Range, value: string | Nodes): Nodes | null {
   const linkNode = valueNode.clone(false);
   bookmark.anchor.after(linkNode);
   let node = linkNode.next();
-  while(node.length > 0) {
+  while (node.length > 0) {
     const nextNode = node.next();
     if (!node.isMark && !node.isText) {
       break;

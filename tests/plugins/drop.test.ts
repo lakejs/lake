@@ -2,7 +2,7 @@ import { testPlugin } from '../utils';
 
 let currentTranferData = '';
 
-function getDragEvent(config:  any): Event {
+function getDragEvent(config: any): Event {
   const dragEvent = {
     ...new Event('drag'),
     target: config.target,
@@ -15,7 +15,7 @@ function getDragEvent(config:  any): Event {
       clearData: () => {},
       files: config.files || [],
     },
-    preventDefault: ()=> {},
+    preventDefault: () => {},
   };
   return dragEvent;
 }

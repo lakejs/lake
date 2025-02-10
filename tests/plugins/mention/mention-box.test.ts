@@ -17,7 +17,7 @@ describe('plugins / mention / mention-box', () => {
   let editor: Editor;
   let box: Box;
 
-  beforeEach(()=> {
+  beforeEach(() => {
     rootNode = query('<div class="lake-root" />');
     query(document.body).append(rootNode);
     editor = new Editor({

@@ -53,7 +53,7 @@
     "typesafe-i18n": "^5.26.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.20.0",
+    "@antfu/eslint-config": "^4.1.1",
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-json": "^6.1.0",
@@ -87,7 +87,6 @@
     "sort-package-json": "^2.14.0",
     "tslib": "^2.8.1",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.23.0",
     "wait-on": "^8.0.2"
   },
   "packageManager": "pnpm@10.0.0",

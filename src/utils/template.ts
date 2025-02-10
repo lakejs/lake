@@ -10,9 +10,9 @@ export function template(strings: TemplateStringsArray, ...keys: any[]): string 
     // Don't escape special characters in the template.
     content += strings[i + 1];
   }
-  content = content.
-    replace(/^\s+/gm, '').
-    replace(/\s+$/gm, '').
-    replace(/[\r\n]/g, '');
+  content = content
+    .replace(/^\s+/gm, '')
+    .replace(/\s+$/gm, '')
+    .replace(/[\r\n]/g, '');
   return content;
 }

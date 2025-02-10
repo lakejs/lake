@@ -99,10 +99,10 @@ export class SlashMenu extends Menu<string | SlashItem> {
       let itemTitleEnglish = typeof item.title === 'string' ? item.title : item.title(localeEnglish);
       itemTitleEnglish = itemTitleEnglish.toLowerCase();
       if (
-        itemTitle.indexOf(keyword) >= 0 ||
-        itemTitle.replace(/\s+/g, '').indexOf(keyword) >= 0 ||
-        itemTitleEnglish.indexOf(keyword) >= 0 ||
-        itemTitleEnglish.replace(/\s+/g, '').indexOf(keyword) >= 0
+        itemTitle.indexOf(keyword) >= 0
+        || itemTitle.replace(/\s+/g, '').indexOf(keyword) >= 0
+        || itemTitleEnglish.indexOf(keyword) >= 0
+        || itemTitleEnglish.replace(/\s+/g, '').indexOf(keyword) >= 0
       ) {
         items.push(typeof name === 'string' ? item.name : name);
       }

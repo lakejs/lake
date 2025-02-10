@@ -125,7 +125,7 @@ describe('utils / morph', () => {
     const node = query('<div><button>Foo</button></div>');
     const otherNode = query('<div><button>Bar</button></div>');
     morph(node, otherNode, {
-      morphStyle:'outerHTML',
+      morphStyle: 'outerHTML',
     });
     const content = node.html();
     debug(content);
@@ -136,7 +136,7 @@ describe('utils / morph', () => {
     const node = query('<div>Foo</div>');
     const otherNode = query('<div><button>Bar</button></div>');
     morph(node, otherNode, {
-      morphStyle:'innerHTML',
+      morphStyle: 'innerHTML',
     });
     const content = node.html();
     debug(content);

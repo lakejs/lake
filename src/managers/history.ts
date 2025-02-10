@@ -54,9 +54,9 @@ export class History {
   }
 
   private removeBookmark(value: string): string {
-    return value.replace(/(<lake-box[^>]+)\s+focus="\w+"([^>]*>)/ig, '$1$2').
-      replace(/<lake-bookmark\s+type="anchor">\s*<\/lake-bookmark>/ig, '').
-      replace(/<lake-bookmark\s+type="focus">\s*<\/lake-bookmark>/ig, '');
+    return value.replace(/(<lake-box[^>]+)\s+focus="\w+"([^>]*>)/ig, '$1$2')
+      .replace(/<lake-bookmark\s+type="anchor">\s*<\/lake-bookmark>/ig, '')
+      .replace(/<lake-bookmark\s+type="focus">\s*<\/lake-bookmark>/ig, '');
   }
 
   private getValue(container: Nodes): string {
@@ -215,8 +215,8 @@ export class History {
     const item = this.cloneContainer();
     const value = this.getValue(item);
     if (
-      this.list[this.index - 1] &&
-      this.removeBookmark(this.getValue(this.list[this.index - 1])) === this.removeBookmark(value)
+      this.list[this.index - 1]
+      && this.removeBookmark(this.getValue(this.list[this.index - 1])) === this.removeBookmark(value)
     ) {
       return;
     }

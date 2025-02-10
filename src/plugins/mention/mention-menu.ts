@@ -51,9 +51,9 @@ export class MentionMenu extends Menu<MentionItem> {
     for (const item of this.items) {
       const nickname = item.nickname ?? item.name;
       if (
-        item.name.toLowerCase().indexOf(keyword) >= 0 ||
-        nickname.toLowerCase().indexOf(keyword) >= 0 ||
-        nickname.replace(/\s+/g, '').indexOf(keyword) >= 0
+        item.name.toLowerCase().indexOf(keyword) >= 0
+        || nickname.toLowerCase().indexOf(keyword) >= 0
+        || nickname.replace(/\s+/g, '').indexOf(keyword) >= 0
       ) {
         items.push(item);
       }

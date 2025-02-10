@@ -196,7 +196,7 @@ describe('managers / selection', () => {
     expect(activeItems.length).to.equal(3);
     expect(activeItems[0].name).to.equal('i');
     expect(activeItems[1].name).to.equal('span');
-    expect(activeItems[1].attributes).to.deep.equal({style: 'color: red;', class: 'foo'});
+    expect(activeItems[1].attributes).to.deep.equal({ style: 'color: red;', class: 'foo' });
     expect(activeItems[2].name).to.deep.equal('p');
   });
 

@@ -1,4 +1,4 @@
-/**
+/*
 BSD 2-Clause License
 
 Copyright (c) 2022, Big Sky Software
@@ -29,8 +29,7 @@ Repository: https://github.com/bigskysoftware/idiomorph
 */
 
 /* eslint-disable no-throw-literal */
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-continue */
+/* eslint-disable antfu/if-newline */
 
 import type { Nodes } from '../models/nodes';
 
@@ -145,7 +144,7 @@ function getIdIntersectionCount(ctx: KeyValue, node1: Node, node2: Node): number
   return matchCount;
 }
 
-/**
+/*
  * A bottom up algorithm that finds all elements with ids inside of the node
  * argument and populates id sets for those nodes and all their parents, generating
  * a set of ids contained within all nodes for the entire hierarchy in the DOM
@@ -174,7 +173,7 @@ function populateIdMapForNode(node: Element, idMap: Map<Node, Set<string>>) {
   }
 }
 
-/**
+/*
  * This function computes a map of nodes to all ids contained within that node (inclusive of the
  * node).  This map can be used to ask if two nodes have intersecting sets of ids, which allows
  * for a looser definition of "matching" than tradition id matching, and allows child nodes
@@ -392,7 +391,7 @@ function insertSiblings(previousSibling: Node, morphedNode: Node, nextSibling: N
 
 function scoreElement(node1: Node, node2: Node, ctx: KeyValue) {
   if (isSoftMatch(node1 as Element, node2 as Element)) {
-    return .5 + getIdIntersectionCount(ctx, node1, node2);
+    return 0.5 + getIdIntersectionCount(ctx, node1, node2);
   }
   return 0;
 }
@@ -431,7 +430,7 @@ function ignoreAttribute(attr: string, to: Element, updateType: string, ctx: Key
   return ctx.callbacks.beforeAttributeUpdated(attr, to, updateType) === false;
 }
 
-/**
+/*
  * @param possibleActiveElement
  * @param ctx
  * @returns {boolean}
@@ -440,7 +439,7 @@ function ignoreValueOfActiveElement(possibleActiveElement: Node, ctx: KeyValue) 
   return ctx.ignoreActiveValue && possibleActiveElement === document.activeElement;
 }
 
-/**
+/*
  * syncs a given node with another node, copying over all attributes and
  * inner element state from the 'from' node to the 'to' node
  *
@@ -485,7 +484,7 @@ function syncNodeFrom(from: Element, to: Element, ctx: KeyValue) {
   }
 }
 
-/**
+/*
  * @param oldNode root node to merge content into
  * @param newContent new content to merge
  * @param ctx the merge context
@@ -519,7 +518,7 @@ function morphOldNodeTo(oldNode: Node, newContent: Node, ctx: KeyValue) {
   }
 }
 
-/**
+/*
  * This is the core algorithm for matching up children.  The idea is to use id sets to try to match up
  * nodes as faithfully as possible.  We greedily match, which allows us to keep the algorithm fast, but
  * by using id sets, we are able to better match up with content deeper in the DOM.
@@ -639,7 +638,7 @@ function morphNormalizedContent(oldNode: Element, normalizedNewContent: Element,
     // otherwise nothing was added to the DOM
     return [];
   }
-  throw `Do not understand how to morph style ${  ctx.morphStyle}`;
+  throw `Do not understand how to morph style ${ctx.morphStyle}`;
 }
 
 // =============================================================================

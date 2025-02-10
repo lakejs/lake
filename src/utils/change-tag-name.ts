@@ -10,7 +10,7 @@ export function changeTagName(element: Nodes, newTagName: string): Nodes {
     newElement.attr(attr.name, attr.value);
   }
   let child = element.first();
-  while(child.length > 0) {
+  while (child.length > 0) {
     const nextNode = child.next();
     newElement.append(child);
     child = nextNode;

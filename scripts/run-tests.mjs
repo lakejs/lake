@@ -11,7 +11,7 @@ const url = 'http://localhost:8081/tests/index.html?console=true';
 
 const step = (msg) => console.log(pc.cyan(msg));
 
-(async() => {
+(async () => {
   // Build the bundle file
   step('Building source code');
   await execa('pnpm', ['test:rollup']);
@@ -54,7 +54,7 @@ const step = (msg) => console.log(pc.cyan(msg));
   let totalBytes = 0;
   let usedBytes = 0;
   for (const entry of jsCoverage) {
-    if (entry.url.indexOf('bundle.js') >=0 ) {
+    if (entry.url.indexOf('bundle.js') >= 0) {
       totalBytes += entry.text.length;
       for (const range of entry.ranges) {
         usedBytes += range.end - range.start - 1;

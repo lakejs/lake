@@ -19,8 +19,8 @@ export function removeBreak(block: Nodes): void {
     child = nextNode;
   }
   if (
-    nodeList.length === 1 &&nodeList[0].name === 'br' ||
-    nodeList.length === 2 && nodeList[0].name === 'br' && nodeList[1].isBookmark
+    (nodeList.length === 1 && nodeList[0].name === 'br')
+    || (nodeList.length === 2 && nodeList[0].name === 'br' && nodeList[1].isBookmark)
   ) {
     nodeList[0].remove();
   }

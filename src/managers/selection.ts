@@ -131,10 +131,10 @@ export class Selection {
       return;
     }
     if (
-      this.range.startNode.get(0) === newRange.startNode.get(0) &&
-      this.range.startOffset === newRange.startOffset &&
-      this.range.endNode.get(0) === newRange.endNode.get(0) &&
-      this.range.endOffset === newRange.endOffset
+      this.range.startNode.get(0) === newRange.startNode.get(0)
+      && this.range.startOffset === newRange.startOffset
+      && this.range.endNode.get(0) === newRange.endNode.get(0)
+      && this.range.endOffset === newRange.endOffset
     ) {
       return;
     }

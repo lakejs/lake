@@ -39,9 +39,9 @@ export default (editor: Editor) => {
     }
     const linkNode = targetNode.closest('a');
     if (
-      linkNode.length === 0 ||
-      !editor.container.contains(linkNode) ||
-      linkNode.closest('lake-box').length > 0
+      linkNode.length === 0
+      || !editor.container.contains(linkNode)
+      || linkNode.closest('lake-box').length > 0
     ) {
       if (!popup.visible) {
         return;

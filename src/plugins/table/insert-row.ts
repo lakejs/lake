@@ -11,7 +11,7 @@ export function insertRow(range: Range, direction: InsertRowDirection): void {
   const rowNode = cellNode.closest('tr');
   const table = tableNode.get(0) as HTMLTableElement;
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
-  let tableMap  = getTableMap(table);
+  let tableMap = getTableMap(table);
   const columnCount = tableMap[0].length;
   let targetRowIndex: number;
   if (direction === 'up') {
@@ -30,7 +30,7 @@ export function insertRow(range: Range, direction: InsertRowDirection): void {
     }
     return;
   }
-  tableMap  = getTableMap(table);
+  tableMap = getTableMap(table);
   targetRowIndex = targetRow.rowIndex;
   let prevCellIndex = -1;
   for (let i = 0; i < columnCount; i++) {

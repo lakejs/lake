@@ -77,7 +77,7 @@ export default (editor: Editor) => {
     let top = targetBlcokRect.y + targetBlcokRect.height - containerRect.y + (Number.parseInt(targetBlock.computedCSS('margin-bottom'), 10) / 2);
     if (dragEvent.clientY < targetBlcokRect.y + (targetBlcokRect.height / 2)) {
       const prevBlock = targetBlock.prev();
-      if (prevBlock.length > 0 && prevBlock.isBlock || prevBlock.isBlockBox) {
+      if ((prevBlock.length > 0 && prevBlock.isBlock) || prevBlock.isBlockBox) {
         targetBlock = prevBlock;
         targetBlcokRect = (targetBlock.get(0) as Element).getBoundingClientRect();
         left = targetBlcokRect.x - containerRect.x;

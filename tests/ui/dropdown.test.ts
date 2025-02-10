@@ -4,7 +4,7 @@ import { query } from '../../src/utils/query';
 import { Dropdown } from '../../src/ui/dropdown';
 import { DropdownMenuItem, Nodes, icons } from '../../src';
 
-const  headingMenuItems = [
+const headingMenuItems = [
   {
     value: 'h1',
     text: '<span style="font-weight: bold; font-size: 26px;">Heading 1</span>',
@@ -22,7 +22,6 @@ const  headingMenuItems = [
     text: 'Paragraph',
   },
 ];
-
 
 const alignMenuItems = [
   {
@@ -241,7 +240,7 @@ describe('ui / dropdown', () => {
 
   let rootNode: Nodes;
 
-  beforeEach(()=> {
+  beforeEach(() => {
     rootNode = query('<div class="lake-dropdown-root" />');
     query(document.body).append(rootNode);
   });

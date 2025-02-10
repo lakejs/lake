@@ -1,4 +1,4 @@
-/**
+/*
 MIT License
 
 Copyright (c) 2019-present, Yuxi (Evan) You
@@ -24,7 +24,10 @@ SOFTWARE.
 Repository: https://github.com/vuejs/vitepress/blob/main/scripts/release.js
 */
 
-// @ts-check
+/* eslint-disable style/operator-linebreak */
+/* eslint-disable style/indent-binary-ops */
+/* eslint-disable prefer-template */
+
 import pico from 'picocolors';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';

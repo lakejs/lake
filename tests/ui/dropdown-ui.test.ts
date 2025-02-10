@@ -22,7 +22,6 @@ const headingMenuItems = [
   },
 ];
 
-
 const alignMenuItems = [
   {
     icon: icons.get('alignLeft'),
@@ -240,7 +239,7 @@ describe('ui / dropdown-ui', () => {
 
   let rootNode: Nodes;
 
-  before(()=> {
+  before(() => {
     rootNode = query('<div class="lake-dropdown-root lake-ui-test" />');
     query(document.body).append(rootNode);
   });

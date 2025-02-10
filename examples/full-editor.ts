@@ -1,4 +1,4 @@
-import { Editor, Toolbar, ToolbarItem, DropdownMenuItem, MentionItem,  SlashItem, icons } from 'lakelib';
+import { Editor, Toolbar, ToolbarItem, DropdownMenuItem, MentionItem, SlashItem, icons } from 'lakelib';
 
 // These emojis are sourced from Fluent Emoji.
 // https://github.com/microsoft/fluentui-emoji
@@ -334,7 +334,6 @@ export default (value: string) => {
         // eslint-disable-next-line no-alert
         window.alert(message);
       } if (type === 'warning') {
-        // eslint-disable-next-line no-console
         console.warn(message);
       } else {
         // eslint-disable-next-line no-console

@@ -13,7 +13,7 @@ export function deleteColumn(range: Range): void {
   const currentRow = rowNode.get(0) as HTMLTableRowElement;
   const currentCell = cellNode.get(0) as HTMLTableCellElement;
   const currentRowIndex = currentRow.rowIndex;
-  const tableMap  = getTableMap(table);
+  const tableMap = getTableMap(table);
   const currentColumnIndex = getColumnIndex(tableMap, currentRowIndex, currentCell);
   let newTargetCell: HTMLTableCellElement | null = null;
   const realIndex = currentCell.cellIndex;

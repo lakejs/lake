@@ -6,7 +6,7 @@ describe('ui / corner-toolbar', () => {
 
   let rootNode: Nodes;
 
-  beforeEach(()=> {
+  beforeEach(() => {
     rootNode = query('<div class="lake-corner-toolbar-root" style="position:relative;" />');
     query(document.body).append(rootNode);
   });

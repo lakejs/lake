@@ -11,7 +11,7 @@ describe('plugins / video / video-box', () => {
   let rootNode: Nodes;
   let editor: Editor;
 
-  beforeEach(()=> {
+  beforeEach(() => {
     rootNode = query('<div class="lake-root" />');
     query(document.body).append(rootNode);
     editor = new Editor({

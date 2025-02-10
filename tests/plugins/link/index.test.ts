@@ -15,7 +15,7 @@ describe('plugins / link / index', () => {
   let editor: Editor;
   let toolbar: Toolbar;
 
-  beforeEach(()=> {
+  beforeEach(() => {
     rootNode = query('<div class="lake-editor"><div class="lake-toolbar-root"></div><div class="lake-root"></div></div>');
     query(document.body).append(rootNode);
     const toolbarNode = rootNode.find('.lake-toolbar-root');

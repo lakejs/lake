@@ -40,6 +40,6 @@ export function deleteContents(range: Range): void {
   }
   const bookmark = insertBookmark(range);
   mergeNodes(prevBlock, block);
-  fixNumberedList([ prevBlock ]);
+  fixNumberedList([prevBlock]);
   toBookmark(range, bookmark);
 }

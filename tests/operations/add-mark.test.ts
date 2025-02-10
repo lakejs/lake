@@ -119,7 +119,6 @@ describe('operations / add-mark', () => {
     );
   });
 
-
   it('expanded range: when the mark already exists', () => {
     const content = `
     <p><strong>foo<anchor />bold<focus />bar</strong></p>

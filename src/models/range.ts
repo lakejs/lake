@@ -100,9 +100,9 @@ export class Range {
     // Returns false when the box was selected.
     // case: ... <div class="lake-box-container">|<div></div></div> ...
     if (
-      this.isCollapsed &&
-      this.startNode.get(0) === boxContainer.get(0) &&
-      this.startOffset === 0
+      this.isCollapsed
+      && this.startNode.get(0) === boxContainer.get(0)
+      && this.startOffset === 0
     ) {
       return false;
     }
@@ -117,9 +117,9 @@ export class Range {
     const startBlock = this.startNode.closest('td');
     const endBlock = this.endNode.closest('td');
     if (
-      startBlock.length > 0 &&
-      endBlock.length > 0 &&
-      startBlock.get(0) !== endBlock.get(0)
+      startBlock.length > 0
+      && endBlock.length > 0
+      && startBlock.get(0) !== endBlock.get(0)
     ) {
       return true;
     }
@@ -311,9 +311,9 @@ export class Range {
     this.setStart(node, 0);
     let child;
     while (
-      this.startNode.isElement &&
-      (child = this.startNode.children()[0]) &&
-      child.isElement && !child.isVoid
+      this.startNode.isElement
+      && (child = this.startNode.children()[0])
+      && child.isElement && !child.isVoid
     ) {
       if (child.isBox) {
         this.selectBoxStart(child);
@@ -338,10 +338,10 @@ export class Range {
     this.setEnd(node, node.children().length);
     let child;
     while (
-      this.endNode.isElement &&
-      this.endOffset > 0 &&
-      (child = this.endNode.children()[this.endOffset - 1]) &&
-      child.isElement && !child.isVoid
+      this.endNode.isElement
+      && this.endOffset > 0
+      && (child = this.endNode.children()[this.endOffset - 1])
+      && child.isElement && !child.isVoid
     ) {
       if (child.isBox) {
         this.selectBoxEnd(child);
@@ -361,9 +361,9 @@ export class Range {
     const isCollapsed = this.isCollapsed;
     let child;
     while (
-      this.startNode.isElement &&
-      (child = this.startNode.children()[this.startOffset]) &&
-      child.isElement && !child.isVoid && !child.isBox
+      this.startNode.isElement
+      && (child = this.startNode.children()[this.startOffset])
+      && child.isElement && !child.isVoid && !child.isBox
     ) {
       this.setStart(child, 0);
     }
@@ -372,10 +372,10 @@ export class Range {
       return;
     }
     while (
-      this.endNode.isElement &&
-      this.endOffset > 0 &&
-      (child = this.endNode.children()[this.endOffset - 1]) &&
-      child.isElement && !child.isVoid && !child.isBox
+      this.endNode.isElement
+      && this.endOffset > 0
+      && (child = this.endNode.children()[this.endOffset - 1])
+      && child.isElement && !child.isVoid && !child.isBox
     ) {
       this.setEnd(child, child.children().length);
     }
@@ -512,7 +512,7 @@ export class Range {
   public getBoxes(): Nodes[] {
     if (this.isCollapsed) {
       const startBox = this.startNode.closest('lake-box');
-      return startBox.length > 0 ? [ startBox ] : [];
+      return startBox.length > 0 ? [startBox] : [];
     }
     const nodeList: Nodes[] = [];
     const clonedRange = this.clone();
@@ -532,25 +532,26 @@ export class Range {
       if (startBlock.isTable) {
         return [];
       }
-      return startBlock.isInside ? [ startBlock ] : [];
+      return startBlock.isInside ? [startBlock] : [];
     }
     const startBlock = this.startNode.closestOperableBlock();
     const endBlock = this.endNode.closestOperableBlock();
     if (
-      startBlock.isInside &&
-      startBlock.get(0) &&
-      startBlock.get(0) === endBlock.get(0)
+      startBlock.isInside
+      && startBlock.get(0)
+      && startBlock.get(0) === endBlock.get(0)
     ) {
-      return startBlock.isTable ? [] : [ startBlock ];
+      return startBlock.isTable ? [] : [startBlock];
     }
     const blocks: Nodes[] = [];
     const clonedRange = this.clone();
     clonedRange.collapseToEnd();
     for (const child of this.commonAncestor.getWalker()) {
-      if (child.isBlock && !child.isTable && child.isTopInside &&
+      if (
+        child.isBlock && !child.isTable && child.isTopInside
         // the range doesn't end at the start of a block
-        clonedRange.comparePoint(child, 0) !== 0 &&
-        this.intersectsNode(child)
+        && clonedRange.comparePoint(child, 0) !== 0
+        && this.intersectsNode(child)
       ) {
         blocks.push(child);
       }
@@ -559,9 +560,10 @@ export class Range {
       return blocks;
     }
     for (const child of this.commonAncestor.getWalker()) {
-      if (child.isBlock && !child.isTable &&
-        (startBlock.isSibling(child) || endBlock.isSibling(child)) &&
-        this.intersectsNode(child)) {
+      if (
+        child.isBlock && !child.isTable
+        && (startBlock.isSibling(child) || endBlock.isSibling(child))
+        && this.intersectsNode(child)) {
         blocks.push(child);
       }
     }
@@ -573,8 +575,8 @@ export class Range {
     const marks: Nodes[] = [];
     if (this.commonAncestor.isText && hasText) {
       if (
-        this.startOffset === 0 &&
-        this.endOffset === this.commonAncestor.text().length
+        this.startOffset === 0
+        && this.endOffset === this.commonAncestor.text().length
       ) {
         marks.push(this.commonAncestor);
         return marks;

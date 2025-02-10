@@ -36,7 +36,7 @@ describe('plugins / mention / index', () => {
   let rootNode: Nodes;
   let editor: Editor;
 
-  beforeEach(()=> {
+  beforeEach(() => {
     rootNode = query('<div class="lake-editor"><div class="lake-root"></div></div>');
     query(document.body).append(rootNode);
     editor = new Editor({
@@ -57,7 +57,7 @@ describe('plugins / mention / index', () => {
   it('should return correct config', () => {
     expect(editor.config.mention.requestMethod).to.equal('GET');
     expect(editor.config.mention.items).to.deep.equal(mentionItems);
-    expect(editor.config.mention.getProfileUrl({name: 'foo'})).to.equal('/foo');
+    expect(editor.config.mention.getProfileUrl({ name: 'foo' })).to.equal('/foo');
   });
 
   it('should show a popup menu in an empty block', () => {

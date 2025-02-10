@@ -1063,7 +1063,7 @@ describe('plugins / paste', () => {
             ...new EventTarget(),
             files,
           },
-          preventDefault: ()=> {},
+          preventDefault: () => {},
         };
         editor.event.emit('paste', event as Event);
         requests[0].respond(200, {}, JSON.stringify({
