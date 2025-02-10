@@ -13,6 +13,7 @@ export default antfu(
       'antfu/consistent-list-newline': 'off',
       'antfu/top-level-function': 'off',
       'style/semi': ['error', 'always'],
+      'style/brace-style': ['error', '1tbs'],
       'style/member-delimiter-style': ['error', {
         multiline: {
           delimiter: 'semi',
@@ -33,7 +34,6 @@ export default antfu(
       }],
       'style/padded-blocks': 'off',
       'style/arrow-parens': 'off',
-      'style/brace-style': 'off',
       'style/quote-props': 'off',
       'jsonc/sort-keys': 'off',
       'unicorn/prefer-includes': 'off',

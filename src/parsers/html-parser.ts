@@ -121,8 +121,8 @@ export class HTMLParser {
       nodeValue = nodeValue.replace(/^[\u0020\t\r\n]+|[\u0020\t\r\n]+$/g, '');
     } else if (
       (prevSibling.isBlock || prevSibling.isBlockBox)
-      || (prevSibling.length === 0 && parentNode.isBlock))
-    {
+      || (prevSibling.length === 0 && parentNode.isBlock)
+    ) {
       nodeValue = nodeValue.replace(/^[\u0020\t\r\n]+/, '');
     } else if (
       (nextSibling.isBlock || nextSibling.isBlockBox)
