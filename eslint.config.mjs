@@ -18,7 +18,6 @@ export default antfu(
       'style/arrow-parens': 'off',
       'style/brace-style': 'off',
       'style/quote-props': 'off',
-      'style/max-statements-per-line': 'off',
       'jsonc/sort-keys': 'off',
       'unicorn/prefer-includes': 'off',
       'unicorn/prefer-dom-node-text-content': 'off',

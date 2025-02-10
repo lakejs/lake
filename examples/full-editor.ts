@@ -333,7 +333,7 @@ export default (value: string) => {
       if (type === 'error') {
         // eslint-disable-next-line no-alert
         window.alert(message);
-      } if (type === 'warning') {
+      } else if (type === 'warning') {
         console.warn(message);
       } else {
         // eslint-disable-next-line no-console
