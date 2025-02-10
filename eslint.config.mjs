@@ -13,7 +13,24 @@ export default antfu(
       'antfu/consistent-list-newline': 'off',
       'antfu/top-level-function': 'off',
       'style/semi': ['error', 'always'],
-      'style/member-delimiter-style': 'off',
+      'style/member-delimiter-style': ['error', {
+        multiline: {
+          delimiter: 'semi',
+          requireLast: true,
+        },
+        multilineDetection: 'brackets',
+        overrides: {
+          interface: {
+            multiline: {
+              delimiter: 'semi',
+              requireLast: true,
+            },
+          },
+        },
+        singleline: {
+          delimiter: 'comma',
+        },
+      }],
       'style/padded-blocks': 'off',
       'style/arrow-parens': 'off',
       'style/brace-style': 'off',
