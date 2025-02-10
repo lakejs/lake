@@ -9,7 +9,7 @@ import waitOn from 'wait-on';
 
 const url = 'http://localhost:8081/tests/index.html?console=true';
 
-const step = (msg) => console.log(pc.cyan(msg));
+const step = msg => console.log(pc.cyan(msg));
 
 (async () => {
   // Build the bundle file

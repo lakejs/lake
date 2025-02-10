@@ -53,7 +53,7 @@ export function request(option: UploadRequestOption): XMLHttpRequest {
   const xhr = new XMLHttpRequest();
 
   if (option.onProgress && xhr.upload) {
-    xhr.upload.onprogress = (e) => {
+    xhr.upload.onprogress = e => {
       if (e.total > 0) {
         e.percent = (e.loaded / e.total) * 100;
       }
@@ -90,7 +90,7 @@ export function request(option: UploadRequestOption): XMLHttpRequest {
     }
   }
 
-  xhr.onerror = (e) => {
+  xhr.onerror = e => {
     if (option.onError) {
       option.onError(e);
     }

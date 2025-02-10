@@ -168,7 +168,7 @@ function getConfigForPublishing(type) {
   };
 }
 
-export default (commandLineArgs) => {
+export default commandLineArgs => {
   const configList = [];
   if (commandLineArgs.example === true) {
     delete commandLineArgs.example;

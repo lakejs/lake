@@ -44,13 +44,13 @@ const versionIncrements = ['patch', 'minor', 'major'];
 const tags = ['latest', 'next'];
 
 const dir = fileURLToPath(new URL('.', import.meta.url));
-const inc = (i) => _inc(currentVersion, i);
+const inc = i => _inc(currentVersion, i);
 
 function run(bin, args, opts = {}) {
   return execa(bin, args, { stdio: 'inherit', ...opts });
 }
 
-const step = (msg) => console.log(pc.cyan(msg));
+const step = msg => console.log(pc.cyan(msg));
 
 function updatePackage(version) {
   const pkgPath = resolve(resolve(dir, '..'), 'package.json');
@@ -65,7 +65,7 @@ async function main() {
   let targetVersion;
 
   const versions = versionIncrements
-    .map((i) => `${i} (${inc(i)})`)
+    .map(i => `${i} (${inc(i)})`)
     .concat(['custom']);
 
   const { release } = await prompts({
@@ -153,4 +153,4 @@ async function main() {
   await run('git', ['push']);
 }
 
-main().catch((err) => console.error(err));
+main().catch(err => console.error(err));

@@ -17,7 +17,7 @@ const scriptsPath = path.dirname(fileURLToPath(import.meta.url));
 const rootPath = path.resolve(scriptsPath, '../');
 const uploadPath = path.resolve(rootPath, './temp/');
 
-const step = (msg) => console.log(pc.cyan(msg));
+const step = msg => console.log(pc.cyan(msg));
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
