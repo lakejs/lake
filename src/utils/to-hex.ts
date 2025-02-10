@@ -13,7 +13,7 @@ function hex(value: string): string {
 // Converts a color in RGB or RGBA format to hex format.
 export function toHex(value: string): string {
   return value.replace(
-    /rgba?\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+)\s*)?\)/ig,
+    /rgba?\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+)\s*)?\)/gi,
     (match, p1, p2, p3, p4) => {
       if (p4 === undefined) {
         return `#${hex(p1)}${hex(p2)}${hex(p3)}`;

@@ -34,7 +34,7 @@ export default antfu(
       'regexp/optimal-quantifier-concatenation': 'off',
       'regexp/no-misleading-capturing-group': 'off',
       'regexp/no-unused-capturing-group': 'off',
-      'regexp/sort-flags': 'off',
+      // 'regexp/sort-flags': 'off',
     },
     ignores: [
       'assets/**',

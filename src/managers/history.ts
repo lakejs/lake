@@ -54,9 +54,9 @@ export class History {
   }
 
   private removeBookmark(value: string): string {
-    return value.replace(/(<lake-box[^>]+)\s+focus="\w+"([^>]*>)/ig, '$1$2')
-      .replace(/<lake-bookmark\s+type="anchor">\s*<\/lake-bookmark>/ig, '')
-      .replace(/<lake-bookmark\s+type="focus">\s*<\/lake-bookmark>/ig, '');
+    return value.replace(/(<lake-box[^>]+)\s+focus="\w+"([^>]*>)/gi, '$1$2')
+      .replace(/<lake-bookmark\s+type="anchor">\s*<\/lake-bookmark>/gi, '')
+      .replace(/<lake-bookmark\s+type="focus">\s*<\/lake-bookmark>/gi, '');
   }
 
   private getValue(container: Nodes): string {
