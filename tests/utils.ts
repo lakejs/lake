@@ -34,7 +34,7 @@ export function click(node: Nodes): void {
 }
 
 export function removeBoxValueFromHTML(value: string): string {
-  return value.replace(/(<lake-box[^>]+)\s+value="[^"]+"([^>]*>)/g, '$1$2');
+  return value.replace(/(<lake-box[^>]+)\svalue="[^"]+"([^>]*>)/g, '$1$2');
 }
 
 export function formatHTML(value: string): string {

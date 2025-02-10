@@ -33,6 +33,7 @@
     "install:chrome": "npx puppeteer browsers install chrome",
     "sort:package": "sort-package-json",
     "lint": "eslint . --config eslint.config.mjs",
+    "lint:fix": "eslint . --fix --config eslint.config.mjs",
     "test": "node ./scripts/run-tests.mjs",
     "test:express": "node ./scripts/start-server.mjs 8081",
     "test:rollup": "rollup --config rollup.config.mjs --test",

@@ -30,11 +30,9 @@ export default antfu(
       'test/prefer-lowercase-title': 'off',
       'import/consistent-type-specifier-style': 'off',
       'eslint-comments/no-unlimited-disable': 'off',
-      'regexp/no-super-linear-backtracking': 'off',
       'regexp/optimal-quantifier-concatenation': 'off',
       'regexp/no-misleading-capturing-group': 'off',
       'regexp/no-unused-capturing-group': 'off',
-      // 'regexp/sort-flags': 'off',
     },
     ignores: [
       'assets/**',
