@@ -14,6 +14,7 @@ export default antfu(
       'antfu/top-level-function': 'off',
       'style/semi': ['error', 'always'],
       'style/brace-style': ['error', '1tbs'],
+      'style/quote-props': ['error', 'as-needed'],
       'style/member-delimiter-style': ['error', {
         multiline: {
           delimiter: 'semi',
@@ -34,7 +35,6 @@ export default antfu(
       }],
       'style/padded-blocks': 'off',
       'style/arrow-parens': 'off',
-      'style/quote-props': 'off',
       'jsonc/sort-keys': 'off',
       'unicorn/prefer-includes': 'off',
       'unicorn/prefer-dom-node-text-content': 'off',

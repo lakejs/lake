@@ -679,7 +679,7 @@ describe('models / nodes', () => {
     const nodes = new Nodes([element, elementTwo]);
     nodes.css({
       'background-color': '#ff0000',
-      'border': '1px solid #0000ff',
+      border: '1px solid #0000ff',
     });
     expect(nodes.css('background-color')).to.equal('#ff0000');
     expect(nodes.eq(1).css('background-color')).to.equal('#ff0000');
