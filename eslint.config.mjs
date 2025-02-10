@@ -9,7 +9,7 @@ export default antfu(
       quotes: 'single',
     },
     rules: {
-      'no-cond-assign': 'off',
+      'no-cond-assign': ['error', 'except-parens'],
       'antfu/consistent-list-newline': 'off',
       'style/semi': ['error', 'always'],
       'style/brace-style': ['error', '1tbs'],
