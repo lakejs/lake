@@ -40,8 +40,6 @@ export default antfu(
       'ts/explicit-function-return-type': 'off',
       'ts/consistent-type-imports': 'off',
       'import/consistent-type-specifier-style': 'off',
-      'regexp/no-misleading-capturing-group': 'off',
-      'regexp/no-unused-capturing-group': 'off',
       'eslint-comments/no-unlimited-disable': 'off',
       'unicorn/prefer-includes': 'off',
       'unicorn/prefer-dom-node-text-content': 'off',

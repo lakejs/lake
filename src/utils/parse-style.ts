@@ -5,7 +5,7 @@ import { toHex } from './to-hex';
 export function parseStyle(styleValue: string): KeyValue {
   styleValue = styleValue.replace(/&quot;/gi, '"');
   const properties: KeyValue = {};
-  const re = /\s*([\w-]+)\s*:([^;]*)(;|$)/g;
+  const re = /\s*([\w-]+)\s*:([^;]*)(?:;|$)/g;
   let result;
   while ((result = re.exec(styleValue)) !== null) {
     const key = result[1].toLowerCase().trim();
