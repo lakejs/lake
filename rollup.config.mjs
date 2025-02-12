@@ -9,6 +9,7 @@ import json from '@rollup/plugin-json';
 import { dts } from 'rollup-plugin-dts';
 import svg from 'rollup-plugin-svg-import';
 import css from 'rollup-plugin-import-css';
+import ignore from 'rollup-plugin-ignore-import';
 import terser from '@rollup/plugin-terser';
 import CleanCSS from 'clean-css';
 
@@ -192,9 +193,9 @@ export default commandLineArgs => {
         format: 'es',
       },
       plugins: [
+        ignore({ extensions: ['.css'] }),
         alias(aliasOptions),
         dts(),
-        css(),
       ],
     });
   }
