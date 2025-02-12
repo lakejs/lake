@@ -45,7 +45,9 @@ for (const item of toolbarItems) {
   toolbarItemMap.set(item.name, item);
 }
 
-// The Toolbar interface provides properties and methods for rendering and manipulating the toolbar.
+/**
+ * The Toolbar interface provides properties and methods for rendering and manipulating the toolbar.
+ */
 export class Toolbar {
 
   private items: (string | ToolbarItem)[];
@@ -60,8 +62,14 @@ export class Toolbar {
 
   private dropdownList: Dropdown[] = [];
 
+  /**
+   * The element to which the toolbar is appended.
+   */
   public root: Nodes;
 
+  /**
+   * The element where toolbar items are appended.
+   */
   public container: Nodes;
 
   constructor(config: ToolbarConfig) {
@@ -168,7 +176,9 @@ export class Toolbar {
     });
   }
 
-  // Update the state of each item in the toolbar, such as whether it is selected, disabled.
+  /**
+   * Updates the state of each toolbar item, such as whether it is selected or disabled.
+   */
   public updateState(state: SelectionState = {
     activeItems: [],
   }): void {
@@ -232,7 +242,9 @@ export class Toolbar {
     }
   }
 
-  // Renders a toolbar for the specified editor.
+  /**
+   * Renders the toolbar for the specified editor.
+   */
   public render(editor: Editor): void {
     this.root.append(this.container);
     for (const name of this.items) {
@@ -262,7 +274,9 @@ export class Toolbar {
     }
   }
 
-  // Destroys the toolbar.
+  /**
+   * Destroys the toolbar instance, removing it from the DOM.
+   */
   public unmount(): void {
     for (const dropdown of this.dropdownList) {
       dropdown.unmount();

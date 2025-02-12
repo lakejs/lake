@@ -87,13 +87,19 @@ const defaultConfig: Config = {
  * The Editor interface provides properties and methods for rendering and manipulating the editor.
  */
 export class Editor {
-  // A string that has not yet been saved to the history.
+  /**
+   * A string that has not yet been saved to the history.
+   */
   private unsavedInputData = '';
 
-  // The number of input event calls before saving to the history.
+  /**
+   * The number of input event calls before saving to the history.
+   */
   private unsavedInputCount = 0;
 
-  // The state of the current selection.
+  /**
+   * The state of the current selection.
+   */
   private state: SelectionState = {
     activeItems: [],
     disabledNameMap: new Map(),
@@ -101,58 +107,94 @@ export class Editor {
     selectedValuesMap: new Map(),
   };
 
-  // The functions for unmounting plugins.
+  /**
+   * The functions for unmounting plugins.
+   */
   private unmountPluginMap = new Map<string, UnmountPlugin>();
 
-  // The parent element of the container.
+  /**
+   * The parent element of the container.
+   */
   private readonly containerWrapper: Nodes;
 
-  // the current version of Lake.
+  /**
+   * The current version of Lake.
+   */
   public static readonly version: string = version;
 
-  // A BoxManager object that manages the box components.
+  /**
+   * A BoxManager object that manages the box components.
+   */
   public static readonly box = new BoxManager();
 
-  // A Plugin object that manages the plugins.
+  /**
+   * A Plugin object that manages a collection of plugins.
+   */
   public static readonly plugin = new Plugin();
 
-  // An element to which the editor is appended.
+  /**
+   * An element to which the editor is appended.
+   */
   public readonly root: Nodes;
 
-  // A toolbar for the editor.
+  /**
+   * The toolbar for the editor.
+   */
   public readonly toolbar: Toolbar | undefined;
 
-  // The configuration for the editor.
+  /**
+   * The configuration for the editor.
+   */
   public readonly config: Config;
 
-  // A contenteditable element where users can edit the content of the editor.
+  /**
+   * A contenteditable element where users can edit the editor's content.
+   */
   public readonly container: Nodes;
 
-  // An element to which overlays are appended.
+  /**
+   * An element to which overlays are appended.
+   */
   public readonly overlayContainer: Nodes;
 
-  // Managing events.
+  /**
+   * An EventEmitter object used to set up events.
+   */
   public readonly event: EventEmitter = new EventEmitter();
 
-  // Representing the range of content selected by the user or the current position of the cursor.
+  /**
+   * A Selection object representing the range of content selected by the user or the current position of the cursor.
+   */
   public readonly selection: Selection;
 
-  // Managing all registered commands.
+  /**
+   * A Command object managing all registered commands.
+   */
   public readonly command: Command;
 
-  // Managing the undo and redo history.
+  /**
+   * A History object that manages the undo and redo history.
+   */
   public readonly history: History;
 
-  // Managing keyboard shortcuts.
+  /**
+   * A Keystroke object that manages keyboard shortcuts.
+   */
   public readonly keystroke: Keystroke;
 
-  // Indicating whether the editor is in read-only mode.
+  /**
+   * A boolean value indicating whether the editor is in read-only mode.
+   */
   public readonly readonly: boolean;
 
-  // Indicating whether a user is entering a character using a text composition system such as an Input Method Editor (IME).
+  /**
+   * A boolean value indicating whether a user is entering a character using a text composition system such as an Input Method Editor (IME).
+   */
   public isComposing = false;
 
-  // A pop-up component which is currently displayed, such as LinkPopup, MentionMenu, and SlashMenu.
+  /**
+   * A pop-up component which is currently displayed, such as LinkPopup, MentionMenu, and SlashMenu.
+   */
   public popup: any = null;
 
   constructor(config: EditorConfig) {
@@ -233,7 +275,9 @@ export class Editor {
     immediate: true,
   });
 
-  // Updates the classes of all boxes when the current selection is changed.
+  /**
+   * Updates the classes of all boxes when the current selection is changed.
+   */
   private updateBoxSelectionStyle = debounce(() => {
     // The editor has been unmounted.
     if (this.root.first().length === 0) {
@@ -281,7 +325,9 @@ export class Editor {
     immediate: true,
   });
 
-  // Triggers the statechange event when the current selection is changed.
+  /**
+   * Triggers the statechange event when the current selection is changed.
+   */
   private emitStateChangeEvent = debounce(() => {
     const commandNames = this.command.getNames();
     let activeItems = this.selection.getActiveItems();
@@ -326,7 +372,9 @@ export class Editor {
     immediate: false,
   });
 
-  // Adds or Removes a placeholder class.
+  /**
+   * Adds or Removes a placeholder class.
+   */
   private togglePlaceholderClass(value: string): void {
     value = denormalizeValue(value);
     const className = 'lake-placeholder';
@@ -337,7 +385,9 @@ export class Editor {
     }
   }
 
-  // Moves the input text from box strip to normal position.
+  /**
+   * Moves the input text from box strip to normal position.
+   */
   private moveBoxStripText(): void {
     const selection = this.selection;
     const range = selection.range;
@@ -367,13 +417,17 @@ export class Editor {
     selection.insertContents(document.createTextNode(text));
   }
 
-  // Resets the value of "unsavedInputData" property.
+  /**
+   * Resets the value of "unsavedInputData" property.
+   */
   private resetUnsavedInputData(): void {
     this.unsavedInputData = '';
     this.unsavedInputCount = 0;
   }
 
-  // Handles input event.
+  /**
+   * Handles input event.
+   */
   private handleInputEvent(event: InputEvent | CompositionEvent): void {
     this.selection.updateByRange();
     const range = this.selection.range;
@@ -414,7 +468,9 @@ export class Editor {
     this.history.save();
   }
 
-  // Binds events for inputting text.
+  /**
+   * Binds events for inputting text.
+   */
   private bindInputEvents(): void {
     this.container.on('compositionstart', () => {
       this.isComposing = true;
@@ -434,7 +490,9 @@ export class Editor {
     });
   }
 
-  // Removes all unused box instances.
+  /**
+   * Removes all unused box instances.
+   */
   private removeBoxGarbage(): void {
     const instanceMap = getInstanceMap(this.container.id);
     for (const box of instanceMap.values()) {
@@ -445,7 +503,9 @@ export class Editor {
     }
   }
 
-  // Binds events for history.
+  /**
+   * Binds events for history.
+   */
   private bindHistoryEvents(): void {
     const executeCommonMethods = (value: string) => {
       if (this.fixContent()) {
@@ -480,12 +540,16 @@ export class Editor {
     });
   }
 
-  // Returns translation functions for the specified language.
+  /**
+   * Returns translation functions for the specified language.
+   */
   public get locale(): TranslationFunctions {
     return i18nObject(this.config.lang as Locales);
   }
 
-  // Sets the default config for the specified plugin.
+  /**
+   * Sets the default config for the specified plugin.
+   */
   public setPluginConfig(name: string, config: Record<string, any>): void {
     if (typeof this.config[name] !== 'object') {
       this.config[name] = {};
@@ -497,7 +561,9 @@ export class Editor {
     }
   }
 
-  // Fixes incorrect content, such as adding paragraphs for void elements or removing empty tags.
+  /**
+   * Fixes incorrect content, such as adding paragraphs for void elements or removing empty tags.
+   */
   public fixContent(): boolean {
     const range = this.selection.range;
     const cellNode = range.commonAncestor.closest('td');
@@ -532,7 +598,9 @@ export class Editor {
     return changed;
   }
 
-  // Renders all boxes that haven't been rendered yet.
+  /**
+   * Renders all boxes that haven't been rendered yet.
+   */
   public renderBoxes(): void {
     this.removeBoxGarbage();
     const container = this.container;
@@ -547,7 +615,9 @@ export class Editor {
     });
   }
 
-  // Scrolls to the cursor.
+  /**
+   * Scrolls to the cursor.
+   */
   public scrollToCursor(): void {
     const range = this.selection.range;
     if (range.isBox) {
@@ -581,7 +651,9 @@ export class Editor {
     artificialCursor.remove();
   }
 
-  // Checks whether the editor has focus.
+  /**
+   * Checks whether the editor has focus.
+   */
   public hasFocus(): boolean {
     const activeElement = document.activeElement;
     if (!activeElement) {
@@ -590,7 +662,9 @@ export class Editor {
     return query(activeElement).closest('.lake-container').get(0) === this.container.get(0);
   }
 
-  // Sets focus on the editor.
+  /**
+   * Sets focus on the editor.
+   */
   public focus(): void {
     const range = this.selection.range;
     if (this.container.contains(range.commonAncestor) && range.isBox) {
@@ -599,12 +673,16 @@ export class Editor {
     this.container.focus();
   }
 
-  // Removes focus from the editor.
+  /**
+   * Removes focus from the editor.
+   */
   public blur(): void {
     this.container.blur();
   }
 
-  // Sets the specified content to the editor.
+  /**
+   * Sets the specified content to the editor.
+   */
   public setValue(value: string): void {
     value = normalizeValue(value);
     const htmlParser = new HTMLParser(value);
@@ -616,7 +694,9 @@ export class Editor {
     this.selection.updateByBookmark();
   }
 
-  // Returns the content of the editor.
+  /**
+   * Returns the editor's content.
+   */
   public getValue(): string {
     const item = this.history.cloneContainer();
     let value = new HTMLParser(item).getHTML();
@@ -659,7 +739,9 @@ export class Editor {
     }
   }
 
-  // Destroys the editor.
+  /**
+   * Destroys the editor.
+   */
   public unmount(): void {
     // Executes delayed executions immediately.
     this.updateSelectionRange.flush();

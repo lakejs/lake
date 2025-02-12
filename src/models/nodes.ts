@@ -22,12 +22,18 @@ const eventData: Record<number, EventItem[]> = {};
 
 let lastNodeId = 0;
 
-// The Nodes interface represents a collection of the document's nodes.
+/**
+ * The Nodes interface represents a collection of the nodes.
+ */
 export class Nodes {
-  // A list of native nodes.
+  /**
+   * A list of native nodes.
+   */
   private readonly nodeList: Node[];
 
-  // The number of nodes in the nodeList.
+  /**
+   * The number of nodes in the Nodes object.
+   */
   public readonly length: number;
 
   constructor(node?: Node | Node[] | null) {
@@ -43,13 +49,17 @@ export class Nodes {
     this.length = this.nodeList.length;
   }
 
-  // The unique ID of the first node.
+  /**
+   * The unique ID of the first node.
+   */
   public get id(): number {
     const node = this.get(0);
     return node.lakeId;
   }
 
-  // The name of the first node.
+  /**
+   * The name of the first node.
+   */
   public get name(): string {
     if (this.length === 0) {
       return '';
@@ -58,7 +68,9 @@ export class Nodes {
     return node.nodeName.toLowerCase();
   }
 
-  // A boolean value indicating whether the first node is an element.
+  /**
+   * A boolean value indicating whether the first node is an element.
+   */
   public get isElement(): boolean {
     if (this.length === 0) {
       return false;
@@ -67,7 +79,9 @@ export class Nodes {
     return node.nodeType === Node.ELEMENT_NODE;
   }
 
-  // A boolean value indicating whether the first node is a text.
+  /**
+   * A boolean value indicating whether the first node is a text.
+   */
   public get isText(): boolean {
     if (this.length === 0) {
       return false;
@@ -76,7 +90,9 @@ export class Nodes {
     return node.nodeType === Node.TEXT_NODE;
   }
 
-  // A boolean value indicating whether the first node is a block.
+  /**
+   * A boolean value indicating whether the first node is a block.
+   */
   public get isBlock(): boolean {
     if (this.length === 0) {
       return false;
@@ -84,7 +100,9 @@ export class Nodes {
     return blockTagNames.has(this.name);
   }
 
-  // A boolean value indicating whether the first node is a mark.
+  /**
+   * A boolean value indicating whether the first node is a mark.
+   */
   public get isMark(): boolean {
     if (this.length === 0) {
       return false;
@@ -92,7 +110,9 @@ export class Nodes {
     return markTagNames.has(this.name);
   }
 
-  // A boolean value indicating whether the first node is a void element that cannot have any child nodes.
+  /**
+   * A boolean value indicating whether the first node is a void element that cannot have any child nodes.
+   */
   public get isVoid(): boolean {
     if (this.length === 0) {
       return false;
@@ -100,7 +120,9 @@ export class Nodes {
     return voidTagNames.has(this.name);
   }
 
-  // A boolean value indicating whether the first node is a heading.
+  /**
+   * A boolean value indicating whether the first node is a heading.
+   */
   public get isHeading(): boolean {
     if (this.length === 0) {
       return false;
@@ -108,7 +130,9 @@ export class Nodes {
     return headingTagNames.has(this.name);
   }
 
-  // A boolean value indicating whether the first node is a list.
+  /**
+   * A boolean value indicating whether the first node is a list.
+   */
   public get isList(): boolean {
     if (this.length === 0) {
       return false;
@@ -116,7 +140,9 @@ export class Nodes {
     return listTagNames.has(this.name);
   }
 
-  // A boolean value indicating whether the first node is a table.
+  /**
+   * A boolean value indicating whether the first node is a table.
+   */
   public get isTable(): boolean {
     if (this.length === 0) {
       return false;
@@ -124,27 +150,37 @@ export class Nodes {
     return tableTagNames.has(this.name);
   }
 
-  // A boolean value indicating whether the first node is a bookmark element.
+  /**
+   * A boolean value indicating whether the first node is a bookmark element.
+   */
   public get isBookmark(): boolean {
     return this.name === 'lake-bookmark';
   }
 
-  // A boolean value indicating whether the first node is a box element.
+  /**
+   * A boolean value indicating whether the first node is a box element.
+   */
   public get isBox(): boolean {
     return this.name === 'lake-box';
   }
 
-  // A boolean value indicating whether the first node is an inline box element.
+  /**
+   * A boolean value indicating whether the first node is an inline box element.
+   */
   public get isInlineBox(): boolean {
     return this.isBox && this.attr('type') === 'inline';
   }
 
-  // A boolean value indicating whether the first node is a block box element.
+  /**
+   * A boolean value indicating whether the first node is a block box element.
+   */
   public get isBlockBox(): boolean {
     return this.isBox && this.attr('type') === 'block';
   }
 
-  // A boolean value indicating whether the first node is a contenteditable element where users can edit the content.
+  /**
+   * A boolean value indicating whether the first node is a contenteditable element where users can edit the content.
+   */
   public get isContainer(): boolean {
     if (this.length === 0) {
       return false;
@@ -153,17 +189,23 @@ export class Nodes {
     return this.isElement && node.getAttribute('contenteditable') === 'true';
   }
 
-  // A boolean value indicating whether the first node does not have an ancestor element which contenteditable attribute is true.
+  /**
+   * A boolean value indicating whether the first node does not have an ancestor element which contenteditable attribute is true.
+   */
   public get isOutside(): boolean {
     return this.closest('[contenteditable="true"]').length === 0;
   }
 
-  // A boolean value indicating whether the first node has an ancestor element which contenteditable attribute is true.
+  /**
+   * A boolean value indicating whether the first node has an ancestor element which contenteditable attribute is true.
+   */
   public get isInside(): boolean {
     return !this.isOutside && !this.isContainer;
   }
 
-  // A boolean value indicating whether the first node's parent element is an element which contenteditable attribute is true.
+  /**
+   * A boolean value indicating whether the first node's parent element is an element which contenteditable attribute is true.
+   */
   public get isTopInside(): boolean {
     if (this.length === 0) {
       return false;
@@ -175,7 +217,9 @@ export class Nodes {
     return this.isInside && parentNode.isContainer;
   }
 
-  // A boolean value indicating whether the first node is editable.
+  /**
+   * A boolean value indicating whether the first node is editable.
+   */
   public get isContentEditable(): boolean {
     if (this.length === 0) {
       return false;
@@ -194,12 +238,16 @@ export class Nodes {
     return element.isContentEditable;
   }
 
-  // A boolean value indicating whether the first node is indivisible.
+  /**
+   * A boolean value indicating whether the first node is indivisible.
+   */
   public get isIndivisible(): boolean {
     return this.isContainer || this.isTable;
   }
 
-  // A boolean value indicating whether the first node is empty.
+  /**
+   * A boolean value indicating whether the first node is empty.
+   */
   public get isEmpty(): boolean {
     if (this.isBox) {
       return false;
@@ -220,23 +268,31 @@ export class Nodes {
     return true;
   }
 
-  // Returns a native node at the specified index.
+  /**
+   * Returns a native node at the specified index.
+   */
   public get(index: number): Node {
     return this.nodeList[index];
   }
 
-  // Returns all native nodes.
+  /**
+   * Returns all native nodes.
+   */
   public getAll(): Node[] {
     return this.nodeList;
   }
 
-  // Returns a new Nodes object that includes only the node at the specified index.
+  /**
+   * Returns a new Nodes object that includes only the node at the specified index.
+   */
   public eq(index: number): Nodes {
     const node = this.get(index);
     return new Nodes(node);
   }
 
-  // Executes a provided function once for each node.
+  /**
+   * Executes a provided function once for each node.
+   */
   public each(callback: (node: Node, index: number) => boolean | void): this {
     const nodes = this.getAll();
     for (let i = 0; i < nodes.length; i++) {
@@ -247,7 +303,9 @@ export class Nodes {
     return this;
   }
 
-  // Executes a provided function once for each element.
+  /**
+   * Executes a provided function once for each element.
+   */
   public eachElement(callback: (element: Element, index: number) => boolean | void): this {
     const nodes = this.getAll();
     for (let i = 0; i < nodes.length; i++) {
@@ -260,13 +318,17 @@ export class Nodes {
     return this;
   }
 
-  // Returns a new Nodes object with the nodes in reversed order.
+  /**
+   * Returns a new Nodes object with the nodes in reversed order.
+   */
   public reverse(): Nodes {
     const nodes = this.getAll().reverse();
     return new Nodes(nodes);
   }
 
-  // Tests whether the first node would be selected by the specified CSS selector.
+  /**
+   * Tests whether the first node would be selected by the specified CSS selector.
+   */
   public matches(selector: string): boolean {
     if (!this.isElement) {
       return false;
@@ -275,14 +337,18 @@ export class Nodes {
     return element.matches(selector);
   }
 
-  // Returns a boolean value indicating whether the first node is a descendant of a given node,
-  // that is the first node itself, one of its direct children (childNodes), one of the children's direct children, and so on.
+  /**
+   * Returns a boolean value indicating whether the given node is a descendant of the first node,
+   * that is the node itself, one of its direct children (childNodes), one of the children's direct children, and so on.
+   */
   public contains(otherNode: Nodes): boolean {
     const element = this.get(0) as Element;
     return element.contains(otherNode.get(0));
   }
 
-  // Returns a boolean value indicating whether the first node and a given node are siblings.
+  /**
+   * Returns a boolean value indicating whether the first node and a given node are siblings.
+   */
   public isSibling(otherNode: Nodes): boolean {
     if (this.length === 0) {
       return false;
@@ -291,7 +357,9 @@ export class Nodes {
     return parent && parent === otherNode.parent().get(0);
   }
 
-  // Returns the descendants of the first node that match the specified CSS selector or node path.
+  /**
+   * Returns the descendants of the first node that match the specified CSS selector or node path.
+   */
   public find(selector: string | NodePath): Nodes {
     if (typeof selector === 'string') {
       const element = this.get(0) as Element;
@@ -308,7 +376,9 @@ export class Nodes {
     return node;
   }
 
-  // Traverses the first node and its parents (heading toward the document root) until it finds an element that matches the specified CSS selector.
+  /**
+   * Traverses the first node and its parents (heading toward the document root) until it finds an element that matches the specified CSS selector.
+   */
   public closest(selector: string): Nodes {
     if (this.isText) {
       const element = this.get(0).parentNode;
@@ -324,7 +394,9 @@ export class Nodes {
     return new Nodes(element.closest(selector));
   }
 
-  // Traverses the first node and its parents until it finds a block element.
+  /**
+   * Traverses the first node and its parents until it finds a block element.
+   */
   public closestBlock(): Nodes {
     let node = this.eq(0);
     while (node.length > 0) {
@@ -339,7 +411,9 @@ export class Nodes {
     return node;
   }
 
-  // Traverses the first node and its parents until it finds an operable block.
+  /**
+   * Traverses the first node and its parents until it finds an operable block.
+   */
   public closestOperableBlock(): Nodes {
     const boxNode = this.closest('lake-box');
     const block = boxNode.length > 0 ? boxNode.closestBlock() : this.closestBlock();
@@ -356,7 +430,9 @@ export class Nodes {
     return block;
   }
 
-  // Traverses the first node and its parents until it finds a div element which contenteditable attribute is true.
+  /**
+   * Traverses the first node and its parents until it finds a div element which contenteditable attribute is true.
+   */
   public closestContainer(): Nodes {
     return this.closest('div[contenteditable="true"]');
   }

@@ -13,13 +13,17 @@ interface ButtonConfig {
   onClick: () => void;
 }
 
-// The Button interface represents a UI component clicked by a user. Once clicked, it then performs an action.
+/**
+ * The Button interface represents a clickable UI component. When a user clicks the button, a specified action is executed.
+ */
 export class Button {
   private readonly config: ButtonConfig;
 
   private readonly root: Nodes;
 
-  // A button element.
+  /**
+   * The button element.
+   */
   public readonly node: Nodes;
 
   constructor(config: ButtonConfig) {
@@ -36,7 +40,9 @@ export class Button {
     }
   }
 
-  // Renders the button.
+  /**
+   * Renders the button to the DOM.
+   */
   public render(): void {
     const config = this.config;
     const buttonNode = this.node;

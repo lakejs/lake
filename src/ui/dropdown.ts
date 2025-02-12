@@ -22,7 +22,9 @@ interface DropdownConfig extends DropdownItem {
   onSelect: (value: string) => void;
 }
 
-// The Dropdown interface represents a UI component that provides a menu of options.
+/**
+ * The Dropdown component provides a user-friendly menu with selectable options. Use it to allow users to pick from a list of predefined choices.
+ */
 export class Dropdown {
   private readonly config: DropdownConfig;
 
@@ -36,7 +38,9 @@ export class Dropdown {
 
   private readonly menuNode: Nodes;
 
-  // An element to which the contents of the dropdown are appended.
+  /**
+   * The DOM element that contains the dropdown's contents.
+   */
   public readonly node: Nodes;
 
   constructor(config: DropdownConfig) {
@@ -60,7 +64,9 @@ export class Dropdown {
     }
   }
 
-  // Returns the value of the node.
+  /**
+   * Returns the value of the node.
+   */
   public static getValue(node: Nodes): string[] {
     const value = node.attr('value');
     if (value === '') {
@@ -69,7 +75,9 @@ export class Dropdown {
     return JSON.parse(fromBase64(value));
   }
 
-  // Updates the value of the node.
+  /**
+   * Updates the value of the node.
+   */
   public static setValue(node: Nodes, value: string[]): void {
     node.attr('value', toBase64(JSON.stringify(value)));
   }
@@ -269,7 +277,9 @@ export class Dropdown {
     window.removeEventListener('resize', this.resizeListener);
   }
 
-  // Renders the dropdown.
+  /**
+   * Renders the dropdown to the DOM.
+   */
   public render(): void {
     const config = this.config;
     const defaultValue = config.defaultValue ?? '';
@@ -351,7 +361,9 @@ export class Dropdown {
     });
   }
 
-  // Destroys the dropdown.
+  /**
+   * Removes the dropdown from the DOM and cleans up resources.
+   */
   public unmount(): void {
     this.hideMenu();
     this.menuNode.remove();
