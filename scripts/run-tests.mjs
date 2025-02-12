@@ -1,4 +1,4 @@
-// See more in https://pptr.dev/api/puppeteer.coverage/
+// See https://pptr.dev/api/puppeteer.coverage/ for more details.
 
 import process from 'node:process';
 import console from 'node:console';
@@ -12,10 +12,10 @@ const url = 'http://localhost:8081/tests/index.html?console=true';
 const step = msg => console.log(pc.cyan(msg));
 
 (async () => {
-  // Build the bundle file
+  // Build the bundle file.
   step('Building source code');
   await execa('pnpm', ['test:rollup']);
-  // Wait for starting HTTP server
+  // Wait for starting HTTP server.
   step('Starting up an HTTP server');
   const subprocess = execa('pnpm', ['test:express']);
   await waitOn({
@@ -23,7 +23,7 @@ const step = msg => console.log(pc.cyan(msg));
       url,
     ],
   });
-  // Launche a browser and run test cases
+  // Launche a browser and run test cases.
   step('Launching a browser instance');
   const browser = await puppeteer.launch({
     // In order to protect the host environment from untrusted web content, Chrome uses multiple layers of sandboxing.
@@ -50,7 +50,7 @@ const step = msg => console.log(pc.cyan(msg));
   const jsCoverage = await page.coverage.stopJSCoverage();
   console.timeEnd('Duration');
   await browser.close();
-  // Calculate used bytes
+  // Calculate used bytes.
   let totalBytes = 0;
   let usedBytes = 0;
   for (const entry of jsCoverage) {
@@ -62,7 +62,7 @@ const step = msg => console.log(pc.cyan(msg));
     }
   }
   console.log(`Bytes used: ${(usedBytes / totalBytes * 100).toFixed(2)}%`);
-  // Terminate the process
+  // Terminate the process.
   subprocess.kill();
   if (failures > 0) {
     throw new Error(`Test failed. failures: ${failures}`);

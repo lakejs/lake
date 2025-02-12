@@ -24,10 +24,6 @@ SOFTWARE.
 Repository: https://github.com/vuejs/vitepress/blob/main/scripts/release.js
 */
 
-/* eslint-disable style/operator-linebreak */
-/* eslint-disable style/indent-binary-ops */
-/* eslint-disable prefer-template */
-
 import pico from 'picocolors';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
@@ -37,22 +33,21 @@ import console from 'node:console';
 const msgPath = path.resolve('.git/COMMIT_EDITMSG');
 const msg = readFileSync(msgPath, 'utf-8').trim();
 
-const commitRE =
-  /^(?:revert: )?(?:feat|fix|perf|style|refactor|test|chore|release)(?:\(.+\))?: .{1,50}/;
+const commitRE = /^(?:revert: )?(?:feat|fix|perf|style|refactor|test|chore|release)(?:\(.+\))?: .{1,50}/;
 
 if (!commitRE.test(msg)) {
   console.error(
     `  ${pico.white(pico.bgRed(' ERROR '))} ${pico.red(
-      'invalid commit message format.',
-    )}\n\n` +
+      'Invalid commit message format:',
+    )}\n\n${
       pico.red(
         '  Proper commit message format is required for automated changelog generation. Examples:\n\n',
-      ) +
-      `    ${pico.green('feat(history): add emitEvent option')}\n` +
-      `    ${pico.green(
-        'fix(bold): incorrect index when undoing (close #28)',
-      )}\n\n` +
-      pico.red('  See .github/commit-convention.md for more details.\n'),
+      )
+    }    ${pico.green('feat(history): add emitEvent option')}\n`
+    + `    ${pico.green(
+      'fix(bold): incorrect index when undoing (close #28)',
+    )}\n\n${
+      pico.red('  See .github/commit-convention.md for more details.\n')}`,
   );
   process.exit(1);
 }
