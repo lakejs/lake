@@ -2,11 +2,8 @@ import path from 'node:path';
 import { networkInterfaces } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import console from 'node:console';
-import pc from 'picocolors';
 import express from 'express';
 import multer from 'multer';
-
-const step = msg => console.log(pc.cyan(msg));
 
 export function startServer(port, printRequest = false) {
 
@@ -76,7 +73,6 @@ export function startServer(port, printRequest = false) {
 
   return new Promise(resolve => {
     const server = app.listen(port, () => {
-      step('Starting up an HTTP server');
       console.log('Available on:');
       const nets = networkInterfaces();
       for (const name of Object.keys(nets)) {
@@ -92,7 +88,6 @@ export function startServer(port, printRequest = false) {
 }
 
 export function stopServer(server) {
-  step('Stopping the HTTP server');
   return new Promise((resolve, reject) => {
     server.close(error => {
       if (error) {

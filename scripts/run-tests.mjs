@@ -61,6 +61,7 @@ for (const entry of jsCoverage) {
 }
 console.log(`Bytes used: ${(usedBytes / totalBytes * 100).toFixed(2)}%`);
 
+step('Stopping the HTTP server');
 await stopServer(server);
 
 if (failures > 0) {
