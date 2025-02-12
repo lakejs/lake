@@ -83,7 +83,9 @@ const defaultConfig: Config = {
   mention: false,
 };
 
-// The Editor interface provides properties and methods for rendering and manipulating the editor.
+/**
+ * The Editor interface provides properties and methods for rendering and manipulating the editor.
+ */
 export class Editor {
   // A string that has not yet been saved to the history.
   private unsavedInputData = '';
@@ -622,7 +624,9 @@ export class Editor {
     return value;
   }
 
-  // Renders an editing area and sets default content to it.
+  /**
+   * Renders an editing area and sets default content to it.
+   */
   public render(): void {
     const value = normalizeValue(this.config.value);
     const htmlParser = new HTMLParser(value);

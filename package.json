@@ -1,6 +1,6 @@
 {
   "name": "lakelib",
-  "version": "0.4.0",
+  "version": "0.3.3",
   "packageManager": "pnpm@10.2.1",
   "description": "Lake is a browser-based rich text editor built for modern applications that require content creation like blog posts, user comments, and email composition.",
   "author": "Luo Longhao <luolonghao@gmail.com>",
@@ -19,7 +19,7 @@
     "editor"
   ],
   "main": "./lib/lake.js",
-  "types": "./lib/index.d.ts",
+  "types": "./lib/lake.d.ts",
   "files": [
     "dist",
     "lib"
@@ -76,6 +76,7 @@
     "puppeteer": "^24.2.0",
     "rimraf": "^6.0.1",
     "rollup": "^4.34.6",
+    "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-import-css": "^3.5.8",
     "rollup-plugin-svg-import": "^3.0.0",
     "semver": "^7.7.1",

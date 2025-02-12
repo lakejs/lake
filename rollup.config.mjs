@@ -6,6 +6,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
+import { dts } from 'rollup-plugin-dts';
 import svg from 'rollup-plugin-svg-import';
 import css from 'rollup-plugin-import-css';
 import terser from '@rollup/plugin-terser';
@@ -153,9 +154,6 @@ function getConfigForPublishing(type) {
       typescript({
         compilerOptions: {
           outDir: './lib',
-          rootDir: './src',
-          declaration: true,
-          declarationDir: './lib',
         },
       }),
       commonjs(),
@@ -186,6 +184,19 @@ export default commandLineArgs => {
   if (commandLineArgs.es === true) {
     delete commandLineArgs.es;
     configList.push(getConfigForPublishing('es'));
+    // Generate and bundle lake.d.ts, also does type checking.
+    configList.push({
+      input: './src/index.ts',
+      output: {
+        file: './lib/lake.d.ts',
+        format: 'es',
+      },
+      plugins: [
+        alias(aliasOptions),
+        dts(),
+        css(),
+      ],
+    });
   }
   return configList.filter(config => config !== undefined);
 };

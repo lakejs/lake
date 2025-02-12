@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "es6",
     "baseUrl": ".",
-    "moduleResolution": "node",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "paths": {
       "lakelib/*": ["src/*"],
       "lakelib": ["src"]
@@ -12,7 +13,6 @@
     "strict": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
-    "removeComments": false,
     "esModuleInterop": true
   },
   "include": [
