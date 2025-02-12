@@ -5,7 +5,9 @@ import { Range } from '../models/range';
 import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 
-// Removes the contents of the specified range.
+/**
+ * Removes the contents of the specified range.
+ */
 export function deleteContents(range: Range): void {
   if (range.isCollapsed) {
     return;

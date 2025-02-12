@@ -4,7 +4,9 @@ import { removeEmptyMarks } from '../utils/remove-empty-marks';
 import { Nodes } from '../models/nodes';
 import { Range } from '../models/range';
 
-// Splits text nodes or mark nodes at a specified position.
+/**
+ * Splits text nodes or mark nodes.
+ */
 function splitMarksAtPoint(node: Nodes, offset: number, removeEmptyMark: boolean): TwoParts {
   let start = null;
   let end = null;

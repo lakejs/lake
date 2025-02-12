@@ -3,7 +3,9 @@ import { parseStyle } from '../utils/parse-style';
 import { encode } from '../utils/encode';
 import { Nodes } from '../models/nodes';
 
-// The HTMLParser interface provides the ability to parse an HTML string by specified rules.
+/**
+ * The HTMLParser interface provides the ability to parse an HTML string according to specified rules.
+ */
 export class HTMLParser {
 
   private readonly rules: any;
@@ -19,14 +21,18 @@ export class HTMLParser {
     }
   }
 
-  // Parses the given HTML string and returns the body element from the result.
+  /**
+   * Parses the given HTML string and returns the body element from the result.
+   */
   private parseHTML(html: string): Nodes {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
     return new Nodes(doc.querySelector('body'));
   }
 
-  // Returns a boolean indicating whether a value matches the specified rule.
+  /**
+   * Returns a boolean value indicating whether the given value matches the given rule.
+   */
   private static matchRule(rule: any, value: string): boolean {
     if (typeof rule === 'string') {
       return rule === value;
@@ -40,7 +46,9 @@ export class HTMLParser {
     return false;
   }
 
-  // Returns an open tag string of the specified element.
+  /**
+   * Returns an open tag string from the specified element.
+   */
   private static getOpenTagString(element: Nodes, rules: any): string {
     let tagName = element.name;
     let attributeRules = rules[tagName];
@@ -92,7 +100,9 @@ export class HTMLParser {
     return openTag;
   }
 
-  // Returns a closed tag string of the specified element.
+  /**
+   * Returns a closed tag string from the specified element.
+   */
   private static getClosedTagString(element: Nodes, rules: any): string {
     let tagName = element.name;
     const attributeRules = rules[tagName];
@@ -105,7 +115,9 @@ export class HTMLParser {
     return tagName;
   }
 
-  // Returns the value of the text node with trimming invisible whitespace.
+  /**
+   * Returns the value of the text node with trimming invisible whitespace.
+   */
   // <p>foo</p>\n<p>bar</p>
   // or
   // <p>\nfoo\n</p>
@@ -133,7 +145,9 @@ export class HTMLParser {
     return nodeValue;
   }
 
-  // Returns an HTML string.
+  /**
+   * Returns the parsed HTML as a string.
+   */
   public getHTML(): string {
     const rules = this.rules;
     function * iterate(node: Nodes): Generator<string> {
@@ -170,7 +184,9 @@ export class HTMLParser {
     return html.trim();
   }
 
-  // Returns a DocumentFragment object.
+  /**
+   * Returns the parsed content as a DocumentFragment object.
+   */
   public getFragment(): DocumentFragment {
     const html = this.getHTML();
     const body = this.parseHTML(html);

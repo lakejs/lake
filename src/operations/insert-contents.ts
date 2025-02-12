@@ -4,7 +4,9 @@ import { Range } from '../models/range';
 import { Fragment } from '../models/fragment';
 import { deleteContents } from './delete-contents';
 
-// Inserts the specified contents into the range.
+/**
+ * Inserts the specified contents into the range.
+ */
 export function insertContents(range: Range, contents: string | Node | DocumentFragment | Nodes | Fragment): void {
   if (range.commonAncestor.isOutside) {
     return;

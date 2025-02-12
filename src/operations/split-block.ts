@@ -6,7 +6,9 @@ import { fixNumberedList } from '../utils/fix-numbered-list';
 import { Range } from '../models/range';
 import { deleteContents } from './delete-contents';
 
-// Removes the contents of the specified range and then splits the block node at the point of the collapsed range.
+/**
+ * Removes the contents of the specified range and then splits the block node at the point of the collapsed range.
+ */
 // <p>one<anchor />two<focus />three</p>
 // to
 // <p>one</p>

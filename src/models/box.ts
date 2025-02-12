@@ -13,15 +13,23 @@ import { query } from '../utils/query';
 import { Nodes } from './nodes';
 import { FloatingToolbar } from '../ui/floating-toolbar';
 
-// The Box interface represents an embedded content, which is used to enhance editing capability.
+/**
+ * The Box interface represents an embedded content designed to enhance editing capability.
+ */
 export class Box {
-  // A lake-box element to which the contents of the box are appended.
+  /**
+   * The lake-box element to which the contents of the box are appended.
+   */
   public readonly node: Nodes;
 
-  // An EventEmitter object used to set up events.
+  /**
+   * An EventEmitter object for handling events. See the Instance events for details.
+   */
   public readonly event: EventEmitter = new EventEmitter();
 
-  // A toolbar for the box.
+  /**
+   * A floating toolbar attached to the box.
+   */
   public toolbar: FloatingToolbar | null = null;
 
   constructor(node: string | Node | Nodes) {
@@ -84,17 +92,23 @@ export class Box {
     }
   }
 
-  // Returns the type of the box.
+  /**
+   * Indicates the type of the box.
+   */
   public get type(): BoxType {
     return this.node.attr('type') as BoxType;
   }
 
-  // Returns the name of the box.
+  /**
+   * Returns the name of the box.
+   */
   public get name(): string {
     return this.node.attr('name');
   }
 
-  // Returns the value of the box.
+  /**
+   * Gets or sets the value of the box.
+   */
   public get value(): BoxValue {
     const value = this.node.attr('value');
     if (value === '') {
@@ -103,12 +117,13 @@ export class Box {
     return JSON.parse(fromBase64(value));
   }
 
-  // Sets the value of the box.
   public set value(value: BoxValue) {
     this.node.attr('value', toBase64(JSON.stringify(value)));
   }
 
-  // Sets part of the value of the box.
+  /**
+   * Updates part of the value of the box.
+   */
   public updateValue(keyName: string, keyValue: string): void;
 
   public updateValue(keyName: BoxValue): void;
@@ -125,7 +140,9 @@ export class Box {
     this.value = value;
   }
 
-  // Returns an Editor object that contains the box.
+  /**
+   * Returns the Editor object that contains the box.
+   */
   public getEditor(): Editor {
     const container = this.node.closest('div[contenteditable]');
     const editor = container.length > 0 ? editors.get(container.id) : undefined;
@@ -135,12 +152,16 @@ export class Box {
     return editor;
   }
 
-  // Returns the container of the box.
+  /**
+   * Returns the container element of the box.
+   */
   public getContainer(): Nodes {
     return this.node.find('.lake-box-container');
   }
 
-  // Returns the HTML string contained within the box.
+  /**
+   * Returns the HTML content inside the box.
+   */
   public getHTML(): string {
     const component = boxes.get(this.name);
     if (component === undefined) {
@@ -152,7 +173,9 @@ export class Box {
     return component.html(this);
   }
 
-  // Sets a floating toolbar for the box.
+  /**
+   * Adds a floating toolbar to the box.
+   */
   public setToolbar(items: ToolbarItem[]): void {
     const editor = this.getEditor();
     this.event.on('focus', () => {
@@ -178,7 +201,9 @@ export class Box {
     });
   }
 
-  // Renders the contents of the box.
+  /**
+   * Renders the content inside the box.
+   */
   public render(): void {
     const component = boxes.get(this.name);
     if (component === undefined) {
@@ -196,7 +221,9 @@ export class Box {
     debug(`Box "${this.name}" (id: ${this.node.id}) rendered`);
   }
 
-  // Destroys the box.
+  /**
+   * Destroys the box instance.
+   */
   public unmount(): void {
     this.event.emit('blur');
     this.event.emit('beforeunmount');

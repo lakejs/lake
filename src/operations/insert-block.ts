@@ -5,7 +5,9 @@ import { Range } from '../models/range';
 import { insertContents } from './insert-contents';
 import { splitBlock } from './split-block';
 
-// Inserts a block into the specified range.
+/**
+ * Inserts a block into the specified range.
+ */
 export function insertBlock(range: Range, value: string | Nodes): Nodes | null {
   if (range.commonAncestor.isOutside) {
     return null;

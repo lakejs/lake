@@ -3,8 +3,11 @@ import { query } from './query';
 import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 
-// Returns an existing Box instance associated with the given boxNode or generates a new instance if none exists.
-// It manages instances in temporary or permanent storage based on whether the boxNode is within a container.
+/**
+ * Returns an existing Box instance associated with the provided boxNode or generates a new one if none exists.
+ * The function handles the creation and storage of Box instances, storing them either in a temporary or
+ * permanentmap based on whether the boxNode is contained within a container.
+ */
 export function getBox(boxNode: string | Node | Nodes): Box {
   const tempInstanceMap = getInstanceMap(0);
   // boxNode is a name

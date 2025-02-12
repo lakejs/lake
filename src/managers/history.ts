@@ -15,7 +15,10 @@ interface SaveOptions {
   emitEvent?: boolean;
 }
 
-// The History interface is used to manage the undo and redo history.
+/**
+ * The History interface manages undo and redo functionality for a container that holds some editable content.
+ * It emits events when actions like save, undo, or redo are performed.
+ */
 //
 // Example:
 //
@@ -36,16 +39,24 @@ export class History {
 
   private canSave = true;
 
-  // A list in which the current and previous contents are stored.
+  /**
+   * A list in which the current and previous contents are stored.
+   */
   public readonly list: Nodes[] = [];
 
-  // An index that always indicates the position at which new content is stored.
+  /**
+   * An index that always indicates the position at which new content is stored.
+   */
   public index = 0;
 
-  // The maximum length of the history. Once this limit is reached, the earliest item in the list will be removed.
+  /**
+   * The maximum length of the history. Once this limit is reached, the earliest item in the list will be removed.
+   */
   public limit = 100;
 
-  // An EventEmitter object used to set up events.
+  /**
+   * An EventEmitter object used to set up events.
+   */
   public readonly event: EventEmitter = new EventEmitter();
 
   constructor(selection: Selection) {
@@ -105,17 +116,24 @@ export class History {
     this.removeIdfromBoxes(otherContainer);
   }
 
-  // A boolean value indicating whether the history can be undone.
+  /**
+   * A boolean value indicating whether the history can be undone.
+   */
   public get canUndo(): boolean {
     return this.index > 1 && !!this.list[this.index - 2];
   }
 
-  // A boolean value indicating whether the history can be redone.
+  /**
+   * A boolean value indicating whether the history can be redone.
+   */
   public get canRedo(): boolean {
     return !!this.list[this.index];
   }
 
-  // Creates a deep clone of the current container with its content.
+  /**
+   * Creates a deep clone of the current container with its content.
+   * If there is a selection within the container, it ensures the selection is also preserved in the cloned container.
+   */
   public cloneContainer(): Nodes {
     const range = this.selection.range;
     const newContainer = this.container.clone(true);
@@ -146,7 +164,9 @@ export class History {
     return newContainer;
   }
 
-  // Undoes to the previous saved content.
+  /**
+   * Undoes to the previous saved content.
+   */
   public undo(): void {
     if (!this.list[this.index - 2]) {
       return;
@@ -170,7 +190,9 @@ export class History {
     debug(`History undone (index: ${this.index})`);
   }
 
-  // Redoes to the next saved content.
+  /**
+   * Redoes to the next saved content.
+   */
   public redo(): void {
     if (!this.list[this.index]) {
       return;
@@ -194,17 +216,26 @@ export class History {
     debug(`History redone (index: ${this.index})`);
   }
 
-  // Resumes the ability to save history. This method re-enables saving after the pause method has been called.
+  /**
+   * Resumes the ability to save history.
+   * This method re-enables saving after the pause method has been called.
+   */
   public continue(): void {
     this.canSave = true;
   }
 
-  // Pauses the ability to save history. This method temporarily disables saving history, which can be resumed later by calling the continue method.
+  /**
+   * Pauses the ability to save history.
+   * This method temporarily disables saving history, which can be resumed later by calling the continue method.
+   */
   public pause(): void {
     this.canSave = false;
   }
 
-  // Saves the current content to the history. The content is saved only if it is different from the previous content.
+  /**
+   * Saves the current content to the history.
+   * The content is saved only if it is different from the previous content.
+   */
   public save(options: SaveOptions = {}): void {
     const inputType = options.inputType ?? '';
     const update = options.update ?? false;

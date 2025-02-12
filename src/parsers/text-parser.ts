@@ -1,7 +1,9 @@
 import { encode } from '../utils/encode';
 import { HTMLParser } from './html-parser';
 
-// The TextParser interface provides the ability to parse a text.
+/**
+ * The TextParser interface enables parsing of text into structured HTML.
+ */
 export class TextParser {
 
   private readonly content: string;
@@ -10,7 +12,9 @@ export class TextParser {
     this.content = content;
   }
 
-  // Returns an HTML string.
+  /**
+   * Converts the parsed text into an HTML string.
+   */
   public getHTML(): string {
     let html = this.content;
     html = html.replace(/ {2}/g, ' \xA0');
@@ -23,7 +27,9 @@ export class TextParser {
     return html;
   }
 
-  // Returns a DocumentFragment object.
+  /**
+   * Generates a DocumentFragment object that represents the parsed text.
+   */
   public getFragment(): DocumentFragment {
     const htmlParser = new HTMLParser(this.getHTML());
     return htmlParser.getFragment();

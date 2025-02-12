@@ -1,21 +1,30 @@
 import { query } from '../utils/query';
 import { Nodes } from './nodes';
 
-// The Fragment interface represents a minimal document object that has no parent.
+/**
+ * The Fragment interface represents a lightweight document object that has no parent.
+ * It is designed for efficient manipulation of document structures without affecting the main DOM.
+ */
 export class Fragment {
-  // native document fragment
+  /**
+   * A native DocumentFragment object.
+   */
   private readonly fragment: DocumentFragment;
 
   constructor(fragment?: DocumentFragment) {
     this.fragment = fragment ?? document.createDocumentFragment();
   }
 
-  // Returns a native DocumentFragment object from the fragment.
+  /**
+   * Returns a native DocumentFragment object from the fragment.
+   */
   public get(): DocumentFragment {
     return this.fragment;
   }
 
-  // Returns the descendants of the fragment that match the specified CSS selector.
+  /**
+   * Finds and returns descendants of the fragment that match the specified CSS selector.
+   */
   public find(selector: string): Nodes {
     const nodeList: Node[] = [];
     let child = new Nodes(this.fragment.firstChild);
@@ -32,7 +41,9 @@ export class Fragment {
     return new Nodes(nodeList);
   }
 
-  // Inserts the specified content just inside the fragment, after its last child.
+  /**
+   * Inserts the specified content just inside the fragment, after its last child.
+   */
   public append(content: string | Node | Nodes): void {
     query(content).each(nativeNode => {
       this.fragment.appendChild(nativeNode);

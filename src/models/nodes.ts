@@ -16,14 +16,18 @@ interface EventItem {
   listener: EventListener;
 }
 
-// A key-value object for storing all events.
-// value is an array which include types and listeners.
+/**
+ * A key-value object for storing all events.
+ * The value is an array which include types and listeners.
+ */
 const eventData: Record<number, EventItem[]> = {};
 
 let lastNodeId = 0;
 
 /**
  * The Nodes interface represents a collection of the nodes.
+ * It is similar to jQuery, but its implementation is much simpler.
+ * Its methods can be considered aliases of native DOM interfaces, designed to simplify DOM manipulation.
  */
 export class Nodes {
   /**
@@ -437,7 +441,9 @@ export class Nodes {
     return this.closest('div[contenteditable="true"]');
   }
 
-  // Traverses the first node and its parents until it finds an element which can scroll.
+  /**
+   * Traverses the first node and its parents until it finds an element which can scroll.
+   */
   public closestScroller(): Nodes {
     let parent = this.eq(0);
     while (parent.length > 0) {
@@ -449,37 +455,49 @@ export class Nodes {
     return new Nodes();
   }
 
-  // Returns the parent of the first node.
+  /**
+   * Returns the parent of the first node.
+   */
   public parent(): Nodes {
     const node = this.get(0);
     return new Nodes(node.parentNode);
   }
 
-  // Returns the immediately preceding sibling of the first node.
+  /**
+   * Returns the immediately preceding sibling of the first node.
+   */
   public prev(): Nodes {
     const node = this.get(0);
     return new Nodes(node.previousSibling);
   }
 
-  // Returns the immediately following sibling of the first node.
+  /**
+   * Returns the immediately following sibling of the first node.
+   */
   public next(): Nodes {
     const node = this.get(0);
     return new Nodes(node.nextSibling);
   }
 
-  // Returns the first child of the first node.
+  /**
+   * Returns the first child of the first node.
+   */
   public first(): Nodes {
     const element = this.get(0);
     return new Nodes(element.firstChild);
   }
 
-  // Returns the last child of the first node.
+  /**
+   * Returns the last child of the first node.
+   */
   public last(): Nodes {
     const element = this.get(0);
     return new Nodes(element.lastChild);
   }
 
-  // Returns a number indicating the position of the first node relative to its sibling nodes.
+  /**
+   * Returns a number indicating the position of the first node relative to its sibling nodes.
+   */
   public index(): number {
     let i = -1;
     let sibling: Node | null = this.get(0);
@@ -490,7 +508,9 @@ export class Nodes {
     return i;
   }
 
-  // Returns the path of the first node.
+  /**
+   * Returns the path of the first node.
+   */
   public path(): NodePath {
     const path: NodePath = [];
     let node = this.eq(0);
@@ -511,7 +531,9 @@ export class Nodes {
     return path.reverse();
   }
 
-  // Returns a list which contains all of the child nodes of the first node.
+  /**
+   * Returns a list which contains all of the child nodes of the first node.
+   */
   public children(): Nodes[] {
     const childList: Nodes[] = [];
     let child = this.first();
@@ -522,7 +544,9 @@ export class Nodes {
     return childList;
   }
 
-  // Returns a generator that iterates over the descendants of the first node.
+  /**
+   * Returns a generator that iterates over the descendants of the first node.
+   */
   public * getWalker(): Generator<Nodes> {
     function * iterate(node: Nodes): Generator<Nodes> {
       if (node.isBox) {
@@ -541,7 +565,9 @@ export class Nodes {
     }
   }
 
-  // Sets up an event listener for each element.
+  /**
+   * Sets up an event listener for each element.
+   */
   public on(type: string, listener: EventListener): this {
     return this.eachElement(element => {
       element.addEventListener(type, listener, false);
@@ -556,7 +582,9 @@ export class Nodes {
     });
   }
 
-  // Removes event listeners previously registered with on() method.
+  /**
+   * Removes event listeners previously registered with on() method.
+   */
   public off(type?: string, listener?: EventListener): this {
     return this.eachElement(element => {
       const elementId = element.lakeId;
@@ -575,7 +603,9 @@ export class Nodes {
     });
   }
 
-  // Executes all event listeners attached to all nodes for the given event type.
+  /**
+   * Executes all event listeners attached to all nodes for the given event type.
+   */
   public emit(type: string, event?: Event): this {
     return this.eachElement(element => {
       const elementId = element.lakeId;
@@ -588,39 +618,51 @@ export class Nodes {
     });
   }
 
-  // Returns all event listeners attached to the node at the specified index.
+  /**
+   * Returns all event listeners attached to the node at the specified index.
+   */
   public getEventListeners(index: number): EventItem[] {
     const elementId = this.get(index).lakeId;
     return eventData[elementId];
   }
 
-  // Sets focus on the specified node, if it can be focused.
+  /**
+   * Sets focus on the specified node, if it can be focused.
+   */
   public focus(): this {
     const element = this.get(0) as HTMLElement;
     element.focus();
     return this;
   }
 
-  // Removes focus from the specified node.
+  /**
+   * Removes focus from the specified node.
+   */
   public blur(): this {
     const element = this.get(0) as HTMLElement;
     element.blur();
     return this;
   }
 
-  // Returns a copy of the first node. If deep is true, the copy also includes the node's descendants.
+  /**
+   * Returns a copy of the first node. If deep is true, the copy also includes the node's descendants.
+   */
   public clone(deep = false): Nodes {
     const node = this.get(0);
     return new Nodes(node.cloneNode(deep));
   }
 
-  // Returns a boolean value indicating whether the first node has the specified attribute or not.
+  /**
+   * Returns a boolean value indicating whether the first node has the specified attribute or not.
+   */
   public hasAttr(attributeName: string): boolean {
     const element = this.get(0) as Element;
     return element.hasAttribute(attributeName);
   }
 
-  // Returns the value of the specified attribute from the first node, or sets the values of attributes for all elements.
+  /**
+   * Returns the value of the specified attribute from the first node, or sets the values of attributes for all elements.
+   */
   public attr(attributeName: string): string;
 
   public attr(attributeName: string, value: string): this;
@@ -643,20 +685,26 @@ export class Nodes {
     });
   }
 
-  // Removes the attribute with the specified name from every element.
+  /**
+   * Removes the attribute with the specified name from every element.
+   */
   public removeAttr(attributeName: string): this {
     return this.eachElement(element => {
       element.removeAttribute(attributeName);
     });
   }
 
-  // Returns a boolean value indicating whether the first node has the specified class or not.
+  /**
+   * Returns a boolean value indicating whether the first node has the specified class or not.
+   */
   public hasClass(className: string): boolean {
     const element = this.get(0) as Element;
     return inString(element.className, className, ' ');
   }
 
-  // Adds the given class to every element.
+  /**
+   * Adds the given class to every element.
+   */
   public addClass(className: string | string[]): this {
     if (Array.isArray(className)) {
       for (const name of className) {
@@ -672,7 +720,9 @@ export class Nodes {
     });
   }
 
-  // Removes the given class from every element.
+  /**
+   * Removes the given class from every element.
+   */
   public removeClass(className: string | string[]): this {
     if (Array.isArray(className)) {
       for (const name of className) {
@@ -691,14 +741,18 @@ export class Nodes {
     });
   }
 
-  // Returns the value of the given CSS property of the first node,
-  // after applying active stylesheets and resolving any basic computation this value may contain.
+  /**
+   * Returns the value of the given CSS property of the first node,
+   * after applying active stylesheets and resolving any basic computation this value may contain.
+   */
   public computedCSS(propertyName: string): string {
     const element = this.get(0) as Element;
     return getCSS(element, propertyName);
   }
 
-  // Returns the value of the given CSS property of the first node, or sets the values of CSS properties for all elements.
+  /**
+   * Returns the value of the given CSS property of the first node, or sets the values of CSS properties for all elements.
+   */
   public css(propertyName: string): string;
 
   public css(propertyName: KeyValue): this;
@@ -724,38 +778,50 @@ export class Nodes {
     });
   }
 
-  // Returns the width of of the first node.
+  /**
+   * Returns the width of of the first node.
+   */
   public width(): number {
     const element = this.get(0) as HTMLElement;
     return element.offsetWidth;
   }
 
-  // Returns the interior width of the first node, which does not include padding.
+  /**
+   * Returns the interior width of the first node, which does not include padding.
+   */
   public innerWidth(): number {
     const paddingLeft = Number.parseInt(this.computedCSS('padding-left'), 10) || 0;
     const paddingRight = Number.parseInt(this.computedCSS('padding-right'), 10) || 0;
     return this.width() - paddingLeft - paddingRight;
   }
 
-  // Returns the height of of the first node.
+  /**
+   * Returns the height of of the first node.
+   */
   public height(): number {
     const element = this.get(0) as HTMLElement;
     return element.offsetHeight;
   }
 
-  // Displays all nodes.
+  /**
+   * Displays all nodes.
+   */
   public show(displayType = 'block'): this {
     this.css('display', displayType);
     return this;
   }
 
-  // Hides all nodes.
+  /**
+   * Hides all nodes.
+   */
   public hide(): this {
     this.css('display', 'none');
     return this;
   }
 
-  // Returns the HTML string contained within the first node, or sets the HTML string for all elements.
+  /**
+   * Returns the HTML string contained within the first node, or sets the HTML string for all elements.
+   */
   public html(): string;
 
   public html(value: string): this;
@@ -770,7 +836,9 @@ export class Nodes {
     });
   }
 
-  // Returns the rendered text content of the first node, or sets the rendered text content for all elements.
+  /**
+   * Returns the rendered text content of the first node, or sets the rendered text content for all elements.
+   */
   public text(): string;
 
   public text(value: string): this;
@@ -790,7 +858,9 @@ export class Nodes {
     });
   }
 
-  // Returns the value of the first node, which must be an input element, or sets the value for all input elements.
+  /**
+   * Returns the value of the first node, which must be an input element, or sets the value for all input elements.
+   */
   public value(): string;
 
   public value(value: string): this;
@@ -805,19 +875,25 @@ export class Nodes {
     });
   }
 
-  // Returns the HTML string describing the first node including its descendants.
+  /**
+   * Returns the HTML string describing the first node including its descendants.
+   */
   public outerHTML(): string {
     const element = this.get(0) as Element;
     return element.outerHTML;
   }
 
-  // Removes all child nodes for each element.
+  /**
+   * Removes all child nodes for each element.
+   */
   public empty(): this {
     this.html('');
     return this;
   }
 
-  // Inserts the specified content just inside the first node, before its first child.
+  /**
+   * Inserts the specified content just inside the first node, before its first child.
+   */
   public prepend(content: string | Node | DocumentFragment | Nodes): this {
     const element = this.get(0);
     if (typeof content === 'string') {
@@ -842,7 +918,9 @@ export class Nodes {
     return this;
   }
 
-  // Inserts the specified content just inside the first node, after its last child.
+  /**
+   * Inserts the specified content just inside the first node, after its last child.
+   */
   public append(content: string | Node | DocumentFragment | Nodes): this {
     const element = this.get(0);
     if (typeof content === 'string') {
@@ -859,7 +937,9 @@ export class Nodes {
     return this;
   }
 
-  // Inserts the specified content before the first node.
+  /**
+   * Inserts the specified content before the first node.
+   */
   public before(content: string | Node | DocumentFragment | Nodes): this {
     const node = this.get(0);
     if (!node.parentNode) {
@@ -879,7 +959,9 @@ export class Nodes {
     return this;
   }
 
-  // Inserts the specified content after the first node.
+  /**
+   * Inserts the specified content after the first node.
+   */
   public after(content: string | Node | DocumentFragment | Nodes): this {
     const node = this.get(0);
     if (!node.parentNode) {
@@ -907,7 +989,9 @@ export class Nodes {
     return this;
   }
 
-  // Replaces the first node with the given new content.
+  /**
+   * Replaces the first node with the given new content.
+   */
   public replaceWith(newContent: string | Node | Nodes): this {
     const node = this.get(0);
     if (!node.parentNode) {
@@ -923,7 +1007,9 @@ export class Nodes {
     return this;
   }
 
-  // Removes all nodes from the DOM.
+  /**
+   * Removes all nodes from the DOM.
+   */
   public remove(keepChildren = false): this {
     this.each(node => {
       if (!node.parentNode) {
@@ -942,7 +1028,9 @@ export class Nodes {
     return this;
   }
 
-  // Splits the first node, which must be a text node, into two nodes at the specified offset, keeping both as siblings in the tree.
+  /**
+   * Splits the first node, which must be a text node, into two nodes at the specified offset, keeping both as siblings in the tree.
+   */
   public splitText(offset: number): Nodes {
     if (!this.isText) {
       return new Nodes();
@@ -952,7 +1040,9 @@ export class Nodes {
     return new Nodes(newNode);
   }
 
-  // Returns information about the first node, which is used for debugging.
+  /**
+   * Returns information about the first node, which is used for debugging.
+   */
   public toString(): string {
     if (this.length === 0) {
       return '';
@@ -965,7 +1055,9 @@ export class Nodes {
     return `node (${node.lakeId}): ${nodeValue}`;
   }
 
-  // Prints information about the first node, which is used for debugging.
+  /**
+   * Prints information about the first node, which is used for debugging.
+   */
   public info(): void {
     debug(this.toString());
   }

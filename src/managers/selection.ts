@@ -18,7 +18,9 @@ import { removeMark } from '../operations/remove-mark';
 import { insertBox } from '../operations/insert-box';
 import { removeBox } from '../operations/remove-box';
 
-// Returns a key-value object of all attributes of the specified element.
+/**
+ * Returns a key-value object of all attributes of the specified element.
+ */
 function getAttributes(element: Nodes): KeyValue {
   const nativeElement = element.get(0) as Element;
   const attributes: KeyValue = {};
@@ -83,15 +85,23 @@ function appendNextNestedNodes(activeItems: ActiveItem[], range: Range): void {
   }
 }
 
-// The Selection interface represents the range of content selected by the user or the current position of the cursor.
+/**
+ * The Selection interface represents the range of content selected by the user or the current cursor position.
+ */
 export class Selection {
-  // A native selection.
+  /**
+   * A native Selection object.
+   */
   private readonly selection: NativeSelection;
 
-  // A contenteditable element where users can edit the content.
+  /**
+   * A contenteditable element where users can edit the content.
+   */
   public readonly container: Nodes;
 
-  // A Range object which is used to add it to the native selection later.
+  /**
+   * A Range object that can be added to the native selection later.
+   */
   public range: Range;
 
   constructor(container: Nodes) {
@@ -106,7 +116,9 @@ export class Selection {
     this.range = this.getCurrentRange();
   }
 
-  // Returns a Range object that is currently selected.
+  /**
+   * Returns a Range object that is currently selected.
+   */
   public getCurrentRange(): Range {
     if (this.selection.rangeCount > 0) {
       const range = this.selection.getRangeAt(0);
@@ -115,7 +127,9 @@ export class Selection {
     return new Range();
   }
 
-  // Adds the selection.range to the native selection.
+  /**
+   * Adds the selection.range to the native selection.
+   */
   public sync(): void {
     if (!this.container.contains(this.range.commonAncestor)) {
       return;
@@ -124,7 +138,9 @@ export class Selection {
     this.selection.addRange(this.range.get());
   }
 
-  // Replaces the selection.range with the range of the native selection.
+  /**
+   * Replaces the selection.range with the range of the native selection.
+   */
   public updateByRange(): void {
     const newRange = this.getCurrentRange();
     if (!this.container.contains(newRange.commonAncestor)) {
@@ -141,7 +157,9 @@ export class Selection {
     this.range = newRange;
   }
 
-  // Replaces the selection.range with the range represented by the bookmark.
+  /**
+   * Replaces the selection.range with the range represented by the bookmark.
+   */
   public updateByBookmark(): void {
     const range = this.range;
     const container = this.container;
@@ -163,7 +181,9 @@ export class Selection {
     this.sync();
   }
 
-  // Returns a list containing the items related to the current selection.
+  /**
+   * Returns a list of items related to the current selection.
+   */
   public getActiveItems(): ActiveItem[] {
     const activeItems: ActiveItem[] = [];
     appendAncestralNodes(activeItems, this.range);
@@ -171,57 +191,79 @@ export class Selection {
     return activeItems;
   }
 
-  // Inserts a bookmark at the cursor position or a pair of bookmarks at the beginning and end of the selection.
+  /**
+   * Inserts a bookmark at the cursor position or a pair of bookmarks at the selection boundaries.
+   */
   public insertBookmark(): ReturnType<typeof insertBookmark> {
     return insertBookmark(this.range);
   }
 
-  // Changes the selection.range to a range represented by the provided bookmark.
+  /**
+   * Changes selection.range to the range represented by the provided bookmark.
+   */
   public toBookmark(bookmark: Parameters<typeof toBookmark>[1]): ReturnType<typeof toBookmark> {
     return toBookmark(this.range, bookmark);
   }
 
-  // Inserts the specified contents into the selection.
+  /**
+   * Inserts the specified content into the selection.
+   */
   public insertContents(contents: Parameters<typeof insertContents>[1]): ReturnType<typeof insertContents> {
     return insertContents(this.range, contents);
   }
 
-  // Removes the contents of the selection.
+  /**
+   * Removes the contents of the selection.
+   */
   public deleteContents(): ReturnType<typeof deleteContents> {
     return deleteContents(this.range);
   }
 
-  // Adds new blocks or changes the target blocks in the selection.
+  /**
+   * Adds new blocks or changes the target blocks in the selection.
+   */
   public setBlocks(value: Parameters<typeof setBlocks>[1]): ReturnType<typeof setBlocks> {
     return setBlocks(this.range, value);
   }
 
-  // Removes the contents of the selection and then splits the block node at the point of the cursor.
+  /**
+   * Removes the contents of the selection and splits the block node at the cursor position.
+   */
   public splitBlock(): ReturnType<typeof splitBlock> {
     return splitBlock(this.range);
   }
 
-  // Inserts a block into the selection.
+  /**
+   * Inserts a block into the selection.
+   */
   public insertBlock(value: Parameters<typeof insertBlock>[1]): ReturnType<typeof insertBlock> {
     return insertBlock(this.range, value);
   }
 
-  // Splits text nodes or mark nodes.
+  /**
+   * Splits text nodes or mark nodes.
+   */
   public splitMarks(removeEmptyMark?: Parameters<typeof splitMarks>[1]): ReturnType<typeof splitMarks> {
     return splitMarks(this.range, removeEmptyMark);
   }
 
-  // Adds the specified mark to the texts of the selection.
+  /**
+   * Adds the specified mark to the selected text.
+   */
   public addMark(value: Parameters<typeof addMark>[1]): ReturnType<typeof addMark> {
     return addMark(this.range, value);
   }
 
-  // Removes the specified marks in the selection.
+  /**
+   * Removes specified marks from the selection.
+   */
   public removeMark(value?: Parameters<typeof removeMark>[1]): ReturnType<typeof removeMark> {
     return removeMark(this.range, value);
   }
 
-  // Collapses the selection to the center position of the specified box.
+  /**
+   * Collapses the selection to the center position of the specified box.
+   */
   public selectBox(box: Box | Nodes): void {
     let boxNode = box;
     if (box instanceof Box) {
@@ -233,7 +275,9 @@ export class Selection {
     this.sync();
   }
 
-  // Inserts a box into the position of the selection.
+  /**
+   * Inserts a box into the selection.
+   */
   public insertBox(boxName: Parameters<typeof insertBox>[1], boxValue?: Parameters<typeof insertBox>[2]): Box {
     const box = insertBox(this.range, boxName, boxValue);
     if (!box) {
@@ -242,7 +286,9 @@ export class Selection {
     return box;
   }
 
-  // Removes the specified box. If not given, the selected box is removed.
+  /**
+   * Removes the specified box. If no parameter is given, the selected box is removed.
+   */
   public removeBox(box: Box | Nodes | null = null): ReturnType<typeof removeBox> {
     if (box) {
       this.selectBox(box);

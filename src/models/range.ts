@@ -3,52 +3,73 @@ import { debug } from '../utils/debug';
 import { query } from '../utils/query';
 import { Nodes } from './nodes';
 
-// The Range interface represents a fragment of a document that can contain nodes and parts of text nodes.
+/**
+ * The Range interface represents a fragment of a document that can contain nodes and parts of text nodes.
+ * Its interface is similar to the native Range, with some additional properties and methods specifically designed for more efficient manipulation.
+ */
 export class Range {
-  // A native range.
+  /**
+   * A native Range object.
+   */
   private readonly range: NativeRange;
 
   constructor(range?: NativeRange) {
     this.range = range ?? document.createRange();
   }
 
-  // A node within which the range starts.
+  /**
+   * A node within which the range starts.
+   */
   public get startNode(): Nodes {
     return new Nodes(this.range.startContainer);
   }
 
-  // A number representing where in the startNode the range starts.
+  /**
+   * A number representing where in the startNode the range starts.
+   */
   public get startOffset(): number {
     return this.range.startOffset;
   }
 
-  // A node within which the range ends.
+  /**
+   * A node within which the range ends.
+   */
   public get endNode(): Nodes {
     return new Nodes(this.range.endContainer);
   }
 
-  // A number representing where in the endNode the range ends.
+  /**
+   * A number representing where in the endNode the range ends.
+   */
   public get endOffset(): number {
     return this.range.endOffset;
   }
 
-  // The deepest — or furthest down the document tree — node that contains both boundary points of the range.
+  /**
+   * The deepest — or furthest down the document tree — node that contains both boundary points of the range.
+   */
   public get commonAncestor(): Nodes {
     return new Nodes(this.range.commonAncestorContainer);
   }
 
-  // A boolean value indicating whether the range's start and end points are at the same position.
+  /**
+   * A boolean value indicating whether the range's start and end points are at the same position.
+   */
   public get isCollapsed(): boolean {
     return this.range.collapsed;
   }
 
-  // A boolean value indicating whether the range's start point is in a box.
+  /**
+   * A boolean value indicating whether the range's start point is in a box.
+   */
   public get isBox(): boolean {
     const boxNode = this.commonAncestor.closest('lake-box');
     return boxNode.length > 0;
   }
 
-  // A boolean value indicating whether the commonAncestor is in the start position of a box.
+  /**
+   * A boolean value indicating whether the commonAncestor is in the start position of a box.
+   */
   // case 1: <lake-box><span class="lake-box-strip">|</span><div class="lake-box-container"></div> ...
   // case 2: <lake-box><span class="lake-box-strip"></span>|<div class="lake-box-container"></div> ...
   // case 3: <lake-box>|<span class="lake-box-strip"></span><div class="lake-box-container"></div> ...
@@ -61,7 +82,9 @@ export class Range {
     return this.compareBeforeNode(boxContainer) >= 0;
   }
 
-  // A boolean value indicating whether the commonAncestor is in the center position of a box.
+  /**
+   * A boolean value indicating whether the commonAncestor is in the center position of a box.
+   */
   // case 1: ... <div class="lake-box-container"><div>|</div></div> ...
   // case 2: ... <div class="lake-box-container"><div></div>|</div> ...
   public get isBoxCenter(): boolean {
@@ -75,7 +98,9 @@ export class Range {
     return this.isCollapsed && this.startNode.get(0) === boxContainer.get(0) && this.startOffset === 0;
   }
 
-  // A boolean value indicating whether commonAncestor is in the end position of a box.
+  /**
+   * A boolean value indicating whether commonAncestor is in the end position of a box.
+   */
   // case 1: ... <div class="lake-box-container"></div><span class="lake-box-strip">|</span></lake-box>
   // case 2: ... <div class="lake-box-container"></div>|<span class="lake-box-strip"></span></lake-box>
   // case 3: ... <div class="lake-box-container"></div><span class="lake-box-strip"></span>|</lake-box>
@@ -88,7 +113,9 @@ export class Range {
     return this.compareAfterNode(boxContainer) <= 0;
   }
 
-  // A boolean value indicating whether commonAncestor is inside the container of a box.
+  /**
+   * A boolean value indicating whether commonAncestor is inside the container of a box.
+   */
   // case 1: ... <div class="lake-box-container"><div>|</div></div> ...
   // case 2: ... <div class="lake-box-container"><div></div>|</div> ...
   public get isInsideBox(): boolean {
@@ -109,7 +136,9 @@ export class Range {
     return this.compareBeforeNode(boxContainer) < 0 && this.compareAfterNode(boxContainer) > 0;
   }
 
-  // A boolean value indicating whether the range is inoperative.
+  /**
+   * A boolean value indicating whether the range is inoperative.
+   */
   public get isInoperative(): boolean {
     if (this.commonAncestor.isOutside) {
       return true;
@@ -126,12 +155,16 @@ export class Range {
     return false;
   }
 
-  // Returns a native Range object from the range.
+  /**
+   * Returns a native Range object from the range.
+   */
   public get(): NativeRange {
     return this.range;
   }
 
-  // Returns the size and position of the range.
+  /**
+   * Returns the size and position of the range.
+   */
   public getRect(): DOMRect {
     const range = this.clone();
     let rect;
@@ -179,14 +212,18 @@ export class Range {
     });
   }
 
-  // Returns -1, 0, or 1 depending on whether the specified node is before, the same as, or after the range.
-  // −1 if the point is before the range. 0 if the point is in the range. 1 if the point is after the range.
+  /**
+   * Returns -1, 0, or 1 depending on whether the specified node is before, the same as, or after the range.
+   * −1 if the point is before the range. 0 if the point is in the range. 1 if the point is after the range.
+   */
   public comparePoint(node: Nodes, offset: number): number {
     return this.range.comparePoint(node.get(0), offset);
   }
 
-  // Returns -1, 0, or 1 depending on whether the beginning of the specified node is before, the same as, or after the range.
-  // −1 if the beginning of the node is before the range. 0 if the beginning of the node is in the range. 1 if the beginning of the node is after the range.
+  /**
+   * Returns -1, 0, or 1 depending on whether the beginning of the specified node is before, the same as, or after the range.
+   * −1 if the beginning of the node is before the range. 0 if the beginning of the node is in the range. 1 if the beginning of the node is after the range.
+   */
   public compareBeforeNode(node: Nodes): number {
     const targetRange = new Range();
     if (node.isText) {
@@ -198,8 +235,10 @@ export class Range {
     return this.comparePoint(targetRange.startNode, targetRange.startOffset);
   }
 
-  // Returns -1, 0, or 1 depending on whether the end of the specified node is before, the same as, or after the range.
-  // −1 if the end of the node is before the range. 0 if the end of the node is in the range. 1 if the end of the node is after the range.
+  /**
+   * Returns -1, 0, or 1 depending on whether the end of the specified node is before, the same as, or after the range.
+   * −1 if the end of the node is before the range. 0 if the end of the node is in the range. 1 if the end of the node is after the range.
+   */
   public compareAfterNode(node: Nodes): number {
     const targetRange = new Range();
     if (node.isText) {
@@ -212,62 +251,86 @@ export class Range {
     return this.comparePoint(targetRange.startNode, targetRange.startOffset);
   }
 
-  // Returns a boolean value indicating whether the specified node is part of the range or intersects the range.
+  /**
+   * Returns a boolean value indicating whether the specified node is part of the range or intersects the range.
+   */
   public intersectsNode(node: Nodes): boolean {
     return this.range.intersectsNode(node.get(0));
   }
 
-  // Sets the start position of the range.
+  /**
+   * Sets the start position of the range.
+   */
   public setStart(node: Nodes, offset: number): void {
     this.range.setStart(node.get(0), offset);
   }
 
-  // Sets the start position of the range to the beginning of the specified node.
+  /**
+   * Sets the start position of the range to the beginning of the specified node.
+   */
   public setStartBefore(node: Nodes): void {
     this.range.setStartBefore(node.get(0));
   }
 
-  // Sets the start position of the range to the end of the specified node.
+  /**
+   * Sets the start position of the range to the end of the specified node.
+   */
   public setStartAfter(node: Nodes): void {
     this.range.setStartAfter(node.get(0));
   }
 
-  // Sets the end position of the range.
+  /**
+   * Sets the end position of the range.
+   */
   public setEnd(node: Nodes, offset: number): void {
     this.range.setEnd(node.get(0), offset);
   }
 
-  // Sets the end position of the range to the beginning of the specified node.
+  /**
+   * Sets the end position of the range to the beginning of the specified node.
+   */
   public setEndBefore(node: Nodes): void {
     this.range.setEndBefore(node.get(0));
   }
 
-  // Sets the end position of the range to the end of the specified node.
+  /**
+   * Sets the end position of the range to the end of the specified node.
+   */
   public setEndAfter(node: Nodes): void {
     this.range.setEndAfter(node.get(0));
   }
 
-  // Collapses the range to its start.
+  /**
+   * Collapses the range to its start.
+   */
   public collapseToStart(): void {
     this.range.collapse(true);
   }
 
-  // Collapses the range to its end.
+  /**
+   * Collapses the range to its end.
+   */
   public collapseToEnd(): void {
     this.range.collapse(false);
   }
 
-  // Sets the range to contain the specified node and its contents.
+  /**
+   * Sets the range to contain the specified node and its contents.
+   */
   public selectNode(node: Nodes): void {
     this.range.selectNode(node.get(0));
   }
 
-  // Sets the range to contain the contents of the specified node.
+  /**
+   * Sets the range to contain the contents of the specified node.
+   */
   public selectNodeContents(node: Nodes): void {
     this.range.selectNodeContents(node.get(0));
   }
 
-  // Collapses the range to the center position of the specified box.
+  /**
+   * Collapses the range to the center position of the specified box.
+   */
   public selectBox(boxNode: Nodes): void {
     const boxContainer = boxNode.find('.lake-box-container');
     if (boxContainer.length === 0) {
@@ -277,7 +340,9 @@ export class Range {
     this.collapseToStart();
   }
 
-  // Collapses the range to the start position of the specified box.
+  /**
+   * Collapses the range to the start position of the specified box.
+   */
   public selectBoxStart(boxNode: Nodes): void {
     const boxStrip = boxNode.find('.lake-box-strip');
     if (boxStrip.length === 0) {
@@ -287,7 +352,9 @@ export class Range {
     this.collapseToStart();
   }
 
-  // Collapses the range to the end position of the specified box.
+  /**
+   * Collapses the range to the end position of the specified box.
+   */
   public selectBoxEnd(boxNode: Nodes): void {
     const boxStrip = boxNode.find('.lake-box-strip');
     if (boxStrip.length === 0) {
@@ -297,7 +364,9 @@ export class Range {
     this.collapseToStart();
   }
 
-  // Collapses the range to the deepest point at the beginning of the contents of the specified node.
+  /**
+   * Collapses the range to the deepest point at the beginning of the contents of the specified node.
+   */
   public shrinkBefore(node: Nodes): void {
     if (node.isBox) {
       this.selectBoxStart(node);
@@ -324,7 +393,9 @@ export class Range {
     this.collapseToStart();
   }
 
-  // Collapses the range to the deepest point at the end of the contents of the specified node.
+  /**
+   * Collapses the range to the deepest point at the end of the contents of the specified node.
+   */
   public shrinkAfter(node: Nodes): void {
     if (node.isBox) {
       this.selectBoxEnd(node);
@@ -353,7 +424,9 @@ export class Range {
     this.adjustBr();
   }
 
-  // Sets the start and end positions of the range to the deepest start position and end position of the contents of the specified node.
+  /**
+   * Sets the start and end positions of the range to the deepest start position and end position of the contents of the specified node.
+   */
   // <div>[<p><strong>foo</strong></p>]</div>
   // to
   // <div><p><strong>[foo]</strong></p></div>
@@ -381,7 +454,9 @@ export class Range {
     }
   }
 
-  // Relocates the start and end positions of the range for boxes.
+  /**
+   * Relocates the start and end positions of the range for boxes.
+   */
   public adjustBox(): void {
     const startBoxNode = this.startNode.closest('lake-box');
     if (startBoxNode.length > 0) {
@@ -405,7 +480,9 @@ export class Range {
     }
   }
 
-  // Relocates the start and end positions of the range for tables.
+  /**
+   * Relocates the start and end positions of the range for tables.
+   */
   public adjustTable(): void {
     const startTable = this.startNode.closest('table');
     const endTable = this.endNode.closest('table');
@@ -420,7 +497,9 @@ export class Range {
     }
   }
 
-  // Relocates the start and end positions of the range for blocks.
+  /**
+   * Relocates the start and end positions of the range for blocks.
+   */
   // case 1:
   // <p>foo</p>|<p>bar</p>
   // to
@@ -455,14 +534,18 @@ export class Range {
     }
   }
 
-  // Relocates the start and end positions of the range for boxes, tables, and blocks.
+  /**
+   * Relocates the start and end positions of the range for boxes, tables, and blocks.
+   */
   public adjust(): void {
     this.adjustBox();
     this.adjustTable();
     this.adjustBlock();
   }
 
-  // Relocates the start and end positions of the range for <br /> elements.
+  /**
+   * Relocates the start and end positions of the range for <br /> elements.
+   */
   // In composition mode (e.g., when a user starts entering a Chinese character using a Pinyin IME),
   // uncompleted text is inserted if the cursor is positioned behind a <br> tag.
   // To fix this bug, the cursor needs to be moved to the front of the <br> tag.
@@ -478,7 +561,9 @@ export class Range {
     }
   }
 
-  // Returns the node immediately preceding the start position of the range.
+  /**
+   * Returns the node immediately preceding the start position of the range.
+   */
   public getPrevNode(): Nodes {
     let prevNode;
     if (this.startNode.isText) {
@@ -493,7 +578,9 @@ export class Range {
     return prevNode ?? new Nodes();
   }
 
-  // Returns the node immediately following the end position of the range.
+  /**
+   * Returns the node immediately following the end position of the range.
+   */
   public getNextNode(): Nodes {
     let nextNode;
     if (this.endNode.isText) {
@@ -508,7 +595,9 @@ export class Range {
     return nextNode ?? new Nodes();
   }
 
-  // Returns the boxes contained within or intersected by the range.
+  /**
+   * Returns the boxes contained within or intersected by the range.
+   */
   public getBoxes(): Nodes[] {
     if (this.isCollapsed) {
       const startBox = this.startNode.closest('lake-box');
@@ -525,7 +614,9 @@ export class Range {
     return nodeList;
   }
 
-  // Returns the blocks contained within or intersected by the range.
+  /**
+   * Returns the blocks contained within or intersected by the range.
+   */
   public getBlocks(): Nodes[] {
     if (this.isCollapsed) {
       const startBlock = this.startNode.closestOperableBlock();
@@ -549,7 +640,7 @@ export class Range {
     for (const child of this.commonAncestor.getWalker()) {
       if (
         child.isBlock && !child.isTable && child.isTopInside
-        // the range doesn't end at the start of a block
+        // The range doesn't end at the start of a block.
         && clonedRange.comparePoint(child, 0) !== 0
         && this.intersectsNode(child)
       ) {
@@ -570,7 +661,9 @@ export class Range {
     return blocks;
   }
 
-  // Returns the marks and text nodes contained within or intersected by the range.
+  /**
+   * Returns the marks and text nodes contained within or intersected by the range.
+   */
   public getMarks(hasText = false): Nodes[] {
     const marks: Nodes[] = [];
     if (this.commonAncestor.isText && hasText) {
@@ -604,7 +697,9 @@ export class Range {
     return marks;
   }
 
-  // Returns the text from the start position of the closest block to the start position of the range.
+  /**
+   * Returns the text from the start position of the closest block to the start position of the range.
+   */
   // "<p>one<anchor />two<focus />three</p>" returns "one".
   public getStartText(): string {
     const node = this.startNode;
@@ -628,7 +723,9 @@ export class Range {
     return text;
   }
 
-  // Returns the text from the end position of the range to the end position of the closest block.
+  /**
+   * Returns the text from the end position of the range to the end position of the closest block.
+   */
   // "<p>one<anchor />two<focus />three</p>" returns "three".
   public getEndText(): string {
     const node = this.endNode;
@@ -652,9 +749,11 @@ export class Range {
     return text;
   }
 
-  // Returns a new range from the specified character to the start position of the range.
-  // The specified character must be preceded by a whitespace or be at the beginning of a paragraph,
-  // without being adjacent to other characters. It will return null if not.
+  /**
+   * Returns a new range from the specified character to the start position of the range.
+   * The specified character must be preceded by a whitespace or be at the beginning of a paragraph,
+   * without being adjacent to other characters. It will return null if not.
+   */
   public getCharacterRange(character: string): Range | null {
     const newRange = this.clone();
     newRange.shrink();
@@ -688,17 +787,23 @@ export class Range {
     return newRange;
   }
 
-  // Returns a copy of the range.
+  /**
+   * Returns a copy of the range.
+   */
   public clone(): Range {
     return new Range(this.range.cloneRange());
   }
 
-  // Returns a DocumentFragment object copying the nodes included in the range.
+  /**
+   * Returns a DocumentFragment object copying the nodes included in the range.
+   */
   public cloneContents(): DocumentFragment {
     return this.range.cloneContents();
   }
 
-  // Prints information about the range, which is used for debugging.
+  /**
+   * Prints information about the range, which is used for debugging.
+   */
   public info(): void {
     debug('--- range information ---');
     debug('start node:', this.startNode.toString(), ', offset:', this.startOffset);

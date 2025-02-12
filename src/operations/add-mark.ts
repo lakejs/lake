@@ -10,7 +10,9 @@ import { toBookmark } from './to-bookmark';
 import { splitMarks } from './split-marks';
 import { insertContents } from './insert-contents';
 
-// Removes zero-width space before or after the node.
+/**
+ * Removes zero-width space at the beginning or end of the specified node.
+ */
 function removePreviousOrNextZWS(node: Nodes): void {
   const prevNode = node.prev();
   if (prevNode.length > 0 && prevNode.isText && prevNode.isEmpty) {
@@ -22,7 +24,9 @@ function removePreviousOrNextZWS(node: Nodes): void {
   }
 }
 
-// Returns a nested mark copied from ancestors of the specified node.
+/**
+ * Returns a nested mark copied from ancestors of the specified node.
+ */
 function getNestedMark(node: Nodes): Nodes | null {
   let parent = node;
   if (parent.isText) {
@@ -45,7 +49,9 @@ function getNestedMark(node: Nodes): Nodes | null {
   return mark;
 }
 
-// Returns the topmost mark element or the closest element with the same tag name as the specified node.
+/**
+ * Returns the topmost mark element or the closest element with the same tag name as the specified node.
+ */
 function getUpperMark(node: Nodes, tagName: string): Nodes {
   const nodeText = node.text();
   let parent = node;
@@ -63,7 +69,9 @@ function getUpperMark(node: Nodes, tagName: string): Nodes {
   return parent;
 }
 
-// Adds the specified mark to the texts of the range.
+/**
+ * Adds the specified mark to the texts of the range.
+ */
 export function addMark(range: Range, value: string | Nodes): void {
   if (range.commonAncestor.isOutside) {
     return;

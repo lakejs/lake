@@ -6,7 +6,10 @@ interface EventItem {
   listener: (event: KeyboardEvent) => void | boolean;
 }
 
-// The Keystroke interface provides a way to handle keyboard events and define custom shortcuts for a given container.
+/**
+ * The Keystroke interface provides a way to handle keyboard events and define custom shortcuts for a given container.
+ * It allows you to register hotkeys, bind specific actions to them, and handle their execution.
+ */
 export class Keystroke {
   private readonly container: Nodes;
 
@@ -50,7 +53,10 @@ export class Keystroke {
     });
   }
 
-  // Registers a keydown event listener for the specified key combination.
+  /**
+   * Registers a keydown event listener for the specified key combination.
+   * The listener will be triggered when the key combination is pressed.
+   */
   public setKeydown(type: string, listener: EventListener): void {
     this.keydownEventList.push({
       type,
@@ -58,7 +64,10 @@ export class Keystroke {
     });
   }
 
-  // Registers a keyup event listener for the specified key combination.
+  /**
+   * Registers a keyup event listener for the specified key combination.
+   * The listener will be triggered when the key combination is released.
+   */
   public setKeyup(type: string, listener: EventListener): void {
     this.keyupEventList.push({
       type,
@@ -66,7 +75,9 @@ export class Keystroke {
     });
   }
 
-  // Triggers all keydown event listeners associated with the specified key combination.
+  /**
+   * Triggers all keydown event listeners associated with the specified key combination.
+   */
   public keydown(type: string): void {
     for (const item of this.keydownEventList) {
       if (item.type === type) {
@@ -77,7 +88,9 @@ export class Keystroke {
     }
   }
 
-  // Triggers all keyup event listeners associated with the specified key combination.
+  /**
+   * Triggers all keyup event listeners associated with the specified key combination.
+   */
   public keyup(type: string): void {
     for (const item of this.keyupEventList) {
       if (item.type === type) {

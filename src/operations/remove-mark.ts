@@ -8,7 +8,9 @@ import { insertBookmark } from './insert-bookmark';
 import { toBookmark } from './to-bookmark';
 import { splitMarks } from './split-marks';
 
-// Returns a nested mark copied from each last child of the descendants of the specified node.
+/**
+ * Returns a nested mark copied from each last child of the descendants of the specified node.
+ */
 function getNestedMark(node: Nodes, tagName?: string): Nodes | null {
   if (!node.isMark || !tagName) {
     return null;
@@ -35,7 +37,9 @@ function getNestedMark(node: Nodes, tagName?: string): Nodes | null {
   return mark;
 }
 
-// Removes the specified marks in the range.
+/**
+ * Removes the specified marks in the range.
+ */
 export function removeMark(range: Range, value?: string): void {
   if (range.commonAncestor.isOutside) {
     return;

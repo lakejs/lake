@@ -7,7 +7,9 @@ import { splitMarks } from './split-marks';
 import { insertContents } from './insert-contents';
 import { insertBlock } from './insert-block';
 
-// Inserts a box into the specified range.
+/**
+ * Inserts a box into the specified range.
+ */
 export function insertBox(range: Range, boxName: string, boxValue?: BoxValue): Box | null {
   if (range.commonAncestor.isOutside) {
     return null;
