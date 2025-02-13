@@ -1,3 +1,20 @@
+## [0.3.4](https://github.com/lakejs/lake/compare/0.3.3...0.3.4) (2025-02-13)
+
+
+### Bug Fixes
+
+* **slash:** jump to the top or bottom when using the up or down key to change current item ([00828e2](https://github.com/lakejs/lake/commit/00828e23105ee495d7822e304d2afe545d809022))
+* UI components support CSS selector or native DOM node ([61684ae](https://github.com/lakejs/lake/commit/61684aed2aad3b4b12c769bb812ad1dcdc46fb12))
+
+
+### Features
+
+* **editor:** remove box property from class ([d8390f2](https://github.com/lakejs/lake/commit/d8390f25943affd38b9a691491d937995de5457f))
+* export commonly used types ([974a0d3](https://github.com/lakejs/lake/commit/974a0d31071d600c11aed63b53b64b08cee1f579))
+* **utils:** export getBox function ([e50d177](https://github.com/lakejs/lake/commit/e50d177a9074069ca823a2a203881247d0f0b9c8))
+
+
+
 ## [0.3.3](https://github.com/lakejs/lake/compare/0.3.2...0.3.3) (2025-01-24)
 
 
