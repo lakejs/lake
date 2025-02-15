@@ -28,9 +28,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 Repository: https://github.com/bigskysoftware/idiomorph
 */
 
-/* eslint-disable no-throw-literal */
-/* eslint-disable antfu/if-newline */
-
 import type { Nodes } from '../models/nodes';
 
 declare global {
@@ -65,7 +62,7 @@ const EMPTY_SET = new Set();
 
 function noOp() {}
 
-// default configuration values, updatable by users now
+// Default configuration values, updatable by users now.
 const defaults = {
   morphStyle: 'outerHTML',
   callbacks: {
@@ -89,9 +86,9 @@ const defaults = {
   },
 };
 
-/*
+/**
   Deep merges the config object and the Idiomoroph.defaults object to
-  produce a final configuration object
+  produce a final configuration object.
  */
 function mergeDefaults(config: KeyValue): KeyValue {
   const finalConfig: KeyValue = {};
@@ -135,8 +132,8 @@ function getIdIntersectionCount(ctx: KeyValue, node1: Node, node2: Node): number
   const sourceSet = ctx.idMap.get(node1) || EMPTY_SET;
   let matchCount = 0;
   for (const id of sourceSet) {
-    // a potential match is an id in the source and potentialIdsSet, but
-    // that has not already been merged into the DOM
+    // A potential match is an id in the source and potentialIdsSet, but
+    // that has not already been merged into the DOM.
     if (isIdInConsideration(ctx, id) && idIsWithinNode(ctx, id, node2)) {
       ++matchCount;
     }
@@ -144,13 +141,10 @@ function getIdIntersectionCount(ctx: KeyValue, node1: Node, node2: Node): number
   return matchCount;
 }
 
-/*
+/**
  * A bottom up algorithm that finds all elements with ids inside of the node
  * argument and populates id sets for those nodes and all their parents, generating
- * a set of ids contained within all nodes for the entire hierarchy in the DOM
- *
- * @param node {Element}
- * @param {Map<Node, Set<String>>} idMap
+ * a set of ids contained within all nodes for the entire hierarchy in the DOM.
  */
 function populateIdMapForNode(node: Element, idMap: Map<Node, Set<string>>) {
   const nodeParent = node.parentElement;
@@ -173,15 +167,15 @@ function populateIdMapForNode(node: Element, idMap: Map<Node, Set<string>>) {
   }
 }
 
-/*
+/**
  * This function computes a map of nodes to all ids contained within that node (inclusive of the
  * node).  This map can be used to ask if two nodes have intersecting sets of ids, which allows
  * for a looser definition of "matching" than tradition id matching, and allows child nodes
  * to contribute to a parent nodes matching.
  *
- * @param {Element} oldContent  the old content that will be morphed
- * @param {Element} newContent  the new content to morph to
- * @returns {Map<Node, Set<String>>} a map of nodes to id sets for the
+ * @param oldContent The old content that will be morphed.
+ * @param newContent The new content to morph to.
+ * @returns A map of nodes to id sets.
  */
 function createIdMap(oldContent: Element, newContent: Element): Map<any, any> {
   const idMap = new Map();
@@ -228,7 +222,9 @@ function isSoftMatch(node1: Element, node2: Element) {
 
 function removeNode(tempNode: Node, ctx: KeyValue) {
   removeIdsFromConsideration(ctx, tempNode);
-  if (ctx.callbacks.beforeNodeRemoved(tempNode) === false) return;
+  if (ctx.callbacks.beforeNodeRemoved(tempNode) === false) {
+    return;
+  }
 
   (tempNode as Element).remove();
   ctx.callbacks.afterNodeRemoved(tempNode);
@@ -245,12 +241,12 @@ function removeNodesBetween(startInclusive: Node, endExclusive: Node, ctx: KeyVa
   return endExclusive.nextSibling;
 }
 
-// =============================================================================
-// Scans forward from the insertionPoint in the old parent looking for a potential id match
-// for the newChild.  We stop if we find a potential id match for the new child OR
-// if the number of potential id matches we are discarding is greater than the
-// potential id matches for the new child
-// =============================================================================
+/**
+ * Scans forward from the insertionPoint in the old parent looking for a potential id match
+ * for the newChild. We stop if we find a potential id match for the new child OR
+ * if the number of potential id matches we are discarding is greater than the
+ * potential id matches for the new child.
+ */
 function findIdSetMatch(newContent: Element, oldParent: Element, newChild: Element, insertionPoint: Node, ctx: KeyValue) {
 
   // max id matches we are willing to discard in our search
@@ -288,12 +284,12 @@ function findIdSetMatch(newContent: Element, oldParent: Element, newChild: Eleme
   return potentialMatch;
 }
 
-// =============================================================================
-// Scans forward from the insertionPoint in the old parent looking for a potential soft match
-// for the newChild.  We stop if we find a potential soft match for the new child OR
-// if we find a potential id match in the old parents children OR if we find two
-// potential soft matches for the next two pieces of new content
-// =============================================================================
+/**
+ * Scans forward from the insertionPoint in the old parent looking for a potential soft match
+ * for the newChild. We stop if we find a potential soft match for the new child OR
+ * if we find a potential id match in the old parents children OR if we find two
+ * potential soft matches for the next two pieces of new content.
+ */
 function findSoftMatch(newContent: Element, oldParent: Element, newChild: Node, insertionPoint: Node, ctx: KeyValue) {
 
   let potentialSoftMatch: Node | null = insertionPoint;
@@ -416,36 +412,35 @@ function findBestNodeMatch(newContent: Node, oldNode: Node, ctx: KeyValue) {
 // Attribute Syncing Code
 // =============================================================================
 
-/*
- * @param attr {String} the attribute to be mutated
- * @param to {Element} the element that is going to be updated
- * @param updateType {("update"|"remove")}
- * @param ctx the merge context
- * @returns {boolean} true if the attribute should be ignored, false otherwise
+/**
+ * @param attr The attribute to be mutated.
+ * @param to The element that is going to be updated.
+ * @param updateType 'update' or 'remove'
+ * @param ctx The merge context.
+ * @returns True if the attribute should be ignored, false otherwise.
  */
-function ignoreAttribute(attr: string, to: Element, updateType: string, ctx: KeyValue) {
+function ignoreAttribute(attr: string, to: Element, updateType: string, ctx: KeyValue): boolean {
   if (attr === 'value' && ctx.ignoreActiveValue && to === document.activeElement) {
     return true;
   }
   return ctx.callbacks.beforeAttributeUpdated(attr, to, updateType) === false;
 }
 
-/*
+/**
  * @param possibleActiveElement
  * @param ctx
- * @returns {boolean}
  */
-function ignoreValueOfActiveElement(possibleActiveElement: Node, ctx: KeyValue) {
+function ignoreValueOfActiveElement(possibleActiveElement: Node, ctx: KeyValue): boolean {
   return ctx.ignoreActiveValue && possibleActiveElement === document.activeElement;
 }
 
-/*
- * syncs a given node with another node, copying over all attributes and
- * inner element state from the 'from' node to the 'to' node
+/**
+ * Syncs a given node with another node, copying over all attributes and
+ * inner element state from the 'from' node to the 'to' node.
  *
- * @param {Element} from the element to copy attributes & state from
- * @param {Element} to the element to copy attributes & state to
- * @param ctx the merge context
+ * @param from The element to copy attributes & state from.
+ * @param to The element to copy attributes & state to.
+ * @param ctx The merge context.
  */
 function syncNodeFrom(from: Element, to: Element, ctx: KeyValue) {
   const type = from.nodeType;
@@ -484,31 +479,35 @@ function syncNodeFrom(from: Element, to: Element, ctx: KeyValue) {
   }
 }
 
-/*
- * @param oldNode root node to merge content into
- * @param newContent new content to merge
- * @param ctx the merge context
- * @returns {Element} the element that ended up in the DOM
+/**
+ * @param oldNode Root node to merge content into.
+ * @param newContent New content to merge.
+ * @param ctx The merge context.
+ * @returns The element that ended up in the DOM.
  */
 function morphOldNodeTo(oldNode: Node, newContent: Node, ctx: KeyValue) {
   if (ctx.ignoreActive && oldNode === document.activeElement) {
     // don't morph focused element
   } else if (newContent == null) {
-    if (ctx.callbacks.beforeNodeRemoved(oldNode) === false) return oldNode;
+    if (ctx.callbacks.beforeNodeRemoved(oldNode) === false)
+      return oldNode;
 
     (oldNode as Element).remove();
     ctx.callbacks.afterNodeRemoved(oldNode);
     return null;
   } else if (!isSoftMatch(oldNode as Element, newContent as Element)) {
-    if (ctx.callbacks.beforeNodeRemoved(oldNode) === false) return oldNode;
-    if (ctx.callbacks.beforeNodeAdded(newContent) === false) return oldNode;
+    if (ctx.callbacks.beforeNodeRemoved(oldNode) === false)
+      return oldNode;
+    if (ctx.callbacks.beforeNodeAdded(newContent) === false)
+      return oldNode;
 
     oldNode.parentElement?.replaceChild(newContent, oldNode);
     ctx.callbacks.afterNodeAdded(newContent);
     ctx.callbacks.afterNodeRemoved(oldNode);
     return newContent;
   } else {
-    if (ctx.callbacks.beforeNodeMorphed(oldNode, newContent) === false) return oldNode;
+    if (ctx.callbacks.beforeNodeMorphed(oldNode, newContent) === false)
+      return oldNode;
     syncNodeFrom(newContent as Element, oldNode as Element, ctx);
     if (ctx.callbacks.beforeChildrenUpdated(oldNode, newContent) !== false && !ignoreValueOfActiveElement(oldNode, ctx)) {
       morphChildren(newContent, oldNode, ctx);
@@ -518,27 +517,27 @@ function morphOldNodeTo(oldNode: Node, newContent: Node, ctx: KeyValue) {
   }
 }
 
-/*
- * This is the core algorithm for matching up children.  The idea is to use id sets to try to match up
- * nodes as faithfully as possible.  We greedily match, which allows us to keep the algorithm fast, but
+/**
+ * This is the core algorithm for matching up children. The idea is to use id sets to try to match up
+ * nodes as faithfully as possible. We greedily match, which allows us to keep the algorithm fast, but
  * by using id sets, we are able to better match up with content deeper in the DOM.
  *
  * Basic algorithm is, for each node in the new content:
  *
- * - if we have reached the end of the old parent, append the new content
- * - if the new content has an id set match with the current insertion point, morph
- * - search for an id set match
- * - if id set match found, morph
- * - otherwise search for a "soft" match
- * - if a soft match is found, morph
- * - otherwise, prepend the new node before the current insertion point
+ * - If we have reached the end of the old parent, append the new content.
+ * - If the new content has an id set match with the current insertion point, morph.
+ * - Search for an id set match.
+ * - If id set match found, morph.
+ * - Otherwise search for a "soft" match.
+ * - If a soft match is found, morph.
+ * - Otherwise, prepend the new node before the current insertion point.
  *
  * The two search algorithms terminate if competing node matches appear to outweigh what can be achieved
- * with the current node.  See findIdSetMatch() and findSoftMatch() for details.
+ * with the current node. See findIdSetMatch() and findSoftMatch() for details.
  *
- * @param {Element} newParent the parent element of the new content
- * @param {Element } oldParent the old content that we are merging the new content into
- * @param ctx the merge context
+ * @param newParent The parent element of the new content.
+ * @param oldParent The old content that we are merging the new content into.
+ * @param ctx The merge context.
  */
 function morphChildren(newParent: Node, oldParent: Node, ctx: KeyValue) {
 
@@ -554,7 +553,8 @@ function morphChildren(newParent: Node, oldParent: Node, ctx: KeyValue) {
 
     // if we are at the end of the exiting parent's children, just append
     if (insertionPoint == null) {
-      if (ctx.callbacks.beforeNodeAdded(newChild) === false) return;
+      if (ctx.callbacks.beforeNodeAdded(newChild) === false)
+        return;
 
       oldParent.appendChild(newChild);
       ctx.callbacks.afterNodeAdded(newChild);
@@ -594,7 +594,8 @@ function morphChildren(newParent: Node, oldParent: Node, ctx: KeyValue) {
 
     // abandon all hope of morphing, just insert the new child before the insertion point
     // and move on
-    if (ctx.callbacks.beforeNodeAdded(newChild) === false) return;
+    if (ctx.callbacks.beforeNodeAdded(newChild) === false)
+      return;
 
     oldParent.insertBefore(newChild, insertionPoint);
     ctx.callbacks.afterNodeAdded(newChild);
@@ -612,38 +613,34 @@ function morphChildren(newParent: Node, oldParent: Node, ctx: KeyValue) {
 
 function morphNormalizedContent(oldNode: Element, normalizedNewContent: Element, ctx: KeyValue) {
   if (ctx.morphStyle === 'innerHTML') {
-
     // innerHTML, so we are only updating the children
     morphChildren(normalizedNewContent, oldNode, ctx);
     return oldNode.children;
 
   }
-  if (ctx.morphStyle === 'outerHTML' || ctx.morphStyle == null) {
-    // otherwise find the best element match in the new content, morph that, and merge its siblings
-    // into either side of the best match
-    const bestMatch = findBestNodeMatch(normalizedNewContent, oldNode, ctx);
+  // otherwise find the best element match in the new content, morph that, and merge its siblings
+  // into either side of the best match
+  const bestMatch = findBestNodeMatch(normalizedNewContent, oldNode, ctx);
 
-    // stash the siblings that will need to be inserted on either side of the best match
-    const previousSibling = bestMatch?.previousSibling;
-    const nextSibling = bestMatch?.nextSibling;
+  // stash the siblings that will need to be inserted on either side of the best match
+  const previousSibling = bestMatch?.previousSibling;
+  const nextSibling = bestMatch?.nextSibling;
 
-    // morph it
-    const morphedNode = morphOldNodeTo(oldNode, bestMatch as Node, ctx);
+  // morph it
+  const morphedNode = morphOldNodeTo(oldNode, bestMatch as Node, ctx);
 
-    if (bestMatch) {
-      // if there was a best match, merge the siblings in too and return the
-      // whole bunch
-      return insertSiblings(previousSibling as Node, morphedNode as Node, nextSibling as Node);
-    }
-    // otherwise nothing was added to the DOM
-    return [];
+  if (bestMatch) {
+    // if there was a best match, merge the siblings in too and return the
+    // whole bunch
+    return insertSiblings(previousSibling as Node, morphedNode as Node, nextSibling as Node);
   }
-  throw `Do not understand how to morph style ${ctx.morphStyle}`;
+  // otherwise nothing was added to the DOM
+  return [];
 }
 
-// =============================================================================
-// Core Morphing Algorithm - morph, morphNormalizedContent, morphOldNodeTo, morphChildren
-// =============================================================================
+/**
+ * Morphs one DOM tree to another.
+ */
 export function morph(node: Nodes, otherNode: Nodes, config: configType = {}): void {
   const normalizedContent = normalizeContent(otherNode.get(0)) as Element;
   const ctx = createMorphContext(node.get(0) as Element, normalizedContent, config);
