@@ -14,9 +14,6 @@
 // Phosphor Icons (https://phosphoricons.com/).
 // - other icons
 
-// eslint-disable-next-line ts/ban-ts-comment
-// @ts-nocheck
-
 // common
 import plus from './plus.svg';
 import question from './question.svg';
