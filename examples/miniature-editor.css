@@ -20,6 +20,10 @@
   overflow: auto;
 }
 
+.miniature .lake-container {
+  min-height: 198px;
+}
+
 .miniature .lake-root-focused {
   outline: 2px solid var(--lake-input-border-hover-color);
 }

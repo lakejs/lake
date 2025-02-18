@@ -18,3 +18,7 @@
   height: calc(100vh - 160px);
   overflow: auto;
 }
+
+.lake-container {
+  min-height: calc(100vh - 162px);
+}

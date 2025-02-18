@@ -36,3 +36,7 @@
   min-height: 800px;
   overflow: visible;
 }
+
+.document .lake-editor .lake-container {
+  min-height: 798px;
+}
