@@ -1,6 +1,6 @@
-import { debug } from 'lakelib/utils/debug';
-import { query } from 'lakelib/utils/query';
-import { Range } from 'lakelib/models/range';
+import { debug } from '@/utils/debug';
+import { query } from '@/utils/query';
+import { Range } from '@/models/range';
 import { getTableMap, getColumnIndex, getCellIndex } from './utils';
 import { deleteTable } from './delete-table';
 

@@ -1,13 +1,13 @@
 import './link-popup.css';
 import { isKeyHotkey } from 'is-hotkey';
-import { TranslationFunctions } from 'lakelib/i18n/types';
-import { icons } from 'lakelib/icons';
-import { template } from 'lakelib/utils/template';
-import { query } from 'lakelib/utils/query';
-import { visibleInfo } from 'lakelib/utils/visible-info';
-import { Nodes } from 'lakelib/models/nodes';
-import { Button } from 'lakelib/ui/button';
-import { i18nObject } from 'lakelib/i18n';
+import { TranslationFunctions } from '@/i18n/types';
+import { icons } from '@/icons';
+import { template } from '@/utils/template';
+import { query } from '@/utils/query';
+import { visibleInfo } from '@/utils/visible-info';
+import { Nodes } from '@/models/nodes';
+import { Button } from '@/ui/button';
+import { i18nObject } from '@/i18n';
 
 interface LinkPopupConfig {
   locale?: TranslationFunctions;

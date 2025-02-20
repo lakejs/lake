@@ -1,6 +1,6 @@
-import { boxes } from 'lakelib/storage/boxes';
-import { getBox } from 'lakelib/utils/get-box';
-import { insertLink } from 'lakelib/plugins/link/insert-link';
+import { boxes } from '@/storage/boxes';
+import { getBox } from '@/utils/get-box';
+import { insertLink } from '@/plugins/link/insert-link';
 import { testOperation } from '../../utils';
 
 describe('plugins / link / insert-link', () => {

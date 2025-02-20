@@ -96,7 +96,7 @@ import tableColumn from './table-column.svg';
 import tableRow from './table-row.svg';
 import tableMerge from './table-merge.svg';
 import tableSplit from './table-split.svg';
-// alerts
+// alert
 import info from './info.svg';
 import tip from './tip.svg';
 import warning from './warning.svg';
@@ -185,7 +185,7 @@ export const icons = new Map<string, string>([
   ['tableRow', tableRow],
   ['tableMerge', tableMerge],
   ['tableSplit', tableSplit],
-  // alerts
+  // alert
   ['info', info],
   ['tip', tip],
   ['warning', warning],

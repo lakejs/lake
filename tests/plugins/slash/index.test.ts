@@ -1,11 +1,11 @@
 import sinon from 'sinon';
-import { icons } from 'lakelib/icons';
-import { debug } from 'lakelib/utils/debug';
-import { query } from 'lakelib/utils/query';
-import { getBox } from 'lakelib/utils/get-box';
-import { Nodes } from 'lakelib/models/nodes';
-import { Editor } from 'lakelib/editor';
-import { SlashItem } from 'lakelib/plugins/slash/types';
+import { icons } from '@/icons';
+import { debug } from '@/utils/debug';
+import { query } from '@/utils/query';
+import { getBox } from '@/utils/get-box';
+import { Nodes } from '@/models/nodes';
+import { Editor } from '@/editor';
+import { SlashItem } from '@/plugins/slash/types';
 import { click, removeBoxValueFromHTML, base64ToArrayBuffer } from '../../utils';
 
 const imgBuffer = base64ToArrayBuffer('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAwAB/orejrsAAAAASUVORK5CYII=');

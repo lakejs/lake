@@ -1,5 +1,5 @@
-import { query } from 'lakelib/utils/query';
-import { LinkPopup } from 'lakelib/plugins/link/link-popup';
+import { query } from '@/utils/query';
+import { LinkPopup } from '@/plugins/link/link-popup';
 
 describe('plugins / link / link-popup-ui', () => {
 

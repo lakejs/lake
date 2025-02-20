@@ -1,6 +1,6 @@
-import type { Editor } from 'lakelib/editor';
-import { query } from 'lakelib/utils/query';
-import { Nodes } from 'lakelib/models/nodes';
+import type { Editor } from '@/editor';
+import { query } from '@/utils/query';
+import { Nodes } from '@/models/nodes';
 
 function splitBlock(editor: Editor, block: Nodes): void {
   const range = editor.selection.range;

@@ -1,10 +1,10 @@
 import './slash-menu.css';
-import { TranslationFunctions } from 'lakelib/i18n/types';
-import { template } from 'lakelib/utils/template';
-import { query } from 'lakelib/utils/query';
-import { Nodes } from 'lakelib/models/nodes';
-import { Menu, MenuConfig } from 'lakelib/ui/menu';
-import { i18nObject } from 'lakelib/i18n';
+import { TranslationFunctions } from '@/i18n/types';
+import { template } from '@/utils/template';
+import { query } from '@/utils/query';
+import { Nodes } from '@/models/nodes';
+import { Menu, MenuConfig } from '@/ui/menu';
+import { i18nObject } from '@/i18n';
 import { SlashItem } from './types';
 import { slashItems } from './slash-items';
 

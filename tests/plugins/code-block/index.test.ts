@@ -1,4 +1,4 @@
-import { getBox } from 'lakelib/utils/get-box';
+import { getBox } from '@/utils/get-box';
 import { testPlugin } from '../../utils';
 
 describe('plugins / code-block / index', () => {

@@ -1,4 +1,4 @@
-import { insertRow } from 'lakelib/plugins/table/insert-row';
+import { insertRow } from '@/plugins/table/insert-row';
 import { testOperation } from '../../utils';
 
 describe('plugins / table / insert-row', () => {

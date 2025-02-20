@@ -1,10 +1,10 @@
-import { query } from 'lakelib/utils/query';
-import { Nodes } from 'lakelib/models/nodes';
-import { Range } from 'lakelib/models/range';
-import { insertContents } from 'lakelib/operations/insert-contents';
-import { splitMarks } from 'lakelib/operations/split-marks';
-import { insertBookmark } from 'lakelib/operations/insert-bookmark';
-import { toBookmark } from 'lakelib/operations/to-bookmark';
+import { query } from '@/utils/query';
+import { Nodes } from '@/models/nodes';
+import { Range } from '@/models/range';
+import { insertContents } from '@/operations/insert-contents';
+import { splitMarks } from '@/operations/split-marks';
+import { insertBookmark } from '@/operations/insert-bookmark';
+import { toBookmark } from '@/operations/to-bookmark';
 
 // Inserts a link element into the specified range.
 export function insertLink(range: Range, value: string | Nodes): Nodes | null {

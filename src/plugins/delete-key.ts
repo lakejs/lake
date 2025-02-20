@@ -1,10 +1,10 @@
-import type { Editor } from 'lakelib/editor';
-import { query } from 'lakelib/utils/query';
-import { mergeNodes } from 'lakelib/utils/merge-nodes';
-import { fixNumberedList } from 'lakelib/utils/fix-numbered-list';
-import { Nodes } from 'lakelib/models/nodes';
-import { Range } from 'lakelib/models/range';
-import { setBlocks } from 'lakelib/operations/set-blocks';
+import type { Editor } from '@/editor';
+import { query } from '@/utils/query';
+import { mergeNodes } from '@/utils/merge-nodes';
+import { fixNumberedList } from '@/utils/fix-numbered-list';
+import { Nodes } from '@/models/nodes';
+import { Range } from '@/models/range';
+import { setBlocks } from '@/operations/set-blocks';
 
 function mergeWithNextBlock(editor: Editor, block: Nodes): void {
   const range = editor.selection.range;

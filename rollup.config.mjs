@@ -21,6 +21,10 @@ const aliasOptions = {
       find: 'lakelib',
       replacement: path.resolve(rootPath, 'src'),
     },
+    {
+      find: '@',
+      replacement: path.resolve(rootPath, 'src'),
+    },
   ],
 };
 

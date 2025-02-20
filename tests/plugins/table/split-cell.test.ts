@@ -1,4 +1,4 @@
-import { splitCell } from 'lakelib/plugins/table/split-cell';
+import { splitCell } from '@/plugins/table/split-cell';
 import { testOperation } from '../../utils';
 
 describe('plugins / table / split-cell', () => {

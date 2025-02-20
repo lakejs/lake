@@ -4,17 +4,17 @@ import PhotoSwipeLightbox, { DataSource } from 'photoswipe/lightbox';
 import PhotoSwipe from 'photoswipe';
 import debounce from 'debounce';
 import { isKeyHotkey } from 'is-hotkey';
-import { BoxComponent } from 'lakelib/types/box';
-import { ToolbarItem } from 'lakelib/types/toolbar';
-import { CornerToolbarItem } from 'lakelib/types/corner-toolbar';
-import { icons } from 'lakelib/icons';
-import { query } from 'lakelib/utils/query';
-import { template } from 'lakelib/utils/template';
-import { getBox } from 'lakelib/utils/get-box';
-import { Nodes } from 'lakelib/models/nodes';
-import { Box } from 'lakelib/models/box';
-import { CornerToolbar } from 'lakelib/ui/corner-toolbar';
-import { Resizer } from 'lakelib/ui/resizer';
+import { BoxComponent } from '@/types/box';
+import { ToolbarItem } from '@/types/toolbar';
+import { CornerToolbarItem } from '@/types/corner-toolbar';
+import { icons } from '@/icons';
+import { query } from '@/utils/query';
+import { template } from '@/utils/template';
+import { getBox } from '@/utils/get-box';
+import { Nodes } from '@/models/nodes';
+import { Box } from '@/models/box';
+import { CornerToolbar } from '@/ui/corner-toolbar';
+import { Resizer } from '@/ui/resizer';
 
 interface ImageInfo {
   node: Nodes;

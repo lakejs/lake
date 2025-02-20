@@ -1,4 +1,4 @@
-import type { Editor } from 'lakelib/editor';
+import type { Editor } from '@/editor';
 import { template } from '../utils/template';
 
 const typeList = [

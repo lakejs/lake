@@ -1,8 +1,8 @@
-import { debug } from 'lakelib/utils/debug';
-import { query } from 'lakelib/utils/query';
-import { Nodes } from 'lakelib/models/nodes';
-import { Range } from 'lakelib/models/range';
-import { insertBlock } from 'lakelib/operations/insert-block';
+import { debug } from '@/utils/debug';
+import { query } from '@/utils/query';
+import { Nodes } from '@/models/nodes';
+import { Range } from '@/models/range';
+import { insertBlock } from '@/operations/insert-block';
 
 // Inserts a table.
 export function insertTable(range: Range, rows: number, columns: number): Nodes {

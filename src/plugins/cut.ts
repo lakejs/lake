@@ -1,6 +1,6 @@
-import type { Editor } from 'lakelib/editor';
-import { query } from 'lakelib/utils/query';
-import { getBox } from 'lakelib/utils/get-box';
+import type { Editor } from '@/editor';
+import { query } from '@/utils/query';
+import { getBox } from '@/utils/get-box';
 
 export default (editor: Editor) => {
   if (editor.readonly) {

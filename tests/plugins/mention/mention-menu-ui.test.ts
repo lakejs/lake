@@ -1,7 +1,7 @@
-import { query } from 'lakelib/utils/query';
-import { Editor } from 'lakelib/editor';
-import { MentionItem } from 'lakelib/plugins/mention/types';
-import { MentionMenu } from 'lakelib/plugins/mention/mention-menu';
+import { query } from '@/utils/query';
+import { Editor } from '@/editor';
+import { MentionItem } from '@/plugins/mention/types';
+import { MentionMenu } from '@/plugins/mention/mention-menu';
 
 const mentionItems: MentionItem[] = [
   {

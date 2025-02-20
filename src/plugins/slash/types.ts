@@ -1,5 +1,5 @@
-import type { Editor } from 'lakelib/editor';
-import { TranslationFunctions } from 'lakelib/i18n/types';
+import type { Editor } from '@/editor';
+import { TranslationFunctions } from '@/i18n/types';
 
 export interface SlashButtonItem {
   name: string;

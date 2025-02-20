@@ -1,6 +1,6 @@
-import { debug } from 'lakelib/utils/debug';
-import { query } from 'lakelib/utils/query';
-import { Range } from 'lakelib/models/range';
+import { debug } from '@/utils/debug';
+import { query } from '@/utils/query';
+import { Range } from '@/models/range';
 
 // Removes a table.
 export function deleteTable(range: Range): void {

@@ -1,8 +1,8 @@
-import { BoxValue } from 'lakelib/types/box';
-import { query } from 'lakelib/utils/query';
-import { getBox } from 'lakelib/utils/get-box';
-import { Fragment } from 'lakelib/models/fragment';
-import { Editor } from 'lakelib/editor';
+import { BoxValue } from '@/types/box';
+import { query } from '@/utils/query';
+import { getBox } from '@/utils/get-box';
+import { Fragment } from '@/models/fragment';
+import { Editor } from '@/editor';
 import imageBox from './image-box';
 
 export {

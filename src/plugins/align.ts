@@ -1,4 +1,4 @@
-import type { Editor } from 'lakelib/editor';
+import type { Editor } from '@/editor';
 
 const alignValueMap: Record<string, string> = {
   start: 'left',

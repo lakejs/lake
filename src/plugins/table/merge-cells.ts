@@ -1,7 +1,7 @@
-import { debug } from 'lakelib/utils/debug';
-import { query } from 'lakelib/utils/query';
-import { mergeNodes } from 'lakelib/utils/merge-nodes';
-import { Range } from 'lakelib/models/range';
+import { debug } from '@/utils/debug';
+import { query } from '@/utils/query';
+import { mergeNodes } from '@/utils/merge-nodes';
+import { Range } from '@/models/range';
 import { getTableMap, getColumnIndex } from './utils';
 
 export type MergeDirection = 'up' | 'right' | 'down' | 'left';

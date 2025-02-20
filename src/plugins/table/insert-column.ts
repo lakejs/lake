@@ -1,5 +1,5 @@
-import { debug } from 'lakelib/utils/debug';
-import { Range } from 'lakelib/models/range';
+import { debug } from '@/utils/debug';
+import { Range } from '@/models/range';
 import { getTableMap, getColumnIndex, getCellIndex } from './utils';
 
 type InsertColumnDirection = 'left' | 'right';

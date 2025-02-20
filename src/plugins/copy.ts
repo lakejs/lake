@@ -1,5 +1,5 @@
-import type { Editor } from 'lakelib/editor';
-import { getBox } from 'lakelib/utils/get-box';
+import type { Editor } from '@/editor';
+import { getBox } from '@/utils/get-box';
 
 export default (editor: Editor) => {
   editor.event.on('copy', event => {

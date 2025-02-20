@@ -1,8 +1,8 @@
-import { debug } from 'lakelib/utils/debug';
-import { query } from 'lakelib/utils/query';
-import { Nodes } from 'lakelib/models/nodes';
-import { Box } from 'lakelib/models/box';
-import { Editor } from 'lakelib/editor';
+import { debug } from '@/utils/debug';
+import { query } from '@/utils/query';
+import { Nodes } from '@/models/nodes';
+import { Box } from '@/models/box';
+import { Editor } from '@/editor';
 import { isFirefox, click, removeBoxValueFromHTML } from '../../utils';
 
 const mediumUrl = '../assets/images/heaven-lake-512.png';

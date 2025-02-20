@@ -1,4 +1,4 @@
-import { deleteColumn } from 'lakelib/plugins/table/delete-column';
+import { deleteColumn } from '@/plugins/table/delete-column';
 import { testOperation } from '../../utils';
 
 describe('plugins / table / delete-column', () => {

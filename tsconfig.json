@@ -5,7 +5,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "paths": {
-      "lakelib/*": ["src/*"],
+      "@/*": ["src/*"],
       "lakelib": ["src"]
     },
     "resolveJsonModule": true,

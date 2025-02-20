@@ -1,4 +1,4 @@
-import { icons } from 'lakelib/icons';
+import { icons } from '@/icons';
 import { SlashItem } from './types';
 
 export const slashItems: SlashItem[] = [

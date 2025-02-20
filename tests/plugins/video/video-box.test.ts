@@ -1,7 +1,7 @@
-import { debug } from 'lakelib/utils/debug';
-import { query } from 'lakelib/utils/query';
-import { Nodes } from 'lakelib/models/nodes';
-import { Editor } from 'lakelib/editor';
+import { debug } from '@/utils/debug';
+import { query } from '@/utils/query';
+import { Nodes } from '@/models/nodes';
+import { Editor } from '@/editor';
 import { isFirefox, click } from '../../utils';
 
 const youtubeUrl = 'https://www.youtube.com/watch?v=5sMBhDv4sik';

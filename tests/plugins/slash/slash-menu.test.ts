@@ -1,10 +1,10 @@
-import { icons } from 'lakelib/icons';
-import { query } from 'lakelib/utils/query';
-import { Nodes } from 'lakelib/models/nodes';
-import { Range } from 'lakelib/models/range';
-import { Editor } from 'lakelib/editor';
-import { SlashItem } from 'lakelib/plugins/slash/types';
-import { SlashMenu } from 'lakelib/plugins/slash/slash-menu';
+import { icons } from '@/icons';
+import { query } from '@/utils/query';
+import { Nodes } from '@/models/nodes';
+import { Range } from '@/models/range';
+import { Editor } from '@/editor';
+import { SlashItem } from '@/plugins/slash/types';
+import { SlashMenu } from '@/plugins/slash/slash-menu';
 
 const boldSlashItem: SlashItem = {
   name: 'bold',

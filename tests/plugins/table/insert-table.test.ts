@@ -1,4 +1,4 @@
-import { insertTable } from 'lakelib/plugins/table/insert-table';
+import { insertTable } from '@/plugins/table/insert-table';
 import { testOperation } from '../../utils';
 
 describe('plugins / table / insert-table', () => {

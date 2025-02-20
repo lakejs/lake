@@ -1,5 +1,5 @@
-import { BoxValue } from 'lakelib/types/box';
-import { Editor } from 'lakelib/editor';
+import { BoxValue } from '@/types/box';
+import { Editor } from '@/editor';
 import videoBox from './video-box';
 
 export {

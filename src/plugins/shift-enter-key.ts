@@ -1,5 +1,5 @@
-import type { Editor } from 'lakelib/editor';
-import { query } from 'lakelib/utils/query';
+import type { Editor } from '@/editor';
+import { query } from '@/utils/query';
 
 function addLineBreak(editor: Editor): void {
   const range = editor.selection.range;

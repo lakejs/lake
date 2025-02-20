@@ -1,6 +1,6 @@
-import type { Editor } from 'lakelib/editor';
-import { Point } from 'lakelib/types/node';
-import { Nodes } from 'lakelib/models/nodes';
+import type { Editor } from '@/editor';
+import { Point } from '@/types/node';
+import { Nodes } from '@/models/nodes';
 
 interface MarkItem {
   re: RegExp;

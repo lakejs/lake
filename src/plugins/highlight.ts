@@ -1,5 +1,5 @@
-import type { Editor } from 'lakelib/editor';
-import { toHex } from 'lakelib/utils/to-hex';
+import type { Editor } from '@/editor';
+import { toHex } from '@/utils/to-hex';
 
 export default (editor: Editor) => {
   if (editor.readonly) {

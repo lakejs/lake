@@ -1,5 +1,5 @@
-import { debug } from 'lakelib/utils/debug';
-import { Range } from 'lakelib/models/range';
+import { debug } from '@/utils/debug';
+import { Range } from '@/models/range';
 import { getTableMap, getCellIndex } from './utils';
 
 type InsertRowDirection = 'up' | 'down';

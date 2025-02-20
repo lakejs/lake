@@ -1,4 +1,4 @@
-import { query } from 'lakelib/utils/query';
+import { query } from '@/utils/query';
 import { testPlugin, click } from '../../utils';
 
 describe('plugins / table / index', () => {

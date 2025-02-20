@@ -1,7 +1,7 @@
-import { query } from 'lakelib/utils/query';
-import { Nodes } from 'lakelib/models/nodes';
-import { Toolbar } from 'lakelib/ui/toolbar';
-import { Editor } from 'lakelib/editor';
+import { query } from '@/utils/query';
+import { Nodes } from '@/models/nodes';
+import { Toolbar } from '@/ui/toolbar';
+import { Editor } from '@/editor';
 import { click } from '../../utils';
 
 const toolbarItems = [

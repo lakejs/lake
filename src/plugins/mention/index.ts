@@ -1,7 +1,7 @@
 import { isKeyHotkey } from 'is-hotkey';
-import { request } from 'lakelib/utils/request';
-import { Range } from 'lakelib/models/range';
-import { Editor } from 'lakelib/editor';
+import { request } from '@/utils/request';
+import { Range } from '@/models/range';
+import { Editor } from '@/editor';
 import { MentionMenu } from './mention-menu';
 import { MentionItem } from './types';
 import mentionBox from './mention-box';

@@ -1,4 +1,4 @@
-import { mergeCells } from 'lakelib/plugins/table/merge-cells';
+import { mergeCells } from '@/plugins/table/merge-cells';
 import { testOperation } from '../../utils';
 
 describe('plugins / table / merge-cells', () => {

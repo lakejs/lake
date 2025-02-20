@@ -1,4 +1,4 @@
-import { getTableMap } from 'lakelib/plugins/table/utils';
+import { getTableMap } from '@/plugins/table/utils';
 import { testOperation } from '../../utils';
 
 describe('plugins / table / utils', () => {
