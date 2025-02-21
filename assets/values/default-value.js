@@ -123,7 +123,7 @@ window.defaultValue = `
 </p>
 <p><br /></p>
 
-<h3>Alerts</h3>
+<h3>Alert</h3>
 <lake-box type="block" name="hr"></lake-box>
 <p>At the beginning of a paragraph, input <code>:::info</code>, <code>:::tip</code>, <code>:::warning</code>, or <code>:::danger</code> followed by an enter to create an alert.</p>
 <blockquote type="info">Useful information that users should know, even when skimming content.</blockquote>
@@ -142,22 +142,16 @@ window.defaultValue = `
 <h3>Image</h3>
 <lake-box type="block" name="hr"></lake-box>
 <p><lake-box type="inline" name="image" value="eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTUxMi5wbmciLCJzdGF0dXMiOiJkb25lIiwibmFtZSI6ImhlYXZlbi1sYWtlLTUxMi5wbmciLCJzaXplIjo2MDAwOCwidHlwZSI6ImltYWdlL2pwZWciLCJsYXN0TW9kaWZpZWQiOjE3MTAyMjk1MTcxOTgsIndpZHRoIjo1MTIsImhlaWdodCI6MzcwLCJvcmlnaW5hbFdpZHRoIjo1MTIsIm9yaWdpbmFsSGVpZ2h0IjozNzAsImNhcHRpb24iOiJPdmVyaGVhZCBwYW5vcmFtYSBvZiBIZWF2ZW4gTGFrZS4ifQ=="></lake-box></p>
-<p>Heaven Lake is a volcanic crater lake atop Changbai Mountain. In Korea, it is known as Paektu Mountain or Baekdu Mountain. It lies on the border between China and North Korea, and is roughly evenly divided between the two countries. The North Korean part is in Ryanggang Province while the Chinese part is in Jilin Province.</p>
 <p><br /></p>
 
 <h3>Video</h3>
 <lake-box type="block" name="hr"></lake-box>
 <p><lake-box type="inline" name="video" value="eyJ1cmwiOiJodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PTVzTUJoRHY0c2lrIn0="></lake-box></p>
-<p>Think Different</p>
-<p>Here's to the crazy ones. The misfits. The rebels. The troublemakers. The round pegs in the square holes. The ones who see things differently. They're not fond of rules. And they have no respect for the status quo.</p>
-<p>You can quote them, disagree with them, glorify or vilify them. About the only thing you can't do is ignore them. Because they change things. They push the human race forward. And while some may see them as the crazy ones, we see genius.</p>
-<p>Because the people who are crazy enough to think they can change the world, are the ones who do.</p>
-<p>- Apple Inc.</p>
 <p><br /></p>
 
 <h3>File</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p><lake-box type="inline" name="file" value="eyJ1cmwiOiIuLi9hc3NldHMvZmlsZXMvaGVhdmVuLWxha2Utd2lraXBlZGlhLnBkZiIsInN0YXR1cyI6ImRvbmUiLCJuYW1lIjoiSGVhdmVuIExha2UgLSBXaWtpcGVkaWEucGRmIiwic2l6ZSI6NzQ3Mzg1LCJ0eXBlIjoiYXBwbGljYXRpb24vcGRmIiwibGFzdE1vZGlmaWVkIjoxNzE1OTM1MjE1MzA5fQ=="></lake-box></p>
+<p><lake-box type="inline" name="file" value="eyJ1cmwiOiIuLi9hc3NldHMvZmlsZXMvdGhpbmstZGlmZmVyZW50LXdpa2lwZWRpYS5wZGYiLCJzdGF0dXMiOiJkb25lIiwibmFtZSI6IlRoaW5rIGRpZmZlcmVudCAtIFdpa2lwZWRpYS5wZGYiLCJzaXplIjo1MTA1NTgsInR5cGUiOiJhcHBsaWNhdGlvbi9wZGYiLCJsYXN0TW9kaWZpZWQiOjE3NDAwOTc3MTg1OTh9"></lake-box></p>
 <p><br /></p>
 
 <h3>Emoji using image</h3>

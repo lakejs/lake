@@ -303,7 +303,7 @@ describe('plugins / slash / index', () => {
       new File([imgBuffer], 'heaven-lake-64.png', {
         type: 'image/png',
       }),
-      new File(['foo'], 'heaven-lake-wikipedia.pdf', {
+      new File(['foo'], 'think-different-wikipedia.pdf', {
         type: 'application/pdf',
       }),
     ];
@@ -323,7 +323,7 @@ describe('plugins / slash / index', () => {
       url: '../assets/images/heaven-lake-64.png',
     }));
     requests[1].respond(200, {}, JSON.stringify({
-      url: '../assets/files/heaven-lake-wikipedia.pdf',
+      url: '../assets/files/think-different-wikipedia.pdf',
     }));
     xhr.restore();
     const value = removeBoxValueFromHTML(editor.getValue());
@@ -334,7 +334,7 @@ describe('plugins / slash / index', () => {
     expect(box1.value.status).to.equal('done');
     expect(box1.value.url).to.equal('../assets/images/heaven-lake-64.png');
     expect(box2.value.status).to.equal('done');
-    expect(box2.value.url).to.equal('../assets/files/heaven-lake-wikipedia.pdf');
+    expect(box2.value.url).to.equal('../assets/files/think-different-wikipedia.pdf');
   });
 
 });

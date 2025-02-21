@@ -1,6 +1,6 @@
 import { showBox } from '../../utils';
 
-const fileUrl = '../assets/files/heaven-lake-wikipedia.pdf';
+const fileUrl = '../assets/files/think-different-wikipedia.pdf';
 
 describe('plugins / file / file-box-ui', () => {
 
@@ -8,10 +8,10 @@ describe('plugins / file / file-box-ui', () => {
     showBox('file', {
       url: fileUrl,
       status: 'uploading',
-      name: 'Heaven Lake - Wikipedia.pdf',
-      size: 747385,
+      name: 'Think different - Wikipedia.pdf',
+      size: 510558,
       type: 'application/pdf',
-      lastModified: 1715935215309,
+      lastModified: 1740097718598,
     }, box => {
       expect(box.value.status).to.equal('uploading');
     });
@@ -21,10 +21,10 @@ describe('plugins / file / file-box-ui', () => {
     showBox('file', {
       url: fileUrl,
       status: 'uploading',
-      name: 'Heaven Lake - Wikipedia.pdf',
-      size: 747385,
+      name: 'Think different - Wikipedia.pdf',
+      size: 510558,
       type: 'application/pdf',
-      lastModified: 1715935215309,
+      lastModified: 1740097718598,
     }, box => {
       expect(box.node.computedCSS('display')).to.equal('none');
     }, true);
@@ -34,10 +34,10 @@ describe('plugins / file / file-box-ui', () => {
     showBox('file', {
       url: fileUrl,
       status: 'done',
-      name: 'Heaven Lake - Wikipedia.pdf',
-      size: 747385,
+      name: 'Think different - Wikipedia.pdf',
+      size: 510558,
       type: 'application/pdf',
-      lastModified: 1715935215309,
+      lastModified: 1740097718598,
     }, box => {
       expect(box.value.status).to.equal('done');
     });
@@ -47,10 +47,10 @@ describe('plugins / file / file-box-ui', () => {
     showBox('file', {
       url: fileUrl,
       status: 'done',
-      name: 'Heaven Lake - Wikipedia.pdf',
-      size: 747385,
+      name: 'Think different - Wikipedia.pdf',
+      size: 510558,
       type: 'application/pdf',
-      lastModified: 1715935215309,
+      lastModified: 1740097718598,
     }, box => {
       expect(box.value.status).to.equal('done');
     }, true);
@@ -60,10 +60,10 @@ describe('plugins / file / file-box-ui', () => {
     showBox('file', {
       url: fileUrl,
       status: 'error',
-      name: 'Heaven Lake - Wikipedia.pdf',
-      size: 747385,
+      name: 'Think different - Wikipedia.pdf',
+      size: 510558,
       type: 'application/pdf',
-      lastModified: 1715935215309,
+      lastModified: 1740097718598,
     }, box => {
       expect(box.value.status).to.equal('error');
     });
@@ -73,10 +73,10 @@ describe('plugins / file / file-box-ui', () => {
     showBox('file', {
       url: fileUrl,
       status: 'error',
-      name: 'Heaven Lake - Wikipedia.pdf',
-      size: 747385,
+      name: 'Think different - Wikipedia.pdf',
+      size: 510558,
       type: 'application/pdf',
-      lastModified: 1715935215309,
+      lastModified: 1740097718598,
     }, box => {
       expect(box.node.computedCSS('display')).to.equal('none');
     }, true);
