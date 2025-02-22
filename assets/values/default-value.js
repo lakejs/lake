@@ -1,12 +1,12 @@
 window.defaultValue = `
 <h3>Slash commands</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>At the beginning of a paragraph, type <code>/</code> to display a popup menu containing commonly used commands. You can search for commands by typing <code>/keyword</code>.</p>
+<p>Start a line with <code>/</code> to display a popup menu containing commonly used commands. You can search for commands by typing <code>/keyword</code>.</p>
 <p><br /></p>
 
 <h3>Headings</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>At the beginning of a paragraph, input <code>#</code>, <code>##</code>, or <code>###</code> followed by a space to create a heading 1, heading 2, or heading 3.</p>
+<p>Start a line with <code>#</code>, <code>##</code>, or <code>###</code> followed by a space to create a heading 1, heading 2, or heading 3.</p>
 <h1>Heading level 1</h1>
 <h2>Heading level 2</h2>
 <h3>Heading level 3</h3>
@@ -33,13 +33,13 @@ window.defaultValue = `
 
 <h3>Block quotation</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>At the beginning of a paragraph, input <code>&gt;</code> followed by a space to create a block quotation.</p>
+<p>Start a line with <code>&gt;</code> followed by a space to create a block quotation.</p>
 <blockquote>This is a block quotation.</blockquote>
 <p><br /></p>
 
 <h3>Numbered list</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>At the beginning of a paragraph, input <code>1.</code> followed by a space to create a numbered list.</p>
+<p>Start a line with <code>1.</code> followed by a space to create a numbered list.</p>
 <ol start="1"><li>first item</li></ol>
 <ol start="2"><li>second item</li></ol>
 <ol start="1" indent="1"><li>second item first subitem</li></ol>
@@ -50,7 +50,7 @@ window.defaultValue = `
 
 <h3>Bulleted list</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>At the beginning of a paragraph, input <code>*</code>, <code>-</code>, or <code>+</code> followed by a space to create a bulleted list.</p>
+<p>Start a line with <code>*</code>, <code>-</code>, or <code>+</code> followed by a space to create a bulleted list.</p>
 <ul><li>first item</li></ul>
 <ul><li>second item</li></ul>
 <ul indent="1"><li>second item first subitem</li></ul>
@@ -61,7 +61,7 @@ window.defaultValue = `
 
 <h3>Checklist</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>At the beginning of a paragraph, input <code>[]</code> or <code>[x]</code> followed by a space to create a checklist.</p>
+<p>Start a line with <code>[]</code> or <code>[x]</code> followed by a space to create a checklist.</p>
 <ul type="checklist"><li value="true">first item</li></ul>
 <ul type="checklist"><li value="false">second item</li></ul>
 <ul type="checklist" indent="1"><li value="false">second item first subitem</li></ul>
@@ -125,7 +125,7 @@ window.defaultValue = `
 
 <h3>Alert</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>At the beginning of a paragraph, input <code>:::info</code>, <code>:::tip</code>, <code>:::warning</code>, or <code>:::danger</code> followed by an enter to create an alert.</p>
+<p>Start a line with <code>:::info</code>, <code>:::tip</code>, <code>:::warning</code>, or <code>:::danger</code> followed by an enter to create an alert.</p>
 <blockquote type="info">Useful information that users should know, even when skimming content.</blockquote>
 <blockquote type="tip">Helpful advice for doing things better or more easily.</blockquote>
 <blockquote type="warning">Urgent info that needs immediate user attention to avoid problems.</blockquote>
@@ -172,7 +172,7 @@ window.defaultValue = `
 
 <h3>Code block</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>At the beginning of a paragraph, input <code>\`\`\`</code> or <code>\`\`\`js</code> followed by an enter to create a code block.</p>
+<p>Start a line with <code>\`\`\`</code> or <code>\`\`\`js</code> followed by an enter to create a code block.</p>
 <lake-box type="block" name="codeBlock" value="eyJjb2RlIjoiZnVuY3Rpb24gbXlGdW5jKHRoZU9iamVjdCkge1xuICB0aGVPYmplY3QubWFrZSA9IFwiVG95b3RhXCI7XG59XG5cbmNvbnN0IG15Y2FyID0ge1xuICBtYWtlOiBcIkhvbmRhXCIsXG4gIG1vZGVsOiBcIkFjY29yZFwiLFxuICB5ZWFyOiAxOTk4LFxufTtcblxuY29uc29sZS5sb2cobXljYXIubWFrZSk7IC8vIFwiSG9uZGFcIlxubXlGdW5jKG15Y2FyKTtcbmNvbnNvbGUubG9nKG15Y2FyLm1ha2UpOyAvLyBcIlRveW90YVwiIiwibGFuZyI6ImphdmFzY3JpcHQifQ=="></lake-box>
 <blockquote type="tip">This feature is based on <a href="https://codemirror.net/">CodeMirror</a>.</blockquote>
 <p><br /></p>
@@ -187,6 +187,6 @@ window.defaultValue = `
 
 <h3>Mention</h3>
 <lake-box type="block" name="hr"></lake-box>
-<p>At the beginning of a paragraph, type <code>@</code> to display a popup menu containing specified users. You can search for users by typing <code>@keyword</code>.</p>
+<p>Type <code>@</code> to display a popup menu containing specified users. You can search for users by typing <code>@keyword</code>.</p>
 <p><br /></p>
 `;
