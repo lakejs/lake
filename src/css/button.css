@@ -4,7 +4,7 @@ button.lake-button {
   font-family: Arial;
   font-size: var(--lake-button-font-size);
   color: var(--lake-text-color);
-  background-color: #fff;
+  background-color: transparent;
   padding: 0;
   margin: 0 1px;
   line-height: 0;
