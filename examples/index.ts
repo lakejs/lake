@@ -1,3 +1,7 @@
+import listIcon from '../assets/icons/list.svg';
+import sunIcon from '../assets/icons/sun.svg';
+import globeIcon from '../assets/icons/globe.svg';
+import directionIcon from '../assets/icons/direction.svg';
 import './index.css';
 import './default-editor.css';
 import { Editor, Dropdown, query, template } from 'lakelib';
@@ -16,6 +20,7 @@ Editor.plugin.add('helloWorld', helloWorld);
 
 declare global {
   interface Window {
+    LAKE_THEME: string;
     LAKE_LANGUAGE: string;
     Editor: typeof Editor;
     editor: Editor;
@@ -71,6 +76,17 @@ const menuItems = [
   },
 ];
 
+const themeMenuItems = [
+  {
+    value: 'light',
+    text: 'Light',
+  },
+  {
+    value: 'dark',
+    text: 'Dark',
+  },
+];
+
 const languageMenuItems = [
   {
     value: 'en-US',
@@ -107,12 +123,36 @@ for (const item of menuItems) {
   menuItemMap.set(type, item);
 }
 
+function renderTheme(): void {
+  const localStorageKey = 'lake-example-theme';
+  const rootElement = query(document.documentElement);
+  const languageDropdown = new Dropdown({
+    root: query('.header .theme'),
+    name: 'theme',
+    icon: sunIcon,
+    defaultValue: localStorage.getItem(localStorageKey) ?? 'light',
+    tooltip: 'Switch theme',
+    menuType: 'list',
+    menuItems: themeMenuItems,
+    onSelect: value => {
+      localStorage.setItem(localStorageKey, value);
+      rootElement.removeClass('lake-light');
+      rootElement.removeClass('lake-dark');
+      rootElement.addClass(`lake-${value}`);
+      rootElement.css('color-scheme', value);
+    },
+  });
+  languageDropdown.render();
+  rootElement.addClass(`lake-${window.LAKE_THEME}`);
+  rootElement.css('color-scheme', window.LAKE_THEME);
+}
+
 function renderLanguage(): void {
   const localStorageKey = 'lake-example-language';
   const languageDropdown = new Dropdown({
     root: query('.header .language'),
     name: 'language',
-    icon: '<img src="../assets/icons/globe.svg" />',
+    icon: globeIcon,
     defaultValue: localStorage.getItem(localStorageKey) ?? 'en-US',
     tooltip: 'Select language',
     menuType: 'list',
@@ -130,7 +170,7 @@ function renderDirection(): void {
   const directionDropdown = new Dropdown({
     root: query('.header .direction'),
     name: 'direction',
-    icon: '<img src="../assets/icons/direction.svg" />',
+    icon: directionIcon,
     defaultValue: localStorage.getItem(localStorageKey) ?? 'en-US',
     tooltip: 'Select writing direction',
     menuType: 'list',
@@ -150,10 +190,11 @@ function renderHeader(pageType: string): void {
   }
   const titleNode = query('.header .title');
   titleNode.text(currentItem.text);
+  renderTheme();
   renderLanguage();
   renderDirection();
   const menuNode = query('.header .menu');
-  menuNode.append('<button type="button" name="list"><img src="../assets/icons/list.svg" /></button>');
+  menuNode.append(`<button type="button" name="list">${listIcon}</button>`);
   const ul = query('<ul />');
   menuNode.append(ul);
   for (const item of menuItems) {

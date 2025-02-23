@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  color: #000000e0;
+  color: var(--lake-text-color);
 }
 
 .header {
@@ -9,10 +9,10 @@ body {
   font-weight: normal;
   line-height: normal;
   display: grid;
-  grid-template-columns: 44px 1fr 38px 36px;
+  grid-template-columns: 44px 1fr 38px 38px 36px;
   align-items: center;
   padding: 8px 8px 16px 8px;
-  background-color: #fff;
+  background-color: var(--lake-background-color);
 }
 
 .header .menu {
@@ -20,16 +20,17 @@ body {
   line-height: 0;
 }
 
-.header .menu img {
+.header .menu svg {
   width: 24px;
   height: 24px;
   margin: 6px;
+  fill: var(--lake-text-color);
 }
 
 .header .menu button {
   border-radius: 5px;
   border: 0;
-  background-color: #fff;
+  background-color: transparent;
   padding: 0;
   margin: 0;
   line-height: 0;
@@ -77,30 +78,12 @@ body {
   font-size: 18px;
 }
 
-.header .lake-dropdown .lake-dropdown-icon img {
+.header .lake-dropdown .lake-dropdown-icon svg {
   width: 24px;
   height: 24px;
+  fill: var(--lake-text-color);
 }
 
 .header .lake-dropdown .lake-dropdown-menu {
   top: 36px;
-}
-
-.header .source {
-  line-height: 0;
-}
-
-.header .source a {
-  display: block;
-  border-radius: 5px;
-}
-
-.header .source a:hover {
-  background-color: #0000000a;
-}
-
-.header .source img {
-  width: 24px;
-  height: 24px;
-  margin: 6px;
 }

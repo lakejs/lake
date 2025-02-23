@@ -20,6 +20,7 @@
     <div class="header">
       <div class="menu"></div>
       <div class="title"></div>
+      <div class="theme"></div>
       <div class="language"></div>
       <div class="direction"></div>
     </div>
@@ -28,6 +29,7 @@
       <div class="lake-root"></div>
     </div>
     <script>
+      window.LAKE_THEME = localStorage.getItem('lake-example-theme') ?? 'light';
       window.LAKE_LANGUAGE = localStorage.getItem('lake-example-language') ?? 'en-US';
       document.documentElement.dir = localStorage.getItem('lake-example-direction') ?? 'ltr';
       window.LAKE_DEBUG = true;
