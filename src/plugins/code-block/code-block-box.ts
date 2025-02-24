@@ -5,8 +5,9 @@ import { icons } from '@/icons';
 import { debug } from '@/utils/debug';
 import { query } from '@/utils/query';
 import { Dropdown } from '@/ui/dropdown';
+import { Editor } from '@/editor';
 
-const config = {
+const lightConfig = {
   comment: '#57606a',
   name: '#444d56',
   variableName: '#953800',
@@ -37,9 +38,42 @@ const config = {
   special: '#444d56',
 };
 
+const darkConfig = {
+  comment: '#7d8799',
+  name: '#e06c75',
+  variableName: '#e1e4e8',
+  typeName: '#e5c07b',
+  propertyName: '#e06c75',
+  className: '#e5c07b',
+  labelName: '#61afef',
+  namespace: '#e5c07b',
+  macroName: '#e06c75',
+  literal: '#e1e4e8',
+  string: '#9ecbff',
+  number: '#e5c07b',
+  bool: '#d19a66',
+  regexp: '#56b6c2',
+  color: '#d19a66',
+  keyword: '#c678dd',
+  modifier: '#e5c07b',
+  operator: '#e1e4e8',
+  bracket: '#e1e4e8',
+  content: '#e1e4e8',
+  meta: '#7d8799',
+  heading: '#e06c75',
+  invalid: '#e06c75',
+  definition: '#abb2bf',
+  constant: '#d19a66',
+  function: '#61afef',
+  standard: '#d19a66',
+  special: '#d19a66',
+};
+
 // https://lezer.codemirror.net/docs/ref/#highlight.tags
-function getHighlightStyle(CodeMirror: any): any {
+function getHighlightStyle(editor: Editor, CodeMirror: any): any {
   const { HighlightStyle, tags } = CodeMirror;
+  const darkMode = editor.container.closest('.lake-dark').length > 0;
+  const config = darkMode ? darkConfig : lightConfig;
   return HighlightStyle.define([
     { tag: [tags.comment, tags.lineComment, tags.blockComment, tags.docComment], color: config.comment },
     { tag: [tags.name], color: config.name },
@@ -161,7 +195,7 @@ export default {
           ...historyKeymap,
           indentWithTab,
         ]),
-        syntaxHighlighting(getHighlightStyle(CodeMirror)),
+        syntaxHighlighting(getHighlightStyle(editor, CodeMirror)),
         language.of(langItem && langItem.component ? langItem.component() : []),
         updateListener,
       ],

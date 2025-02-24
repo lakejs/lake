@@ -2,58 +2,72 @@
 .cm-editor {
   font-size: 14px;
   border-radius: 5px;
+  color: var(--lake-text-color);
   background-color: var(--lake-box-background-color);
 }
+
 .cm-editor.cm-focused {
   outline: none;
 }
+
 .cm-editor .cm-content {
   font-family: Consolas, Courier, monospace;
   margin: 16px 20px;
+  caret-color: var(--lake-text-color);
 }
 
 /* code block */
 lake-box[name="codeBlock"] {
   margin-bottom: 16px;
 }
+
 lake-box[name="codeBlock"] .lake-box-focused .lake-code-block,
 lake-box[name="codeBlock"] .lake-box-activated .lake-code-block {
   border-color: var(--lake-box-border-color);
 }
+
 .lake-code-block {
   position: relative;
   border: 1px solid transparent;
   border-radius: 5px;
 }
+
 .lake-code-block .lake-dropdown {
   position: absolute;
   top: 2px;
   inset-inline-end: 2px;
   display: none;
 }
+
 lake-box[name="codeBlock"] .lake-box-focused .lake-code-block .lake-dropdown,
 lake-box[name="codeBlock"] .lake-box-activated .lake-code-block .lake-dropdown {
   display: block;
 }
+
 .lake-code-block .lake-dropdown .lake-dropdown-title {
   margin: 0;
   padding-right: 4px;
   background-color: var(--lake-box-background-color);
 }
+
 .lake-code-block .lake-dropdown.lake-list-dropdown .lake-dropdown-title-hovered {
   background-color: var(--lake-background-active-color);
 }
+
 .lake-code-block .lake-dropdown .lake-dropdown-text {
   margin: 3px 6px;
 }
+
 .lake-code-block .lake-dropdown .lake-dropdown-down-icon svg {
   margin: 5px 2px;
 }
+
 .lake-code-block .lake-dropdown .lake-dropdown-menu {
   top: 24px;
   left: auto;
   right: 0;
 }
+
 .lake-code-block-error {
   font-size: 14px;
   color: var(--lake-error-color);
