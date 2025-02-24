@@ -3,9 +3,9 @@
   top: 0;
   left: 0;
   z-index: var(--lake-popup-z-index);
-  border: 1px solid var(--lake-border-color);
+  border: 1px solid var(--lake-popup-border-color);
   border-radius: 5px;
-  background-color: #fff;
+  background-color: var(--lake-popup-background-color);
   box-shadow: var(--lake-button-shadow);
   padding: 4px;
   display: flex;
