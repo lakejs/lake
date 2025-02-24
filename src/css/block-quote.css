@@ -2,8 +2,8 @@
   margin: 0;
   margin-bottom: 8px;
   padding: 8px 12px;
-  color: var(--lake-secondary-text-color);
-  border-left: 4px solid #0505050f;
+  color: var(--lake-blockquote-text-color);
+  border-left: var(--lake-blockquote-border);
 }
 .lake-container blockquote[type] {
   margin: 16px 0;

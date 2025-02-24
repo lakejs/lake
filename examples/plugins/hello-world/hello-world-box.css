@@ -8,14 +8,14 @@ lake-box[name="helloWorld"] {
   align-items: center;
   border: 1px solid transparent;
   border-radius: 5px;
-  background-color: #f6f8fa;
+  background-color: var(--lake-box-background-color);
   padding: 12px 24px;
   user-select: none;
 }
 
 lake-box[name="helloWorld"] .lake-box-selected .lake-hello-world,
 lake-box[name="helloWorld"] .lake-box-focused .lake-hello-world {
-  border-color: #d9d9d9;
+  border-color: var(--lake-box-border-color);
 }
 
 .lake-hello-world .lake-button {

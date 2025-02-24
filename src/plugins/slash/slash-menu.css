@@ -11,7 +11,7 @@
   margin-inline-end: 8px;
   border-radius: 5px;
   border: 1px solid var(--lake-border-color);
-  background-color: #fff;
+  background-color: var(--lake-background-color);
   line-height: 0;
 }
 .lake-slash-menu .lake-slash-icon svg,
@@ -19,6 +19,9 @@
   width: 32px;
   height: 32px;
   margin: 6px;
+}
+.lake-slash-menu .lake-slash-icon svg {
+  fill: var(--lake-text-color);
 }
 .lake-slash-menu .lake-slash-text {
   display: flex;

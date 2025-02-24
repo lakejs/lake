@@ -26,6 +26,9 @@ button.lake-button img {
   height: 16px;
   margin: 6px;
 }
+button.lake-button svg {
+  fill: var(--lake-text-color);
+}
 button.lake-icon-button.lake-button-hovered {
   background-color: var(--lake-background-hover-color);
 }

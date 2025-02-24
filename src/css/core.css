@@ -63,3 +63,6 @@
   fill: #1677ff;
   pointer-events: none;
 }
+.lake-dark {
+  color-scheme: dark;
+}

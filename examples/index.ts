@@ -125,7 +125,8 @@ for (const item of menuItems) {
 
 function renderTheme(): void {
   const localStorageKey = 'lake-example-theme';
-  const rootElement = query(document.documentElement);
+  // const rootElement = query(document.documentElement);
+  const rootElement = query(document.body);
   const languageDropdown = new Dropdown({
     root: query('.header .theme'),
     name: 'theme',
@@ -139,12 +140,10 @@ function renderTheme(): void {
       rootElement.removeClass('lake-light');
       rootElement.removeClass('lake-dark');
       rootElement.addClass(`lake-${value}`);
-      rootElement.css('color-scheme', value);
     },
   });
   languageDropdown.render();
   rootElement.addClass(`lake-${window.LAKE_THEME}`);
-  rootElement.css('color-scheme', window.LAKE_THEME);
 }
 
 function renderLanguage(): void {

@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   color: var(--lake-text-color);
+  background-color: var(--lake-background-color);
 }
 
 .header {
@@ -12,7 +13,6 @@ body {
   grid-template-columns: 44px 1fr 38px 38px 36px;
   align-items: center;
   padding: 8px 8px 16px 8px;
-  background-color: var(--lake-background-color);
 }
 
 .header .menu {
@@ -39,7 +39,7 @@ body {
 }
 
 .header .menu .hovered {
-  background-color: #0000000a;
+  background-color: var(--lake-background-hover-color);
 }
 
 .header .menu ul {
@@ -51,9 +51,9 @@ body {
   margin: 0;
   padding: 6px 0;
   border-radius: 5px;
-  border: 1px solid #d9d9d9;
-  background-color: #fff;
-  box-shadow: 0 6px 16px 0 #00000014, 0 3px 6px -4px #0000001f, 0 9px 28px 8px #0000000d;
+  border: 1px solid var(--lake-popup-border-color);
+  background-color: var(--lake-popup-background-color);
+  box-shadow: var(--lake-popup-shadow);
   display: none;
 }
 
@@ -66,7 +66,7 @@ body {
 }
 
 .header .menu ul li a {
-  color: #000000e0;
+  color: var(--lake-text-color);
   text-decoration: none;
 }
 

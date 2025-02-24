@@ -1,3 +1,4 @@
+import handWavingIcon from '../assets/icons/hand-waving.svg';
 import { Editor, Toolbar, ToolbarItem, DropdownMenuItem, MentionItem, SlashItem, icons } from 'lakelib';
 
 // These emojis are sourced from Fluent Emoji.
@@ -194,7 +195,7 @@ const specialCharacter: ToolbarItem = {
 const helloWorld: ToolbarItem = {
   name: 'helloWorld',
   type: 'button',
-  icon: '<img src="../assets/icons/hand-waving.svg" />',
+  icon: handWavingIcon,
   tooltip: 'Hello World',
   onClick: editor => {
     editor.command.execute('helloWorld');
@@ -204,7 +205,7 @@ const helloWorld: ToolbarItem = {
 const helloWorldSlashItem: SlashItem = {
   name: 'helloWorld',
   type: 'button',
-  icon: '<img src="../assets/icons/hand-waving.svg" />',
+  icon: handWavingIcon,
   title: 'Hello World',
   description: 'Insert an example box',
   onClick: (editor, value) => {

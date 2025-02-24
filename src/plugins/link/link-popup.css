@@ -7,7 +7,7 @@
   border-radius: 5px;
   padding: 16px;
   width: fit-content;
-  background-color: #fff;
+  background-color: var(--lake-popup-background-color);
   box-shadow: var(--lake-popup-shadow);
   display: none;
 }
