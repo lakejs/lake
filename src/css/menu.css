@@ -27,5 +27,5 @@
   scroll-margin: 4px 0;
 }
 .lake-menu .lake-menu-item-selected {
-  background-color: var(--lake-background-active-color);
+  background-color: var(--lake-button-background-active-color);
 }

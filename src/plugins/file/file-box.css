@@ -6,61 +6,77 @@
   border: 1px solid transparent;
   border-radius: 4px;
 }
+
 .lake-container[contenteditable="true"] .lake-file {
   cursor: default;
   user-select: none;
 }
+
 .lake-container[contenteditable="false"] .lake-file {
   cursor: pointer;
   user-select: auto;
 }
+
 lake-box[name="file"] .lake-box-strip {
   align-self: center;
 }
+
 .lake-file .lake-file-info {
   display: flex;
   align-items: center;
 }
+
 .lake-file .lake-file-type svg {
   width: 16px;
   height: 16px;
   margin: 4px;
+  fill: var(--lake-text-color);
 }
+
 .lake-file .lake-file-name {
   line-height: 24px;
   margin-right: 6px;
   color: var(--lake-link-color);
 }
+
 lake-box[name="file"] .lake-box-hovered .lake-file {
   background-color: var(--lake-box-background-color);
 }
+
 lake-box[name="file"] .lake-box-selected .lake-file {
   background-color: var(--lake-selection-background-color);
 }
+
 lake-box[name="file"] .lake-box-focused .lake-file {
   background-color: var(--lake-selection-background-color);
 }
+
 /* uploading status */
 .lake-file-uploading .lake-progress {
   display: flex;
   align-items: center;
   margin-right: 6px;
 }
+
 .lake-file-uploading .lake-progress svg {
   width: 16px;
   height: 16px;
   margin: 4px;
   animation: lakerotate 1s linear 0s infinite normal none;
+  fill: var(--lake-text-color);
 }
+
 .lake-file-uploading .lake-progress .lake-percent {
   line-height: 24px;
   margin-left: 4px;
   white-space: nowrap;
 }
+
 /* error status */
 .lake-file-error .lake-file-type svg {
   fill: var(--lake-error-color);
 }
+
 .lake-file-error .lake-file-name {
   color: var(--lake-error-color);
 }

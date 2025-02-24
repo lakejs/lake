@@ -39,7 +39,7 @@ body {
 }
 
 .header .menu .hovered {
-  background-color: var(--lake-background-hover-color);
+  background-color: var(--lake-button-background-hover-color);
 }
 
 .header .menu ul {

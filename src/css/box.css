@@ -3,35 +3,44 @@ lake-box {
   padding: 0;
   text-indent: 0;
 }
+
 lake-box[type="inline"] {
   display: inline flex;
 }
+
 lake-box[type="block"] {
   display: block grid;
   grid-template-columns: 1px calc(100% - 2px) 1px;
 }
+
 lake-box .lake-box-strip {
   display: block;
   min-width: 1px;
 }
+
 lake-box[type="inline"] .lake-box-strip {
   align-self: flex-end;
 }
+
 lake-box[type="block"] .lake-box-strip {
   align-self: stretch;
 }
+
 lake-box .lake-box-strip ::selection {
   background: transparent;
 }
+
 lake-box .lake-box-container {
   display: block;
   align-self: center;
 }
+
 lake-box .lake-box-hovered .lake-corner-toolbar,
 lake-box .lake-box-focused .lake-corner-toolbar,
 lake-box .lake-box-activated .lake-corner-toolbar {
   display: flex;
 }
+
 lake-box .lake-box-focused .lake-resizer {
   display: block;
 }

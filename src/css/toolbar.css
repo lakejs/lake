@@ -9,11 +9,13 @@
   flex-wrap: wrap;
   align-items: center;
 }
+
 .lake-toolbar *,
 .lake-toolbar ::before,
 .lake-toolbar ::after {
   box-sizing: border-box;
 }
+
 .lake-toolbar .lake-toolbar-divider {
   width: 1px;
   height: 20px;
@@ -21,9 +23,11 @@
   border-left: 1px solid var(--lake-border-color);
   user-select: none;
 }
+
 .lake-toolbar .lake-upload {
   line-height: 0;
 }
+
 .lake-toolbar .lake-upload input[type="file"] {
   display: none;
 }

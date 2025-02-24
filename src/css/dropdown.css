@@ -26,7 +26,7 @@
 .lake-dropdown.lake-list-dropdown button.lake-dropdown-title-hovered,
 .lake-dropdown.lake-icon-dropdown button.lake-dropdown-title-hovered,
 .lake-dropdown.lake-character-dropdown button.lake-dropdown-title-hovered {
-  background-color: var(--lake-background-hover-color);
+  background-color: var(--lake-button-background-hover-color);
 }
 .lake-dropdown button.lake-dropdown-title.lake-dropdown-title-no-down {
   margin-right: 0;
@@ -45,7 +45,7 @@
   border-radius: 5px 0 0 5px;
 }
 .lake-dropdown .lake-dropdown-icon-hovered {
-  background-color: var(--lake-background-hover-color);
+  background-color: var(--lake-button-background-hover-color);
 }
 .lake-dropdown .lake-dropdown-icon svg,
 .lake-dropdown .lake-dropdown-icon img {
@@ -74,7 +74,7 @@
   border-radius: 0 5px 5px 0;
 }
 .lake-dropdown .lake-dropdown-down-icon-hovered {
-  background-color: var(--lake-background-hover-color);
+  background-color: var(--lake-button-background-hover-color);
 }
 .lake-dropdown .lake-dropdown-down-icon svg {
   width: 12px;
@@ -115,10 +115,10 @@
   padding: 6px 24px 6px 10px;
 }
 .lake-list-dropdown-menu li.lake-dropdown-item-hovered {
-  background-color: var(--lake-background-hover-color);
+  background-color: var(--lake-button-background-hover-color);
 }
 .lake-list-dropdown-menu li.lake-dropdown-item-selected {
-  background-color: var(--lake-background-active-color);
+  background-color: var(--lake-button-background-hover-color);
 }
 .lake-list-dropdown-menu li .lake-dropdown-menu-check {
   line-height: 0;
@@ -152,10 +152,10 @@
   border-radius: 2px;
 }
 .lake-icon-dropdown-menu li.lake-dropdown-item-hovered {
-  background-color: var(--lake-background-hover-color);
+  background-color: var(--lake-button-background-hover-color);
 }
 .lake-icon-dropdown-menu li.lake-dropdown-item-selected {
-  background-color: var(--lake-background-active-color);
+  background-color: var(--lake-button-background-hover-color);
 }
 .lake-icon-dropdown-menu li .lake-dropdown-menu-check {
   display: none;
@@ -182,10 +182,10 @@
   border-radius: 2px;
 }
 .lake-character-dropdown-menu li.lake-dropdown-item-hovered {
-  background-color: var(--lake-background-hover-color);
+  background-color: var(--lake-button-background-hover-color);
 }
 .lake-character-dropdown-menu li.lake-dropdown-item-selected {
-  background-color: var(--lake-background-active-color);
+  background-color: var(--lake-button-background-active-color);
 }
 .lake-character-dropdown-menu li .lake-dropdown-menu-check {
   display: none;
@@ -210,10 +210,10 @@
   padding: 0;
 }
 .lake-color-dropdown-menu li.lake-dropdown-item-hovered {
-  background-color: var(--lake-background-hover-color);
+  background-color: var(--lake-button-background-hover-color);
 }
 .lake-color-dropdown-menu li.lake-dropdown-item-selected {
-  background-color: var(--lake-background-active-color);
+  background-color: var(--lake-button-background-active-color);
 }
 .lake-color-dropdown-menu li .lake-dropdown-menu-check {
   position: absolute;
@@ -244,7 +244,7 @@
 .lake-color-dropdown-menu li .lake-dropdown-menu-text {
   font-size: 0;
   box-sizing: content-box;
-  border: 1px solid var(--lake-background-hover-color);
+  border: 1px solid var(--lake-button-background-hover-color);
   border-radius: 2px;
   width: 16px;
   height: 16px;

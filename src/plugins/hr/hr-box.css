@@ -1,24 +1,30 @@
 lake-box[name="hr"] {
   margin-bottom: 8px;
 }
+
 .lake-hr {
   height: 21px;
   display: flex;
   align-items: center;
 }
+
 .lake-container[contenteditable="true"] .lake-hr {
   cursor: pointer;
 }
+
 .lake-container[contenteditable="false"] .lake-hr {
   cursor: default;
 }
+
 .lake-container[contenteditable="true"] lake-box[name="hr"] .lake-box-hovered .lake-hr {
   background-color: var(--lake-box-background-color);
 }
+
 lake-box[name="hr"] .lake-box-selected .lake-hr,
 lake-box[name="hr"] .lake-box-focused .lake-hr {
   background-color: var(--lake-selection-background-color);
 }
+
 .lake-hr hr {
   width: 100%;
   margin: 0;

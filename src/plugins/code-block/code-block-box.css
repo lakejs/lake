@@ -51,7 +51,7 @@ lake-box[name="codeBlock"] .lake-box-activated .lake-code-block .lake-dropdown {
 }
 
 .lake-code-block .lake-dropdown.lake-list-dropdown .lake-dropdown-title-hovered {
-  background-color: var(--lake-background-active-color);
+  background-color: var(--lake-button-background-active-color);
 }
 
 .lake-code-block .lake-dropdown .lake-dropdown-text {

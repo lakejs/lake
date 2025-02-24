@@ -1,37 +1,50 @@
 .lake-slash-menu {
   max-height: 332px;
 }
+
 .lake-slash-menu .lake-menu-item {
   height: 54px;
 }
+
 .lake-slash-menu .lake-menu-item input[type="file"] {
   display: none;
 }
+
 .lake-slash-menu .lake-slash-icon {
   margin-inline-end: 8px;
   border-radius: 5px;
-  border: 1px solid var(--lake-border-color);
-  background-color: var(--lake-background-color);
+  border: 1px solid #d9d9d9;
+  background-color: #fff;
   line-height: 0;
 }
+
+.lake-dark .lake-slash-menu .lake-slash-icon {
+  border: 1px solid #3d444d;
+  background-color: #252525;
+}
+
 .lake-slash-menu .lake-slash-icon svg,
 .lake-slash-menu .lake-slash-icon img {
   width: 32px;
   height: 32px;
   margin: 6px;
 }
+
 .lake-slash-menu .lake-slash-icon svg {
   fill: var(--lake-text-color);
 }
+
 .lake-slash-menu .lake-slash-text {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+
 .lake-slash-menu .lake-slash-title {
   font-weight: 500;
   color: var(--lake-text-color);
 }
+
 .lake-slash-menu .lake-slash-description {
   color: #8c8c8c;
 }

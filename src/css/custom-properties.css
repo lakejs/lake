@@ -6,8 +6,6 @@
   --lake-secondary-text-color: #000000a6;
   --lake-border-color: #d9d9d9;
   --lake-background-color: #fff;
-  --lake-background-hover-color: #0000000a;
-  --lake-background-active-color: #0000000d;
   --lake-success-color: #52c41a;
   --lake-warning-color: #faad14;
   --lake-error-color: #ff4d4f;
@@ -31,9 +29,12 @@
   --lake-popup-shadow: 0 6px 16px 0 #00000014, 0 3px 6px -4px #0000001f, 0 9px 28px 8px #0000000d;
   /* button */
   --lake-button-font-size: 14px;
+  --lake-button-border-color: #d9d9d9;
+  --lake-button-background-hover-color: #0000000a;
+  --lake-button-background-active-color: #0000000d;
   --lake-button-shadow: 0 2px 0 #00000005;
   --lake-button-outline: 2px solid #69b1ff;
-  /* single-line text field */
+  /* text field */
   --lake-input-border-color: #d9d9d9;
   --lake-input-border-hover-color: #69b1ff;
   --lake-input-outline: 2px solid #69b1ff;
@@ -45,8 +46,6 @@
   --lake-secondary-text-color: #9198a1;
   --lake-border-color: #3d444d;
   --lake-background-color: #1b1b1f;
-  --lake-background-hover-color: #343434;
-  --lake-background-active-color: #343434;
   /* selection */
   --lake-selection-background-color: #184c9d;
   /* link */
@@ -64,8 +63,12 @@
   --lake-popup-background-color: #252525;
   --lake-popup-shadow: #0000001f 0px 8px 4px, #0000003d 0px 8px 16px;
   /* button */
+  --lake-button-border-color: #3d444d;
+  --lake-button-background-hover-color: #343434;
+  --lake-button-background-active-color: #343434;
   --lake-button-outline: 2px solid #58a6ff;
-  /* single-line text field */
+  /* text field */
+  --lake-input-border-color: #3d444d;
   --lake-input-border-hover-color: #58a6ff;
   --lake-input-outline: 2px solid #58a6ff;
 }

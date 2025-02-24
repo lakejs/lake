@@ -5,15 +5,20 @@
   line-height: 0;
   border: 1px solid transparent;
 }
+
 lake-box[name="video"] .lake-box-hovered .lake-resizer {
   display: block;
 }
+
 .lake-video .lake-video-form {
   padding: 16px;
   line-height: normal;
+  color: var(--lake-text-color);
   border: 1px solid var(--lake-box-border-color);
+  background-color: var(--lake-box-background-color);
   border-radius: 4px;
 }
+
 .lake-video input[type="text"] {
   font-family: var(--lake-font-family);
   font-size: 14px;
@@ -23,24 +28,30 @@ lake-box[name="video"] .lake-box-hovered .lake-resizer {
   padding: 4px 10px;
   width: 100%;
 }
+
 .lake-video input[type="text"]:hover {
   border: 1px solid var(--lake-input-border-hover-color);
 }
+
 .lake-video input[type="text"]:focus-visible {
   outline: var(--lake-input-outline);
   outline-offset: -2px;
 }
+
 .lake-video .lake-row {
   padding-bottom: 8px;
 }
+
 .lake-video .lake-desc-row {
   padding-top: 8px;
   padding-bottom: 16px;
   color: var(--lake-secondary-text-color);
 }
+
 .lake-video .lake-button-row {
   padding-top: 16px;
 }
+
 .lake-video .lake-button-row button {
   width: 100%;
 }
