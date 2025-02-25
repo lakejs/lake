@@ -6,7 +6,7 @@
 }
 
 .miniature .lake-toolbar-root {
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--lake-border-color);
   border-bottom: none;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .miniature .lake-root {
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--lake-border-color);
   height: 200px;
   overflow: auto;
 }
@@ -37,7 +37,7 @@
 }
 
 .miniature .lake-editor.lake-editor2 .lake-toolbar-root {
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--lake-border-color);
   border-top: none;
 }
 

@@ -2,6 +2,10 @@
   background-color: #0000000d;
 }
 
+.lake-dark.document {
+  background-color: #000000;
+}
+
 .document .header {
   position: fixed;
   top: 0;
@@ -20,8 +24,8 @@
   position: fixed;
   top: 60px;
   width: 100%;
-  border: 1px solid #d9d9d9;
-  background-color: #fff;
+  border: 1px solid var(--lake-border-color);
+  background-color: var(--lake-background-color);
   border-left: none;
   border-right: none;
   z-index: 999;
@@ -30,8 +34,8 @@
 .document .lake-editor .lake-root {
   margin: 130px auto;
   max-width: 1000px;
-  border: 1px solid #d9d9d9;
-  background-color: #fff;
+  border: 1px solid var(--lake-border-color);
+  background-color: var(--lake-background-color);
   height: auto;
   min-height: 800px;
   overflow: visible;
