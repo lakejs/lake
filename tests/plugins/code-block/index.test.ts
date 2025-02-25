@@ -10,6 +10,7 @@ describe('plugins / code-block / index', () => {
       editor => {
         expect(editor.config.codeBlock.langList[0]).to.equal('text');
         expect(editor.config.codeBlock.defaultLang).to.equal('text');
+        expect(editor.config.codeBlock.colors.keyword.charAt(0)).to.equal('#');
       },
     );
   });
