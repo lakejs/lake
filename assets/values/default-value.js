@@ -74,8 +74,8 @@ window.defaultValue = `
 <lake-box type="block" name="hr"></lake-box>
 <table>
   <tr>
-    <td style="background-color: #fafafa;"><p style="text-align: center;"><strong>Tag name</strong></p></td>
-    <td style="background-color: #fafafa;"><p style="text-align: center;"><strong>Description</strong></p></td>
+    <td style="background-color: #0000000a;"><p style="text-align: center;"><strong>Tag name</strong></p></td>
+    <td style="background-color: #0000000a;"><p style="text-align: center;"><strong>Description</strong></p></td>
   </tr>
   <tr>
     <td><code>&lt;table&gt;</code></td>
