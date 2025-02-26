@@ -1,3 +1,36 @@
+/* custom properties */
+:root {
+  --lake-code-highlight-keyword: #af00db;
+  --lake-code-highlight-name: #444d56;
+  --lake-code-highlight-function: #005cc5;
+  --lake-code-highlight-constant: #0550ae;
+  --lake-code-highlight-definition: #444d56;
+  --lake-code-highlight-type: #0550ae;
+  --lake-code-highlight-operator: #444d56;
+  --lake-code-highlight-comment: #008000;
+  --lake-code-highlight-heading: #000080;
+  --lake-code-highlight-boolean: #0550ae;
+  --lake-code-highlight-string: #a31515;
+  --lake-code-highlight-number: #098658;
+  --lake-code-highlight-invalid: #cd3131;
+}
+
+.lake-dark {
+  --lake-code-highlight-keyword: #b392f0;
+  --lake-code-highlight-name: #e1e4e8;
+  --lake-code-highlight-function: #61afef;
+  --lake-code-highlight-constant: #9ecBff;
+  --lake-code-highlight-definition: #e1e4e8;
+  --lake-code-highlight-type: #9ecBff;
+  --lake-code-highlight-operator: #e1e4e8;
+  --lake-code-highlight-comment: #6a9955;
+  --lake-code-highlight-heading: #569cd6;
+  --lake-code-highlight-boolean: #9ecBff;
+  --lake-code-highlight-string: #ce9178;
+  --lake-code-highlight-number: #b5cea8;
+  --lake-code-highlight-invalid: #f44747;
+}
+
 /* CodeMirror */
 .cm-editor {
   font-size: 14px;

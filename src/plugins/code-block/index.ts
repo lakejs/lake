@@ -27,47 +27,30 @@ const langList = [
   'yaml',
 ];
 
-const lightColors = {
-  keyword: '#af00db', // #af00db
-  name: '#444d56', // #444d56
-  function: '#005cc5', // #005cc5
-  constant: '#0550ae', // #0550ae
-  definition: '#444d56', // #444d56
-  typeName: '#0550ae', // #0550ae
-  operator: '#444d56', // #444d56
-  comment: '#008000', // #008000
-  heading: '#000080', // #000080
-  bool: '#0550ae', // #0550ae
-  string: '#a31515', // #a31515
-  number: '#098658', // #098658
-  invalid: '#cd3131', // #cd3131
-};
-
-const darkColors = {
-  keyword: '#b392f0', // #b392f0
-  name: '#e1e4e8', // #e1e4e8
-  function: '#61afef', // #61afef
-  constant: '#9ecBff', // #9ecBff
-  definition: '#e1e4e8', // #e1e4e8
-  typeName: '#9ecBff', // #9ecBff
-  operator: '#e1e4e8', // #e1e4e8
-  comment: '#6a9955', // #6a9955
-  heading: '#569cd6', // #569cd6
-  bool: '#9ecBff', // #9ecBff
-  string: '#ce9178', // #ce9178
-  number: '#b5cea8', // #b5cea8
-  invalid: '#f44747', // #f44747
+const colors = {
+  keyword: 'var(--lake-code-highlight-keyword)',
+  name: 'var(--lake-code-highlight-name)',
+  function: 'var(--lake-code-highlight-function)',
+  constant: 'var(--lake-code-highlight-constant)',
+  definition: 'var(--lake-code-highlight-definition)',
+  type: 'var(--lake-code-highlight-type)',
+  operator: 'var(--lake-code-highlight-operator)',
+  comment: 'var(--lake-code-highlight-comment)',
+  heading: 'var(--lake-code-highlight-heading)',
+  boolean: 'var(--lake-code-highlight-boolean)',
+  string: 'var(--lake-code-highlight-string)',
+  number: 'var(--lake-code-highlight-number)',
+  invalid: 'var(--lake-code-highlight-invalid)',
 };
 
 export default (editor: Editor) => {
   if (!window.LakeCodeMirror) {
     return;
   }
-  const darkMode = editor.container.closest('.lake-dark').length > 0;
   editor.setPluginConfig('codeBlock', {
     langList,
     defaultLang: 'text',
-    colors: darkMode ? darkColors : lightColors,
+    colors,
   });
   if (editor.readonly) {
     return;
