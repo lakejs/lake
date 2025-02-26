@@ -10,8 +10,8 @@ describe('plugins / file / index', () => {
       '',
       '',
       editor => {
-        expect(editor.config.image.requestMethod).to.equal('POST');
-        expect(editor.config.image.requestTypes.length > 0).to.deep.equal(true);
+        expect(editor.config.file.requestMethod).to.equal('POST');
+        expect(editor.config.file.requestTypes[0]).to.deep.equal('application/zip');
       },
     );
   });

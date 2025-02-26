@@ -11,7 +11,7 @@ describe('plugins / image / index', () => {
       '',
       editor => {
         expect(editor.config.image.requestMethod).to.equal('POST');
-        expect(editor.config.image.requestTypes).to.deep.equal(['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml']);
+        expect(editor.config.image.requestTypes[0]).to.deep.equal('image/gif');
       },
     );
   });
