@@ -125,8 +125,7 @@ for (const item of menuItems) {
 
 function renderTheme(): void {
   const localStorageKey = 'lake-example-theme';
-  // const rootElement = query(document.documentElement);
-  const rootElement = query(document.body);
+  const rootElement = query(document.documentElement);
   const languageDropdown = new Dropdown({
     root: query('.header .theme'),
     name: 'theme',

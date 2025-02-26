@@ -1,3 +1,13 @@
+:root {
+  --lake-slash-icon-border-color: #d9d9d9;
+  --lake-slash-icon-background-color: #fff;
+}
+
+.lake-dark {
+  --lake-slash-icon-border-color: #3d444d;
+  --lake-slash-icon-background-color: #252525;
+}
+
 .lake-slash-menu {
   max-height: 332px;
 }
@@ -13,14 +23,9 @@
 .lake-slash-menu .lake-slash-icon {
   margin-inline-end: 8px;
   border-radius: 5px;
-  border: 1px solid #d9d9d9;
-  background-color: #fff;
+  border: 1px solid var(--lake-slash-icon-border-color);
+  background-color: var(--lake-slash-icon-background-color);
   line-height: 0;
-}
-
-.lake-dark .lake-slash-menu .lake-slash-icon {
-  border: 1px solid #3d444d;
-  background-color: #252525;
 }
 
 .lake-slash-menu .lake-slash-icon svg,

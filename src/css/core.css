@@ -1,6 +1,7 @@
 .lake-container-wrapper {
   position: relative;
 }
+
 .lake-container {
   box-sizing: border-box;
   font-family: var(--lake-font-family);
@@ -9,19 +10,23 @@
   line-height: 1.45;
   padding: 16px 24px;
 }
+
 .lake-container:focus {
   outline: none;
 }
+
 .lake-container::selection,
 .lake-container ::selection {
   color: inherit;
   background: var(--lake-selection-background-color);
 }
+
 .lake-container *,
 .lake-container ::before,
 .lake-container ::after {
   box-sizing: border-box;
 }
+
 .lake-container.lake-placeholder::before {
   position: absolute;
   top: 8px;
@@ -30,22 +35,28 @@
   content: attr(placeholder);
   pointer-events: none;
 }
+
 .lake-container bookmark {
   display: inline;
 }
+
 .lake-container p {
   margin: 0;
   padding: 0;
   margin-bottom: 8px;
 }
+
 .lake-container a {
+  font-weight: normal;
   color: var(--lake-link-color);
   text-decoration: none;
 }
+
 .lake-container a:hover {
   color: var(--lake-link-hover-color);
   text-decoration: underline;
 }
+
 .lake-drop-indication {
   position: absolute;
   height: 2px;
@@ -54,6 +65,7 @@
   pointer-events: none;
   display: none;
 }
+
 .lake-drop-indication svg {
   position: absolute;
   top: -7.5px;
@@ -63,6 +75,7 @@
   fill: #1677ff;
   pointer-events: none;
 }
+
 .lake-dark {
   color-scheme: dark;
 }
