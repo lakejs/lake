@@ -12,7 +12,7 @@ export {
 export default (editor: Editor) => {
   editor.setPluginConfig('image', {
     requestMethod: 'POST',
-    requestTypes: ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'],
+    requestTypes: ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/webp'],
   });
   if (editor.readonly) {
     return;
