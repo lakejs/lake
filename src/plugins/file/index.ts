@@ -17,6 +17,7 @@ export default (editor: Editor) => {
       'image/jpeg',
       'image/png',
       'image/svg+xml',
+      'image/webp',
       'text/plain',
       'text/html',
       'application/pdf',
