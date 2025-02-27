@@ -6,7 +6,7 @@
 
 ---
 
-Lake is a browser-based rich text editor built for modern applications that require content creation like blog posts, user comments, and email composition. It aims to provide as many features as possible through a simple structure while remaining free for commercial use.
+Lake is a rich text editor built for modern applications that require content creation like blog posts, user comments, and email composition. It aims to provide as many features as possible through a simple structure while remaining free for commercial use.
 
 [Examples](https://lakejs.org/examples/) · [Getting started](https://lakejs.org/guide/) · [Reference](https://lakejs.org/reference/)
 
