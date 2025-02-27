@@ -11,6 +11,8 @@
   --lake-error-color: #ff4d4f;
   /* selection */
   --lake-selection-background-color: #1ba2e333;
+  /* mark */
+  --lake-code-background-color: #8e96aa24;
   /* link */
   --lake-link-color: #1677ff;
   --lake-link-hover-color: #69b1ff;
@@ -48,6 +50,8 @@
   --lake-background-color: #1b1b1f;
   /* selection */
   --lake-selection-background-color: #184c9d;
+  /* mark */
+  --lake-code-background-color: #65758529;
   /* link */
   --lake-link-color: #4493f8;
   --lake-link-hover-color: #58a6ff;
