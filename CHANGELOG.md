@@ -1,3 +1,16 @@
+## [0.3.5](https://github.com/lakejs/lake/compare/0.3.4...0.3.5) (2025-02-27)
+
+
+### Features
+
+* support dark theme ([5dae284](https://github.com/lakejs/lake/commit/5dae284e9bb7ead4d8c05bf66f21386dd484f706))
+* **button:** set background from white to transparent ([26a97ca](https://github.com/lakejs/lake/commit/26a97ca346d820443c4635b882e240f5609b9e7a))
+* **code-block:** add colors option ([84745bb](https://github.com/lakejs/lake/commit/84745bb222818aec28942ed68c2c00cd8b0daf24))
+* **file:** add webp to requestTypes ([81f51d6](https://github.com/lakejs/lake/commit/81f51d602aa82f06ffa4a457186a43adf7a93b0a))
+* **image:** add webp to requestTypes ([23a2c9d](https://github.com/lakejs/lake/commit/23a2c9dc0f5bea9cf9617b1b142b9e873b05e982))
+
+
+
 ## [0.3.4](https://github.com/lakejs/lake/compare/0.3.3...0.3.4) (2025-02-13)
 
 
