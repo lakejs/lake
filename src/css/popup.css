@@ -6,14 +6,17 @@
   line-height: normal;
   color: var(--lake-text-color);
 }
+
 .lake-popup *,
 .lake-popup ::before,
 .lake-popup ::after {
   box-sizing: border-box;
 }
+
 .lake-popup .lake-text-button {
   box-shadow: var(--lake-button-shadow);
 }
+
 .lake-popup input[type="text"] {
   font-family: var(--lake-font-family);
   font-size: var(--lake-popup-font-size);
@@ -22,13 +25,16 @@
   border: 1px solid var(--lake-input-border-color);
   padding: 4px 10px;
 }
+
 .lake-popup input[type="text"]:hover {
   border: 1px solid var(--lake-input-border-hover-color);
 }
+
 .lake-popup input[type="text"]:focus-visible {
   outline: var(--lake-input-outline);
   outline-offset: -2px;
 }
+
 .lake-popup .lake-row {
   padding-bottom: 8px;
 }

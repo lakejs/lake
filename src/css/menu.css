@@ -17,6 +17,7 @@
   scrollbar-width: thin;
   user-select: none;
 }
+
 .lake-menu .lake-menu-item {
   display: flex;
   align-items: center;
@@ -26,6 +27,7 @@
   border-radius: 5px;
   scroll-margin: 4px 0;
 }
+
 .lake-menu .lake-menu-item-selected {
   background-color: var(--lake-button-background-active-color);
 }

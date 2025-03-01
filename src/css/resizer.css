@@ -2,6 +2,7 @@
   user-select: none;
   display: none;
 }
+
 .lake-resizer-top-left,
 .lake-resizer-top-right,
 .lake-resizer-bottom-left,
@@ -15,26 +16,31 @@
   border-radius: 6px;
   background-color: var(--lake-box-border-focus-color);
 }
+
 .lake-resizer-top-left {
   top: -5px;
   left: -5px;
   cursor: nwse-resize;
 }
+
 .lake-resizer-top-right {
   top: -5px;
   right: -5px;
   cursor: nesw-resize;
 }
+
 .lake-resizer-bottom-left {
   bottom: -5px;
   left: -5px;
   cursor: nesw-resize;
 }
+
 .lake-resizer-bottom-right {
   bottom: -5px;
   right: -5px;
   cursor: nwse-resize;
 }
+
 .lake-resizer-info {
   position: absolute;
   bottom: 8px;

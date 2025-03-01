@@ -11,27 +11,33 @@
   box-shadow: var(--lake-popup-shadow);
   display: none;
 }
+
 .lake-link-popup .lake-url-row {
   display: flex;
   align-items: center;
 }
+
 .lake-link-popup .lake-button-row {
   padding-top: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .lake-link-popup input[type="text"] {
   width: 220px;
   margin-right: 4px;
 }
+
 .lake-link-popup button[name="copy"] svg:first-child {
   display: inline;
 }
+
 .lake-link-popup button[name="copy"] svg:nth-child(2) {
   display: none;
   fill: var(--lake-success-color);
 }
+
 .lake-link-popup button[name="copy"] svg:last-child {
   display: none;
   fill: var(--lake-error-color);

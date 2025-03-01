@@ -5,6 +5,7 @@
   color: var(--lake-blockquote-text-color);
   border-left: var(--lake-blockquote-border);
 }
+
 .lake-container blockquote[type] {
   margin: 16px 0;
   padding: 16px 20px;
@@ -12,15 +13,19 @@
   border: 1px solid transparent;
   border-radius: 8px;
 }
+
 .lake-container blockquote[type="info"] {
   background-color: #8e96aa24;
 }
+
 .lake-container blockquote[type="tip"] {
   background-color: #646cff24;
 }
+
 .lake-container blockquote[type="warning"] {
   background-color: #eab30824;
 }
+
 .lake-container blockquote[type="danger"] {
   background-color: #f43f5e24;
 }

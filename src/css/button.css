@@ -12,13 +12,16 @@ button.lake-button {
   cursor: pointer;
   user-select: none;
 }
+
 button.lake-button:focus-visible {
   outline: var(--lake-button-outline);
 }
+
 button.lake-button[disabled] {
   opacity: 0.25;
   cursor: default;
 }
+
 button.lake-button svg,
 button.lake-button img {
   display: inline-block;
@@ -26,42 +29,52 @@ button.lake-button img {
   height: 16px;
   margin: 6px;
 }
+
 button.lake-button svg {
   fill: var(--lake-text-color);
 }
+
 button.lake-icon-button.lake-button-hovered {
   background-color: var(--lake-button-background-hover-color);
 }
+
 button.lake-icon-button.lake-button-selected {
   background-color: var(--lake-button-background-active-color);
 }
+
 button.lake-text-button {
   background-color: transparent;
   border: 1px solid var(--lake-button-border-color);
   padding: 8px 16px;
   line-height: normal;
 }
+
 button.lake-text-button.lake-button-hovered {
   background-color: var(--lake-button-background-hover-color);
 }
+
 button.lake-text-button.lake-button-selected {
   background-color: var(--lake-button-background-active-color);
 }
+
 button.lake-text-button svg {
   background-color: transparent;
   margin: 0 6px 0 0;
   vertical-align: middle;
 }
+
 button.lake-text-button span {
   display: inline-block;
   line-height: 16px;
   vertical-align: middle;
 }
+
 button.lake-primary-button {
   color: #fff;
   border-color: transparent;
   background-color: #5672cd;
 }
+
 button.lake-primary-button.lake-button-hovered {
   background-color: #3a5ccc;
 }

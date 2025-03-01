@@ -1,21 +1,25 @@
 .lake-mention-menu {
   max-height: 208px;
 }
+
 .lake-mention-menu .lake-mention-avatar {
   margin-inline-end: 8px;
   line-height: 0;
 }
+
 .lake-mention-menu .lake-mention-avatar img {
   border-radius: 100%;
   width: 32px;
   height: 32px;
 }
+
 .lake-mention-menu .lake-mention-nickname {
   margin-inline-end: 4px;
   font-weight: 500;
   color: var(--lake-text-color);
   white-space: nowrap;
 }
+
 .lake-mention-menu .lake-mention-name {
   color: #8c8c8c;
 }

@@ -4,21 +4,27 @@
   border: 1px solid transparent;
   border-radius: 4px;
 }
+
 .lake-container[contenteditable="true"] .lake-equation {
   user-select: none;
 }
+
 lake-box[name="equation"] .lake-box-strip {
   align-self: center;
 }
+
 lake-box[name="equation"] .lake-box-selected .lake-equation {
   background-color: var(--lake-selection-background-color);
 }
+
 lake-box[name="equation"] .lake-box-focused .lake-equation {
   background-color: var(--lake-selection-background-color);
 }
+
 .lake-equation .lake-equation-view {
   padding: 0 6px;
 }
+
 .lake-equation .lake-equation-form {
   position: absolute;
   top: 28px;
@@ -32,10 +38,12 @@ lake-box[name="equation"] .lake-box-focused .lake-equation {
   box-shadow: var(--lake-popup-shadow);
   display: none;
 }
+
 lake-box[name="equation"] .lake-box-focused .lake-equation-form,
 lake-box[name="equation"] .lake-box-activated .lake-equation-form {
   display: flex;
 }
+
 .lake-equation .lake-equation-form textarea {
   border: 0;
   background-color: var(--lake-popup-background-color);
@@ -49,15 +57,18 @@ lake-box[name="equation"] .lake-box-activated .lake-equation-form {
   resize: none;
   scrollbar-width: thin;
 }
+
 .lake-equation .lake-equation-form textarea:focus-visible {
   outline: 0;
 }
+
 .lake-equation .lake-equation-form .lake-button-row {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
 }
+
 /* error status */
 .lake-equation-error {
   padding: 0 6px;

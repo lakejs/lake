@@ -11,6 +11,7 @@
   display: flex;
   align-items: center;
 }
+
 .lake-floating-toolbar .lake-toolbar-divider {
   width: 1px;
   height: 20px;
