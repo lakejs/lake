@@ -90,6 +90,7 @@ describe('ui / toolbar', () => {
   it('undo: clicks button', () => {
     editor.command.execute('heading', 'h2');
     expect(editor.getValue()).to.equal('<h2><focus /><br /></h2>');
+    toolbar.updateState(editor.getState());
     const buttonNode = toolbar.container.find('button[name="undo"]');
     buttonNode.emit('mouseenter');
     expect(buttonNode.hasClass('lake-button-hovered')).to.equal(true);
@@ -104,7 +105,9 @@ describe('ui / toolbar', () => {
   it('redo: clicks button', () => {
     editor.command.execute('heading', 'h2');
     expect(editor.getValue()).to.equal('<h2><focus /><br /></h2>');
+    toolbar.updateState(editor.getState());
     click(toolbar.container.find('button[name="undo"]'));
+    toolbar.updateState(editor.getState());
     click(toolbar.container.find('button[name="redo"]'));
     const value = editor.getValue();
     debug(`output: ${value}`);

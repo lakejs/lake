@@ -329,37 +329,7 @@ export class Editor {
    * Triggers the statechange event when the current selection is changed.
    */
   private emitStateChangeEvent = debounce(() => {
-    const commandNames = this.command.getNames();
-    let activeItems = this.selection.getActiveItems();
-    if (activeItems.length > 0 && !this.container.contains(activeItems[0].node)) {
-      activeItems = [];
-    }
-    const disabledNameMap = new Map<string, boolean>();
-    const selectedNameMap = new Map<string, boolean>();
-    const selectedValuesMap = new Map<string, string[]>();
-    if (activeItems.length > 0) {
-      for (const name of commandNames) {
-        const commandItem = this.command.getItem(name);
-        if (commandItem.isDisabled && commandItem.isDisabled(activeItems)) {
-          disabledNameMap.set(name, true);
-        }
-        if (commandItem.isSelected && commandItem.isSelected(activeItems)) {
-          selectedNameMap.set(name, true);
-        }
-        if (commandItem.selectedValues) {
-          const values = commandItem.selectedValues(activeItems);
-          if (values.length > 0) {
-            selectedValuesMap.set(name, values);
-          }
-        }
-      }
-    }
-    const state: SelectionState = {
-      activeItems,
-      disabledNameMap,
-      selectedNameMap,
-      selectedValuesMap,
-    };
+    const state = this.getState();
     if (isEqual(state, this.state)) {
       return;
     }
@@ -681,6 +651,41 @@ export class Editor {
   }
 
   /**
+   * Returns the state of the current selection.
+   */
+  public getState(): SelectionState {
+    const commandNames = this.command.getNames();
+    let activeItems = this.selection.getActiveItems();
+    if (activeItems.length > 0 && !this.container.contains(activeItems[0].node)) {
+      activeItems = [];
+    }
+    const disabledNameMap = new Map<string, boolean>();
+    const selectedNameMap = new Map<string, boolean>();
+    const selectedValuesMap = new Map<string, string[]>();
+    for (const name of commandNames) {
+      const commandItem = this.command.getItem(name);
+      if (commandItem.isDisabled && commandItem.isDisabled(activeItems)) {
+        disabledNameMap.set(name, true);
+      }
+      if (commandItem.isSelected && commandItem.isSelected(activeItems)) {
+        selectedNameMap.set(name, true);
+      }
+      if (activeItems.length > 0 && commandItem.selectedValues) {
+        const values = commandItem.selectedValues(activeItems);
+        if (values.length > 0) {
+          selectedValuesMap.set(name, values);
+        }
+      }
+    }
+    return {
+      activeItems,
+      disabledNameMap,
+      selectedNameMap,
+      selectedValuesMap,
+    };
+  }
+
+  /**
    * Sets the specified content to the editor.
    */
   public setValue(value: string): void {
@@ -727,6 +732,8 @@ export class Editor {
     this.renderBoxes();
     if (this.toolbar) {
       this.toolbar.render(this);
+      const state = this.getState();
+      this.toolbar.updateState(state);
     }
     document.addEventListener('copy', this.copyListener);
     if (!this.readonly) {
