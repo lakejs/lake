@@ -217,7 +217,7 @@ export class Toolbar {
     for (const item of this.dropdownItemList) {
       let selectedValues = selectedValuesMap.get(item.name);
       if (selectedValues === undefined) {
-        selectedValues = item.selectedValues ? item.selectedValues(activeItems) : [];
+        selectedValues = item.selectedValues && activeItems.length > 0 ? item.selectedValues(activeItems) : [];
       }
       const dropdownNode = this.container.find(`div.lake-dropdown[name="${item.name}"]`);
       let isDisabled = disabledNameMap.get(item.name);
