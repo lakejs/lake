@@ -1,3 +1,12 @@
+## [0.3.6](https://github.com/lakejs/lake/compare/0.3.5...0.3.6) (2025-03-02)
+
+
+### Bug Fixes
+
+* **toolbar:** should update state when initiating editor ([a1adac5](https://github.com/lakejs/lake/commit/a1adac546c1db3fb60922ce9a0734221320d3038))
+
+
+
 ## [0.3.5](https://github.com/lakejs/lake/compare/0.3.4...0.3.5) (2025-02-27)
 
 
