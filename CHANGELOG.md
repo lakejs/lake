@@ -1,3 +1,12 @@
+## [0.3.7](https://github.com/lakejs/lake/compare/0.3.6...0.3.7) (2025-03-02)
+
+
+### Bug Fixes
+
+* **toolbar:** trigger selectedValues only when activeItems has items ([d0f6d4e](https://github.com/lakejs/lake/commit/d0f6d4e1c17876b061b41e3de1dc57c2b09140e1))
+
+
+
 ## [0.3.6](https://github.com/lakejs/lake/compare/0.3.5...0.3.6) (2025-03-02)
 
 
