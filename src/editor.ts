@@ -2,11 +2,13 @@ import debounce from 'debounce';
 import isEqual from 'fast-deep-equal/es6';
 import EventEmitter from 'eventemitter3';
 import { version } from '../package.json';
+import { ContentRules } from './types/content-rules';
 import { SelectionState } from './types/selection';
 import { UnmountPlugin } from './types/plugin';
 import { Locales, TranslationFunctions } from './i18n/types';
 import { getInstanceMap } from './storage/box-instances';
 import { editors } from './storage/editors';
+import { getContentRules } from './config/content-rules';
 import { denormalizeValue } from './utils/denormalize-value';
 import { normalizeValue } from './utils/normalize-value';
 import { query } from './utils/query';
@@ -34,6 +36,7 @@ interface Config {
   placeholder: string;
   indentWithTab: boolean;
   lang: string;
+  contentRules: ContentRules;
   minChangeSize: number;
   historySize: number;
   onMessage: OnMessage;
@@ -50,7 +53,9 @@ interface EditorConfig {
   placeholder?: string;
   indentWithTab?: boolean;
   lang?: string;
+  contentRules?: ContentRules;
   minChangeSize?: number;
+  historySize?: number;
   onMessage?: OnMessage;
   [name: string]: any;
 }
@@ -63,6 +68,7 @@ const defaultConfig: Config = {
   placeholder: '',
   indentWithTab: true,
   lang: 'en-US',
+  contentRules: getContentRules(),
   minChangeSize: 5,
   historySize: 100,
   onMessage: (type, message) => {
@@ -226,6 +232,7 @@ export class Editor {
     this.command = new Command(this.selection);
     this.history = new History(this.selection);
     this.history.limit = this.config.historySize;
+    this.history.contentRules = this.config.contentRules;
     this.keystroke = new Keystroke(this.container);
 
     editors.set(this.container.id, this);
@@ -690,7 +697,7 @@ export class Editor {
    */
   public setValue(value: string): void {
     value = normalizeValue(value);
-    const htmlParser = new HTMLParser(value);
+    const htmlParser = new HTMLParser(value, this.config.contentRules);
     const fragment = htmlParser.getFragment();
     this.container.empty();
     this.togglePlaceholderClass(htmlParser.getHTML());
@@ -704,7 +711,7 @@ export class Editor {
    */
   public getValue(): string {
     const item = this.history.cloneContainer();
-    let value = new HTMLParser(item).getHTML();
+    let value = new HTMLParser(item, this.config.contentRules).getHTML();
     value = denormalizeValue(value);
     return value;
   }
@@ -714,7 +721,7 @@ export class Editor {
    */
   public render(): void {
     const value = normalizeValue(this.config.value);
-    const htmlParser = new HTMLParser(value);
+    const htmlParser = new HTMLParser(value, this.config.contentRules);
     const fragment = htmlParser.getFragment();
     this.root.empty();
     this.root.append(this.containerWrapper);

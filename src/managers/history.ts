@@ -8,6 +8,7 @@ import { Nodes } from '../models/nodes';
 import { HTMLParser } from '../parsers/html-parser';
 import { insertBookmark } from '../operations/insert-bookmark';
 import { Selection } from './selection';
+import { getContentRules } from '@/config/content-rules';
 
 interface SaveOptions {
   inputType?: string;
@@ -55,6 +56,11 @@ export class History {
   public limit = 100;
 
   /**
+   * A ContentRules object defining HTML parsing rules used by HTMLParser.
+   */
+  public contentRules = getContentRules();
+
+  /**
    * An EventEmitter object used to set up events.
    */
   public readonly event: EventEmitter = new EventEmitter();
@@ -71,7 +77,7 @@ export class History {
   }
 
   private getValue(container: Nodes): string {
-    return new HTMLParser(container).getHTML();
+    return new HTMLParser(container, this.contentRules).getHTML();
   }
 
   private addIdToBoxes(node: Nodes): void {

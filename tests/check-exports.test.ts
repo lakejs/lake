@@ -29,6 +29,7 @@ import {
   removeMark,
   insertBox,
   removeBox,
+  getContentRules,
 } from '../src';
 
 describe('check exports', () => {
@@ -61,6 +62,7 @@ describe('check exports', () => {
     expect(typeof removeMark).to.equal('function');
     expect(typeof insertBox).to.equal('function');
     expect(typeof removeBox).to.equal('function');
+    expect(typeof getContentRules).to.equal('function');
   });
 
 });

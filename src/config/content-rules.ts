@@ -1,4 +1,6 @@
-const blockAttributeRules: any = {
+import { ContentRules, ContentAttribute } from '../types/content-rules';
+
+const blockAttributeRules: ContentAttribute = {
   id: /^[\w-]+$/,
   class: /^[\w\- ]+$/,
   style: {
@@ -8,7 +10,7 @@ const blockAttributeRules: any = {
   },
 };
 
-export function getElementRules(): any {
+export function getContentRules(): ContentRules {
   return {
     h1: {
       ...blockAttributeRules,

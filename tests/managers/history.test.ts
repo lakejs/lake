@@ -352,6 +352,23 @@ describe('managers / history', () => {
     expect(container.html()).to.equal('ab');
   });
 
+  it('should remove unallowed elements', () => {
+    const selection = new Selection(container);
+    const history = new History(selection);
+    history.contentRules = {
+      p: {},
+    };
+    let savedValue = '';
+    history.event.on('save', value => {
+      savedValue = value;
+    });
+    container.html('<h1>a</h1>');
+    history.save();
+    container.html('<h2>ab</h2>');
+    history.save();
+    expect(savedValue).to.equal('ab');
+  });
+
   it('should pause saving operation, and then restore', () => {
     const selection = new Selection(container);
     const history = new History(selection);
@@ -404,30 +421,30 @@ describe('managers / history', () => {
   it('should update the last item', () => {
     const selection = new Selection(container);
     const history = new History(selection);
-    let saveValue = '';
+    let savedValue = '';
     history.event.on('save', value => {
-      saveValue = value;
+      savedValue = value;
     });
     container.html('a');
     history.save();
     container.html('ab');
     history.save();
     expect(history.list.length).to.equal(2);
-    expect(saveValue).to.equal('ab');
+    expect(savedValue).to.equal('ab');
     container.html('abc');
     history.save({
       update: true,
     });
     expect(history.list.length).to.equal(2);
-    expect(saveValue).to.equal('abc');
+    expect(savedValue).to.equal('abc');
   });
 
   it('should trigger events', () => {
     const selection = new Selection(container);
     const history = new History(selection);
-    let saveValue = '';
+    let savedValue = '';
     history.event.on('save', value => {
-      saveValue = value;
+      savedValue = value;
     });
     let undoValue = '';
     history.event.on('undo', value => {
@@ -443,7 +460,7 @@ describe('managers / history', () => {
     history.save();
     container.html('abc');
     history.save();
-    expect(saveValue).to.equal('abc');
+    expect(savedValue).to.equal('abc');
     history.undo();
     expect(undoValue).to.equal('ab');
     history.redo();
@@ -453,15 +470,15 @@ describe('managers / history', () => {
   it('should not trigger save event', () => {
     const selection = new Selection(container);
     const history = new History(selection);
-    let saveValue = '';
+    let savedValue = '';
     history.event.on('save', value => {
-      saveValue = value;
+      savedValue = value;
     });
     container.html('a');
     history.save({
       emitEvent: false,
     });
-    expect(saveValue).to.equal('');
+    expect(savedValue).to.equal('');
   });
 
   it('can undo when the index is 0', () => {

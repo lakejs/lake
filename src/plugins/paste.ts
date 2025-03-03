@@ -1,6 +1,6 @@
 import type { Editor } from '@/editor';
+import { ContentRules } from '@/types/content-rules';
 import { blockTagNames } from '@/config/tag-names';
-import { getElementRules } from '@/config/element-rules';
 import { wrapNodeList } from '@/utils/wrap-node-list';
 import { changeTagName } from '@/utils/change-tag-name';
 import { fixNumberedList } from '@/utils/fix-numbered-list';
@@ -15,13 +15,14 @@ import { TextParser } from '@/parsers/text-parser';
 
 const blockSelector = Array.from(blockTagNames).join(',');
 
-function getPasteElementRules(): any {
-  const rules = getElementRules();
+function changeContentRules(rules: ContentRules): ContentRules {
   rules.div = rules.p;
   for (const key of Object.keys(rules)) {
     const attributeRules = rules[key];
-    delete attributeRules.id;
-    delete attributeRules.class;
+    if (typeof attributeRules !== 'string') {
+      delete attributeRules.id;
+      delete attributeRules.class;
+    }
   }
   return rules;
 }
@@ -215,7 +216,7 @@ export default (editor: Editor) => {
       return;
     }
     const content = normalizeValue(dataTransfer.getData('text/html'));
-    const rules = getPasteElementRules();
+    const rules = changeContentRules(editor.config.contentRules);
     const htmlParser = new HTMLParser(content, rules);
     const fragment = htmlParser.getFragment();
     editor.event.emit('beforepaste', fragment);

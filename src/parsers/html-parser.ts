@@ -1,4 +1,5 @@
-import { getElementRules } from '../config/element-rules';
+import { ContentRules, ContentAttribute, ContentAttributeValue, ContentStyle } from '../types/content-rules';
+import { getContentRules } from '../config/content-rules';
 import { parseStyle } from '../utils/parse-style';
 import { encode } from '../utils/encode';
 import { Nodes } from '../models/nodes';
@@ -8,11 +9,11 @@ import { Nodes } from '../models/nodes';
  */
 export class HTMLParser {
 
-  private readonly rules: any;
+  private readonly rules: ContentRules;
 
   private readonly source: Nodes;
 
-  constructor(content: string | Nodes, rules = getElementRules()) {
+  constructor(content: string | Nodes, rules = getContentRules()) {
     this.rules = rules;
     if (typeof content === 'string') {
       this.source = this.parseHTML(content);
@@ -33,7 +34,7 @@ export class HTMLParser {
   /**
    * Returns a boolean value indicating whether the given value matches the given rule.
    */
-  private static matchRule(rule: any, value: string): boolean {
+  private static matchRule(rule: ContentAttributeValue, value: string): boolean {
     if (typeof rule === 'string') {
       return rule === value;
     }
@@ -49,7 +50,7 @@ export class HTMLParser {
   /**
    * Returns an open tag string from the specified element.
    */
-  private static getOpenTagString(element: Nodes, rules: any): string {
+  private static getOpenTagString(element: Nodes, rules: ContentRules): string {
     let tagName = element.name;
     let attributeRules = rules[tagName];
     if (!attributeRules) {
@@ -57,7 +58,7 @@ export class HTMLParser {
     }
     if (typeof attributeRules === 'string') {
       tagName = attributeRules;
-      attributeRules = rules[tagName];
+      attributeRules = rules[tagName] as ContentAttribute;
     }
     const nativeNode = element.get(0) as Element;
     if (!nativeNode.hasAttributes()) {
@@ -70,7 +71,7 @@ export class HTMLParser {
           attributeMap.set(attr.name, attr.value);
         }
         if (attr.name === 'style') {
-          const styleRules = attributeRules.style;
+          const styleRules = attributeRules.style as ContentStyle;
           const styleMap = new Map<string, string>();
           const styleData = parseStyle(attr.value);
           for (const key of Object.keys(styleData)) {
@@ -103,7 +104,7 @@ export class HTMLParser {
   /**
    * Returns a closed tag string from the specified element.
    */
-  private static getClosedTagString(element: Nodes, rules: any): string {
+  private static getClosedTagString(element: Nodes, rules: ContentRules): string {
     let tagName = element.name;
     const attributeRules = rules[tagName];
     if (!attributeRules) {

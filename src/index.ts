@@ -2,6 +2,7 @@ import './css';
 import './elements/box';
 import './elements/bookmark';
 import { KeyValue } from './types/object';
+import { ContentRules } from './types/content-rules';
 import { NodePath } from './types/node';
 import { BoxValue, BoxComponent } from './types/box';
 import { ActiveItem, SelectionState } from './types/selection';
@@ -12,6 +13,7 @@ import { ToolbarButtonItem, ToolbarDropdownItem, ToolbarUploadItem, ToolbarItem 
 import { MentionItem } from './plugins/mention/types';
 import { SlashButtonItem, SlashUploadItem, SlashItem } from './plugins/slash/types';
 import { icons } from './icons';
+import { getContentRules } from './config/content-rules';
 import { query } from './utils/query';
 import { template } from './utils/template';
 import { toHex } from './utils/to-hex';
@@ -144,6 +146,7 @@ export {
   icons,
   // types
   KeyValue,
+  ContentRules,
   NodePath,
   BoxValue,
   BoxComponent,
@@ -190,4 +193,5 @@ export {
   removeMark,
   insertBox,
   removeBox,
+  getContentRules,
 };

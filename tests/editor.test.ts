@@ -179,6 +179,27 @@ describe('editor', () => {
     editor.unmount();
   });
 
+  it('config: should remove unallowed elements or attributes', () => {
+    const editor = new Editor({
+      root: rootNode,
+      contentRules: {
+        h1: {},
+        p: {
+          style: {
+            'text-align': ['center'],
+          },
+        },
+        'lake-foo': {},
+      },
+      value: '<h1 style="text-align: center;">foo</h1><p style="text-align: center;">bar</p><p><lake-foo>1</lake-foo><lake-bar>2</lake-bar></p>',
+    });
+    editor.render();
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal('<h1>foo</h1><p style="text-align: center;">bar</p><p><lake-foo>1</lake-foo>2</p>');
+  });
+
   it('config: minChangeSize is false', () => {
     const editor = new Editor({
       root: rootNode,
