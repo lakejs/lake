@@ -46,7 +46,7 @@ export class History {
   public readonly list: Nodes[] = [];
 
   /**
-   * An index that always indicates the position at which new content is stored.
+   * A number that always indicates the position at which new content is stored.
    */
   public index = 0;
 
@@ -56,7 +56,7 @@ export class History {
   public limit = 100;
 
   /**
-   * A ContentRules object defining HTML parsing rules used by HTMLParser.
+   * A ContentRules object defining the HTML parsing rules used by HTMLParser.
    */
   public contentRules = getContentRules();
 
