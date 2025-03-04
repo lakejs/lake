@@ -43,21 +43,9 @@ interface Config {
   [name: string]: any;
 }
 
-interface EditorConfig {
+interface EditorConfig extends Partial<Config> {
   root: string | Node | Nodes;
   toolbar?: Toolbar;
-  value?: string;
-  readonly?: boolean;
-  spellcheck?: boolean;
-  tabIndex?: number;
-  placeholder?: string;
-  indentWithTab?: boolean;
-  lang?: string;
-  contentRules?: ContentRules;
-  minChangeSize?: number;
-  historySize?: number;
-  onMessage?: OnMessage;
-  [name: string]: any;
 }
 
 const defaultConfig: Config = {
