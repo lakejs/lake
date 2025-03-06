@@ -1,3 +1,12 @@
+## [0.3.8](https://github.com/lakejs/lake/compare/0.3.7...0.3.8) (2025-03-06)
+
+
+### Features
+
+* **editor:** add contentRules to config ([20cf741](https://github.com/lakejs/lake/commit/20cf741fc555b8b95a2103d6f422f0ea2ff7b363))
+
+
+
 ## [0.3.7](https://github.com/lakejs/lake/compare/0.3.6...0.3.7) (2025-03-02)
 
 
