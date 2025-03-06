@@ -151,7 +151,7 @@ export class HTMLParser {
    */
   public getHTML(): string {
     const rules = this.rules;
-    function * iterate(node: Nodes): Generator<string> {
+    function* iterate(node: Nodes): Generator<string> {
       let child = node.first();
       while (child.length > 0) {
         const nextNode = child.next();
@@ -169,7 +169,7 @@ export class HTMLParser {
             yield `<${openTag}>`;
           }
           if (!child.isBox) {
-            yield * iterate(child);
+            yield* iterate(child);
           }
           if (closedTag !== '') {
             yield `</${closedTag}>`;

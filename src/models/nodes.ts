@@ -547,8 +547,8 @@ export class Nodes {
   /**
    * Returns a generator that iterates over the descendants of the first node.
    */
-  public * getWalker(): Generator<Nodes> {
-    function * iterate(node: Nodes): Generator<Nodes> {
+  public* getWalker(): Generator<Nodes> {
+    function* iterate(node: Nodes): Generator<Nodes> {
       if (node.isBox) {
         return;
       }
@@ -556,7 +556,7 @@ export class Nodes {
       while (child.length > 0) {
         const nextNode = child.next();
         yield child;
-        yield * iterate(child);
+        yield* iterate(child);
         child = nextNode;
       }
     }
