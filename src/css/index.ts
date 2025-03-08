@@ -1,4 +1,4 @@
-import './custom-properties.css';
+import './variables.css';
 import './keyframes.css';
 import './core.css';
 import './mark.css';
