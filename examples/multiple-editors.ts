@@ -1,4 +1,4 @@
-import './miniature-editor.css';
+import './multiple-editors.css';
 import { Editor, Toolbar, ToolbarItem, query, toHex, icons } from 'lakelib';
 
 const colors: string[] = [

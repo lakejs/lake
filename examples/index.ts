@@ -9,7 +9,7 @@ import './reset.css';
 import defaultEditor from './default-editor';
 import fullEditor from './full-editor';
 import documentEditor from './document-editor';
-import miniatureEditor from './miniature-editor';
+import multipleEditors from './multiple-editors';
 import headlessEditor from './headless-editor';
 import readonlyEditor from './readonly-editor';
 import helloWorld, { helloWorldBox } from './plugins/hello-world';
@@ -34,7 +34,7 @@ window.Editor = Editor;
 const menuItems = [
   {
     url: './',
-    text: 'Default configuration',
+    text: 'Default editor',
     editorValue: window.defaultValue,
     editor: defaultEditor,
   },
@@ -51,10 +51,10 @@ const menuItems = [
     editor: documentEditor,
   },
   {
-    url: './miniature',
-    text: 'Miniature toolbar',
-    editorValue: '<p>This example shows you how to use Lake for comment box.</p>',
-    editor: miniatureEditor,
+    url: './multiple',
+    text: 'Multiple editors',
+    editorValue: '<p><br /></p>',
+    editor: multipleEditors,
   },
   {
     url: './headless',
