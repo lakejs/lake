@@ -18,6 +18,9 @@ function appendButtonGroup(box: Box): void {
   const editor = box.getEditor();
   const boxContainer = box.getContainer();
   const rootNode = boxContainer.find('.lake-video');
+  if (rootNode.find('.lake-corner-toolbar').length > 0) {
+    return;
+  }
   new CornerToolbar({
     locale: editor.locale,
     root: rootNode,
@@ -64,22 +67,6 @@ function showVideo(box: Box): void {
   if (!editor.readonly) {
     iframeNode.on('load', () => {
       appendButtonGroup(box);
-      new CornerToolbar({
-        locale: editor.locale,
-        root: rootNode,
-        items: [
-          {
-            name: 'remove',
-            icon: icons.get('remove'),
-            tooltip: editor.locale.video.remove(),
-            onClick: event => {
-              event.stopPropagation();
-              editor.selection.removeBox(box);
-              editor.history.save();
-            },
-          },
-        ],
-      }).render();
       new Resizer({
         root: rootNode,
         target: boxContainer,
@@ -98,7 +85,7 @@ function showVideo(box: Box): void {
       }).render();
     });
   }
-  rootNode.append(iframeNode);
+  rootNode.prepend(iframeNode);
 }
 
 export default {
