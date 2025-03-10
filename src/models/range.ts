@@ -46,7 +46,7 @@ export class Range {
   }
 
   /**
-   * The deepest — or furthest down the document tree — node that contains both boundary points of the range.
+   * The deepest node, or the lowest point in the document tree, that contains both boundary points of the range.
    */
   public get commonAncestor(): Nodes {
     return new Nodes(this.range.commonAncestorContainer);
