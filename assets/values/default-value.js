@@ -123,7 +123,7 @@ window.defaultValue = `
 </p>
 <p><br /></p>
 
-<h3>Alert</h3>
+<h3>Alerts</h3>
 <lake-box type="block" name="hr"></lake-box>
 <p>Start a line with <code>:::info</code>, <code>:::tip</code>, <code>:::warning</code>, or <code>:::danger</code> followed by an enter to create an alert.</p>
 <blockquote type="info">Useful information that users should know, even when skimming content.</blockquote>
