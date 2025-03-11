@@ -506,9 +506,9 @@ export class Editor {
   }
 
   /**
-   * Binds events for pointerdown.
+   * Binds events for pointer.
    */
-  private bindPointerdownEvents(): void {
+  private bindPointerEvents(): void {
     this.container.on('pointerdown', event => {
       const pointerEvent = event as PointerEvent;
       if (pointerEvent.target !== null && pointerEvent.target !== this.container.get(0)) {
@@ -761,7 +761,7 @@ export class Editor {
       document.addEventListener('click', this.clickListener);
       this.bindInputEvents();
       this.bindHistoryEvents();
-      this.bindPointerdownEvents();
+      this.bindPointerEvents();
     }
   }
 
