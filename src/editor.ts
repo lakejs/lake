@@ -506,6 +506,29 @@ export class Editor {
   }
 
   /**
+   * Binds events for pointerdown.
+   */
+  private bindPointerdownEvents(): void {
+    this.container.on('pointerdown', event => {
+      const pointerEvent = event as PointerEvent;
+      if (pointerEvent.target !== null && pointerEvent.target !== this.container.get(0)) {
+        return;
+      }
+      const lastChild = this.container.last();
+      if (lastChild.isTable || lastChild.isBlockBox) {
+        const lastChildRect = (lastChild.get(0) as Element).getBoundingClientRect();
+        if (pointerEvent.clientY > lastChildRect.bottom) {
+          pointerEvent.preventDefault();
+          const paragraph = query('<p><br /></p>');
+          lastChild.after(paragraph);
+          this.selection.range.shrinkBefore(paragraph);
+          this.selection.sync();
+        }
+      }
+    });
+  }
+
+  /**
    * Returns translation functions for the specified language.
    */
   public get locale(): TranslationFunctions {
@@ -738,6 +761,7 @@ export class Editor {
       document.addEventListener('click', this.clickListener);
       this.bindInputEvents();
       this.bindHistoryEvents();
+      this.bindPointerdownEvents();
     }
   }
 

@@ -1317,7 +1317,6 @@ Chapter III.</h4>
 
 <p>John Ferrier uttered these consoling remarks in a very confident tone, but she could not help observing that he paid unusual care to the fastening of the doors that night, and that he carefully cleaned and loaded the rusty old shotgun which hung upon the wall of his bedroom.</p>
 
-<hr/>
 <div>
 <sup>
 1</sup>Heber C Kemball, in one of his sermons, alludes to his hundred wives under this endearing epithet.</div>
@@ -1702,7 +1701,6 @@ Chapter VII.</h4>
 Ipse domi simul ac nummos contemplar in arca.’”</span>
 </p>
 
-<hr />
 
 <h1>The Sign of the Four</h1>
 <h2>Arthur Conan Doyle</h2>
@@ -3321,8 +3319,6 @@ Denn zum würdigen Mann war und zum Schelmen der Stoff.</span>
 <p>“The division seems rather unfair,” I remarked. “You have done all the work in this business. I get a wife out of it, Jones gets the credit, pray what remains for you?”</p>
 
 <p>“For me,” said Sherlock Holmes, “there still remains the cocaine-bottle.” And he stretched his long white hand up for it.</p>
-
-<hr />
 
 
 `;

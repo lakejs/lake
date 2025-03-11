@@ -740,6 +740,78 @@ describe('editor', () => {
     editor.unmount();
   });
 
+  it('pointerdown event: should add an empty paragraph at the end (1)', () => {
+    const output = '<p>foo</p><table><tr><td>foo</td></tr></table><p><focus /><br /></p>';
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p>foo<focus /></p><table><tr><td>foo</td></tr></table>',
+    });
+    editor.render();
+    const pointerdownEvent = new PointerEvent('pointerdown', {
+      clientX: 0,
+      clientY: (editor.container.get(0) as Element).getBoundingClientRect().bottom,
+    });
+    editor.container.emit('pointerdown', pointerdownEvent);
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+  });
+
+  it('pointerdown event: should add an empty paragraph at the end (2)', () => {
+    const output = '<p>foo</p><lake-box type="block" name="hr"></lake-box><p><focus /><br /></p>';
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p>foo<focus /></p><lake-box type="block" name="hr"></lake-box>',
+    });
+    editor.render();
+    const pointerdownEvent = new PointerEvent('pointerdown', {
+      clientX: 0,
+      clientY: (editor.container.get(0) as Element).getBoundingClientRect().bottom,
+    });
+    editor.container.emit('pointerdown', pointerdownEvent);
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+  });
+
+  it('pointerdown event: should not add an empty paragraph at the end (1)', () => {
+    const output = '<p>foo<focus /></p><lake-box type="block" name="hr"></lake-box>';
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p>foo<focus /></p><lake-box type="block" name="hr"></lake-box>',
+    });
+    editor.render();
+    const pointerdownEvent = new PointerEvent('pointerdown', {
+      clientX: 0,
+      clientY: 0,
+    });
+    editor.container.emit('pointerdown', pointerdownEvent);
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+  });
+
+  it('pointerdown event: should not add an empty paragraph at the end (2)', () => {
+    const output = '<p>foo<focus /></p>';
+    const editor = new Editor({
+      root: rootNode,
+      value: '<p>foo<focus /></p>',
+    });
+    editor.render();
+    const pointerdownEvent = new PointerEvent('pointerdown', {
+      clientX: 0,
+      clientY: (editor.container.get(0) as Element).getBoundingClientRect().bottom,
+    });
+    editor.container.emit('pointerdown', pointerdownEvent);
+    const value = editor.getValue();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+  });
+
   it('statechange event', done => {
     const editor = new Editor({
       root: rootNode,
