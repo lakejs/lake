@@ -1,3 +1,14 @@
+## [0.3.9](https://github.com/lakejs/lake/compare/0.3.8...0.3.9) (2025-03-12)
+
+
+### Bug Fixes
+
+* **editor:** cannot focus on the end if the last child is a table or block box ([088167b](https://github.com/lakejs/lake/commit/088167b7f1ffa5e5b56326b61c9a9e5b73ee9cab))
+* **list:** margin-bottom is inconsistent with other blocks ([01e4069](https://github.com/lakejs/lake/commit/01e406949969c98c8b3a53313e75f18ca1fac8b3))
+* **video:** add multiple corner toolbars ([6fc32f6](https://github.com/lakejs/lake/commit/6fc32f6f66105756c074c6261f42997019a46630))
+
+
+
 ## [0.3.8](https://github.com/lakejs/lake/compare/0.3.7...0.3.8) (2025-03-06)
 
 
