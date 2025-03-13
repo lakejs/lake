@@ -259,6 +259,7 @@ const toolbarItems = [
   specialCharacter,
   'codeBlock',
   'equation',
+  'twitter',
   'blockQuote',
   'paragraph',
   'hr',
@@ -291,6 +292,7 @@ const slashItems: (string | SlashItem)[] = [
   'codeBlock',
   'video',
   'equation',
+  'twitter',
 ];
 
 const mentionItems: MentionItem[] = [

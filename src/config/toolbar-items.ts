@@ -284,6 +284,15 @@ export const toolbarItems: ToolbarItem[] = [
     },
   },
   {
+    name: 'twitter',
+    type: 'button',
+    icon: icons.get('twitter'),
+    tooltip: locale => locale.toolbar.twitter(),
+    onClick: (editor, value) => {
+      editor.command.execute(value);
+    },
+  },
+  {
     name: 'heading',
     type: 'dropdown',
     downIcon: icons.get('down'),

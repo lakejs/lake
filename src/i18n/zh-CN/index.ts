@@ -50,6 +50,7 @@ export default {
     file: '文件',
     emoji: '表情',
     equation: '数学公式',
+    twitter: 'X (Twitter)',
     removeColor: '默认',
   },
   slash: {
@@ -93,6 +94,8 @@ export default {
     videoDesc: '插入 YouTube 视频',
     equation: '数学公式',
     equationDesc: '支持 TeX 语法',
+    twitter: 'Tweet',
+    twitterDesc: 'Insert a post from X (Twitter)',
     image: '图片',
     imageDesc: '上传图片',
     file: '文件',
@@ -167,5 +170,12 @@ export default {
     save: '确定',
     help: '支持的功能',
     placeholder: '请输入 TeX 表达式',
+  },
+  twitter: {
+    embed: '嵌入 Tweet',
+    remove: '删除',
+    description: '在下面的输入框里，粘贴 X 链接。',
+    url: '链接',
+    urlError: '请输入有效的链接。',
   },
 } satisfies Translation;

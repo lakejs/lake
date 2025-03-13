@@ -12,6 +12,8 @@ const embedUrl = 'https://www.youtube.com/embed/5sMBhDv4sik';
 const iframeBox = createIframeBox({
   type: 'inline',
   name: 'iframeBox',
+  width: 560,
+  height: 315,
   formDescription: 'Paste a link to embed a video from YouTube.',
   formLabel: 'URL',
   formPlaceholder: 'https://www.youtube.com/watch?v=...',
@@ -21,6 +23,11 @@ const iframeBox = createIframeBox({
   urlError: 'Invalid YouTube link',
   iframeAttributes: () => ({
     src: embedUrl,
+    title: 'YouTube video player',
+    frameborder: '0',
+    allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
+    referrerpolicy: 'strict-origin-when-cross-origin',
+    allowfullscreen: 'true',
   }),
   resize: true,
 });

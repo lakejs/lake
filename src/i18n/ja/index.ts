@@ -50,6 +50,7 @@ export default {
     file: 'ファイル',
     emoji: '絵文字',
     equation: '数式',
+    twitter: 'X (Twitter)',
     removeColor: 'デフォルト',
   },
   slash: {
@@ -93,6 +94,8 @@ export default {
     videoDesc: 'YouTube から動画を挿入',
     equation: '数式',
     equationDesc: 'TeX 数式を挿入',
+    twitter: 'Tweet',
+    twitterDesc: 'Insert a post from X (Twitter)',
     image: '画像',
     imageDesc: '画像をアップロード',
     file: 'ファイル',
@@ -167,5 +170,12 @@ export default {
     save: '保存',
     help: 'サポートされている機能',
     placeholder: 'TeX 数式を入力してください',
+  },
+  twitter: {
+    embed: 'Tweet を埋め込む',
+    remove: '削除',
+    description: '下の入力欄に X リンクを貼り付けてください。',
+    url: 'リンク',
+    urlError: '有効なリンクを入力してください。',
   },
 } satisfies Translation;

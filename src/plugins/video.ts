@@ -2,23 +2,30 @@ import { BoxValue } from '@/types/box';
 import { createIframeBox } from '@/utils/create-iframe-box';
 import { Editor } from '@/editor';
 
-function getVideoId(url: string): string {
-  const result = /\w+$/.exec(url || '');
+function getId(url: string): string {
+  const result = /[\w\-]+$/.exec(url || '');
   return result ? result[0] : '';
 }
 
 const videoBox = createIframeBox({
   type: 'inline',
   name: 'video',
+  width: 560,
+  height: 315,
   formDescription: locale => locale.video.description(),
   formLabel: locale => locale.video.url(),
   formPlaceholder: 'https://www.youtube.com/watch?v=...',
   formButtonText: locale => locale.video.embed(),
   deleteButtonText: locale => locale.video.remove(),
-  validUrl: url => url.indexOf('https://www.youtube.com/') === 0 && getVideoId(url) !== '',
+  validUrl: url => url.indexOf('https://www.youtube.com/') === 0 && getId(url) !== '',
   urlError: locale => locale.video.urlError(),
   iframeAttributes: url => ({
-    src: `https://www.youtube.com/embed/${getVideoId(url)}`,
+    src: `https://www.youtube.com/embed/${getId(url)}`,
+    title: 'YouTube video player',
+    frameborder: '0',
+    allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
+    referrerpolicy: 'strict-origin-when-cross-origin',
+    allowfullscreen: 'true',
   }),
   resize: true,
 });

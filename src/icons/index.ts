@@ -81,6 +81,7 @@ import attachment from './attachment.svg';
 import emoji from './emoji.svg';
 import specialCharacter from './special-character.svg';
 import equation from './equation.svg';
+import twitter from './twitter.svg';
 import table from './table.svg';
 // link
 import unlink from './unlink.svg';
@@ -170,6 +171,7 @@ export const icons = new Map<string, string>([
   ['emoji', emoji],
   ['specialCharacter', specialCharacter],
   ['equation', equation],
+  ['twitter', twitter],
   ['table', table],
   // link
   ['unlink', unlink],

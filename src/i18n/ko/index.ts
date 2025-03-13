@@ -50,6 +50,7 @@ export default {
     file: '파일',
     emoji: '이모지',
     equation: '수학 공식',
+    twitter: 'X (Twitter)',
     removeColor: '기본 색상',
   },
   slash: {
@@ -93,6 +94,8 @@ export default {
     videoDesc: '유튜브 동영상을 삽입',
     equation: '수학 공식',
     equationDesc: 'TeX 수식을 삽입',
+    twitter: 'Tweet',
+    twitterDesc: 'Insert a post from X (Twitter)',
     image: '이미지',
     imageDesc: '이미지를 업로드',
     file: '파일',
@@ -167,5 +170,12 @@ export default {
     save: '저장',
     help: '지원되는 기능',
     placeholder: 'TeX 수식을 입력하세요',
+  },
+  twitter: {
+    embed: 'Tweet 삽입',
+    remove: '삭제',
+    description: '아래 입력란에 X 링크를 붙여넣으세요.',
+    url: '링크',
+    urlError: '유효한 링크를 입력하세요.',
   },
 } satisfies Translation;

@@ -203,6 +203,16 @@ export const slashItems: SlashItem[] = [
     },
   },
   {
+    name: 'twitter',
+    type: 'button',
+    icon: icons.get('twitter'),
+    title: locale => locale.slash.twitter(),
+    description: locale => locale.slash.twitterDesc(),
+    onClick: (editor, value) => {
+      editor.command.execute(value);
+    },
+  },
+  {
     name: 'image',
     type: 'upload',
     icon: icons.get('image'),

@@ -4,6 +4,7 @@ import { BoxComponent, BoxType } from '../types/box';
 import { icons } from '../icons';
 import { query } from '../utils/query';
 import { template } from '../utils/template';
+import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { Button } from '../ui/button';
 import { CornerToolbar } from '../ui/corner-toolbar';
@@ -12,6 +13,8 @@ import { Resizer } from '../ui/resizer';
 interface CreateIframeBoxConfig {
   type: BoxType;
   name: string;
+  width: number;
+  height?: number;
   formDescription: string | ((locale: TranslationFunctions) => string);
   formLabel: string | ((locale: TranslationFunctions) => string);
   formPlaceholder: string;
@@ -20,7 +23,8 @@ interface CreateIframeBoxConfig {
   validUrl: (url: string) => boolean;
   urlError: string | ((locale: TranslationFunctions) => string);
   iframeAttributes: (url: string) => Record<string, string>;
-  resize: boolean;
+  beforeIframeLoad?: (iframeNode: Nodes) => void;
+  resize?: boolean;
 }
 
 function getLocaleString(locale: TranslationFunctions, value: string | ((locale: TranslationFunctions) => string)): string {
@@ -56,26 +60,35 @@ function showIframe(config: CreateIframeBoxConfig, box: Box): void {
   const editor = box.getEditor();
   const boxContainer = box.getContainer();
   const value = box.value;
-  const width = value.width || 560;
-  const height = value.height || 315;
-  boxContainer.css({
-    width: `${width}px`,
-    height: `${height}px`,
-  });
-  const iframeNode = query(template`
-    <iframe width="100%" height="${height}" frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-  `);
+  const width = value.width || config.width;
+  const height = value.height || config.height;
+  if (config.resize === true) {
+    boxContainer.css({
+      width: `${width}px`,
+      height: `${height}px`,
+    });
+  }
+  const iframeNode = query('<iframe></iframe>');
+  if (config.resize === true) {
+    iframeNode.attr('width', '100%');
+  } else {
+    iframeNode.attr('width', width.toString());
+  }
+  if (height) {
+    iframeNode.attr('height', height.toString());
+  }
   const iframeAttributes = config.iframeAttributes(value.url);
   for (const key of Object.keys(iframeAttributes)) {
     iframeNode.attr(key, iframeAttributes[key]);
+  }
+  if (config.beforeIframeLoad) {
+    config.beforeIframeLoad(iframeNode);
   }
   const rootNode = boxContainer.find('.lake-iframe');
   if (!editor.readonly) {
     iframeNode.on('load', () => {
       appendCornerToolbar(config, box);
-      if (config.resize) {
+      if (config.resize === true) {
         new Resizer({
           root: rootNode,
           target: boxContainer,

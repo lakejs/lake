@@ -50,6 +50,7 @@ export default {
     file: 'File',
     emoji: 'Emoji',
     equation: 'Mathematical formula',
+    twitter: 'X (Twitter)',
     removeColor: 'Remove color',
   },
   slash: {
@@ -93,6 +94,8 @@ export default {
     videoDesc: 'Insert a video from YouTube',
     equation: 'Mathematical formula',
     equationDesc: 'Insert a TeX expression',
+    twitter: 'Tweet',
+    twitterDesc: 'Insert a post from X (Twitter)',
     image: 'Image',
     imageDesc: 'Upload an image',
     file: 'File',
@@ -167,5 +170,12 @@ export default {
     save: 'Done',
     help: 'Supported functions',
     placeholder: 'Type a TeX expression...',
+  },
+  twitter: {
+    embed: 'Embed Tweet',
+    remove: 'Delete',
+    description: 'Paste a link to embed a post from X.',
+    url: 'Link',
+    urlError: 'Please enter a valid link.',
   },
 } satisfies BaseTranslation;

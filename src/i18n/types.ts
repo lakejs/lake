@@ -206,6 +206,10 @@ type RootTranslation = {
 		 */
 		equation: string
 		/**
+		 * X​ ​(​T​w​i​t​t​e​r​)
+		 */
+		twitter: string
+		/**
 		 * R​e​m​o​v​e​ ​c​o​l​o​r
 		 */
 		removeColor: string
@@ -371,6 +375,14 @@ type RootTranslation = {
 		 * I​n​s​e​r​t​ ​a​ ​T​e​X​ ​e​x​p​r​e​s​s​i​o​n
 		 */
 		equationDesc: string
+		/**
+		 * T​w​i​t​t​e​r
+		 */
+		twitter: string
+		/**
+		 * I​n​s​e​r​t​ ​a​ ​p​o​s​t​ ​f​r​o​m​ ​X​ ​(​T​w​i​t​t​e​r​)
+		 */
+		twitterDesc: string
 		/**
 		 * I​m​a​g​e
 		 */
@@ -627,6 +639,28 @@ type RootTranslation = {
 		 */
 		placeholder: string
 	}
+	twitter: {
+		/**
+		 * E​m​b​e​d​ ​T​w​e​e​t
+		 */
+		embed: string
+		/**
+		 * D​e​l​e​t​e
+		 */
+		remove: string
+		/**
+		 * P​a​s​t​e​ ​a​ ​l​i​n​k​ ​t​o​ ​e​m​b​e​d​ ​a​ ​p​o​s​t​ ​f​r​o​m​ ​X​.
+		 */
+		description: string
+		/**
+		 * L​i​n​k
+		 */
+		url: string
+		/**
+		 * P​l​e​a​s​e​ ​e​n​t​e​r​ ​a​ ​v​a​l​i​d​ ​l​i​n​k​.
+		 */
+		urlError: string
+	}
 }
 
 export type TranslationFunctions = {
@@ -820,6 +854,10 @@ export type TranslationFunctions = {
 		 */
 		equation: () => LocalizedString
 		/**
+		 * X (Twitter)
+		 */
+		twitter: () => LocalizedString
+		/**
 		 * Remove color
 		 */
 		removeColor: () => LocalizedString
@@ -985,6 +1023,14 @@ export type TranslationFunctions = {
 		 * Insert a TeX expression
 		 */
 		equationDesc: () => LocalizedString
+		/**
+		 * Twitter
+		 */
+		twitter: () => LocalizedString
+		/**
+		 * Insert a post from X (Twitter)
+		 */
+		twitterDesc: () => LocalizedString
 		/**
 		 * Image
 		 */
@@ -1239,6 +1285,28 @@ export type TranslationFunctions = {
 		 * Type a TeX expression...
 		 */
 		placeholder: () => LocalizedString
+	}
+	twitter: {
+		/**
+		 * Embed Tweet
+		 */
+		embed: () => LocalizedString
+		/**
+		 * Delete
+		 */
+		remove: () => LocalizedString
+		/**
+		 * Paste a link to embed a post from X.
+		 */
+		description: () => LocalizedString
+		/**
+		 * Link
+		 */
+		url: () => LocalizedString
+		/**
+		 * Please enter a valid link.
+		 */
+		urlError: () => LocalizedString
 	}
 }
 
