@@ -50,7 +50,7 @@ export default {
     file: '文件',
     emoji: '表情',
     equation: '数学公式',
-    twitter: 'X (Twitter)',
+    twitter: 'X (Tweet)',
     removeColor: '默认',
   },
   slash: {

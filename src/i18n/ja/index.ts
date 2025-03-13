@@ -50,7 +50,7 @@ export default {
     file: 'ファイル',
     emoji: '絵文字',
     equation: '数式',
-    twitter: 'X (Twitter)',
+    twitter: 'X (Tweet)',
     removeColor: 'デフォルト',
   },
   slash: {
@@ -172,7 +172,7 @@ export default {
     placeholder: 'TeX 数式を入力してください',
   },
   twitter: {
-    embed: 'Tweet を埋め込む',
+    embed: 'ツイートを埋め込む',
     remove: '削除',
     description: '下の入力欄に X リンクを貼り付けてください。',
     url: 'リンク',

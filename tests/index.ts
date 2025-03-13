@@ -143,6 +143,7 @@ import './plugins/mention/mention-box-ui.test';
 import './plugins/mention/mention-menu.test';
 import './plugins/mention/mention-menu-ui.test';
 import './plugins/mention/index.test';
+import './plugins/twitter.test';
 import './plugins/markdown.test';
 import './plugins/enter-key.test';
 import './plugins/shift-enter-key.test';

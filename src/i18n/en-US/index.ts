@@ -50,7 +50,7 @@ export default {
     file: 'File',
     emoji: 'Emoji',
     equation: 'Mathematical formula',
-    twitter: 'X (Twitter)',
+    twitter: 'X (Tweet)',
     removeColor: 'Remove color',
   },
   slash: {
