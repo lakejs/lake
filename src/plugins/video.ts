@@ -39,11 +39,14 @@ export default (editor: Editor) => {
     return;
   }
   editor.command.add('video', {
-    execute: (value: BoxValue) => {
+    execute: (value?: BoxValue) => {
       const box = editor.selection.insertBox('video', value);
       editor.history.save();
       if (box) {
-        box.getContainer().find('input[name="url"]').focus();
+        const urlInput = box.getContainer().find('input[name="url"]');
+        if (urlInput.length > 0) {
+          urlInput.focus();
+        }
       }
     },
   });

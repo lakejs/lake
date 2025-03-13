@@ -1,3 +1,4 @@
+import { BoxValue } from '@/types/box';
 import { createIframeBox } from '@/utils/create-iframe-box';
 import { Editor } from '@/editor';
 
@@ -52,11 +53,14 @@ export default (editor: Editor) => {
     return;
   }
   editor.command.add('twitter', {
-    execute: () => {
-      const box = editor.selection.insertBox('twitter');
+    execute: (value?: BoxValue) => {
+      const box = editor.selection.insertBox('twitter', value);
       editor.history.save();
       if (box) {
-        box.getContainer().find('input[name="url"]').focus();
+        const urlInput = box.getContainer().find('input[name="url"]');
+        if (urlInput.length > 0) {
+          urlInput.focus();
+        }
       }
     },
   });
