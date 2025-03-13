@@ -253,12 +253,12 @@ const toolbarItems = [
   '|',
   'link',
   'image',
-  'video',
   'file',
   emoji,
   specialCharacter,
   'codeBlock',
   'equation',
+  'video',
   'twitter',
   'blockQuote',
   'paragraph',
@@ -290,8 +290,8 @@ const slashItems: (string | SlashItem)[] = [
   'dangerAlert',
   'hr',
   'codeBlock',
-  'video',
   'equation',
+  'video',
   'twitter',
 ];
 
