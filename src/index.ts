@@ -18,6 +18,7 @@ import { query } from './utils/query';
 import { template } from './utils/template';
 import { toHex } from './utils/to-hex';
 import { getBox } from './utils/get-box';
+import { createIframeBox } from './utils/create-iframe-box';
 import { Nodes } from './models/nodes';
 import { Fragment } from './models/fragment';
 import { Range } from './models/range';
@@ -181,6 +182,7 @@ export {
   template,
   toHex,
   getBox,
+  createIframeBox,
   insertBookmark,
   toBookmark,
   insertContents,

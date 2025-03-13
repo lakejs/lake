@@ -41,6 +41,8 @@ lake-box .lake-box-activated .lake-corner-toolbar {
   display: flex;
 }
 
-lake-box .lake-box-focused .lake-resizer {
+lake-box .lake-box-hovered .lake-resizer,
+lake-box .lake-box-focused .lake-resizer,
+lake-box .lake-box-activated .lake-resizer {
   display: block;
 }
