@@ -3,6 +3,9 @@ import { icons } from '@/icons';
 import { createIframeBox } from '@/utils/create-iframe-box';
 import { Editor } from '@/editor';
 
+/**
+ * Extracts ID from the specified URL.
+ */
 function getId(url: string): string {
   const result = /[\w\-]+$/.exec(url || '');
   return result ? result[0] : '';
