@@ -51,3 +51,27 @@
 .lake-iframe .lake-button-row button {
   width: 100%;
 }
+
+.lake-iframe iframe {
+  border-radius: 4px;
+}
+
+.lake-iframe-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  background-color: var(--lake-box-placeholder-background-color);
+  border-radius: 4px;
+}
+
+.lake-iframe-placeholder svg {
+  width: 50%;
+  max-width: 64px;
+  height: 50%;
+  max-height: 64px;
+  fill: var(--lake-box-placeholder-text-color);
+}

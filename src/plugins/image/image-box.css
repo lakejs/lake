@@ -1,17 +1,9 @@
-:root {
-  --lake-image-placeholder-background-color: #fafafa;
-}
-
-.lake-dark {
-  --lake-image-placeholder-background-color: #343434;
-}
-
 .lake-image-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid transparent;
-  background-color: var(--lake-image-placeholder-background-color);
+  background-color: var(--lake-box-placeholder-background-color);
   border-radius: 4px;
   width: 100%;
   height: 100%;
@@ -22,7 +14,7 @@
   max-width: 64px;
   height: 50%;
   max-height: 64px;
-  fill: #d9d9d9;
+  fill: var(--lake-box-placeholder-text-color);
 }
 
 .lake-image {

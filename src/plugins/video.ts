@@ -1,4 +1,5 @@
 import { BoxValue } from '@/types/box';
+import { icons } from '@/icons';
 import { createIframeBox } from '@/utils/create-iframe-box';
 import { Editor } from '@/editor';
 
@@ -19,6 +20,7 @@ const videoBox = createIframeBox({
   deleteButtonText: locale => locale.video.remove(),
   validUrl: url => url.indexOf('https://www.youtube.com/') === 0 && getId(url) !== '',
   urlError: locale => locale.video.urlError(),
+  iframePlaceholder: icons.get('video'),
   iframeAttributes: url => ({
     src: `https://www.youtube.com/embed/${getId(url)}`,
     title: 'YouTube video player',

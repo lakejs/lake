@@ -1,3 +1,4 @@
+import { icons } from '@/icons';
 import { createIframeBox } from '@/utils/create-iframe-box';
 import { showBox } from '../utils';
 import { Editor } from '@/editor';
@@ -17,6 +18,7 @@ const youbuteBox = createIframeBox({
   deleteButtonText: 'Delete',
   validUrl: url => url.indexOf('https://www.youtube.com/') === 0,
   urlError: 'Invalid YouTube link',
+  iframePlaceholder: icons.get('video'),
   iframeAttributes: () => ({
     src: embedUrl,
     title: 'YouTube video player',

@@ -23,6 +23,8 @@
   --lake-box-border-color: #d9d9d9;
   --lake-box-border-focus-color: #1677ff;
   --lake-box-background-color: #f6f8fa;
+  --lake-box-placeholder-text-color: #d9d9d9;
+  --lake-box-placeholder-background-color: #fafafa;
   /* popup */
   --lake-popup-z-index: 822;
   --lake-popup-font-size: 14px;
@@ -62,6 +64,8 @@
   --lake-box-border-color: #3d444d;
   --lake-box-border-focus-color: #4493f8;
   --lake-box-background-color: #3d444d;
+  --lake-box-placeholder-text-color: #3d444d;
+  --lake-box-placeholder-background-color: #343434;
   /* popup */
   --lake-popup-border-color: #3d444d;
   --lake-popup-background-color: #252525;

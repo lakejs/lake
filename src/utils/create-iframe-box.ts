@@ -10,20 +10,69 @@ import { Button } from '../ui/button';
 import { CornerToolbar } from '../ui/corner-toolbar';
 import { Resizer } from '../ui/resizer';
 
-interface CreateIframeBoxConfig {
+/**
+ * Configuration object that defines the iframe box behavior and appearance.
+ */
+interface IframeBoxConfig {
+  /**
+   * The type of the box.
+   */
   type: BoxType;
+  /**
+   * The name of the iframe box component.
+   */
   name: string;
+  /**
+   * The default width of the iframe.
+   */
   width: number;
+  /**
+   * The default height of the iframe.
+   */
   height?: number;
+  /**
+   * Description text for the form, which can be localized.
+   */
   formDescription: string | ((locale: TranslationFunctions) => string);
+  /**
+   * Label for the URL input field, which can be localized.
+   */
   formLabel: string | ((locale: TranslationFunctions) => string);
+  /**
+   * Placeholder text for the URL input field.
+   */
   formPlaceholder: string;
+  /**
+   * Text for the submit button, which can be localized.
+   */
   formButtonText: string | ((locale: TranslationFunctions) => string);
+  /**
+   * Tooltip text for the delete button, which can be localized.
+   */
   deleteButtonText: string | ((locale: TranslationFunctions) => string);
+  /**
+   * Function to validate the inputted URL.
+   */
   validUrl: (url: string) => boolean;
+  /**
+   * Error message shown if URL validation fails.
+   */
   urlError: string | ((locale: TranslationFunctions) => string);
+  /**
+   * SVG icon for the iframe.
+   */
+  iframePlaceholder?: string;
+  /**
+   * Function to generate attributes for the iframe element.
+   */
   iframeAttributes: (url: string) => Record<string, string>;
+  /**
+   * Callback executed before the iframe loads.
+   */
   beforeIframeLoad?: (iframeNode: Nodes) => void;
+  /**
+   * If true, allows resizing of the iframe.
+   */
   resize?: boolean;
 }
 
@@ -31,7 +80,7 @@ function getLocaleString(locale: TranslationFunctions, value: string | ((locale:
   return typeof value === 'string' ? value : value(locale);
 }
 
-function appendCornerToolbar(config: CreateIframeBoxConfig, box: Box): void {
+function appendCornerToolbar(config: IframeBoxConfig, box: Box): void {
   const editor = box.getEditor();
   const boxContainer = box.getContainer();
   const rootNode = boxContainer.find('.lake-iframe');
@@ -56,7 +105,7 @@ function appendCornerToolbar(config: CreateIframeBoxConfig, box: Box): void {
   }).render();
 }
 
-function showIframe(config: CreateIframeBoxConfig, box: Box): void {
+function showIframe(config: IframeBoxConfig, box: Box): void {
   const editor = box.getEditor();
   const boxContainer = box.getContainer();
   const value = box.value;
@@ -84,37 +133,49 @@ function showIframe(config: CreateIframeBoxConfig, box: Box): void {
   if (config.beforeIframeLoad) {
     config.beforeIframeLoad(iframeNode);
   }
-  const rootNode = boxContainer.find('.lake-iframe');
-  if (!editor.readonly) {
-    iframeNode.on('load', () => {
-      appendCornerToolbar(config, box);
-      if (config.resize === true) {
-        new Resizer({
-          root: rootNode,
-          target: boxContainer,
-          onResize: (newWidth, newHeight) => {
-            iframeNode.attr({
-              height: newHeight.toString(),
-            });
-          },
-          onStop: (newWidth, newHeight) => {
-            box.updateValue({
-              width: newWidth,
-              height: newHeight,
-            });
-            editor.history.save();
-          },
-        }).render();
-      }
-    });
+  const placeholderNode = query('<div class="lake-iframe-placeholder" />');
+  if (config.iframePlaceholder) {
+    placeholderNode.append(config.iframePlaceholder);
   }
+  const rootNode = boxContainer.find('.lake-iframe');
+  iframeNode.on('load', () => {
+    placeholderNode.remove();
+    if (editor.readonly) {
+      return;
+    }
+    appendCornerToolbar(config, box);
+    if (config.resize === true) {
+      new Resizer({
+        root: rootNode,
+        target: boxContainer,
+        onResize: (newWidth, newHeight) => {
+          iframeNode.attr({
+            height: newHeight.toString(),
+          });
+        },
+        onStop: (newWidth, newHeight) => {
+          box.updateValue({
+            width: newWidth,
+            height: newHeight,
+          });
+          editor.history.save();
+        },
+      }).render();
+    }
+  });
   rootNode.prepend(iframeNode);
+  placeholderNode.css({
+    width: `${iframeNode.width()}px`,
+    height: `${iframeNode.height()}px`,
+  });
+  rootNode.prepend(placeholderNode);
 }
 
 /**
- * Creates an iframe box component.
+ * Creates an iframe box component with configurable properties.
+ * This component supports rendering an iframe with customizable attributes, resizing, and toolbar functionalities.
  */
-export function createIframeBox(config: CreateIframeBoxConfig): BoxComponent {
+export function createIframeBox(config: IframeBoxConfig): BoxComponent {
   return {
     type: config.type,
     name: config.name,

@@ -1,4 +1,5 @@
 import { BoxValue } from '@/types/box';
+import { icons } from '@/icons';
 import { createIframeBox } from '@/utils/create-iframe-box';
 import { Editor } from '@/editor';
 
@@ -18,14 +19,23 @@ const twitterBox = createIframeBox({
   deleteButtonText: locale => locale.twitter.remove(),
   validUrl: url => (url.indexOf('https://x.com/') === 0 || url.indexOf('https://twitter.com/') === 0) && getId(url) !== '',
   urlError: locale => locale.twitter.urlError(),
-  iframeAttributes: url => ({
-    src: `https://platform.twitter.com/embed/Tweet.html?id=${getId(url)}`,
-    scrolling: 'no',
-    frameborder: '0',
-    allowtransparency: 'true',
-    allowfullscreen: 'true',
-  }),
+  iframePlaceholder: icons.get('twitter'),
+  iframeAttributes: url => {
+    const theme = document.documentElement.classList.contains('lake-dark') ? 'dark' : 'light';
+    return {
+      src: `https://platform.twitter.com/embed/Tweet.html?id=${getId(url)}&theme=${theme}`,
+      title: 'Twitter tweet',
+      scrolling: 'no',
+      frameborder: '0',
+      allowtransparency: 'true',
+      allowfullscreen: 'true',
+    };
+  },
   beforeIframeLoad: iframeNode => {
+    const theme = document.documentElement.classList.contains('lake-dark') ? 'dark' : 'light';
+    if (theme === 'dark') {
+      iframeNode.css('border-radius', '13px');
+    }
     const messageListener = (event: MessageEvent) => {
       if (event.origin === 'https://platform.twitter.com') {
         const params = event.data['twttr.embed'].params;
