@@ -144,11 +144,6 @@ window.defaultValue = `
 <p><lake-box type="inline" name="image" value="eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTUxMi5wbmciLCJzdGF0dXMiOiJkb25lIiwibmFtZSI6ImhlYXZlbi1sYWtlLTUxMi5wbmciLCJzaXplIjo2MDAwOCwidHlwZSI6ImltYWdlL2pwZWciLCJsYXN0TW9kaWZpZWQiOjE3MTAyMjk1MTcxOTgsIndpZHRoIjo1MTIsImhlaWdodCI6MzcwLCJvcmlnaW5hbFdpZHRoIjo1MTIsIm9yaWdpbmFsSGVpZ2h0IjozNzAsImNhcHRpb24iOiJPdmVyaGVhZCBwYW5vcmFtYSBvZiBIZWF2ZW4gTGFrZS4ifQ=="></lake-box></p>
 <p><br /></p>
 
-<h3>Video</h3>
-<lake-box type="block" name="hr"></lake-box>
-<p><lake-box type="inline" name="video" value="eyJ1cmwiOiJodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PTVzTUJoRHY0c2lrIn0="></lake-box></p>
-<p><br /></p>
-
 <h3>File</h3>
 <lake-box type="block" name="hr"></lake-box>
 <p><lake-box type="inline" name="file" value="eyJ1cmwiOiIuLi9hc3NldHMvZmlsZXMvdGhpbmstZGlmZmVyZW50LXdpa2lwZWRpYS5wZGYiLCJzdGF0dXMiOiJkb25lIiwibmFtZSI6IlRoaW5rIGRpZmZlcmVudCAtIFdpa2lwZWRpYS5wZGYiLCJzaXplIjo1MTA1NTgsInR5cGUiOiJhcHBsaWNhdGlvbi9wZGYiLCJsYXN0TW9kaWZpZWQiOjE3NDAwOTc3MTg1OTh9"></lake-box></p>
@@ -189,4 +184,15 @@ window.defaultValue = `
 <lake-box type="block" name="hr"></lake-box>
 <p>Type <code>@</code> to display a popup menu containing specified users. You can search for users by typing <code>@keyword</code>.</p>
 <p><br /></p>
+
+<h3>YouTube</h3>
+<lake-box type="block" name="hr"></lake-box>
+<p><lake-box type="inline" name="video" value="eyJ1cmwiOiJodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PTVzTUJoRHY0c2lrIn0="></lake-box></p>
+<p><br /></p>
+
+<h3>X (Tweet)</h3>
+<lake-box type="block" name="hr"></lake-box>
+<p><lake-box type="inline" name="twitter" value="eyJ1cmwiOiJodHRwczovL3guY29tL1N1cHBvcnQvc3RhdHVzLzExNDEwMzk4NDE5OTMzNTUyNjQifQ=="></lake-box></p>
+<p><br /></p>
+
 `;
