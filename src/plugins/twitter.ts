@@ -32,7 +32,7 @@ const twitterBox = createIframeBox({
   iframePlaceholder: icons.get('twitter'),
   iframeAttributes: url => {
     return {
-      src: `https://platform.twitter.com/embed/Tweet.html?id=${getId(url)}&theme=${getTheme}`,
+      src: `https://platform.twitter.com/embed/Tweet.html?id=${getId(url)}&theme=${getTheme()}`,
       title: 'Twitter tweet',
       scrolling: 'no',
       frameborder: '0',

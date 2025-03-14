@@ -30,17 +30,40 @@ const youbuteBox = createIframeBox({
   resize: true,
 });
 
+/*
+const truthsocialBox = createIframeBox({
+  type: 'inline',
+  name: 'truthsocialBox',
+  width: 560,
+  height: 315,
+  formDescription: 'Paste a link to embed a post from Truth Social.',
+  formLabel: 'URL',
+  formPlaceholder: 'https://truthsocial.com/username/posts/...',
+  formButtonText: 'Embed',
+  deleteButtonText: 'Delete',
+  validUrl: url => url.indexOf('https://truthsocial.com/') === 0,
+  urlError: 'Invalid Truth Social link',
+  iframePlaceholder: icons.get('twitter'),
+  iframeAttributes: () => ({
+    src: 'https://truthsocial.com/@realDonaldTrump/114156036814880330/embed',
+    frameborder: '0',
+    allowfullscreen: 'true',
+  }),
+});
+*/
+
 Editor.box.add(youbuteBox);
+// Editor.box.add(truthsocialBox);
 
 describe('utils / create-iframe-box-ui', () => {
 
-  it('no URL', () => {
+  it('youtube: should render an input field', () => {
     showBox('youtubeBox', {}, box => {
       expect(box.name).to.equal('youtubeBox');
     });
   });
 
-  it('has URL: should display box', () => {
+  it('youtube: should render a video', () => {
     showBox('youtubeBox', {
       url: watchUrl,
     }, box => {
@@ -48,13 +71,23 @@ describe('utils / create-iframe-box-ui', () => {
     });
   });
 
-  it('no URL (read-only): should not display box', () => {
+  /*
+  it('truthsocial: should render a post', () => {
+    showBox('truthsocialBox', {
+      url: 'https://truthsocial.com/@realDonaldTrump/posts/114156036814880330',
+    }, box => {
+      expect(box.name).to.equal('truthsocialBox');
+    });
+  });
+  */
+
+  it('youtube (read-only): should not display box without URL', () => {
     showBox('youtubeBox', {}, box => {
       expect(box.name).to.equal('youtubeBox');
     }, true);
   });
 
-  it('has URL(read-only): should display box', () => {
+  it('youtube (read-only): should render a video', () => {
     showBox('youtubeBox', {
       url: watchUrl,
     }, box => {
