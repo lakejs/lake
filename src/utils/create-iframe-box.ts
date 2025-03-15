@@ -29,7 +29,7 @@ interface IframeBoxConfig {
   /**
    * The default height of the iframe.
    */
-  height?: number;
+  height: number;
   /**
    * Description text for the form, which can be localized.
    */
@@ -111,21 +111,15 @@ function showIframe(config: IframeBoxConfig, box: Box): void {
   const value = box.value;
   const width = value.width || config.width;
   const height = value.height || config.height;
+  boxContainer.css('width', `${width}px`);
   if (config.resize === true) {
-    boxContainer.css({
-      width: `${width}px`,
-      height: `${height}px`,
-    });
+    boxContainer.css('height', `${height}px`);
   }
   const iframeNode = query('<iframe></iframe>');
-  if (config.resize === true) {
-    iframeNode.attr('width', '100%');
-  } else {
-    iframeNode.attr('width', width.toString());
-  }
-  if (height) {
-    iframeNode.attr('height', height.toString());
-  }
+  iframeNode.attr({
+    width: '100%',
+    height: `${height}`,
+  });
   const iframeAttributes = config.iframeAttributes(value.url);
   for (const key of Object.keys(iframeAttributes)) {
     iframeNode.attr(key, iframeAttributes[key]);
@@ -134,6 +128,7 @@ function showIframe(config: IframeBoxConfig, box: Box): void {
     config.beforeIframeLoad(iframeNode);
   }
   const placeholderNode = query('<div class="lake-iframe-placeholder" />');
+  placeholderNode.css('height', `${height}px`);
   if (config.iframePlaceholder) {
     placeholderNode.append(config.iframePlaceholder);
   }
@@ -164,10 +159,6 @@ function showIframe(config: IframeBoxConfig, box: Box): void {
     }
   });
   rootNode.prepend(iframeNode);
-  placeholderNode.css({
-    width: `${iframeNode.width()}px`,
-    height: `${iframeNode.height()}px`,
-  });
   rootNode.prepend(placeholderNode);
 }
 
