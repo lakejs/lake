@@ -6,8 +6,8 @@ import { Editor } from '@/editor';
 import { createIframeBox } from '@/utils/create-iframe-box';
 import { isFirefox, click } from '../utils';
 
-const watchUrl = 'https://www.youtube.com/watch?v=5sMBhDv4sik';
-const embedUrl = 'https://www.youtube.com/embed/5sMBhDv4sik';
+const youtubeWatchUrl = 'https://www.youtube.com/watch?v=5sMBhDv4sik';
+const youtubeEmbedUrl = 'https://www.youtube.com/embed/5sMBhDv4sik';
 
 const iframeBox = createIframeBox({
   type: 'inline',
@@ -22,7 +22,7 @@ const iframeBox = createIframeBox({
   validUrl: url => url.indexOf('https://www.youtube.com/') === 0,
   urlError: 'Invalid YouTube link',
   iframeAttributes: () => ({
-    src: embedUrl,
+    src: youtubeEmbedUrl,
     title: 'YouTube video player',
     frameborder: '0',
     allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
@@ -54,25 +54,25 @@ describe('utils / create-iframe-box', () => {
     rootNode.remove();
   });
 
-  it('should embed an iframe', () => {
+  it('youtube: should insert a video', () => {
     const box = editor.selection.insertBox('iframeBox');
     const boxNode = box.node;
-    boxNode.find('input[name="url"]').value(watchUrl);
+    boxNode.find('input[name="url"]').value(youtubeWatchUrl);
     boxNode.find('button[name="embed"]').emit('click');
     expect(boxNode.find('iframe').length).to.equal(1);
   });
 
-  it('should embed an iframe by pressing enter key', () => {
+  it('youtube: should insert a video by pressing enter key', () => {
     const box = editor.selection.insertBox('iframeBox');
     const boxNode = box.node;
-    boxNode.find('input[name="url"]').value(watchUrl);
+    boxNode.find('input[name="url"]').value(youtubeWatchUrl);
     boxNode.find('input[name="url"]').emit('keydown', new KeyboardEvent('keydown', {
       key: 'Enter',
     }));
     expect(boxNode.find('iframe').length).to.equal(1);
   });
 
-  it('should not embed an iframe that URL is invalid', () => {
+  it('youtube: should not insert video when URL is invalid', () => {
     const box = editor.selection.insertBox('iframeBox');
     const boxNode = box.node;
     boxNode.find('input[name="url"]').value('invalid');
@@ -80,9 +80,9 @@ describe('utils / create-iframe-box', () => {
     expect(boxNode.find('iframe').length).to.equal(0);
   });
 
-  it('should remove box', () => {
+  it('youtube: should remove video', () => {
     const box = editor.selection.insertBox('iframeBox', {
-      url: watchUrl,
+      url: youtubeWatchUrl,
       width: 500,
       height: 400,
     });
@@ -94,10 +94,10 @@ describe('utils / create-iframe-box', () => {
     expect(value).to.equal('<p>foo<focus />bar</p>');
   });
 
-  it('should resize box', () => {
+  it('youtube: should resize video', () => {
     const pointerId = isFirefox ? 0 : 1;
     const box = editor.selection.insertBox('iframeBox', {
-      url: watchUrl,
+      url: youtubeWatchUrl,
       width: 500,
       height: 400,
     });

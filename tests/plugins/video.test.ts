@@ -2,7 +2,7 @@ import { testPlugin } from '../utils';
 
 describe('plugins / video', () => {
 
-  it('should insert a form', () => {
+  it('should render an input field', () => {
     const content = `
     <p>foo<focus />bar</p>
     `;
@@ -18,7 +18,7 @@ describe('plugins / video', () => {
     );
   });
 
-  it('should insert a video', () => {
+  it('should render a video', () => {
     const content = `
     <p>foo<focus />bar</p>
     `;
