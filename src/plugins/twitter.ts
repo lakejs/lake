@@ -51,10 +51,10 @@ const twitterBox = createIframeBox({
         const width = params[0].width;
         const height = params[0].height;
         if (width > 0) {
-          iframeNode.attr('width', `${width}`);
+          iframeNode.css('width', `${width}px`);
         }
         if (height > 0) {
-          iframeNode.attr('height', `${height}`);
+          iframeNode.css('height', `${height}px`);
           window.removeEventListener('message', messageListener);
         }
       }

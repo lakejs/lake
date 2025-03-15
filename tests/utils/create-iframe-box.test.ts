@@ -121,8 +121,8 @@ describe('utils / create-iframe-box', () => {
     boxNode.find('.lake-resizer-bottom-right').emit('pointerdown', pointerdownEvent);
     boxNode.find('.lake-resizer-bottom-right').emit('pointermove', pointermoveEvent);
     boxNode.find('.lake-resizer-bottom-right').emit('pointerup', pointerupEvent);
-    expect(box.getContainer().css('width')).to.equal('300px');
-    expect(box.node.find('iframe').attr('height')).to.equal('240');
+    expect(box.node.find('iframe').css('width')).to.equal('300px');
+    expect(box.node.find('iframe').css('height')).to.equal('240px');
     expect(box.value.width).to.equal(300);
     expect(box.value.height).to.equal(240);
   });

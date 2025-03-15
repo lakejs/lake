@@ -76,10 +76,19 @@ interface IframeBoxConfig {
   resize?: boolean;
 }
 
-function getLocaleString(locale: TranslationFunctions, value: string | ((locale: TranslationFunctions) => string)): string {
+/**
+ * Returns the localized string.
+ */
+function getLocaleString(
+  locale: TranslationFunctions,
+  value: string | ((locale: TranslationFunctions) => string),
+): string {
   return typeof value === 'string' ? value : value(locale);
 }
 
+/**
+ * Appends a corner toolbar to the iframe box.
+ */
 function appendCornerToolbar(config: IframeBoxConfig, box: Box): void {
   const editor = box.getEditor();
   const boxContainer = box.getContainer();
@@ -105,20 +114,19 @@ function appendCornerToolbar(config: IframeBoxConfig, box: Box): void {
   }).render();
 }
 
+/**
+ * Shows the iframe in the box.
+ */
 function showIframe(config: IframeBoxConfig, box: Box): void {
   const editor = box.getEditor();
   const boxContainer = box.getContainer();
   const value = box.value;
   const width = value.width || config.width;
   const height = value.height || config.height;
-  boxContainer.css('width', `${width}px`);
-  if (config.resize === true) {
-    boxContainer.css('height', `${height}px`);
-  }
   const iframeNode = query('<iframe></iframe>');
-  iframeNode.attr({
-    width: '100%',
-    height: `${height}`,
+  iframeNode.css({
+    width: `${width}px`,
+    height: `${height}px`,
   });
   const iframeAttributes = config.iframeAttributes(value.url);
   for (const key of Object.keys(iframeAttributes)) {
@@ -128,7 +136,10 @@ function showIframe(config: IframeBoxConfig, box: Box): void {
     config.beforeIframeLoad(iframeNode);
   }
   const placeholderNode = query('<div class="lake-iframe-placeholder" />');
-  placeholderNode.css('height', `${height}px`);
+  placeholderNode.css({
+    width: `${width}px`,
+    height: `${height}px`,
+  });
   if (config.iframePlaceholder) {
     placeholderNode.append(config.iframePlaceholder);
   }
@@ -139,15 +150,10 @@ function showIframe(config: IframeBoxConfig, box: Box): void {
       return;
     }
     appendCornerToolbar(config, box);
-    if (config.resize === true) {
+    if (config.resize === true && rootNode.find('.lake-resizer').length === 0) {
       new Resizer({
         root: rootNode,
-        target: boxContainer,
-        onResize: (newWidth, newHeight) => {
-          iframeNode.attr({
-            height: newHeight.toString(),
-          });
-        },
+        target: iframeNode,
         onStop: (newWidth, newHeight) => {
           box.updateValue({
             width: newWidth,
@@ -177,10 +183,6 @@ export function createIframeBox(config: IframeBoxConfig): BoxComponent {
       const boxContainer = box.getContainer();
       const rootNode = query('<div class="lake-iframe" />');
       boxContainer.empty();
-      boxContainer.css({
-        width: '',
-        height: '',
-      });
       boxContainer.append(rootNode);
       if (!value.url) {
         if (editor.readonly) {
