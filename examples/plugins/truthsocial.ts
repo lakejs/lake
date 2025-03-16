@@ -6,7 +6,7 @@ const truthsocialBox = createIframeBox({
   type: 'inline',
   name: 'truthsocial',
   width: '560px',
-  height: '315px',
+  height: '300px',
   formDescription: 'Paste a link to embed a post from Truth Social.',
   formLabel: 'Link',
   formPlaceholder: 'https://truthsocial.com/username/posts/...',

@@ -22,7 +22,7 @@ const twitterBox = createIframeBox({
   type: 'inline',
   name: 'twitter',
   width: '550px',
-  height: '150px',
+  height: '300px',
   formDescription: locale => locale.twitter.description(),
   formLabel: locale => locale.twitter.url(),
   formPlaceholder: 'https://x.com/username/status/...',

@@ -131,9 +131,6 @@ function showIframe(config: IframeBoxConfig, box: Box): void {
   for (const key of Object.keys(iframeAttributes)) {
     iframeNode.attr(key, iframeAttributes[key]);
   }
-  if (config.beforeIframeLoad) {
-    config.beforeIframeLoad(box);
-  }
   const placeholderNode = query('<div class="lake-iframe-placeholder" />');
   placeholderNode.css({
     width,
@@ -168,6 +165,9 @@ function showIframe(config: IframeBoxConfig, box: Box): void {
     placeholderNode.css('position', 'static');
   }
   rootNode.prepend(placeholderNode);
+  if (config.beforeIframeLoad) {
+    config.beforeIframeLoad(box);
+  }
 }
 
 /**
