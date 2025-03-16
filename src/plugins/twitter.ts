@@ -41,9 +41,9 @@ const twitterBox = createIframeBox({
       allowfullscreen: 'true',
     };
   },
-  beforeIframeLoad: iframeNode => {
+  beforeIframeLoad: iframe => {
     if (getTheme() === 'dark') {
-      iframeNode.css('border-radius', '13px');
+      iframe.css('border-radius', '13px');
     }
     const messageListener = (event: MessageEvent) => {
       if (event.origin === 'https://platform.twitter.com') {
@@ -51,10 +51,10 @@ const twitterBox = createIframeBox({
         const width = params[0].width;
         const height = params[0].height;
         if (width > 0) {
-          iframeNode.css('width', `${width}px`);
+          iframe.css('width', `${width}px`);
         }
         if (height > 0) {
-          iframeNode.css('height', `${height}px`);
+          iframe.css('height', `${height}px`);
           window.removeEventListener('message', messageListener);
         }
       }

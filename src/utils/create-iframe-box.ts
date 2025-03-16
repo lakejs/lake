@@ -69,7 +69,7 @@ interface IframeBoxConfig {
   /**
    * Callback executed before the iframe loads.
    */
-  beforeIframeLoad?: (iframeNode: Nodes) => void;
+  beforeIframeLoad?: (iframe: Nodes) => void;
   /**
    * If true, allows resizing of the iframe.
    */
