@@ -85,6 +85,16 @@ export default (value: string) => {
       editor.command.execute('link');
     },
   }));
+  // Truth Social
+  buttonList.push(new Button({
+    root: toolbarRoot,
+    name: 'truthsocial',
+    text: 'Truth Social',
+    onClick: () => {
+      editor.focus();
+      editor.command.execute('truthsocial');
+    },
+  }));
   for (const button of buttonList) {
     button.render();
   }

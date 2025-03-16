@@ -12,10 +12,13 @@ import documentEditor from './document-editor';
 import multipleEditors from './multiple-editors';
 import headlessEditor from './headless-editor';
 import readonlyEditor from './readonly-editor';
+import truthsocial, { truthsocialBox } from './plugins/truthsocial';
 import helloWorld, { helloWorldBox } from './plugins/hello-world';
 
+Editor.box.add(truthsocialBox);
 Editor.box.add(helloWorldBox);
 
+Editor.plugin.add('truthsocial', truthsocial);
 Editor.plugin.add('helloWorld', helloWorld);
 
 declare global {
