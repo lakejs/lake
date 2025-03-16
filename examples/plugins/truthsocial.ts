@@ -15,15 +15,13 @@ const truthsocialBox = createIframeBox({
   validUrl: url => url.indexOf('https://truthsocial.com/') === 0,
   urlError: 'Invalid Truth Social link',
   iframePlaceholder: '<span>Truth Social</span>',
-  iframeAttributes: url => {
-    return {
-      src: `${url.replace('/posts/', '/')}/embed`,
-      scrolling: 'no',
-      frameborder: '0',
-      allowtransparency: 'true',
-      allowfullscreen: 'true',
-    };
-  },
+  iframeAttributes: url => ({
+    src: `${url.replace('/posts/', '/')}/embed`,
+    scrolling: 'no',
+    frameborder: '0',
+    allowtransparency: 'true',
+    allowfullscreen: 'true',
+  }),
   beforeIframeLoad: iframe => {
     const messageListener = (event: MessageEvent) => {
       if (event.origin === 'https://truthsocial.com') {
