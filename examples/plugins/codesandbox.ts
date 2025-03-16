@@ -25,7 +25,7 @@ const codesandboxBox = createIframeBox({
       if (event.origin === 'https://codesandbox.io') {
         const height = JSON.parse(event.data).height;
         if (height > 0) {
-          // iframe.css('height', `${height}px`);
+          iframe.css('height', `${height}px`);
           window.removeEventListener('message', messageListener);
         }
       }
