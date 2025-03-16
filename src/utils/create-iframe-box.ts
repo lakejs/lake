@@ -25,11 +25,11 @@ interface IframeBoxConfig {
   /**
    * The default width of the iframe.
    */
-  width: number;
+  width: string;
   /**
    * The default height of the iframe.
    */
-  height: number;
+  height: string;
   /**
    * Description text for the form, which can be localized.
    */
@@ -125,8 +125,8 @@ function showIframe(config: IframeBoxConfig, box: Box): void {
   const height = value.height || config.height;
   const iframeNode = query('<iframe></iframe>');
   iframeNode.css({
-    width: `${width}px`,
-    height: `${height}px`,
+    width,
+    height,
   });
   const iframeAttributes = config.iframeAttributes(value.url);
   for (const key of Object.keys(iframeAttributes)) {
@@ -137,8 +137,8 @@ function showIframe(config: IframeBoxConfig, box: Box): void {
   }
   const placeholderNode = query('<div class="lake-iframe-placeholder" />');
   placeholderNode.css({
-    width: `${width}px`,
-    height: `${height}px`,
+    width,
+    height,
   });
   if (config.iframePlaceholder) {
     placeholderNode.append(config.iframePlaceholder);
@@ -155,8 +155,8 @@ function showIframe(config: IframeBoxConfig, box: Box): void {
         target: iframeNode,
         onStop: (newWidth, newHeight) => {
           box.updateValue({
-            width: newWidth,
-            height: newHeight,
+            width: `${newWidth}px`,
+            height: `${newHeight}px`,
           });
           editor.history.save();
         },

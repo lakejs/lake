@@ -13,8 +13,8 @@ function getId(url: string): string {
 const youbuteBox = createIframeBox({
   type: 'inline',
   name: 'youtube',
-  width: 560,
-  height: 315,
+  width: '560px',
+  height: '315px',
   formDescription: 'Paste a link to embed a video from YouTube.',
   formLabel: 'URL',
   formPlaceholder: 'https://www.youtube.com/watch?v=...',

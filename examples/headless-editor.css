@@ -17,10 +17,10 @@
 .headless .lake-root {
   border: 1px solid var(--lake-border-color);
   border-radius: 5px;
-  height: 300px;
+  height: 500px;
   overflow: auto;
 }
 
 .headless .lake-container {
-  min-height: 298px;
+  min-height: 498px;
 }

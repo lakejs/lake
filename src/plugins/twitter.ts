@@ -21,8 +21,8 @@ function getTheme(): string {
 const twitterBox = createIframeBox({
   type: 'inline',
   name: 'twitter',
-  width: 550,
-  height: 150,
+  width: '550px',
+  height: '150px',
   formDescription: locale => locale.twitter.description(),
   formLabel: locale => locale.twitter.url(),
   formPlaceholder: 'https://x.com/username/status/...',

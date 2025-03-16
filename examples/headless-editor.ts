@@ -95,6 +95,16 @@ export default (value: string) => {
       editor.command.execute('truthsocial');
     },
   }));
+  // CodeSandbox
+  buttonList.push(new Button({
+    root: toolbarRoot,
+    name: 'codesandbox',
+    text: 'CodeSandbox',
+    onClick: () => {
+      editor.focus();
+      editor.command.execute('codesandbox');
+    },
+  }));
   for (const button of buttonList) {
     button.render();
   }

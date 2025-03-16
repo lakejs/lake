@@ -16,8 +16,8 @@ function getId(url: string): string {
 const iframeBox = createIframeBox({
   type: 'inline',
   name: 'iframeBox',
-  width: 560,
-  height: 315,
+  width: '560px',
+  height: '315px',
   formDescription: 'Paste a link to embed a video from YouTube.',
   formLabel: 'URL',
   formPlaceholder: 'https://www.youtube.com/watch?v=...',
@@ -102,8 +102,8 @@ describe('utils / create-iframe-box', () => {
     const pointerId = isFirefox ? 0 : 1;
     const box = editor.selection.insertBox('iframeBox', {
       url: youbuteUrl,
-      width: 500,
-      height: 400,
+      width: '500px',
+      height: '400px',
     });
     const boxNode = box.node;
     boxNode.find('iframe').emit('load');
@@ -127,8 +127,8 @@ describe('utils / create-iframe-box', () => {
     boxNode.find('.lake-resizer-bottom-right').emit('pointerup', pointerupEvent);
     expect(box.node.find('iframe').css('width')).to.equal('300px');
     expect(box.node.find('iframe').css('height')).to.equal('240px');
-    expect(box.value.width).to.equal(300);
-    expect(box.value.height).to.equal(240);
+    expect(box.value.width).to.equal('300px');
+    expect(box.value.height).to.equal('240px');
   });
 
 });

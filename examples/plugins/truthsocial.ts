@@ -5,10 +5,10 @@ import { Editor } from '@/editor';
 const truthsocialBox = createIframeBox({
   type: 'inline',
   name: 'truthsocial',
-  width: 560,
-  height: 315,
+  width: '560px',
+  height: '315px',
   formDescription: 'Paste a link to embed a post from Truth Social.',
-  formLabel: 'URL',
+  formLabel: 'Link',
   formPlaceholder: 'https://truthsocial.com/username/posts/...',
   formButtonText: 'Embed',
   deleteButtonText: 'Delete',

@@ -14,8 +14,8 @@ function getId(url: string): string {
 const videoBox = createIframeBox({
   type: 'inline',
   name: 'video',
-  width: 560,
-  height: 315,
+  width: '560px',
+  height: '315px',
   formDescription: locale => locale.video.description(),
   formLabel: locale => locale.video.url(),
   formPlaceholder: 'https://www.youtube.com/watch?v=...',
