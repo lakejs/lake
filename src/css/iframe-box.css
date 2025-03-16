@@ -3,7 +3,7 @@
   font-size: 14px;
   font-weight: normal;
   line-height: 0;
-  border: 1px solid transparent;
+  border: 0;
 }
 
 .lake-iframe .lake-iframe-form {
@@ -13,6 +13,11 @@
   border: 1px solid var(--lake-box-border-color);
   background-color: var(--lake-box-background-color);
   border-radius: 4px;
+}
+
+lake-box[type="inline"] .lake-iframe .lake-iframe-form {
+  min-width: 380px;
+  max-width: 480px;
 }
 
 .lake-iframe input[type="text"] {

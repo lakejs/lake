@@ -41,19 +41,19 @@ const twitterBox = createIframeBox({
       allowfullscreen: 'true',
     };
   },
-  beforeIframeLoad: iframe => {
+  beforeIframeLoad: box => {
+    const boxContainer = box.getContainer();
+    const placeholder = boxContainer.find('.lake-iframe-placeholder');
+    const iframe = boxContainer.find('iframe');
     if (getTheme() === 'dark') {
       iframe.css('border-radius', '13px');
     }
     const messageListener = (event: MessageEvent) => {
       if (event.origin === 'https://platform.twitter.com') {
         const params = event.data['twttr.embed'].params;
-        const width = params[0].width;
         const height = params[0].height;
-        if (width > 0) {
-          iframe.css('width', `${width}px`);
-        }
         if (height > 0) {
+          placeholder.css('height', `${height}px`);
           iframe.css('height', `${height}px`);
           window.removeEventListener('message', messageListener);
         }

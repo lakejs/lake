@@ -4,7 +4,6 @@ import { BoxComponent, BoxType } from '../types/box';
 import { icons } from '../icons';
 import { query } from '../utils/query';
 import { template } from '../utils/template';
-import { Nodes } from '../models/nodes';
 import { Box } from '../models/box';
 import { Button } from '../ui/button';
 import { CornerToolbar } from '../ui/corner-toolbar';
@@ -69,7 +68,7 @@ interface IframeBoxConfig {
   /**
    * Callback executed before the iframe loads.
    */
-  beforeIframeLoad?: (iframe: Nodes) => void;
+  beforeIframeLoad?: (box: Box) => void;
   /**
    * If true, allows resizing of the iframe.
    */
@@ -133,7 +132,7 @@ function showIframe(config: IframeBoxConfig, box: Box): void {
     iframeNode.attr(key, iframeAttributes[key]);
   }
   if (config.beforeIframeLoad) {
-    config.beforeIframeLoad(iframeNode);
+    config.beforeIframeLoad(box);
   }
   const placeholderNode = query('<div class="lake-iframe-placeholder" />');
   placeholderNode.css({

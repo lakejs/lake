@@ -22,11 +22,15 @@ const truthsocialBox = createIframeBox({
     allowtransparency: 'true',
     allowfullscreen: 'true',
   }),
-  beforeIframeLoad: iframe => {
+  beforeIframeLoad: box => {
+    const boxContainer = box.getContainer();
+    const placeholder = boxContainer.find('.lake-iframe-placeholder');
+    const iframe = boxContainer.find('iframe');
     const messageListener = (event: MessageEvent) => {
       if (event.origin === 'https://truthsocial.com') {
         const height = event.data.height;
         if (height > 0) {
+          placeholder.css('height', `${height}px`);
           iframe.css('height', `${height}px`);
           window.removeEventListener('message', messageListener);
         }
