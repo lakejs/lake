@@ -6,8 +6,12 @@ import { Editor } from '@/editor';
 import { createIframeBox } from '@/utils/create-iframe-box';
 import { isFirefox, click } from '../utils';
 
-const youtubeWatchUrl = 'https://www.youtube.com/watch?v=5sMBhDv4sik';
-const youtubeEmbedUrl = 'https://www.youtube.com/embed/5sMBhDv4sik';
+const youbuteUrl = 'https://www.youtube.com/watch?v=5sMBhDv4sik';
+
+function getId(url: string): string {
+  const result = /[\w\-]+$/.exec(url || '');
+  return result ? result[0] : '';
+}
 
 const iframeBox = createIframeBox({
   type: 'inline',
@@ -22,7 +26,7 @@ const iframeBox = createIframeBox({
   validUrl: url => url.indexOf('https://www.youtube.com/') === 0,
   urlError: 'Invalid YouTube link',
   iframeAttributes: () => ({
-    src: youtubeEmbedUrl,
+    src: `https://www.youtube.com/embed/${getId(youbuteUrl)}`,
     title: 'YouTube video player',
     frameborder: '0',
     allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
@@ -57,7 +61,7 @@ describe('utils / create-iframe-box', () => {
   it('youtube: should insert a video', () => {
     const box = editor.selection.insertBox('iframeBox');
     const boxNode = box.node;
-    boxNode.find('input[name="url"]').value(youtubeWatchUrl);
+    boxNode.find('input[name="url"]').value(youbuteUrl);
     boxNode.find('button[name="embed"]').emit('click');
     expect(boxNode.find('iframe').length).to.equal(1);
   });
@@ -65,7 +69,7 @@ describe('utils / create-iframe-box', () => {
   it('youtube: should insert a video by pressing enter key', () => {
     const box = editor.selection.insertBox('iframeBox');
     const boxNode = box.node;
-    boxNode.find('input[name="url"]').value(youtubeWatchUrl);
+    boxNode.find('input[name="url"]').value(youbuteUrl);
     boxNode.find('input[name="url"]').emit('keydown', new KeyboardEvent('keydown', {
       key: 'Enter',
     }));
@@ -82,7 +86,7 @@ describe('utils / create-iframe-box', () => {
 
   it('youtube: should remove video', () => {
     const box = editor.selection.insertBox('iframeBox', {
-      url: youtubeWatchUrl,
+      url: youbuteUrl,
       width: 500,
       height: 400,
     });
@@ -97,7 +101,7 @@ describe('utils / create-iframe-box', () => {
   it('youtube: should resize video', () => {
     const pointerId = isFirefox ? 0 : 1;
     const box = editor.selection.insertBox('iframeBox', {
-      url: youtubeWatchUrl,
+      url: youbuteUrl,
       width: 500,
       height: 400,
     });

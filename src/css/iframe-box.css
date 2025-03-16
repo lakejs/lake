@@ -75,3 +75,8 @@
   max-height: 64px;
   fill: var(--lake-box-placeholder-text-color);
 }
+
+.lake-iframe-placeholder span {
+  font-size: 24px;
+  color: var(--lake-box-placeholder-text-color);
+}

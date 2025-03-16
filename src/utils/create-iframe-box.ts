@@ -149,7 +149,6 @@ function showIframe(config: IframeBoxConfig, box: Box): void {
     if (editor.readonly) {
       return;
     }
-    appendCornerToolbar(config, box);
     if (config.resize === true && rootNode.find('.lake-resizer').length === 0) {
       new Resizer({
         root: rootNode,
@@ -164,7 +163,11 @@ function showIframe(config: IframeBoxConfig, box: Box): void {
       }).render();
     }
   });
-  rootNode.prepend(iframeNode);
+  if (config.validUrl(value.url)) {
+    rootNode.prepend(iframeNode);
+  } else {
+    placeholderNode.css('position', 'static');
+  }
   rootNode.prepend(placeholderNode);
 }
 
@@ -184,7 +187,7 @@ export function createIframeBox(config: IframeBoxConfig): BoxComponent {
       const rootNode = query('<div class="lake-iframe" />');
       boxContainer.empty();
       boxContainer.append(rootNode);
-      if (!value.url) {
+      if (value.url === undefined) {
         if (editor.readonly) {
           box.node.hide();
           return;
@@ -224,9 +227,11 @@ export function createIframeBox(config: IframeBoxConfig): BoxComponent {
         });
         button.render();
         rootNode.append(formNode);
-        appendCornerToolbar(config, box);
       } else {
         showIframe(config, box);
+      }
+      if (!editor.readonly) {
+        appendCornerToolbar(config, box);
       }
     },
   };

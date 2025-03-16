@@ -3,8 +3,12 @@ import { createIframeBox } from '@/utils/create-iframe-box';
 import { showBox } from '../utils';
 import { Editor } from '@/editor';
 
-const watchUrl = 'https://www.youtube.com/watch?v=5sMBhDv4sik';
-const embedUrl = 'https://www.youtube.com/embed/5sMBhDv4sik';
+const youbuteUrl = 'https://www.youtube.com/watch?v=5sMBhDv4sik';
+
+function getId(url: string): string {
+  const result = /[\w\-]+$/.exec(url || '');
+  return result ? result[0] : '';
+}
 
 const youbuteBox = createIframeBox({
   type: 'inline',
@@ -20,7 +24,7 @@ const youbuteBox = createIframeBox({
   urlError: 'Invalid YouTube link',
   iframePlaceholder: icons.get('video'),
   iframeAttributes: () => ({
-    src: embedUrl,
+    src: `https://www.youtube.com/embed/${getId(youbuteUrl)}`,
     title: 'YouTube video player',
     frameborder: '0',
     allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
@@ -63,9 +67,17 @@ describe('utils / create-iframe-box-ui', () => {
     });
   });
 
+  it('youtube: should render a loading status', () => {
+    showBox('youtubeBox', {
+      url: 'loading',
+    }, box => {
+      expect(box.name).to.equal('youtubeBox');
+    });
+  });
+
   it('youtube: should render a video', () => {
     showBox('youtubeBox', {
-      url: watchUrl,
+      url: youbuteUrl,
     }, box => {
       expect(box.name).to.equal('youtubeBox');
     });
@@ -89,7 +101,7 @@ describe('utils / create-iframe-box-ui', () => {
 
   it('youtube (read-only): should render a video', () => {
     showBox('youtubeBox', {
-      url: watchUrl,
+      url: youbuteUrl,
     }, box => {
       expect(box.name).to.equal('youtubeBox');
     }, true);
