@@ -34,10 +34,33 @@ const youbuteBox = createIframeBox({
   resize: true,
 });
 
+const codesandboxBox = createIframeBox({
+  type: 'block',
+  name: 'codesandbox',
+  width: '100%',
+  height: '500px',
+  formDescription: 'Paste a link to embed a running sandbox from CodeSandbox.',
+  formLabel: 'Share URL',
+  formPlaceholder: 'https://codesandbox.io/p/sandbox/...',
+  formButtonText: 'Embed',
+  deleteButtonText: 'Delete',
+  validUrl: url => url.indexOf('https://codesandbox.io/') === 0,
+  urlError: 'Invalid CodeSandbox URL',
+  iframePlaceholder: '<span>CodeSandbox</span>',
+  iframeAttributes: url => ({
+    src: url.replace('/p/sandbox/', '/embed/'),
+    scrolling: 'no',
+    frameborder: '0',
+    allow: 'accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking',
+    sandbox: 'allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts',
+  }),
+});
+
 describe('utils / create-iframe-box-ui', () => {
 
   beforeEach(() => {
     boxes.set('youtube', youbuteBox);
+    boxes.set('codesandbox', codesandboxBox);
   });
 
   it('youtube: should render an input field', () => {
@@ -46,11 +69,25 @@ describe('utils / create-iframe-box-ui', () => {
     });
   });
 
+  it('codesandbox: should render an input field', () => {
+    showBox('codesandbox', {}, box => {
+      expect(box.name).to.equal('codesandbox');
+    });
+  });
+
   it('youtube: should render a loading status', () => {
     showBox('youtube', {
       url: 'loading',
     }, box => {
       expect(box.name).to.equal('youtube');
+    });
+  });
+
+  it('codesandbox: should render a loading status', () => {
+    showBox('codesandbox', {
+      url: 'loading',
+    }, box => {
+      expect(box.name).to.equal('codesandbox');
     });
   });
 

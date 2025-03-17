@@ -15,9 +15,41 @@
   border-radius: 4px;
 }
 
+.lake-iframe .lake-description {
+  padding-top: 8px;
+  padding-bottom: 16px;
+  color: var(--lake-secondary-text-color);
+}
+
 lake-box[type="inline"] .lake-iframe .lake-iframe-form {
   min-width: 380px;
   max-width: 480px;
+}
+
+lake-box[type="inline"] .lake-iframe .lake-input-label {
+  padding-bottom: 8px;
+}
+
+lake-box[type="inline"] .lake-iframe .lake-input-field {
+  padding-bottom: 8px;
+}
+
+lake-box[type="inline"] .lake-iframe .lake-button-field {
+  padding-top: 16px;
+  padding-bottom: 8px;
+}
+
+lake-box[type="inline"] .lake-iframe .lake-button-field button {
+  width: 100%;
+}
+
+lake-box[type="block"] .lake-iframe .lake-input-field {
+  display: flex;
+  padding-bottom: 8px;
+}
+
+lake-box[type="block"] .lake-iframe .lake-input-field input[type="text"] {
+  margin-right: 8px;
 }
 
 .lake-iframe input[type="text"] {
@@ -37,28 +69,6 @@ lake-box[type="inline"] .lake-iframe .lake-iframe-form {
 .lake-iframe input[type="text"]:focus-visible {
   outline: var(--lake-input-outline);
   outline-offset: -2px;
-}
-
-.lake-iframe .lake-row {
-  padding-bottom: 8px;
-}
-
-.lake-iframe .lake-desc-row {
-  padding-top: 8px;
-  padding-bottom: 16px;
-  color: var(--lake-secondary-text-color);
-}
-
-.lake-iframe .lake-button-row {
-  padding-top: 16px;
-}
-
-.lake-iframe .lake-button-row button {
-  width: 100%;
-}
-
-.lake-iframe iframe {
-  border-radius: 5px;
 }
 
 .lake-iframe-placeholder {
@@ -84,4 +94,8 @@ lake-box[type="inline"] .lake-iframe .lake-iframe-form {
 .lake-iframe-placeholder span {
   font-size: 24px;
   color: var(--lake-box-placeholder-text-color);
+}
+
+.lake-iframe iframe {
+  border-radius: 5px;
 }
