@@ -58,6 +58,7 @@ lake-box[type="block"] .lake-iframe .lake-input-field input[type="text"] {
   color: var(--lake-text-color);
   border-radius: 5px;
   border: 1px solid var(--lake-input-border-color);
+  background-color: var(--lake-input-background-color);
   padding: 4px 10px;
   width: 100%;
 }
