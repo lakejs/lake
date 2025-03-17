@@ -14,14 +14,17 @@ import headlessEditor from './headless-editor';
 import readonlyEditor from './readonly-editor';
 import truthsocial, { truthsocialBox } from './plugins/truthsocial';
 import codesandbox, { codesandboxBox } from './plugins/codesandbox';
+import stackblitz, { stackblitzBox } from './plugins/stackblitz';
 import helloWorld, { helloWorldBox } from './plugins/hello-world';
 
 Editor.box.add(truthsocialBox);
 Editor.box.add(codesandboxBox);
+Editor.box.add(stackblitzBox);
 Editor.box.add(helloWorldBox);
 
 Editor.plugin.add('truthsocial', truthsocial);
 Editor.plugin.add('codesandbox', codesandbox);
+Editor.plugin.add('stackblitz', stackblitz);
 Editor.plugin.add('helloWorld', helloWorld);
 
 declare global {

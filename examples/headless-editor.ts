@@ -105,6 +105,16 @@ export default (value: string) => {
       editor.command.execute('codesandbox');
     },
   }));
+  // StackBlitz
+  buttonList.push(new Button({
+    root: toolbarRoot,
+    name: 'stackblitz',
+    text: 'StackBlitz',
+    onClick: () => {
+      editor.focus();
+      editor.command.execute('stackblitz');
+    },
+  }));
   for (const button of buttonList) {
     button.render();
   }
