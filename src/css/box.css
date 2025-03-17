@@ -11,6 +11,7 @@ lake-box[type="inline"] {
 lake-box[type="block"] {
   display: block grid;
   grid-template-columns: 1px calc(100% - 2px) 1px;
+  margin-bottom: 16px;
 }
 
 lake-box .lake-box-strip {
