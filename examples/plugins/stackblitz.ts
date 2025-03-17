@@ -17,6 +17,7 @@ const stackblitzBox = createIframeBox({
   iframeAttributes: url => {
     const iframeUrl = new URL(url);
     iframeUrl.searchParams.set('embed', '1');
+    iframeUrl.searchParams.set('ctl', '1');
     return {
       src: iframeUrl.toString(),
       scrolling: 'no',
