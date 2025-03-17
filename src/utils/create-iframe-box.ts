@@ -36,15 +36,15 @@ interface IframeBoxConfig {
   /**
    * Label for the URL input field, which can be localized.
    */
-  formLabel: string | ((locale: TranslationFunctions) => string);
+  urlLabel?: string | ((locale: TranslationFunctions) => string);
   /**
    * Placeholder text for the URL input field.
    */
-  formPlaceholder: string;
+  urlPlaceholder: string;
   /**
-   * Text for the submit button, which can be localized.
+   * Text for the embed button, which can be localized.
    */
-  formButtonText: string | ((locale: TranslationFunctions) => string);
+  embedButtonText: string | ((locale: TranslationFunctions) => string);
   /**
    * Tooltip text for the delete button, which can be localized.
    */
@@ -58,7 +58,7 @@ interface IframeBoxConfig {
    */
   urlError: string | ((locale: TranslationFunctions) => string);
   /**
-   * SVG icon for the iframe.
+   * Placeholder text shown while the iframe is loading.
    */
   iframePlaceholder?: string;
   /**
@@ -195,9 +195,9 @@ export function createIframeBox(config: IframeBoxConfig): BoxComponent {
           ? query(template`
             <div class="lake-iframe-form">
               <div class="lake-description">${getLocaleString(locale, config.formDescription)}</div>
-              <div class="lake-input-label">${getLocaleString(locale, config.formLabel)}</div>
+              <div class="lake-input-label">${getLocaleString(locale, config.urlLabel || '')}</div>
               <div class="lake-input-field">
-                <input type="text" name="url" placeholder="${config.formPlaceholder}" />
+                <input type="text" name="url" placeholder="${config.urlPlaceholder}" />
               </div>
               <div class="lake-button-field"></div>
             </div>
@@ -206,7 +206,7 @@ export function createIframeBox(config: IframeBoxConfig): BoxComponent {
             <div class="lake-iframe-form">
               <div class="lake-description">${getLocaleString(locale, config.formDescription)}</div>
               <div class="lake-input-field">
-                <input type="text" name="url" placeholder="${config.formPlaceholder}" />
+                <input type="text" name="url" placeholder="${config.urlPlaceholder}" />
                 <div class="lake-button-field"></div>
               </div>
             </div>
@@ -215,7 +215,7 @@ export function createIframeBox(config: IframeBoxConfig): BoxComponent {
           root: formNode.find('.lake-button-field'),
           name: 'embed',
           type: 'primary',
-          text: getLocaleString(locale, config.formButtonText),
+          text: getLocaleString(locale, config.embedButtonText),
           onClick: () => {
             const url = formNode.find('input[name="url"]').value();
             if (!config.validUrl(url)) {
