@@ -7,7 +7,7 @@
 }
 
 .lake-iframe .lake-iframe-form {
-  padding: 16px;
+  padding: 24px 16px;
   line-height: normal;
   color: var(--lake-text-color);
   border: 1px solid var(--lake-box-border-color);
@@ -16,40 +16,8 @@
 }
 
 .lake-iframe .lake-description {
-  padding-top: 8px;
-  padding-bottom: 16px;
+  margin-bottom: 16px;
   color: var(--lake-secondary-text-color);
-}
-
-lake-box[type="inline"] .lake-iframe .lake-iframe-form {
-  min-width: 380px;
-  max-width: 480px;
-}
-
-lake-box[type="inline"] .lake-iframe .lake-input-label {
-  padding-bottom: 8px;
-}
-
-lake-box[type="inline"] .lake-iframe .lake-input-field {
-  padding-bottom: 8px;
-}
-
-lake-box[type="inline"] .lake-iframe .lake-button-field {
-  padding-top: 16px;
-  padding-bottom: 8px;
-}
-
-lake-box[type="inline"] .lake-iframe .lake-button-field button {
-  width: 100%;
-}
-
-lake-box[type="block"] .lake-iframe .lake-input-field {
-  display: flex;
-  padding-bottom: 8px;
-}
-
-lake-box[type="block"] .lake-iframe .lake-input-field input[type="text"] {
-  margin-right: 8px;
 }
 
 .lake-iframe input[type="text"] {
@@ -70,6 +38,35 @@ lake-box[type="block"] .lake-iframe .lake-input-field input[type="text"] {
 .lake-iframe input[type="text"]:focus-visible {
   outline: var(--lake-input-outline);
   outline-offset: -2px;
+}
+
+lake-box[type="inline"] .lake-iframe .lake-iframe-form {
+  min-width: 380px;
+  max-width: 480px;
+}
+
+lake-box[type="inline"] .lake-iframe .lake-input-label {
+  margin-bottom: 8px;
+}
+
+lake-box[type="inline"] .lake-iframe .lake-input-field input[type="text"] {
+  margin-bottom: 16px;
+}
+
+lake-box[type="inline"] .lake-iframe .lake-input-field button {
+  width: 100%;
+}
+
+lake-box[type="block"] .lake-iframe .lake-input-label {
+  display: none;
+}
+
+lake-box[type="block"] .lake-iframe .lake-input-field {
+  display: flex;
+}
+
+lake-box[type="block"] .lake-iframe .lake-input-field input[type="text"] {
+  margin-right: 8px;
 }
 
 .lake-iframe-placeholder {

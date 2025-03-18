@@ -191,28 +191,17 @@ export function createIframeBox(config: IframeBoxConfig): BoxComponent {
           box.node.hide();
           return;
         }
-        const formNode = config.type === 'inline'
-          ? query(template`
-            <div class="lake-iframe-form">
-              <div class="lake-description">${getLocaleString(locale, config.formDescription)}</div>
-              <div class="lake-input-label">${getLocaleString(locale, config.urlLabel || '')}</div>
-              <div class="lake-input-field">
-                <input type="text" name="url" placeholder="${config.urlPlaceholder}" />
-              </div>
-              <div class="lake-button-field"></div>
+        const formNode = query(template`
+          <div class="lake-iframe-form">
+            <div class="lake-description">${getLocaleString(locale, config.formDescription)}</div>
+            <div class="lake-input-label">${getLocaleString(locale, config.urlLabel || '')}</div>
+            <div class="lake-input-field">
+              <input type="text" name="url" placeholder="${config.urlPlaceholder}" />
             </div>
-          `)
-          : query(template`
-            <div class="lake-iframe-form">
-              <div class="lake-description">${getLocaleString(locale, config.formDescription)}</div>
-              <div class="lake-input-field">
-                <input type="text" name="url" placeholder="${config.urlPlaceholder}" />
-                <div class="lake-button-field"></div>
-              </div>
-            </div>
-          `);
+          </div>
+        `);
         const button = new Button({
-          root: formNode.find('.lake-button-field'),
+          root: formNode.find('.lake-input-field'),
           name: 'embed',
           type: 'primary',
           text: getLocaleString(locale, config.embedButtonText),
