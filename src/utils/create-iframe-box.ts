@@ -154,6 +154,7 @@ function showIframe(config: IframeBoxConfig, box: Box): void {
             width: `${newWidth}px`,
             height: `${newHeight}px`,
           });
+          editor.selection.selectBox(box);
           editor.history.save();
         },
       }).render();
