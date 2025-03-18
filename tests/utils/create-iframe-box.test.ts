@@ -18,7 +18,7 @@ const iframeBox = createIframeBox({
   name: 'iframeBox',
   width: '560px',
   height: '315px',
-  formDescription: 'Paste a link to embed a video from YouTube.',
+  formDescription: 'Paste a YouTube link to embed the video.',
   urlLabel: 'URL',
   urlPlaceholder: 'https://www.youtube.com/watch?v=...',
   embedButtonText: 'Embed',

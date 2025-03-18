@@ -7,7 +7,7 @@ const codesandboxBox = createIframeBox({
   name: 'codesandbox',
   width: '100%',
   height: '500px',
-  formDescription: 'Paste a link to embed a running sandbox from CodeSandbox.',
+  formDescription: 'Paste a CodeSandbox link to embed the running sandbox.',
   urlPlaceholder: 'https://codesandbox.io/p/sandbox/...',
   embedButtonText: 'Embed',
   deleteButtonText: 'Delete',

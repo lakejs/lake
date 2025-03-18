@@ -7,7 +7,7 @@ const stackblitzBox = createIframeBox({
   name: 'stackblitz',
   width: '100%',
   height: '500px',
-  formDescription: 'Paste a link to embed a project from StackBlitz.',
+  formDescription: 'Paste a StackBlitz link to embed the project.',
   urlPlaceholder: 'https://stackblitz.com/edit/...',
   embedButtonText: 'Embed',
   deleteButtonText: 'Delete',

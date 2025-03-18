@@ -174,7 +174,7 @@ export default {
   twitter: {
     embed: '트윗을 추가',
     remove: '삭제',
-    description: '아래 입력란에 X 링크를 붙여넣으세요.',
+    description: '아래 입력란에 X (Twitter) 링크를 붙여넣으세요.',
     url: '링크',
     urlError: '유효한 링크를 입력하세요.',
   },

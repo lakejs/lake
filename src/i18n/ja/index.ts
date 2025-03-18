@@ -174,7 +174,7 @@ export default {
   twitter: {
     embed: 'ツイートを埋め込む',
     remove: '削除',
-    description: '下の入力欄に X リンクを貼り付けてください。',
+    description: '下の入力欄に X (Twitter) リンクを貼り付けてください。',
     url: 'リンク',
     urlError: '有効なリンクを入力してください。',
   },

@@ -174,7 +174,7 @@ export default {
   twitter: {
     embed: '嵌入 Tweet',
     remove: '删除',
-    description: '在下面的输入框里，粘贴 X 链接。',
+    description: '在下面的输入框里，粘贴 X (Twitter) 链接。',
     url: '链接',
     urlError: '请输入有效的链接。',
   },
