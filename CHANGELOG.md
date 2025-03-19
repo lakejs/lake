@@ -1,3 +1,21 @@
+## [0.3.10](https://github.com/lakejs/lake/compare/0.3.9...0.3.10) (2025-03-19)
+
+
+### Bug Fixes
+
+* **video:** cannot insert specified video using command ([30dd119](https://github.com/lakejs/lake/commit/30dd119e41f46ef2d86cd215948a7914bd801de9))
+* **video:** jump to the cursor after resizing ([20575e1](https://github.com/lakejs/lake/commit/20575e1b4eb0717dae654a3bce170521f0817f02))
+
+
+### Features
+
+* **block-box:** add margin-bottom ([c901ae3](https://github.com/lakejs/lake/commit/c901ae3f85d896a9ce53dd9919cf427cb14aeffd))
+* **plugins:** add twitter plugin ([7d4d8e5](https://github.com/lakejs/lake/commit/7d4d8e5cd3fc6c241de2861259135ab08016245f))
+* **utils:** add createIframeBox function ([e744c86](https://github.com/lakejs/lake/commit/e744c861e65fb31d53d54300b3d7d1c4fbb9e2f8))
+* **video:** show placeholder before video loaded ([627cb06](https://github.com/lakejs/lake/commit/627cb06cc0fe664e5ec939f3a5a75fd8060b151e))
+
+
+
 ## [0.3.9](https://github.com/lakejs/lake/compare/0.3.8...0.3.9) (2025-03-12)
 
 

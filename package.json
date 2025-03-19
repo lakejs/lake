@@ -1,6 +1,6 @@
 {
   "name": "lakelib",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "packageManager": "pnpm@10.6.3",
   "description": "Lake is a rich text editor built for modern applications that require content creation like blog posts, user comments, and email composition.",
   "author": "Luo Longhao <luolonghao@gmail.com>",
