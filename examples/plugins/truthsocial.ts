@@ -1,6 +1,4 @@
-import { BoxValue } from '@/types/box';
-import { createIframeBox } from '@/utils/create-iframe-box';
-import { Editor } from '@/editor';
+import { Editor, BoxValue, createIframeBox } from 'lakelib';
 
 const truthsocialBox = createIframeBox({
   type: 'inline',
