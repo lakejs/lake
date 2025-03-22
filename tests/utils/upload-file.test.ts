@@ -32,13 +32,13 @@ describe('utils / upload-file', () => {
     rootNode.remove();
   });
 
-  it('uploadImage: upload successful', done => {
+  it('should upload image', done => {
     const file = new File([imgBuffer], 'foo.png', {
       type: 'image/png',
     });
     const box = uploadFile({
       editor,
-      name: 'image',
+      pluginName: 'image',
       file,
       onSuccess: () => {
         expect(box.value.status).to.equal('done');
@@ -52,14 +52,63 @@ describe('utils / upload-file', () => {
     expect(editor.container.find('lake-box').length).to.equal(1);
   });
 
-  it('uploadImage: invalid type', () => {
+  it('should upload file', done => {
+    const file = new File(['foo'], 'think-different-wikipedia.pdf', {
+      type: 'application/pdf',
+    });
+    const box = uploadFile({
+      editor,
+      pluginName: 'file',
+      file,
+      onSuccess: () => {
+        expect(box.value.status).to.equal('done');
+        done();
+      },
+    });
+    requests[0].respond(200, {}, JSON.stringify({
+      url: '../assets/files/think-different-wikipedia.pdf',
+    }));
+    expect(box.value.status).to.equal('uploading');
+    expect(editor.container.find('lake-box').length).to.equal(1);
+  });
+
+  it('should upload image after configuring fieldName and transformResponse', done => {
+    editor.config.image.fieldName = 'foo';
+    editor.config.image.transformResponse = (body: any) => {
+      return {
+        url: body.data.url,
+      };
+    };
+    const file = new File([imgBuffer], 'foo.png', {
+      type: 'image/png',
+    });
+    const box = uploadFile({
+      editor,
+      pluginName: 'image',
+      file,
+      onSuccess: () => {
+        expect(box.value.status).to.equal('done');
+        done();
+      },
+    });
+    expect((requests[0].requestBody as any).get('foo').name).to.equal('foo.png');
+    requests[0].respond(200, {}, JSON.stringify({
+      data: {
+        url: '../assets/images/heaven-lake-512.png',
+      },
+    }));
+    expect(box.value.status).to.equal('uploading');
+    expect(editor.container.find('lake-box').length).to.equal(1);
+  });
+
+  it('should not upload image because of invalid type', () => {
     const file = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
     });
     try {
       uploadFile({
         editor,
-        name: 'image',
+        pluginName: 'image',
         file,
       });
     } catch (e) {
@@ -68,13 +117,13 @@ describe('utils / upload-file', () => {
     expect(editor.container.find('lake-box').length).to.equal(0);
   });
 
-  it('uploadImage: server error with status 500', done => {
+  it('should not upload image because server returns 500', done => {
     const file = new File([imgBuffer], 'foo.png', {
       type: 'image/png',
     });
     const box = uploadFile({
       editor,
-      name: 'image',
+      pluginName: 'image',
       file,
       onError: () => {
         expect(box.value.status).to.equal('error');
@@ -88,13 +137,13 @@ describe('utils / upload-file', () => {
     expect(editor.container.find('lake-box').length).to.equal(1);
   });
 
-  it('uploadImage: server error with status 200', done => {
+  it('should not upload image because server returns invalid data', done => {
     const file = new File([imgBuffer], 'foo.png', {
       type: 'image/png',
     });
     const box = uploadFile({
       editor,
-      name: 'image',
+      pluginName: 'image',
       file,
       onError: () => {
         expect(box.value.status).to.equal('error');

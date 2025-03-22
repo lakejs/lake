@@ -347,6 +347,13 @@ export default (value: string) => {
       // requestMethod: 'GET',
       // requestAction: '/assets/json/upload-image.json',
       requestAction: '/upload',
+      // fieldName: 'foo',
+      /*
+      transformResponse: (body: any) => {
+        body.url = body.url2;
+        return body;
+      },
+      */
     },
     file: {
       requestAction: '/upload',

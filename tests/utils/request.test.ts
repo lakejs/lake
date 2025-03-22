@@ -1,16 +1,21 @@
 import sinon from 'sinon';
 import { request } from '../../src/utils/request';
+import { UploadRequestOption } from '@/types/request';
 
 function empty() {}
 
-const option: any = {
+const file = new File(['foo'], 'foo.pdf', {
+  type: 'application/pdf',
+});
+
+const option: UploadRequestOption = {
   onSuccess: empty,
   action: 'upload.do',
   data: { a: 1, b: 2, c: [3, 4] },
-  filename: 'a.png',
-  file: 'foo',
+  fieldName: 'fooFile',
+  file,
   headers: { from: 'hello' },
-  method: 'post',
+  method: 'POST',
 };
 
 describe('utils / request', () => {
@@ -30,18 +35,21 @@ describe('utils / request', () => {
     xhr.restore();
   });
 
-  it('upload request success', done => {
+  it('should return 200 code and trigger onSuccess', done => {
     option.onError = done;
     option.onSuccess = (ret: any) => {
       expect(ret).to.deep.equal({ success: true });
-      expect(requests[0].requestBody.getAll('c[]')).to.deep.equal(['3', '4']);
       done();
     };
     request(option);
+    expect(requests[0].method).to.deep.equal('POST');
+    expect(requests[0].url).to.deep.equal('upload.do');
+    expect(requests[0].requestBody.getAll('c[]')).to.deep.equal(['3', '4']);
+    expect(requests[0].requestBody.get('fooFile').name).to.equal('foo.pdf');
     requests[0].respond(200, {}, '{"success": true}');
   });
 
-  it('40x code should be error', done => {
+  it('should return 404 code and trigger onError', done => {
     option.onError = (e: any) => {
       expect(e.toString()).contain('404');
       done();
@@ -52,7 +60,7 @@ describe('utils / request', () => {
     requests[0].respond(404, {}, 'Not found');
   });
 
-  it('2xx code should be success', done => {
+  it('should return 204 code and trigger onSuccess', done => {
     option.onError = done;
     option.onSuccess = (ret: any) => {
       expect(ret).to.equal('');
@@ -62,7 +70,7 @@ describe('utils / request', () => {
     requests[0].respond(204, {});
   });
 
-  it('gets headers', () => {
+  it('should get headers', () => {
     request(option);
     expect(requests[0].requestHeaders).to.deep.equal({
       'X-Requested-With': 'XMLHttpRequest',
@@ -71,7 +79,9 @@ describe('utils / request', () => {
   });
 
   it('should empty X-Requested-With', () => {
-    option.headers['X-Requested-With'] = null;
+    if (option.headers) {
+      option.headers['X-Requested-With'] = null;
+    }
     request(option);
     expect(requests[0].requestHeaders).to.deep.equal({ from: 'hello' });
   });

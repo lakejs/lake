@@ -2,7 +2,7 @@ export type BeforeUploadFileType = File | Blob | boolean | string;
 
 export type UploadRequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH';
 
-export type UploadRequestHeader = Record<string, string>;
+export type UploadRequestHeader = Record<string, string | null>;
 
 export interface UploadRequestError extends Error {
   status?: number;
@@ -18,7 +18,7 @@ export interface UploadRequestOption<T = any> {
   onProgress?: (event: ProgressEvent) => void;
   onError?: (event: UploadRequestError | ProgressEvent, body?: T) => void;
   data?: Record<string, unknown>;
-  filename?: string;
+  fieldName?: string;
   withCredentials?: boolean;
   headers?: UploadRequestHeader;
 }

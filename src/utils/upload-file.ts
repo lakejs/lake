@@ -5,7 +5,7 @@ import { Box } from '../models/box';
 
 interface UploadConfig {
   editor: Editor;
-  name: string;
+  pluginName: string;
   file: File;
   onError?: (error: string) => void;
   onSuccess?: () => void;
@@ -13,15 +13,18 @@ interface UploadConfig {
 
 // Uploads a file to the server.
 export function uploadFile(config: UploadConfig): Box {
-  const { editor, name, file, onError, onSuccess } = config;
-  const { requestMethod, requestAction, requestTypes } = editor.config[name];
+  const { editor, pluginName, file, onError, onSuccess } = config;
+  const {
+    requestMethod, requestAction, requestTypes,
+    fieldName, transformResponse, withCredentials, headers,
+  } = editor.config[pluginName];
   if (requestTypes.indexOf(file.type) < 0) {
     if (onError) {
       onError(`File "${file.name}" is not allowed for uploading.`);
     }
     throw new Error(`Cannot upload file "${file.name}" because its type "${file.type}" is not found in ['${requestTypes.join('\', \'')}'].`);
   }
-  const box = editor.selection.insertBox(name, {
+  const box = editor.selection.insertBox(pluginName, {
     url: URL.createObjectURL(file),
     status: 'uploading',
     name: file.name,
@@ -46,6 +49,9 @@ export function uploadFile(config: UploadConfig): Box {
     },
     onSuccess: body => {
       xhr = null;
+      if (transformResponse) {
+        body = transformResponse(body);
+      }
       if (!body.url) {
         box.updateValue('status', 'error');
         box.render();
@@ -67,6 +73,9 @@ export function uploadFile(config: UploadConfig): Box {
     file,
     action: requestAction,
     method: requestMethod,
+    fieldName,
+    withCredentials,
+    headers,
   });
   box.event.on('beforeunmount', () => {
     if (xhr) {

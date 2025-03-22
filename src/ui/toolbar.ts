@@ -162,7 +162,7 @@ export class Toolbar {
       for (const file of files) {
         uploadFile({
           editor,
-          name: item.name,
+          pluginName: item.name,
           file,
           onError: error => {
             fileNativeNode.value = '';

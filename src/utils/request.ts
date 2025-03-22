@@ -82,11 +82,11 @@ export function request(option: UploadRequestOption): XMLHttpRequest {
   });
 
   if (option.file) {
-    const filename = option.filename || 'file';
+    const fieldName = option.fieldName || 'file';
     if (option.file instanceof Blob) {
-      formData.append(filename, option.file, (option.file as any).name);
+      formData.append(fieldName, option.file, (option.file as any).name);
     } else {
-      formData.append(filename, option.file);
+      formData.append(fieldName, option.file);
     }
   }
 
