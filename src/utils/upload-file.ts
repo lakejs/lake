@@ -26,7 +26,7 @@ export function uploadFile(config: UploadConfig): Box {
   }
   const objectURL = URL.createObjectURL(file);
   const box = editor.selection.insertBox(pluginName, {
-    url: URL.createObjectURL(file),
+    url: objectURL,
     status: 'uploading',
     name: file.name,
     size: file.size,
@@ -40,17 +40,17 @@ export function uploadFile(config: UploadConfig): Box {
       percentNode.text(`${percent < 100 ? percent : 99} %`);
     },
     onError: (error, body) => {
-      URL.revokeObjectURL(objectURL);
       xhr = null;
       debug(error.toString(), body);
       box.updateValue('status', 'error');
       box.render();
+      editor.history.save();
+      URL.revokeObjectURL(objectURL);
       if (onError) {
         onError(error.toString());
       }
     },
     onSuccess: body => {
-      URL.revokeObjectURL(objectURL);
       xhr = null;
       if (transformResponse) {
         body = transformResponse(body);
@@ -69,6 +69,7 @@ export function uploadFile(config: UploadConfig): Box {
       });
       box.render();
       editor.history.save();
+      URL.revokeObjectURL(objectURL);
       if (onSuccess) {
         onSuccess();
       }
@@ -82,8 +83,8 @@ export function uploadFile(config: UploadConfig): Box {
   });
   box.event.on('beforeunmount', () => {
     if (xhr) {
-      URL.revokeObjectURL(objectURL);
       xhr.abort();
+      URL.revokeObjectURL(objectURL);
       debug('Upload canceled');
     }
   });
