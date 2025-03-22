@@ -24,6 +24,7 @@ export function uploadFile(config: UploadConfig): Box {
     }
     throw new Error(`Cannot upload file "${file.name}" because its type "${file.type}" is not found in ['${requestTypes.join('\', \'')}'].`);
   }
+  const objectURL = URL.createObjectURL(file);
   const box = editor.selection.insertBox(pluginName, {
     url: URL.createObjectURL(file),
     status: 'uploading',
@@ -39,6 +40,7 @@ export function uploadFile(config: UploadConfig): Box {
       percentNode.text(`${percent < 100 ? percent : 99} %`);
     },
     onError: (error, body) => {
+      URL.revokeObjectURL(objectURL);
       xhr = null;
       debug(error.toString(), body);
       box.updateValue('status', 'error');
@@ -48,6 +50,7 @@ export function uploadFile(config: UploadConfig): Box {
       }
     },
     onSuccess: body => {
+      URL.revokeObjectURL(objectURL);
       xhr = null;
       if (transformResponse) {
         body = transformResponse(body);
@@ -79,6 +82,7 @@ export function uploadFile(config: UploadConfig): Box {
   });
   box.event.on('beforeunmount', () => {
     if (xhr) {
+      URL.revokeObjectURL(objectURL);
       xhr.abort();
       debug('Upload canceled');
     }
