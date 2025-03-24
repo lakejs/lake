@@ -73,12 +73,14 @@ describe('utils / upload-file', () => {
   });
 
   it('should upload image after configuring fieldName and transformResponse', done => {
-    editor.config.image.fieldName = 'foo';
-    editor.config.image.transformResponse = (body: any) => {
-      return {
-        url: body.data.url,
-      };
-    };
+    editor.setPluginConfig('image', {
+      fieldName: 'foo',
+      transformResponse: (body: any) => {
+        return {
+          url: body.data.url,
+        };
+      },
+    });
     const file = new File([imgBuffer], 'foo.png', {
       type: 'image/png',
     });

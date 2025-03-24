@@ -24,9 +24,8 @@ export function uploadFile(config: UploadConfig): Box {
     }
     throw new Error(`Cannot upload file "${file.name}" because its type "${file.type}" is not found in ['${requestTypes.join('\', \'')}'].`);
   }
-  const objectURL = URL.createObjectURL(file);
   const box = editor.selection.insertBox(pluginName, {
-    url: objectURL,
+    url: pluginName === 'image' ? URL.createObjectURL(file) : '',
     status: 'uploading',
     name: file.name,
     size: file.size,
@@ -44,8 +43,6 @@ export function uploadFile(config: UploadConfig): Box {
       debug(error.toString(), body);
       box.updateValue('status', 'error');
       box.render();
-      editor.history.save();
-      URL.revokeObjectURL(objectURL);
       if (onError) {
         onError(error.toString());
       }
@@ -69,7 +66,6 @@ export function uploadFile(config: UploadConfig): Box {
       });
       box.render();
       editor.history.save();
-      URL.revokeObjectURL(objectURL);
       if (onSuccess) {
         onSuccess();
       }
@@ -84,7 +80,6 @@ export function uploadFile(config: UploadConfig): Box {
   box.event.on('beforeunmount', () => {
     if (xhr) {
       xhr.abort();
-      URL.revokeObjectURL(objectURL);
       debug('Upload canceled');
     }
   });
