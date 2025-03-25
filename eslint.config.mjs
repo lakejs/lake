@@ -42,7 +42,6 @@ export default antfu(
       'import/consistent-type-specifier-style': 'off',
       'eslint-comments/no-unlimited-disable': 'off',
       'unicorn/prefer-includes': 'off',
-      'unicorn/prefer-dom-node-text-content': 'off',
       'perfectionist/sort-imports': 'off',
       'perfectionist/sort-exports': 'off',
       'perfectionist/sort-named-imports': 'off',

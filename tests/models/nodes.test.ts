@@ -753,13 +753,13 @@ describe('models / nodes', () => {
 
   it('method: text', () => {
     const node = new Nodes([element, elementTwo]);
-    node.html('<p>foo<br />bar<br /></p>');
+    node.html('<p>foo\n<br />bar<br /></p>');
     expect(node.text()).to.equal('foo\nbar');
-    expect(node.find('p').first().text()).to.equal('foo');
+    expect(node.find('p').first().text()).to.equal('foo\n');
     node.text('<p>foo<br />bar<br /></p>');
     expect(node.text()).to.equal('<p>foo<br />bar<br /></p>');
     node.text('foo\nbar');
-    expect(node.html()).to.equal('foo<br>bar');
+    expect(node.html()).to.equal('foo\nbar');
   });
 
   it('method: value', () => {

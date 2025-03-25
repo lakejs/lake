@@ -846,15 +846,10 @@ export class Nodes {
   public text(value?: string): any {
     if (value === undefined) {
       const node = this.get(0);
-      if (this.isText) {
-        return node.nodeValue ?? '';
-      }
-      const element = node as HTMLElement;
-      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText
-      return element.innerText.replace(/^\n+|\n+$/, '');
+      return node.textContent ?? '';
     }
     return this.eachElement(element => {
-      (element as HTMLElement).innerText = value;
+      element.textContent = value;
     });
   }
 
