@@ -58,8 +58,8 @@ function renderFloatingToolbar(box: Box): void {
       onClick: () => {
         const boxContainer = box.getContainer();
         const captionNode = boxContainer.find('.lake-image-caption');
-        const caption = captionNode.text().trim();
-        if (caption === '') {
+        const caption = captionNode.text();
+        if (caption.trim() === '') {
           captionNode.addClass('lake-placeholder');
         }
         showCaption(box, captionNode);
@@ -291,11 +291,11 @@ function openFullScreen(box: Box): void {
 function renderCaption(box: Box): Nodes {
   const editor = box.getEditor();
   const boxContainer = box.getContainer();
-  const defaultCaption = (box.value.caption || '').trim();
+  const defaultCaption = box.value.caption || '';
   const captionNode = query('<div class="lake-image-caption" />');
   captionNode.text(defaultCaption);
   boxContainer.append(captionNode);
-  if (defaultCaption === '') {
+  if (defaultCaption.trim() === '') {
     hideCaption(box, captionNode);
   } else {
     showCaption(box, captionNode);
@@ -317,7 +317,7 @@ function renderCaption(box: Box): Nodes {
     immediate: false,
   });
   captionNode.on('input', () => {
-    const caption = captionNode.text().trim();
+    const caption = captionNode.text();
     if (caption === '') {
       captionNode.addClass('lake-placeholder');
     } else {
@@ -344,8 +344,8 @@ function renderCaption(box: Box): Nodes {
     }
   });
   captionNode.on('focusout', () => {
-    const caption = captionNode.text().trim();
-    if (caption === '') {
+    const caption = captionNode.text();
+    if (caption.trim() === '') {
       hideCaption(box, captionNode);
     }
   });
