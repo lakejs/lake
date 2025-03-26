@@ -15,8 +15,8 @@ interface UploadConfig {
 export function uploadFile(config: UploadConfig): Box {
   const { editor, pluginName, file, onError, onSuccess } = config;
   const {
-    requestMethod, requestAction, requestTypes,
-    fieldName, transformResponse, withCredentials, headers,
+    requestMethod, requestAction, requestTypes, requestFieldName,
+    transformResponse, requestWithCredentials, requestHeaders,
   } = editor.config[pluginName];
   if (requestTypes.indexOf(file.type) < 0) {
     if (onError) {
@@ -73,9 +73,9 @@ export function uploadFile(config: UploadConfig): Box {
     file,
     action: requestAction,
     method: requestMethod,
-    fieldName,
-    withCredentials,
-    headers,
+    fieldName: requestFieldName,
+    withCredentials: requestWithCredentials,
+    headers: requestHeaders,
   });
   box.event.on('beforeunmount', () => {
     if (xhr) {

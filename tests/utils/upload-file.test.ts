@@ -72,14 +72,16 @@ describe('utils / upload-file', () => {
     expect(editor.container.find('lake-box').length).to.equal(1);
   });
 
-  it('should upload image after configuring fieldName and transformResponse', done => {
+  it('should upload image with configuring', done => {
     editor.setPluginConfig('image', {
-      fieldName: 'foo',
+      requestFieldName: 'foo',
       transformResponse: (body: any) => {
         return {
           url: body.data.url,
         };
       },
+      requestWithCredentials: true,
+      requestHeaders: { from: 'hello' },
     });
     const file = new File([imgBuffer], 'foo.png', {
       type: 'image/png',
@@ -93,6 +95,8 @@ describe('utils / upload-file', () => {
         done();
       },
     });
+    expect(requests[0].withCredentials).to.equal(true);
+    expect(requests[0].requestHeaders.from).to.equal('hello');
     expect((requests[0].requestBody as any).get('foo').name).to.equal('foo.png');
     requests[0].respond(200, {}, JSON.stringify({
       data: {

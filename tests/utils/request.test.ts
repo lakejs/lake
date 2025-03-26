@@ -70,7 +70,13 @@ describe('utils / request', () => {
     requests[0].respond(204, {});
   });
 
-  it('should get headers', () => {
+  it('should set withCredentials', () => {
+    option.withCredentials = true;
+    request(option);
+    expect(requests[0].withCredentials).to.equal(true);
+  });
+
+  it('should set headers', () => {
     request(option);
     expect(requests[0].requestHeaders).to.deep.equal({
       'X-Requested-With': 'XMLHttpRequest',
