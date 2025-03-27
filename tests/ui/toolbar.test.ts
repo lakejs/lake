@@ -572,6 +572,16 @@ describe('ui / toolbar', () => {
         files,
       },
     };
+    editor.setPluginConfig('image', {
+      requestFieldName: 'fooFile',
+      requestWithCredentials: true,
+      requestHeaders: { foo: 'abc' },
+      transformResponse: (body: any) => {
+        return {
+          url: body.data.url,
+        };
+      },
+    });
     editor.setValue('<p>foo<focus /></p>');
     const buttonNode = toolbar.container.find('button[name="image"]');
     buttonNode.emit('mouseenter');
@@ -579,11 +589,18 @@ describe('ui / toolbar', () => {
     buttonNode.emit('mouseleave');
     expect(buttonNode.hasClass('lake-button-hovered')).to.equal(false);
     buttonNode.parent().find('input[type="file"]').emit('change', event as Event);
+    expect(requests[0].withCredentials).to.equal(true);
+    expect(requests[0].requestHeaders.foo).to.equal('abc');
+    expect((requests[0].requestBody as any).get('fooFile').name).to.equal('heaven-lake-512.png');
     requests[0].respond(200, {}, JSON.stringify({
-      url: '../assets/images/heaven-lake-512.png',
+      data: {
+        url: '../assets/images/heaven-lake-512.png',
+      },
     }));
     requests[1].respond(200, {}, JSON.stringify({
-      url: '../assets/images/lac-gentau-256.jpg',
+      data: {
+        url: '../assets/images/lac-gentau-256.jpg',
+      },
     }));
     const value = removeBoxValueFromHTML(editor.getValue());
     debug(`output: ${value}`);
@@ -616,6 +633,16 @@ describe('ui / toolbar', () => {
         files,
       },
     };
+    editor.setPluginConfig('file', {
+      requestFieldName: 'fooFile',
+      requestWithCredentials: true,
+      requestHeaders: { foo: 'abc' },
+      transformResponse: (body: any) => {
+        return {
+          url: body.data.url,
+        };
+      },
+    });
     editor.setValue('<p>foo<focus /></p>');
     const buttonNode = toolbar.container.find('button[name="file"]');
     buttonNode.emit('mouseenter');
@@ -623,11 +650,18 @@ describe('ui / toolbar', () => {
     buttonNode.emit('mouseleave');
     expect(buttonNode.hasClass('lake-button-hovered')).to.equal(false);
     buttonNode.parent().find('input[type="file"]').emit('change', event as Event);
+    expect(requests[0].withCredentials).to.equal(true);
+    expect(requests[0].requestHeaders.foo).to.equal('abc');
+    expect((requests[0].requestBody as any).get('fooFile').name).to.equal('heaven-lake-64.png');
     requests[0].respond(200, {}, JSON.stringify({
-      url: '../assets/images/heaven-lake-64.png',
+      data: {
+        url: '../assets/images/heaven-lake-64.png',
+      },
     }));
     requests[1].respond(200, {}, JSON.stringify({
-      url: '../assets/files/think-different-wikipedia.pdf',
+      data: {
+        url: '../assets/files/think-different-wikipedia.pdf',
+      },
     }));
     const value = removeBoxValueFromHTML(editor.getValue());
     debug(`output: ${value}`);
