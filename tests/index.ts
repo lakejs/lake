@@ -34,14 +34,14 @@ import './utils/morph.test';
 import './utils/visible-info.test';
 import './utils/scroll-to-node.test';
 
+// Network Utils
+import './utils/request.test';
+
 // Box Utils
 import './utils/get-box.test';
 import './utils/create-iframe-box.test';
 import './utils/create-iframe-box-ui.test';
-
-// Network Utils
-import './utils/request.test';
-import './utils/upload-file.test';
+import './utils/insert-upload-box.test';
 
 // Models
 import './models/nodes.test';

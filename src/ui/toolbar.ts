@@ -4,7 +4,7 @@ import { ToolbarButtonItem, ToolbarDropdownItem, ToolbarUploadItem, ToolbarItem 
 import { toolbarItems } from '../config/toolbar-items';
 import { template } from '../utils/template';
 import { query } from '../utils/query';
-import { uploadFile } from '../utils/upload-file';
+import { insertUploadBox } from '../utils/insert-upload-box';
 import { Nodes } from '../models/nodes';
 import { Button } from './button';
 import { Dropdown } from './dropdown';
@@ -157,19 +157,31 @@ export class Toolbar {
     this.container.append(uploadNode);
     fileNode.on('click', event => event.stopPropagation());
     fileNode.on('change', event => {
+      const {
+        requestTypes, requestMethod, requestAction, requestFieldName,
+        requestWithCredentials, requestHeaders, transformResponse,
+      } = editor.config[item.name];
       const target = event.target as HTMLInputElement;
       const files = target.files || [];
       for (const file of files) {
-        uploadFile({
-          editor,
-          pluginName: item.name,
+        insertUploadBox({
+          selection: editor.selection,
+          boxName: item.name,
           file,
+          requestTypes,
+          requestMethod,
+          requestAction,
+          requestFieldName,
+          requestWithCredentials,
+          requestHeaders,
+          transformResponse,
           onError: error => {
             fileNativeNode.value = '';
             editor.config.onMessage('error', error);
           },
           onSuccess: () => {
             fileNativeNode.value = '';
+            editor.history.save();
           },
         });
       }

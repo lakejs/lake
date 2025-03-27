@@ -1,6 +1,6 @@
 import { isKeyHotkey } from 'is-hotkey';
 import { appendBreak } from '@/utils/append-break';
-import { uploadFile } from '@/utils/upload-file';
+import { insertUploadBox } from '@/utils/insert-upload-box';
 import { Nodes } from '@/models/nodes';
 import { Editor } from '@/editor';
 import { SlashMenu } from './slash-menu';
@@ -62,20 +62,32 @@ export default (editor: Editor) => {
         if (!fileNode) {
           return;
         }
+        const {
+          requestTypes, requestMethod, requestAction, requestFieldName,
+          requestWithCredentials, requestHeaders, transformResponse,
+        } = editor.config[item.name];
         const target = event.target as HTMLInputElement;
         const fileNativeNode = fileNode.get(0) as HTMLInputElement;
         const files = target.files || [];
         for (const file of files) {
-          uploadFile({
-            editor,
-            pluginName: item.name,
+          insertUploadBox({
+            selection: editor.selection,
+            boxName: item.name,
             file,
+            requestTypes,
+            requestMethod,
+            requestAction,
+            requestFieldName,
+            requestWithCredentials,
+            requestHeaders,
+            transformResponse,
             onError: error => {
               fileNativeNode.value = '';
               editor.config.onMessage('error', error);
             },
             onSuccess: () => {
               fileNativeNode.value = '';
+              editor.history.save();
             },
           });
         }

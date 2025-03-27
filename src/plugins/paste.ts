@@ -8,7 +8,7 @@ import { removeBreak } from '@/utils/remove-break';
 import { query } from '@/utils/query';
 import { getBox } from '@/utils/get-box';
 import { normalizeValue } from '@/utils/normalize-value';
-import { uploadFile } from '@/utils/upload-file';
+import { insertUploadBox } from '@/utils/insert-upload-box';
 import { Nodes } from '@/models/nodes';
 import { HTMLParser } from '@/parsers/html-parser';
 import { TextParser } from '@/parsers/text-parser';
@@ -180,7 +180,6 @@ export default (editor: Editor) => {
     return;
   }
   editor.event.on('paste', event => {
-    const { requestTypes } = editor.config.image;
     const range = editor.selection.range;
     if (range.isInsideBox) {
       return;
@@ -194,12 +193,25 @@ export default (editor: Editor) => {
     // upload file
     if (dataTransfer.files.length > 0) {
       for (const file of dataTransfer.files) {
+        const pluginName = file.type.indexOf('image/') === 0 ? 'image' : 'file';
+        const {
+          requestTypes, requestMethod, requestAction, requestFieldName,
+          requestWithCredentials, requestHeaders, transformResponse,
+        } = editor.config[pluginName];
         if (requestTypes.indexOf(file.type) >= 0) {
-          uploadFile({
-            editor,
-            pluginName: file.type.indexOf('image/') === 0 ? 'image' : 'file',
+          insertUploadBox({
+            selection: editor.selection,
+            boxName: pluginName,
             file,
+            requestTypes,
+            requestMethod,
+            requestAction,
+            requestFieldName,
+            requestWithCredentials,
+            requestHeaders,
+            transformResponse,
             onError: error => editor.config.onMessage('error', error),
+            onSuccess: () => editor.history.save(),
           });
         }
       }
