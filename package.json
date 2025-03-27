@@ -70,7 +70,7 @@
     "katex": "^0.16.21",
     "lake-codemirror": "^2.0.2",
     "mocha": "^11.1.0",
-    "multer": "1.4.5-lts.1",
+    "multer": "1.4.5-lts.2",
     "nise": "^6.1.1",
     "npm-run-all2": "^7.0.2",
     "picocolors": "^1.1.1",
