@@ -1,4 +1,4 @@
-import sinon from 'sinon';
+import { fakeXhr, FakeXMLHttpRequestStatic } from 'nise';
 import { request } from '../../src/utils/request';
 import { UploadRequestOption } from '@/types/request';
 
@@ -20,11 +20,11 @@ const option: UploadRequestOption = {
 
 describe('utils / request', () => {
 
-  let xhr: sinon.SinonFakeXMLHttpRequestStatic;
+  let xhr: FakeXMLHttpRequestStatic;
   let requests: any[];
 
   beforeEach(() => {
-    xhr = sinon.useFakeXMLHttpRequest();
+    xhr = fakeXhr.useFakeXMLHttpRequest();
     requests = [];
     xhr.onCreate = req => requests.push(req);
     option.onError = empty;

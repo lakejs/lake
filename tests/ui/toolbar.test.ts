@@ -1,4 +1,4 @@
-import sinon from 'sinon';
+import { fakeXhr, FakeXMLHttpRequestStatic, FakeXMLHttpRequest } from 'nise';
 import { click, removeBoxValueFromHTML, base64ToArrayBuffer } from '../utils';
 import { debug } from '../../src/utils/debug';
 import { query } from '../../src/utils/query';
@@ -63,8 +63,8 @@ describe('ui / toolbar', () => {
   let rootNode: Nodes;
   let editor: Editor;
   let toolbar: Toolbar;
-  let xhr: sinon.SinonFakeXMLHttpRequestStatic;
-  let requests: sinon.SinonFakeXMLHttpRequest[];
+  let xhr: FakeXMLHttpRequestStatic;
+  let requests: FakeXMLHttpRequest[];
 
   before(() => {
     rootNode = query('<div class="lake-editor"><div class="lake-toolbar-root"></div><div class="lake-root"></div></div>');
@@ -554,7 +554,7 @@ describe('ui / toolbar', () => {
   });
 
   it('image: upload images', () => {
-    xhr = sinon.useFakeXMLHttpRequest();
+    xhr = fakeXhr.useFakeXMLHttpRequest();
     requests = [];
     xhr.onCreate = req => requests.push(req);
     const files = [
@@ -598,7 +598,7 @@ describe('ui / toolbar', () => {
   });
 
   it('file: upload files', () => {
-    xhr = sinon.useFakeXMLHttpRequest();
+    xhr = fakeXhr.useFakeXMLHttpRequest();
     requests = [];
     xhr.onCreate = req => requests.push(req);
     const files = [

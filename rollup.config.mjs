@@ -70,6 +70,8 @@ function getBundleConfig(type) {
   if (type === 'tests') {
     globals.sinon = 'sinon';
     external.push('sinon');
+    globals.nise = 'nise';
+    external.push('nise');
   }
   return {
     input: `./${type}/index.ts`,

@@ -1,4 +1,4 @@
-import sinon from 'sinon';
+import { fakeXhr, FakeXMLHttpRequest } from 'nise';
 import { icons } from '@/icons';
 import { debug } from '@/utils/debug';
 import { query } from '@/utils/query';
@@ -254,8 +254,8 @@ describe('plugins / slash / index', () => {
   });
 
   it('image: should upload images', () => {
-    const xhr = sinon.useFakeXMLHttpRequest();
-    const requests: sinon.SinonFakeXMLHttpRequest[] = [];
+    const xhr = fakeXhr.useFakeXMLHttpRequest();
+    const requests: FakeXMLHttpRequest[] = [];
     xhr.onCreate = req => requests.push(req);
     const files = [
       new File([imgBuffer], 'heaven-lake-512.png', {
@@ -296,8 +296,8 @@ describe('plugins / slash / index', () => {
   });
 
   it('file: should upload files', () => {
-    const xhr = sinon.useFakeXMLHttpRequest();
-    const requests: sinon.SinonFakeXMLHttpRequest[] = [];
+    const xhr = fakeXhr.useFakeXMLHttpRequest();
+    const requests: FakeXMLHttpRequest[] = [];
     xhr.onCreate = req => requests.push(req);
     const files = [
       new File([imgBuffer], 'heaven-lake-64.png', {

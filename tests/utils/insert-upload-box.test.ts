@@ -1,4 +1,4 @@
-import sinon from 'sinon';
+import { fakeXhr, FakeXMLHttpRequestStatic, FakeXMLHttpRequest } from 'nise';
 import { boxes } from '../../src/storage/boxes';
 import { base64ToArrayBuffer } from '../utils';
 import { query } from '../../src/utils/query';
@@ -9,13 +9,13 @@ const imgBuffer = base64ToArrayBuffer('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1H
 
 describe('utils / insert-upload-box', () => {
 
-  let xhr: sinon.SinonFakeXMLHttpRequestStatic;
-  let requests: sinon.SinonFakeXMLHttpRequest[];
+  let xhr: FakeXMLHttpRequestStatic;
+  let requests: FakeXMLHttpRequest[];
   let rootNode: Nodes;
   let editor: Editor;
 
   beforeEach(() => {
-    xhr = sinon.useFakeXMLHttpRequest();
+    xhr = fakeXhr.useFakeXMLHttpRequest();
     requests = [];
     xhr.onCreate = req => requests.push(req);
     boxes.set('uploadBox', {

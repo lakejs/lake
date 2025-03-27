@@ -1,4 +1,4 @@
-import sinon from 'sinon';
+import { fakeXhr, FakeXMLHttpRequest } from 'nise';
 import { testPlugin, base64ToArrayBuffer } from '../utils';
 import { Editor } from '../../src';
 import { getBox } from '../../src/utils/get-box';
@@ -1039,8 +1039,8 @@ describe('plugins / paste', () => {
   });
 
   it('pastes image from clipboard', () => {
-    const xhr = sinon.useFakeXMLHttpRequest();
-    const requests: sinon.SinonFakeXMLHttpRequest[] = [];
+    const xhr = fakeXhr.useFakeXMLHttpRequest();
+    const requests: FakeXMLHttpRequest[] = [];
     xhr.onCreate = req => requests.push(req);
     const files = [
       new File([imgBuffer], 'heaven-lake-512.png', {

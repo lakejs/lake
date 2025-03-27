@@ -57,6 +57,9 @@ importers:
       '@types/mocha':
         specifier: ^10.0.10
         version: 10.0.10
+      '@types/nise':
+        specifier: ^1.4.5
+        version: 1.4.5
       '@types/sinon':
         specifier: ^17.0.4
         version: 17.0.4
@@ -90,6 +93,9 @@ importers:
       multer:
         specifier: 1.4.5-lts.1
         version: 1.4.5-lts.1
+      nise:
+        specifier: ^6.1.1
+        version: 6.1.1
       npm-run-all2:
         specifier: ^7.0.2
         version: 7.0.2
@@ -127,8 +133,8 @@ importers:
         specifier: ^2.12.1
         version: 2.12.1
       sinon:
-        specifier: ^19.0.5
-        version: 19.0.5
+        specifier: ^20.0.0
+        version: 20.0.0
       tslib:
         specifier: ^2.8.1
         version: 2.8.1
@@ -732,6 +738,9 @@ packages:
 
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
+
+  '@types/nise@1.4.5':
+    resolution: {integrity: sha512-KNx8h0QdeA+BnH5E8rFPBznTGCl+aQwZ+45TaFWRavTULakVpwu6vis8IMVCGphgGCVtqWD1ne/vO1yOq1QJxg==}
 
   '@types/node@22.13.13':
     resolution: {integrity: sha512-ClsL5nMwKaBRwPcCvH8E7+nU4GxHVx1axNvMZTFHMEfNI7oahimt26P5zjVCRrjiIWj6YFXfE1v3dEp94wLcGQ==}
@@ -2752,8 +2761,8 @@ packages:
     resolution: {integrity: sha512-NB3V4XyCOrWTIhjh85DyEoVlM3adHWwqQXKYHmuegy/108bJPP6YxuPGm4ZKBq1+GVKRbKJuzNY//09cMJYp+A==}
     hasBin: true
 
-  sinon@19.0.5:
-    resolution: {integrity: sha512-r15s9/s+ub/d4bxNXqIUmwp6imVSdTorIRaxoecYjqTVLZ8RuoXr/4EDGwIBo6Waxn7f2gnURX9zuhAfCwaF6Q==}
+  sinon@20.0.0:
+    resolution: {integrity: sha512-+FXOAbdnj94AQIxH0w1v8gzNxkawVvNqE3jUzRLptR71Oykeu2RrQXXl/VQjKay+Qnh73fDt/oDfMo6xMeDQbQ==}
 
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
@@ -3831,6 +3840,8 @@ snapshots:
   '@types/mocha@10.0.10': {}
 
   '@types/ms@2.1.0': {}
+
+  '@types/nise@1.4.5': {}
 
   '@types/node@22.13.13':
     dependencies:
@@ -6175,13 +6186,12 @@ snapshots:
 
   simple-git-hooks@2.12.1: {}
 
-  sinon@19.0.5:
+  sinon@20.0.0:
     dependencies:
       '@sinonjs/commons': 3.0.1
       '@sinonjs/fake-timers': 13.0.5
       '@sinonjs/samsam': 8.0.2
       diff: 7.0.0
-      nise: 6.1.1
       supports-color: 7.2.0
 
   sisteransi@1.0.5: {}
