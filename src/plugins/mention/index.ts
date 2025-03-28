@@ -29,7 +29,6 @@ export default (editor: Editor) => {
   if (editor.readonly) {
     return;
   }
-  const { requestAction, requestMethod, items } = editor.config.mention;
   let menu: MentionMenu | null = null;
   const selectListener = (event: Event, item: MentionItem) => {
     if (menu) {
@@ -63,9 +62,14 @@ export default (editor: Editor) => {
       return;
     }
     if (!menu) {
+      const { requestAction, items } = editor.config.mention;
       if (requestAction) {
+        const { requestMethod, requestWithCredentials, requestHeaders, transformResponse } = editor.config.mention;
         request({
           onSuccess: body => {
+            if (transformResponse) {
+              body = transformResponse(body);
+            }
             if (!body.data) {
               return;
             }
@@ -79,6 +83,8 @@ export default (editor: Editor) => {
           },
           action: requestAction,
           method: requestMethod,
+          withCredentials: requestWithCredentials,
+          headers: requestHeaders,
         });
       } else {
         menu = new MentionMenu({

@@ -1,3 +1,4 @@
+import { fakeXhr, FakeXMLHttpRequest } from 'nise';
 import { query } from '@/utils/query';
 import { Nodes } from '@/models/nodes';
 import { Editor } from '@/editor';
@@ -67,6 +68,35 @@ describe('plugins / mention / index', () => {
       key: '@',
     }));
     expect(editor.popup.visible).to.equal(true);
+    expect(editor.popup.container.find('.lake-menu-item').length).to.equal(4);
+  });
+
+  it('should show a popup menu after requesting data from server', () => {
+    const xhr = fakeXhr.useFakeXMLHttpRequest();
+    const requests: FakeXMLHttpRequest[] = [];
+    xhr.onCreate = req => requests.push(req);
+    editor.setPluginConfig('mention', {
+      requestAction: '/mention.do',
+      requestWithCredentials: true,
+      requestHeaders: { foo: 'abc' },
+      transformResponse: (body: any) => {
+        return {
+          data: body.users,
+        };
+      },
+    });
+    editor.setValue('<p>@<focus /></p>');
+    editor.container.emit('keyup', new KeyboardEvent('keyup', {
+      shiftKey: true,
+      key: '@',
+    }));
+    expect(requests[0].withCredentials).to.equal(true);
+    expect(requests[0].requestHeaders.foo).to.equal('abc');
+    requests[0].respond(200, {}, JSON.stringify({
+      users: mentionItems,
+    }));
+    expect(editor.popup.visible).to.equal(true);
+    expect(editor.popup.container.find('.lake-menu-item').length).to.equal(4);
   });
 
   it('should show a popup menu in a block that contains text', () => {
