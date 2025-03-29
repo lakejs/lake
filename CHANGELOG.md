@@ -12,11 +12,6 @@
 * **upload:** support setting field name, headers, transforming response ([97adf11](https://github.com/lakejs/lake/commit/97adf1131696ecf89e25e800bb5cb2d76d493f78))
 
 
-### Performance Improvements
-
-* **upload:** release object URL ([6618f24](https://github.com/lakejs/lake/commit/6618f24b01afe87a32f2512cdff50c259ed0fe8b))
-
-
 
 ## [0.3.10](https://github.com/lakejs/lake/compare/0.3.9...0.3.10) (2025-03-19)
 
