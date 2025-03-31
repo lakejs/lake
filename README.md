@@ -1,7 +1,7 @@
 # Lake
 
 [![CI](https://github.com/lakejs/lake/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/lakejs/lake/actions)
-[![npm](https://img.shields.io/npm/v/lakelib)](https://npmjs.org/package/lakelib)
+[![npm](https://img.shields.io/npm/v/lakelib)](https://www.npmjs.com/package/lakelib)
 [![downloads](https://img.shields.io/npm/dm/lakelib)](https://www.npmjs.com/package/lakelib)
 
 ---
