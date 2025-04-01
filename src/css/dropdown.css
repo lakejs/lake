@@ -103,7 +103,7 @@
 .lake-dropdown-menu {
   position: absolute;
   top: 30px;
-  left: 0;
+  right: 0;
   z-index: var(--lake-popup-z-index);
   list-style: none;
   margin: 0;

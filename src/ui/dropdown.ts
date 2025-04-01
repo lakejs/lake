@@ -211,8 +211,8 @@ export class Dropdown {
         menuNode.css('left', 'auto');
         menuNode.css('right', '0');
       } else {
-        menuNode.css('left', '');
-        menuNode.css('right', '');
+        menuNode.css('left', '0');
+        menuNode.css('right', 'auto');
       }
       if (this.direction === 'top') {
         menuNode.css('top', 'auto');
