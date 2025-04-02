@@ -24,6 +24,12 @@
   user-select: none;
 }
 
+.lake-toolbar .lake-toolbar-line-break {
+  flex-basis: 100%;
+  height: 0;
+  user-select: none;
+}
+
 .lake-toolbar .lake-upload {
   line-height: 0;
 }

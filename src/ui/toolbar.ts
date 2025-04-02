@@ -81,8 +81,8 @@ export class Toolbar {
     this.container = query('<div class="lake-toolbar" />');
   }
 
-  private appendDivider(): void {
-    this.container.append('<div class="lake-toolbar-divider" />');
+  private appendDivision(name: 'divider' | 'line-break'): void {
+    this.container.append(`<div class="lake-toolbar-${name}" />`);
   }
 
   private appendNormalButton(editor: Editor, item: ToolbarButtonItem): void {
@@ -261,7 +261,9 @@ export class Toolbar {
     this.root.append(this.container);
     for (const name of this.items) {
       if (name === '|') {
-        this.appendDivider();
+        this.appendDivision('divider');
+      } else if (name === '-') {
+        this.appendDivision('line-break');
       } else {
         let item;
         if (typeof name === 'string') {

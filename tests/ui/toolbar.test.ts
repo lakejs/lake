@@ -35,7 +35,7 @@ const toolbarItems = [
   'numberedList',
   'bulletedList',
   'checklist',
-  '|',
+  '-',
   'align',
   'alignLeft',
   'alignCenter',

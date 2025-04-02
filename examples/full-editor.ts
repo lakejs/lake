@@ -240,7 +240,7 @@ const toolbarItems = [
   'bulletedList',
   'checklist',
   'table',
-  '|',
+  '-',
   'align',
   'alignLeft',
   'alignCenter',
