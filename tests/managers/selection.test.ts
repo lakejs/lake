@@ -6,6 +6,7 @@ import { normalizeValue } from '../../src/utils/normalize-value';
 import { Nodes } from '../../src/models/nodes';
 import { Range } from '../../src/models/range';
 import { Selection } from '../../src/managers/selection';
+import { getContainerValue, setContainerValue } from '../utils';
 
 describe('managers / selection', () => {
 
@@ -212,6 +213,83 @@ describe('managers / selection', () => {
     expect(activeItems[0].name).to.equal('p');
     expect(activeItems[1].name).to.equal('i');
     expect(activeItems[2].name).to.equal('strong');
+  });
+
+  it('cloneContainer method: range is outside', () => {
+    const content = '<p>foo</p>';
+    const selection = new Selection(container);
+    setContainerValue(container, content);
+    const item = selection.cloneContainer();
+    const value = getContainerValue(item);
+    expect(value).to.equal(content);
+  });
+
+  it('cloneContainer method: collapsed range', () => {
+    const content = '<p>foo<focus /></p>';
+    const selection = new Selection(container);
+    const range = setContainerValue(container, content);
+    selection.range = range;
+    selection.sync();
+    const item = selection.cloneContainer();
+    const value = getContainerValue(item);
+    expect(value).to.equal(content);
+  });
+
+  it('cloneContainer method: expanded range', () => {
+    const content = '<p><anchor />foo<focus /></p>';
+    const selection = new Selection(container);
+    const range = setContainerValue(container, content);
+    selection.range = range;
+    selection.sync();
+    const item = selection.cloneContainer();
+    const value = getContainerValue(item);
+    expect(value).to.equal(content);
+  });
+
+  it('cloneContainer method: range is at the beginning of the box', () => {
+    const content = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box></p>';
+    const selection = new Selection(container);
+    const range = setContainerValue(container, content);
+    selection.range = range;
+    selection.sync();
+    const item = selection.cloneContainer();
+    const value = getContainerValue(item);
+    expect(value).to.equal(content);
+  });
+
+  it('cloneContainer method: range is at the center of the box', () => {
+    const content = '<p>foo<lake-box type="inline" name="inlineBox" focus="center"></lake-box></p>';
+    const selection = new Selection(container);
+    const range = setContainerValue(container, content);
+    selection.range = range;
+    selection.sync();
+    const item = selection.cloneContainer();
+    const value = getContainerValue(item);
+    expect(value).to.equal(content);
+  });
+
+  it('cloneContainer method: range is at the end of the box', () => {
+    const content = '<p>foo<lake-box type="inline" name="inlineBox" focus="end"></lake-box></p>';
+    const selection = new Selection(container);
+    const range = setContainerValue(container, content);
+    selection.range = range;
+    selection.sync();
+    const item = selection.cloneContainer();
+    const value = getContainerValue(item);
+    expect(value).to.equal(content);
+  });
+
+  it('cloneContainer method: range is in the box', () => {
+    const content = '<p>foo<lake-box type="inline" name="inlineBox" focus="center"></lake-box></p>';
+    const selection = new Selection(container);
+    setContainerValue(container, content);
+    const boxNode = container.find('lake-box');
+    selection.range.selectNode(boxNode.find('img'));
+    selection.range.collapseToEnd();
+    selection.sync();
+    const item = selection.cloneContainer();
+    const value = getContainerValue(item);
+    expect(value).to.equal(content);
   });
 
   it('selectBox method: by box', () => {

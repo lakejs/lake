@@ -6,7 +6,6 @@ import { denormalizeValue } from '../utils/denormalize-value';
 import { getBox } from '../utils/get-box';
 import { Nodes } from '../models/nodes';
 import { HTMLParser } from '../parsers/html-parser';
-import { insertBookmark } from '../operations/insert-bookmark';
 import { Selection } from './selection';
 import { getContentRules } from '@/config/content-rules';
 
@@ -137,40 +136,6 @@ export class History {
   }
 
   /**
-   * Creates a deep clone of the current container with its content.
-   * If there is a selection within the container, it ensures the selection is also preserved in the cloned container.
-   */
-  public cloneContainer(): Nodes {
-    const range = this.selection.range;
-    const newContainer = this.container.clone(true);
-    newContainer.find('lake-box').each(nativeNode => {
-      const box = getBox(nativeNode);
-      box.getContainer().empty();
-    });
-    if (!this.container.contains(range.commonAncestor)) {
-      return newContainer;
-    }
-    if (range.isInsideBox) {
-      const boxNode = range.commonAncestor.closest('lake-box');
-      const boxNodePath = boxNode.path();
-      const newBoxNode = newContainer.find(boxNodePath);
-      const newRange = range.clone();
-      newRange.selectBox(newBoxNode);
-      insertBookmark(newRange);
-      return newContainer;
-    }
-    const startNodePath = range.startNode.path();
-    const endNodePath = range.endNode.path();
-    const newStartNode = newContainer.find(startNodePath);
-    const newEndNode = newContainer.find(endNodePath);
-    const newRange = range.clone();
-    newRange.setStart(newStartNode, range.startOffset);
-    newRange.setEnd(newEndNode, range.endOffset);
-    insertBookmark(newRange);
-    return newContainer;
-  }
-
-  /**
    * Undoes to the previous saved content.
    */
   public undo(): void {
@@ -249,7 +214,7 @@ export class History {
     if (!this.canSave) {
       return;
     }
-    const item = this.cloneContainer();
+    const item = this.selection.cloneContainer();
     const value = this.getValue(item);
     if (
       this.list[this.index - 1]

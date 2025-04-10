@@ -721,7 +721,7 @@ export class Editor {
    * Returns the editor's content.
    */
   public getValue(): string {
-    const item = this.history.cloneContainer();
+    const item = this.selection.cloneContainer();
     let value = new HTMLParser(item, this.config.contentRules).getHTML();
     value = denormalizeValue(value);
     return value;
