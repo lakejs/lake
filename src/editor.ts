@@ -26,7 +26,7 @@ import { BoxManager } from './managers/box-manager';
 import { Plugin } from './managers/plugin';
 import { Toolbar } from './ui/toolbar';
 
-type OnMessage = (type: 'success' | 'error' | 'warning', message: string) => void;
+type ShowMessage = (type: 'success' | 'error' | 'warning', message: string) => void;
 
 interface Config {
   value: string;
@@ -39,7 +39,7 @@ interface Config {
   contentRules: ContentRules;
   minChangeSize: number;
   historySize: number;
-  showMessage: OnMessage;
+  showMessage: ShowMessage;
   [name: string]: any;
 }
 
