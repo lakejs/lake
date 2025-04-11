@@ -332,7 +332,7 @@ export default (value: string) => {
     toolbar,
     lang: window.LAKE_LANGUAGE,
     value,
-    onMessage: (type, message) => {
+    showMessage: (type, message) => {
       if (type === 'error') {
         // eslint-disable-next-line no-alert
         window.alert(message);

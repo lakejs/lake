@@ -83,7 +83,7 @@ export default (editor: Editor) => {
             transformResponse,
             onError: error => {
               fileNativeNode.value = '';
-              editor.config.onMessage('error', error);
+              editor.config.showMessage('error', error);
             },
             onSuccess: () => {
               fileNativeNode.value = '';

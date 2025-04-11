@@ -209,7 +209,7 @@ export function createIframeBox(config: IframeBoxConfig): BoxComponent {
           onClick: () => {
             const url = formNode.find('input[name="url"]').value();
             if (!config.validUrl(url)) {
-              editor.config.onMessage('error', getLocaleString(locale, config.urlError));
+              editor.config.showMessage('error', getLocaleString(locale, config.urlError));
               return;
             }
             box.updateValue('url', url);

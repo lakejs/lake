@@ -210,7 +210,7 @@ export default (editor: Editor) => {
             requestWithCredentials,
             requestHeaders,
             transformResponse,
-            onError: error => editor.config.onMessage('error', error),
+            onError: error => editor.config.showMessage('error', error),
             onSuccess: () => editor.history.save(),
           });
         }

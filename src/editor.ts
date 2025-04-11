@@ -39,7 +39,7 @@ interface Config {
   contentRules: ContentRules;
   minChangeSize: number;
   historySize: number;
-  onMessage: OnMessage;
+  showMessage: OnMessage;
   [name: string]: any;
 }
 
@@ -59,7 +59,7 @@ const defaultConfig: Config = {
   contentRules: getContentRules(),
   minChangeSize: 5,
   historySize: 100,
-  onMessage: (type, message) => {
+  showMessage: (type, message) => {
     if (type === 'success') {
       // eslint-disable-next-line no-console
       console.log(message);
