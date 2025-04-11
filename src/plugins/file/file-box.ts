@@ -16,7 +16,8 @@ function setFloatingToolbar(box: Box): void {
       icon: icons.get('download'),
       tooltip: locale => locale.file.download(),
       onClick: () => {
-        window.open(box.value.url);
+        const editor = box.getEditor();
+        editor.config.downloadFile('file', box.value.url);
       },
     },
     {
@@ -89,7 +90,7 @@ export default {
       setFloatingToolbar(box);
     } else {
       rootNode.on('click', () => {
-        window.open(value.url);
+        editor.config.downloadFile('file', value.url);
       });
     }
   },

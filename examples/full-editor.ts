@@ -343,6 +343,11 @@ export default (value: string) => {
         console.log(message);
       }
     },
+    downloadFile: (type, url) => {
+      // eslint-disable-next-line no-console
+      console.log(type, url);
+      window.open(url);
+    },
     image: {
       // requestMethod: 'GET',
       // requestAction: '/assets/json/upload-image.json',

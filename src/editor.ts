@@ -28,6 +28,8 @@ import { Toolbar } from './ui/toolbar';
 
 type ShowMessage = (type: 'success' | 'error' | 'warning', message: string) => void;
 
+type DownloadFile = (type: 'image' | 'file', url: string) => void;
+
 interface Config {
   value: string;
   readonly: boolean;
@@ -40,6 +42,7 @@ interface Config {
   minChangeSize: number;
   historySize: number;
   showMessage: ShowMessage;
+  downloadFile: DownloadFile;
   [name: string]: any;
 }
 
@@ -72,6 +75,9 @@ const defaultConfig: Config = {
     if (type === 'error') {
       console.error(message);
     }
+  },
+  downloadFile: (type, url) => {
+    window.open(url);
   },
   slash: false,
   mention: false,

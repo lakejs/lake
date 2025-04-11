@@ -156,7 +156,8 @@ function renderFloatingToolbar(box: Box): void {
       icon: icons.get('open'),
       tooltip: locale => locale.image.open(),
       onClick: () => {
-        window.open(box.value.url);
+        const editor = box.getEditor();
+        editor.config.downloadFile('image', box.value.url);
       },
     },
   ];
