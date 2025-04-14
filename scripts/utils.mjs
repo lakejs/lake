@@ -44,7 +44,7 @@ export function startServer(port, printRequest = false) {
 
   app.use(express.static(rootPath));
 
-  app.get('/examples/*', (req, res) => {
+  app.get('/examples/*splat', (req, res) => {
     res.sendFile(path.resolve(rootPath, './examples/index.html'));
   });
 
