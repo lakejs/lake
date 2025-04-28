@@ -1,3 +1,30 @@
+# [0.4.0](https://github.com/lakejs/lake/compare/0.3.11...0.4.0) (2025-04-28)
+
+
+### Bug Fixes
+
+* **toolbar:** when popup menu of a dropdown at the far right opened, the dropdown moves to the next line ([db2051a](https://github.com/lakejs/lake/commit/db2051a3608ec2456b2e7dfb9bd8b61ceea19c52))
+
+
+### Code Refactoring
+
+* **editor:** rename onMessage to showMessage ([b44883a](https://github.com/lakejs/lake/commit/b44883a05b8caa34c9cf9b8f24eff986eeb2a43d))
+* **history:** move cloneContainer method to Selection ([da08aab](https://github.com/lakejs/lake/commit/da08aab61348a5b81fa0137a3644b4b461b3a82b))
+
+
+### Features
+
+* **editor:** add downloadFile config used to customize download action ([15d86ce](https://github.com/lakejs/lake/commit/15d86cecca589f51f7ded976bbaea3386d6690f1))
+* **toolbar:** support line break ([841caed](https://github.com/lakejs/lake/commit/841caedd9d08c3753f5430252894b80ac7d4ab93))
+
+
+### BREAKING CHANGES
+
+* **editor:** The onMessage config has been removed.
+* **history:** The history.cloneContainer() has been removed.
+
+
+
 ## [0.3.11](https://github.com/lakejs/lake/compare/0.3.10...0.3.11) (2025-03-28)
 
 
