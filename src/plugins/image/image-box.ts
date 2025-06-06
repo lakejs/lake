@@ -541,21 +541,23 @@ async function renderDone(box: Box): Promise<void> {
   });
   const captionNode = renderCaption(box);
   renderFloatingToolbar(box);
-  new Resizer({
-    root: rootNode,
-    target: rootNode,
-    onResize: newWidth => {
-      boxContainer.css('width', `${newWidth}px`);
-      updateBoxMarginBottom(box, captionNode);
-    },
-    onStop: (newWidth, newHeight) => {
-      box.updateValue({
-        width: newWidth,
-        height: newHeight,
-      });
-      editor.history.save();
-    },
-  }).render();
+  if (!editor.readonly) {
+    new Resizer({
+      root: rootNode,
+      target: rootNode,
+      onResize: newWidth => {
+        boxContainer.css('width', `${newWidth}px`);
+        updateBoxMarginBottom(box, captionNode);
+      },
+      onStop: (newWidth, newHeight) => {
+        box.updateValue({
+          width: newWidth,
+          height: newHeight,
+        });
+        editor.history.save();
+      },
+    }).render();
+  }
 }
 
 export default {
