@@ -1,3 +1,12 @@
+## [0.4.1](https://github.com/lakejs/lake/compare/0.4.0...0.4.1) (2025-06-06)
+
+
+### Bug Fixes
+
+* **image:** should not display resizer in read-only mode ([1a1d220](https://github.com/lakejs/lake/commit/1a1d22071cf117e343aba717c78bba64fa97909a))
+
+
+
 # [0.4.0](https://github.com/lakejs/lake/compare/0.3.11...0.4.0) (2025-04-28)
 
 
