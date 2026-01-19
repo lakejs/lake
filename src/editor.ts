@@ -579,7 +579,7 @@ export class Editor {
       debug('Content fixed: default paragraph was added');
     } else if (children.length === 1) {
       const child = children[0];
-      if (child.isVoid) {
+      if (child.isVoid || child.isText) {
         const paragraph = query('<p />');
         child.before(paragraph);
         paragraph.append(child);

@@ -20,9 +20,25 @@ describe('plugins / backspace-key', () => {
     );
   });
 
-  it('wrong content', () => {
+  it('wrong content (1)', () => {
     const content = `
     <focus /><br /><p></p>
+    `;
+    const output = `
+    <p><focus /><br /></p>
+    `;
+    testPlugin(
+      content,
+      output,
+      editor => {
+        editor.keystroke.keydown('backspace');
+      },
+    );
+  });
+
+  it('wrong content (2)', () => {
+    const content = `
+    1<focus />
     `;
     const output = `
     <p><focus /><br /></p>
