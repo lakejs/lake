@@ -39,8 +39,8 @@ import { insertBox } from './operations/insert-box';
 import { removeBox } from './operations/remove-box';
 import { Button } from './ui/button';
 import { Dropdown } from './ui/dropdown';
-import { Editor } from './editor';
-import { Toolbar } from './ui/toolbar';
+import { Editor, EditorConfig } from './editor';
+import { Toolbar, ToolbarConfig } from './ui/toolbar';
 import copy from './plugins/copy';
 import cut from './plugins/cut';
 import paste from './plugins/paste';
@@ -149,6 +149,8 @@ export {
   // constants
   icons,
   // types
+  EditorConfig,
+  ToolbarConfig,
   KeyValue,
   ContentRules,
   NodePath,

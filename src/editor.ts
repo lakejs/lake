@@ -46,7 +46,7 @@ interface Config {
   [name: string]: any;
 }
 
-interface EditorConfig extends Partial<Config> {
+export interface EditorConfig extends Partial<Config> {
   root: string | Node | Nodes;
   toolbar?: Toolbar;
 }
