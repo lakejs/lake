@@ -599,7 +599,7 @@ describe('plugins / backspace-key', () => {
     const content = `
     <table>
       <tr>
-        <td>foo</td>
+        <td><p>foo</p></td>
       </tr>
     </table>
     <p><focus /><br /></p>
@@ -607,7 +607,7 @@ describe('plugins / backspace-key', () => {
     const output = `
     <table>
       <tr>
-        <td>foo<focus /></td>
+        <td><p>foo<focus /></p></td>
       </tr>
     </table>
     `;

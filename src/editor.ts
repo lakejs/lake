@@ -580,10 +580,19 @@ export class Editor {
     } else if (children.length === 1) {
       const child = children[0];
       if (child.isVoid || child.isText) {
+        const startNode = range.startNode;
+        const startOffset = range.startOffset;
+        const endNode = range.endNode;
+        const endOffset = range.endOffset;
         const paragraph = query('<p />');
         child.before(paragraph);
         paragraph.append(child);
-        range.shrinkAfter(paragraph);
+        if (startNode.isText || endNode.isText) {
+          range.setStart(startNode, startOffset);
+          range.setEnd(endNode, endOffset);
+        } else {
+          range.shrinkAfter(paragraph);
+        }
         changed = true;
         debug(`Content fixed: void element "${child.name}" was wrapped in paragraph`);
       }

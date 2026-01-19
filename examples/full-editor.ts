@@ -353,6 +353,7 @@ export default (value: string) => {
       // requestAction: '/assets/json/upload-image.json',
       requestAction: '/upload',
       // requestFieldName: 'foo',
+      // requestWithCredentials: true,
       /*
       transformResponse: (body: any) => {
         body.url = body.url2;
