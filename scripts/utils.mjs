@@ -48,6 +48,13 @@ export function startServer(port, printRequest = false) {
     res.sendFile(path.resolve(rootPath, './examples/index.html'));
   });
 
+  app.options('/upload', (req, res) => {
+    res.append('Access-Control-Allow-Credentials', 'true');
+    res.append('Access-Control-Allow-Origin', 'http://localhost:8080');
+    res.append('Access-Control-Allow-Headers', 'X-Requested-With');
+    res.sendStatus(200);
+  });
+
   app.post('/upload', (req, res) => {
     upload(req, res, error => {
       // A Multer error occurred when uploading.
@@ -65,6 +72,8 @@ export function startServer(port, printRequest = false) {
         return;
       }
       // Everything went fine.
+      res.append('Access-Control-Allow-Credentials', 'true');
+      res.append('Access-Control-Allow-Origin', 'http://localhost:8080');
       res.json({
         url: `/temp/${req.file.filename}`,
       });
