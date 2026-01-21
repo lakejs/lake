@@ -1,7 +1,18 @@
-// Converts the special tags to ordinary HTML tags that can be parsed by browser.
+/**
+ * Converts the special tags to ordinary HTML tags that can be parsed by browser.
+ */
 export function normalizeValue(value: string): string {
-  return value
-    .replace(/(<lake-box[^>]+>)[\s\S]*?(<\/lake-box>|$)/gi, '$1</lake-box>')
-    .replace(/<anchor\s*\/>/gi, '<lake-bookmark type="anchor"></lake-bookmark>')
-    .replace(/<focus\s*\/>/gi, '<lake-bookmark type="focus"></lake-bookmark>');
+  const combinedRegex = /(<lake-box[^>]+>)[\s\S]*?(?:<\/lake-box>|$)|(<anchor\s*\/>)|(<focus\s*\/>)/gi;
+  return value.replace(combinedRegex, (match, boxOpen, anchorMatch, focusMatch) => {
+    if (boxOpen) {
+      return `${boxOpen}</lake-box>`;
+    }
+    if (anchorMatch) {
+      return '<lake-bookmark type="anchor"></lake-bookmark>';
+    }
+    if (focusMatch) {
+      return '<lake-bookmark type="focus"></lake-bookmark>';
+    }
+    return match;
+  });
 }
