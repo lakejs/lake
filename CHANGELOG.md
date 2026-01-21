@@ -1,3 +1,18 @@
+## [0.4.2](https://github.com/lakejs/lake/compare/0.4.1...0.4.2) (2026-01-21)
+
+
+### Bug Fixes
+
+* **backspace:** throw an error when deleting content with the backspace key ([1973fd5](https://github.com/lakejs/lake/commit/1973fd5478b9ba9e101bd08730c89c6768392873))
+* **editor:** preserve selection when wrapping a single text node in fixContent() ([e33f1d9](https://github.com/lakejs/lake/commit/e33f1d9631a95f09cb9ddee9c45db12a9743c460))
+
+
+### Features
+
+* **interface:** export EditorConfig and ToolbarConfig ([9cdf2f6](https://github.com/lakejs/lake/commit/9cdf2f68e9300737b97d2849318c47e5ff408509))
+
+
+
 ## [0.4.1](https://github.com/lakejs/lake/compare/0.4.0...0.4.1) (2025-06-06)
 
 
