@@ -326,6 +326,23 @@ export default (value: string) => {
   const toolbar = new Toolbar({
     root: '.lake-toolbar-root',
     items: toolbarItems,
+    fontFamily: {
+      defaultValue: 'Tahoma',
+      menuItems: [
+        {
+          value: 'Arial',
+          text: '<span style="font-family: Arial;">Arial</span>',
+        },
+        {
+          value: 'Arial Black',
+          text: '<span style="font-family: \'Arial Black\';">Arial Black</span>',
+        },
+        {
+          value: 'Tahoma',
+          text: '<span style="font-family: Tahoma;">Tahoma</span>',
+        },
+      ],
+    },
   });
   const editor = new Editor({
     root: '.lake-root',

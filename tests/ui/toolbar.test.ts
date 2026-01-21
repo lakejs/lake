@@ -73,6 +73,23 @@ describe('ui / toolbar', () => {
     toolbar = new Toolbar({
       root: toolbarNode,
       items: toolbarItems,
+      fontFamily: {
+        defaultValue: 'Tahoma',
+        menuItems: [
+          {
+            value: 'Arial',
+            text: '<span style="font-family: Arial;">Arial</span>',
+          },
+          {
+            value: 'Arial Black',
+            text: '<span style="font-family: \'Arial Black\';">Arial Black</span>',
+          },
+          {
+            value: 'Tahoma',
+            text: '<span style="font-family: Tahoma;">Tahoma</span>',
+          },
+        ],
+      },
     });
     editor = new Editor({
       root: rootNode.find('.lake-root'),
@@ -157,6 +174,7 @@ describe('ui / toolbar', () => {
       click(toolbar.container.find('div[name="fontFamily"] .lake-dropdown-down-icon'));
       const visibility = toolbar.container.find('div[name="fontFamily"] li[value="Tahoma"] .lake-dropdown-menu-check').computedCSS('visibility');
       expect(visibility).to.equal('visible');
+      expect(toolbar.container.find('div[name="fontFamily"] li').length).to.equal(3);
       done();
     });
     click(toolbar.container.find('div[name="fontFamily"] .lake-dropdown-title'));

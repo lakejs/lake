@@ -234,6 +234,26 @@ describe('editor', () => {
     expect(value).to.equal(output);
   });
 
+  it('config: should enable mention', () => {
+    const editor = new Editor({
+      root: rootNode,
+      mention: true,
+    });
+    editor.render();
+    expect(typeof editor.config.mention).to.equal('object');
+    editor.unmount();
+  });
+
+  it('config: should disable mention', () => {
+    const editor = new Editor({
+      root: rootNode,
+      mention: false,
+    });
+    editor.render();
+    expect(editor.config.mention).to.equal(false);
+    editor.unmount();
+  });
+
   it('fixContent method: no content', () => {
     const input = '';
     const output = '<p><focus /><br /></p>';
