@@ -90,6 +90,13 @@ describe('editor', () => {
     rootNode.remove();
   });
 
+  it('static properties and methods', () => {
+    expect(typeof Editor.version).to.equal('string');
+    expect(typeof Editor.locale).to.equal('object');
+    expect(typeof Editor.box).to.equal('object');
+    expect(typeof Editor.plugin).to.equal('object');
+  });
+
   it('config: spellcheck is true', () => {
     const editor = new Editor({
       root: rootNode,

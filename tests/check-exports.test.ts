@@ -18,6 +18,7 @@ import {
   toHex,
   getBox,
   createIframeBox,
+  modifierText,
   insertBookmark,
   toBookmark,
   insertContents,
@@ -52,6 +53,7 @@ describe('check exports', () => {
     expect(typeof toHex).to.equal('function');
     expect(typeof getBox).to.equal('function');
     expect(typeof createIframeBox).to.equal('function');
+    expect(typeof modifierText).to.equal('function');
     expect(typeof insertBookmark).to.equal('function');
     expect(typeof toBookmark).to.equal('function');
     expect(typeof insertContents).to.equal('function');

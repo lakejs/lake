@@ -15,7 +15,7 @@ import { query } from './utils/query';
 import { getBox } from './utils/get-box';
 import { scrollToNode } from './utils/scroll-to-node';
 import { debug } from './utils/debug';
-import { i18nObject } from './i18n';
+import { LocaleManager, i18nObject } from './i18n';
 import { Nodes } from './models/nodes';
 import { HTMLParser } from './parsers/html-parser';
 import { Selection } from './managers/selection';
@@ -121,6 +121,11 @@ export class Editor {
    * The current version of Lake.
    */
   public static readonly version: string = version;
+
+  /**
+   * A LocaleManager object that manages the locale translations.
+   */
+  public static readonly locale = new LocaleManager();
 
   /**
    * A BoxManager object that manages the box components.

@@ -1,50 +1,68 @@
 import { i18nObject as initI18nObject, type FormattersInitializer } from 'typesafe-i18n';
-import type { Formatters, Locales, Translations, TranslationFunctions } from './types';
+import type { Formatters, Translation, TranslationFunctions } from './types';
 
 import enUS from './en-US';
 import zhCN from './zh-CN';
 import ja from './ja';
 import ko from './ko';
 
-const localeTranslations = {
-  'en-US': enUS,
+const localeTranslations: Record<string, Translation> = {
+  'en-US': enUS as Translation,
   'zh-CN': zhCN,
   ja,
   ko,
 };
 
-const locales: Locales[] = Object.keys(localeTranslations) as Locales[];
+const loadedLocales = {} as Record<string, Translation>;
+const loadedFormatters = {} as Record<string, Formatters>;
 
-const loadedLocales: Record<Locales, Translations> = {} as Record<Locales, Translations>;
-const loadedFormatters: Record<Locales, Formatters> = {} as Record<Locales, Formatters>;
-
-const initFormatters: FormattersInitializer<Locales, Formatters> = () => {
+const initFormatters: FormattersInitializer<string, Formatters> = () => {
   const formatters: Formatters = {
     // add your formatter functions here
   };
   return formatters;
 };
 
-function loadFormatters(locale: Locales): void {
+function loadFormatters(locale: string): void {
   loadedFormatters[locale] = initFormatters(locale);
 }
 
-function loadLocale(locale: Locales): void {
+function loadLocale(locale: string): void {
   if (loadedLocales[locale]) {
     return;
   }
-  loadedLocales[locale] = localeTranslations[locale] as Translations;
+  loadedLocales[locale] = localeTranslations[locale] as Translation;
   loadFormatters(locale);
 }
 
-const loadAllLocales = (): void => locales.forEach(loadLocale);
-
-export function i18nObject(locale: Locales): TranslationFunctions {
-  return initI18nObject<Locales, Translations, TranslationFunctions, Formatters>(
+export function i18nObject(locale: string): TranslationFunctions {
+  return initI18nObject<string, Translation, TranslationFunctions, Formatters>(
     locale,
     loadedLocales[locale],
     loadedFormatters[locale],
   );
 }
 
-loadAllLocales();
+/**
+ * The LocaleManager interface manages a collection of Translation objects.
+ * It allows you to add and retrieve the names of locales.
+ */
+export class LocaleManager {
+  /**
+   * Adds a Translation to the collection.
+   */
+  public add(locale: string, translation: Translation): void {
+    localeTranslations[locale] = translation;
+    loadLocale(locale);
+  }
+
+  /**
+   * Returns a list of all locale names.
+   */
+  public getNames(): string[] {
+    return Object.keys(localeTranslations);
+  }
+}
+
+const locales = Object.keys(localeTranslations);
+locales.forEach(loadLocale);
