@@ -70,9 +70,13 @@ export class History {
   }
 
   private removeBookmark(value: string): string {
-    return value.replace(/(<lake-box[^>]+)\sfocus="\w+"([^>]*>)/gi, '$1$2')
-      .replace(/<lake-bookmark\s+type="anchor">\s*<\/lake-bookmark>/gi, '')
-      .replace(/<lake-bookmark\s+type="focus">\s*<\/lake-bookmark>/gi, '');
+    const combinedRegex = /(<lake-box[^>]+)\sfocus="\w+"([^>]*>)|<lake-bookmark\s+type="(?:anchor|focus)">\s*<\/lake-bookmark>/gi;
+    return value.replace(combinedRegex, (match, boxLeft, boxRight) => {
+      if (boxLeft) {
+        return `${boxLeft}${boxRight}`;
+      }
+      return '';
+    });
   }
 
   private getValue(container: Nodes): string {

@@ -126,7 +126,7 @@ describe('managers / history', () => {
     expect(container.html()).to.equal('abce');
   });
 
-  it('undoes to the first item', () => {
+  it('should undo to the first item', () => {
     const selection = new Selection(container);
     const history = new History(selection);
     container.html('a');
@@ -141,7 +141,7 @@ describe('managers / history', () => {
     expect(container.html()).to.equal('a');
   });
 
-  it('undoes or redoes one item', () => {
+  it('should undo or redo one item', () => {
     const selection = new Selection(container);
     const history = new History(selection);
     container.html('a');
@@ -164,7 +164,7 @@ describe('managers / history', () => {
     expect(container.html()).to.equal('a');
   });
 
-  it('undoes or redoes the same item', () => {
+  it('should undo or redo the same item', () => {
     const selection = new Selection(container);
     const history = new History(selection);
     container.html('a');
@@ -186,7 +186,7 @@ describe('managers / history', () => {
     expect(container.html()).to.equal('ab');
   });
 
-  it('undoes or redoes with boxes', () => {
+  it('should undo or redo with boxes', () => {
     let oldBoxNodes: Nodes;
     let newBoxNodes: Nodes;
     let value = '';
@@ -432,6 +432,28 @@ describe('managers / history', () => {
     history.undo(); // index: 1
     expect(history.index).to.equal(1);
     expect(container.html()).to.equal('ab');
+  });
+
+  it('should ignore text-level selection changes when saving history', () => {
+    const selection = new Selection(container);
+    const history = new History(selection);
+    container.html('<p><lake-bookmark type="focus"></lake-bookmark>ab</p>');
+    history.save(); // index: 1
+    expect(history.index).to.equal(1);
+    container.html('<p>ab<lake-bookmark type="focus"></lake-bookmark></p>');
+    history.save(); // index: 1
+    expect(history.index).to.equal(1);
+  });
+
+  it('should ignore box-level selection changes when saving history', () => {
+    const selection = new Selection(container);
+    const history = new History(selection);
+    container.html('<p><lake-box type="inline" name="inlineBox" focus="start"></lake-box></p>');
+    history.save(); // index: 1
+    expect(history.index).to.equal(1);
+    container.html('<p><lake-box type="inline" name="inlineBox" focus="end"></lake-box></p>');
+    history.save(); // index: 1
+    expect(history.index).to.equal(1);
   });
 
 });
