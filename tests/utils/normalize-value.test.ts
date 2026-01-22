@@ -20,4 +20,15 @@ describe('utils / normalize-value', () => {
     expect(normalizeValue('<p><br /><anchor /></p>')).to.equal('<p><br /><lake-bookmark type="anchor"></lake-bookmark></p>');
   });
 
+  it('should handle multiple boxes and bookmarks mixed together', () => {
+    const input = '<lake-box name="image">content</lake-box><anchor /><lake-box name="file">content</lake-box>';
+    const output = '<lake-box name="image"></lake-box><lake-bookmark type="anchor"></lake-bookmark><lake-box name="file"></lake-box>';
+    expect(normalizeValue(input)).to.equal(output);
+  });
+
+  it('should not affect unrelated HTML tags', () => {
+    const input = '<div>Hello <b>World</b></div>';
+    expect(normalizeValue(input)).to.equal(input);
+  });
+
 });
