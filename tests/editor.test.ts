@@ -556,6 +556,48 @@ describe('editor', () => {
     expect(editor.container.hasClass('lake-placeholder')).to.equal(true);
   });
 
+  it('getHTML method: should strip <anchor /> and <focus /> tags', () => {
+    const input = '<p><strong><anchor />\u200B# <focus />foo</strong></p>';
+    const output = '<p><strong>\u200B# foo</strong></p>';
+    const editor = new Editor({
+      root: rootNode,
+      value: input,
+    });
+    editor.render();
+    const value = editor.getHTML();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+  });
+
+  it('getHTML method: should convert image box', () => {
+    const input = '<p><lake-box type="inline" name="image" value="eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTUxMi5wbmciLCJzdGF0dXMiOiJkb25lIiwibmFtZSI6ImhlYXZlbi1sYWtlLTUxMi5wbmciLCJzaXplIjo2MDAwOCwidHlwZSI6ImltYWdlL2pwZWciLCJsYXN0TW9kaWZpZWQiOjE3MTAyMjk1MTcxOTgsIndpZHRoIjo1MTIsImhlaWdodCI6MzcwLCJvcmlnaW5hbFdpZHRoIjo1MTIsIm9yaWdpbmFsSGVpZ2h0IjozNzAsImNhcHRpb24iOiJPdmVyaGVhZCBwYW5vcmFtYSBvZiBIZWF2ZW4gTGFrZS4ifQ=="></lake-box></p>';
+    const output = '<p><img src="../assets/images/heaven-lake-512.png" width="512" height="370" alt="Overhead panorama of Heaven Lake." border="0" /></p>';
+    const editor = new Editor({
+      root: rootNode,
+      value: input,
+    });
+    editor.render();
+    const value = editor.getHTML();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+  });
+
+  it('getHTML method: should convert emoji box', () => {
+    const input = '<p>Face blowing a kiss: <lake-box type="inline" name="emoji" value="eyJ1cmwiOiIuLi9hc3NldHMvZW1vamlzL2ZhY2VfYmxvd2luZ19hX2tpc3NfY29sb3Iuc3ZnIiwidGl0bGUiOiJGYWNlIGJsb3dpbmcgYSBraXNzIn0="></lake-box></p>';
+    const output = '<p>Face blowing a kiss: <img src="../assets/emojis/face_blowing_a_kiss_color.svg" width="32" height="32" border="0" /></p>';
+    const editor = new Editor({
+      root: rootNode,
+      value: input,
+    });
+    editor.render();
+    const value = editor.getHTML();
+    debug(`output: ${value}`);
+    editor.unmount();
+    expect(value).to.equal(output);
+  });
+
   it('box class: should not have any classes after rendering editor', () => {
     const input = '<p>foo<lake-box type="inline" name="inlineBox" focus="start"></lake-box>bar</p>';
     const editor = new Editor({

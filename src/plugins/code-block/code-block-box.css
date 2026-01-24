@@ -104,3 +104,21 @@ lake-box[name="codeBlock"] .lake-box-activated .lake-code-block .lake-dropdown {
   background-color: var(--lake-box-background-color);
   padding: 16px 20px;
 }
+
+
+/* for HTML preview */
+.lake-container pre[class*=lang-] {
+  margin: 0;
+  font-size: 14px;
+  font-family: Consolas, Courier, monospace;
+  border-radius: 5px;
+  color: var(--lake-text-color);
+  background-color: var(--lake-box-background-color);
+  margin-bottom: 16px;
+  padding: 16px 20px;
+}
+
+.lake-container pre[class*=lang-] code {
+  display: block;
+  background-color: transparent;
+}

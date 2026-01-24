@@ -12,6 +12,7 @@ import documentEditor from './document-editor';
 import multipleEditors from './multiple-editors';
 import headlessEditor from './headless-editor';
 import readonlyEditor from './readonly-editor';
+import htmlPreview from './html-preview';
 import zhTW from './i18n/zh-TW';
 import truthsocial, { truthsocialBox } from './plugins/truthsocial';
 import codesandbox, { codesandboxBox } from './plugins/codesandbox';
@@ -85,6 +86,12 @@ const menuItems = [
     text: 'Read-only mode',
     editorValue: window.defaultValue,
     editor: readonlyEditor,
+  },
+  {
+    url: './html-preview',
+    text: 'HTML preview',
+    editorValue: window.defaultValue,
+    editor: htmlPreview,
   },
 ];
 

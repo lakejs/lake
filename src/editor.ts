@@ -1,6 +1,7 @@
 import debounce from 'debounce';
 import isEqual from 'fast-deep-equal/es6';
 import EventEmitter from 'eventemitter3';
+import { toHTML } from 'lake-html';
 import { version } from '../package.json';
 import { ContentRules } from './types/content-rules';
 import { SelectionState } from './types/selection';
@@ -745,6 +746,13 @@ export class Editor {
     let value = new HTMLParser(item, this.config.contentRules).getHTML();
     value = denormalizeValue(value);
     return value;
+  }
+
+  /**
+   * Returns the editor's content in HTML format.
+   */
+  public getHTML(): string {
+    return toHTML(this.getValue());
   }
 
   /**
