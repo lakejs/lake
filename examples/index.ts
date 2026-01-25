@@ -14,6 +14,7 @@ import headlessEditor from './headless-editor';
 import readonlyEditor from './readonly-editor';
 import htmlPreview from './html-preview';
 import zhTW from './i18n/zh-TW';
+import lineHeight from './plugins/line-height';
 import truthsocial, { truthsocialBox } from './plugins/truthsocial';
 import codesandbox, { codesandboxBox } from './plugins/codesandbox';
 import stackblitz, { stackblitzBox } from './plugins/stackblitz';
@@ -26,6 +27,7 @@ Editor.box.add(codesandboxBox);
 Editor.box.add(stackblitzBox);
 Editor.box.add(helloWorldBox);
 
+Editor.plugin.add('lineHeight', lineHeight);
 Editor.plugin.add('truthsocial', truthsocial);
 Editor.plugin.add('codesandbox', codesandbox);
 Editor.plugin.add('stackblitz', stackblitz);

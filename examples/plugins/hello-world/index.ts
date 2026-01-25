@@ -11,6 +11,7 @@ export default (editor: Editor) => {
     return;
   }
   editor.command.add('helloWorld', {
+    isDisabled: activeItems => !!activeItems.find(item => item.node.isHeading),
     execute: (value: BoxValue) => {
       editor.selection.insertBox('helloWorld', value);
       editor.history.save();
