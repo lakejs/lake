@@ -1,3 +1,21 @@
+## [0.4.3](https://github.com/lakejs/lake/compare/0.4.2...0.4.3) (2026-01-25)
+
+
+### Features
+
+* **editor:** add getHTML method ([8ba1dba](https://github.com/lakejs/lake/commit/8ba1dba641840f68df0309c9e4b96a2988494e63))
+* **i18n:** support i18n customizing ([b36b430](https://github.com/lakejs/lake/commit/b36b430a1f1630db3d46281905e9e7266a688e80))
+* **toolbar:** add fontFamily to config ([232fdf7](https://github.com/lakejs/lake/commit/232fdf7f28888d0fefbc8fcc90a54a45bfdbf313))
+
+
+### Performance Improvements
+
+* **history:** improve removeBookmark method ([be88a4a](https://github.com/lakejs/lake/commit/be88a4ac881cd04df7749d58cb9fce0548802b06))
+* **utils:** improve normalizeValue and denormalizeValue ([d676afc](https://github.com/lakejs/lake/commit/d676afc7384205d5133de973cba1bd7d33c58acb))
+* **utils:** improve template and unsafeTemplate ([7356842](https://github.com/lakejs/lake/commit/735684248f1919456866da982ddef1407d632269))
+
+
+
 ## [0.4.2](https://github.com/lakejs/lake/compare/0.4.1...0.4.2) (2026-01-21)
 
 
