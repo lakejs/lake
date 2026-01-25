@@ -94,6 +94,6 @@ lake-box[type="block"] .lake-iframe .lake-input-field input[type="text"] {
   color: var(--lake-box-placeholder-text-color);
 }
 
-.lake-iframe iframe {
+.lake-container iframe {
   border-radius: 5px;
 }

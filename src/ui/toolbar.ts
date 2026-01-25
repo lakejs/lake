@@ -1,5 +1,6 @@
 import type { Editor } from '../editor';
 import { SelectionState } from '../types/selection';
+import { DropdownMenuItem } from '../types/dropdown';
 import { ToolbarButtonItem, ToolbarDropdownItem, ToolbarUploadItem, ToolbarItem } from '../types/toolbar';
 import { toolbarItems } from '../config/toolbar-items';
 import { template } from '../utils/template';
@@ -15,6 +16,10 @@ export interface ToolbarConfig {
   root?: string | Node | Nodes;
   items?: (string | ToolbarItem)[];
   placement?: ToolbarPlacement;
+  fontFamily?: {
+    defaultValue: string;
+    menuItems: DropdownMenuItem[];
+  };
 }
 
 const defaultItems: string[] = [
@@ -39,12 +44,6 @@ const defaultItems: string[] = [
   'hr',
 ];
 
-const toolbarItemMap = new Map<string, ToolbarItem>();
-
-for (const item of toolbarItems) {
-  toolbarItemMap.set(item.name, item);
-}
-
 /**
  * The Toolbar interface provides properties and methods for rendering and manipulating the toolbar.
  */
@@ -53,6 +52,8 @@ export class Toolbar {
   private items: (string | ToolbarItem)[];
 
   private placement: ToolbarPlacement = 'top';
+
+  private toolbarItemMap = new Map<string, ToolbarItem>();
 
   private allMenuMap = new Map<string, Map<string, string>>();
 
@@ -77,6 +78,14 @@ export class Toolbar {
     this.items = config.items || defaultItems;
     if (config.placement) {
       this.placement = config.placement;
+    }
+    for (const item of toolbarItems) {
+      this.toolbarItemMap.set(item.name, { ...item });
+    }
+    if (config.fontFamily) {
+      const fontFamilyItem = this.toolbarItemMap.get('fontFamily') as ToolbarDropdownItem;
+      fontFamilyItem.defaultValue = config.fontFamily.defaultValue;
+      fontFamilyItem.menuItems = config.fontFamily.menuItems;
     }
     this.container = query('<div class="lake-toolbar" />');
   }
@@ -267,7 +276,7 @@ export class Toolbar {
       } else {
         let item;
         if (typeof name === 'string') {
-          item = toolbarItemMap.get(name);
+          item = this.toolbarItemMap.get(name);
           if (!item) {
             throw new Error(`ToolbarItem "${name}" has not been defined yet.`);
           }

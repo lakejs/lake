@@ -12,10 +12,14 @@ import documentEditor from './document-editor';
 import multipleEditors from './multiple-editors';
 import headlessEditor from './headless-editor';
 import readonlyEditor from './readonly-editor';
+import htmlPreview from './html-preview';
+import zhTW from './i18n/zh-TW';
 import truthsocial, { truthsocialBox } from './plugins/truthsocial';
 import codesandbox, { codesandboxBox } from './plugins/codesandbox';
 import stackblitz, { stackblitzBox } from './plugins/stackblitz';
 import helloWorld, { helloWorldBox } from './plugins/hello-world';
+
+Editor.locale.add('zh-TW', zhTW);
 
 Editor.box.add(truthsocialBox);
 Editor.box.add(codesandboxBox);
@@ -83,6 +87,12 @@ const menuItems = [
     editorValue: window.defaultValue,
     editor: readonlyEditor,
   },
+  {
+    url: './html-preview',
+    text: 'HTML preview',
+    editorValue: window.defaultValue,
+    editor: htmlPreview,
+  },
 ];
 
 const themeMenuItems = [
@@ -104,6 +114,10 @@ const languageMenuItems = [
   {
     value: 'zh-CN',
     text: '简体中文',
+  },
+  {
+    value: 'zh-TW',
+    text: '繁體中文',
   },
   {
     value: 'ja',

@@ -1,4 +1,6 @@
-// The unsafeTemplate function is a tag function for removing whitespace or line terminator character.
+/**
+ * A tag function that removes empty spaces at the beginning and end of lines or line terminator character.
+ */
 export function unsafeTemplate(strings: TemplateStringsArray, ...keys: any[]): string {
   let content = strings[0];
   for (let i = 0; i < keys.length; i++) {
@@ -6,9 +8,5 @@ export function unsafeTemplate(strings: TemplateStringsArray, ...keys: any[]): s
     content += key;
     content += strings[i + 1];
   }
-  content = content
-    .replace(/^\s+/gm, '')
-    .replace(/\s+$/gm, '')
-    .replace(/[\r\n]/g, '');
-  return content;
+  return content.replace(/^\s+|\s+$|[\r\n]/gm, '');
 }

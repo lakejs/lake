@@ -5,14 +5,14 @@ export type BoxType = 'inline' | 'block';
 
 export type BoxValue = Record<string, any>;
 
-export type BoxRender = (box: Box) => Nodes | string | void;
+export type RenderBox = (box: Box) => Nodes | string | void;
 
-export type BoxHTML = (box: Box) => string;
+export type RenderBoxHTML = (box: Box) => string;
 
 export interface BoxComponent {
   type: BoxType;
   name: string;
   value?: BoxValue;
-  render: BoxRender;
-  html?: BoxHTML;
+  render: RenderBox;
+  html?: RenderBoxHTML;
 }

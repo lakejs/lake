@@ -10,6 +10,7 @@ import { CommandItem } from './types/command';
 import { UnmountPlugin, InitializePlugin } from './types/plugin';
 import { DropdownMenuItem, DropdownItem } from './types/dropdown';
 import { ToolbarButtonItem, ToolbarDropdownItem, ToolbarUploadItem, ToolbarItem } from './types/toolbar';
+import { Translation } from './i18n/types';
 import { MentionItem } from './plugins/mention/types';
 import { SlashButtonItem, SlashUploadItem, SlashItem } from './plugins/slash/types';
 import { icons } from './icons';
@@ -19,6 +20,7 @@ import { template } from './utils/template';
 import { toHex } from './utils/to-hex';
 import { getBox } from './utils/get-box';
 import { createIframeBox } from './utils/create-iframe-box';
+import { modifierText } from './utils/modifier-text';
 import { Nodes } from './models/nodes';
 import { Fragment } from './models/fragment';
 import { Range } from './models/range';
@@ -167,6 +169,7 @@ export {
   ToolbarDropdownItem,
   ToolbarUploadItem,
   ToolbarItem,
+  Translation,
   MentionItem,
   SlashButtonItem,
   SlashUploadItem,
@@ -188,6 +191,7 @@ export {
   toHex,
   getBox,
   createIframeBox,
+  modifierText,
   insertBookmark,
   toBookmark,
   insertContents,
