@@ -1,3 +1,12 @@
+## [0.4.4](https://github.com/lakejs/lake/compare/0.4.3...0.4.4) (2026-01-27)
+
+
+### Bug Fixes
+
+* **dropdown:** incorrect width ([9455153](https://github.com/lakejs/lake/commit/945515350f98a17602ba4f567def41bdcd4c04d8))
+
+
+
 ## [0.4.3](https://github.com/lakejs/lake/compare/0.4.2...0.4.3) (2026-01-25)
 
 
