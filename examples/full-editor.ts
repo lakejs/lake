@@ -1,3 +1,4 @@
+import mapPinIcon from '../assets/icons/map-pin.svg';
 import handWavingIcon from '../assets/icons/hand-waving.svg';
 import { Editor, Toolbar, getContentRules, ToolbarItem, DropdownMenuItem, MentionItem, SlashItem, icons } from 'lakelib';
 
@@ -237,6 +238,16 @@ const lineHeight: ToolbarItem = {
   },
 };
 
+const googleMaps: ToolbarItem = {
+  name: 'googleMaps',
+  type: 'button',
+  icon: mapPinIcon,
+  tooltip: 'Google Maps',
+  onClick: editor => {
+    editor.command.execute('googleMaps');
+  },
+};
+
 const helloWorld: ToolbarItem = {
   name: 'helloWorld',
   type: 'button',
@@ -306,6 +317,7 @@ const toolbarItems = [
   'equation',
   'video',
   'twitter',
+  googleMaps,
   'blockQuote',
   'paragraph',
   'hr',
