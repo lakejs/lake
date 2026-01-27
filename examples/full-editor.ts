@@ -1,5 +1,5 @@
 import handWavingIcon from '../assets/icons/hand-waving.svg';
-import { Editor, Toolbar, ToolbarItem, DropdownMenuItem, MentionItem, SlashItem, icons } from 'lakelib';
+import { Editor, Toolbar, getContentRules, ToolbarItem, DropdownMenuItem, MentionItem, SlashItem, icons } from 'lakelib';
 
 // These emojis are sourced from Fluent Emoji.
 // https://github.com/microsoft/fluentui-emoji
@@ -192,6 +192,51 @@ const specialCharacter: ToolbarItem = {
   },
 };
 
+const lineHeightMenuItems: DropdownMenuItem[] = [
+  {
+    value: '1',
+    text: '1',
+  },
+  {
+    value: '1.1',
+    text: '1.1',
+  },
+  {
+    value: '1.2',
+    text: '1.2',
+  },
+  {
+    value: '1.3',
+    text: '1.3',
+  },
+  {
+    value: '1.4',
+    text: '1.4',
+  },
+  {
+    value: '1.5',
+    text: '1.5',
+  },
+  {
+    value: '2',
+    text: '2',
+  },
+];
+
+const lineHeight: ToolbarItem = {
+  name: 'lineHeight',
+  type: 'dropdown',
+  downIcon: icons.get('down'),
+  defaultValue: '1.5',
+  tooltip: 'Line height',
+  width: '65px',
+  menuType: 'list',
+  menuItems: lineHeightMenuItems,
+  onSelect: (editor, value) => {
+    editor.command.execute('lineHeight', value);
+  },
+};
+
 const helloWorld: ToolbarItem = {
   name: 'helloWorld',
   type: 'button',
@@ -220,6 +265,7 @@ const toolbarItems = [
   'heading',
   'fontFamily',
   'fontSize',
+  lineHeight,
   '|',
   'formatPainter',
   'removeFormat',
@@ -322,6 +368,9 @@ const mentionItems: MentionItem[] = [
   },
 ];
 
+const contentRules = getContentRules() as any;
+contentRules.span.style['line-height'] = /^[^"]+$/;
+
 export default (value: string) => {
   const toolbar = new Toolbar({
     root: '.lake-toolbar-root',
@@ -349,6 +398,7 @@ export default (value: string) => {
     toolbar,
     lang: window.LAKE_LANGUAGE,
     value,
+    contentRules,
     showMessage: (type, message) => {
       if (type === 'error') {
         // eslint-disable-next-line no-alert
