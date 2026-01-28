@@ -5,7 +5,7 @@ import { Box } from '@/models/box';
 import { Editor } from '@/editor';
 import { isFirefox, click } from '../../utils';
 
-const mediaUrl = '../assets/files/flower.mp4';
+const mediaUrl = '../assets/files/flower.webm';
 
 describe('plugins / media / media-box', () => {
 
@@ -24,9 +24,9 @@ describe('plugins / media / media-box', () => {
     box = editor.selection.insertBox('media', {
       url: mediaUrl,
       status: 'done',
-      name: 'flower.mp4',
+      name: 'flower.webm',
       size: 60008,
-      type: 'video/mp4',
+      type: 'video/webm',
       lastModified: 1710229517198,
     });
   });

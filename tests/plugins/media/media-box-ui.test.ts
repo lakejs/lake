@@ -1,6 +1,6 @@
 import { showBox } from '../../utils';
 
-const mediaUrl = '../assets/files/flower.mp4';
+const mediaUrl = '../assets/files/flower.webm';
 
 describe('plugins / media / media-box-ui', () => {
 
@@ -8,9 +8,9 @@ describe('plugins / media / media-box-ui', () => {
     showBox('media', {
       url: mediaUrl,
       status: 'uploading',
-      name: 'flower.mp4',
+      name: 'flower.webm',
       size: 510558,
-      type: 'video/mp4',
+      type: 'video/webm',
       lastModified: 1740097718598,
     }, box => {
       expect(box.value.status).to.equal('uploading');
@@ -21,9 +21,9 @@ describe('plugins / media / media-box-ui', () => {
     showBox('media', {
       url: mediaUrl,
       status: 'uploading',
-      name: 'flower.mp4',
+      name: 'flower.webm',
       size: 510558,
-      type: 'video/mp4',
+      type: 'video/webm',
       lastModified: 1740097718598,
     }, box => {
       expect(box.node.computedCSS('display')).to.equal('none');
@@ -34,9 +34,9 @@ describe('plugins / media / media-box-ui', () => {
     showBox('media', {
       url: mediaUrl,
       status: 'done',
-      name: 'flower.mp4',
+      name: 'flower.webm',
       size: 510558,
-      type: 'video/mp4',
+      type: 'video/webm',
       lastModified: 1740097718598,
     }, box => {
       expect(box.value.status).to.equal('done');
@@ -47,9 +47,9 @@ describe('plugins / media / media-box-ui', () => {
     showBox('media', {
       url: mediaUrl,
       status: 'done',
-      name: 'flower.mp4',
+      name: 'flower.webm',
       size: 510558,
-      type: 'video/mp4',
+      type: 'video/webm',
       lastModified: 1740097718598,
     }, box => {
       expect(box.value.status).to.equal('done');
@@ -60,9 +60,9 @@ describe('plugins / media / media-box-ui', () => {
     showBox('media', {
       url: mediaUrl,
       status: 'error',
-      name: 'flower.mp4',
+      name: 'flower.webm',
       size: 510558,
-      type: 'video/mp4',
+      type: 'video/webm',
       lastModified: 1740097718598,
     }, box => {
       expect(box.value.status).to.equal('error');
@@ -73,9 +73,9 @@ describe('plugins / media / media-box-ui', () => {
     showBox('media', {
       url: mediaUrl,
       status: 'error',
-      name: 'flower.mp4',
+      name: 'flower.webm',
       size: 510558,
-      type: 'video/mp4',
+      type: 'video/webm',
       lastModified: 1740097718598,
     }, box => {
       expect(box.node.computedCSS('display')).to.equal('none');

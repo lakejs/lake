@@ -1,7 +1,7 @@
 import { testPlugin } from '../../utils';
 
-const mediaUrl = '../assets/files/flower.mp4';
-const mediaBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvZmlsZXMvZmxvd2VyLm1wNCIsInN0YXR1cyI6ImRvbmUifQ==';
+const mediaUrl = '../assets/files/flower.webm';
+const mediaBoxValue = 'eyJ1cmwiOiIuLi9hc3NldHMvZmlsZXMvZmxvd2VyLndlYm0iLCJzdGF0dXMiOiJkb25lIn0=';
 
 describe('plugins / media / index', () => {
 
