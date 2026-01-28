@@ -47,6 +47,7 @@ export default {
     fontColor: 'Font color',
     highlight: 'Highlight',
     image: 'Image',
+    media: 'Video',
     file: 'File',
     emoji: 'Emoji',
     equation: 'Mathematical formula',
@@ -151,6 +152,10 @@ export default {
     open: 'Open image in new tab',
     caption: 'Caption',
     captionPlaceholder: 'Write a caption...',
+  },
+  media: {
+    download: 'Download',
+    remove: 'Delete',
   },
   file: {
     download: 'Download',

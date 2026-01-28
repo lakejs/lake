@@ -76,6 +76,7 @@ import link from './link.svg';
 import hr from './hr.svg';
 import codeBlock from './code-block.svg';
 import image from './image.svg';
+import media from './media.svg';
 import video from './video.svg';
 import attachment from './attachment.svg';
 import emoji from './emoji.svg';
@@ -166,6 +167,7 @@ export const icons = new Map<string, string>([
   ['hr', hr],
   ['codeBlock', codeBlock],
   ['image', image],
+  ['media', media],
   ['video', video],
   ['attachment', attachment],
   ['emoji', emoji],

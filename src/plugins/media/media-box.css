@@ -1,0 +1,74 @@
+.lake-media-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  background-color: var(--lake-box-placeholder-background-color);
+  border-radius: 4px;
+}
+
+.lake-media-placeholder svg {
+  width: 50%;
+  max-width: 64px;
+  height: 50%;
+  max-height: 64px;
+  fill: var(--lake-box-placeholder-text-color);
+}
+
+.lake-media {
+  position: relative;
+  font-size: var(--lake-font-size);
+  font-weight: normal;
+  line-height: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.lake-media-placeholder,
+.lake-media video {
+  width: 560px;
+  height: 315px;
+}
+
+/* uploading status */
+.lake-media .lake-progress {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  z-index: 1;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .4);
+  line-height: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+}
+
+.lake-media .lake-progress svg {
+  fill: #fff;
+  width: 16px;
+  height: 16px;
+  margin: 6px;
+  animation: lakerotate 1s linear 0s infinite normal none;
+}
+
+.lake-media .lake-progress .lake-percent {
+  font-size: 14px;
+  color: #fff;
+  margin: 6px;
+  white-space: nowrap;
+}
+
+/* error status */
+.lake-media-error .lake-media-placeholder {
+  border: 1px solid var(--lake-box-border-color);
+  background-color: transparent;
+}
+
+lake-box[name="media"] .lake-box-selected .lake-media-placeholder {
+  background-color: var(--lake-selection-background-color);
+}
+
+.lake-media-error .lake-media-placeholder svg {
+  fill: var(--lake-error-color);
+}

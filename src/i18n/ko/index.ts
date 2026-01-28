@@ -47,6 +47,7 @@ export default {
     fontColor: '글자 색상',
     highlight: '글자 배경',
     image: '이미지',
+    media: '동영상',
     file: '파일',
     emoji: '이모지',
     equation: '수학 공식',
@@ -151,6 +152,10 @@ export default {
     open: '새 탭에서 이미지 열기',
     caption: '캡션',
     captionPlaceholder: '캡션을 입력하세요',
+  },
+  media: {
+    download: '다운로드',
+    remove: '삭제',
   },
   file: {
     download: '다운로드',

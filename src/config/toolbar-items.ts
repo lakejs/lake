@@ -436,6 +436,14 @@ export const toolbarItems: ToolbarItem[] = [
     multiple: true,
   },
   {
+    name: 'media',
+    type: 'upload',
+    icon: icons.get('media'),
+    tooltip: locale => locale.toolbar.media(),
+    accept: 'video/*',
+    multiple: true,
+  },
+  {
     name: 'file',
     type: 'upload',
     icon: icons.get('attachment'),

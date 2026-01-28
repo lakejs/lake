@@ -47,6 +47,7 @@ export default {
     fontColor: '文字颜色',
     highlight: '文字背景',
     image: '图片',
+    media: '视频',
     file: '文件',
     emoji: '表情',
     equation: '数学公式',
@@ -151,6 +152,10 @@ export default {
     open: '在新标签页中打开图片',
     caption: '图片描述',
     captionPlaceholder: '请输入图片描述',
+  },
+  media: {
+    download: '下载',
+    remove: '删除',
   },
   file: {
     download: '下载',
