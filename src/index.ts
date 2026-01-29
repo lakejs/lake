@@ -9,6 +9,7 @@ import { ActiveItem, SelectionState } from './types/selection';
 import { CommandItem } from './types/command';
 import { UnmountPlugin, InitializePlugin } from './types/plugin';
 import { DropdownMenuItem, DropdownItem } from './types/dropdown';
+import { CornerToolbarItem } from './types/corner-toolbar';
 import { ToolbarButtonItem, ToolbarDropdownItem, ToolbarUploadItem, ToolbarItem } from './types/toolbar';
 import { Translation, TranslationFunctions } from './i18n/types';
 import { MentionItem } from './plugins/mention/types';
@@ -171,6 +172,7 @@ export {
   InitializePlugin,
   DropdownMenuItem,
   DropdownItem,
+  CornerToolbarItem,
   ToolbarButtonItem,
   ToolbarDropdownItem,
   ToolbarUploadItem,
