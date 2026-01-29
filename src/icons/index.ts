@@ -50,6 +50,7 @@ import list from './list.svg';
 import numberedList from './numbered-list.svg';
 import bulletedList from './bulleted-list.svg';
 import checklist from './checklist.svg';
+import table from './table.svg';
 import alignLeft from './align-left.svg';
 import alignCenter from './align-center.svg';
 import alignRight from './align-right.svg';
@@ -73,16 +74,21 @@ import highlightAccent from './highlight-accent.svg';
 import backgroundColor from './background-color.svg';
 import backgroundColorAccent from './background-color-accent.svg';
 import link from './link.svg';
-import hr from './hr.svg';
-import codeBlock from './code-block.svg';
-import image from './image.svg';
-import video from './video.svg';
-import attachment from './attachment.svg';
-import emoji from './emoji.svg';
 import specialCharacter from './special-character.svg';
+import hr from './hr.svg';
+import image from './image.svg';
+import media from './media.svg';
+import attachment from './attachment.svg';
+import codeBlock from './code-block.svg';
+import emoji from './emoji.svg';
 import equation from './equation.svg';
+import video from './video.svg';
 import twitter from './twitter.svg';
-import table from './table.svg';
+// table
+import tableColumn from './table-column.svg';
+import tableRow from './table-row.svg';
+import tableMerge from './table-merge.svg';
+import tableSplit from './table-split.svg';
 // link
 import unlink from './unlink.svg';
 // image
@@ -92,11 +98,6 @@ import zoomOut from './zoom-out.svg';
 import caption from './caption.svg';
 // file
 import file from './file.svg';
-// table
-import tableColumn from './table-column.svg';
-import tableRow from './table-row.svg';
-import tableMerge from './table-merge.svg';
-import tableSplit from './table-split.svg';
 // alert
 import info from './info.svg';
 import tip from './tip.svg';
@@ -140,6 +141,7 @@ export const icons = new Map<string, string>([
   ['numberedList', numberedList],
   ['bulletedList', bulletedList],
   ['checklist', checklist],
+  ['table', table],
   ['alignLeft', alignLeft],
   ['alignCenter', alignCenter],
   ['alignRight', alignRight],
@@ -163,16 +165,21 @@ export const icons = new Map<string, string>([
   ['backgroundColor', backgroundColor],
   ['backgroundColorAccent', backgroundColorAccent],
   ['link', link],
-  ['hr', hr],
-  ['codeBlock', codeBlock],
-  ['image', image],
-  ['video', video],
-  ['attachment', attachment],
-  ['emoji', emoji],
   ['specialCharacter', specialCharacter],
+  ['hr', hr],
+  ['image', image],
+  ['media', media],
+  ['attachment', attachment],
+  ['codeBlock', codeBlock],
+  ['emoji', emoji],
   ['equation', equation],
+  ['video', video],
   ['twitter', twitter],
-  ['table', table],
+  // table
+  ['tableColumn', tableColumn],
+  ['tableRow', tableRow],
+  ['tableMerge', tableMerge],
+  ['tableSplit', tableSplit],
   // link
   ['unlink', unlink],
   // image
@@ -182,11 +189,6 @@ export const icons = new Map<string, string>([
   ['caption', caption],
   // file
   ['file', file],
-  // table
-  ['tableColumn', tableColumn],
-  ['tableRow', tableRow],
-  ['tableMerge', tableMerge],
-  ['tableSplit', tableSplit],
   // alert
   ['info', info],
   ['tip', tip],

@@ -266,19 +266,19 @@ export const toolbarItems: ToolbarItem[] = [
     },
   },
   {
-    name: 'video',
+    name: 'equation',
     type: 'button',
-    icon: icons.get('video'),
-    tooltip: locale => locale.toolbar.video(),
+    icon: icons.get('equation'),
+    tooltip: locale => locale.toolbar.equation(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
   },
   {
-    name: 'equation',
+    name: 'video',
     type: 'button',
-    icon: icons.get('equation'),
-    tooltip: locale => locale.toolbar.equation(),
+    icon: icons.get('video'),
+    tooltip: locale => locale.toolbar.video(),
     onClick: (editor, value) => {
       editor.command.execute(value);
     },
@@ -433,6 +433,14 @@ export const toolbarItems: ToolbarItem[] = [
     icon: icons.get('image'),
     tooltip: locale => locale.toolbar.image(),
     accept: 'image/*',
+    multiple: true,
+  },
+  {
+    name: 'media',
+    type: 'upload',
+    icon: icons.get('media'),
+    tooltip: locale => locale.toolbar.media(),
+    accept: 'video/*',
     multiple: true,
   },
   {

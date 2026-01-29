@@ -118,7 +118,7 @@ type RootTranslation = {
 		 */
 		hr: string
 		/**
-		 * V​i​d​e​o
+		 * Y​o​u​T​u​b​e
 		 */
 		video: string
 		/**
@@ -194,6 +194,10 @@ type RootTranslation = {
 		 */
 		image: string
 		/**
+		 * V​i​d​e​o
+		 */
+		media: string
+		/**
 		 * F​i​l​e
 		 */
 		file: string
@@ -206,7 +210,7 @@ type RootTranslation = {
 		 */
 		equation: string
 		/**
-		 * X​ ​(​T​w​i​t​t​e​r​)
+		 * X​ ​(​T​w​e​e​t​)
 		 */
 		twitter: string
 		/**
@@ -360,11 +364,11 @@ type RootTranslation = {
 		 */
 		codeBlockDesc: string
 		/**
-		 * V​i​d​e​o
+		 * Y​o​u​T​u​b​e
 		 */
 		video: string
 		/**
-		 * I​n​s​e​r​t​ ​a​ ​v​i​d​e​o​ ​f​r​o​m​ ​Y​o​u​T​u​b​e
+		 * I​n​s​e​r​t​ ​a​ ​Y​o​u​T​u​b​e​ ​v​i​d​e​o
 		 */
 		videoDesc: string
 		/**
@@ -376,11 +380,11 @@ type RootTranslation = {
 		 */
 		equationDesc: string
 		/**
-		 * T​w​i​t​t​e​r
+		 * T​w​e​e​t
 		 */
 		twitter: string
 		/**
-		 * I​n​s​e​r​t​ ​a​ ​p​o​s​t​ ​f​r​o​m​ ​X​ ​(​T​w​i​t​t​e​r​)
+		 * I​n​s​e​r​t​ ​a​n​ ​X​ ​(​T​w​e​e​t​)
 		 */
 		twitterDesc: string
 		/**
@@ -587,6 +591,16 @@ type RootTranslation = {
 		 */
 		captionPlaceholder: string
 	}
+	media: {
+		/**
+		 * D​o​w​n​l​o​a​d
+		 */
+		download: string
+		/**
+		 * D​e​l​e​t​e
+		 */
+		remove: string
+	}
 	file: {
 		/**
 		 * D​o​w​n​l​o​a​d
@@ -607,7 +621,7 @@ type RootTranslation = {
 		 */
 		remove: string
 		/**
-		 * P​a​s​t​e​ ​a​ ​l​i​n​k​ ​t​o​ ​e​m​b​e​d​ ​a​ ​v​i​d​e​o​ ​f​r​o​m​ ​Y​o​u​T​u​b​e​.
+		 * P​a​s​t​e​ ​y​o​u​r​ ​Y​o​u​T​u​b​e​ ​l​i​n​k​ ​b​e​l​o​w​.
 		 */
 		description: string
 		/**
@@ -649,7 +663,7 @@ type RootTranslation = {
 		 */
 		remove: string
 		/**
-		 * P​a​s​t​e​ ​a​ ​l​i​n​k​ ​t​o​ ​e​m​b​e​d​ ​a​ ​p​o​s​t​ ​f​r​o​m​ ​X​.
+		 * P​a​s​t​e​ ​y​o​u​r​ ​X​ ​(​T​w​i​t​t​e​r​)​ ​l​i​n​k​ ​b​e​l​o​w​.
 		 */
 		description: string
 		/**
@@ -766,7 +780,7 @@ export type TranslationFunctions = {
 		 */
 		hr: () => LocalizedString
 		/**
-		 * Video
+		 * YouTube
 		 */
 		video: () => LocalizedString
 		/**
@@ -842,6 +856,10 @@ export type TranslationFunctions = {
 		 */
 		image: () => LocalizedString
 		/**
+		 * Video
+		 */
+		media: () => LocalizedString
+		/**
 		 * File
 		 */
 		file: () => LocalizedString
@@ -854,7 +872,7 @@ export type TranslationFunctions = {
 		 */
 		equation: () => LocalizedString
 		/**
-		 * X (Twitter)
+		 * X (Tweet)
 		 */
 		twitter: () => LocalizedString
 		/**
@@ -1008,11 +1026,11 @@ export type TranslationFunctions = {
 		 */
 		codeBlockDesc: () => LocalizedString
 		/**
-		 * Video
+		 * YouTube
 		 */
 		video: () => LocalizedString
 		/**
-		 * Insert a video from YouTube
+		 * Insert a YouTube video
 		 */
 		videoDesc: () => LocalizedString
 		/**
@@ -1024,11 +1042,11 @@ export type TranslationFunctions = {
 		 */
 		equationDesc: () => LocalizedString
 		/**
-		 * Twitter
+		 * Tweet
 		 */
 		twitter: () => LocalizedString
 		/**
-		 * Insert a post from X (Twitter)
+		 * Insert an X (Tweet)
 		 */
 		twitterDesc: () => LocalizedString
 		/**
@@ -1234,6 +1252,16 @@ export type TranslationFunctions = {
 		 */
 		captionPlaceholder: () => LocalizedString
 	}
+	media: {
+		/**
+		 * Download
+		 */
+		download: () => LocalizedString
+		/**
+		 * Delete
+		 */
+		remove: () => LocalizedString
+	}
 	file: {
 		/**
 		 * Download
@@ -1254,7 +1282,7 @@ export type TranslationFunctions = {
 		 */
 		remove: () => LocalizedString
 		/**
-		 * Paste a link to embed a video from YouTube.
+		 * Paste your YouTube link below.
 		 */
 		description: () => LocalizedString
 		/**
@@ -1296,7 +1324,7 @@ export type TranslationFunctions = {
 		 */
 		remove: () => LocalizedString
 		/**
-		 * Paste a link to embed a post from X.
+		 * Paste your X (Twitter) link below.
 		 */
 		description: () => LocalizedString
 		/**

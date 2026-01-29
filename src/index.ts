@@ -4,13 +4,14 @@ import './elements/bookmark';
 import { KeyValue } from './types/object';
 import { ContentRules } from './types/content-rules';
 import { NodePath } from './types/node';
-import { BoxValue, BoxComponent } from './types/box';
+import { BoxType, BoxValue, BoxComponent } from './types/box';
 import { ActiveItem, SelectionState } from './types/selection';
 import { CommandItem } from './types/command';
 import { UnmountPlugin, InitializePlugin } from './types/plugin';
 import { DropdownMenuItem, DropdownItem } from './types/dropdown';
+import { CornerToolbarItem } from './types/corner-toolbar';
 import { ToolbarButtonItem, ToolbarDropdownItem, ToolbarUploadItem, ToolbarItem } from './types/toolbar';
-import { Translation } from './i18n/types';
+import { Translation, TranslationFunctions } from './i18n/types';
 import { MentionItem } from './plugins/mention/types';
 import { SlashButtonItem, SlashUploadItem, SlashItem } from './plugins/slash/types';
 import { icons } from './icons';
@@ -41,6 +42,8 @@ import { insertBox } from './operations/insert-box';
 import { removeBox } from './operations/remove-box';
 import { Button } from './ui/button';
 import { Dropdown } from './ui/dropdown';
+import { CornerToolbar } from './ui/corner-toolbar';
+import { Resizer } from './ui/resizer';
 import { Editor, EditorConfig } from './editor';
 import { Toolbar, ToolbarConfig } from './ui/toolbar';
 import copy from './plugins/copy';
@@ -70,15 +73,16 @@ import highlight from './plugins/highlight';
 import removeFormat from './plugins/remove-format';
 import formatPainter from './plugins/format-painter';
 import link from './plugins/link';
+import specialCharacter from './plugins/special-character';
 import hr, { hrBox } from './plugins/hr';
-import codeBlock, { codeBlockBox } from './plugins/code-block';
 import image, { imageBox } from './plugins/image';
-import video, { videoBox } from './plugins/video';
+import media, { mediaBox } from './plugins/media';
 import file, { fileBox } from './plugins/file';
+import codeBlock, { codeBlockBox } from './plugins/code-block';
 import emoji, { emojiBox } from './plugins/emoji';
 import equation, { equationBox } from './plugins/equation';
-import specialCharacter from './plugins/special-character';
 import mention, { mentionBox } from './plugins/mention';
+import video, { videoBox } from './plugins/video';
 import twitter, { twitterBox } from './plugins/twitter';
 import markdown from './plugins/markdown';
 import enterKey from './plugins/enter-key';
@@ -91,13 +95,14 @@ import escapeKey from './plugins/escape-key';
 import slash from './plugins/slash';
 
 Editor.box.add(hrBox);
+Editor.box.add(imageBox);
+Editor.box.add(mediaBox);
+Editor.box.add(fileBox);
 Editor.box.add(codeBlockBox);
 Editor.box.add(emojiBox);
 Editor.box.add(equationBox);
-Editor.box.add(imageBox);
-Editor.box.add(videoBox);
-Editor.box.add(fileBox);
 Editor.box.add(mentionBox);
+Editor.box.add(videoBox);
 Editor.box.add(twitterBox);
 
 Editor.plugin.add('copy', copy);
@@ -127,15 +132,16 @@ Editor.plugin.add('highlight', highlight);
 Editor.plugin.add('removeFormat', removeFormat);
 Editor.plugin.add('formatPainter', formatPainter);
 Editor.plugin.add('link', link);
+Editor.plugin.add('specialCharacter', specialCharacter);
 Editor.plugin.add('hr', hr);
-Editor.plugin.add('codeBlock', codeBlock);
 Editor.plugin.add('image', image);
-Editor.plugin.add('video', video);
+Editor.plugin.add('media', media);
 Editor.plugin.add('file', file);
+Editor.plugin.add('codeBlock', codeBlock);
 Editor.plugin.add('emoji', emoji);
 Editor.plugin.add('equation', equation);
-Editor.plugin.add('specialCharacter', specialCharacter);
 Editor.plugin.add('mention', mention);
+Editor.plugin.add('video', video);
 Editor.plugin.add('twitter', twitter);
 Editor.plugin.add('markdown', markdown);
 Editor.plugin.add('enterKey', enterKey);
@@ -156,6 +162,7 @@ export {
   KeyValue,
   ContentRules,
   NodePath,
+  BoxType,
   BoxValue,
   BoxComponent,
   ActiveItem,
@@ -165,11 +172,13 @@ export {
   InitializePlugin,
   DropdownMenuItem,
   DropdownItem,
+  CornerToolbarItem,
   ToolbarButtonItem,
   ToolbarDropdownItem,
   ToolbarUploadItem,
   ToolbarItem,
   Translation,
+  TranslationFunctions,
   MentionItem,
   SlashButtonItem,
   SlashUploadItem,
@@ -179,6 +188,8 @@ export {
   Toolbar,
   Button,
   Dropdown,
+  CornerToolbar,
+  Resizer,
   Nodes,
   Fragment,
   Range,

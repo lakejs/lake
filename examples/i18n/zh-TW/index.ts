@@ -46,6 +46,7 @@ export default {
     fontColor: '文字顏色',
     highlight: '文字背景',
     image: '圖片',
+    media: '影片',
     file: '檔案',
     emoji: '表情符號',
     equation: '數學公式',
@@ -150,6 +151,10 @@ export default {
     open: '在新分頁開啟圖片',
     caption: '圖片說明',
     captionPlaceholder: '請輸入圖片說明',
+  },
+  media: {
+    download: '下載',
+    remove: '刪除',
   },
   file: {
     download: '下載',
