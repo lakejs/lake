@@ -48,6 +48,7 @@ const toolbarItems = [
   '|',
   'link',
   'image',
+  'media',
   'video',
   'file',
   'codeBlock',
@@ -629,6 +630,56 @@ describe('ui / toolbar', () => {
     expect(box1.value.url).to.equal('../assets/images/heaven-lake-512.png');
     expect(box2.value.status).to.equal('done');
     expect(box2.value.url).to.equal('../assets/images/lac-gentau-256.jpg');
+    xhr.restore();
+  });
+
+  it('image: upload a video', () => {
+    xhr = fakeXhr.useFakeXMLHttpRequest();
+    requests = [];
+    xhr.onCreate = req => requests.push(req);
+    const files = [
+      new File([imgBuffer], 'flower.webm', {
+        type: 'video/webm',
+      }),
+    ];
+    const event = {
+      ...new Event('change'),
+      target: {
+        ...new EventTarget(),
+        files,
+      },
+    };
+    editor.setPluginConfig('media', {
+      requestFieldName: 'fooFile',
+      requestWithCredentials: true,
+      requestHeaders: { foo: 'abc' },
+      transformResponse: (body: any) => {
+        return {
+          url: body.data.url,
+        };
+      },
+    });
+    editor.setValue('<p>foo<focus /></p>');
+    const buttonNode = toolbar.container.find('button[name="media"]');
+    buttonNode.emit('mouseenter');
+    expect(buttonNode.hasClass('lake-button-hovered')).to.equal(true);
+    buttonNode.emit('mouseleave');
+    expect(buttonNode.hasClass('lake-button-hovered')).to.equal(false);
+    buttonNode.parent().find('input[type="file"]').emit('change', event as Event);
+    expect(requests[0].withCredentials).to.equal(true);
+    expect(requests[0].requestHeaders.foo).to.equal('abc');
+    expect((requests[0].requestBody as any).get('fooFile').name).to.equal('flower.webm');
+    requests[0].respond(200, {}, JSON.stringify({
+      data: {
+        url: '../assets/files/flower.webm',
+      },
+    }));
+    const value = removeBoxValueFromHTML(editor.getValue());
+    debug(`output: ${value}`);
+    expect(value).to.equal('<p>foo<lake-box type="inline" name="media" focus="end"></lake-box></p>');
+    const box1 = getBox(editor.container.find('lake-box').eq(0));
+    expect(box1.value.status).to.equal('done');
+    expect(box1.value.url).to.equal('../assets/files/flower.webm');
     xhr.restore();
   });
 
