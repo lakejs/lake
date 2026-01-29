@@ -4,13 +4,13 @@ import './elements/bookmark';
 import { KeyValue } from './types/object';
 import { ContentRules } from './types/content-rules';
 import { NodePath } from './types/node';
-import { BoxValue, BoxComponent } from './types/box';
+import { BoxType, BoxValue, BoxComponent } from './types/box';
 import { ActiveItem, SelectionState } from './types/selection';
 import { CommandItem } from './types/command';
 import { UnmountPlugin, InitializePlugin } from './types/plugin';
 import { DropdownMenuItem, DropdownItem } from './types/dropdown';
 import { ToolbarButtonItem, ToolbarDropdownItem, ToolbarUploadItem, ToolbarItem } from './types/toolbar';
-import { Translation } from './i18n/types';
+import { Translation, TranslationFunctions } from './i18n/types';
 import { MentionItem } from './plugins/mention/types';
 import { SlashButtonItem, SlashUploadItem, SlashItem } from './plugins/slash/types';
 import { icons } from './icons';
@@ -41,6 +41,8 @@ import { insertBox } from './operations/insert-box';
 import { removeBox } from './operations/remove-box';
 import { Button } from './ui/button';
 import { Dropdown } from './ui/dropdown';
+import { CornerToolbar } from './ui/corner-toolbar';
+import { Resizer } from './ui/resizer';
 import { Editor, EditorConfig } from './editor';
 import { Toolbar, ToolbarConfig } from './ui/toolbar';
 import copy from './plugins/copy';
@@ -159,6 +161,7 @@ export {
   KeyValue,
   ContentRules,
   NodePath,
+  BoxType,
   BoxValue,
   BoxComponent,
   ActiveItem,
@@ -173,6 +176,7 @@ export {
   ToolbarUploadItem,
   ToolbarItem,
   Translation,
+  TranslationFunctions,
   MentionItem,
   SlashButtonItem,
   SlashUploadItem,
@@ -182,6 +186,8 @@ export {
   Toolbar,
   Button,
   Dropdown,
+  CornerToolbar,
+  Resizer,
   Nodes,
   Fragment,
   Range,
