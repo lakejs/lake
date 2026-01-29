@@ -164,7 +164,7 @@ export default {
   video: {
     embed: 'Embed video',
     remove: 'Delete',
-    description: 'Paste a YouTube link to embed the video.',
+    description: 'Paste your YouTube link below.',
     url: 'Link',
     urlError: 'Please enter a valid link.',
   },
@@ -179,7 +179,7 @@ export default {
   twitter: {
     embed: 'Embed Tweet',
     remove: 'Delete',
-    description: 'Paste an X (Twitter) link to embed the post.',
+    description: 'Paste your X (Twitter) link below.',
     url: 'Link',
     urlError: 'Please enter a valid link.',
   },

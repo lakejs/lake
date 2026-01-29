@@ -194,7 +194,7 @@ type RootTranslation = {
 		 */
 		image: string
 		/**
-		 * M​e​d​i​a
+		 * V​i​d​e​o
 		 */
 		media: string
 		/**
@@ -621,7 +621,7 @@ type RootTranslation = {
 		 */
 		remove: string
 		/**
-		 * P​a​s​t​e​ ​a​ ​Y​o​u​T​u​b​e​ ​l​i​n​k​ ​t​o​ ​e​m​b​e​d​ ​t​h​e​ ​v​i​d​e​o​.
+		 * P​a​s​t​e​ ​y​o​u​r​ ​Y​o​u​T​u​b​e​ ​l​i​n​k​ ​b​e​l​o​w​.
 		 */
 		description: string
 		/**
@@ -663,7 +663,7 @@ type RootTranslation = {
 		 */
 		remove: string
 		/**
-		 * P​a​s​t​e​ ​a​n​ ​X​ ​(​T​w​i​t​t​e​r​)​ ​l​i​n​k​ ​t​o​ ​e​m​b​e​d​ ​t​h​e​ ​p​o​s​t​.
+		 * P​a​s​t​e​ ​y​o​u​r​ ​X​ ​(​T​w​i​t​t​e​r​)​ ​l​i​n​k​ ​b​e​l​o​w​.
 		 */
 		description: string
 		/**
@@ -856,7 +856,7 @@ export type TranslationFunctions = {
 		 */
 		image: () => LocalizedString
 		/**
-		 * Media
+		 * Video
 		 */
 		media: () => LocalizedString
 		/**
@@ -1282,7 +1282,7 @@ export type TranslationFunctions = {
 		 */
 		remove: () => LocalizedString
 		/**
-		 * Paste a YouTube link to embed the video.
+		 * Paste your YouTube link below.
 		 */
 		description: () => LocalizedString
 		/**
@@ -1324,7 +1324,7 @@ export type TranslationFunctions = {
 		 */
 		remove: () => LocalizedString
 		/**
-		 * Paste an X (Twitter) link to embed the post.
+		 * Paste your X (Twitter) link below.
 		 */
 		description: () => LocalizedString
 		/**
