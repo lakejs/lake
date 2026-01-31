@@ -47,6 +47,7 @@ export default {
     fontColor: '文字色',
     highlight: 'ハイライト',
     image: '画像',
+    media: '動画',
     file: 'ファイル',
     emoji: '絵文字',
     equation: '数式',
@@ -151,6 +152,10 @@ export default {
     open: '新しいタブで画像を開く',
     caption: 'キャプション',
     captionPlaceholder: 'キャプションを入力してください',
+  },
+  media: {
+    download: 'ダウンロード',
+    remove: '削除',
   },
   file: {
     download: 'ダウンロード',

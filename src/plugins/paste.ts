@@ -193,7 +193,14 @@ export default (editor: Editor) => {
     // upload file
     if (dataTransfer.files.length > 0) {
       for (const file of dataTransfer.files) {
-        const pluginName = file.type.indexOf('image/') === 0 ? 'image' : 'file';
+        let pluginName: string;
+        if (file.type.indexOf('image/') === 0) {
+          pluginName = 'image';
+        } else if (file.type.indexOf('video/') === 0) {
+          pluginName = 'media';
+        } else {
+          pluginName = 'file';
+        }
         const {
           requestTypes, requestMethod, requestAction, requestFieldName,
           requestWithCredentials, requestHeaders, transformResponse,

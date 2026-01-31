@@ -5,7 +5,7 @@ const googleMapsBox = createIframeBox({
   name: 'googleMaps',
   width: '600px',
   height: '450px',
-  formDescription: 'Paste a share code to embed a Google Map.',
+  formDescription: 'Paste your Google Maps share code below.',
   urlPlaceholder: '<iframe src="https://www.google.com/maps/embed...',
   embedButtonText: 'Embed Map',
   deleteButtonText: 'Delete',

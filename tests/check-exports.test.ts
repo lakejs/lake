@@ -6,6 +6,8 @@ import {
   Toolbar,
   Button,
   Dropdown,
+  CornerToolbar,
+  Resizer,
   Nodes,
   Fragment,
   Range,
@@ -42,6 +44,8 @@ describe('check exports', () => {
     expect(typeof Toolbar).to.equal('function');
     expect(typeof Button).to.equal('function');
     expect(typeof Dropdown).to.equal('function');
+    expect(typeof CornerToolbar).to.equal('function');
+    expect(typeof Resizer).to.equal('function');
     expect(typeof Nodes).to.equal('function');
     expect(typeof Fragment).to.equal('function');
     expect(typeof Range).to.equal('function');

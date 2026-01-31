@@ -310,6 +310,7 @@ const toolbarItems = [
   '|',
   'link',
   'image',
+  'media',
   'file',
   emoji,
   specialCharacter,
@@ -439,6 +440,9 @@ export default (value: string) => {
         return body;
       },
       */
+    },
+    media: {
+      requestAction: '/upload',
     },
     file: {
       requestAction: '/upload',
