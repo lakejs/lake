@@ -330,6 +330,7 @@ const toolbarItems = [
 const slashItems: (string | SlashItem)[] = [
   helloWorldSlashItem,
   'image',
+  'media',
   'file',
   'heading1',
   'heading2',

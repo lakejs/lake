@@ -99,6 +99,8 @@ export default {
     twitterDesc: '트윗을 추가',
     image: '이미지',
     imageDesc: '이미지를 업로드',
+    media: '이미지',
+    mediaDesc: '동영상를 업로드',
     file: '파일',
     fileDesc: '파일을 업로드',
   },

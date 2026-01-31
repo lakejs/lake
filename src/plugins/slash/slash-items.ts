@@ -222,6 +222,15 @@ export const slashItems: SlashItem[] = [
     multiple: true,
   },
   {
+    name: 'media',
+    type: 'upload',
+    icon: icons.get('media'),
+    title: locale => locale.slash.media(),
+    description: locale => locale.slash.mediaDesc(),
+    accept: 'video/*',
+    multiple: true,
+  },
+  {
     name: 'file',
     type: 'upload',
     icon: icons.get('attachment'),

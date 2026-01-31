@@ -98,6 +98,8 @@ export default {
     twitterDesc: '插入 Tweet',
     image: '圖片',
     imageDesc: '上傳圖片',
+    media: '影片',
+    mediaDesc: '上傳影片',
     file: '檔案',
     fileDesc: '上傳檔案',
   },

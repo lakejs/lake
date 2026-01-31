@@ -396,6 +396,14 @@ type RootTranslation = {
 		 */
 		imageDesc: string
 		/**
+		 * V​i​d​e​o
+		 */
+		media: string
+		/**
+		 * U​p​l​o​a​d​ ​a​ ​v​i​d​e​o
+		 */
+		mediaDesc: string
+		/**
 		 * F​i​l​e
 		 */
 		file: string
@@ -1057,6 +1065,14 @@ export type TranslationFunctions = {
 		 * Upload an image
 		 */
 		imageDesc: () => LocalizedString
+		/**
+		 * Video
+		 */
+		media: () => LocalizedString
+		/**
+		 * Upload a video
+		 */
+		mediaDesc: () => LocalizedString
 		/**
 		 * File
 		 */

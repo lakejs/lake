@@ -99,6 +99,8 @@ export default {
     twitterDesc: 'Insert an X (Tweet)',
     image: 'Image',
     imageDesc: 'Upload an image',
+    media: 'Video',
+    mediaDesc: 'Upload a video',
     file: 'File',
     fileDesc: 'Upload a file',
   },

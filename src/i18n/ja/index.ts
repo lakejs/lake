@@ -99,6 +99,8 @@ export default {
     twitterDesc: 'ツイートを挿入',
     image: '画像',
     imageDesc: '画像をアップロード',
+    media: '動画',
+    mediaDesc: '動画をアップロード',
     file: 'ファイル',
     fileDesc: 'ファイルをアップロード',
   },

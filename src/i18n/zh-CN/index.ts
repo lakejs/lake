@@ -99,6 +99,8 @@ export default {
     twitterDesc: '插入 Tweet',
     image: '图片',
     imageDesc: '上传图片',
+    media: '视频',
+    mediaDesc: '上传视频',
     file: '文件',
     fileDesc: '上传文件',
   },
