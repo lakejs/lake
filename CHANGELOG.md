@@ -1,3 +1,13 @@
+## [0.4.5](https://github.com/lakejs/lake/compare/0.4.4...0.4.5) (2026-01-31)
+
+
+### Features
+
+* **plugin:** add media (video upload) ([0b393bd](https://github.com/lakejs/lake/commit/0b393bd961ce061bbfef868fc4af6c07432c2fcd))
+* export BoxType, TranslationFunctions, CornerToolbarItem, CornerToolbar, Resizer
+
+
+
 ## [0.4.4](https://github.com/lakejs/lake/compare/0.4.3...0.4.4) (2026-01-27)
 
 
