@@ -144,6 +144,11 @@ window.defaultValue = `
 <p><lake-box type="inline" name="image" value="eyJ1cmwiOiIuLi9hc3NldHMvaW1hZ2VzL2hlYXZlbi1sYWtlLTUxMi5wbmciLCJzdGF0dXMiOiJkb25lIiwibmFtZSI6ImhlYXZlbi1sYWtlLTUxMi5wbmciLCJzaXplIjo2MDAwOCwidHlwZSI6ImltYWdlL2pwZWciLCJsYXN0TW9kaWZpZWQiOjE3MTAyMjk1MTcxOTgsIndpZHRoIjo1MTIsImhlaWdodCI6MzcwLCJvcmlnaW5hbFdpZHRoIjo1MTIsIm9yaWdpbmFsSGVpZ2h0IjozNzAsImNhcHRpb24iOiJPdmVyaGVhZCBwYW5vcmFtYSBvZiBIZWF2ZW4gTGFrZS4ifQ=="></lake-box></p>
 <p><br /></p>
 
+<h3>Video</h3>
+<lake-box type="block" name="hr"></lake-box>
+<p><lake-box type="inline" name="media" value="eyJ1cmwiOiIuLi9hc3NldHMvZmlsZXMvZmxvd2VyLndlYm0iLCJzdGF0dXMiOiJkb25lIiwibmFtZSI6ImZsb3dlci53ZWJtIiwic2l6ZSI6NTEwNTU4LCJ0eXBlIjoidmlkZW8vd2VibSIsImxhc3RNb2RpZmllZCI6MTc0MDA5NzcxODU5OCwid2lkdGgiOiI1NjBweCIsImhlaWdodCI6IjMxNXB4In0="></lake-box></p>
+<p><br /></p>
+
 <h3>File</h3>
 <lake-box type="block" name="hr"></lake-box>
 <p><lake-box type="inline" name="file" value="eyJ1cmwiOiIuLi9hc3NldHMvZmlsZXMvdGhpbmstZGlmZmVyZW50LXdpa2lwZWRpYS5wZGYiLCJzdGF0dXMiOiJkb25lIiwibmFtZSI6IlRoaW5rIGRpZmZlcmVudCAtIFdpa2lwZWRpYS5wZGYiLCJzaXplIjo1MTA1NTgsInR5cGUiOiJhcHBsaWNhdGlvbi9wZGYiLCJsYXN0TW9kaWZpZWQiOjE3NDAwOTc3MTg1OTh9"></lake-box></p>

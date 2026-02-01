@@ -1,6 +1,7 @@
 import { Editor, query } from 'lakelib';
 
 export default (value: string) => {
+  value = localStorage.getItem('lake-example-full-featured-value') ?? value;
   query('body').addClass('readonly');
   query('.lake-toolbar-root').remove();
   const editor = new Editor({
