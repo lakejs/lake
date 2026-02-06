@@ -1,3 +1,13 @@
+## [0.4.6](https://github.com/lakejs/lake/compare/0.4.5...0.4.6) (2026-02-06)
+
+
+### Features
+
+* **editor:** getHTML method supports media
+* **slash:** add video upload ([d1078e3](https://github.com/lakejs/lake/commit/d1078e3301dc7d6c9b18909beec61c2e6027e917))
+
+
+
 ## [0.4.5](https://github.com/lakejs/lake/compare/0.4.4...0.4.5) (2026-01-31)
 
 
