@@ -2,7 +2,7 @@
 
 > This is adapted from [Angular's commit convention](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular).
 
-#### TL;DR:
+### TL;DR:
 
 Messages must be matched by the following regex:
 
@@ -10,17 +10,17 @@ Messages must be matched by the following regex:
 /^(revert: )?(feat|fix|perf|style|refactor|test|chore|release)(\(.+\))?: .{1,50}/
 ```
 
-#### Examples
+### Examples
 
 Appears under "Features" header, `history` subheader:
 
-```
+```text
 feat(history): add emitEvent option
 ```
 
 Appears under "Bug Fixes" header, `history` subheader, with a link to issue #28:
 
-```
+```text
 fix(history): incorrect index when undoing
 
 close #28
@@ -28,7 +28,7 @@ close #28
 
 Appears under "Performance Improvements" header, and under "Breaking Changes" with the breaking change explanation:
 
-```
+```text
 perf(morph): improve dom diffing by removing foo option
 
 BREAKING CHANGE: The foo option has been removed.
@@ -36,7 +36,7 @@ BREAKING CHANGE: The foo option has been removed.
 
 The following commit and commit `667ecc1` do not appear in the changelog if they are under the same release. If not, the revert commit appears under the "Reverts" header.
 
-```
+```text
 revert: feat(history): add emitEvent option
 
 This reverts commit 667ecc1654a317a13331b17617d973392f415f02.
@@ -46,7 +46,7 @@ This reverts commit 667ecc1654a317a13331b17617d973392f415f02.
 
 A commit message consists of a **header**, **body** and **footer**. The header has a **type**, **scope** and **subject**:
 
-```
+```text
 <type>(<scope>): <subject>
 <BLANK LINE>
 <body>
