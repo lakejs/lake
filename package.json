@@ -1,7 +1,7 @@
 {
   "name": "lakelib",
   "version": "0.4.6",
-  "packageManager": "pnpm@10.28.2",
+  "packageManager": "pnpm@10.30.3",
   "description": "Lake is a rich text editor built for modern applications that require content creation like blog posts, user comments, and email composition.",
   "author": "Luo Longhao <luolonghao@gmail.com>",
   "license": "MIT",
@@ -51,7 +51,7 @@
     "typesafe-i18n": "^5.27.1"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^7.5.0",
+    "@antfu/eslint-config": "^7.6.1",
     "@rollup/plugin-alias": "^6.0.0",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-json": "^6.1.0",
