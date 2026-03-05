@@ -94,7 +94,7 @@ importers:
         specifier: ^11.7.5
         version: 11.7.5
       multer:
-        specifier: 2.1.1
+        specifier: ^2.1.1
         version: 2.1.1
       nise:
         specifier: 6.1.1
