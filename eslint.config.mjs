@@ -46,6 +46,8 @@ export default antfu(
       'perfectionist/sort-exports': 'off',
       'perfectionist/sort-named-imports': 'off',
       'perfectionist/sort-named-exports': 'off',
+      'e18e/prefer-array-some': 'off',
+      'e18e/prefer-includes': 'off',
     },
     ignores: [
       'assets/**',
