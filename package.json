@@ -65,7 +65,7 @@
     "chai": "^6.2.2",
     "clean-css": "^5.3.3",
     "conventional-changelog": "^7.2.0",
-    "eslint": "^9.39.4",
+    "eslint": "^10.2.1",
     "execa": "^9.6.1",
     "express": "^5.2.1",
     "katex": "^0.16.45",
